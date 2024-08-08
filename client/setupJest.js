@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const { setupServer } = require("msw/node");
 const { handlers } = require("./src/mocks/handlers.ts");
 
