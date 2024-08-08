@@ -1,4 +1,5 @@
 import cors from "cors";
+import "dotenv/config";
 import express, { RequestHandler } from "express";
 import session from "express-session";
 import {
@@ -38,3 +39,5 @@ async function start() {
 		console.log(`Express server started on port ${port} at ${new Date()}`);
 	});
 }
+
+start();
