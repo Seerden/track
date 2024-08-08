@@ -1,0 +1,20 @@
+{
+  "name": "track",
+  "version": "1.0.0",
+  "description": "`npm run dev` on the client to start the vite dev server.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cd ./docker && docker-compose --file ./dev.yml up --force-recreate --remove-orphans",
+    "prod": "cd ./docker && docker-compose --file ./docker-compose.prod.yml up --force-recreate --remove-orphans --build server database store test-database",
+    "dev-build": "cd ./docker && docker-compose --file ./dev.yml up --force-recreate --remove-orphans --build server database store test-database",
+    "dev-down": "cd ./docker && docker-compose --file ./dev.yml down --volumes",
+    "prod-down": "cd ./docker && docker-compose --file ./docker-compose.prod.yml down --volumes",
+    "db": "docker exec -it docker_database_1 psql rack -U postgres",
+    "test-db": "docker exec -it docker_test-database_1 psql rack-test -U postgres -p 5434",
+    "test-back": "docker exec -it docker_server_1 npm test --watchAll",
+    "test-front": "docker exec -it docker_client_1 npm test --watchAll",
+    "store": "docker exec -it docker_store_1 redis-cli"
+  },
+  "author": "",
+  "license": "ISC"
+}
