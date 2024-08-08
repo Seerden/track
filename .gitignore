@@ -3,3 +3,7 @@
 **/node_modules
 
 **/*.env
+
+**/pg-data
+**/pg-data-test
+**/redis-data
