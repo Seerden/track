@@ -29,3 +29,15 @@ const testOptions = {
 };
 
 export const sqlConnection = postgres(IS_TEST_ENVIRONMENT ? testOptions : options);
+
+export async function pingDatabase() {
+	try {
+		const [result] = await sqlConnection`SELECT array[1]`;
+		if (!result) {
+			throw new Error("Error connecting to database");
+		}
+	} catch (error) {
+		// TODO: Add Sentry logging
+		console.log({ error, message: "Error connecting to database" });
+	}
+}

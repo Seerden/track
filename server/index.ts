@@ -2,6 +2,7 @@ import cors from "cors";
 import "dotenv/config";
 import express, { RequestHandler } from "express";
 import session from "express-session";
+import { pingDatabase } from "./src/db/init";
 import {
 	initializeRedisConnection,
 	redisSession,
@@ -29,6 +30,7 @@ async function start() {
 	app.use(express.json() as RequestHandler);
 
 	await initializeRedisConnection();
+	await pingDatabase();
 	app.use(session(redisSession));
 
 	app.use("/", indexRouter);
