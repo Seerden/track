@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "cd ./docker && docker-compose --file ./dev.yml up --force-recreate --remove-orphans",
-    "prod": "cd ./docker && docker-compose --file ./docker-compose.prod.yml up --force-recreate --remove-orphans --build server database store client test-database",
-    "dev-build": "cd ./docker && docker-compose --file ./dev.yml up --force-recreate --remove-orphans --build server database store client test-database",
+    "prod": "cd ./docker && docker-compose --file ./docker-compose.prod.yml up --force-recreate --remove-orphans --build server database store test-database",
+    "dev-build": "cd ./docker && docker-compose --file ./dev.yml up --force-recreate --remove-orphans --build server database store test-database",
     "dev-down": "cd ./docker && docker-compose --file ./dev.yml down --volumes",
     "prod-down": "cd ./docker && docker-compose --file ./docker-compose.prod.yml down --volumes",
     "db": "docker exec -it docker_database_1 psql rack -U postgres",
