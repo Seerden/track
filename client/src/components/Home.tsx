@@ -1,5 +1,7 @@
+import TodayTimeline from "./TodayTimeline/TodayTimeline";
+
 function Home() {
-	return <>Hello, world!</>;
+	return <TodayTimeline />;
 }
 
 export default Home;
