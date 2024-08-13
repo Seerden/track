@@ -7,3 +7,5 @@
 **/pg-data
 **/pg-data-test
 **/redis-data
+docker/database-backup
+docker/test-database-backup
