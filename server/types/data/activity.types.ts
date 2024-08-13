@@ -6,13 +6,16 @@ export type Activity = {
 	activity_id: ID;
 	name: string;
 	description: string;
-	tags: Tag[];
 	category_id?: ID; // a category is a tag with no parent
 	subcategory_id?: ID; // same as a category ID, but the user decides it's a subcategory
 	started_at?: Timestamp;
 	ended_at?: Timestamp;
-	from_date?: string; // YYYYMMDD
-	to_date?: string;
-	duration?: number; // in milliseconds
+	start_date?: string; // YYYYMMDD
+	end_date?: string;
+	duration_milliseconds?: number; // in milliseconds
 	created_at: Timestamp;
+};
+
+export type ActivityWithTags = Activity & {
+	tags: Tag[]; // many-to-many
 };
