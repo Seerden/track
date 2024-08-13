@@ -6,8 +6,8 @@ export type Activity = {
 	activity_id: ID;
 	name: string;
 	description: string;
-	category_id?: ID; // a category is a tag with no parent
-	subcategory_id?: ID; // same as a category ID, but the user decides it's a subcategory
+	category_id?: ID; // a category is just a tag
+	subcategory_id?: ID; // same as a category, but the user decides it's a subcategory
 	started_at?: Timestamp;
 	ended_at?: Timestamp;
 	start_date?: string; // YYYYMMDD
