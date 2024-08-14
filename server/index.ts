@@ -7,7 +7,8 @@ import {
 	initializeRedisConnection,
 	redisSession,
 } from "./src/helpers/redis/redis-client";
-import { indexRouter } from "./src/routers";
+import { routers } from "./src/routers/routers";
+import { runAtStartup } from "./start";
 
 async function start() {
 	const app = express();
@@ -33,9 +34,13 @@ async function start() {
 	await pingDatabase();
 	app.use(session(redisSession));
 
-	app.use("/", indexRouter);
+	app.use("/", routers.index);
+	app.use("/data", routers.data);
+	app.use("/auth", routers.auth);
 
 	const port = process.env.PORT || 5000;
+
+	await runAtStartup();
 
 	app.listen(port, () => {
 		console.log(`Express server started on port ${port} at ${new Date()}`);
