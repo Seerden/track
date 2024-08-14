@@ -1,6 +1,4 @@
-import { config } from "dotenv";
 import { sqlConnection as sql } from "./init";
-config();
 
 describe("test-database connection", () => {
 	it("initializes", async () => {
