@@ -6,6 +6,8 @@ export type NewUser = {
 	email?: string;
 };
 
+export type UserLogin = NewUser;
+
 export type UserInput = Omit<NewUser, "password"> & {
 	password_hash: string;
 };
