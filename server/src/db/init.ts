@@ -12,7 +12,10 @@ const {
 	IS_TEST_ENVIRONMENT,
 } = process.env;
 
-const options = {
+// I don't know what the point of the generic is here, leave it as any.
+type PostgresOptions = postgres.Options<any>;
+
+const options: PostgresOptions = {
 	host: DB_HOST,
 	user: PG_USER,
 	pass: PG_PASS,
@@ -20,12 +23,12 @@ const options = {
 	port: +(PG_PORT ?? 5432),
 };
 
-const testOptions = {
+const testOptions: PostgresOptions = {
+	host: DB_TEST_HOST,
 	user: PG_USER,
 	pass: PG_PASS,
 	database: PG_TEST_DB,
 	port: +(PG_TEST_PORT ?? 5434),
-	host: DB_TEST_HOST,
 };
 
 export const sqlConnection = postgres(IS_TEST_ENVIRONMENT ? testOptions : options);
