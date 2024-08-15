@@ -4,7 +4,7 @@ import { UserLogin } from "../../../types/data/user.types";
 import { getUserByName } from "../data/query-user";
 import { destroySession } from "./destroy-session";
 
-/** Request handler. If login info is value, (re-)set the session. */
+/** Request handler. If login info is valid, (re-)set the session. */
 export async function login(user: UserLogin, req: Request, res: Response) {
 	const foundUser = await getUserByName({ username: user.username });
 
