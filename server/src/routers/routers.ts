@@ -1,9 +1,9 @@
-import { indexRouter } from ".";
 import { authRouter } from "./auth";
 import { dataRouter } from "./data";
+import { mainRouter } from "./main";
 
 export const routers = {
-	index: indexRouter,
+	index: mainRouter,
 	auth: authRouter,
 	data: dataRouter,
 };
