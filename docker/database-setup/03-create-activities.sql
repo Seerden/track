@@ -4,8 +4,8 @@ create table if not exists activities (
    name varchar(64) not null,
    description text,
    duration_milliseconds int,
-   category_id serial,
-   subcategory_id serial,
+   category_id serial, -- removed in 05.sql
+   subcategory_id serial, -- removed in 05.sql
    started_at timestamp,
    ended_at timestamp,
    start_date date,
