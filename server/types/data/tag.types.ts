@@ -12,6 +12,4 @@ export type Tag = NewTag & {
 
 export type TagWithIds = Tag & {
 	tag_id: ID;
-	category_id?: TagWithIds["tag_id"];
-	subcategory_id?: TagWithIds["tag_id"];
 };
