@@ -17,3 +17,12 @@ I think we do some sort of validation or filtering (client/server, not in
 database) that makes sure that if an activity has a tag, it cannot also be
 tagged with a child/parent of that tag. or maybe it can, and the user decides.
 just make sure we don't get n+1 issues when joining stuff from the database.
+
+---
+
+To simplify things a little bit, a tag can only have one parent. This way we can
+get categories with multiple entries, but we avoid the issue of circularity.
+Names aren't unique, so users can still create siblings, sort of, by just
+searching by name for example. A "purchase" tag that's a child of the "tennis"
+category wouldn't be directly related to the "purchase" tag from the "household"
+category, but searching by "purchase" would still yield both.
