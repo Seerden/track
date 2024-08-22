@@ -10,6 +10,8 @@ export type Tag = NewTag & {
 	created_at: Timestamp;
 };
 
+// TODO: has to be changed here and on the server, category and subcategory no
+// longer part of this type
 export type TagWithIds = Tag & {
 	tag_id: ID;
 	category_id?: TagWithIds["tag_id"];
