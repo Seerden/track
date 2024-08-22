@@ -1,4 +1,4 @@
-import { ID, Timestamp } from "./utility.types";
+import { ID, Maybe, Timestamp } from "./utility.types";
 
 export type NewTag = {
 	user_id: ID;
@@ -12,4 +12,6 @@ export type Tag = NewTag & {
 
 export type TagWithIds = Tag & {
 	tag_id: ID;
+	parent_id: Maybe<ID>;
+	child_ids: Array<ID>;
 };
