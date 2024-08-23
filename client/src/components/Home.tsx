@@ -1,8 +1,7 @@
-import ActivityCard from "./ActivityCard/ActivityCard";
+import TagCard from "./TagCard/TagCard";
 
 function Home() {
-	// return <TodayTimeline />;
-	return <ActivityCard />;
+	return <TagCard />;
 }
 
 export default Home;
