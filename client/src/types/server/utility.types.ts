@@ -4,3 +4,5 @@ export type Timestamp = number;
 
 /** ids are serial and auto-incrementing */
 export type ID = number;
+
+export type Maybe<T> = T | null | undefined;

@@ -22,6 +22,4 @@ export type Activity = NewActivity & {
 /** An activity with (joined) tag fields. */
 export type ActivityWithTags = Activity & {
 	tags: TagWithIds[]; // many-to-many
-	category_id?: ID; // a category is just a tag
-	subcategory_id?: ID; // same as a category, but the user decides it's a subcategory
 };

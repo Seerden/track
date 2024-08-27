@@ -1,8 +1,8 @@
-import ActivityCard from "./ActivityCard/ActivityCard";
+import { mockTag } from "./TagCard/mock";
+import TagList from "./TagList/TagList";
 
 function Home() {
-	// return <TodayTimeline />;
-	return <ActivityCard />;
+	return <TagList tags={[mockTag, mockTag]} />;
 }
 
 export default Home;
