@@ -1,7 +1,8 @@
-import TagCard from "./TagCard/TagCard";
+import { mockTag } from "./TagCard/mock";
+import TagList from "./TagList/TagList";
 
 function Home() {
-	return <TagCard />;
+	return <TagList tags={[mockTag, mockTag]} />;
 }
 
 export default Home;
