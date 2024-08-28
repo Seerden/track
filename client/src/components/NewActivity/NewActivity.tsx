@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { type NewActivity } from "../../types/server/activity.types";
+import { DateTimePicker } from "./DateTimePicker";
+import * as S from "./DateTimePicker.style";
+import * as N from "./NewActivity.style";
 
 function NewActivity() {
 	const [activity, setActivity] = useState<NewActivity>({
@@ -16,52 +19,30 @@ function NewActivity() {
 	function submitActivity() {}
 
 	return (
-		<div>
+		<N.Wrapper>
 			<h1>Create an activity</h1>
-			<form>
-				<fieldset name="description">
-					<label>
+			<N.Form>
+				<N.Row name="description">
+					<S.Label>
 						Name
-						<input />
-					</label>
-					<label>
-						Description
-						<textarea />
-					</label>
-				</fieldset>
-				<fieldset name="grouping">
-					<label>Tags</label>
-				</fieldset>
-				<fieldset name="time">
-					<h2>Time and date</h2>
-					<label htmlFor="started_at-">Start time</label>
-					<input
-						type="checkbox"
-						checked={allDay}
-						onChange={(e) => setAllDay(e.target.checked)}
-					/>
-					<input
-						name="started_at"
-						type="datetime-local"
-						value={activity.started_at}
-						onChange={
-							(e) => {
-								console.log(+new Date(e.target.value));
-							}
-							// setActivity({ ...activity, started_at: +e.target.value })
-						}
-					/>
-					<label>End time</label>
-					<input name="ended_at" type="datetime-local" value={activity.ended_at} />
-				</fieldset>
+						<input type="text" required />
+					</S.Label>
+					<S.Label>
+						Description (optional)
+						<input type="text" />
+					</S.Label>
+				</N.Row>
 
-				<fieldset>
-					<h2>Tags</h2>
-					<input type="text" />
-					<span>v</span>
-				</fieldset>
-			</form>
-		</div>
+				{/* datetime picker goes here */}
+				<N.Row>
+					<DateTimePicker />
+				</N.Row>
+
+				{/* tag selector component goes here */}
+
+				<N.Button>Create activity</N.Button>
+			</N.Form>
+		</N.Wrapper>
 	);
 }
 

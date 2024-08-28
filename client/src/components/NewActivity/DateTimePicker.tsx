@@ -33,6 +33,7 @@ export function DateTimePicker() {
 			<S.Label>
 				Start
 				<input
+					required
 					type={allDay ? "date" : "datetime-local"}
 					defaultValue={values.start}
 					onBlur={(e) => setValues((cur) => ({ ...cur, start: e.target.value }))}
@@ -40,9 +41,10 @@ export function DateTimePicker() {
 			</S.Label>
 
 			<div style={{ position: "relative" }}>
-				<S.Label invalid={!validEnd}>
+				<S.Label $showWarning={!validEnd}>
 					End
 					<input
+						required
 						type={allDay ? "date" : "datetime-local"}
 						defaultValue={values.end}
 						onBlur={(e) => setValues((cur) => ({ ...cur, end: e.target.value }))}

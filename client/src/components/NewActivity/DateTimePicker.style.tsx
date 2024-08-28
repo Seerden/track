@@ -1,19 +1,17 @@
 import styled, { css } from "styled-components";
 
-export const Form = styled.form`
+export const Form = styled.div`
 	display: flex;
 	flex-direction: row;
 	gap: 0.5rem;
+	justify-content: space-between;
 
-	margin: 0.4rem;
-	padding: 0.3rem 0.9rem;
-	max-width: max-content;
-
-	border: 2px solid #bbb;
+	width: 100%;
 `;
 
-export const Label = styled.label<{ invalid?: boolean }>`
+export const Label = styled.label<{ $showWarning?: boolean }>`
 	font-size: 0.9rem;
+	gap: 0.2rem;
 
 	display: flex;
 	flex-direction: column;
@@ -26,10 +24,18 @@ export const Label = styled.label<{ invalid?: boolean }>`
 		accent-color: blue;
 	}
 
-	padding: 0.25rem 0.55rem;
+	input {
+		&:not([type="checkbox"]) {
+			max-width: 150px;
+			width: 150px;
+		}
+	}
 
-	border: 2px solid ${(p) => (p.invalid ? "orangered" : "transparent")};
-	border-bottom: ${(p) => (p.invalid ? css`2px solid orangered` : css`2px solid #bbb`)};
+	padding: 0.25rem 0;
+
+	border: 2px solid ${(p) => (p.$showWarning ? "orangered" : "transparent")};
+	border-bottom: ${(p) =>
+		p.$showWarning ? css`2px solid orangered` : css`2px solid #bbb`};
 
 	border-radius: 3px;
 

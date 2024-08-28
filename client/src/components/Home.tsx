@@ -1,8 +1,7 @@
-import { DateTimePicker } from "./NewActivity/DateTimePicker";
+import NewActivity from "./NewActivity/NewActivity";
 
 function Home() {
-	// return <TagList tags={[mockTag, mockTag]} />;
-	return <DateTimePicker />;
+	return <NewActivity />;
 }
 
 export default Home;
