@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.scss";
 import { worker } from "./mocks/browser.ts";
+import "./normalize.css";
 
 import duration from "dayjs/plugin/duration";
 import relativeTime from "dayjs/plugin/relativeTime";
