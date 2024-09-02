@@ -1,8 +1,8 @@
 create table if not exists tags (
    tag_id serial unique not null primary key,
    user_id serial not null,
-   category_id serial,
-   subcategory_id serial,
+   category_id serial,  -- was removed in 06.sql
+   subcategory_id serial,  -- was removed in 06.sql
    name varchar(32) not null,
    created_at timestamp default now(),
    description text,
