@@ -6,7 +6,7 @@ import { localUser } from "./user-storage";
 
 async function postLogin(user: UserLogin) {
 	return (
-		await fetch(`${baseUrl}/user/login`, {
+		await fetch(`${baseUrl}/auth/login`, {
 			...postConfig,
 			body: JSON.stringify({ user }),
 		})

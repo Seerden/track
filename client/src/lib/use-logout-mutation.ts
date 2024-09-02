@@ -4,7 +4,7 @@ import { localUser } from "./user-storage";
 
 async function postLogout() {
 	return (
-		await fetch(`${baseUrl}/user/logout`, {
+		await fetch(`${baseUrl}/auth/logout`, {
 			...postConfig,
 		})
 	).json();

@@ -6,7 +6,6 @@ import { baseUrl } from "./fetch/fetch-constants";
 import { localUser } from "./user-storage";
 
 export async function getMe() {
-	// TODO check if this endpoint is correct
 	const response = await fetch(`${baseUrl}/auth/me`, {
 		credentials: "include",
 		method: "GET",
