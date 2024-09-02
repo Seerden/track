@@ -20,8 +20,10 @@ export async function insertUser({
 	const userInput: UserInput = {
 		username: newUser.username,
 		password_hash: passwordHash,
-		// todo: add email here if it's not undefined
 	};
+
+	// TODO: check if email is unique
+	if (newUser.email) userInput.email = newUser.email;
 
 	const [insertedUser] = await sql<[User?]>`
          insert into users 
