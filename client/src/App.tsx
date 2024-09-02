@@ -9,8 +9,8 @@ import "./App.scss";
 import AnimatedRoutes from "./components/AnimatedRoutes";
 import Home from "./components/Home";
 import Suspended from "./components/Suspended";
-import { queryClient } from "./helpers/query-client";
-import { theme } from "./helpers/theme/theme";
+import { queryClient } from "./lib/query-client";
+import { theme } from "./lib/theme/theme";
 
 const Register = lazy(() => import("./components/Register/Register"));
 
