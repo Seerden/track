@@ -11,10 +11,13 @@ import Home from "./components/Home";
 import Suspended from "./components/Suspended";
 import { queryClient } from "./lib/query-client";
 import { theme } from "./lib/theme/theme";
+import useReconcileSession from "./lib/use-reconcile-session";
 
 const Register = lazy(() => import("./components/Register/Register"));
 
 function App() {
+	useReconcileSession();
+
 	return (
 		<QueryClientProvider client={queryClient}>
 			<ReactQueryDevtools initialIsOpen={false} position="bottom" />
