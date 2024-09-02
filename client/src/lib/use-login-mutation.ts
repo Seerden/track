@@ -18,7 +18,9 @@ export default function useLoginMutation() {
 
 	return useMutation<Data<"user", User>, unknown, UserLogin>({
 		mutationKey: ["me"],
-		mutationFn: postLogin,
+		async mutationFn(user) {
+			return postLogin(user);
+		},
 		onSuccess: ({ user }) => {
 			localUser.set(user);
 			client.setQueryData(["me"], user);

@@ -15,9 +15,11 @@ export default function useLogoutMutation() {
 
 	return useMutation({
 		mutationKey: ["logout"],
-		mutationFn: postLogout,
-		// unset local user on successful logout
+		async mutationFn() {
+			return postLogout();
+		},
 		onSuccess: () => {
+			// unset local user on successful logout
 			localUser.destroy();
 			client.removeQueries({ queryKey: ["me"] });
 		},
