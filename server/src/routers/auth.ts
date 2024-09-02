@@ -24,5 +24,3 @@ authRouter.post("/login", async (req, res) => {
 	const { user } = req.body as { user: UserLogin };
 	await login(user, req, res);
 });
-
-authRouter.post("/logout", async (req, res) => {});
