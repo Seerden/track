@@ -5,18 +5,24 @@ import { NewUser } from "../../types/server/user.types";
 export default function useRegister() {
 	const { mutate: register } = useRegisterMutation();
 
-	const [newUser, setNewUser] = useState<NewUser & { passwordConfirm: string }>({
+	const [newUser, setNewUser] = useState<NewUser>({
 		username: "",
 		password: "",
-		passwordConfirm: "",
 		email: "",
 	});
+
+	const [passwordConfirm, setPasswordConfirm] = useState<string>("");
+
+	const [passwordVisible, setPasswordVisible] = useState(false);
+	function togglePasswordVisible() {
+		setPasswordVisible((current) => !current);
+	}
 
 	// TODO: email needs to be validated server-side if provided
 	const isValidNewUser =
 		newUser.username.length > 0 &&
 		newUser.password.length > 0 &&
-		newUser.password == newUser.passwordConfirm;
+		newUser.password == passwordConfirm;
 
 	function onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
 		setNewUser((current) => ({
@@ -44,5 +50,7 @@ export default function useRegister() {
 	return {
 		onInputChange,
 		onSubmit,
+		passwordVisible,
+		togglePasswordVisible,
 	};
 }

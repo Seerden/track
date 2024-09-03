@@ -20,20 +20,25 @@ function Register() {
 					placeholder="e-mail address"
 					name="email"
 				/>
-				<input
-					onChange={(e) => register.onInputChange(e)}
-					type="password"
-					required
-					placeholder="Password"
-					name="password"
-				/>
-				<input
-					onChange={(e) => register.onInputChange(e)}
-					type="password"
-					required
-					placeholder="Confirm Password"
-					name="passwordConfirm"
-				/>
+				<div>
+					<input
+						onChange={(e) => register.onInputChange(e)}
+						type={register.passwordVisible ? "text" : "password"}
+						required
+						placeholder="Password"
+						name="password"
+					/>
+					<input
+						onChange={(e) => register.onInputChange(e)}
+						type={register.passwordVisible ? "text" : "password"}
+						required
+						placeholder="Confirm Password"
+						name="passwordConfirm"
+					/>
+					<button onClick={() => register.togglePasswordVisible()}>
+						{register.passwordVisible ? "Hide" : "Show"} password
+					</button>
+				</div>
 				<button type="submit">Register</button>
 			</form>
 		</>
