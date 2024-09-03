@@ -25,10 +25,14 @@ export default function useRegister() {
 		newUser.password == passwordConfirm;
 
 	function onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-		setNewUser((current) => ({
-			...current,
-			[event.target.name]: event.target.value,
-		}));
+		if (event.target.name === "passwordConfirm") {
+			setPasswordConfirm(event.target.value);
+		} else {
+			setNewUser((current) => ({
+				...current,
+				[event.target.name]: event.target.value,
+			}));
+		}
 	}
 
 	function onSubmit(event: React.FormEvent<HTMLFormElement>) {
