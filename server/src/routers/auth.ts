@@ -7,16 +7,14 @@ import { getUserById } from "../helpers/data/query-user";
 
 export const authRouter = Router({ mergeParams: true });
 
-// TODO add registration POST route
-
 authRouter.get("/me", async (req, res) => {
-	if (!req.session?.user_id) {
+	if (!req.session?.user?.user_id) {
 		return res.status(401).json({ user: null, message: "No active user." });
 	}
 
 	return res
 		.status(200)
-		.json({ user: await getUserById({ user_id: req.session.user_id }) });
+		.json({ user: await getUserById({ user_id: req.session.user.user_id }) });
 });
 
 authRouter.post("/logout", async (req, res) => {

@@ -18,6 +18,6 @@ export async function login(user: UserLogin, req: Request, res: Response) {
 		return destroySession({ req, res });
 	}
 
-	req.session.user_id = foundUser.user_id; // could also regenerate()
+	req.session.user = { user_id: foundUser.user_id, username: foundUser.username }; // could also regenerate()
 	return res.status(200).json({ user: foundUser });
 }
