@@ -53,13 +53,13 @@ export async function queryTagRelations({
 	return sql`select * from tag_relations where user_id = ${user_id}`;
 }
 
-export async function getTagsWithRelations({
+export async function queryTagsAndRelations({
 	sql = sqlConnection,
 	user_id,
 }: WithSQL<{ user_id: ID }>) {
 	const tags = await queryTagsByUser({ sql, user_id });
 
-	if (!tags?.length) return [];
+	if (!tags?.length) return { tags: [], relations: [] };
 
 	const tagIds = tags.map((t) => t.tag_id);
 
