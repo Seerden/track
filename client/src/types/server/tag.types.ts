@@ -10,8 +10,11 @@ export type Tag = NewTag & {
 	created_at: Timestamp;
 };
 
-export type TagWithIds = Tag & {
+export type TagWithId = Tag & {
 	tag_id: ID;
+};
+
+export type TagWithIds = TagWithId & {
 	parent_id: Maybe<ID>;
 	child_ids: Maybe<Array<ID>>;
 };
