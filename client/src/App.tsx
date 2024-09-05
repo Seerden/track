@@ -10,14 +10,12 @@ import AnimatedRoutes from "./components/AnimatedRoutes";
 import Suspended from "./components/Suspended";
 import { queryClient } from "./lib/query-client";
 import { theme } from "./lib/theme/theme";
-import useReconcileSession from "./lib/use-reconcile-session";
 
 const Register = lazy(() => import("./components/Register/Register"));
 const Home = lazy(() => import("./components/Home"));
+const Header = lazy(() => import("./components/Header/Header"));
 
 function App() {
-	useReconcileSession();
-
 	return (
 		<QueryClientProvider client={queryClient}>
 			<ReactQueryDevtools initialIsOpen={false} position="bottom" />
@@ -25,6 +23,7 @@ function App() {
 				<ThemeProvider theme={theme}>
 					<main>
 						<Router>
+							<Header />
 							<AnimatedRoutes>
 								<Route path="/" element={<Home />} />
 								<Route
