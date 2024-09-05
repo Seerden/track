@@ -7,13 +7,13 @@ import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "styled-components";
 import "./App.scss";
 import AnimatedRoutes from "./components/AnimatedRoutes";
-import Home from "./components/Home";
 import Suspended from "./components/Suspended";
 import { queryClient } from "./lib/query-client";
 import { theme } from "./lib/theme/theme";
 import useReconcileSession from "./lib/use-reconcile-session";
 
 const Register = lazy(() => import("./components/Register/Register"));
+const Home = lazy(() => import("./components/Home"));
 
 function App() {
 	useReconcileSession();
@@ -35,7 +35,6 @@ function App() {
 										</Suspended>
 									}
 								/>
-
 								<Route path="" element={<></>} />
 								<Route path="*" element={<div>404</div>} />
 							</AnimatedRoutes>
