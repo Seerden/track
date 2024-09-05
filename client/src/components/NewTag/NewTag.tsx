@@ -1,3 +1,4 @@
+import TagSelector from "../TagSelector/TagSelector";
 import * as S from "./NewTag.style";
 
 function NewTag() {
@@ -15,6 +16,10 @@ function NewTag() {
 					Description
 					<input placeholder="Tag description" />
 				</S.Field>
+
+				<S.Tags>
+					<TagSelector title="Categorize" maximum={1} />
+				</S.Tags>
 				<S.Button title="Save">💾</S.Button>
 			</S.Fields>
 		</S.Form>
