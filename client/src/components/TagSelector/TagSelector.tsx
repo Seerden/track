@@ -64,5 +64,3 @@ export default function TagSelector({
 // TODO: hide children (recursively) when parent is selected and vice versa
 // TODO: add a button that opens a modal to create a new tag -- do not show this
 // when the TagSelector is being shown inside a NewTag component
-
-// TODO: need a 'maximum' prop
