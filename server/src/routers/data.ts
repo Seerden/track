@@ -19,8 +19,7 @@ dataRouter.post("/activity", async (req, res) => {
 });
 
 dataRouter.get("/tags", isAuthorized, async (req, res) => {
-	const user_id = req.session.user?.user_id!; // always exists if we're here, because of middleware
-
+	const user_id = req.session.user!.user_id; // always exists if we're here, because of middleware
 	const tagsById = await getTagsWithRelations({ user_id });
 
 	res.json({ tagsById });
