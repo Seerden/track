@@ -30,10 +30,36 @@ export function mergeTagsAndRelations({
 	return tagsById;
 }
 
+/** Gets all of a user's tags and tag relations and puts them into a tagsById object. */
 export async function getTagsWithRelations({ user_id }: { user_id: ID }) {
 	const { tags, relations } = await queryTagsAndRelations({ user_id });
 
 	if (!tags.length) return {};
 
 	return mergeTagsAndRelations({ tags, relations });
+}
+
+/** Given a tagsById object, create a hashmap that groups the tags by the id of
+ * their top-level ancestor. */
+export function createTagTreeMap(tagsById: Record<ID, TagWithIds>) {
+	const treeIdMap = {} as Record<ID, { members: ID[] }>;
+
+	for (const tag_id in tagsById) {
+		const root_id = findRootTag(+tag_id, tagsById);
+		if (!treeIdMap[root_id]) {
+			treeIdMap[root_id] = { members: [] };
+		}
+		treeIdMap[root_id].members.push(+tag_id);
+	}
+
+	return treeIdMap;
+}
+
+/** Given a tag_id, find the tag_id of the root parent tag (i.e. its top-level ancestor) */
+function findRootTag(tag_id: ID, tagsById: Record<ID, TagWithIds>) {
+	let currentTag = tagsById[tag_id];
+	while (currentTag.parent_id) {
+		currentTag = tagsById[currentTag.parent_id];
+	}
+	return currentTag.tag_id;
 }
