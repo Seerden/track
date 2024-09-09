@@ -22,31 +22,33 @@ function App() {
 			<ReactQueryDevtools initialIsOpen={false} position="bottom" />
 			<RecoilRoot>
 				<ThemeProvider theme={theme}>
-					<main>
-						<Router>
-							<Header />
-							<AnimatedRoutes>
-								<Route
-									path="/"
-									element={
-										<Protected>
-											<Home />
-										</Protected>
-									}
-								/>
-								<Route
-									path="register"
-									element={
-										<Suspended>
-											<Register />
-										</Suspended>
-									}
-								/>
-								<Route path="" element={<></>} />
-								<Route path="*" element={<div>404</div>} />
-							</AnimatedRoutes>
-						</Router>
-					</main>
+					<Suspended>
+						<main>
+							<Router>
+								<Header />
+								<AnimatedRoutes>
+									<Route
+										path="/"
+										element={
+											<Protected>
+												<Home />
+											</Protected>
+										}
+									/>
+									<Route
+										path="register"
+										element={
+											<Suspended>
+												<Register />
+											</Suspended>
+										}
+									/>
+									<Route path="" element={<></>} />
+									<Route path="*" element={<div>404</div>} />
+								</AnimatedRoutes>
+							</Router>
+						</main>
+					</Suspended>
 				</ThemeProvider>
 			</RecoilRoot>
 		</QueryClientProvider>
