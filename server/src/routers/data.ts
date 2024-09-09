@@ -5,7 +5,10 @@ import type { ID } from "../../types/data/utility.types";
 import { isAuthorized } from "../helpers/auth/is-authorized";
 import { insertActivity } from "../helpers/data/insert-activity";
 import { insertTagWithRelation } from "../helpers/data/insert-tags";
-import { getTagsWithRelations } from "../helpers/data/merge-tags-and-relations";
+import {
+	createTagTreeMap,
+	getTagsWithRelations,
+} from "../helpers/data/merge-tags-and-relations";
 
 export const dataRouter = Router({ mergeParams: true });
 
@@ -31,4 +34,13 @@ dataRouter.post("/tag", isAuthorized, async (req, res) => {
 	const tag = await insertTagWithRelation({ newTag, parent_id });
 
 	res.json({ tag });
+});
+
+dataRouter.get("/tags/tree", isAuthorized, async (req, res) => {
+	const user_id = req.session.user!.user_id; // always exists if we're here, because of middleware
+	const tagsById = await getTagsWithRelations({ user_id });
+
+	const tree = createTagTreeMap(tagsById);
+
+	res.json({ tree });
 });
