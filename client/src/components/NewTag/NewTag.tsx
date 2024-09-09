@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import useTagsQuery from "../../lib/fetch/use-tags-query";
 import TagSelector from "../TagSelector/TagSelector";
 import * as S from "./NewTag.style";
@@ -7,9 +6,6 @@ import useNewTag from "./use-new-tag";
 function NewTag() {
 	const { onInputChange, onSubmit } = useNewTag();
 	const { data: tags } = useTagsQuery();
-	useEffect(() => {
-		console.log({ tags });
-	}, [tags]);
 
 	return (
 		<S.Form onSubmit={onSubmit}>
