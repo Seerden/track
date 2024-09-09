@@ -3,6 +3,7 @@ import { Data } from "../types/query.types";
 import { User } from "../types/server/user.types";
 import { Maybe } from "../types/server/utility.types";
 import { baseUrl } from "./fetch/fetch-constants";
+import { defaultQueryConfig } from "./query-client";
 import { localUser } from "./user-storage";
 
 export async function getMe() {
@@ -29,9 +30,6 @@ export default function useMeQuery() {
 	return useQuery<UserData>({
 		queryKey: ["me"],
 		queryFn: getMe,
-		enabled: true,
-		retry: false,
-		refetchOnMount: true,
-		refetchOnWindowFocus: false,
+		...defaultQueryConfig,
 	});
 }
