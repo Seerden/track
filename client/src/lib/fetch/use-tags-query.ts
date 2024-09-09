@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { Data } from "../../types/query.types";
 import type { TagWithIds } from "../../types/server/tag.types";
 import type { ID } from "../../types/server/utility.types";
-import { defaultQueryConfig } from "../query-client";
+import { defaultQueryConfig, queryClient } from "../query-client";
 import { makeAuthorizedUrl } from "./make-authorized-url";
 
 export async function getTags() {
@@ -11,6 +11,10 @@ export async function getTags() {
 		credentials: "include",
 		method: "GET",
 	});
+
+	// TODO: when tags are fetched, tree also -- maybe this means we should put
+	// them into a single query
+	queryClient.invalidateQueries({ queryKey: ["tags", "tree"] });
 	return response.json();
 }
 
