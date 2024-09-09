@@ -9,3 +9,5 @@
 **/redis-data
 docker/database-backup
 docker/test-database-backup
+
+**/**.rest
