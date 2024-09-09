@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useSelectedTags } from "../../lib/state/selected-tags-state";
 import { ID } from "../../types/server/utility.types";
 
 type UseTagSelector = {
@@ -6,7 +7,7 @@ type UseTagSelector = {
 };
 
 export default function useTagSelector({ maximum }: UseTagSelector = {}) {
-	const [tagSelection, setTagSelection] = useState<Record<ID, boolean>>({});
+	const { selectedTags, setSelectedTags, toggleTagSelection } = useSelectedTags();
 	const [filter, setFilter] = useState<string>("");
 
 	function updateFilter(e: React.ChangeEvent<HTMLInputElement>) {
@@ -15,19 +16,14 @@ export default function useTagSelector({ maximum }: UseTagSelector = {}) {
 
 	function updateTagSelection(tagId: ID) {
 		if (maximum === 1) {
-			return setTagSelection({ [tagId]: !tagSelection[tagId] });
+			setSelectedTags((current) => ({ [tagId]: !current[tagId] }));
+		} else {
+			toggleTagSelection(tagId);
 		}
-
-		return setTagSelection((cur) => ({ ...cur, [tagId]: !cur[tagId] }));
 	}
 
-	// TODO: remove this
-	useEffect(() => {
-		console.log({ tagSelection });
-	}, [tagSelection]);
-
 	return {
-		tagSelection,
+		selectedTags,
 		updateTagSelection,
 		filter,
 		updateFilter,

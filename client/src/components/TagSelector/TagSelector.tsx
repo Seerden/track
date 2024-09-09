@@ -1,47 +1,55 @@
+import { useMemo } from "react";
+import { TagWithIds } from "../../types/server/tag.types";
 import { ID } from "../../types/server/utility.types";
 import * as S from "./TagSelector.style";
-import { mockTags } from "./mock";
 import useTagSelector from "./use-tag-selector";
 
 type TagSelectorProps = {
 	title?: string;
-	tags?: typeof mockTags; // TODO: properly type this
+	tagsById?: Record<ID, TagWithIds>; // TODO: properly type this
 	maximum?: number;
 };
 
 export default function TagSelector({
 	title = "Choose tags",
-	tags = mockTags,
+	tagsById,
 	maximum
 }: TagSelectorProps) {
-	const { tagSelection, updateTagSelection, filter, updateFilter } = useTagSelector({
+	const { selectedTags, updateTagSelection, filter, updateFilter } = useTagSelector({
 		maximum
 	});
 
+	const elements = useMemo(() => {
+		if (!tagsById) return [];
+
+		const elements: Record<ID, JSX.Element> = Object.entries(tagsById)
+			.filter(([_, tag]) => {
+				if (!filter) return true;
+				return tag.name.toLowerCase().includes(filter.toLowerCase());
+			})
+			.reduce((acc, [id, tag]) => {
+				const hasParent = tag.parent_id !== null;
+				const isSelected = selectedTags?.[+id] ?? false;
+
+				return {
+					...acc,
+					[id]: (
+						<S.ListItem
+							$hasParent={hasParent}
+							$isSelected={isSelected}
+							key={id}
+							onClick={() => updateTagSelection(+id)}
+						>
+							{tag.name}
+						</S.ListItem>
+					)
+				};
+			}, {});
+		return elements;
+	}, [tagsById, filter, selectedTags]);
+
 	// TODO: extract as much of this into a separate component as possible (it
 	// can live inside this file, still))
-	const elements: Record<ID, JSX.Element> = Object.entries(tags)
-		.filter(([_, tag]) => {
-			return tag.name.toLowerCase().includes(filter.toLowerCase());
-		})
-		.reduce((acc, [id, tag]) => {
-			const hasParent = tag.parent_id !== null;
-			const isSelected = tagSelection[+id] ?? false;
-
-			return {
-				...acc,
-				[id]: (
-					<S.ListItem
-						$hasParent={hasParent}
-						$isSelected={isSelected}
-						key={id}
-						onClick={() => updateTagSelection(+id)}
-					>
-						{tag.name}
-					</S.ListItem>
-				)
-			};
-		}, {});
 
 	return (
 		<S.Wrapper>
