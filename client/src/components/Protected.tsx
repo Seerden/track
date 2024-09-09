@@ -5,7 +5,6 @@ import Login from "./Login/Login";
 
 export default function Protected({ children }: PropsWithChildren) {
 	const { isLoggedIn, currentUser } = useAuthentication();
-
 	const { params } = useRouteProps();
 
 	// If a route/component is user-specific, do this.
