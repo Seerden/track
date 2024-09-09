@@ -7,6 +7,7 @@ import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "styled-components";
 import "./App.scss";
 import AnimatedRoutes from "./components/AnimatedRoutes";
+import Protected from "./components/Protected";
 import Suspended from "./components/Suspended";
 import { queryClient } from "./lib/query-client";
 import { theme } from "./lib/theme/theme";
@@ -25,7 +26,14 @@ function App() {
 						<Router>
 							<Header />
 							<AnimatedRoutes>
-								<Route path="/" element={<Home />} />
+								<Route
+									path="/"
+									element={
+										<Protected>
+											<Home />
+										</Protected>
+									}
+								/>
 								<Route
 									path="register"
 									element={
