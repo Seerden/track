@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useLoginMutation from "../../lib/use-login-mutation";
+import { localUser } from "../../lib/user-storage";
 import { type UserLogin } from "../../types/server/user.types";
 
 export default function useLogin() {
@@ -29,10 +30,11 @@ export default function useLogin() {
 		}
 
 		login(userLogin, {
-			onSuccess: () => {
+			onSuccess: ({ user }) => {
 				// redirect if we're on a login page, otherwise just close the
 				// modal. probably we redirect to the user's home page, because I
 				// expect almost everyting will be behind a login wall.
+				localUser.set(user);
 			},
 		});
 	}
