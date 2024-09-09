@@ -44,6 +44,8 @@ export async function insertTagWithRelation({
 			return Object.assign(tag, { child_ids: [], parent_id: null });
 		}
 
+		// TODO: check if parent_id exists and belongs to the user
+
 		const relation = await insertTagRelation({
 			sql: q,
 			user_id: tag.user_id,
