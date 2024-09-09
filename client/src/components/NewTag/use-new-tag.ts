@@ -24,7 +24,16 @@ export default function useNewTag() {
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 
-		submit({ newTag, parent_id });
+		submit(
+			{ newTag, parent_id },
+			{
+				onSuccess: () => {
+					// TODO: redirect
+					// TODO: invalidate or refetch tags query, maybe also optimistically
+					// update the tags query with the new tag already
+				},
+			},
+		);
 	}
 
 	return {
