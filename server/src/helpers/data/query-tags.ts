@@ -22,7 +22,7 @@ export async function queryTagsByParent({
 }: WithSQL<{ parent_id: ID }>) {
 	const relations = await sql<
 		TagTagRelation[]
-	>`select * from tag_relations where parent_id = ${parent_id}`;
+	>`select * from tags_tags where parent_id = ${parent_id}`;
 
 	if (!relations?.length) return [];
 
@@ -50,7 +50,7 @@ export async function queryTagRelations({
 	sql = sqlConnection,
 	user_id,
 }: WithSQL<{ user_id: ID }>) {
-	return sql`select * from tag_relations where user_id = ${user_id}`;
+	return sql`select * from tags_tags where user_id = ${user_id}`;
 }
 
 export async function queryTagsAndRelations({
@@ -65,7 +65,7 @@ export async function queryTagsAndRelations({
 
 	const relations = await sql<
 		TagTagRelation[]
-	>`select * from tag_relations where parent_id = any(${tagIds}) or child_id = any(${tagIds})`;
+	>`select * from tags_tags where parent_id = any(${tagIds}) or child_id = any(${tagIds})`;
 
 	return { tags, relations };
 }
