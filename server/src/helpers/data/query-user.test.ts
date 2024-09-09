@@ -1,7 +1,7 @@
 import { compare } from "bcryptjs";
 import { NewUser } from "../../../types/data/user.types";
 import { sqlConnection } from "../../db/init";
-import { insertUser } from "./insert-user";
+import { createUser } from "./insert-user";
 import { getUserByName, userExists } from "./query-user";
 
 describe("getUser", () => {
@@ -12,13 +12,13 @@ describe("getUser", () => {
 				password: "this should really be a hash",
 			};
 
-			await insertUser({ sql: q, newUser });
+			await createUser({ sql: q, newUser });
 
 			const foundUser = await getUserByName({ sql: q, username: newUser.username });
 
 			expect(foundUser?.username).toBeDefined();
 			expect(foundUser?.username).toEqual(newUser.username);
-			expect(await compare(newUser.password, foundUser?.password_hash)).toEqual(true);
+			expect(await compare(newUser.password, foundUser?.password_hash!)).toEqual(true);
 
 			q`rollback`;
 		});
@@ -45,7 +45,7 @@ describe("userExists", () => {
 			password: "1",
 		};
 		sqlConnection.begin(async (sql) => {
-			await insertUser({ sql, newUser: user });
+			await createUser({ sql, newUser: user });
 
 			expect(await userExists({ sql, username: user.username })).toBeTruthy();
 			expect(await userExists({ sql, username: `${Math.random()}` })).toBeFalsy();

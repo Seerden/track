@@ -2,7 +2,7 @@ import { Router } from "express";
 import { type NewUser, type UserLogin } from "../../types/data/user.types";
 import { destroySession } from "../helpers/auth/destroy-session";
 import { login } from "../helpers/auth/log-in";
-import { insertUser } from "../helpers/data/insert-user";
+import { createUser } from "../helpers/data/insert-user";
 import { getUserById } from "../helpers/data/query-user";
 
 export const authRouter = Router({ mergeParams: true });
@@ -29,7 +29,7 @@ authRouter.post("/login", async (req, res) => {
 authRouter.post("/register", async (req, res) => {
 	const { newUser } = req.body as { newUser: NewUser };
 
-	const registeredUser = await insertUser({ newUser });
+	const registeredUser = await createUser({ newUser });
 
 	if (!registeredUser) {
 		return res.status(400).json({ message: "Registration failed." });

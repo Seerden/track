@@ -10,7 +10,7 @@ async function generatePasswordHash(password: string) {
 
 /** If username is not taken yet, hash the provided password and insert the user
  * into the database. */
-export async function insertUser({
+export async function createUser({
 	sql = sqlConnection,
 	newUser,
 }: WithSQL<{ newUser: NewUser }>) {
