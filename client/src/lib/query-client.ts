@@ -11,3 +11,10 @@ export const queryClient = new QueryClient({
 		},
 	},
 });
+
+export const defaultQueryConfig = {
+	enabled: true,
+	retry: false,
+	refetchOnMount: true,
+	refetchOnWindowFocus: false,
+} as const;
