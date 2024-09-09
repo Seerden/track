@@ -1,7 +1,6 @@
 import { Router } from "express";
 import type { NewActivity } from "../../types/data/activity.types";
-import type { NewTag } from "../../types/data/tag.types";
-import type { ID } from "../../types/data/utility.types";
+import type { TagInput } from "../../types/data/tag.types";
 import { isAuthorized } from "../helpers/auth/is-authorized";
 import { insertActivity } from "../helpers/data/insert-activity";
 import { insertTagWithRelation } from "../helpers/data/insert-tags";
@@ -29,7 +28,7 @@ dataRouter.get("/tags", isAuthorized, async (req, res) => {
 });
 
 dataRouter.post("/tag", isAuthorized, async (req, res) => {
-	const { newTag, parent_id } = req.body as { newTag: NewTag; parent_id?: ID };
+	const { newTag, parent_id } = req.body as TagInput;
 
 	const tag = await insertTagWithRelation({ newTag, parent_id });
 

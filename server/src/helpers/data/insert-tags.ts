@@ -1,5 +1,5 @@
 import { TagTagRelation } from "../../../types/data/relational.types";
-import { NewTag, TagWithId, TagWithIds } from "../../../types/data/tag.types";
+import { NewTag, TagInput, TagWithId, TagWithIds } from "../../../types/data/tag.types";
 import { ID } from "../../../types/data/utility.types";
 import type { WithSQL } from "../../../types/sql.types";
 import { sqlConnection } from "../../db/init";
@@ -36,7 +36,7 @@ export async function insertTagWithRelation({
 	sql = sqlConnection,
 	newTag,
 	parent_id,
-}: WithSQL<{ newTag: NewTag; parent_id?: ID }>): Promise<TagWithIds> {
+}: WithSQL<TagInput>): Promise<TagWithIds> {
 	return await sql.begin(async (q) => {
 		const [tag] = await insertTags({ sql: q, newTags: [newTag] });
 
