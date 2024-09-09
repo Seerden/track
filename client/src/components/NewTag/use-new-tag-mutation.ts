@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { createPostConfig } from "../../lib/fetch/create-post-config";
-import { baseUrl } from "../../lib/fetch/fetch-constants";
+import { makeAuthorizedUrl } from "../../lib/fetch/make-authorized-url";
 import { NewTag, TagWithIds } from "../../types/server/tag.types";
 import { ID } from "../../types/server/utility.types";
 
@@ -10,9 +10,9 @@ type TagInput = {
 };
 
 async function postTag({ newTag, parent_id }: TagInput) {
-	return (
-		await fetch(`${baseUrl}/data/tag`, createPostConfig({ newTag, parent_id }))
-	).json();
+	const url = makeAuthorizedUrl("/data/tag");
+
+	return (await fetch(url, createPostConfig({ newTag, parent_id }))).json();
 }
 
 export function useNewTagMutation() {
