@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import type { Data } from "../../types/query.types";
 import type { TagWithIds } from "../../types/server/tag.types";
-import type { ID } from "../../types/server/utility.types";
+import type { ById } from "../../types/server/utility.types";
 import { defaultQueryConfig, queryClient } from "../query-client";
 import { makeAuthorizedUrl } from "./make-authorized-url";
 
@@ -18,7 +18,7 @@ export async function getTags() {
 	return response.json();
 }
 
-type TagsData = Data<"tagsById", Record<ID, TagWithIds>>;
+type TagsData = Data<"tagsById", ById<TagWithIds>>;
 
 export default function useTagsQuery() {
 	return useQuery<TagsData>({

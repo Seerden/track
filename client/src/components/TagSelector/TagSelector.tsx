@@ -1,12 +1,12 @@
 import { useMemo } from "react";
-import { TagWithIds } from "../../types/server/tag.types";
-import { ID } from "../../types/server/utility.types";
+import type { TagWithIds } from "../../types/server/tag.types";
+import type { ById } from "../../types/server/utility.types";
 import * as S from "./TagSelector.style";
 import useTagSelector from "./use-tag-selector";
 
 type TagSelectorProps = {
 	title?: string;
-	tagsById?: Record<ID, TagWithIds>; // TODO: properly type this
+	tagsById?: ById<TagWithIds>;
 	maximum?: number;
 };
 
@@ -22,7 +22,7 @@ export default function TagSelector({
 	const elements = useMemo(() => {
 		if (!tagsById) return [];
 
-		const elements: Record<ID, JSX.Element> = Object.entries(tagsById)
+		const elements: ById<JSX.Element> = Object.entries(tagsById)
 			.filter(([_, tag]) => {
 				if (!filter) return true;
 				return tag.name.toLowerCase().includes(filter.toLowerCase());

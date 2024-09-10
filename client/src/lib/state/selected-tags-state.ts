@@ -1,7 +1,7 @@
 import { atom, selector, useRecoilState, useRecoilValue } from "recoil";
-import { ID } from "../../types/server/utility.types";
+import type { ById, ID } from "../../types/server/utility.types";
 
-export const tagSelectionState = atom<Record<ID, boolean>>({
+export const tagSelectionState = atom<ById<boolean>>({
 	default: {},
 	key: "selectedTags",
 });
