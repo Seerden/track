@@ -6,6 +6,7 @@ type UseTagSelector = {
 	maximum?: number;
 };
 
+// TODO: handle case where maximum > 1.
 export default function useTagSelector({ maximum }: UseTagSelector = {}) {
 	const { tagSelection, setTagSelection, toggleTagSelection } = useTagSelection();
 	const [filter, setFilter] = useState<string>("");
