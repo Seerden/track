@@ -16,7 +16,7 @@ export const selectedTagIdsSelector = selector({
 	key: "selectedTagIds",
 });
 
-export function useSelectedTags() {
+export function useTagSelection() {
 	const [selectedTags, setSelectedTags] = useRecoilState(selectedTagsState);
 	const selectedTagIds = useRecoilValue(selectedTagIdsSelector);
 

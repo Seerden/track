@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSelectedTags } from "../../lib/state/selected-tags-state";
+import { useTagSelection } from "../../lib/state/selected-tags-state";
 import { ID } from "../../types/server/utility.types";
 
 type UseTagSelector = {
@@ -7,7 +7,7 @@ type UseTagSelector = {
 };
 
 export default function useTagSelector({ maximum }: UseTagSelector = {}) {
-	const { selectedTags, setSelectedTags, toggleTagSelection } = useSelectedTags();
+	const { selectedTags, setSelectedTags, toggleTagSelection } = useTagSelection();
 	const [filter, setFilter] = useState<string>("");
 
 	function updateFilter(e: React.ChangeEvent<HTMLInputElement>) {

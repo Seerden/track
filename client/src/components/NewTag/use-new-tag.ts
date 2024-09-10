@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSelectedTags } from "../../lib/state/selected-tags-state";
+import { useTagSelection } from "../../lib/state/selected-tags-state";
 import useAuthentication from "../../lib/use-authentication";
 import type { NewTag } from "../../types/server/tag.types";
 import { useNewTagMutation } from "./use-new-tag-mutation";
@@ -14,7 +14,7 @@ export default function useNewTag() {
 		user_id: currentUser!.user_id, // TODO: find a way to refine this typing so that currentUser cannot be undefined here
 	});
 
-	const { selectedTagIds } = useSelectedTags();
+	const { selectedTagIds } = useTagSelection();
 	const parent_id = selectedTagIds.length === 1 ? selectedTagIds[0] : undefined;
 
 	function onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
