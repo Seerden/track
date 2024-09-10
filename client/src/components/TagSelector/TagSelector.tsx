@@ -15,7 +15,7 @@ export default function TagSelector({
 	tagsById,
 	maximum
 }: TagSelectorProps) {
-	const { selectedTags, updateTagSelection, filter, updateFilter } = useTagSelector({
+	const { tagSelection, updateTagSelection, filter, updateFilter } = useTagSelector({
 		maximum
 	});
 
@@ -29,7 +29,7 @@ export default function TagSelector({
 			})
 			.reduce((acc, [id, tag]) => {
 				const hasParent = tag.parent_id !== null;
-				const isSelected = selectedTags?.[+id] ?? false;
+				const isSelected = tagSelection?.[+id] ?? false;
 
 				return {
 					...acc,
@@ -46,7 +46,7 @@ export default function TagSelector({
 				};
 			}, {});
 		return elements;
-	}, [tagsById, filter, selectedTags]);
+	}, [tagsById, filter, tagSelection]);
 
 	// TODO: extract as much of this into a separate component as possible (it
 	// can live inside this file, still))

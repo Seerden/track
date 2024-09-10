@@ -1,14 +1,14 @@
 import { atom, selector, useRecoilState, useRecoilValue } from "recoil";
 import { ID } from "../../types/server/utility.types";
 
-export const selectedTagsState = atom<Record<ID, boolean>>({
+export const tagSelectionState = atom<Record<ID, boolean>>({
 	default: {},
 	key: "selectedTags",
 });
 
 export const selectedTagIdsSelector = selector({
 	get: ({ get }) => {
-		const selectedTags = get(selectedTagsState);
+		const selectedTags = get(tagSelectionState);
 		return Object.keys(selectedTags)
 			.filter((tagId) => selectedTags[+tagId])
 			.map((id) => +id);
@@ -17,19 +17,19 @@ export const selectedTagIdsSelector = selector({
 });
 
 export function useTagSelection() {
-	const [selectedTags, setSelectedTags] = useRecoilState(selectedTagsState);
+	const [tagSelection, setTagSelection] = useRecoilState(tagSelectionState);
 	const selectedTagIds = useRecoilValue(selectedTagIdsSelector);
 
 	function toggleTagSelection(tag_id: ID) {
-		setSelectedTags((current) => {
+		setTagSelection((current) => {
 			return { ...current, [tag_id]: !current[tag_id] };
 		});
 	}
 
 	return {
-		selectedTags,
+		tagSelection,
 		toggleTagSelection,
 		selectedTagIds,
-		setSelectedTags,
+		setTagSelection,
 	};
 }

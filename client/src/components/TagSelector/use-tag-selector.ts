@@ -7,7 +7,7 @@ type UseTagSelector = {
 };
 
 export default function useTagSelector({ maximum }: UseTagSelector = {}) {
-	const { selectedTags, setSelectedTags, toggleTagSelection } = useTagSelection();
+	const { tagSelection, setTagSelection, toggleTagSelection } = useTagSelection();
 	const [filter, setFilter] = useState<string>("");
 
 	function updateFilter(e: React.ChangeEvent<HTMLInputElement>) {
@@ -16,14 +16,14 @@ export default function useTagSelector({ maximum }: UseTagSelector = {}) {
 
 	function updateTagSelection(tagId: ID) {
 		if (maximum === 1) {
-			setSelectedTags((current) => ({ [tagId]: !current[tagId] }));
+			setTagSelection((current) => ({ [tagId]: !current[tagId] }));
 		} else {
 			toggleTagSelection(tagId);
 		}
 	}
 
 	return {
-		selectedTags,
+		tagSelection,
 		updateTagSelection,
 		filter,
 		updateFilter,
