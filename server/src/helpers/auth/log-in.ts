@@ -19,5 +19,6 @@ export async function login(user: UserLogin, req: Request, res: Response) {
 	}
 
 	req.session.user = { user_id: foundUser.user_id, username: foundUser.username }; // could also regenerate()
+
 	return res.status(200).json({ user: foundUser });
 }

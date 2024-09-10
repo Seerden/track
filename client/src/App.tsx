@@ -7,39 +7,48 @@ import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "styled-components";
 import "./App.scss";
 import AnimatedRoutes from "./components/AnimatedRoutes";
+import Protected from "./components/Protected";
 import Suspended from "./components/Suspended";
 import { queryClient } from "./lib/query-client";
 import { theme } from "./lib/theme/theme";
-import useReconcileSession from "./lib/use-reconcile-session";
 
 const Register = lazy(() => import("./components/Register/Register"));
 const Home = lazy(() => import("./components/Home"));
+const Header = lazy(() => import("./components/Header/Header"));
 
 function App() {
-	useReconcileSession();
-
 	return (
 		<QueryClientProvider client={queryClient}>
 			<ReactQueryDevtools initialIsOpen={false} position="bottom" />
 			<RecoilRoot>
 				<ThemeProvider theme={theme}>
-					<main>
-						<Router>
-							<AnimatedRoutes>
-								<Route path="/" element={<Home />} />
-								<Route
-									path="register"
-									element={
-										<Suspended>
-											<Register />
-										</Suspended>
-									}
-								/>
-								<Route path="" element={<></>} />
-								<Route path="*" element={<div>404</div>} />
-							</AnimatedRoutes>
-						</Router>
-					</main>
+					<Suspended>
+						<main>
+							<Router>
+								<Header />
+								<AnimatedRoutes>
+									<Route
+										path="/"
+										element={
+											<Protected>
+												<Home />
+											</Protected>
+										}
+									/>
+									<Route
+										path="register"
+										element={
+											<Suspended>
+												<Register />
+											</Suspended>
+										}
+									/>
+									<Route path="" element={<></>} />
+									<Route path="*" element={<div>404</div>} />
+								</AnimatedRoutes>
+							</Router>
+						</main>
+					</Suspended>
 				</ThemeProvider>
 			</RecoilRoot>
 		</QueryClientProvider>

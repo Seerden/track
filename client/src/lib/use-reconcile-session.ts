@@ -13,6 +13,8 @@ export default function useReconcileSession() {
 		const localMe = localUser.get();
 		const user = data?.user;
 
+		if (!data) return;
+
 		if (user && !localMe) {
 			return localUser.set(user);
 		}

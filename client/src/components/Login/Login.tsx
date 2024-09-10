@@ -23,9 +23,11 @@ function Login() {
 						name="password"
 						placeholder="Password"
 					/>
-					<button onClick={() => login.togglePasswordVisible()}>
-						{login.passwordVisible ? "Show" : "Hide"} password
-					</button>
+					<input
+						type="button"
+						onClick={() => login.togglePasswordVisible()}
+						value={`${login.passwordVisible ? "Hide" : "Show"} password`}
+					/>
 				</span>
 				<button type="submit">Login</button>
 			</form>

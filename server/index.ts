@@ -3,6 +3,7 @@ import "dotenv/config";
 import express, { RequestHandler } from "express";
 import session from "express-session";
 import { pingDatabase } from "./src/db/init";
+import { logRequests } from "./src/helpers/log-requests";
 import {
 	initializeRedisConnection,
 	redisSession,
@@ -19,6 +20,8 @@ async function start() {
 			credentials: true,
 		})
 	);
+
+	app.use(logRequests);
 
 	app.use(
 		express.urlencoded({

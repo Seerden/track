@@ -6,3 +6,5 @@ export type Timestamp = number;
 export type ID = number;
 
 export type Maybe<T> = T | null | undefined;
+
+export type ById<T> = Record<ID, T>;

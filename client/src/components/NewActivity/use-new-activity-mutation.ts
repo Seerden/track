@@ -1,13 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
-import { baseUrl, postConfig } from "../../helpers/fetch/fetch-constants";
+import { createPostConfig } from "../../lib/fetch/create-post-config";
+import { makeAuthorizedUrl } from "../../lib/fetch/make-authorized-url";
 import { Activity, NewActivity } from "../../types/server/activity.types";
 
 async function postNewActivity(newActivity: NewActivity): Promise<Activity> {
+	const url = makeAuthorizedUrl("/data/activity");
 	const activity: Promise<Activity> = (
-		await fetch(`${baseUrl}/data/activity`, {
-			...postConfig,
-			body: JSON.stringify({ newActivity }),
-		})
+		await fetch(url, createPostConfig({ newActivity }))
 	).json();
 
 	return activity;

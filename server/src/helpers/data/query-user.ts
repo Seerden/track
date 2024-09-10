@@ -15,7 +15,7 @@ export async function getUserByName({
 	sql = sqlConnection,
 	username,
 }: WithSQL<{ username: string }>) {
-	const [user] = await sql<[User]>`select * from users where username = ${username}`;
+	const [user] = await sql<[User?]>`select * from users where username = ${username}`;
 	return user;
 }
 

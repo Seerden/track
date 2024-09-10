@@ -18,3 +18,8 @@ export type TagWithIds = TagWithId & {
 	parent_id: Maybe<ID>;
 	child_ids: Maybe<Array<ID>>;
 };
+
+export type TagInput = {
+	newTag: NewTag;
+	parent_id?: ID;
+};

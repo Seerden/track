@@ -31,8 +31,8 @@ export const Form = styled.section`
 
 export const Fields = styled.form`
 	position: relative;
-	display: flex;
-	flex-direction: row;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
 	gap: 0.4rem;
 	padding-bottom: 0.9rem;
 `;
@@ -70,4 +70,8 @@ export const Button = styled.button`
 		border: 2px solid limegreen;
 		transform: scale(1.2) translateY(-3px);
 	}
+`;
+
+export const Tags = styled.div`
+	grid-column: 1 / span 2;
 `;
