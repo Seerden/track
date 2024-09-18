@@ -16,3 +16,8 @@ export type Note = NewNote & {
 export type NoteWithIds = Note & {
 	tag_ids?: Maybe<ID[]>;
 };
+
+export type NoteInput = {
+	note: NewNote;
+	tagIds?: ID[];
+};
