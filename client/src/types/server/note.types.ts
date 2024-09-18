@@ -12,3 +12,7 @@ export type Note = NewNote & {
 	note_id: ID;
 	created_at: Timestamp;
 };
+
+export type NoteWithIds = Note & {
+	tag_ids?: Maybe<ID[]>;
+};
