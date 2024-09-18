@@ -40,7 +40,7 @@ export async function insertNoteWithTags({
 		const insertedNote = await insertNote({ sql: q, note });
 		let linkedTagIds: ID[] = [];
 
-		if (tag_ids?.length) {
+		if (Array.isArray(tag_ids) && tag_ids?.length) {
 			const relations = await linkTagsToNote({
 				sql: q,
 				user_id: insertedNote.user_id,
