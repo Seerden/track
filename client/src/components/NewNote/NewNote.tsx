@@ -1,4 +1,4 @@
-import useTagsQuery from "../../lib/fetch/use-tags-query";
+import useTagsQuery from "../../lib/use-tags-query";
 import TagSelector from "../TagSelector/TagSelector";
 import * as S from "./NewNote.style";
 
