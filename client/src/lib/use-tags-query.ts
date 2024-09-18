@@ -5,7 +5,7 @@ import type { ById } from "../types/server/utility.types";
 import { makeAuthorizedUrl } from "./fetch/make-authorized-url";
 import { defaultQueryConfig, queryClient } from "./query-client";
 
-export async function getTags() {
+async function getTags() {
 	const url = makeAuthorizedUrl("/data/tags");
 	const response = await fetch(url, {
 		credentials: "include",
