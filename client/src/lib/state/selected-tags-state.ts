@@ -1,4 +1,10 @@
-import { atom, selector, useRecoilState, useRecoilValue } from "recoil";
+import {
+	atom,
+	selector,
+	useRecoilState,
+	useRecoilValue,
+	useResetRecoilState,
+} from "recoil";
 import type { ById, ID } from "../../types/server/utility.types";
 
 export const tagSelectionState = atom<ById<boolean>>({
@@ -18,6 +24,7 @@ export const selectedTagIdsSelector = selector({
 
 export function useTagSelection() {
 	const [tagSelection, setTagSelection] = useRecoilState(tagSelectionState);
+	const resetTagSelection = useResetRecoilState(tagSelectionState);
 	const selectedTagIds = useRecoilValue(selectedTagIdsSelector);
 
 	function toggleTagSelection(tag_id: ID) {
@@ -31,5 +38,6 @@ export function useTagSelection() {
 		toggleTagSelection,
 		selectedTagIds,
 		setTagSelection,
+		resetTagSelection,
 	};
 }
