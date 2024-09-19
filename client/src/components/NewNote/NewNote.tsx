@@ -1,18 +1,28 @@
 import useTagsQuery from "../../lib/use-tags-query";
 import TagSelector from "../TagSelector/TagSelector";
 import * as S from "./NewNote.style";
+import useNewNote from "./use-new-note";
 
-function NewNote() {
+type NewNoteProps = {
+	inActivity?: boolean;
+};
+
+function NewNote({ inActivity }: NewNoteProps) {
 	const { data: tags } = useTagsQuery();
+	const { note, onInputChange, onSubmit } = useNewNote({ inActivity });
 
 	return (
 		<S.Wrapper>
 			<S.Title> Take a note</S.Title>
-			<S.Form>
+			<S.Form onSubmit={onSubmit}>
 				<S.MainFields>
 					<S.Field>
 						<S.Label>Title</S.Label>
-						<S.Input type="text" placeholder="Title" />
+						<S.Input
+							type="text"
+							placeholder="Scruffy's meals"
+							onChange={onInputChange}
+						/>
 					</S.Field>
 					<S.Field>
 						<TagSelector tagsById={tags?.tagsById} oneLine />
@@ -21,12 +31,10 @@ function NewNote() {
 				<S.Content>
 					<div>
 						<S.Label>Content</S.Label>
-						<S.TextArea placeholder="I accidentally fed Scruffy twice today." />
-					</div>
-					<div>
-						<S.Label>Tasks</S.Label>
-						{/* TODO: this will of course not be a textarea, just doing it this way right now because it gives a good idea of the look of the layout */}
-						<S.TextArea placeholder="Feed Scruffy only once." />
+						<S.TextArea
+							placeholder="I accidentally fed Scruffy twice today."
+							onChange={onInputChange}
+						/>
 					</div>
 				</S.Content>
 				<S.Button type="submit">💾</S.Button>

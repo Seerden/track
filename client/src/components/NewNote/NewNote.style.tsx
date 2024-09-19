@@ -69,6 +69,8 @@ export const TextArea = styled.textarea`
 	min-height: 100px;
 	margin-bottom: 1rem;
 
+	resize: none;
+
 	${inputStyle}
 `;
 
@@ -107,5 +109,4 @@ export const Button = styled.button`
 
 export const Content = styled(Field)`
 	display: grid;
-	grid-template-columns: 5fr 2fr;
 `;
