@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Data } from "../types/query.types";
 import { NoteWithIds } from "../types/server/note.types";
+import { ById } from "../types/server/utility.types";
 import { makeAuthorizedUrl } from "./fetch/make-authorized-url";
 import { defaultQueryConfig } from "./query-client";
 
@@ -14,7 +15,7 @@ async function getNotes() {
 	return response.json();
 }
 
-type NotesData = Data<"notes", NoteWithIds[]>;
+type NotesData = Data<"notesById", ById<NoteWithIds>>;
 
 export default function useNotesQuery() {
 	return useQuery<NotesData>({
