@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import type { Data } from "../../types/query.types";
-import type { TagWithIds } from "../../types/server/tag.types";
-import type { ById } from "../../types/server/utility.types";
-import { defaultQueryConfig, queryClient } from "../query-client";
-import { makeAuthorizedUrl } from "./make-authorized-url";
+import type { Data } from "../types/query.types";
+import type { TagWithIds } from "../types/server/tag.types";
+import type { ById } from "../types/server/utility.types";
+import { makeAuthorizedUrl } from "./fetch/make-authorized-url";
+import { defaultQueryConfig, queryClient } from "./query-client";
 
-export async function getTags() {
+async function getTags() {
 	const url = makeAuthorizedUrl("/data/tags");
 	const response = await fetch(url, {
 		credentials: "include",

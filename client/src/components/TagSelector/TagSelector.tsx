@@ -8,12 +8,14 @@ type TagSelectorProps = {
 	title?: string;
 	tagsById?: ById<TagWithIds>;
 	maximum?: number;
+	oneLine?: boolean;
 };
 
 export default function TagSelector({
-	title = "Choose tags",
+	title,
 	tagsById,
-	maximum
+	maximum,
+	oneLine
 }: TagSelectorProps) {
 	const { tagSelection, updateTagSelection, filter, updateFilter } = useTagSelector({
 		maximum
@@ -54,16 +56,18 @@ export default function TagSelector({
 	return (
 		<S.Wrapper>
 			{/* TODO: the info tooltip should be in a little info block, not a title on a random element */}
-			<S.Title {...(maximum && { title: `Choose at most ${maximum} tag(s)` })}>
-				{title}
-			</S.Title>
+			{!!title && (
+				<S.Title {...(maximum && { title: `Choose at most ${maximum} tag(s)` })}>
+					{title}
+				</S.Title>
+			)}
 			<S.Filter
 				type="text"
 				placeholder="search categories"
 				value={filter}
 				onChange={(e) => updateFilter(e)}
 			/>
-			<S.List>{Object.values(elements)}</S.List>
+			<S.List $oneLine={oneLine}>{Object.values(elements)}</S.List>
 		</S.Wrapper>
 	);
 }

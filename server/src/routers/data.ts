@@ -1,45 +1,55 @@
 import { Router } from "express";
 import type { NewActivity } from "../../types/data/activity.types";
+import type { NoteInput } from "../../types/data/note.types";
 import type { TagInput } from "../../types/data/tag.types";
 import { isAuthorized } from "../helpers/auth/is-authorized";
 import { insertActivity } from "../helpers/data/insert-activity";
+import { insertNoteWithTags } from "../helpers/data/insert-note";
 import { insertTagWithRelation } from "../helpers/data/insert-tags";
 import {
 	createTagTreeMap,
 	getTagsWithRelations,
 } from "../helpers/data/merge-tags-and-relations";
+import { queryNotesByUser } from "../helpers/data/query-notes";
 
 export const dataRouter = Router({ mergeParams: true });
 
-/** WIP -- start without error handling, work on that later */
+// TODO: start without error handling, work on that later
+// TODO: turn every handler into a function itself, so that the router is just a
+// list of testable functions
 dataRouter.post("/activity", async (req, res) => {
 	const { newActivity } = req.body as { newActivity: NewActivity };
-
 	const activity = await insertActivity({ newActivity });
-
 	res.json({ activity });
 });
 
 dataRouter.get("/tags", isAuthorized, async (req, res) => {
 	const user_id = req.session.user!.user_id; // always exists if we're here, because of middleware
 	const tagsById = await getTagsWithRelations({ user_id });
-
 	res.json({ tagsById });
 });
 
 dataRouter.post("/tag", isAuthorized, async (req, res) => {
 	const { newTag, parent_id } = req.body as TagInput;
-
 	const tag = await insertTagWithRelation({ newTag, parent_id });
-
 	res.json({ tag });
 });
 
 dataRouter.get("/tags/tree", isAuthorized, async (req, res) => {
 	const user_id = req.session.user!.user_id; // always exists if we're here, because of middleware
 	const tagsById = await getTagsWithRelations({ user_id });
-
 	const tree = createTagTreeMap(tagsById);
-
 	res.json({ tree });
+});
+
+dataRouter.get("/notes", isAuthorized, async (req, res) => {
+	const user_id = req.session.user!.user_id; // always exists if we're here, because of middleware
+	const notes = await queryNotesByUser({ user_id });
+	res.json({ notes });
+});
+
+dataRouter.post("/note", isAuthorized, async (req, res) => {
+	const { note, tagIds } = req.body as NoteInput;
+	const insertedNote = await insertNoteWithTags({ note, tag_ids: tagIds });
+	res.json({ note: insertedNote });
 });

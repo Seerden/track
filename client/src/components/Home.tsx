@@ -1,7 +1,11 @@
-import NewTag from "./NewTag/NewTag";
+import NewNote from "./NewNote/NewNote";
 
 function Home() {
-	return <NewTag />;
+	return (
+		<>
+			<NewNote />
+		</>
+	);
 }
 
 export default Home;

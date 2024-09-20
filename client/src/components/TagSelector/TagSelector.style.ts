@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
 	max-width: 400px;
 `;
 
-export const List = styled.ul`
+export const List = styled.ul<{ $oneLine?: boolean }>`
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -23,6 +23,18 @@ export const List = styled.ul`
 	padding: 0.8rem 1.2rem;
 
 	justify-content: stretch;
+
+	${(p) =>
+		// TODO: this is EXTREMELY WIP and does not look good or function comfortably
+		// at all
+		p.$oneLine &&
+		css`
+			max-height: 2.4rem;
+			overflow-y: scroll;
+			justify-content: start;
+
+			padding: 0.2rem;
+		`}
 `;
 
 export const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
