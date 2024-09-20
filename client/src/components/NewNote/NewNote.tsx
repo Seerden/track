@@ -20,6 +20,7 @@ function NewNote({ inActivity }: NewNoteProps) {
 						<S.Label>Title</S.Label>
 						<S.Input
 							type="text"
+							name="title"
 							placeholder="Scruffy's meals"
 							onChange={onInputChange}
 						/>
@@ -32,6 +33,7 @@ function NewNote({ inActivity }: NewNoteProps) {
 					<div>
 						<S.Label>Content</S.Label>
 						<S.TextArea
+							name="content"
 							placeholder="I accidentally fed Scruffy twice today."
 							onChange={onInputChange}
 						/>
