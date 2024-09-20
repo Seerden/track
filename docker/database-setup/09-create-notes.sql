@@ -7,3 +7,7 @@ create table if not exists notes (
     created_at timestamp default now(),
     date date
 );
+
+-- tweak actvity_id
+alter table notes drop column activity_id;
+alter table notes add column activity_id integer references activities(activity_id);
