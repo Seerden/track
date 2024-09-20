@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { queryClient } from "../../lib/query-client";
 import { useTagSelection } from "../../lib/state/selected-tags-state";
 import useAuthentication from "../../lib/use-authentication";
 import { useNewNoteMutation } from "../../lib/use-new-note-mutation";
@@ -46,6 +47,7 @@ export default function useNewNote({ inActivity }: UseNewNoteProps = {}) {
 					onSuccess: () => {
 						// TODO: redirect, or close the modal.
 						// TODO: also optimistically populate the UI with the newly
+						queryClient.invalidateQueries({ queryKey: ["notes"] });
 						// created note if possible. depends on from which
 						// page/context this hook/component is called though
 					},
