@@ -46,8 +46,10 @@ export default function useNewNote({ inActivity }: UseNewNoteProps = {}) {
 				{
 					onSuccess: () => {
 						// TODO: redirect, or close the modal.
-						// TODO: also optimistically populate the UI with the newly
+
 						queryClient.invalidateQueries({ queryKey: ["notes"] });
+
+						// TODO: also optimistically populate the UI with the newly
 						// created note if possible. depends on from which
 						// page/context this hook/component is called though
 					},
