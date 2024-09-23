@@ -4,6 +4,7 @@ export const ModalWrapper = styled.div`
 	z-index: 2;
 	user-select: none;
 	position: fixed;
+	overflow-y: scroll;
 	top: 0;
 	left: 0;
 	width: 100%;
