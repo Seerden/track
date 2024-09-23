@@ -17,6 +17,7 @@ export default function useModal(
 
 	function close() {
 		setIsOpen(false);
+		window.removeEventListener("click", onClickOutside);
 	}
 
 	function open() {
@@ -34,10 +35,13 @@ export default function useModal(
 	}
 
 	function onClickOutside(e: MouseEvent) {
-		e.preventDefault();
-		e.stopPropagation();
+		if (!isOpen) {
+			return;
+		}
 
 		if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+			e.preventDefault();
+			e.stopPropagation();
 			outsideClickHandler?.(e) ?? close();
 		}
 	}
