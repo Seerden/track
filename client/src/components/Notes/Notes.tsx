@@ -1,11 +1,9 @@
 import { formatDate } from "../../lib/format-date";
-import useTagsQuery from "../../lib/use-tags-query";
 import * as S from "./Notes.style";
 import useNotes from "./use-notes";
 
 export default function Notes() {
-	const { data: notes } = useNotes();
-	const { data: tags } = useTagsQuery();
+	const { notes, tags } = useNotes();
 
 	if (!notes?.notesById) {
 		return <></>;
