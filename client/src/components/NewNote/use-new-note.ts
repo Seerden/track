@@ -3,6 +3,7 @@ import { queryClient } from "../../lib/query-client";
 import { useTagSelection } from "../../lib/state/selected-tags-state";
 import useAuthentication from "../../lib/use-authentication";
 import { useNewNoteMutation } from "../../lib/use-new-note-mutation";
+import useRouteProps from "../../lib/use-route-props";
 import { NewNote } from "../../types/server/note.types";
 
 type UseNewNoteProps = {
@@ -10,6 +11,7 @@ type UseNewNoteProps = {
 };
 
 export default function useNewNote({ inActivity }: UseNewNoteProps = {}) {
+	const { navigate } = useRouteProps();
 	const { currentUser } = useAuthentication();
 	const { mutate } = useNewNoteMutation();
 	const { selectedTagIds, resetTagSelection } = useTagSelection();
@@ -48,6 +50,7 @@ export default function useNewNote({ inActivity }: UseNewNoteProps = {}) {
 						// TODO: redirect, or close the modal.
 
 						queryClient.invalidateQueries({ queryKey: ["notes"] });
+						navigate("/notes");
 
 						// TODO: also optimistically populate the UI with the newly
 						// created note if possible. depends on from which
