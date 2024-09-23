@@ -35,7 +35,7 @@ export default function useNewNote({ inActivity }: UseNewNoteProps = {}) {
 		// }
 	}, []);
 
-	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+	function onSubmit(e: React.FormEvent<HTMLFormElement | HTMLButtonElement>) {
 		e.preventDefault();
 		// TODO: there should be a better way to do this than typing note as
 		// Partial<NewNote> and checking user_id here. Maybe early-escape from the
