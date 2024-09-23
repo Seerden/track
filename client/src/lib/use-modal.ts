@@ -2,7 +2,7 @@ import { RefObject, useEffect, useState } from "react";
 
 type UseModalProps = {
 	keys?: string[];
-	outsideClickHandler?: (e: MouseEvent) => void;
+	outsideClickHandler?: (e: MouseEvent) => void; // TODO: I'm not sure if this will ever be used
 	initialOpen?: boolean;
 };
 
