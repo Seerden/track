@@ -10,7 +10,7 @@ export function mergeNotesAndRelations(
 ) {
 	const notesById = {} as ById<NoteWithIds>;
 	for (const note of notes) {
-		notesById[note.note_id] = { ...note, tag_ids: [] };
+		notesById[note.note_id] = Object.assign(note, { tag_ids: [] });
 	}
 
 	for (const { note_id, tag_id } of noteTagRelations) {
