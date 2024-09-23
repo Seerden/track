@@ -1,10 +1,13 @@
+import Modal from "./Modal";
 import NewNote from "./NewNote/NewNote";
 import Notes from "./Notes/Notes";
 
 function Home() {
 	return (
 		<>
-			<Notes />
+			<Modal initialOpen>
+				<Notes />
+			</Modal>
 			<NewNote />
 		</>
 	);
