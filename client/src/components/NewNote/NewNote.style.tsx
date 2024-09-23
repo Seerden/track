@@ -6,6 +6,8 @@ export const Wrapper = styled.section`
 	margin: 1.2rem;
 	box-shadow: 0 0 1rem 0 #ccc;
 	width: 750px;
+
+	margin: 1.2rem auto;
 `;
 
 export const Title = styled.h2`

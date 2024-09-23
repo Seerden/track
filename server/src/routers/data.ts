@@ -10,7 +10,7 @@ import {
 	createTagTreeMap,
 	getTagsWithRelations,
 } from "../helpers/data/merge-tags-and-relations";
-import { queryNotesByUser } from "../helpers/data/query-notes";
+import { queryNotesAndRelations } from "../helpers/data/query-notes";
 
 export const dataRouter = Router({ mergeParams: true });
 
@@ -44,8 +44,8 @@ dataRouter.get("/tags/tree", isAuthorized, async (req, res) => {
 
 dataRouter.get("/notes", isAuthorized, async (req, res) => {
 	const user_id = req.session.user!.user_id; // always exists if we're here, because of middleware
-	const notes = await queryNotesByUser({ user_id });
-	res.json({ notes });
+	const notesById = await queryNotesAndRelations({ user_id });
+	res.json({ notesById });
 });
 
 dataRouter.post("/note", isAuthorized, async (req, res) => {

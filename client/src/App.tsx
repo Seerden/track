@@ -12,6 +12,7 @@ import Suspended from "./components/Suspended";
 import { queryClient } from "./lib/query-client";
 import { theme } from "./lib/theme/theme";
 
+const NewNote = lazy(() => import("./components/NewNote/NewNote"));
 const Register = lazy(() => import("./components/Register/Register"));
 const Home = lazy(() => import("./components/Home"));
 const Header = lazy(() => import("./components/Header/Header"));
@@ -27,6 +28,15 @@ function App() {
 							<Router>
 								<Header />
 								<AnimatedRoutes>
+									<Route
+										path="/note/new"
+										element={
+											<Protected>
+												<NewNote />
+											</Protected>
+										}
+									/>
+
 									<Route
 										path="/"
 										element={
