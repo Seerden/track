@@ -13,6 +13,14 @@ export async function queryNotesByUser({
 	return sql<Note[]>`select * from notes where user_id = ${user_id}`;
 }
 
+/** Gets all of a user's note_tags relations. */
+async function queryNoteTags({ sql = sqlConnection, user_id }: WithSQL<{ user_id: ID }>) {
+	return sql<NoteTagRelation[]>`
+      select * from notes_tags where user_id = ${user_id}
+   `;
+}
+
+/** Gets all of a user's notes including their tag(_id)s */
 export async function queryNotesAndRelations(
 	{ user_id }: { user_id: ID },
 	sql = sqlConnection
@@ -34,10 +42,4 @@ export async function queryNotesByActivity({
 	return sql<Note[]>`select * from notes where 
       activity_id = ${activity_id}
       and user_id = ${user_id}`;
-}
-
-async function queryNoteTags({ sql = sqlConnection, user_id }: WithSQL<{ user_id: ID }>) {
-	return sql<NoteTagRelation[]>`
-      select * from notes_tags where user_id = ${user_id}
-   `;
 }
