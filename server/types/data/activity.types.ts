@@ -26,3 +26,12 @@ export type Activity = NewActivity & {
 export type ActivityWithTags = Activity & {
 	tags: TagWithIds[]; // many-to-many
 };
+
+export type ActivityWithIds = Activity & {
+	tag_ids: ID[];
+};
+
+export type ActivityInput = {
+	activity: NewActivity;
+	tagIds?: ID[];
+};
