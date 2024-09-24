@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useTagSelection } from "../../lib/state/selected-tags-state";
 import useAuthentication from "../../lib/use-authentication";
+import useRouteProps from "../../lib/use-route-props";
 import { DateTimeField } from "../../types/form.types";
 import type { NewActivity } from "../../types/server/activity.types";
 import { useNewActivityMutation } from "./use-new-activity-mutation";
 
 export default function useNewActivity() {
 	const { mutate: submit } = useNewActivityMutation();
+	const { navigate } = useRouteProps();
 	const { currentUser } = useAuthentication();
 	const { selectedTagIds } = useTagSelection();
 	// TODO: typing below is only Partial because the typing thinks user_id may be null, when it can't
@@ -24,7 +26,14 @@ export default function useNewActivity() {
 
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-		submit({ activity: newActivity as NewActivity, tagIds: selectedTagIds });
+		submit(
+			{ activity: newActivity as NewActivity, tagIds: selectedTagIds },
+			{
+				onSuccess: () => {
+					navigate("/activities");
+				},
+			},
+		);
 	}
 
 	function onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
