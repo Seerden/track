@@ -6,8 +6,8 @@ export type NewActivity = {
 	user_id: ID;
 	name: string;
 	description: string;
-	started_at?: Timestamp;
-	ended_at?: Timestamp;
+	started_at?: Timestamp; // TODO: rename this to start_timestamp
+	ended_at?: Timestamp; // TODO: rename this to end_timestamp
 	start_date?: string; // YYYYMMDD
 	end_date?: string;
 	duration_milliseconds?: number; // in milliseconds
