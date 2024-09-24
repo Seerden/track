@@ -1,28 +1,19 @@
-import { useMemo, useState } from "react";
+import type { DateTimeField } from "../../types/form.types";
 import * as S from "./DateTimePicker.style";
+import useDateTimePicker from "./use-datetime-picker";
 
-export function DateTimePicker() {
-	const [allDay, setAllDay] = useState(false);
+type DateTimePickerProps = {
+	setState: (args: { name: DateTimeField; value: string }) => void;
+};
 
-	type Values = {
-		start: string;
-		end: string;
-	};
-
-	const [values, setValues] = useState<Values>({
-		start: "",
-		end: ""
-	});
-
-	const validEnd = useMemo(() => {
-		if (!values.start || !values.end) return true;
-		return !!values.start && !!values.end && values.end >= values.start;
-	}, [values]);
+export function DateTimePicker({ setState }: DateTimePickerProps) {
+	const { allDay, setAllDay, values, setValues, validEnd, startField, endField } =
+		useDateTimePicker();
 
 	return (
 		<S.Form>
 			<S.Label>
-				All day
+				All day?
 				<input
 					type="checkbox"
 					checked={!!allDay}
@@ -36,7 +27,14 @@ export function DateTimePicker() {
 					required
 					type={allDay ? "date" : "datetime-local"}
 					defaultValue={values.start}
-					onBlur={(e) => setValues((cur) => ({ ...cur, start: e.target.value }))}
+					onBlur={(e) => {
+						// update local value -- we keep a local state for the
+						// functionality of this component
+						setValues((cur) => ({ ...cur, start: e.target.value }));
+						// then update state value -- any checks that need to be done
+						// should be done previous to this
+						setState({ name: startField, value: e.target.value });
+					}}
 				/>
 			</S.Label>
 
@@ -47,7 +45,10 @@ export function DateTimePicker() {
 						required
 						type={allDay ? "date" : "datetime-local"}
 						defaultValue={values.end}
-						onBlur={(e) => setValues((cur) => ({ ...cur, end: e.target.value }))}
+						onBlur={(e) => {
+							setValues((cur) => ({ ...cur, end: e.target.value }));
+							setState({ name: endField, value: e.target.value });
+						}}
 					/>
 				</S.Label>
 				{!validEnd && <S.Warning>End must be after start.</S.Warning>}
