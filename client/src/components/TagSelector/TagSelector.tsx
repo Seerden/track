@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import useTagsQuery from "../../lib/use-tags-query";
 import type { TagWithIds } from "../../types/server/tag.types";
 import type { ById } from "../../types/server/utility.types";
 import * as S from "./TagSelector.style";
@@ -7,6 +8,7 @@ import useTagSelector from "./use-tag-selector";
 type TagSelectorProps = {
 	title?: string;
 	tagsById?: ById<TagWithIds>;
+	fullSize?: boolean;
 	maximum?: number;
 	oneLine?: boolean;
 };
@@ -14,17 +16,21 @@ type TagSelectorProps = {
 export default function TagSelector({
 	title,
 	tagsById,
+	fullSize,
 	maximum,
 	oneLine
 }: TagSelectorProps) {
 	const { tagSelection, updateTagSelection, filter, updateFilter } = useTagSelector({
 		maximum
 	});
+	const { data: tags } = useTagsQuery(); // TODO: this should be inside useTagSelector
 
 	const elements = useMemo(() => {
-		if (!tagsById) return [];
+		// tags may not be fetched yet, so cannot do !tags?.tagsById, need it
+		// written out like this
+		if (!tagsById && tags && !tags.tagsById) return [];
 
-		const elements: ById<JSX.Element> = Object.entries(tagsById)
+		const elements: ById<JSX.Element> = Object.entries(tagsById ?? tags?.tagsById ?? {}) // this nullish coalescing is a bit of a mess
 			.filter(([_, tag]) => {
 				if (!filter) return true;
 				return tag.name.toLowerCase().includes(filter.toLowerCase());
@@ -54,7 +60,7 @@ export default function TagSelector({
 	// can live inside this file, still))
 
 	return (
-		<S.Wrapper>
+		<S.Wrapper $fullSize={fullSize}>
 			{/* TODO: the info tooltip should be in a little info block, not a title on a random element */}
 			{!!title && (
 				<S.Title {...(maximum && { title: `Choose at most ${maximum} tag(s)` })}>
