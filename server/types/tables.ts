@@ -1,3 +1,5 @@
+// TODO: add missing table names
+
 export const TABLES = {
 	tags: "tags",
 	activitiesTags: "activities_tags",
