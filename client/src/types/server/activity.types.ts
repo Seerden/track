@@ -12,7 +12,7 @@ export type NewActivity = {
 	end_date?: string;
 	duration_milliseconds?: number; // in milliseconds
 	is_task?: boolean;
-	completed_at?: Timestamp; // this probably shouldn't be in this type
+	completion_timestamp?: Timestamp; // this probably shouldn't be in this type
 	completed?: boolean; // this also probably shouldn't be in this type
 };
 
