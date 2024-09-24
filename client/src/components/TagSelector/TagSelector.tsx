@@ -54,7 +54,7 @@ export default function TagSelector({
 				};
 			}, {});
 		return elements;
-	}, [tagsById, filter, tagSelection]);
+	}, [tags, tagsById, filter, tagSelection]);
 
 	// TODO: extract as much of this into a separate component as possible (it
 	// can live inside this file, still))
