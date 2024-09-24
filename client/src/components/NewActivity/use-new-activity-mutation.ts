@@ -1,21 +1,24 @@
 import { useMutation } from "@tanstack/react-query";
 import { createPostConfig } from "../../lib/fetch/create-post-config";
 import { makeAuthorizedUrl } from "../../lib/fetch/make-authorized-url";
-import { Activity, NewActivity } from "../../types/server/activity.types";
+import { ActivityInput, ActivityWithIds } from "../../types/server/activity.types";
 
-async function postNewActivity(newActivity: NewActivity): Promise<Activity> {
+async function postNewActivity({
+	activity,
+	tagIds,
+}: ActivityInput): Promise<ActivityWithIds> {
 	const url = makeAuthorizedUrl("/data/activity");
-	const activity: Promise<Activity> = (
-		await fetch(url, createPostConfig({ newActivity }))
+	const insertedActivity: Promise<ActivityWithIds> = (
+		await fetch(url, createPostConfig({ activity, tagIds }))
 	).json();
 
-	return activity;
+	return insertedActivity;
 }
 
 export function useNewActivityMutation() {
-	return useMutation<Activity, unknown, NewActivity>({
-		async mutationFn(newActivity) {
-			return postNewActivity(newActivity);
+	return useMutation<ActivityWithIds, unknown, ActivityInput>({
+		async mutationFn(activityInput) {
+			return postNewActivity(activityInput);
 		},
 		mutationKey: ["new-activity"],
 	});

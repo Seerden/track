@@ -1,9 +1,9 @@
 import { Router } from "express";
-import type { NewActivity } from "../../types/data/activity.types";
+import type { ActivityInput } from "../../types/data/activity.types";
 import type { NoteInput } from "../../types/data/note.types";
 import type { TagInput } from "../../types/data/tag.types";
 import { isAuthorized } from "../helpers/auth/is-authorized";
-import { insertActivity } from "../helpers/data/insert-activity";
+import { insertActivityWithTags } from "../helpers/data/insert-activity";
 import { insertNoteWithTags } from "../helpers/data/insert-note";
 import { insertTagWithRelation } from "../helpers/data/insert-tags";
 import {
@@ -17,10 +17,11 @@ export const dataRouter = Router({ mergeParams: true });
 // TODO: start without error handling, work on that later
 // TODO: turn every handler into a function itself, so that the router is just a
 // list of testable functions
+
 dataRouter.post("/activity", async (req, res) => {
-	const { newActivity } = req.body as { newActivity: NewActivity };
-	const activity = await insertActivity({ newActivity });
-	res.json({ activity });
+	const { activity, tagIds } = req.body as ActivityInput;
+	const insertedActivity = await insertActivityWithTags({ activity, tag_ids: tagIds });
+	res.json({ activity: insertedActivity });
 });
 
 dataRouter.get("/tags", isAuthorized, async (req, res) => {

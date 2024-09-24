@@ -1,17 +1,55 @@
-import { NewActivity } from "../../../types/data/activity.types";
+import { Activity, NewActivity } from "../../../types/data/activity.types";
+import { ActivityTagRelation } from "../../../types/data/relational.types";
+import { ID } from "../../../types/data/utility.types";
 import { WithSQL } from "../../../types/sql.types";
 import { sqlConnection } from "../../db/init";
 
-/** WIP */
-export async function insertActivity({
+async function insertActivity({
 	sql = sqlConnection,
-	newActivity,
-}: WithSQL<{ newActivity: NewActivity }>) {
-	// Insert activity into database
-	// Return the inserted activity
-
-	return sql`
-      insert into activities ${sql(newActivity)}
+	activity,
+}: WithSQL<{ activity: NewActivity }>) {
+	// TODO: is Activity typed correctly still?
+	const [insertedActivity] = await sql<[Activity]>`
+      insert into activities ${sql(activity)}
       returning *
    `;
+
+	return insertedActivity;
+}
+
+async function linkTagsToActivity({
+	sql = sqlConnection,
+	user_id,
+	activity_id,
+	tag_ids,
+}: WithSQL<{ activity_id: ID; user_id: ID; tag_ids: ID[] }>) {
+	const tagRelations = tag_ids.map((tag_id) => ({ user_id, activity_id, tag_id }));
+
+	return sql<ActivityTagRelation[]>`
+      insert into activities_tags ${sql(tagRelations)}
+      returning *
+   `;
+}
+
+export async function insertActivityWithTags({
+	sql = sqlConnection,
+	activity,
+	tag_ids,
+}: WithSQL<{ activity: NewActivity; tag_ids?: ID[] }>) {
+	return await sql.begin(async (q) => {
+		const insertedActivity = await insertActivity({ sql: q, activity });
+		let linkedTagIds: ID[] = [];
+
+		if (Array.isArray(tag_ids) && tag_ids?.length) {
+			const relations = await linkTagsToActivity({
+				sql: q,
+				user_id: insertedActivity.user_id,
+				activity_id: insertedActivity.activity_id,
+				tag_ids,
+			});
+			linkedTagIds = relations.map((r) => r.tag_id);
+		}
+
+		return Object.assign(insertedActivity, { tag_ids: linkedTagIds });
+	});
 }

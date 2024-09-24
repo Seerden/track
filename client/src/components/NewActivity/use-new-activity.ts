@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTagSelection } from "../../lib/state/selected-tags-state";
 import useAuthentication from "../../lib/use-authentication";
 import { DateTimeField } from "../../types/form.types";
 import type { NewActivity } from "../../types/server/activity.types";
@@ -7,6 +8,7 @@ import { useNewActivityMutation } from "./use-new-activity-mutation";
 export default function useNewActivity() {
 	const { mutate: submit } = useNewActivityMutation();
 	const { currentUser } = useAuthentication();
+	const { selectedTagIds } = useTagSelection();
 	// TODO: typing below is only Partial because the typing thinks user_id may be null, when it can't
 	// actually be null because this component will always be rendered as
 	// Protected. Maybe we make user_id optional and check for it in the
@@ -22,7 +24,7 @@ export default function useNewActivity() {
 
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-		submit(newActivity as NewActivity);
+		submit({ activity: newActivity as NewActivity, tagIds: selectedTagIds });
 	}
 
 	function onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
