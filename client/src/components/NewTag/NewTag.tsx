@@ -5,7 +5,7 @@ import useNewTag from "./use-new-tag";
 
 function NewTag() {
 	const { onInputChange, onSubmit } = useNewTag();
-	const { data: tags } = useTagsQuery();
+	const { data: tags } = useTagsQuery(); // TODO: this should be inside useNewTag
 
 	return (
 		<S.Form onSubmit={onSubmit}>
