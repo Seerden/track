@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useAuthentication from "../../lib/use-authentication";
 import { DateTimeField } from "../../types/form.types";
 import type { NewActivity } from "../../types/server/activity.types";
@@ -17,10 +17,6 @@ export default function useNewActivity() {
 		description: "",
 		user_id: currentUser?.user_id,
 	}));
-
-	useEffect(() => {
-		console.log({ newActivity });
-	}, [newActivity]);
 
 	// TODO: handle tag selection!
 
