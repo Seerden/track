@@ -17,6 +17,7 @@ const NewNote = lazy(() => import("./components/NewNote/NewNote"));
 const Register = lazy(() => import("./components/Register/Register"));
 const Home = lazy(() => import("./components/Home"));
 const Header = lazy(() => import("./components/Header/Header"));
+const NewActivity = lazy(() => import("./components/NewActivity/NewActivity"));
 
 function App() {
 	return (
@@ -42,6 +43,15 @@ function App() {
 										element={
 											<Protected>
 												<NewNote />
+											</Protected>
+										}
+									/>
+
+									<Route
+										path="/activity/new"
+										element={
+											<Protected>
+												<NewActivity />
 											</Protected>
 										}
 									/>

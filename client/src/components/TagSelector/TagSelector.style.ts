@@ -1,13 +1,13 @@
 import styled, { css } from "styled-components";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ $fullSize?: boolean }>`
 	margin-top: 0.8rem;
 	border: 2px solid #ccc;
 	padding: 0.3rem 0.4rem;
 	display: flex;
 	flex-direction: column;
 
-	max-width: 400px;
+	max-width: ${(p) => (p.$fullSize ? "100%" : "400px")};
 `;
 
 export const List = styled.ul<{ $oneLine?: boolean }>`

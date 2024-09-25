@@ -1,28 +1,16 @@
-import { useMemo, useState } from "react";
+import type { DateTimePickerProps } from "./datetime-picker.types";
 import * as S from "./DateTimePicker.style";
+import useDateTimePicker from "./use-datetime-picker";
 
-export function DateTimePicker() {
-	const [allDay, setAllDay] = useState(false);
-
-	type Values = {
-		start: string;
-		end: string;
-	};
-
-	const [values, setValues] = useState<Values>({
-		start: "",
-		end: ""
+export function DateTimePicker({ setState }: DateTimePickerProps) {
+	const { allDay, setAllDay, values, validEnd, onBlur } = useDateTimePicker({
+		setState
 	});
-
-	const validEnd = useMemo(() => {
-		if (!values.start || !values.end) return true;
-		return !!values.start && !!values.end && values.end >= values.start;
-	}, [values]);
 
 	return (
 		<S.Form>
 			<S.Label>
-				All day
+				All day?
 				<input
 					type="checkbox"
 					checked={!!allDay}
@@ -36,7 +24,7 @@ export function DateTimePicker() {
 					required
 					type={allDay ? "date" : "datetime-local"}
 					defaultValue={values.start}
-					onBlur={(e) => setValues((cur) => ({ ...cur, start: e.target.value }))}
+					onBlur={(e) => onBlur(e, "start")}
 				/>
 			</S.Label>
 
@@ -47,7 +35,7 @@ export function DateTimePicker() {
 						required
 						type={allDay ? "date" : "datetime-local"}
 						defaultValue={values.end}
-						onBlur={(e) => setValues((cur) => ({ ...cur, end: e.target.value }))}
+						onBlur={(e) => onBlur(e, "end")}
 					/>
 				</S.Label>
 				{!validEnd && <S.Warning>End must be after start.</S.Warning>}

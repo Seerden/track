@@ -4,6 +4,7 @@ import { useTagSelection } from "../../lib/state/selected-tags-state";
 import useAuthentication from "../../lib/use-authentication";
 import { useNewNoteMutation } from "../../lib/use-new-note-mutation";
 import useRouteProps from "../../lib/use-route-props";
+import useTagsQuery from "../../lib/use-tags-query";
 import { NewNote } from "../../types/server/note.types";
 
 type UseNewNoteProps = {
@@ -11,6 +12,7 @@ type UseNewNoteProps = {
 };
 
 export default function useNewNote({ inActivity }: UseNewNoteProps = {}) {
+	const { data: tags } = useTagsQuery(); // TODO: this should be inside useNewNote
 	const { navigate } = useRouteProps();
 	const { currentUser } = useAuthentication();
 	const { mutate } = useNewNoteMutation();
@@ -75,5 +77,6 @@ export default function useNewNote({ inActivity }: UseNewNoteProps = {}) {
 		note,
 		onInputChange,
 		onSubmit,
+		tags,
 	};
 }

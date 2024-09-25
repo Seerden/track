@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useTagSelection } from "../../lib/state/selected-tags-state";
+import useTagsQuery from "../../lib/use-tags-query";
 import { ID } from "../../types/server/utility.types";
 
 type UseTagSelector = {
@@ -8,6 +9,8 @@ type UseTagSelector = {
 
 // TODO: handle case where maximum > 1.
 export default function useTagSelector({ maximum }: UseTagSelector = {}) {
+	const { data: tags } = useTagsQuery();
+
 	const { tagSelection, setTagSelection, toggleTagSelection } = useTagSelection();
 	const [filter, setFilter] = useState<string>("");
 
@@ -28,5 +31,6 @@ export default function useTagSelector({ maximum }: UseTagSelector = {}) {
 		updateTagSelection,
 		filter,
 		updateFilter,
+		tags,
 	};
 }

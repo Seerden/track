@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useTagSelection } from "../../lib/state/selected-tags-state";
 import useAuthentication from "../../lib/use-authentication";
+import useTagsQuery from "../../lib/use-tags-query";
 import type { NewTag } from "../../types/server/tag.types";
 import { useNewTagMutation } from "./use-new-tag-mutation";
 
 export default function useNewTag() {
 	const { currentUser } = useAuthentication();
-
+	const { data: tags } = useTagsQuery(); // TODO: this should be inside useNewTag
 	const { mutate: submit } = useNewTagMutation();
 
 	const [newTag, setNewTag] = useState<NewTag>({
@@ -39,5 +40,6 @@ export default function useNewTag() {
 	return {
 		onInputChange,
 		onSubmit,
+		tags,
 	};
 }
