@@ -22,8 +22,6 @@ export default function useNewActivity() {
 		user_id: currentUser?.user_id,
 	}));
 
-	// TODO: handle tag selection!
-
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 		submit(
