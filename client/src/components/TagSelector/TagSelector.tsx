@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import useTagsQuery from "../../lib/use-tags-query";
 import type { TagWithIds } from "../../types/server/tag.types";
 import type { ById } from "../../types/server/utility.types";
 import * as S from "./TagSelector.style";
@@ -20,10 +19,10 @@ export default function TagSelector({
 	maximum,
 	oneLine
 }: TagSelectorProps) {
-	const { tagSelection, updateTagSelection, filter, updateFilter } = useTagSelector({
-		maximum
-	});
-	const { data: tags } = useTagsQuery(); // TODO: this should be inside useTagSelector
+	const { tagSelection, updateTagSelection, filter, updateFilter, tags } =
+		useTagSelector({
+			maximum
+		});
 
 	const elements = useMemo(() => {
 		// tags may not be fetched yet, so cannot do !tags?.tagsById, need it
