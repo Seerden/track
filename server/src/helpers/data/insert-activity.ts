@@ -8,7 +8,6 @@ async function insertActivity({
 	sql = sqlConnection,
 	activity,
 }: WithSQL<{ activity: NewActivity }>) {
-	// TODO: is Activity typed correctly still?
 	const [insertedActivity] = await sql<[Activity]>`
       insert into activities ${sql(activity)}
       returning *
