@@ -27,6 +27,10 @@ export default function useNewActivity() {
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 		submit(
+			// NOTE: We type newActivity as NewActivity because of the user_id, which
+			// typescript thinks is nullable. I think it's fine like this for now
+			// but it does become a potential source for bugs if currentUser ever
+			// doesn't exist when this function is called.
 			{ activity: newActivity as NewActivity, tagIds: selectedTagIds },
 			{
 				onSuccess: () => {
