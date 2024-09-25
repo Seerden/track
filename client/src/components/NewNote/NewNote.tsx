@@ -1,4 +1,3 @@
-import useTagsQuery from "../../lib/use-tags-query";
 import TagSelector from "../TagSelector/TagSelector";
 import * as S from "./NewNote.style";
 import useNewNote from "./use-new-note";
@@ -8,8 +7,7 @@ type NewNoteProps = {
 };
 
 function NewNote({ inActivity }: NewNoteProps) {
-	const { data: tags } = useTagsQuery(); // TODO: this should be inside useNewNote
-	const { onInputChange, onSubmit } = useNewNote({ inActivity });
+	const { onInputChange, onSubmit, tags } = useNewNote({ inActivity });
 
 	return (
 		<S.Wrapper>

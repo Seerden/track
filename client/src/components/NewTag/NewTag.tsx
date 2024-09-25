@@ -1,11 +1,9 @@
-import useTagsQuery from "../../lib/use-tags-query";
 import TagSelector from "../TagSelector/TagSelector";
 import * as S from "./NewTag.style";
 import useNewTag from "./use-new-tag";
 
 function NewTag() {
-	const { onInputChange, onSubmit } = useNewTag();
-	const { data: tags } = useTagsQuery(); // TODO: this should be inside useNewTag
+	const { onInputChange, onSubmit, tags } = useNewTag();
 
 	return (
 		<S.Form onSubmit={onSubmit}>
