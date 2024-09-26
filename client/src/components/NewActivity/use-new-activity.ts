@@ -4,6 +4,7 @@ import useAuthentication from "../../lib/use-authentication";
 import useRouteProps from "../../lib/use-route-props";
 import { DateTimeField } from "../../types/form.types";
 import type { NewActivity } from "../../types/server/activity.types";
+import { parseNewActivity } from "./parse-new-activity";
 import { useNewActivityMutation } from "./use-new-activity-mutation";
 
 export default function useNewActivity() {
@@ -24,12 +25,13 @@ export default function useNewActivity() {
 
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
+
 		submit(
 			// NOTE: We type newActivity as NewActivity because of the user_id, which
 			// typescript thinks is nullable. I think it's fine like this for now
 			// but it does become a potential source for bugs if currentUser ever
 			// doesn't exist when this function is called.
-			{ activity: newActivity as NewActivity, tagIds: selectedTagIds },
+			{ activity: parseNewActivity(newActivity), tagIds: selectedTagIds },
 			{
 				onSuccess: () => {
 					navigate("/activities");
