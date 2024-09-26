@@ -60,7 +60,9 @@ function ActivityItem({ activity, tags }: ActivityItemProps) {
 					</span>
 				</S.Dates>
 			</S.Title>
-			<S.Description>{activity.description}</S.Description>
+			{activity.description.length > 0 && (
+				<S.Description>{activity.description}</S.Description>
+			)}
 
 			<Tags tags={tags!} />
 

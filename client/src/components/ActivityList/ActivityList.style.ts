@@ -67,10 +67,11 @@ export const Date = styled.span``;
 export const Tag = styled.div`
 	margin-top: 0.4rem;
 	padding: 0.2rem 0.6rem;
-	background-color: darkorchid;
-	color: azure;
+	background-color: gold;
+	color: black;
 	font-size: 0.9rem;
 	width: max-content;
+	border-radius: 3px;
 `;
 
 const checkboxSize = `25px`;
