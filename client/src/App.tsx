@@ -18,6 +18,7 @@ const Register = lazy(() => import("./components/Register/Register"));
 const Home = lazy(() => import("./components/Home"));
 const Header = lazy(() => import("./components/Header/Header"));
 const NewActivity = lazy(() => import("./components/NewActivity/NewActivity"));
+const ActivityList = lazy(() => import("./components/ActivityList/ActivityList"));
 
 function App() {
 	return (
@@ -30,6 +31,14 @@ function App() {
 							<Router>
 								<Header />
 								<AnimatedRoutes>
+									<Route
+										path="/activities"
+										element={
+											<Protected>
+												<ActivityList />
+											</Protected>
+										}
+									/>
 									<Route
 										path="/notes"
 										element={

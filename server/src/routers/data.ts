@@ -10,6 +10,7 @@ import {
 	createTagTreeMap,
 	getTagsWithRelations,
 } from "../helpers/data/merge-tags-and-relations";
+import { queryActivitiesAndRelations } from "../helpers/data/query-activities";
 import { queryNotesAndRelations } from "../helpers/data/query-notes";
 
 export const dataRouter = Router({ mergeParams: true });
@@ -53,4 +54,11 @@ dataRouter.post("/note", isAuthorized, async (req, res) => {
 	const { note, tagIds } = req.body as NoteInput;
 	const insertedNote = await insertNoteWithTags({ note, tag_ids: tagIds });
 	res.json({ note: insertedNote });
+});
+
+dataRouter.get("/activities", isAuthorized, async (req, res) => {
+	const user_id = req.session.user!.user_id;
+	const activitiesById = await queryActivitiesAndRelations({ user_id });
+
+	res.json({ activitiesById });
 });

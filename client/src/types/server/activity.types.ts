@@ -6,12 +6,12 @@ export type NewActivity = {
 	user_id: ID;
 	name: string;
 	description: string;
-	started_at?: Timestamp; // TODO: rename this to start_timestamp
-	ended_at?: Timestamp; // TODO: rename this to end_timestamp
-	start_date?: string; // YYYYMMDD
-	end_date?: string;
 	duration_milliseconds?: number; // in milliseconds
 	is_task?: boolean;
+	start_date?: string;
+	end_date?: string;
+	started_at?: Timestamp; // TODO: should be start_timestamp
+	ended_at?: Timestamp; // TODO: should be end_timestamp
 };
 
 export type ActivityUpdate = {
