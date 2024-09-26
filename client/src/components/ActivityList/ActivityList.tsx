@@ -1,8 +1,7 @@
-import dayjs from "dayjs";
-import { formatDate } from "../../lib/format-date";
 import { ActivityWithIds } from "../../types/server/activity.types";
 import type { TagWithIds } from "../../types/server/tag.types";
 import * as S from "./ActivityList.style";
+import { getFormattedDateField } from "./get-date-field";
 import useActivityList from "./use-activity-list";
 
 export default function ActivityList() {
@@ -35,17 +34,10 @@ type ActivityItemProps = {
 	tags?: TagWithIds[];
 };
 
-function getStartField(activity: ActivityWithIds) {
-	return dayjs(activity.start_date || activity.started_at);
-}
-
-function getEndField(activity: ActivityWithIds) {
-	return dayjs(activity.end_date || activity.ended_at);
-}
-
 function ActivityItem({ activity, tags }: ActivityItemProps) {
-	const startsAt = formatDate(getStartField(activity), { short: true }); // this and getEndField should be one function
-	const endsAt = formatDate(getEndField(activity), { short: true });
+	const [startsAt, endsAt] = (["start", "end"] as const).map((type) =>
+		getFormattedDateField({ type, activity, short: true })
+	);
 
 	return (
 		<S.Item>
@@ -64,18 +56,18 @@ function ActivityItem({ activity, tags }: ActivityItemProps) {
 				<S.Description>{activity.description}</S.Description>
 			)}
 
-			<Tags tags={tags!} />
+			{Array.isArray(tags) && <Tags tags={tags} />}
 
-			{activity.is_task && <Checkbox />}
+			{activity.is_task && <S.Checkbox type="checkbox" />}
 		</S.Item>
 	);
 }
 
-function Checkbox() {
-	return <S.Checkbox type="checkbox" />;
-}
+type TagsProps = {
+	tags: TagWithIds[];
+};
 
-function Tags({ tags }: { tags: TagWithIds[] }) {
+function Tags({ tags }: TagsProps) {
 	return (
 		<S.Tags>
 			{tags.map((tag) => (
@@ -85,10 +77,10 @@ function Tags({ tags }: { tags: TagWithIds[] }) {
 	);
 }
 
-function Tag({ tag }: { tag: TagWithIds }) {
-	return (
-		<S.Tag>
-			<span>{tag.name}</span>
-		</S.Tag>
-	);
+type TagProps = {
+	tag: TagWithIds;
+};
+
+function Tag({ tag }: TagProps) {
+	return <S.Tag>{tag.name}</S.Tag>;
 }
