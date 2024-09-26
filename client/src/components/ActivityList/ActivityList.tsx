@@ -58,6 +58,7 @@ function ActivityItem({ activity, tags }: ActivityItemProps) {
 
 			{Array.isArray(tags) && <Tags tags={tags} />}
 
+			{/* TODO: this checkbox will eventually actually be linked to `completed` state. */}
 			{activity.is_task && <S.Checkbox type="checkbox" />}
 		</S.Item>
 	);
