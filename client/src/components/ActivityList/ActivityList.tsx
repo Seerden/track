@@ -15,15 +15,19 @@ export default function ActivityList() {
 		<S.Wrapper>
 			<h1>Activities</h1>
 			<S.List>
-				{Object.values(activitiesById).map((activity) => (
-					<ActivityItem
-						key={activity.activity_id}
-						activity={activity}
-						tags={Object.values(tagsData?.tagsById ?? {}).filter((tag) =>
-							activity.tag_ids.includes(tag.tag_id)
-						)}
-					/>
-				))}
+				{Object.values(activitiesById).map((activity) => {
+					const tags = Object.values(tagsData?.tagsById ?? {}).filter((tag) =>
+						activity.tag_ids.includes(tag.tag_id)
+					);
+
+					return (
+						<ActivityItem
+							key={activity.activity_id}
+							activity={activity}
+							tags={tags}
+						/>
+					);
+				})}
 			</S.List>
 		</S.Wrapper>
 	);
