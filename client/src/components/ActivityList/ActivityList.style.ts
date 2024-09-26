@@ -3,9 +3,10 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
 	margin: 1.2rem auto;
 
-	padding: 0.6rem 0.9rem;
-	box-shadow: 0 0 1rem 0 #ccc;
+	padding: 1.2rem 2rem;
+	box-shadow: 0 0 1rem 0 #aaa;
 	max-width: 720px;
+	border: 2px solid #aaa;
 `;
 
 export const List = styled.ul`
