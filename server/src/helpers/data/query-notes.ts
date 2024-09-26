@@ -14,7 +14,10 @@ export async function queryNotesByUser({
 }
 
 /** Gets all of a user's note_tags relations. */
-async function queryNoteTags({ sql = sqlConnection, user_id }: WithSQL<{ user_id: ID }>) {
+async function queryNoteTagsByUser({
+	sql = sqlConnection,
+	user_id,
+}: WithSQL<{ user_id: ID }>) {
 	return sql<NoteTagRelation[]>`
       select * from notes_tags where user_id = ${user_id}
    `;
@@ -26,7 +29,7 @@ export async function queryNotesAndRelations(
 	sql = sqlConnection
 ) {
 	const notes = await queryNotesByUser({ sql, user_id });
-	const noteTagRelations = await queryNoteTags({ sql, user_id });
+	const noteTagRelations = await queryNoteTagsByUser({ sql, user_id });
 
 	return mergeNotesAndRelations(notes, noteTagRelations);
 }

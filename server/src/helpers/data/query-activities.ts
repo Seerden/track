@@ -12,7 +12,7 @@ export async function queryActivitiesByUser({
 	return sql<Activity[]>`select * from activities where user_id = ${user_id}`;
 }
 
-export async function queryActivityTags({
+export async function queryActivityTagsByUser({
 	sql = sqlConnection,
 	user_id,
 }: WithSQL<{ user_id: ID }>) {
@@ -26,7 +26,7 @@ export async function queryActivitiesAndRelations({
 	user_id,
 }: WithSQL<{ user_id: ID }>) {
 	const activities = await queryActivitiesByUser({ sql, user_id });
-	const activityTagRelations = await queryActivityTags({ sql, user_id });
+	const activityTagRelations = await queryActivityTagsByUser({ sql, user_id });
 
 	return mergeActivitiesAndRelations(activities, activityTagRelations);
 }
