@@ -8,8 +8,12 @@ import "./normalize.css";
 
 import duration from "dayjs/plugin/duration";
 import relativeTime from "dayjs/plugin/relativeTime";
+import tz from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
 dayjs.extend(duration);
 dayjs.extend(relativeTime);
+dayjs.extend(utc);
+dayjs.extend(tz);
 
 if (process.env.NODE_ENV === "development") {
 	await worker.start();
