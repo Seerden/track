@@ -22,23 +22,28 @@ function Row({ index, activities, indentation }: RowProps) {
 		<S.Row>
 			<HourMark index={index} />
 
-			{activities.map((a) => {
-				const level = indentation.get(a.activity_id) ?? 0;
-				const heightOffset = activityStart(a).minute() / 60;
-				return (
-					<S.ActivityCard key={a.activity_id} $level={level} $offset={heightOffset}>
-						<Activity activity={a} />
-					</S.ActivityCard>
-				);
-			})}
+			{activities.map((a) => (
+				<Activity key={a.activity_id} activity={a} indentation={indentation} />
+			))}
 		</S.Row>
 	);
 }
 
-function Activity({ activity }: { activity: ActivityWithIds }) {
-	const durationHours = activityDuration(activity);
+type ActivityProps = {
+	activity: ActivityWithIds;
+	indentation: Map<ID, number>;
+};
 
-	return <S.Activity $durationHours={durationHours}>{activity.name}</S.Activity>;
+function Activity({ activity, indentation }: ActivityProps) {
+	const durationHours = activityDuration(activity);
+	const offset = activityStart(activity).minute() / 60;
+	const level = indentation.get(activity.activity_id) ?? 0;
+
+	return (
+		<S.ActivityCard key={activity.activity_id} $level={level} $offset={offset}>
+			<S.Activity $durationHours={durationHours}>{activity.name}</S.Activity>
+		</S.ActivityCard>
+	);
 }
 
 export default function Today() {
