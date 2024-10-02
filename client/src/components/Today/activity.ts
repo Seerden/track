@@ -20,8 +20,9 @@ export function activityEnd(activity: ActivityWithIds) {
 
 export function activityFallsOnDay(activity: ActivityWithIds, date: Datelike) {
 	const [start, end] = [activityStart(activity), activityEnd(activity)];
+	const day = dayjs(date);
 
-	return sameDay(start, date) || sameDay(end, date);
+	return sameDay(start, day) || sameDay(end, day);
 }
 
 /**
