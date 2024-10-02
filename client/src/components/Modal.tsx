@@ -14,8 +14,6 @@ export default function Modal(
 	}
 ) {
 	const modalRef = useRef(null);
-	// TODO: if initialOpen is false, we need a way to open the modal. Wait for a
-	// use case before thinking about what to do in that case.
 	const { isOpen, close } = useModal(modalRef, { initialOpen, outsideStateHandler });
 
 	if (!isOpen) {

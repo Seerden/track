@@ -19,7 +19,6 @@ export default function NewTagButton() {
 				<MdLabelImportant />
 			</S.Button>
 
-			{/* TODO: find a way to reset isOpen state when modal is closed.  */}
 			{isOpen && (
 				<Modal initialOpen={true} outsideStateHandler={setIsOpen}>
 					<NewTag />
