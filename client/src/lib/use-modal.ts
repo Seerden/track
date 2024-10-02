@@ -29,7 +29,7 @@ export default function useModal(
 	}
 
 	function onKeydown(e: KeyboardEvent) {
-		if (isOpen && modalRef.current && keys?.includes(e.code)) {
+		if (isOpen && modalRef.current && ["Escape"].concat(keys ?? []).includes(e.code)) {
 			close();
 		}
 	}
