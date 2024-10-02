@@ -17,13 +17,13 @@ export const Button = styled.button`
 	box-shadow: 0 0.4rem 0 -0.1rem #ddd;
 	margin-top: 0.5rem;
 	color: white;
-	background-color: #ccc;
+	background-color: limegreen;
 
 	transition: all 25ms linear;
 	&:hover {
-		background-color: gold;
+		background-color: forestgreen;
 		box-shadow: 0 0.8rem 0 -0.6rem #ddd;
 		transform: translateX(5px);
-		border-bottom-color: gold;
+		border-bottom-color: limegreen;
 	}
 `;
