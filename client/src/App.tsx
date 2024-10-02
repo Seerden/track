@@ -10,6 +10,7 @@ import AnimatedRoutes from "./components/AnimatedRoutes";
 import Notes from "./components/Notes/Notes";
 import Protected from "./components/Protected";
 import Suspended from "./components/Suspended";
+import Today from "./components/Today/Today";
 import { queryClient } from "./lib/query-client";
 import { theme } from "./lib/theme/theme";
 
@@ -31,6 +32,14 @@ function App() {
 							<Router>
 								<Header />
 								<AnimatedRoutes>
+									<Route
+										path="/today"
+										element={
+											<Protected>
+												<Today />
+											</Protected>
+										}
+									/>
 									<Route
 										path="/activities"
 										element={
