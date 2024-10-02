@@ -1,34 +1,23 @@
 import dayjs from "dayjs";
+import { formatHour } from "../../lib/format-date";
 import { ActivityWithIds } from "../../types/server/activity.types";
+import { ID } from "../../types/server/utility.types";
 import { activityDuration, activityStart, activityStartHour } from "./activity";
 import * as S from "./Today.style";
 import useToday from "./use-today";
 
-/**
- * Format an index (presumably from 0-23) to HH:mm syntax.
- * TODO: is there a dayjs function for this?
- * TODO: move this to a helper file.
- */
-function formatHour(
-	index: number // index 0 is 12am, 1 is 1am, 12 is 12pm, 23 is 11pm, etc
-) {
-	return `${index < 10 ? "0" : ""}${index}:00`;
-}
-
 function HourMark({ index }: { index: number }) {
-	const text = formatHour(index);
-	return <S.HourMark>{text}</S.HourMark>;
+	const label = formatHour(index);
+	return <S.HourMark>{label}</S.HourMark>;
 }
 
-function Row({
-	index,
-	activities,
-	indentation
-}: {
+type RowProps = {
 	index: number;
 	activities: ActivityWithIds[];
-	indentation: Map<number, number>;
-}) {
+	indentation: Map<ID, number>;
+};
+
+function Row({ index, activities, indentation }: RowProps) {
 	return (
 		<S.Row>
 			<HourMark index={index} />
@@ -47,13 +36,9 @@ function Row({
 }
 
 function Activity({ activity }: { activity: ActivityWithIds }) {
-	return (
-		<>
-			<S.Activity $durationHours={activityDuration(activity)}>
-				{activity.name}
-			</S.Activity>
-		</>
-	);
+	const durationHours = activityDuration(activity);
+
+	return <S.Activity $durationHours={durationHours}>{activity.name}</S.Activity>;
 }
 
 export default function Today() {
