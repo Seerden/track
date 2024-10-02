@@ -8,14 +8,14 @@ import { sameDay } from "./date";
  * year-month-date string. */
 export function activityStart(activity: ActivityWithIds) {
 	const start = activity.start_date ?? activity.started_at;
-	return dayjs(start);
+	return dayjs.utc(start);
 }
 
 /** Gets the `end` of an activity, which is either a timestamp or
  * year-month-date string. */
 export function activityEnd(activity: ActivityWithIds) {
 	const end = activity.end_date ?? activity.ended_at;
-	return dayjs(end);
+	return dayjs.utc(end);
 }
 
 export function activityFallsOnDay(activity: ActivityWithIds, date: Datelike) {
