@@ -24,7 +24,7 @@ function NewNote({ inActivity }: NewNoteProps) {
 						/>
 					</S.Field>
 					<S.Field>
-						<TagSelector tagsById={tags?.tagsById} oneLine />
+						<TagSelector tagsById={tags?.tagsById} oneLine showNewTagButton />
 					</S.Field>
 				</S.MainFields>
 				<S.Content>
