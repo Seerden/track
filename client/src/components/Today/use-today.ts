@@ -5,7 +5,7 @@ import { activityFallsOnDay, assignIndentationLevelToActivities } from "./activi
 export default function useToday() {
 	const { data: activitiesData } = useActivitiesQuery();
 	const activities = Object.values(activitiesData?.activitiesById ?? {});
-	const today = dayjs();
+	const today = dayjs.utc();
 	const todayActivities = activities.filter((activity) => {
 		return activityFallsOnDay(activity, today);
 	});
