@@ -1,20 +1,25 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.main`
-	margin: 1.2rem auto;
-	max-width: 720px;
+export const Wrapper = styled.div``;
+
+export const TimelineWrapper = styled.section`
 	display: flex;
 	flex-direction: column;
-	box-shadow:
-		1rem 1rem 0.1rem -0.6rem green,
-		0 0 0 0.3rem darkseagreen,
-		0 0 2rem -0.2rem #333;
 	padding: 1rem 3rem;
-	border-radius: 5px;
+	border: 2px solid #ccc;
+`;
+
+export const TasksWrapper = styled.section`
+	border: 2px solid #ccc;
+`;
+
+export const NotesWrapper = styled.section`
+	border: 2px solid #ccc;
 `;
 
 export const Title = styled.h1`
 	font-size: 1.5rem;
+	max-height: max-content;
 	background-color: forestgreen;
 	width: max-content;
 	padding: 0.6rem 2.5rem;
@@ -33,13 +38,14 @@ export const Rows = styled.ul`
 	flex-direction: column;
 `;
 
-const rowHeight = 50;
+const rowHeight = 30;
 
 export const Row = styled.li`
 	position: relative;
 	display: flex;
 	border-top: 2px solid #ddd;
 	min-height: ${rowHeight}px;
+	width: 100%;
 `;
 
 export const HourMark = styled.span`
@@ -55,14 +61,18 @@ export const HourMark = styled.span`
 	padding: 0 0.5rem;
 `;
 
+const cardWidth = 100;
+const cardGap = 5;
+
 export const ActivityCard = styled.div<{ $level: number; $offset: number }>`
 	position: absolute;
 	top: calc(${(p) => p.$offset * 100}%);
-	left: calc(3rem + ${(p) => p.$level * 5}rem);
+	left: calc(3rem + ${(p) => p.$level * (cardGap + cardWidth)}px);
 	display: flex;
 	width: 100%;
 	height: max-content;
 `;
+
 export const Activity = styled.div<{ $durationHours: number }>`
 	display: flex;
 	position: absolute;
@@ -74,8 +84,7 @@ export const Activity = styled.div<{ $durationHours: number }>`
 	align-items: ${(p) => (p.$durationHours > 2 ? "flex-start" : "center")};
 
 	outline: 2px solid #eee;
-	--width: 75px;
-	width: var(--width);
+	width: ${cardWidth}px;
 	border-radius: 3px;
 
 	transition: all 35ms ease-in;
@@ -85,4 +94,31 @@ export const Activity = styled.div<{ $durationHours: number }>`
 		background-color: green;
 		color: azure;
 	}
+`;
+
+export const Task = styled.div`
+	display: flex;
+	flex-direction: row;
+	gap: 0.5rem;
+	border-radius: 3x;
+	background-color: #ccc;
+	width: max-content;
+	padding: 0.5rem 1rem;
+	margin: 0.5rem;
+`;
+
+export const Checkbox = styled.input`
+	margin-right: 0.5rem;
+`;
+
+export const Columns = styled.div`
+	display: grid;
+
+	@media (min-width: 1920px) {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	grid-template-columns: 1fr;
+
+	gap: 0.5rem;
 `;

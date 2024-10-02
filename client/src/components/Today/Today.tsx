@@ -1,8 +1,14 @@
 import dayjs from "dayjs";
 import { formatHour } from "../../lib/format-date";
 import { ActivityWithIds } from "../../types/server/activity.types";
+import { NoteWithIds } from "../../types/server/note.types";
 import { ID } from "../../types/server/utility.types";
-import { activityDuration, activityStart, activityStartHour } from "./activity";
+import {
+	activityDuration,
+	activityEnd,
+	activityStart,
+	activityStartHour
+} from "./activity";
 import * as S from "./Today.style";
 import useToday from "./use-today";
 
@@ -46,6 +52,49 @@ function Activity({ activity, indentation }: ActivityProps) {
 	);
 }
 
+type TasksProps = {
+	activities: ActivityWithIds[];
+};
+
+function Task({ activity }: { activity: ActivityWithIds }) {
+	return (
+		<S.Task>
+			<S.Checkbox type="checkbox" checked={activity.completed} />
+			<span>{activity.name}</span>
+			<div>
+				{activityStart(activity).format("HH:mm")}
+				{" - "}
+				{activityEnd(activity).format("HH:mm")}
+			</div>
+		</S.Task>
+	);
+}
+
+function Tasks({ activities }: TasksProps) {
+	return (
+		<S.TasksWrapper>
+			<h2>Tasks</h2>
+			{activities.map((a) => (
+				<Task key={a.activity_id} activity={a} />
+			))}
+		</S.TasksWrapper>
+	);
+}
+
+function Notes({ notes }: { notes: NoteWithIds[] }) {
+	return (
+		<S.NotesWrapper>
+			<h2>Notes</h2>
+			{notes.map((note) => (
+				<div key={note.note_id}>
+					<h3>{note.title}</h3>
+					<p>{note.content}</p>
+				</div>
+			))}
+		</S.NotesWrapper>
+	);
+}
+
 export default function Today() {
 	const { activities, indentation } = useToday();
 	const today = dayjs();
@@ -53,21 +102,28 @@ export default function Today() {
 	return (
 		<S.Wrapper>
 			<S.Title>Today</S.Title>
-			<S.Rows>
-				{Array.from(
-					{ length: 24 }, // render a row for every hour of the day
-					(_, i) => (
-						<Row
-							key={i}
-							index={i}
-							activities={activities.filter(
-								(a) => activityStartHour(a, today) === i
-							)}
-							indentation={indentation}
-						/>
-					)
-				)}
-			</S.Rows>
+
+			<S.Columns>
+				<S.TimelineWrapper>
+					<S.Rows>
+						{Array.from(
+							{ length: 24 }, // render a row for every hour of the day
+							(_, i) => (
+								<Row
+									key={i}
+									index={i}
+									activities={activities.filter(
+										(a) => activityStartHour(a, today) === i
+									)}
+									indentation={indentation}
+								/>
+							)
+						)}
+					</S.Rows>
+				</S.TimelineWrapper>
+				<Tasks activities={activities.filter((a) => a.is_task)} />
+				<Notes notes={[]} />
+			</S.Columns>
 		</S.Wrapper>
 	);
 }
