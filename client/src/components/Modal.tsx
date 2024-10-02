@@ -1,4 +1,5 @@
 import { PropsWithChildren, useRef } from "react";
+import { createPortal } from "react-dom";
 import useModal from "../lib/use-modal";
 import * as S from "./Modal.style";
 
@@ -16,12 +17,13 @@ export default function Modal(
 		return null;
 	}
 
-	return (
+	return createPortal(
 		<S.ModalWrapper>
 			<S.Modal ref={modalRef}>
 				<S.Close onClick={close} />
 				{children}
 			</S.Modal>
-		</S.ModalWrapper>
+		</S.ModalWrapper>,
+		document.querySelector("#modal-root")!
 	);
 }
