@@ -20,6 +20,7 @@ export const Button = styled.button`
 	background-color: limegreen;
 
 	transition: all 25ms linear;
+
 	&:hover {
 		background-color: forestgreen;
 		box-shadow: 0 0.8rem 0 -0.6rem #ddd;
