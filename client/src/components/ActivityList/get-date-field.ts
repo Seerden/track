@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { formatDate } from "../../lib/format-date";
 import { ActivityWithIds } from "../../types/server/activity.types";
 
@@ -17,7 +16,9 @@ export function getDateField({
 		field = activity.end_date ?? activity.ended_at;
 	}
 
-	return dayjs(field);
+	// `field` is always defined because an activity either has date fields or
+	// timestamps. TODO: refine the activity type to reflect this
+	return field!;
 }
 
 export function getFormattedDateField({
