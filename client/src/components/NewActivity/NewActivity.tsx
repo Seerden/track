@@ -34,7 +34,7 @@ function NewActivity() {
 
 				{/* tag selector component goes here */}
 				<N.Row>
-					<TagSelector fullSize title="Tags" />
+					<TagSelector fullSize title="Tags" showNewTagButton />
 				</N.Row>
 
 				<N.Button>Create activity</N.Button>

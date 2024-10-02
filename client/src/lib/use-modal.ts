@@ -4,11 +4,12 @@ type UseModalProps = {
 	keys?: string[];
 	outsideClickHandler?: (e: MouseEvent) => void; // TODO: I'm not sure if this will ever be used
 	initialOpen?: boolean;
+	outsideStateHandler?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function useModal(
 	modalRef: RefObject<HTMLElement | null>,
-	{ keys, outsideClickHandler, initialOpen }: UseModalProps = {
+	{ keys, outsideClickHandler, initialOpen, outsideStateHandler }: UseModalProps = {
 		keys: ["Escape"],
 		initialOpen: false,
 	},
@@ -17,15 +18,18 @@ export default function useModal(
 
 	function close() {
 		setIsOpen(false);
+		outsideStateHandler?.(false);
 		window.removeEventListener("click", onClickOutside);
 	}
 
 	function open() {
 		setIsOpen(true);
+		outsideStateHandler?.(true);
 	}
 
 	function toggle() {
 		setIsOpen((cur) => !cur);
+		outsideStateHandler?.((cur) => !cur);
 	}
 
 	function onKeydown(e: KeyboardEvent) {

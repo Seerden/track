@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const ModalWrapper = styled.div`
 	z-index: 2;
-	user-select: none;
 	position: fixed;
 	overflow-y: scroll;
 	top: 0;
