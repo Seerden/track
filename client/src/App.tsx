@@ -93,6 +93,7 @@ function App() {
 									<Route path="" element={<></>} />
 									<Route path="*" element={<div>404</div>} />
 								</AnimatedRoutes>
+								<div id="modal-root" />
 							</Router>
 						</main>
 					</Suspended>

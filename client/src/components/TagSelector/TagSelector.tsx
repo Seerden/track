@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import type { TagWithIds } from "../../types/server/tag.types";
 import type { ById } from "../../types/server/utility.types";
+import NewTagButton from "./NewTagButton";
 import * as S from "./TagSelector.style";
 import useTagSelector from "./use-tag-selector";
 
@@ -10,6 +11,7 @@ type TagSelectorProps = {
 	fullSize?: boolean;
 	maximum?: number;
 	oneLine?: boolean;
+	showNewTagButton?: boolean;
 };
 
 export default function TagSelector({
@@ -17,7 +19,8 @@ export default function TagSelector({
 	tagsById,
 	fullSize,
 	maximum,
-	oneLine
+	oneLine,
+	showNewTagButton
 }: TagSelectorProps) {
 	const { tagSelection, updateTagSelection, filter, updateFilter, tags } =
 		useTagSelector({
@@ -66,6 +69,7 @@ export default function TagSelector({
 					{title}
 				</S.Title>
 			)}
+			{showNewTagButton && <NewTagButton />}
 			<S.Filter
 				type="text"
 				placeholder="search categories"

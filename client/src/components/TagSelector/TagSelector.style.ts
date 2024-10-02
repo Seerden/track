@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 
 export const Wrapper = styled.div<{ $fullSize?: boolean }>`
+	position: relative;
 	margin-top: 0.8rem;
 	border: 2px solid #ccc;
 	padding: 0.3rem 0.4rem;
