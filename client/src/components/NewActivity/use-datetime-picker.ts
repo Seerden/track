@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { useEffect, useMemo, useState } from "react";
 import type { DateTimePickerProps } from "./datetime-picker.types";
 
@@ -30,8 +31,10 @@ export default function useDateTimePicker({ setState }: DateTimePickerProps) {
 	};
 
 	const [values, setValues] = useState<Values>({
-		start: "",
-		end: "",
+		// TODO: we also want to set these defaults when switching from allDay to
+		// not allDay
+		start: dayjs().format("YYYY-MM-DDTHH:mm"),
+		end: dayjs().add(1, "hour").format("YYYY-MM-DDTHH:mm"),
 	});
 
 	function onBlur(e: React.FocusEvent<HTMLInputElement>, field: "start" | "end") {
