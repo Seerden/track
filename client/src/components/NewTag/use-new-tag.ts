@@ -24,6 +24,7 @@ export default function useNewTag() {
 
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
+		e.stopPropagation();
 
 		submit(
 			{ newTag, parent_id },
