@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { filterTagsById } from "../../lib/filter-tags";
 import { formatHour } from "../../lib/format-date";
 import useNotesQuery from "../../lib/use-notes-query";
 import useTagsQuery from "../../lib/use-tags-query";
@@ -52,7 +53,9 @@ function Activity({ activity, indentation }: ActivityProps) {
 
 	return (
 		<S.ActivityCard key={activity.activity_id} $level={level} $offset={offset}>
-			<S.Activity $durationHours={durationHours}>{activity.name}</S.Activity>
+			<S.Activity $durationHours={durationHours}>
+				<S.ActivityName>{activity.name}</S.ActivityName>
+			</S.Activity>
 		</S.ActivityCard>
 	);
 }
@@ -63,11 +66,7 @@ type TaskProps = {
 };
 
 function Task({ activity, tagsById }: TaskProps) {
-	// TODO: I'm reusing this type of logic all over the place, make it reusable.
-	// TODO: do not do this here, but in a hook
-	const tags = Object.values(tagsById ?? {}).filter((tag) =>
-		activity.tag_ids.includes(tag.tag_id)
-	);
+	const tags = filterTagsById(activity.tag_ids, tagsById); // TODO: pass this as a prop and, in Tasks, get it from a hook
 
 	return (
 		<S.Task>
@@ -117,9 +116,8 @@ type NoteProps = {
 };
 
 function Note({ note, tagsById }: NoteProps) {
-	const tags = Object.values(tagsById ?? {}).filter((tag) =>
-		note.tag_ids?.includes(tag.tag_id)
-	);
+	const tags = filterTagsById(note.tag_ids ?? [], tagsById);
+
 	return (
 		<S.Note>
 			{note.title?.length && <S.NoteTitle>{note.title}</S.NoteTitle>}

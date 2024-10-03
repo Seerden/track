@@ -27,7 +27,7 @@ export const Rows = styled.ul`
 	flex-direction: column;
 `;
 
-const rowHeight = 30;
+const rowHeight = 40;
 
 export const Row = styled.li`
 	position: relative;
@@ -57,7 +57,7 @@ export const ActivityCard = styled.div<{ $level: number; $offset: number }>`
 	position: absolute;
 	top: calc(${(p) => p.$offset * 100}%);
 	left: calc(3rem + ${(p) => p.$level * (cardGap + cardWidth)}px);
-	font-size: 0.92rem;
+	font-size: 0.86rem;
 	display: flex;
 	width: 100%;
 	height: max-content;
@@ -84,6 +84,11 @@ export const Activity = styled.div<{ $durationHours: number }>`
 		background-color: green;
 		color: azure;
 	}
+`;
+
+export const ActivityName = styled.span`
+	max-width: max-content;
+	padding: 0.2rem 1rem;
 `;
 
 export const Tasks = styled.ul`
@@ -144,10 +149,11 @@ export const Tags = styled.div`
 export const Note = styled.li`
 	list-style: none;
 	display: grid;
+	align-items: center;
 	grid-template-areas:
-		"title ."
+		"title tags"
 		"content content"
-		". tags";
+		"content content";
 
 	${Tags} {
 		grid-area: tags;
