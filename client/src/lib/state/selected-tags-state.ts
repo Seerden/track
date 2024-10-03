@@ -1,5 +1,6 @@
 import {
 	atom,
+	atomFamily,
 	selector,
 	useRecoilState,
 	useRecoilValue,
@@ -7,9 +8,20 @@ import {
 } from "recoil";
 import type { ById, ID } from "../../types/server/utility.types";
 
+// TODO: we might want to use an atom famiy here to allow for multiple tag
+// selection states
 export const tagSelectionState = atom<ById<boolean>>({
 	default: {},
 	key: "selectedTags",
+});
+
+// TODO: this is WIP -- have to see if it works as I expect and also implement
+// it for all current use-cases of the regular tagSelectionState. Also have to
+// tweak selectedTagIdsSelector to use this atomFamily instead of the regular
+// atom.
+export const tagSelectionFamilyState = atomFamily<ById<boolean>, string>({
+	key: "selectedTagsFamily",
+	default: () => ({}),
 });
 
 export const selectedTagIdsSelector = selector({
