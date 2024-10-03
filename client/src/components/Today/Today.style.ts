@@ -17,20 +17,9 @@ export const NotesWrapper = styled.section`
 	border: 2px solid #ccc;
 `;
 
-export const Title = styled.h1`
-	font-size: 1.5rem;
-	max-height: max-content;
-	background-color: forestgreen;
+export const BlockTitle = styled.h2`
 	width: max-content;
-	padding: 0.6rem 2.5rem;
-	color: azure;
-	border-radius: 3px;
-	box-shadow:
-		0.2rem 0.5rem 0 -0.3rem azure,
-		-0.2rem -0.5rem 0 -0.3rem azure,
-		0.6rem 0.6rem 0 0 limegreen,
-		-0.6rem -0.6rem 0 0 limegreen;
-	align-self: center;
+	padding: 0.5rem 1rem;
 `;
 
 export const Rows = styled.ul`
@@ -61,13 +50,14 @@ export const HourMark = styled.span`
 	padding: 0 0.5rem;
 `;
 
-const cardWidth = 100;
+const cardWidth = 175;
 const cardGap = 5;
 
 export const ActivityCard = styled.div<{ $level: number; $offset: number }>`
 	position: absolute;
 	top: calc(${(p) => p.$offset * 100}%);
 	left: calc(3rem + ${(p) => p.$level * (cardGap + cardWidth)}px);
+	font-size: 0.92rem;
 	display: flex;
 	width: 100%;
 	height: max-content;
@@ -96,19 +86,31 @@ export const Activity = styled.div<{ $durationHours: number }>`
 	}
 `;
 
-export const Task = styled.div`
+export const Tasks = styled.ul`
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
+	gap: 0.3rem;
+	overflow-x: auto;
+`;
+
+export const Task = styled.li`
+	list-style: none;
+	box-sizing: border-box;
+	font-size: 0.9rem;
+	display: grid;
+	grid-template-columns: max-content 200px max-content auto;
 	gap: 0.5rem;
-	border-radius: 3x;
-	background-color: #ccc;
-	width: max-content;
+	border-radius: 2px;
+	background-color: #ddd;
+	width: 100%;
 	padding: 0.5rem 1rem;
-	margin: 0.5rem;
+	align-items: center;
 `;
 
 export const Checkbox = styled.input`
+	display: block;
 	margin-right: 0.5rem;
+	width: max-content;
 `;
 
 export const Columns = styled.div`
@@ -121,4 +123,47 @@ export const Columns = styled.div`
 	grid-template-columns: 1fr;
 
 	gap: 0.5rem;
+`;
+
+export const TaskName = styled.div`
+	display: flex;
+	width: 300px;
+`;
+
+export const Times = styled.div`
+	width: max-content;
+`;
+
+export const Tags = styled.div`
+	display: flex;
+	justify-content: flex-end;
+	flex-wrap: nowrap;
+	gap: 0.4rem;
+`;
+
+export const Note = styled.li`
+	list-style: none;
+	display: grid;
+	grid-template-areas:
+		"title ."
+		"content content"
+		". tags";
+
+	${Tags} {
+		grid-area: tags;
+	}
+
+	background-color: #ddd;
+	padding: 0.5rem 0rem;
+`;
+
+export const NoteTitle = styled.h3`
+	width: max-content;
+	padding: 0.3rem 0.8rem;
+	grid-area: title;
+`;
+
+export const NoteContent = styled.div`
+	padding: 0.5rem 1rem;
+	grid-area: content;
 `;

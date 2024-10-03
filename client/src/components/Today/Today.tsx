@@ -1,8 +1,13 @@
 import dayjs from "dayjs";
 import { formatHour } from "../../lib/format-date";
+import useNotesQuery from "../../lib/use-notes-query";
+import useTagsQuery from "../../lib/use-tags-query";
+import { Datelike } from "../../types/date.types";
 import { ActivityWithIds } from "../../types/server/activity.types";
 import { NoteWithIds } from "../../types/server/note.types";
-import { ID } from "../../types/server/utility.types";
+import { TagWithIds } from "../../types/server/tag.types";
+import { ById, ID } from "../../types/server/utility.types";
+import TagCard from "../TagCard/TagCard";
 import {
 	activityDuration,
 	activityEnd,
@@ -52,44 +57,97 @@ function Activity({ activity, indentation }: ActivityProps) {
 	);
 }
 
-type TasksProps = {
-	activities: ActivityWithIds[];
+type TaskProps = {
+	activity: ActivityWithIds;
+	tagsById?: ById<TagWithIds>;
 };
 
-function Task({ activity }: { activity: ActivityWithIds }) {
+function Task({ activity, tagsById }: TaskProps) {
+	// TODO: I'm reusing this type of logic all over the place, make it reusable.
+	// TODO: do not do this here, but in a hook
+	const tags = Object.values(tagsById ?? {}).filter((tag) =>
+		activity.tag_ids.includes(tag.tag_id)
+	);
+
 	return (
 		<S.Task>
 			<S.Checkbox type="checkbox" checked={activity.completed} />
-			<span>{activity.name}</span>
-			<div>
+			<S.TaskName>{activity.name}</S.TaskName>
+			<S.Times>
 				{activityStart(activity).format("HH:mm")}
 				{" - "}
 				{activityEnd(activity).format("HH:mm")}
-			</div>
+			</S.Times>
+			<S.Tags>
+				{tags.map((tag) => (
+					<TagCard key={tag.tag_id} tag={tag} />
+				))}
+			</S.Tags>
 		</S.Task>
 	);
 }
 
+type TasksProps = {
+	activities: ActivityWithIds[];
+};
+
 function Tasks({ activities }: TasksProps) {
+	const { data: tags } = useTagsQuery();
+
 	return (
 		<S.TasksWrapper>
-			<h2>Tasks</h2>
-			{activities.map((a) => (
-				<Task key={a.activity_id} activity={a} />
-			))}
+			<S.BlockTitle>Tasks</S.BlockTitle>
+			<S.Tasks>
+				{activities.map((a) => (
+					<Task key={a.activity_id} activity={a} tagsById={tags?.tagsById} />
+				))}
+			</S.Tasks>
 		</S.TasksWrapper>
 	);
 }
 
-function Notes({ notes }: { notes: NoteWithIds[] }) {
+function isToday(date: Datelike) {
+	const today = dayjs.utc().local();
+	return dayjs.utc(date).local().isSame(today, "day");
+}
+
+type NoteProps = {
+	note: NoteWithIds;
+	tagsById?: ById<TagWithIds>;
+};
+
+function Note({ note, tagsById }: NoteProps) {
+	const tags = Object.values(tagsById ?? {}).filter((tag) =>
+		note.tag_ids?.includes(tag.tag_id)
+	);
+	return (
+		<S.Note>
+			{note.title?.length && <S.NoteTitle>{note.title}</S.NoteTitle>}
+			<S.NoteContent>{note.content}</S.NoteContent>
+			<S.Tags>
+				{tags.map((tag) => (
+					<TagCard key={tag.tag_id} tag={tag} />
+				))}
+			</S.Tags>
+		</S.Note>
+	);
+}
+
+function Notes() {
+	const { data } = useNotesQuery();
+	const { data: tags } = useTagsQuery();
+
+	const notes = Object.values(data?.notesById ?? {}).filter((note) =>
+		// TODO: note.date is not a field in the client when creating a new note,
+		// so it will always be undefined currently. So using created_at is a
+		// temporary solution.
+		isToday(note.date ?? note.created_at)
+	);
 	return (
 		<S.NotesWrapper>
-			<h2>Notes</h2>
+			<S.BlockTitle>Notes</S.BlockTitle>
 			{notes.map((note) => (
-				<div key={note.note_id}>
-					<h3>{note.title}</h3>
-					<p>{note.content}</p>
-				</div>
+				<Note key={note.note_id} note={note} tagsById={tags?.tagsById} />
 			))}
 		</S.NotesWrapper>
 	);
@@ -101,8 +159,6 @@ export default function Today() {
 
 	return (
 		<S.Wrapper>
-			<S.Title>Today</S.Title>
-
 			<S.Columns>
 				<S.TimelineWrapper>
 					<S.Rows>
@@ -122,7 +178,7 @@ export default function Today() {
 					</S.Rows>
 				</S.TimelineWrapper>
 				<Tasks activities={activities.filter((a) => a.is_task)} />
-				<Notes notes={[]} />
+				<Notes />
 			</S.Columns>
 		</S.Wrapper>
 	);
