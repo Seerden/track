@@ -27,12 +27,10 @@ function NewActivity() {
 					</S.Label>
 				</N.Row>
 
-				{/* datetime picker goes here */}
 				<N.Row>
 					<DateTimePicker setState={onDateTimeChange} />
 				</N.Row>
 
-				{/* tag selector component goes here */}
 				<N.Row>
 					<TagSelector fullSize title="Tags" showNewTagButton />
 				</N.Row>
