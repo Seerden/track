@@ -27,6 +27,8 @@ export default function useNewActivity() {
 		resetTagSelection();
 	}, []);
 
+	const isTask = newActivity.is_task;
+
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 
@@ -63,5 +65,6 @@ export default function useNewActivity() {
 		onSubmit,
 		onInputChange,
 		onDateTimeChange,
+		isTask,
 	};
 }

@@ -1,3 +1,4 @@
+import { Checkbox } from "../../lib/theme/components/Checkbox";
 import { type NewActivity } from "../../types/server/activity.types";
 import TagSelector from "../TagSelector/TagSelector";
 import NewDateTimePicker from "./DateTimePicker";
@@ -5,7 +6,7 @@ import * as N from "./NewActivity.style";
 import useNewActivity from "./use-new-activity";
 
 function NewActivity() {
-	const { onInputChange, onSubmit, onDateTimeChange } = useNewActivity();
+	const { onInputChange, onSubmit, onDateTimeChange, isTask } = useNewActivity();
 
 	return (
 		<N.Wrapper>
@@ -23,6 +24,7 @@ function NewActivity() {
 					<N.Label>
 						Task?
 						<input name="is_task" type="checkbox" onChange={onInputChange} />
+						<Checkbox checked={isTask} />
 					</N.Label>
 				</N.Row>
 

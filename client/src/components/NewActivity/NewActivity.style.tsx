@@ -72,7 +72,6 @@ export const Button = styled.button`
 
 export const Label = styled.label<{ $showWarning?: boolean }>`
 	font-size: 0.9rem;
-	gap: 0.2rem;
 
 	display: flex;
 	flex-direction: column;
@@ -80,15 +79,36 @@ export const Label = styled.label<{ $showWarning?: boolean }>`
 	justify-content: space-between;
 
 	input[type="checkbox"] {
-		margin: 0.25rem 0;
-		/* appearance: none; */
-		accent-color: blue;
+		width: 0;
 	}
 
 	input {
 		&:not([type="checkbox"]) {
 			max-width: 150px;
 			width: 150px;
+		}
+	}
+
+	svg {
+		height: 27px;
+		display: flex;
+		align-self: center;
+		justify-self: center;
+
+		&.on {
+			color: forestgreen;
+		}
+
+		&.off {
+			color: #ccc;
+		}
+	}
+
+	&:active,
+	&:hover,
+	&:focus-within {
+		svg {
+			color: #bbb;
 		}
 	}
 
