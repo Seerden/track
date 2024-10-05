@@ -2,6 +2,12 @@ import dayjs from "dayjs";
 import { useEffect, useMemo, useState } from "react";
 import type { DateTimePickerProps } from "./datetime-picker.types";
 
+function parseTimeString(time: string) {
+	// turns e.g. 1230 into dayjs with time to 12:30pm
+	// TODO: extend to also parse e.g. 14:30, 2:30pm, 2:30p, 2:30 p, 2:30 p.m., 2:30 p.m, 2:30pm
+	return dayjs(time, "HHmm").format("HH:mm");
+}
+
 export default function useDateTimePicker({ setState }: DateTimePickerProps) {
 	const [allDay, setAllDay] = useState(false);
 
@@ -17,7 +23,6 @@ export default function useDateTimePicker({ setState }: DateTimePickerProps) {
 		setState({ name: unusedEndField, value: "" });
 	}, [allDay]);
 
-	// doesn't really have to be a memo
 	const { startField, endField } = useMemo(() => {
 		return {
 			startField: allDay ? "start_date" : "started_at",
@@ -25,38 +30,79 @@ export default function useDateTimePicker({ setState }: DateTimePickerProps) {
 		} as const;
 	}, [allDay]);
 
-	type Values = {
-		start: string;
-		end: string;
-	};
+	const [manualEndDate, setManualEndDate] = useState(false);
+	const defaultStartDate = dayjs.utc().format("YYYY-MM-DD");
 
-	const [values, setValues] = useState<Values>({
-		// TODO: we also want to set these defaults when switching from allDay to
-		// not allDay
-		start: dayjs().format("YYYY-MM-DDTHH:mm"),
-		end: dayjs().add(1, "hour").format("YYYY-MM-DDTHH:mm"),
+	const [date, setDate] = useState({
+		start: defaultStartDate,
+		end: defaultStartDate,
 	});
 
-	function onBlur(e: React.FocusEvent<HTMLInputElement>, field: "start" | "end") {
-		// update local value -- we keep a local state for the
-		// functionality of this component
-		setValues((cur) => ({ ...cur, [field]: e.target.value }));
-		// then update state value -- any checks that need to be done
-		// should be done previous to this
-		const stateField = field === "start" ? startField : endField;
-		setState({ name: stateField, value: e.target.value });
+	const currentTime = dayjs().utc().local();
+	const [time, setTime] = useState({
+		start: currentTime.format("HHmm"),
+		end: currentTime.add(1, "hour").format("HHmm"),
+	});
+
+	const dateTime = useMemo(() => {
+		const start = allDay ? date.start : `${date.start}T${time.start}`;
+		const end = allDay ? date.end : `${date.end}T${time.end}`;
+
+		return { start, end };
+	}, [date, time, allDay]);
+
+	useEffect(() => {
+		setState({ name: startField, value: dateTime.start });
+		setState({ name: endField, value: dateTime.end });
+	}, [startField, endField, dateTime]);
+
+	function handleDateChange(value: string, field: "start" | "end") {
+		setDate((current) => ({
+			...current,
+			[field]: value,
+		}));
 	}
 
-	const validEnd = useMemo(() => {
-		if (!values.start || !values.end) return true;
-		return !!values.start && !!values.end && values.end >= values.start;
-	}, [values]);
+	function onStartDateChange(e: React.ChangeEvent<HTMLInputElement>) {
+		handleDateChange(e.target.value, "start");
+		if (!manualEndDate) {
+			handleDateChange(e.target.value, "end");
+		}
+	}
+
+	function onEndDateChange(e: React.ChangeEvent<HTMLInputElement>) {
+		if (e.target.value) {
+			handleDateChange(e.target.value, "end");
+			setManualEndDate(true);
+		} else {
+			setManualEndDate(false);
+			handleDateChange(date.start, "end");
+			e.currentTarget.blur();
+		}
+	}
+
+	function onAllDayChange(e: React.ChangeEvent<HTMLInputElement>) {
+		setAllDay(e.target.checked);
+	}
+
+	function onTimeChange(e: React.ChangeEvent<HTMLInputElement>, field: "start" | "end") {
+		setTime({
+			...time,
+			[field]: parseTimeString(e.target.value),
+		});
+	}
 
 	return {
-		validEnd,
-		values,
 		allDay,
 		setAllDay,
-		onBlur,
+		manualEndDate,
+		setManualEndDate,
+		date,
+		setDate,
+		defaultStartDate,
+		onStartDateChange,
+		onEndDateChange,
+		onAllDayChange,
+		onTimeChange,
 	};
 }

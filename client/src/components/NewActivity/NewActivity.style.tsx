@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Wrapper = styled.div`
 	padding: 0.5rem 1.1rem;
@@ -67,5 +67,40 @@ export const Button = styled.button`
 		background-color: #eee;
 		transform: translateY(-2px);
 		border-color: deepskyblue;
+	}
+`;
+
+export const Label = styled.label<{ $showWarning?: boolean }>`
+	font-size: 0.9rem;
+	gap: 0.2rem;
+
+	display: flex;
+	flex-direction: column;
+	width: max-content;
+	justify-content: space-between;
+
+	input[type="checkbox"] {
+		margin: 0.25rem 0;
+		/* appearance: none; */
+		accent-color: blue;
+	}
+
+	input {
+		&:not([type="checkbox"]) {
+			max-width: 150px;
+			width: 150px;
+		}
+	}
+
+	padding: 0.25rem 0;
+
+	border: 2px solid ${(p) => (p.$showWarning ? "orangered" : "transparent")};
+	border-bottom: ${(p) =>
+		p.$showWarning ? css`2px solid orangered` : css`2px solid #bbb`};
+
+	border-radius: 3px;
+
+	&:focus-within {
+		border-bottom-color: deepskyblue;
 	}
 `;

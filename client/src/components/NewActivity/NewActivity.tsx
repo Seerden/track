@@ -1,8 +1,7 @@
 import { type NewActivity } from "../../types/server/activity.types";
 import TagSelector from "../TagSelector/TagSelector";
-import { DateTimePicker } from "./DateTimePicker";
-import * as S from "./DateTimePicker.style";
 import * as N from "./NewActivity.style";
+import NewDateTimePicker from "./NewDateTimePicker";
 import useNewActivity from "./use-new-activity";
 
 function NewActivity() {
@@ -13,22 +12,22 @@ function NewActivity() {
 			<h1>Create an activity</h1>
 			<N.Form onSubmit={onSubmit}>
 				<N.Row name="description">
-					<S.Label>
+					<N.Label>
 						Name
 						<input name="name" onChange={onInputChange} type="text" required />
-					</S.Label>
-					<S.Label>
+					</N.Label>
+					<N.Label>
 						Description (optional)
 						<input name="description" type="text" onChange={onInputChange} />
-					</S.Label>
-					<S.Label>
+					</N.Label>
+					<N.Label>
 						Task?
 						<input name="is_task" type="checkbox" onChange={onInputChange} />
-					</S.Label>
+					</N.Label>
 				</N.Row>
 
 				<N.Row>
-					<DateTimePicker setState={onDateTimeChange} />
+					<NewDateTimePicker setState={onDateTimeChange} />
 				</N.Row>
 
 				<N.Row>
