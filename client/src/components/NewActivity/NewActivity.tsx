@@ -1,7 +1,7 @@
 import { type NewActivity } from "../../types/server/activity.types";
 import TagSelector from "../TagSelector/TagSelector";
+import NewDateTimePicker from "./DateTimePicker";
 import * as N from "./NewActivity.style";
-import NewDateTimePicker from "./NewDateTimePicker";
 import useNewActivity from "./use-new-activity";
 
 function NewActivity() {

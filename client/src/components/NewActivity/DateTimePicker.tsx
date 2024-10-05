@@ -1,10 +1,10 @@
 import { FiCheckCircle } from "react-icons/fi";
 import { MdRadioButtonUnchecked } from "react-icons/md";
 import { DateTimePickerProps } from "./datetime-picker.types";
-import * as S from "./NewDateTimePicker.style";
+import * as S from "./DateTimePicker.style";
 import useDateTimePicker from "./use-datetime-picker";
 
-export default function NewDateTimePicker({ setState }: DateTimePickerProps) {
+export default function DateTimePicker({ setState }: DateTimePickerProps) {
 	const {
 		allDay,
 		manualEndDate,
