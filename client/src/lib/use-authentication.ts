@@ -12,6 +12,7 @@ export default function useAuthentication() {
 	const isLoggedIn = !!currentUser;
 
 	return {
+		data,
 		login,
 		logout,
 		isLoggedIn,
