@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTagSelection } from "../../lib/state/selected-tags-state";
 import useAuthentication from "../../lib/use-authentication";
 import useRouteProps from "../../lib/use-route-props";
@@ -27,7 +27,7 @@ export default function useNewActivity() {
 		resetTagSelection();
 	}, []);
 
-	const isTask = newActivity.is_task;
+	const isTask = useMemo(() => newActivity.is_task, [newActivity.is_task]);
 
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
