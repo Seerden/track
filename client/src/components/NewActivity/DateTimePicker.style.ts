@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
+import { inputStyle } from "../../lib/theme/snippets/input";
 
 export const Form = styled.form`
 	display: grid;
 	width: 100%;
-	gap: 0.7rem;
-	margin: 1rem 0.5rem;
+	gap: 0.1rem;
 `;
 
 const flexColumn = css`
@@ -19,34 +19,37 @@ const flexRow = css`
 
 export const Row = styled.div`
 	${flexRow};
-	gap: 1rem;
-	box-shadow: 0 0 0.3rem 0 #ccc;
 	justify-content: space-between;
 `;
 
 export const Label = styled.label<{ $faded?: boolean }>`
+	position: relative;
 	${flexColumn};
 	align-items: stretch;
 	margin: 0.5rem;
 	width: 100%;
 
-	// label text
+	border-radius: 0 15px 0 0;
+
+	&:focus-within,
+	&:active {
+		span {
+			background-color: deepskyblue;
+			color: white;
+			outline: 2px solid white;
+		}
+	}
+
 	span {
-		font-size: 0.86rem;
+		font-size: 0.9rem;
 		background-color: #fff;
 		width: 100%;
 		padding: 0.2rem 0.6rem;
 		border-radius: 0 15px 0 0;
-		color: #777;
 	}
 
 	input {
-		font-size: 0.94rem;
-		outline: none;
-		border: none;
-		padding: 0.3rem 0.5rem;
-		box-shadow: 0.4rem 0.4rem 0.1rem -0.2rem #ddd;
-		border-radius: 3px;
+		${inputStyle};
 
 		&[type="date"] {
 			width: 120px;
@@ -64,12 +67,13 @@ export const Label = styled.label<{ $faded?: boolean }>`
 	${(p) =>
 		p.$faded &&
 		css`
-			&:not(input:focus) {
+			&:not(:focus-within) {
 				opacity: 0.4;
 			}
 		`}
 `;
 export const Fields = styled.fieldset`
+	position: relative;
 	${flexRow};
 	padding: 0;
 	max-width: 100%;
@@ -80,10 +84,15 @@ export const Fields = styled.fieldset`
 	}
 `;
 
+// TODO: these match the styling from Task in NewActivity, so they should be
+// extracted to a shared snippet.
 export const AllDay = styled.label`
 	${flexRow};
 	align-items: center;
 	width: max-content;
+	border: 2px solid white;
+	border-radius: 3px;
+	margin: 0.5rem;
 	padding: 0 1rem;
 
 	gap: 0.2rem;
@@ -93,11 +102,11 @@ export const AllDay = styled.label`
 	&:hover,
 	&:focus-within,
 	&:active {
-		#off {
+		.off {
 			color: #aaa;
 		}
 
-		#on {
+		.on {
 			color: limegreen;
 		}
 	}
@@ -116,11 +125,27 @@ export const Icon = styled.span`
 	display: flex;
 	justify-content: center;
 
-	#off {
+	.off {
 		color: #ccc;
 	}
 
-	#on {
+	.on {
 		color: forestgreen;
 	}
+`;
+
+const size = "25px";
+export const Info = styled.div`
+	position: absolute;
+	top: calc(50% -${size});
+	right: calc(-0.25 * ${size});
+	background-color: deepskyblue;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: ${size};
+	height: ${size};
+	color: white;
+	outline: 2px solid white;
 `;
