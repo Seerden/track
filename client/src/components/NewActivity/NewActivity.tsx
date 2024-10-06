@@ -14,18 +14,19 @@ function NewActivity() {
 			<N.Form onSubmit={onSubmit}>
 				<N.Row name="description">
 					<N.Label>
-						Name
+						<span>Title</span>
 						<input name="name" onChange={onInputChange} type="text" required />
 					</N.Label>
-					<N.Label>
-						Description (optional)
+					{/* TODO: for now I'm removing the description field from here -- want to implement Notes for this */}
+					{/* <N.Label>
+						<span>Description (optional)</span>
 						<input name="description" type="text" onChange={onInputChange} />
-					</N.Label>
-					<N.Label>
-						Task?
+					</N.Label> */}
+					<N.Task>
+						<span>Task?</span>
 						<input name="is_task" type="checkbox" onChange={onInputChange} />
 						<Checkbox checked={isTask} />
-					</N.Label>
+					</N.Task>
 				</N.Row>
 
 				<N.Row>
