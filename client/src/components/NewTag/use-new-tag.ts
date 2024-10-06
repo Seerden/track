@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { queryClient } from "../../lib/query-client";
 import { useTagSelection } from "../../lib/state/selected-tags-state";
 import useAuthentication from "../../lib/use-authentication";
 import useTagsQuery from "../../lib/use-tags-query";
@@ -38,6 +39,7 @@ export default function useNewTag() {
 			{ newTag, parent_id },
 			{
 				onSuccess: () => {
+					queryClient.invalidateQueries({ queryKey: ["tags"] });
 					// TODO: redirect
 					// TODO: invalidate or refetch tags query, maybe also optimistically
 					// update the tags query with the new tag already
