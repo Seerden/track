@@ -4,8 +4,12 @@ import useRouteProps from "../lib/use-route-props";
 import Login from "./Login/Login";
 
 export default function Protected({ children }: PropsWithChildren) {
-	const { isLoggedIn, currentUser } = useAuthentication();
+	const { isLoggedIn, currentUser, data } = useAuthentication();
 	const { params } = useRouteProps();
+
+	if (!data) {
+		return <></>;
+	}
 
 	// If a route/component is user-specific, do this.
 	if (params.username) {
