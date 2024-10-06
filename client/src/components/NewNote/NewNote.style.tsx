@@ -1,4 +1,5 @@
-import { css, styled } from "styled-components";
+import { styled } from "styled-components";
+import { inputStyle } from "../../lib/theme/snippets/input";
 
 export const Wrapper = styled.section`
 	padding: 0.6rem 0.9rem;
@@ -37,25 +38,12 @@ export const Label = styled.label`
 	margin-left: -0.5rem;
 `;
 
-const inputStyle = css`
-	border-left: 2px solid deeppink;
-
-	&:hover,
-	&:active,
-	&:focus {
-		outline: none;
-		border-bottom-color: deepskyblue;
-		background-color: #fff;
-	}
-`;
-
 export const Input = styled.input`
 	max-width: 250px;
 	border: none;
-	border-bottom: 1px solid #ccc;
-	padding: 0.3rem 0.5rem;
 
-	${inputStyle}
+	${inputStyle};
+	border-left: 3px solid deeppink;
 `;
 
 export const MainFields = styled.div`
@@ -74,6 +62,7 @@ export const TextArea = styled.textarea`
 	resize: none;
 
 	${inputStyle}
+	border-left: 3px solid deeppink;
 `;
 
 export const Form = styled.form`
