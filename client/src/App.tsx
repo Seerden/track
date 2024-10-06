@@ -11,6 +11,7 @@ import Notes from "./components/Notes/Notes";
 import Protected from "./components/Protected";
 import Suspended from "./components/Suspended";
 import Today from "./components/Today/Today";
+import Page from "./lib/framer/components/Page";
 import { queryClient } from "./lib/query-client";
 import { theme } from "./lib/theme/theme";
 
@@ -69,7 +70,9 @@ function App() {
 										path="/activity/new"
 										element={
 											<Protected>
-												<NewActivity />
+												<Page>
+													<NewActivity />
+												</Page>
 											</Protected>
 										}
 									/>
