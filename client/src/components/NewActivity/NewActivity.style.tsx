@@ -28,7 +28,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Row = styled.fieldset`
-	padding: 0.3rem;
+	padding: 0.5rem;
 	display: flex;
 	flex-direction: row;
 
@@ -78,13 +78,13 @@ export const Label = styled.label<{ $showWarning?: boolean }>`
 	display: flex;
 	flex-direction: column;
 	width: 75%;
-	padding: 0.5rem 0.5rem;
+	border-radius: 0 15px 0 0;
+	margin: 0;
 
 	&:active,
 	&:focus-within {
+		outline: 2px solid deepskyblue;
 		span {
-			background-color: deepskyblue;
-			color: white;
 			outline: 2px solid white;
 		}
 	}
@@ -105,17 +105,15 @@ export const Label = styled.label<{ $showWarning?: boolean }>`
 		}
 	}
 
-	border: 2px solid ${(p) => (p.$showWarning ? "orangered" : "transparent")};
+	outline: 2px solid ${(p) => (p.$showWarning ? "orangered" : "transparent")};
 	border-bottom: ${(p) => (p.$showWarning ? css`2px solid orangered` : "")};
-
-	border-radius: 3px;
 `;
 
 export const Task = styled.label`
 	padding: 0 1rem;
 	background-color: #eaeaea;
 	display: flex;
-	margin: 0.5rem;
+	margin: 0.2rem 0.5rem;
 	border: 2px solid white;
 	border-radius: 3px;
 	flex-direction: row;

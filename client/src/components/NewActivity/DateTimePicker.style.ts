@@ -34,9 +34,8 @@ export const Label = styled.label<{ $faded?: boolean }>`
 	&:focus-within,
 	&:active {
 		&:not(:has(*:disabled)) {
+			outline: 2px solid deepskyblue;
 			span {
-				background-color: deepskyblue;
-				color: white;
 				outline: 2px solid white;
 			}
 		}
