@@ -51,7 +51,6 @@ export default function DateTimePicker({ setState }: DateTimePickerProps) {
 						<span>Start time</span>
 						<input
 							type="text"
-							name="start-time"
 							onChange={(e) => onTimeChange(e, "start")}
 							placeholder={"HHmm"}
 							disabled={allDay}
@@ -61,7 +60,6 @@ export default function DateTimePicker({ setState }: DateTimePickerProps) {
 						<span>End time</span>
 						<input
 							type="text"
-							name="end-time"
 							placeholder={"HHmm"}
 							onChange={(e) => onTimeChange(e, "end")}
 							disabled={allDay}
