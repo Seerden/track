@@ -1,7 +1,10 @@
-import dayjs from "dayjs";
 import { useMemo } from "react";
+import {
+	activityFallsOnDay,
+	assignIndentationLevelToActivities,
+} from "../../lib/activity";
+import { today } from "../../lib/datetime/make-date";
 import useActivitiesQuery from "../../lib/use-activities-query";
-import { activityFallsOnDay, assignIndentationLevelToActivities } from "./activity";
 
 export default function useToday() {
 	const { data: activitiesData } = useActivitiesQuery();
@@ -10,11 +13,11 @@ export default function useToday() {
 	}, [activitiesData]);
 
 	Object.values(activitiesData?.activitiesById ?? {});
-	const today = dayjs.utc();
+	const currentDate = today();
 	const todayActivities = activities.filter((activity) => {
-		return activityFallsOnDay(activity, today);
+		return activityFallsOnDay(activity, currentDate);
 	});
-	const indentation = assignIndentationLevelToActivities(todayActivities, today);
+	const indentation = assignIndentationLevelToActivities(todayActivities, currentDate);
 
 	return { activities: todayActivities, indentation };
 }

@@ -1,12 +1,7 @@
-import dayjs from "dayjs";
 import { useEffect, useMemo, useState } from "react";
+import { today } from "../../lib/datetime/make-date";
+import { parseTimeString } from "../../lib/datetime/parse-string";
 import type { DateTimePickerProps } from "./datetime-picker.types";
-
-function parseTimeString(time: string) {
-	// turns e.g. 1230 into dayjs with time to 12:30pm
-	// TODO: extend to also parse e.g. 14:30, 2:30pm, 2:30p, 2:30 p, 2:30 p.m., 2:30 p.m, 2:30pm
-	return dayjs(time, "HHmm").format("HH:mm");
-}
 
 export default function useDateTimePicker({ setState }: DateTimePickerProps) {
 	const [allDay, setAllDay] = useState(false);
@@ -31,14 +26,14 @@ export default function useDateTimePicker({ setState }: DateTimePickerProps) {
 	}, [allDay]);
 
 	const [manualEndDate, setManualEndDate] = useState(false);
-	const defaultStartDate = dayjs.utc().format("YYYY-MM-DD");
+	const defaultStartDate = today().format("YYYY-MM-DD");
 
 	const [date, setDate] = useState({
 		start: defaultStartDate,
 		end: defaultStartDate,
 	});
 
-	const currentTime = dayjs().utc().local();
+	const currentTime = today();
 	const [time, setTime] = useState({
 		start: currentTime.format("HHmm"),
 		end: currentTime.add(1, "hour").format("HHmm"),

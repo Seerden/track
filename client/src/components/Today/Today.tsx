@@ -1,4 +1,10 @@
 import dayjs from "dayjs";
+import {
+	activityDuration,
+	activityEnd,
+	activityStart,
+	activityStartHour
+} from "../../lib/activity";
 import { formatHour } from "../../lib/datetime/format-date";
 import { filterTagsById } from "../../lib/filter-tags";
 import useNotesQuery from "../../lib/use-notes-query";
@@ -9,12 +15,6 @@ import { NoteWithIds } from "../../types/server/note.types";
 import { TagWithIds } from "../../types/server/tag.types";
 import { ById, ID } from "../../types/server/utility.types";
 import TagCard from "../TagCard/TagCard";
-import {
-	activityDuration,
-	activityEnd,
-	activityStart,
-	activityStartHour
-} from "./activity";
 import * as S from "./Today.style";
 import useToday from "./use-today";
 
