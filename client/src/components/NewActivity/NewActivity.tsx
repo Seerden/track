@@ -1,7 +1,7 @@
 import { Checkbox } from "../../lib/theme/components/Checkbox";
 import { type NewActivity } from "../../types/server/activity.types";
 import TagSelector from "../TagSelector/TagSelector";
-import NewDateTimePicker from "./DateTimePicker";
+import DateTimePicker from "./DateTimePicker";
 import * as N from "./NewActivity.style";
 import useNewActivity from "./use-new-activity";
 
@@ -30,7 +30,7 @@ function NewActivity() {
 				</N.Row>
 
 				<N.Row>
-					<NewDateTimePicker setState={onDateTimeChange} />
+					<DateTimePicker setState={onDateTimeChange} />
 				</N.Row>
 
 				<N.Row>
