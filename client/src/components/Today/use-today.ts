@@ -19,5 +19,5 @@ export default function useToday() {
 	});
 	const indentation = assignIndentationLevelToActivities(todayActivities, currentDate);
 
-	return { activities: todayActivities, indentation };
+	return { activities: todayActivities, indentation, currentDate };
 }
