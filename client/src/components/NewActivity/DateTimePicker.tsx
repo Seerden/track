@@ -52,6 +52,10 @@ export default function DateTimePicker({ setState }: DateTimePickerProps) {
 						<input
 							type="text"
 							onChange={(e) => onTimeChange(e, "start")}
+							// TODO: Need something in the UI to clarify the time
+							// format (also in the endTime field), just this
+							// placeholder is not enough -- do this after implementing
+							// parsing of other types of time inputs
 							placeholder={"HHmm"}
 							disabled={allDay}
 						/>
