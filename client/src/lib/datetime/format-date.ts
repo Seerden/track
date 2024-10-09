@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import type { Datelike } from "../types/date.types";
+import type { Datelike } from "../../types/date.types";
 
 // Format a date to year-month-date hh:mm (and optionally :ss)
 export function formatDate(date: Datelike, { short }: { short?: boolean } = {}): string {

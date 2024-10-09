@@ -1,4 +1,4 @@
-import { formatDate } from "../../lib/format-date";
+import { formatDate } from "../../lib/datetime/format-date";
 import { ActivityWithIds } from "../../types/server/activity.types";
 
 export function getDateField({

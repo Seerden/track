@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
+import { formatHour } from "../../lib/datetime/format-date";
 import { filterTagsById } from "../../lib/filter-tags";
-import { formatHour } from "../../lib/format-date";
 import useNotesQuery from "../../lib/use-notes-query";
 import useTagsQuery from "../../lib/use-tags-query";
 import { Datelike } from "../../types/date.types";
