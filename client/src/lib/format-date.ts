@@ -8,9 +8,8 @@ export function formatDate(date: Datelike, { short }: { short?: boolean } = {}):
 }
 
 /**
- * Format a number (index, presumably from 0-23) to HH:mm(:ss) syntax.
+ * Format a number (index, presumably from 0-23) to HH:mm string.
  * TODO: is there a dayjs function for this?
- * TODO: move this to a helper file.
  */
 export function formatHour(
 	index: number, // index 0 is 12am, 1 is 1am, 12 is 12pm, 23 is 11pm, etc
