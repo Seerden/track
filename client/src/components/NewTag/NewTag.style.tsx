@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { inputStyle } from "../../lib/theme/snippets/input";
 
 // TODO: style this similarly to NewActivity -- this means creating common theme
 // snippets for 'Form', 'FormTitle', 'Fields', etc.
@@ -43,7 +44,7 @@ export const Field = styled.label`
 	gap: 0.2rem;
 
 	input {
-		padding: 0.1rem 0.3rem;
+		${inputStyle}
 	}
 `;
 

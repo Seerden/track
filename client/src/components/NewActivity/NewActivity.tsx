@@ -1,38 +1,38 @@
+import { Checkbox } from "../../lib/theme/components/Checkbox";
 import { type NewActivity } from "../../types/server/activity.types";
 import TagSelector from "../TagSelector/TagSelector";
-import { DateTimePicker } from "./DateTimePicker";
-import * as S from "./DateTimePicker.style";
+import DateTimePicker from "./DateTimePicker";
 import * as N from "./NewActivity.style";
 import useNewActivity from "./use-new-activity";
 
 function NewActivity() {
-	const { onInputChange, onSubmit, onDateTimeChange } = useNewActivity();
+	const { onInputChange, onSubmit, onDateTimeChange, isTask } = useNewActivity();
 
 	return (
 		<N.Wrapper>
 			<h1>Create an activity</h1>
 			<N.Form onSubmit={onSubmit}>
 				<N.Row name="description">
-					<S.Label>
-						Name
+					<N.Label>
+						<span>Title</span>
 						<input name="name" onChange={onInputChange} type="text" required />
-					</S.Label>
-					<S.Label>
-						Description (optional)
+					</N.Label>
+					{/* TODO: for now I'm removing the description field from here -- want to implement Notes for this */}
+					{/* <N.Label>
+						<span>Description (optional)</span>
 						<input name="description" type="text" onChange={onInputChange} />
-					</S.Label>
-					<S.Label>
-						Task?
+					</N.Label> */}
+					<N.Task>
+						<span>Task?</span>
 						<input name="is_task" type="checkbox" onChange={onInputChange} />
-					</S.Label>
+						<Checkbox checked={isTask} />
+					</N.Task>
 				</N.Row>
 
-				{/* datetime picker goes here */}
 				<N.Row>
 					<DateTimePicker setState={onDateTimeChange} />
 				</N.Row>
 
-				{/* tag selector component goes here */}
 				<N.Row>
 					<TagSelector fullSize title="Tags" showNewTagButton />
 				</N.Row>

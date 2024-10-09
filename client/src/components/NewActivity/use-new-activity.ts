@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTagSelection } from "../../lib/state/selected-tags-state";
 import useAuthentication from "../../lib/use-authentication";
 import useRouteProps from "../../lib/use-route-props";
@@ -11,7 +11,7 @@ export default function useNewActivity() {
 	const { mutate: submit } = useNewActivityMutation();
 	const { navigate } = useRouteProps();
 	const { currentUser } = useAuthentication();
-	const { selectedTagIds } = useTagSelection();
+	const { selectedTagIds, resetTagSelection } = useTagSelection();
 	// TODO: typing below is only Partial because the typing thinks user_id may be null, when it can't
 	// actually be null because this component will always be rendered as
 	// Protected. Maybe we make user_id optional and check for it in the
@@ -22,6 +22,12 @@ export default function useNewActivity() {
 		description: "",
 		user_id: currentUser?.user_id,
 	}));
+
+	useEffect(() => {
+		resetTagSelection();
+	}, []);
+
+	const isTask = useMemo(() => newActivity.is_task, [newActivity.is_task]);
 
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
@@ -59,5 +65,6 @@ export default function useNewActivity() {
 		onSubmit,
 		onInputChange,
 		onDateTimeChange,
+		isTask,
 	};
 }

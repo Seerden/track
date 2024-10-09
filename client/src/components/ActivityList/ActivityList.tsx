@@ -1,24 +1,26 @@
-import { ActivityWithIds } from "../../types/server/activity.types";
+import { filterTagsById } from "../../lib/filter-tags";
+import type { ActivityWithIds } from "../../types/server/activity.types";
 import type { TagWithIds } from "../../types/server/tag.types";
 import * as S from "./ActivityList.style";
 import { getFormattedDateField } from "./get-date-field";
 import useActivityList from "./use-activity-list";
 
 export default function ActivityList() {
-	const { activitiesData: { activitiesById } = {}, tagsData } = useActivityList();
+	const { activitiesData, tagsData } = useActivityList();
 
-	if (!activitiesById) {
+	if (!activitiesData?.activitiesById) {
 		return <></>;
 	}
+
+	const activities = Object.values(activitiesData.activitiesById);
+	const tagsById = tagsData?.tagsById;
 
 	return (
 		<S.Wrapper>
 			<h1>Activities</h1>
 			<S.List>
-				{Object.values(activitiesById).map((activity) => {
-					const tags = Object.values(tagsData?.tagsById ?? {}).filter((tag) =>
-						activity.tag_ids.includes(tag.tag_id)
-					);
+				{activities.map((activity) => {
+					const tags = filterTagsById(activity.tag_ids, tagsById);
 
 					return (
 						<ActivityItem
