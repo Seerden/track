@@ -1,5 +1,5 @@
+import { inputStyle } from "@lib/theme/snippets/input";
 import { styled } from "styled-components";
-import { inputStyle } from "../../lib/theme/snippets/input";
 
 export const Wrapper = styled.section`
 	padding: 0.6rem 0.9rem;

@@ -1,7 +1,7 @@
+import useLoginMutation from "@lib/query/use-login-mutation";
+import { localUser } from "@lib/user-storage";
+import { type UserLogin } from "@type/server/user.types";
 import { useState } from "react";
-import useLoginMutation from "../../lib/use-login-mutation";
-import { localUser } from "../../lib/user-storage";
-import { type UserLogin } from "../../types/server/user.types";
 
 export default function useLogin() {
 	const [passwordVisible, setPasswordVisible] = useState(false);

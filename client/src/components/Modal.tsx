@@ -1,6 +1,6 @@
+import useModal from "@/lib/use-modal";
 import { PropsWithChildren, useRef } from "react";
 import { createPortal } from "react-dom";
-import useModal from "../lib/use-modal";
 import * as S from "./Modal.style";
 
 type ModalProps = {

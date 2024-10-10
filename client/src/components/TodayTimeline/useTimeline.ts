@@ -1,5 +1,5 @@
+import { currentFractionOfDay } from "@lib/datetime/day-fraction";
 import { useState } from "react";
-import { currentFractionOfDay } from "../../lib/datetime/day-fraction";
 import { defaultWidth } from "./mock";
 
 function useTimeline() {

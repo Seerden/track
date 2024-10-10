@@ -1,4 +1,4 @@
-import { TagWithIds } from "../../types/server/tag.types";
+import { TagWithIds } from "@type/server/tag.types";
 import * as S from "./TagCard.style";
 
 function TagCard({ tag }: { tag: TagWithIds }) {

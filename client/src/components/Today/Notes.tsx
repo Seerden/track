@@ -1,6 +1,6 @@
-import { isToday } from "../../lib/datetime/compare";
-import useNotesQuery from "../../lib/query/use-notes-query";
-import useTagsQuery from "../../lib/query/use-tags-query";
+import { isToday } from "@lib/datetime/compare";
+import useNotesQuery from "@lib/query/use-notes-query";
+import useTagsQuery from "@lib/query/use-tags-query";
 import { Note } from "./Note";
 import * as S from "./Today.style";
 

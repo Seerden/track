@@ -1,5 +1,5 @@
-import { DateTimeField } from "../../types/form.types";
-import { NewActivity } from "../../types/server/activity.types";
+import { DateTimeField } from "@type/form.types";
+import { NewActivity } from "@type/server/activity.types";
 
 export function parseNewActivity(newActivity: Partial<NewActivity>): NewActivity {
 	if (!newActivity.user_id) {

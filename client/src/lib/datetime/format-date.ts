@@ -1,4 +1,4 @@
-import type { Datelike } from "../../types/date.types";
+import type { Datelike } from "@type/date.types";
 import { localDate } from "./make-date";
 
 // Format a date to year-month-date hh:mm (and optionally :ss)

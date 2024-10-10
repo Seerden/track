@@ -1,7 +1,7 @@
+import { createPostConfig } from "@lib/fetch/create-post-config";
+import { makeAuthorizedUrl } from "@lib/fetch/make-authorized-url";
 import { useMutation } from "@tanstack/react-query";
-import { createPostConfig } from "../../lib/fetch/create-post-config";
-import { makeAuthorizedUrl } from "../../lib/fetch/make-authorized-url";
-import { ActivityInput, ActivityWithIds } from "../../types/server/activity.types";
+import { ActivityInput, ActivityWithIds } from "@type/server/activity.types";
 
 async function postNewActivity({
 	activity,

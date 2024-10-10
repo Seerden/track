@@ -1,8 +1,8 @@
-import { activityEnd, activityStart } from "../../lib/activity";
-import { filterTagsById } from "../../lib/filter-tags";
-import { ActivityWithIds } from "../../types/server/activity.types";
-import { TagWithIds } from "../../types/server/tag.types";
-import { ById } from "../../types/server/utility.types";
+import { activityEnd, activityStart } from "@lib/activity";
+import { filterTagsById } from "@lib/filter-tags";
+import { ActivityWithIds } from "@type/server/activity.types";
+import { TagWithIds } from "@type/server/tag.types";
+import { ById } from "@type/server/utility.types";
 import TagCard from "../TagCard/TagCard";
 import * as S from "./Today.style";
 

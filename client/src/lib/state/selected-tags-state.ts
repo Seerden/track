@@ -1,3 +1,4 @@
+import type { ById, ID } from "@type/server/utility.types";
 import {
 	atom,
 	atomFamily,
@@ -6,7 +7,6 @@ import {
 	useRecoilValue,
 	useResetRecoilState,
 } from "recoil";
-import type { ById, ID } from "../../types/server/utility.types";
 
 // TODO: we might want to use an atom famiy here to allow for multiple tag
 // selection states

@@ -1,6 +1,6 @@
-import { activityDuration, activityStart } from "../../lib/activity.ts";
-import { ActivityWithIds } from "../../types/server/activity.types.ts";
-import { ID } from "../../types/server/utility.types.ts";
+import { activityDuration, activityStart } from "@lib/activity.ts";
+import { ActivityWithIds } from "@type/server/activity.types.ts";
+import { ID } from "@type/server/utility.types.ts";
 import * as S from "./Today.style.ts";
 
 type ActivityProps = {

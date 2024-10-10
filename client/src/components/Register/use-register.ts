@@ -1,6 +1,6 @@
+import useRegisterMutation from "@lib/use-register-mutation";
+import { NewUser } from "@type/server/user.types";
 import { useState } from "react";
-import useRegisterMutation from "../../lib/use-register-mutation";
-import { NewUser } from "../../types/server/user.types";
 
 export default function useRegister() {
 	const { mutate: register } = useRegisterMutation();
