@@ -1,5 +1,6 @@
 import { Router } from "express";
-import type { ActivityInput } from "../../types/data/activity.types";
+import { updateActivityCompletion } from "src/helpers/data/update-activity";
+import type { ActivityInput, ActivityUpdateInput } from "../../types/data/activity.types";
 import type { NoteInput } from "../../types/data/note.types";
 import type { TagInput } from "../../types/data/tag.types";
 import { isAuthorized } from "../helpers/auth/is-authorized";
@@ -61,4 +62,10 @@ dataRouter.get("/activities", isAuthorized, async (req, res) => {
 	const activitiesById = await queryActivitiesAndRelations({ user_id });
 
 	res.json({ activitiesById });
+});
+
+dataRouter.put("/task/:activity_id/completion", isAuthorized, async (req, res) => {
+	const { input } = req.body as { input: ActivityUpdateInput };
+	const updatedActivity = await updateActivityCompletion({ input });
+	res.json({ activity: updatedActivity });
 });
