@@ -1,6 +1,6 @@
+import { today } from "@lib/datetime/make-date";
+import { parseTimeString } from "@lib/datetime/parse-string";
 import { useEffect, useMemo, useState } from "react";
-import { today } from "../../lib/datetime/make-date";
-import { parseTimeString } from "../../lib/datetime/parse-string";
 import type { DateTimePickerProps } from "./datetime-picker.types";
 
 export default function useDateTimePicker({ setState }: DateTimePickerProps) {

@@ -1,6 +1,6 @@
+import type { TagWithIds } from "@type/server/tag.types";
+import type { ById } from "@type/server/utility.types";
 import { useMemo } from "react";
-import type { TagWithIds } from "../../types/server/tag.types";
-import type { ById } from "../../types/server/utility.types";
 import NewTagButton from "./NewTagButton";
 import * as S from "./TagSelector.style";
 import useTagSelector from "./use-tag-selector";

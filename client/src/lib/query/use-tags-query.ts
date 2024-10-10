@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { TagsData } from "../types/data.types";
-import { makeAuthorizedUrl } from "./fetch/make-authorized-url";
-import { defaultQueryConfig, queryClient } from "./query-client";
+import { TagsData } from "@type/data.types";
+import { makeAuthorizedUrl } from "../fetch/make-authorized-url";
+import { defaultQueryConfig, queryClient } from "../query-client";
 
 async function getTags() {
 	const url = makeAuthorizedUrl("/data/tags");

@@ -1,5 +1,5 @@
+import { inputStyle } from "@lib/theme/snippets/input";
 import styled from "styled-components";
-import { inputStyle } from "../../lib/theme/snippets/input";
 
 // TODO: style this similarly to NewActivity -- this means creating common theme
 // snippets for 'Form', 'FormTitle', 'Fields', etc.

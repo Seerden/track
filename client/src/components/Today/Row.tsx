@@ -1,5 +1,5 @@
-import { ActivityWithIds } from "../../types/server/activity.types";
-import { ID } from "../../types/server/utility.types";
+import { ActivityWithIds } from "@type/server/activity.types";
+import { ID } from "@type/server/utility.types";
 import Activity from "./Activity";
 import HourMark from "./HourMark";
 import * as S from "./Today.style";

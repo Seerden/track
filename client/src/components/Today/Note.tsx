@@ -1,7 +1,7 @@
-import { filterTagsById } from "../../lib/filter-tags";
-import { NoteWithIds } from "../../types/server/note.types";
-import { TagWithIds } from "../../types/server/tag.types";
-import { ById } from "../../types/server/utility.types";
+import { filterTagsById } from "@lib/filter-tags";
+import { NoteWithIds } from "@type/server/note.types";
+import { TagWithIds } from "@type/server/tag.types";
+import { ById } from "@type/server/utility.types";
 import TagCard from "../TagCard/TagCard";
 import * as S from "./Today.style";
 

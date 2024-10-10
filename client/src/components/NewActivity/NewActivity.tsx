@@ -1,5 +1,5 @@
-import { Checkbox } from "../../lib/theme/components/Checkbox";
-import { type NewActivity } from "../../types/server/activity.types";
+import { Checkbox } from "@lib/theme/components/Checkbox";
+import { type NewActivity } from "@type/server/activity.types";
 import TagSelector from "../TagSelector/TagSelector";
 import DateTimePicker from "./DateTimePicker";
 import * as N from "./NewActivity.style";

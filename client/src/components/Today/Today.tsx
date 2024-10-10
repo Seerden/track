@@ -1,4 +1,4 @@
-import { activityStartHour } from "../../lib/activity";
+import { activityStartHour } from "@lib/activity";
 import Notes from "./Notes";
 import Row from "./Row";
 import Tasks from "./Tasks";

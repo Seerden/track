@@ -1,3 +1,8 @@
+import AnimatedRoutes from "@components/AnimatedRoutes";
+import Notes from "@components/Notes/Notes";
+import Protected from "@components/Protected";
+import Suspended from "@components/Suspended";
+import Today from "@components/Today/Today";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { lazy } from "react";
@@ -6,21 +11,16 @@ import { HashRouter as Router } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "styled-components";
 import "./App.scss";
-import AnimatedRoutes from "./components/AnimatedRoutes";
-import Notes from "./components/Notes/Notes";
-import Protected from "./components/Protected";
-import Suspended from "./components/Suspended";
-import Today from "./components/Today/Today";
 import Page from "./lib/framer/components/Page";
 import { queryClient } from "./lib/query-client";
 import { theme } from "./lib/theme/theme";
 
-const NewNote = lazy(() => import("./components/NewNote/NewNote"));
-const Register = lazy(() => import("./components/Register/Register"));
-const Home = lazy(() => import("./components/Home"));
-const Header = lazy(() => import("./components/Header/Header"));
-const NewActivity = lazy(() => import("./components/NewActivity/NewActivity"));
-const ActivityList = lazy(() => import("./components/ActivityList/ActivityList"));
+const NewNote = lazy(() => import("@components/NewNote/NewNote"));
+const Register = lazy(() => import("@components/Register/Register"));
+const Home = lazy(() => import("@components/Home"));
+const Header = lazy(() => import("@components/Header/Header"));
+const NewActivity = lazy(() => import("@components/NewActivity/NewActivity"));
+const ActivityList = lazy(() => import("@components/ActivityList/ActivityList"));
 
 function App() {
 	return (

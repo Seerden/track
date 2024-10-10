@@ -1,6 +1,6 @@
+import useAuthentication from "@lib/use-authentication";
+import useRouteProps from "@lib/use-route-props";
 import { PropsWithChildren } from "react";
-import useAuthentication from "../lib/use-authentication";
-import useRouteProps from "../lib/use-route-props";
 import Login from "./Login/Login";
 
 export default function Protected({ children }: PropsWithChildren) {
