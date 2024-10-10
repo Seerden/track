@@ -4,7 +4,7 @@ import {
 	assignIndentationLevelToActivities,
 } from "../../lib/activity";
 import { today } from "../../lib/datetime/make-date";
-import useActivitiesQuery from "../../lib/use-activities-query";
+import useActivitiesQuery from "../../lib/query/use-activities-query";
 
 export default function useToday() {
 	const { data: activitiesData } = useActivitiesQuery();

@@ -1,4 +1,4 @@
-import useTagsQuery from "../../lib/use-tags-query";
+import useTagsQuery from "../../lib/query/use-tags-query";
 import { ActivityWithIds } from "../../types/server/activity.types";
 import Task from "./Task";
 import * as S from "./Today.style";

@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import type { Data } from "../types/query.types";
-import type { ById } from "../types/server/utility.types";
-import { makeAuthorizedUrl } from "./fetch/make-authorized-url";
-import { defaultQueryConfig } from "./query-client";
+import { Data } from "../../types/query.types";
+import { ById } from "../../types/server/utility.types";
+import { makeAuthorizedUrl } from "../fetch/make-authorized-url";
+import { defaultQueryConfig } from "../query-client";
 
 export async function getTagsTree() {
 	const url = makeAuthorizedUrl("/data/tags/tree");

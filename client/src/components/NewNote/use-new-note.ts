@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { queryClient } from "../../lib/query-client";
+import { useNewNoteMutation } from "../../lib/query/use-new-note-mutation";
+import useTagsQuery from "../../lib/query/use-tags-query";
 import { useTagSelection } from "../../lib/state/selected-tags-state";
 import useAuthentication from "../../lib/use-authentication";
-import { useNewNoteMutation } from "../../lib/use-new-note-mutation";
 import useRouteProps from "../../lib/use-route-props";
-import useTagsQuery from "../../lib/use-tags-query";
 import { NewNote } from "../../types/server/note.types";
 
 type UseNewNoteProps = {

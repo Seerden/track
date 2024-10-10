@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createPostConfig } from "./fetch/create-post-config";
-import { baseUrl } from "./fetch/fetch-constants";
-import { localUser } from "./user-storage";
+import { createPostConfig } from "../fetch/create-post-config";
+import { baseUrl } from "../fetch/fetch-constants";
+import { localUser } from "../user-storage";
 
 async function postLogout() {
 	return (await fetch(`${baseUrl}/auth/logout`, createPostConfig())).json();

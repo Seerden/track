@@ -1,6 +1,6 @@
 import { useState } from "react";
+import useTagsQuery from "../../lib/query/use-tags-query";
 import { useTagSelection } from "../../lib/state/selected-tags-state";
-import useTagsQuery from "../../lib/use-tags-query";
 import { ID } from "../../types/server/utility.types";
 
 type UseTagSelector = {
