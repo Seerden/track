@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createPostConfig } from "../fetch/create-post-config";
+import { createPostConfig } from "../fetch/create-request-config";
 import { baseUrl } from "../fetch/fetch-constants";
 import { localUser } from "../user-storage";
 

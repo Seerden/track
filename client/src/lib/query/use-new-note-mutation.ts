@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { NoteInput, NoteWithIds } from "@type/server/note.types";
-import { createPostConfig } from "../fetch/create-post-config";
+import { createPostConfig } from "../fetch/create-request-config";
 import { makeAuthorizedUrl } from "../fetch/make-authorized-url";
 
 async function postNote({ note, tagIds }: NoteInput) {

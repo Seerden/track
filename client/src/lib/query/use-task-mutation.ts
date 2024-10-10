@@ -1,4 +1,4 @@
-import { createRequestConfig } from "@/lib/fetch/create-post-config";
+import { createRequestConfig } from "@/lib/fetch/create-request-config";
 import { baseUrl } from "@/lib/fetch/fetch-constants";
 import { Data } from "@/types/query.types";
 import { Activity, ActivityUpdateInput } from "@/types/server/activity.types";
