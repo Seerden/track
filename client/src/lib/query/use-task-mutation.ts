@@ -1,5 +1,6 @@
 import { createRequestConfig } from "@/lib/fetch/create-request-config";
 import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
+import { queryClient } from "@/lib/query-client";
 import { Data } from "@/types/query.types";
 import { Activity, ActivityUpdateInput } from "@/types/server/activity.types";
 import { useMutation } from "@tanstack/react-query";
@@ -15,5 +16,8 @@ export default function useTaskCompletionMutation() {
 			return putTaskCompletion(activity);
 		},
 		mutationKey: ["task-completion"],
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["activities"] });
+		},
 	});
 }
