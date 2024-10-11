@@ -64,7 +64,7 @@ dataRouter.get("/activities", isAuthorized, async (req, res) => {
 	res.json({ activitiesById });
 });
 
-dataRouter.put("/task/:activity_id/completion", isAuthorized, async (req, res) => {
+dataRouter.put("/task/completion", isAuthorized, async (req, res) => {
 	const { input } = req.body as { input: ActivityUpdateInput };
 	const updatedActivity = await updateActivityCompletion({ input });
 	res.json({ activity: updatedActivity });
