@@ -10,9 +10,9 @@ export function updateActivityCompletion({
 	// manipulating and using ${input}
 	return sql<[Activity]>`
       update activities 
-      set completed = ${input.completed ?? null} 
-      and completion_start = ${input.completion_start ?? null}
-      and completion_end = ${input.completion_end ?? null}
+      set completed = ${input.completed ?? null},
+         completion_start = ${input.completion_start ?? null},
+         completion_end = ${input.completion_end ?? null}
       where activity_id = ${input.activity_id}
       returning *
    `;
