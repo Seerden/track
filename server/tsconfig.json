@@ -12,10 +12,16 @@
 		"strictNullChecks": true,
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
-		"baseUrl": ".",
+		"baseUrl": "./",
 		"types": ["jest", "node"],
 		"typeRoots": ["./types", "./node_modules/@types"],
       "noImplicitAny": true,
+      "paths": {
+        "@/*": ["src/*"],
+        "@lib/*": ["src/lib/*"],
+      }
+      
 	},
-	"exclude": ["./node_modules", "node_modules"]
+	"exclude": ["./node_modules", "node_modules"],
+   "include": ["src", "types" ] // is this necessary?
 }

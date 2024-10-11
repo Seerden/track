@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { sessionCookieName } from "../../helpers/redis/redis-client";
+import { sessionCookieName } from "../redis/redis-client";
 
 /** Destroy the active express session, if it exists to begin with. */
 export async function destroySession({ req, res }: { req: Request; res: Response }) {

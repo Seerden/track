@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { type NewUser, type UserLogin } from "../../types/data/user.types";
-import { destroySession } from "../helpers/auth/destroy-session";
-import { login } from "../helpers/auth/log-in";
-import { createUser } from "../helpers/data/insert-user";
-import { getUserById } from "../helpers/data/query-user";
+import { destroySession } from "../lib/auth/destroy-session";
+import { login } from "../lib/auth/log-in";
+import { createUser } from "../lib/data/insert-user";
+import { getUserById } from "../lib/data/query-user";
 
 export const authRouter = Router({ mergeParams: true });
 

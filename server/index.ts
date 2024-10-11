@@ -3,11 +3,8 @@ import "dotenv/config";
 import express, { RequestHandler } from "express";
 import session from "express-session";
 import { pingDatabase } from "./src/db/init";
-import { logRequests } from "./src/helpers/log-requests";
-import {
-	initializeRedisConnection,
-	redisSession,
-} from "./src/helpers/redis/redis-client";
+import { logRequests } from "./src/lib/log-requests";
+import { initializeRedisConnection, redisSession } from "./src/lib/redis/redis-client";
 import { routers } from "./src/routers/routers";
 import { runAtStartup } from "./start";
 
