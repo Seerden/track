@@ -1,16 +1,12 @@
 import { createRequestConfig } from "@/lib/fetch/create-request-config";
-import { baseUrl } from "@/lib/fetch/fetch-constants";
+import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
 import { Data } from "@/types/query.types";
 import { Activity, ActivityUpdateInput } from "@/types/server/activity.types";
 import { useMutation } from "@tanstack/react-query";
 
 async function putTaskCompletion(input: ActivityUpdateInput) {
-	return (
-		await fetch(
-			`${baseUrl}/task/${input.activity_id}/completion`,
-			createRequestConfig.put({ input }),
-		)
-	).json();
+	const url = makeAuthorizedUrl(`/data/task/completion`);
+	return (await fetch(url, createRequestConfig.put({ input }))).json();
 }
 
 export default function useTaskCompletionMutation() {
