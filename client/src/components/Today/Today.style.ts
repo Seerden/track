@@ -112,6 +112,14 @@ export const Task = styled.li`
 	align-items: center;
 `;
 
+export const CheckboxWrapper = styled.label`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 27px;
+	height: 27px;
+`;
+
 export const Checkbox = styled.input`
 	display: block;
 	margin-right: 0.5rem;

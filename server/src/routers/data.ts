@@ -1,17 +1,18 @@
+import { updateActivityCompletion } from "@lib/data/update-activity";
 import { Router } from "express";
-import type { ActivityInput } from "../../types/data/activity.types";
+import type { ActivityInput, ActivityUpdateInput } from "../../types/data/activity.types";
 import type { NoteInput } from "../../types/data/note.types";
 import type { TagInput } from "../../types/data/tag.types";
-import { isAuthorized } from "../helpers/auth/is-authorized";
-import { insertActivityWithTags } from "../helpers/data/insert-activity";
-import { insertNoteWithTags } from "../helpers/data/insert-note";
-import { insertTagWithRelation } from "../helpers/data/insert-tags";
+import { isAuthorized } from "../lib/auth/is-authorized";
+import { insertActivityWithTags } from "../lib/data/insert-activity";
+import { insertNoteWithTags } from "../lib/data/insert-note";
+import { insertTagWithRelation } from "../lib/data/insert-tags";
 import {
 	createTagTreeMap,
 	getTagsWithRelations,
-} from "../helpers/data/merge-tags-and-relations";
-import { queryActivitiesAndRelations } from "../helpers/data/query-activities";
-import { queryNotesAndRelations } from "../helpers/data/query-notes";
+} from "../lib/data/merge-tags-and-relations";
+import { queryActivitiesAndRelations } from "../lib/data/query-activities";
+import { queryNotesAndRelations } from "../lib/data/query-notes";
 
 export const dataRouter = Router({ mergeParams: true });
 
@@ -61,4 +62,10 @@ dataRouter.get("/activities", isAuthorized, async (req, res) => {
 	const activitiesById = await queryActivitiesAndRelations({ user_id });
 
 	res.json({ activitiesById });
+});
+
+dataRouter.put("/task/completion", isAuthorized, async (req, res) => {
+	const { input } = req.body as { input: ActivityUpdateInput };
+	const updatedActivity = await updateActivityCompletion({ input });
+	res.json({ activity: updatedActivity });
 });

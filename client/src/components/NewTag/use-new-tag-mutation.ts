@@ -1,4 +1,4 @@
-import { createPostConfig } from "@lib/fetch/create-post-config";
+import { createRequestConfig } from "@/lib/fetch/create-request-config";
 import { makeAuthorizedUrl } from "@lib/fetch/make-authorized-url";
 import { useMutation } from "@tanstack/react-query";
 import type { TagInput, TagWithIds } from "@type/server/tag.types";
@@ -6,7 +6,7 @@ import type { TagInput, TagWithIds } from "@type/server/tag.types";
 async function postTag({ newTag, parent_id }: TagInput) {
 	const url = makeAuthorizedUrl("/data/tag");
 
-	return (await fetch(url, createPostConfig({ newTag, parent_id }))).json();
+	return (await fetch(url, createRequestConfig.post({ newTag, parent_id }))).json();
 }
 
 export function useNewTagMutation() {
