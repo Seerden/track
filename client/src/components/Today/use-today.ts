@@ -9,7 +9,6 @@ export default function useToday() {
 		return Object.values(activitiesData?.activitiesById ?? {}); // TODO: should this not be in a useActivities hook or someting?
 	}, [activitiesData]);
 
-	Object.values(activitiesData?.activitiesById ?? {});
 	const currentDate = today();
 	const todayActivities = activities.filter((activity) => {
 		return activityFallsOnDay(activity, currentDate);
