@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { useModalState } from "@/lib/state/modal-state";
 import { MdLabelImportant } from "react-icons/md";
 import Modal from "../Modal";
 import NewTag from "../NewTag/NewTag";
 import * as S from "./NewTagButton.style";
 
+export const newTagModalId = "newTagModal";
+
 export default function NewTagButton() {
-	const [isOpen, setIsOpen] = useState(false);
+	const { toggleModal, state } = useModalState(newTagModalId); // TODO: THIS ID IS NOT UNIQUE BECAUSE NewTagButton is called in multiple places!!
 
 	function handleOpen(e: React.MouseEvent<HTMLButtonElement>) {
 		e.preventDefault();
 		e.stopPropagation();
-		setIsOpen((current) => !current);
+		toggleModal();
 	}
 
 	return (
@@ -19,8 +21,8 @@ export default function NewTagButton() {
 				<MdLabelImportant />
 			</S.Button>
 
-			{isOpen && (
-				<Modal initialOpen={true} outsideStateHandler={setIsOpen}>
+			{state.isOpen && (
+				<Modal modalId={newTagModalId}>
 					<NewTag />
 				</Modal>
 			)}

@@ -1,3 +1,5 @@
+import DetailedActivity, { activityModalId } from "@/components/Today/DetailedActivity";
+import { useModalState } from "@/lib/state/modal-state";
 import { activityStartHour } from "@lib/activity";
 import Notes from "./Notes";
 import Row from "./Row";
@@ -7,6 +9,7 @@ import useToday from "./use-today";
 
 export default function Today() {
 	const { activities, indentation, currentDate } = useToday();
+	const { state } = useModalState(activityModalId);
 
 	return (
 		<S.Wrapper>
@@ -31,6 +34,9 @@ export default function Today() {
 				<Tasks activities={activities.filter((a) => a.is_task)} />
 				<Notes />
 			</S.Columns>
+			{state.isOpen && state.itemType === "activity" && state.itemId && (
+				<DetailedActivity id={state.itemId} />
+			)}
 		</S.Wrapper>
 	);
 }
