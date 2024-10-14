@@ -34,7 +34,12 @@ function NewActivity() {
 				</N.Row>
 
 				<N.Row>
-					<TagSelector fullSize title="Tags" showNewTagButton />
+					<TagSelector
+						fullSize
+						title="Tags"
+						showNewTagButton
+						modalId={"newActivityTagModal"}
+					/>
 				</N.Row>
 
 				<N.Button>Create activity</N.Button>

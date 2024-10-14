@@ -31,7 +31,12 @@ function NewTag() {
 				</S.Field>
 
 				<S.Tags>
-					<TagSelector title="Categorize" maximum={1} tagsById={tags?.tagsById} />
+					<TagSelector
+						title="Categorize"
+						maximum={1}
+						tagsById={tags?.tagsById}
+						modalId={"newTagModal"}
+					/>
 				</S.Tags>
 				<S.Button title="Save">💾</S.Button>
 			</S.Fields>

@@ -4,10 +4,12 @@ import Modal from "../Modal";
 import NewTag from "../NewTag/NewTag";
 import * as S from "./NewTagButton.style";
 
-export const newTagModalId = "newTagModal";
+type NewTagButtonProps = {
+	modalId: string;
+};
 
-export default function NewTagButton() {
-	const { toggleModal, state } = useModalState(newTagModalId); // TODO: THIS ID IS NOT UNIQUE BECAUSE NewTagButton is called in multiple places!!
+export default function NewTagButton({ modalId }: NewTagButtonProps) {
+	const { toggleModal, state } = useModalState(modalId);
 
 	function handleOpen(e: React.MouseEvent<HTMLButtonElement>) {
 		e.preventDefault();
@@ -22,7 +24,7 @@ export default function NewTagButton() {
 			</S.Button>
 
 			{state.isOpen && (
-				<Modal modalId={newTagModalId}>
+				<Modal modalId={modalId}>
 					<NewTag />
 				</Modal>
 			)}
