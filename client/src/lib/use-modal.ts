@@ -3,7 +3,7 @@ import { RefObject, useEffect } from "react";
 
 type UseModalProps = {
 	keys?: string[];
-	outsideClickHandler?: (e: MouseEvent) => void; // TODO: I'm not sure if this will ever be used
+	outsideClickHandler?: (e: MouseEvent) => void;
 	modalId: string;
 	initialOpen?: boolean;
 };
@@ -12,7 +12,7 @@ export default function useModal(
 	modalRef: RefObject<HTMLElement | null>,
 	{ keys, outsideClickHandler, modalId, initialOpen }: UseModalProps,
 ) {
-	const { state, setModalOpen, toggleModal } = useModalState(modalId, initialOpen);
+	const { state, setModalOpen } = useModalState(modalId, initialOpen);
 
 	function closeModal() {
 		setModalOpen(false);
@@ -20,8 +20,6 @@ export default function useModal(
 	}
 
 	function onKeydown(e: KeyboardEvent) {
-		console.log("TRYING TO CLOSE");
-		console.log({ stateInKeyDown: state });
 		if (
 			state.isOpen &&
 			modalRef.current &&
@@ -32,12 +30,9 @@ export default function useModal(
 	}
 
 	function onClickOutside(e: MouseEvent) {
-		if (!state.isOpen) {
-			return;
-		}
+		if (!state.isOpen) return;
 
 		if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-			console.log({ ref: modalRef.current, target: e.target });
 			e.preventDefault();
 			e.stopPropagation();
 			outsideClickHandler?.(e) ?? closeModal();
