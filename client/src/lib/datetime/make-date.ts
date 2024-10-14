@@ -7,9 +7,9 @@ import dayjs from "dayjs";
  */
 
 export function today() {
-	return dayjs.utc().local();
+	return dayjs().local().utc();
 }
 
 export function createDate(date: Datelike) {
-	return dayjs.utc(date);
+	return dayjs(date).local().utc();
 }
