@@ -10,6 +10,6 @@ export function today() {
 	return dayjs.utc().local();
 }
 
-export function localDate(date: Datelike) {
-	return dayjs.utc(date).local();
+export function createDate(date: Datelike) {
+	return dayjs.utc(date);
 }
