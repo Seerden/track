@@ -10,9 +10,9 @@ type UseModalProps = {
 
 export default function useModal(
 	modalRef: RefObject<HTMLElement | null>,
-	{ keys, outsideClickHandler, modalId }: UseModalProps,
+	{ keys, outsideClickHandler, modalId, initialOpen }: UseModalProps,
 ) {
-	const { state, setModalOpen, toggleModal } = useModalState(modalId);
+	const { state, setModalOpen, toggleModal } = useModalState(modalId, initialOpen);
 
 	function closeModal() {
 		setModalOpen(false);

@@ -19,7 +19,7 @@ export default function Modal({
 		modalId,
 		initialOpen
 	});
-	const { state } = useModalState(modalId);
+	const { state } = useModalState(modalId, initialOpen);
 
 	if (!state.isOpen) {
 		return null;

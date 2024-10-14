@@ -1,10 +1,5 @@
 import { ID } from "@/types/server/utility.types";
-import {
-	atomFamily,
-	useRecoilValue,
-	useResetRecoilState,
-	useSetRecoilState,
-} from "recoil";
+import { atomFamily, useRecoilValue, useSetRecoilState } from "recoil";
 
 export const modalStateFamily = atomFamily<
 	{
@@ -23,19 +18,22 @@ export const modalStateFamily = atomFamily<
 
 export function useModalState(modalId: string, initialOpen?: boolean) {
 	const modalState = useRecoilValue(modalStateFamily({ modalId, initialOpen }));
-	const closeModal = useResetRecoilState(modalStateFamily({ modalId, initialOpen }));
 	const setModalState = useSetRecoilState(modalStateFamily({ modalId, initialOpen }));
 
-	function setModalOpen(value: boolean) {
-		setModalState({ isOpen: value });
+	function openModal() {
+		setModalState((current) => ({ ...current, isOpen: true }));
 	}
 
-	function openModal() {
-		setModalState({ isOpen: true });
+	function closeModal() {
+		setModalState((current) => ({ ...current, isOpen: false }));
+	}
+
+	function setModalOpen(value: boolean) {
+		setModalState((current) => ({ ...current, isOpen: value }));
 	}
 
 	function toggleModal() {
-		setModalState((current) => ({ isOpen: !current.isOpen }));
+		setModalState((current) => ({ ...current, isOpen: !current.isOpen }));
 	}
 
 	function setModalItemId(itemId: ID) {
