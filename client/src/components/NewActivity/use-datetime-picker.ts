@@ -1,4 +1,4 @@
-import { today } from "@lib/datetime/make-date";
+import { createDate, today } from "@lib/datetime/make-date";
 import { parseTimeString } from "@lib/datetime/parse-string";
 import { useEffect, useMemo, useState } from "react";
 import type { DateTimePickerProps } from "./datetime-picker.types";
@@ -40,8 +40,10 @@ export default function useDateTimePicker({ setState }: DateTimePickerProps) {
 	});
 
 	const dateTime = useMemo(() => {
-		const start = allDay ? date.start : `${date.start}T${time.start}`;
-		const end = allDay ? date.end : `${date.end}T${time.end}`;
+		const [start, end] = [
+			createDate(allDay ? date.start : `${date.start}T${time.start}`).toISOString(),
+			createDate(allDay ? date.end : `${date.end}T${time.end}`).toISOString(),
+		];
 
 		return { start, end };
 	}, [date, time, allDay]);
@@ -81,6 +83,8 @@ export default function useDateTimePicker({ setState }: DateTimePickerProps) {
 	}
 
 	function onTimeChange(e: React.ChangeEvent<HTMLInputElement>, field: "start" | "end") {
+		if (e.target.value.length !== 4) return;
+
 		setTime({
 			...time,
 			[field]: parseTimeString(e.target.value),

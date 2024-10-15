@@ -1,4 +1,5 @@
-import dayjs from "dayjs";
+import { getLocalHour } from "@/lib/datetime/local";
+import { createDate, now } from "@/lib/datetime/make-date";
 import type { Datelike } from "../types/date.types";
 import type { ActivityWithIds } from "../types/server/activity.types";
 import type { ID } from "../types/server/utility.types";
@@ -7,20 +8,18 @@ import { sameDay } from "./datetime/compare";
 /** Gets the `start` of an activity, which is either a timestamp or
  * year-month-date string. */
 export function activityStart(activity: ActivityWithIds) {
-	const start = activity.start_date ?? activity.started_at;
-	return dayjs.utc(start);
+	return createDate(activity.start_date ?? activity.started_at);
 }
 
 /** Gets the `end` of an activity, which is either a timestamp or
  * year-month-date string. */
 export function activityEnd(activity: ActivityWithIds) {
-	const end = activity.end_date ?? activity.ended_at;
-	return dayjs.utc(end);
+	return createDate(activity.end_date ?? activity.ended_at);
 }
 
 export function activityFallsOnDay(activity: ActivityWithIds, date: Datelike) {
 	const [start, end] = [activityStart(activity), activityEnd(activity)];
-	const day = dayjs(date);
+	const day = createDate(date);
 
 	return sameDay(start, day) || sameDay(end, day);
 }
@@ -49,7 +48,7 @@ export function activityStartHour(activity: ActivityWithIds, date: Datelike) {
 	if (!sameDay(start, date)) {
 		return -1;
 	}
-	return dayjs.utc(start).hour();
+	return getLocalHour(start);
 }
 
 /** Checks if two activities (partially) occur at the same time. */
@@ -73,8 +72,9 @@ export function getAllStartAndEndTimesOnDate(
 ) {
 	const times = new Set<number>();
 
-	const startOfDay = dayjs(date).startOf("day");
-	const endOfDay = dayjs(date).endOf("day");
+	const _date = createDate(date);
+	const startOfDay = _date.startOf("day");
+	const endOfDay = _date.endOf("day");
 
 	for (const activity of activities) {
 		const [start, end] = [activityStart(activity), activityEnd(activity)];
@@ -154,3 +154,13 @@ export function assignIndentationLevelToActivities(
 
 	return indentation;
 }
+
+export function startsInFuture(activity: ActivityWithIds) {
+	return activityStart(activity).isAfter(now());
+}
+
+export function hasNotEnded(activity: ActivityWithIds) {
+	return activityEnd(activity).isAfter(now());
+}
+
+// TODO: make newactivity dates local!! then adjust date functions to match

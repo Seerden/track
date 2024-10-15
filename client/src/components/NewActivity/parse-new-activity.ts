@@ -44,7 +44,7 @@ export function parseNewActivity(
 
 // WIP
 function isValidNewActivity(
-	newActivity: AtLeast<NewActivity, "user_id">,
+	newActivity: AtLeast<Partial<NewActivity>, "user_id">,
 ): newActivity is NewActivity {
 	return (
 		newActivity.user_id !== undefined &&

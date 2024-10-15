@@ -6,10 +6,16 @@ import dayjs from "dayjs";
  * from the database correctly without it.
  */
 
+// TODO: rename this to now(), use another function for today() and maybe think
+// about setting that to start of day.
 export function today() {
-	return dayjs().local().utc();
+	return dayjs().utc().local();
+}
+
+export function now() {
+	return dayjs().utc().local();
 }
 
 export function createDate(date: Datelike) {
-	return dayjs(date).local().utc();
+	return dayjs(date).utc().local();
 }

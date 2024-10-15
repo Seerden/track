@@ -42,6 +42,7 @@ export default function useNewActivity() {
 
 	function onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const { type, name, value, checked } = e.target;
+
 		setNewActivity((current) => ({
 			...current,
 			[name]: type === "checkbox" ? checked : value,
