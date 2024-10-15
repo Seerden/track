@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ModalWrapper = styled.div`
-	z-index: 2;
+	z-index: 100; // TODO: should put these indexes somewhere so we can reason about them
 	position: fixed;
 	overflow-y: scroll;
 	top: 0;
