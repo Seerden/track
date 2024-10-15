@@ -1,4 +1,4 @@
-import { Timestamp } from "./utility.types";
+import type { Timestamp } from "./utility.types";
 
 export type NewUser = {
 	username: string;

@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
-import { Datelike } from "../types/date.types";
-import { ActivityWithIds } from "../types/server/activity.types";
-import { ID } from "../types/server/utility.types";
+import type { Datelike } from "../types/date.types";
+import type { ActivityWithIds } from "../types/server/activity.types";
+import type { ID } from "../types/server/utility.types";
 import { sameDay } from "./datetime/compare";
 
 /** Gets the `start` of an activity, which is either a timestamp or

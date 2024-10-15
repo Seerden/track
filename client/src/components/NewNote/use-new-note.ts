@@ -4,7 +4,7 @@ import useTagsQuery from "@lib/query/use-tags-query";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import useAuthentication from "@lib/use-authentication";
 import useRouteProps from "@lib/use-route-props";
-import { NewNote } from "@type/server/note.types";
+import type { NewNote } from "@type/server/note.types";
 import { useEffect, useState } from "react";
 
 type UseNewNoteProps = {

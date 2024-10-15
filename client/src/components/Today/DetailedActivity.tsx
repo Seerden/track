@@ -2,7 +2,7 @@ import Modal from "@/components/Modal";
 import { activityEnd, activityStart } from "@/lib/activity";
 import useActivitiesQuery from "@/lib/query/use-activities-query";
 import useTagsQuery from "@/lib/query/use-tags-query";
-import { Datelike } from "@/types/date.types";
+import type { Datelike } from "@/types/date.types";
 import type { ActivityWithIds } from "@/types/server/activity.types";
 import dayjs from "dayjs";
 

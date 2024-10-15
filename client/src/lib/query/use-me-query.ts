@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { Data } from "@type/query.types";
-import { User } from "@type/server/user.types";
-import { Maybe } from "@type/server/utility.types";
+import type { Data } from "@type/query.types";
+import type { User } from "@type/server/user.types";
+import type { Maybe } from "@type/server/utility.types";
 import { baseUrl } from "../fetch/fetch-constants";
 import { defaultQueryConfig } from "../query-client";
 import { localUser } from "../user-storage";

@@ -1,5 +1,5 @@
 import { activityGuards } from "@/types/server/activity.guards";
-import { AtLeast } from "@/types/server/utility.types";
+import type { AtLeast } from "@/types/server/utility.types";
 import type { DateTimeField } from "@type/form.types";
 import { type NewActivity } from "@type/server/activity.types";
 

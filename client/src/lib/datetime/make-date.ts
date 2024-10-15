@@ -1,4 +1,4 @@
-import { Datelike } from "@type/date.types";
+import type { Datelike } from "@type/date.types";
 import dayjs from "dayjs";
 
 /**

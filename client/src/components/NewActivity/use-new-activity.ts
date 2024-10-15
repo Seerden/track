@@ -2,7 +2,7 @@ import { hasUserId } from "@/types/server/user-id.guards";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import useAuthentication from "@lib/use-authentication";
 import useRouteProps from "@lib/use-route-props";
-import { DateTimeField } from "@type/form.types";
+import type { DateTimeField } from "@type/form.types";
 import type { NewActivity } from "@type/server/activity.types";
 import { useEffect, useMemo, useState } from "react";
 import { parseNewActivity } from "./parse-new-activity";

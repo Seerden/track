@@ -1,4 +1,4 @@
-import { AtLeast, HasUserIdField } from "@/types/server/utility.types";
+import type { AtLeast, HasUserIdField } from "@/types/server/utility.types";
 
 export function hasUserId<T extends HasUserIdField<unknown>>(
 	thing: T,

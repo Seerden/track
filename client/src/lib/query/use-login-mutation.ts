@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Data } from "@type/query.types";
-import { User, UserLogin } from "@type/server/user.types";
+import type { Data } from "@type/query.types";
+import type { User, UserLogin } from "@type/server/user.types";
 import { createRequestConfig } from "../fetch/create-request-config";
 import { baseUrl } from "../fetch/fetch-constants";
 import { localUser } from "../user-storage";

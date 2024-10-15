@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import { Data } from "@type/query.types";
-import { NewUser, User } from "@type/server/user.types";
+import type { Data } from "@type/query.types";
+import type { NewUser, User } from "@type/server/user.types";
 import { createRequestConfig } from "../fetch/create-request-config";
 import { baseUrl } from "../fetch/fetch-constants";
 

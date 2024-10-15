@@ -1,8 +1,8 @@
 import { activityModalId } from "@/components/Today/DetailedActivity.tsx";
 import { useModalState } from "@/lib/state/modal-state.ts";
 import { activityDuration, activityStart } from "@lib/activity.ts";
-import { ActivityWithIds } from "@type/server/activity.types.ts";
-import { ID } from "@type/server/utility.types.ts";
+import type { ActivityWithIds } from "@type/server/activity.types.ts";
+import type { ID } from "@type/server/utility.types.ts";
 import * as S from "./Today.style.ts";
 
 type ActivityProps = {

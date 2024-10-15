@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 import { pageVariants } from "../variants/page-variants";
 import * as S from "./Page.style";
 

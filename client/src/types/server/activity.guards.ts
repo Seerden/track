@@ -1,4 +1,4 @@
-import { ActivityWithDates, ActivityWithTimestamps } from "@/types/server/activity.types";
+import type { ActivityWithDates, ActivityWithTimestamps } from "@/types/server/activity.types";
 
 function isActivityWithTimestamps(
 	activity: Partial<ActivityWithTimestamps | ActivityWithDates>,
