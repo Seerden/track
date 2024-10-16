@@ -17,7 +17,7 @@ function Home() {
 			<NewNote />
 			<NewActivity />
 
-			<TagTree />
+			<TagTree orientation="horizontal" />
 		</>
 	);
 }

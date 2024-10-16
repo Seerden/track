@@ -1,13 +1,31 @@
+import BadgeStyles from "@/lib/theme/components/Badge.style";
 import styled from "styled-components";
 
-export const Tree = styled.ul`
+export const Tree = styled.ul<{ $orientation?: "horizontal" | "vertical" }>`
 	max-height: 900px;
 	overflow-y: scroll;
 	padding-right: 1rem;
+	padding-top: 0.5rem;
 	margin-right: -1rem;
 	width: max-content;
 	min-width: 350px;
+	max-width: 100%;
 	border: 2px solid #dfdfdf;
+	display: flex;
+
+	${(p) =>
+		p.$orientation === "horizontal"
+			? `
+      flex-direction: row;
+      align-items: flex-start;
+      overflow-y: hidden;
+      overflow-x: scroll;
+   `
+			: `
+      flex-direction: column;
+      overflow-x: hidden;
+      overflow-y: scroll;
+   `}
 `;
 
 export const Container = styled.div`
@@ -55,6 +73,7 @@ export const Children = styled.ul`
 
 export const TagName = styled.label<{ $level: number }>`
 	font-size: 0.9rem;
+	position: relative;
 
 	${(p) =>
 		p.as === "label" &&
@@ -72,6 +91,7 @@ export const TagName = styled.label<{ $level: number }>`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	align-items: center;
 	gap: 0.5rem;
 	margin: 0.3rem 0.5rem;
 	padding: 0.5rem 0.7rem;
@@ -83,6 +103,12 @@ export const TagName = styled.label<{ $level: number }>`
 		p.$level === 0 ? "deepskyblue" : colors[p.$level % colors.length]};
 	color: white;
 	max-height: max-content;
+
+	${BadgeStyles.Badge} {
+		position: absolute;
+		right: -1rem;
+		top: -0.5rem;
+	}
 `;
 
 export const DropdownCheckbox = styled.input`

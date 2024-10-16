@@ -1,12 +1,17 @@
 import useTagsQuery from "@/lib/query/use-tags-query";
 import useTagsTreeQuery from "@/lib/query/use-tags-tree-query";
+import Badge from "@/lib/theme/components/Badge";
 import type { TagWithIds } from "@/types/server/tag.types";
 import type { ById, ID } from "@/types/server/utility.types";
 import { useState } from "react";
 import { MdOutlineExpandLess, MdOutlineExpandMore } from "react-icons/md";
 import * as S from "./TagTree.style";
 
-export default function TagTree() {
+type TagTreeProps = {
+	orientation?: "vertical" | "horizontal";
+};
+
+export default function TagTree({ orientation = "vertical" }: TagTreeProps) {
 	const { data: tagTreeData } = useTagsTreeQuery();
 	const { data: tagsData } = useTagsQuery();
 
@@ -26,7 +31,7 @@ export default function TagTree() {
 						<input type="text" />
 					</label>
 				</div>
-				<S.Tree>
+				<S.Tree $orientation={orientation}>
 					{rootTags.map((tag) => (
 						<Tag key={tag.tag_id} tag={tag} level={0} />
 					))}
@@ -59,6 +64,16 @@ function Tag({ tag, level }: TagProps) {
 		<S.Tag $level={level}>
 			<S.TagName $level={level} as={children?.length ? "label" : "span"}>
 				{tag.name}
+				{!!children?.length && collapsed && (
+					<Badge
+						height={"20px"}
+						color={"indigo"}
+						title={`${children.length} tags hidden`}
+					>
+						{/* TODO: instead of children.length, we want to get the number of descendants */}
+						{children.length}
+					</Badge>
+				)}
 				{!!children?.length && (
 					<>
 						<S.DropdownCheckbox
@@ -73,6 +88,7 @@ function Tag({ tag, level }: TagProps) {
 					</>
 				)}
 			</S.TagName>
+
 			{!!children?.length && !collapsed && (
 				<S.Children>
 					{children.map((child) => (
