@@ -78,7 +78,9 @@ export default function TagSelector({
 
 	// TODO: this first looks if tags were manually passed, if not it uses all
 	// of a user's tags. We need to rename the variables to make that clear.
-	const tagsToDisplay = Object.values(tagsById ?? tags?.tagsById ?? []);
+	const tagsToDisplay = Object.values(tagsById ?? tags?.tagsById ?? []).filter((tag) =>
+		tag.name.toLowerCase().includes(filter.toLowerCase())
+	);
 
 	return (
 		<S.Wrapper $fullSize={fullSize}>
