@@ -1,3 +1,4 @@
+import modalIds from "@/lib/modal-ids";
 import TagSelector from "../TagSelector/TagSelector";
 import * as S from "./NewTag.style";
 import useNewTag from "./use-new-tag";
@@ -31,7 +32,12 @@ function NewTag() {
 				</S.Field>
 
 				<S.Tags>
-					<TagSelector title="Categorize" maximum={1} tagsById={tags?.tagsById} />
+					<TagSelector
+						title="Categorize"
+						maximum={1}
+						tagsById={tags?.tagsById}
+						modalId={modalIds.tagSelector.newTag}
+					/>
 				</S.Tags>
 				<S.Button title="Save">💾</S.Button>
 			</S.Fields>

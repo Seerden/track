@@ -1,52 +1,42 @@
-import { RefObject, useEffect, useState } from "react";
+import { useModalState } from "@/lib/state/modal-state";
+import type { RefObject} from "react";
+import { useEffect } from "react";
 
 type UseModalProps = {
 	keys?: string[];
-	outsideClickHandler?: (e: MouseEvent) => void; // TODO: I'm not sure if this will ever be used
+	outsideClickHandler?: (e: MouseEvent) => void;
+	modalId: string;
 	initialOpen?: boolean;
-	outsideStateHandler?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function useModal(
 	modalRef: RefObject<HTMLElement | null>,
-	{ keys, outsideClickHandler, initialOpen, outsideStateHandler }: UseModalProps = {
-		keys: ["Escape"],
-		initialOpen: false,
-	},
+	{ keys, outsideClickHandler, modalId, initialOpen }: UseModalProps,
 ) {
-	const [isOpen, setIsOpen] = useState(initialOpen);
+	const { state, setModalOpen } = useModalState(modalId, initialOpen);
 
-	function close() {
-		setIsOpen(false);
-		outsideStateHandler?.(false);
+	function closeModal() {
+		setModalOpen(false);
 		window.removeEventListener("click", onClickOutside);
 	}
 
-	function open() {
-		setIsOpen(true);
-		outsideStateHandler?.(true);
-	}
-
-	function toggle() {
-		setIsOpen((cur) => !cur);
-		outsideStateHandler?.((cur) => !cur);
-	}
-
 	function onKeydown(e: KeyboardEvent) {
-		if (isOpen && modalRef.current && ["Escape"].concat(keys ?? []).includes(e.code)) {
-			close();
+		if (
+			state.isOpen &&
+			modalRef.current &&
+			["Escape"].concat(keys ?? []).includes(e.code)
+		) {
+			closeModal();
 		}
 	}
 
 	function onClickOutside(e: MouseEvent) {
-		if (!isOpen) {
-			return;
-		}
+		if (!state.isOpen) return;
 
 		if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
 			e.preventDefault();
 			e.stopPropagation();
-			outsideClickHandler?.(e) ?? close();
+			outsideClickHandler?.(e) ?? closeModal();
 		}
 	}
 
@@ -60,10 +50,5 @@ export default function useModal(
 		};
 	}, []);
 
-	return {
-		open,
-		close,
-		toggle,
-		isOpen,
-	};
+	return { isOpen: state.isOpen, closeModal };
 }

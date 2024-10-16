@@ -2,9 +2,9 @@ import useTaskCompletionMutation from "@/lib/query/use-task-mutation";
 import { Checkbox } from "@/lib/theme/components/Checkbox";
 import { activityEnd, activityStart } from "@lib/activity";
 import { filterTagsById } from "@lib/filter-tags";
-import { ActivityWithIds } from "@type/server/activity.types";
-import { TagWithIds } from "@type/server/tag.types";
-import { ById } from "@type/server/utility.types";
+import type { ActivityWithIds } from "@type/server/activity.types";
+import type { TagWithIds } from "@type/server/tag.types";
+import type { ById } from "@type/server/utility.types";
 import TagCard from "../TagCard/TagCard";
 import * as S from "./Today.style";
 

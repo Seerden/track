@@ -1,5 +1,6 @@
 import Page from "@lib/framer/components/Page";
-import { PropsWithChildren, Suspense } from "react";
+import type { PropsWithChildren} from "react";
+import { Suspense } from "react";
 
 /**
  * Simple wrapper that provides a default fallback to components that we want

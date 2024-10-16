@@ -1,4 +1,5 @@
 import TagTree from "@/components/TagTree/TagTree";
+import modalIds from "@/lib/modal-ids";
 import useTagsTreeQuery from "@/lib/query/use-tags-tree-query";
 import Modal from "./Modal";
 import NewActivity from "./NewActivity/NewActivity";
@@ -10,7 +11,7 @@ function Home() {
 	console.log({ data });
 	return (
 		<>
-			<Modal initialOpen>
+			<Modal initialOpen modalId={modalIds.notes.home}>
 				<Notes />
 			</Modal>
 			<NewNote />

@@ -1,8 +1,7 @@
-import { FiCheckCircle } from "react-icons/fi";
-import { MdRadioButtonUnchecked } from "react-icons/md";
+import { MdRadioButtonChecked, MdRadioButtonUnchecked } from "react-icons/md";
 
 function CheckboxOn() {
-	return <FiCheckCircle className="on" size={25} />;
+	return <MdRadioButtonChecked className="on" size={27} />;
 }
 
 function CheckboxOff() {

@@ -1,4 +1,4 @@
-import { Variants } from "framer-motion";
+import type { Variants } from "framer-motion";
 
 /** Slide-in/out animation to be used with page-level elements. */
 export const pageVariants: Variants = {

@@ -1,7 +1,7 @@
 import { createRequestConfig } from "@/lib/fetch/create-request-config";
 import { makeAuthorizedUrl } from "@lib/fetch/make-authorized-url";
 import { useMutation } from "@tanstack/react-query";
-import { ActivityInput, ActivityWithIds } from "@type/server/activity.types";
+import type { ActivityInput, ActivityWithIds } from "@type/server/activity.types";
 
 async function postNewActivity({
 	activity,

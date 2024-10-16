@@ -1,7 +1,8 @@
+import { hasUserId } from "@/types/server/user-id.guards";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import useAuthentication from "@lib/use-authentication";
 import useRouteProps from "@lib/use-route-props";
-import { DateTimeField } from "@type/form.types";
+import type { DateTimeField } from "@type/form.types";
 import type { NewActivity } from "@type/server/activity.types";
 import { useEffect, useMemo, useState } from "react";
 import { parseNewActivity } from "./parse-new-activity";
@@ -12,11 +13,6 @@ export default function useNewActivity() {
 	const { navigate } = useRouteProps();
 	const { currentUser } = useAuthentication();
 	const { selectedTagIds, resetTagSelection } = useTagSelection();
-	// TODO: typing below is only Partial because the typing thinks user_id may be null, when it can't
-	// actually be null because this component will always be rendered as
-	// Protected. Maybe we make user_id optional and check for it in the
-	// mutation, or server-side, or we leave it out entirely and let the server
-	// handle it. Needs more thought.
 	const [newActivity, setNewActivity] = useState<Partial<NewActivity>>(() => ({
 		name: "",
 		description: "",
@@ -32,15 +28,13 @@ export default function useNewActivity() {
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 
+		if (!hasUserId(newActivity)) return;
+
 		submit(
-			// NOTE: We type newActivity as NewActivity because of the user_id, which
-			// typescript thinks is nullable. I think it's fine like this for now
-			// but it does become a potential source for bugs if currentUser ever
-			// doesn't exist when this function is called.
 			{ activity: parseNewActivity(newActivity), tagIds: selectedTagIds },
 			{
 				onSuccess: () => {
-					navigate("/activities");
+					navigate("/activities"); // TODO: put routes in a variable
 				},
 			},
 		);
@@ -48,6 +42,7 @@ export default function useNewActivity() {
 
 	function onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const { type, name, value, checked } = e.target;
+
 		setNewActivity((current) => ({
 			...current,
 			[name]: type === "checkbox" ? checked : value,

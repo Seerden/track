@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { TagsData } from "@type/data.types";
+import type { TagsData } from "@type/data.types";
 import { makeAuthorizedUrl } from "../fetch/make-authorized-url";
 import { defaultQueryConfig, queryClient } from "../query-client";
 

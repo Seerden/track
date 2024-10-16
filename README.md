@@ -1,3 +1,8 @@
+## Where am I?
+This is (going to be) a timekeeping/journaling application. Currently it's an
+incoherent bunch of standalone, partially functional components with throwaway
+styling. Stay tuned for something that resembles an actual product. ⏳
+
 ## running this project
 - `npm run dev` on the client to start the vite dev server.
 - `npm run dev` in the top-level to run the containers (with the way things are

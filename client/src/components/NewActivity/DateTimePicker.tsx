@@ -1,6 +1,6 @@
 import { Checkbox } from "@lib/theme/components/Checkbox";
 import { FaInfo } from "react-icons/fa";
-import { DateTimePickerProps } from "./datetime-picker.types";
+import type { DateTimePickerProps } from "./datetime-picker.types";
 import * as S from "./DateTimePicker.style";
 import useDateTimePicker from "./use-datetime-picker";
 
@@ -51,7 +51,7 @@ export default function DateTimePicker({ setState }: DateTimePickerProps) {
 						<span>Start time</span>
 						<input
 							type="text"
-							onChange={(e) => onTimeChange(e, "start")}
+							onBlur={(e) => onTimeChange(e, "start")}
 							// TODO: Need something in the UI to clarify the time
 							// format (also in the endTime field), just this
 							// placeholder is not enough -- do this after implementing
@@ -65,7 +65,7 @@ export default function DateTimePicker({ setState }: DateTimePickerProps) {
 						<input
 							type="text"
 							placeholder={"HHmm"}
-							onChange={(e) => onTimeChange(e, "end")}
+							onBlur={(e) => onTimeChange(e, "end")}
 							disabled={allDay}
 						/>
 					</S.Label>

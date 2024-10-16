@@ -4,7 +4,7 @@ import useTagsQuery from "@lib/query/use-tags-query";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import useAuthentication from "@lib/use-authentication";
 import useRouteProps from "@lib/use-route-props";
-import { NewNote } from "@type/server/note.types";
+import type { NewNote } from "@type/server/note.types";
 import { useEffect, useState } from "react";
 
 type UseNewNoteProps = {
@@ -44,6 +44,7 @@ export default function useNewNote({ inActivity }: UseNewNoteProps = {}) {
 		// TODO: there should be a better way to do this than typing note as
 		// Partial<NewNote> and checking user_id here. Maybe early-escape from the
 		// whole hook if there is no user_id.
+		// ^ TODO: write a type guard for notes, use that here
 		if (note.user_id) {
 			mutate(
 				{ note: note as NewNote, tagIds: selectedTagIds },

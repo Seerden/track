@@ -1,3 +1,4 @@
+import modalIds from "@/lib/modal-ids";
 import { Checkbox } from "@lib/theme/components/Checkbox";
 import { type NewActivity } from "@type/server/activity.types";
 import TagSelector from "../TagSelector/TagSelector";
@@ -34,7 +35,12 @@ function NewActivity() {
 				</N.Row>
 
 				<N.Row>
-					<TagSelector fullSize title="Tags" showNewTagButton />
+					<TagSelector
+						fullSize
+						title="Tags"
+						showNewTagButton
+						modalId={modalIds.tagSelector.newActivity}
+					/>
 				</N.Row>
 
 				<N.Button>Create activity</N.Button>

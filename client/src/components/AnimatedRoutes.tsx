@@ -1,5 +1,5 @@
 import { AnimatePresence } from "framer-motion";
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 import { Routes, useLocation } from "react-router";
 
 export default function AnimatedRoutes(props: PropsWithChildren) {

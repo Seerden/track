@@ -1,4 +1,4 @@
-import { ID, Maybe, Timestamp } from "./utility.types";
+import type { ID, Maybe, Timestamp } from "./utility.types";
 
 export type NewTag = {
 	user_id: ID;

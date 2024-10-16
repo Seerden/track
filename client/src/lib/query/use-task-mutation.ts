@@ -1,8 +1,8 @@
 import { createRequestConfig } from "@/lib/fetch/create-request-config";
 import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
 import { queryClient } from "@/lib/query-client";
-import { Data } from "@/types/query.types";
-import { Activity, ActivityUpdateInput } from "@/types/server/activity.types";
+import type { Data } from "@/types/query.types";
+import type { Activity, ActivityUpdateInput } from "@/types/server/activity.types";
 import { useMutation } from "@tanstack/react-query";
 
 async function putTaskCompletion(input: ActivityUpdateInput) {
