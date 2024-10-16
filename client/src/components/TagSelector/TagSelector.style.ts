@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 
 export const Wrapper = styled.div<{ $fullSize?: boolean }>`
 	position: relative;
+	min-width: 100%;
 	margin-top: 0.8rem;
 	border: 2px solid #ccc;
 	padding: 0.3rem 0.4rem;
@@ -22,9 +23,7 @@ export const List = styled.ul<{ $oneLine?: boolean }>`
 	border: 3px solid azure;
 	/* box-shadow: 0 0 0.5rem 0 #ccc; */
 	padding: 0.8rem 1.2rem;
-	min-height: calc(
-		6px + 1.6rem + 4px + 1.24rem
-	); // a single row's font-size + padding + border
+	min-height: 3.6rem; // this currently is the exact size of a single item; prevents layout shift when going from items -> no items
 
 	justify-content: stretch;
 
@@ -49,6 +48,7 @@ export const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean 
 	padding: 0.2rem 0.6rem;
 	font-size: 0.82rem;
 	min-height: calc(4px + 1.24rem); // should be font-size + padding + border
+	height: max-content;
 
 	list-style-type: none;
 	cursor: pointer;
