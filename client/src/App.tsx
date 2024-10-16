@@ -1,8 +1,7 @@
 import AnimatedRoutes from "@/components/AnimatedRoutes";
-import Suspended from "@components/Suspended";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "styled-components";
 import "./App.scss";
@@ -17,13 +16,13 @@ function App() {
 			<ReactQueryDevtools initialIsOpen={false} position="bottom" />
 			<RecoilRoot>
 				<ThemeProvider theme={theme}>
-					<Suspended>
+					<Suspense fallback={<>Loading...</>}>
 						<main>
 							<Header />
 							<AnimatedRoutes />
 							<div id="modal-root" />
 						</main>
-					</Suspended>
+					</Suspense>
 				</ThemeProvider>
 			</RecoilRoot>
 		</QueryClientProvider>

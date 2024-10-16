@@ -12,7 +12,7 @@ type UseNewNoteProps = {
 };
 
 export default function useNewNote({ inActivity }: UseNewNoteProps = {}) {
-	const { data: tags } = useTagsQuery(); // TODO: this should be inside useNewNote
+	const { data: tagsData } = useTagsQuery();
 	const { navigate } = useRouteProps();
 	const { currentUser } = useAuthentication();
 	const { mutate } = useNewNoteMutation();
@@ -78,6 +78,6 @@ export default function useNewNote({ inActivity }: UseNewNoteProps = {}) {
 		note,
 		onInputChange,
 		onSubmit,
-		tags,
+		tagsData,
 	};
 }

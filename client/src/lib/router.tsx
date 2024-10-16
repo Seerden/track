@@ -4,7 +4,7 @@ import Suspended from "@/components/Suspended";
 import Page from "@/lib/framer/components/Page";
 import { lazy } from "react";
 import type { RouteObject } from "react-router-dom";
-import { createHashRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 
 const Home = lazy(() => import("@components/Home"));
 const NewNote = lazy(() => import("@components/NewNote/NewNote"));
@@ -19,9 +19,11 @@ const topLevelRoutes: RouteObject[] = [
 		path: "",
 		index: true,
 		element: (
-			<Protected>
-				<Home />
-			</Protected>
+			<Suspended>
+				<Protected>
+					<Home />
+				</Protected>
+			</Suspended>
 		)
 	},
 	{
@@ -86,7 +88,7 @@ const topLevelRoutes: RouteObject[] = [
 	}
 ];
 
-const router = createHashRouter([
+const router = createBrowserRouter([
 	{
 		path: "/",
 		element: <App />,

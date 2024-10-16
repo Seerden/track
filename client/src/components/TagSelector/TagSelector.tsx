@@ -1,9 +1,56 @@
 import type { TagWithIds } from "@type/server/tag.types";
 import type { ById } from "@type/server/utility.types";
-import { useMemo } from "react";
 import NewTagButton from "./NewTagButton";
 import * as S from "./TagSelector.style";
 import useTagSelector from "./use-tag-selector";
+
+// These are passed from TagSelector > TagSelectorItems > TagSelectorItem
+type SubcomponentProps = {
+	tagSelection: Record<number, boolean>;
+	updateTagSelection: (id: number) => void;
+};
+
+type TagSelectorItemProps = SubcomponentProps & {
+	tag: TagWithIds;
+};
+
+function TagSelectorItem({
+	tag,
+	tagSelection,
+	updateTagSelection
+}: TagSelectorItemProps) {
+	const hasParent = tag.parent_id !== null;
+	const isSelected = tagSelection?.[+tag.tag_id] ?? false;
+	return (
+		<S.ListItem
+			$hasParent={hasParent}
+			$isSelected={isSelected}
+			key={tag.tag_id}
+			onClick={() => updateTagSelection(+tag.tag_id)}
+		>
+			{tag.name}
+		</S.ListItem>
+	);
+}
+
+type TagSelectorItemsProps = SubcomponentProps & {
+	tags: TagWithIds[];
+};
+
+function TagSelectorItems({
+	tags,
+	tagSelection,
+	updateTagSelection
+}: TagSelectorItemsProps) {
+	return tags.map((tag) => (
+		<TagSelectorItem
+			tagSelection={tagSelection}
+			updateTagSelection={updateTagSelection}
+			key={tag.tag_id}
+			tag={tag}
+		/>
+	));
+}
 
 type TagSelectorProps = {
 	title?: string;
@@ -29,39 +76,9 @@ export default function TagSelector({
 			maximum
 		});
 
-	const elements = useMemo(() => {
-		// tags may not be fetched yet, so cannot do !tags?.tagsById, need it
-		// written out like this
-		if (!tagsById && tags && !tags.tagsById) return [];
-
-		const elements: ById<JSX.Element> = Object.entries(tagsById ?? tags?.tagsById ?? {}) // this nullish coalescing is a bit of a mess
-			.filter(([_, tag]) => {
-				if (!filter) return true;
-				return tag.name.toLowerCase().includes(filter.toLowerCase());
-			})
-			.reduce((acc, [id, tag]) => {
-				const hasParent = tag.parent_id !== null;
-				const isSelected = tagSelection?.[+id] ?? false;
-
-				return {
-					...acc,
-					[id]: (
-						<S.ListItem
-							$hasParent={hasParent}
-							$isSelected={isSelected}
-							key={id}
-							onClick={() => updateTagSelection(+id)}
-						>
-							{tag.name}
-						</S.ListItem>
-					)
-				};
-			}, {});
-		return elements;
-	}, [tags, tagsById, filter, tagSelection]);
-
-	// TODO: extract as much of this into a separate component as possible (it
-	// can live inside this file, still))
+	// TODO: this first looks if tags were manually passed, if not it uses all
+	// of a user's tags. We need to rename the variables to make that clear.
+	const tagsToDisplay = Object.values(tagsById ?? tags?.tagsById ?? []);
 
 	return (
 		<S.Wrapper $fullSize={fullSize}>
@@ -78,12 +95,16 @@ export default function TagSelector({
 				value={filter}
 				onChange={(e) => updateFilter(e)}
 			/>
-			<S.List $oneLine={oneLine}>{Object.values(elements)}</S.List>
+			<S.List $oneLine={oneLine}>
+				<TagSelectorItems
+					tags={tagsToDisplay}
+					tagSelection={tagSelection}
+					updateTagSelection={updateTagSelection}
+				/>
+			</S.List>
 		</S.Wrapper>
 	);
 }
 
 // TODO: filter functionality
 // TODO: hide children (recursively) when parent is selected and vice versa
-// TODO: add a button that opens a modal to create a new tag -- do not show this
-// when the TagSelector is being shown inside a NewTag component

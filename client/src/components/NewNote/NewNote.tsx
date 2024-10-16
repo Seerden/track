@@ -1,3 +1,4 @@
+import modalIds from "@/lib/modal-ids";
 import TagSelector from "../TagSelector/TagSelector";
 import * as S from "./NewNote.style";
 import useNewNote from "./use-new-note";
@@ -7,7 +8,9 @@ type NewNoteProps = {
 };
 
 function NewNote({ inActivity }: NewNoteProps) {
-	const { onInputChange, onSubmit, tags } = useNewNote({ inActivity });
+	const { onInputChange, onSubmit, tagsData } = useNewNote({ inActivity });
+
+	const tagsById = tagsData?.tagsById;
 
 	return (
 		<S.Wrapper>
@@ -24,7 +27,12 @@ function NewNote({ inActivity }: NewNoteProps) {
 						/>
 					</S.Field>
 					<S.Field>
-						<TagSelector tagsById={tags?.tagsById} oneLine showNewTagButton />
+						<TagSelector
+							tagsById={tagsById}
+							oneLine
+							showNewTagButton
+							modalId={modalIds.tagSelector.newNote}
+						/>
 					</S.Field>
 				</S.MainFields>
 				<S.Content>
