@@ -24,8 +24,14 @@ export default function NewTagButton({ modalId }: NewTagButtonProps) {
 			</S.Button>
 
 			{state.isOpen && (
+				// NOTE: passing the same modalId here twice may seem weird, but
+				// it's technically possible for this thing to get nested modals
+				// (e.g. when a modal contains a TagSelector, which contains a
+				// NewTagButton, which on click opens another modal, etc.) It's
+				// unlikely though, because we usually don't put `showNewTagButton` on
+				// the TagSelector inside the NewTagButton (because that makes no sense).
 				<Modal modalId={modalId}>
-					<NewTag />
+					<NewTag modalId={`${modalId}-nested`} />
 				</Modal>
 			)}
 		</>

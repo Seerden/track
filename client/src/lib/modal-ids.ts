@@ -1,6 +1,7 @@
 export default {
 	tagSelector: {
 		newActivity: "new-activity-tag-selector",
+		newNote: "new-note-tag-selector",
 		newTag: "new-tag-tag-selector",
 	},
 	notes: {
