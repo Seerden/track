@@ -1,3 +1,5 @@
+import modalIds from "@/lib/modal-ids";
+import { useModalState } from "@/lib/state/modal-state";
 import { activityFallsOnDay, assignIndentationLevelToActivities } from "@lib/activity";
 import { today } from "@lib/datetime/make-date";
 import useActivitiesQuery from "@lib/query/use-activities-query";
@@ -15,5 +17,18 @@ export default function useToday() {
 	});
 	const indentation = assignIndentationLevelToActivities(todayActivities, currentDate);
 
-	return { activities: todayActivities, indentation, currentDate };
+	const { state } = useModalState(modalIds.detailedActivity);
+	const shouldShowDetailedActivity = !!(
+		state.isOpen &&
+		state.itemType === "activity" &&
+		state.itemId
+	);
+
+	return {
+		activities: todayActivities,
+		indentation,
+		currentDate,
+		shouldShowDetailedActivity,
+		modalState: state,
+	};
 }

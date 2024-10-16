@@ -11,7 +11,7 @@ import type { Datelike } from "@/types/date.types";
 import type { ActivityWithIds } from "@/types/server/activity.types";
 
 type DetailedActivityProps = {
-	id: ActivityWithIds["activity_id"];
+	id?: ActivityWithIds["activity_id"];
 };
 
 // TODO: instead of this, do time (humanizedDate), with a tooltip on
@@ -31,7 +31,8 @@ export default function DetailedActivity({ id }: DetailedActivityProps) {
 	function putCompletion(activity: ActivityWithIds) {
 		mutate({ ...activity, completed: !activity.completed });
 	}
-	if (!activitiesData) return null;
+
+	if (!activitiesData || !id) return null;
 
 	const activity = activitiesData.activitiesById[id];
 
