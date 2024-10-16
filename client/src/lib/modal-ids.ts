@@ -8,4 +8,5 @@ export default {
 		home: "home-notes",
 	},
 	detailedActivity: "detailed-activity", // TODO: do we want this to be dependent on activity_id?
+	tagTree: "tag-tree",
 } as const;

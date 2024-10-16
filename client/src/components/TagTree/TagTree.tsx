@@ -1,3 +1,5 @@
+import Modal from "@/components/Modal";
+import modalIds from "@/lib/modal-ids";
 import useTagsQuery from "@/lib/query/use-tags-query";
 import useTagsTreeQuery from "@/lib/query/use-tags-tree-query";
 import Badge from "@/lib/theme/components/Badge";
@@ -22,22 +24,24 @@ export default function TagTree({ orientation = "vertical" }: TagTreeProps) {
 	if (!Object.values(tagsData.tagsById).length) return null;
 
 	return (
-		<div>
-			<S.Container>
-				<h1>Tag tree</h1>
-				<div>
-					<label>
-						filter
-						<input type="text" />
-					</label>
-				</div>
-				<S.Tree $orientation={orientation}>
-					{rootTags.map((tag) => (
-						<Tag key={tag.tag_id} tag={tag} level={0} />
-					))}
-				</S.Tree>
-			</S.Container>
-		</div>
+		<Modal modalId={modalIds.tagTree} initialOpen>
+			<div>
+				<S.Container>
+					<h1>Tag tree</h1>
+					<div>
+						<label>
+							filter
+							<input type="text" />
+						</label>
+					</div>
+					<S.Tree $orientation={orientation} $columnCount={rootTags.length}>
+						{rootTags.map((tag) => (
+							<Tag key={tag.tag_id} tag={tag} level={0} />
+						))}
+					</S.Tree>
+				</S.Container>
+			</div>
+		</Modal>
 	);
 }
 
@@ -61,7 +65,7 @@ function Tag({ tag, level }: TagProps) {
 	const children = tag.child_ids?.map((id) => getTag(id, tagsData.tagsById));
 
 	return (
-		<S.Tag $level={level}>
+		<S.Tag $level={level} layout>
 			<S.TagName $level={level} as={children?.length ? "label" : "span"}>
 				{tag.name}
 				{!!children?.length && collapsed && (
@@ -89,8 +93,18 @@ function Tag({ tag, level }: TagProps) {
 				)}
 			</S.TagName>
 
-			{!!children?.length && !collapsed && (
-				<S.Children>
+			{!!children?.length && (
+				<S.Children
+					$collapsed={collapsed}
+					layout
+					variants={variants}
+					initial="visible"
+					animate={collapsed ? "hidden" : "visible"}
+					transition={{
+						duration: 0.1,
+						ease: "easeIn"
+					}}
+				>
 					{children.map((child) => (
 						<Tag key={child.tag_id} tag={child} level={(level ?? 0) + 1} />
 					))}
@@ -99,3 +113,16 @@ function Tag({ tag, level }: TagProps) {
 		</S.Tag>
 	);
 }
+
+const variants = {
+	hidden: {
+		opacity: 0,
+		height: "0px",
+		visibility: "hidden"
+	},
+	visible: {
+		opacity: 1,
+		height: "auto",
+		visibility: "visible"
+	}
+} as const;
