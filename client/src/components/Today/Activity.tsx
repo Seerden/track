@@ -1,34 +1,27 @@
-import { activityModalId } from "@/components/Today/DetailedActivity.tsx";
-import { useModalState } from "@/lib/state/modal-state.ts";
-import { activityDuration, activityStart } from "@lib/activity.ts";
+import useActivity from "@/components/Today/use-activity.ts";
 import type { ActivityWithIds } from "@type/server/activity.types.ts";
 import type { ID } from "@type/server/utility.types.ts";
 import * as S from "./Today.style.ts";
 
-type ActivityProps = {
+export type ActivityProps = {
 	activity: ActivityWithIds;
 	indentation: Map<ID, number>;
 };
 
 export default function Activity({ activity, indentation }: ActivityProps) {
-	const durationHours = activityDuration(activity);
-	const offset = activityStart(activity).minute() / 60;
-	const level = indentation.get(activity.activity_id) ?? 0;
-	const { setModalState } = useModalState(activityModalId);
+	// TODO: I think indentation level should just be a prop, instead of passing
+	// it to the hook and calculating something there.
+	const { level, offset, openActivityModal, durationHours } = useActivity({
+		activity,
+		indentation
+	});
 
 	return (
 		<S.ActivityCard
 			key={activity.activity_id}
 			$level={level}
 			$offset={offset}
-			onClick={(e) => {
-				setModalState(() => ({
-					isOpen: true,
-					itemId: activity.activity_id,
-					itemType: "activity"
-				}));
-				e.stopPropagation();
-			}}
+			onClick={openActivityModal}
 		>
 			<S.Activity $durationHours={durationHours}>
 				<S.ActivityName>{activity.name}</S.ActivityName>
