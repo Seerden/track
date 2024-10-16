@@ -1,6 +1,6 @@
 import type { ActivityProps } from "@/components/Today/Activity";
-import { activityModalId } from "@/components/Today/DetailedActivity";
 import { activityDuration, activityStart } from "@/lib/activity";
+import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 
 type UseActivityProps = ActivityProps;
@@ -9,7 +9,7 @@ export default function useActivity({ activity, indentation }: UseActivityProps)
 	const durationHours = activityDuration(activity);
 	const offset = activityStart(activity).minute() / 60;
 	const level = indentation.get(activity.activity_id) ?? 0;
-	const { setModalState } = useModalState(activityModalId);
+	const { setModalState } = useModalState(modalIds.detailedActivity);
 
 	function openActivityModal(e: React.MouseEvent) {
 		setModalState(() => ({

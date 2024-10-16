@@ -2,6 +2,7 @@ import Modal from "@/components/Modal";
 import S from "@/components/Today/DetailedActivity.style";
 import { activityEnd, activityStart, hasNotEnded, startsInFuture } from "@/lib/activity";
 import { createDate } from "@/lib/datetime/make-date";
+import modalIds from "@/lib/modal-ids";
 import useActivitiesQuery from "@/lib/query/use-activities-query";
 import useTagsQuery from "@/lib/query/use-tags-query";
 import useTaskCompletionMutation from "@/lib/query/use-task-mutation";
@@ -12,8 +13,6 @@ import type { ActivityWithIds } from "@/types/server/activity.types";
 type DetailedActivityProps = {
 	id: ActivityWithIds["activity_id"];
 };
-
-export const activityModalId = "activity-modal";
 
 // TODO: instead of this, do time (humanizedDate), with a tooltip on
 // humanizedDate that shows the full date.
@@ -40,7 +39,7 @@ export default function DetailedActivity({ id }: DetailedActivityProps) {
 	const showHumanizedStart = hasNotEnded(activity);
 
 	return (
-		<Modal modalId={activityModalId}>
+		<Modal modalId={modalIds.detailedActivity}>
 			<S.Wrapper>
 				<S.Title>
 					{activity.is_task && (

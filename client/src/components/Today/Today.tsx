@@ -1,4 +1,5 @@
-import DetailedActivity, { activityModalId } from "@/components/Today/DetailedActivity";
+import DetailedActivity from "@/components/Today/DetailedActivity";
+import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import { activityStartHour } from "@lib/activity";
 import Notes from "./Notes";
@@ -9,7 +10,7 @@ import useToday from "./use-today";
 
 export default function Today() {
 	const { activities, indentation, currentDate } = useToday();
-	const { state } = useModalState(activityModalId);
+	const { state } = useModalState(modalIds.detailedActivity);
 
 	return (
 		<S.Wrapper>
