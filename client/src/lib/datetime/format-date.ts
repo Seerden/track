@@ -1,9 +1,9 @@
 import type { Datelike } from "@type/date.types";
-import { localDate } from "./make-date";
+import { createDate } from "./make-date";
 
 // Format a date to year-month-date hh:mm (and optionally :ss)
 export function formatDate(date: Datelike, { short }: { short?: boolean } = {}): string {
-	const d = localDate(date);
+	const d = createDate(date);
 	return d.format(`YYYY-MM-DD HH:mm${!short ? ":ss" : ""}`);
 }
 

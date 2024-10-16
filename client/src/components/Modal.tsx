@@ -1,29 +1,35 @@
+import { useModalState } from "@/lib/state/modal-state";
 import useModal from "@/lib/use-modal";
-import { PropsWithChildren, useRef } from "react";
+import type { PropsWithChildren} from "react";
+import { useRef } from "react";
 import { createPortal } from "react-dom";
 import * as S from "./Modal.style";
 
 type ModalProps = {
-	initialOpen: boolean;
-	outsideStateHandler?: React.Dispatch<React.SetStateAction<boolean>>;
+	modalId: string;
+	initialOpen?: boolean;
 };
 
-export default function Modal(
-	{ children, initialOpen, outsideStateHandler }: PropsWithChildren<ModalProps> = {
-		initialOpen: true
-	}
-) {
+export default function Modal({
+	children,
+	modalId,
+	initialOpen
+}: PropsWithChildren<ModalProps>) {
 	const modalRef = useRef(null);
-	const { isOpen, close } = useModal(modalRef, { initialOpen, outsideStateHandler });
+	const { closeModal } = useModal(modalRef, {
+		modalId,
+		initialOpen
+	});
+	const { state } = useModalState(modalId, initialOpen);
 
-	if (!isOpen) {
+	if (!state.isOpen) {
 		return null;
 	}
 
 	return createPortal(
 		<S.ModalWrapper>
 			<S.Modal ref={modalRef}>
-				<S.Close onClick={close} />
+				<S.Close onClick={closeModal} />
 				{children}
 			</S.Modal>
 		</S.ModalWrapper>,

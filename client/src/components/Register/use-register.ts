@@ -1,5 +1,5 @@
 import useRegisterMutation from "@lib/use-register-mutation";
-import { NewUser } from "@type/server/user.types";
+import type { NewUser } from "@type/server/user.types";
 import { useState } from "react";
 
 export default function useRegister() {

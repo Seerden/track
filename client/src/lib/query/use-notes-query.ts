@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { Data } from "@type/query.types";
-import { NoteWithIds } from "@type/server/note.types";
-import { ById } from "@type/server/utility.types";
+import type { Data } from "@type/query.types";
+import type { NoteWithIds } from "@type/server/note.types";
+import type { ById } from "@type/server/utility.types";
 import { makeAuthorizedUrl } from "../fetch/make-authorized-url";
 import { defaultQueryConfig } from "../query-client";
 

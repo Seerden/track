@@ -12,6 +12,7 @@ type TagSelectorProps = {
 	maximum?: number;
 	oneLine?: boolean;
 	showNewTagButton?: boolean;
+	modalId: string;
 };
 
 export default function TagSelector({
@@ -20,7 +21,8 @@ export default function TagSelector({
 	fullSize,
 	maximum,
 	oneLine,
-	showNewTagButton
+	showNewTagButton,
+	modalId
 }: TagSelectorProps) {
 	const { tagSelection, updateTagSelection, filter, updateFilter, tags } =
 		useTagSelector({
@@ -69,7 +71,7 @@ export default function TagSelector({
 					{title}
 				</S.Title>
 			)}
-			{showNewTagButton && <NewTagButton />}
+			{showNewTagButton && <NewTagButton modalId={modalId} />}
 			<S.Filter
 				type="text"
 				placeholder="search categories"

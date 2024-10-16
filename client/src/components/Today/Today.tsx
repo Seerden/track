@@ -1,3 +1,4 @@
+import DetailedActivity from "@/components/Today/DetailedActivity";
 import { activityStartHour } from "@lib/activity";
 import Notes from "./Notes";
 import Row from "./Row";
@@ -6,7 +7,13 @@ import * as S from "./Today.style";
 import useToday from "./use-today";
 
 export default function Today() {
-	const { activities, indentation, currentDate } = useToday();
+	const {
+		activities,
+		indentation,
+		currentDate,
+		modalState,
+		shouldShowDetailedActivity
+	} = useToday();
 
 	return (
 		<S.Wrapper>
@@ -31,6 +38,7 @@ export default function Today() {
 				<Tasks activities={activities.filter((a) => a.is_task)} />
 				<Notes />
 			</S.Columns>
+			{shouldShowDetailedActivity && <DetailedActivity id={modalState.itemId} />}
 		</S.Wrapper>
 	);
 }

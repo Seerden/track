@@ -1,4 +1,4 @@
-import { ID } from "./utility.types";
+import type { ID } from "./utility.types";
 
 export type ActivityTagRelation = {
 	user_id: ID;

@@ -1,4 +1,4 @@
-import { Datelike } from "@type/date.types";
+import type { Datelike } from "@type/date.types";
 import dayjs from "dayjs";
 
 /**
@@ -6,10 +6,16 @@ import dayjs from "dayjs";
  * from the database correctly without it.
  */
 
+// TODO: rename this to now(), use another function for today() and maybe think
+// about setting that to start of day.
 export function today() {
-	return dayjs.utc().local();
+	return dayjs().utc().local();
 }
 
-export function localDate(date: Datelike) {
-	return dayjs.utc(date).local();
+export function now() {
+	return dayjs().utc().local();
+}
+
+export function createDate(date: Datelike) {
+	return dayjs(date).utc().local();
 }

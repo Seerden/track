@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ModalWrapper = styled.div`
-	z-index: 2;
+	z-index: 100; // TODO: should put these indexes somewhere so we can reason about them
 	position: fixed;
 	overflow-y: scroll;
 	top: 0;
@@ -48,7 +48,7 @@ export const Modal = styled.div`
 	padding: 1.2rem 1.5rem;
 	background-color: #efefef; // TODO: this should be a theme value
 	height: max-content;
-	margin-top: 25%; // TODO: this should be responsive
+	margin-top: 25vh; // TODO: this should be responsive, so should everything else obviously
 	border: 1px solid #444;
 	border-radius: 5px;
 	box-shadow:
