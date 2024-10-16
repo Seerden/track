@@ -83,7 +83,7 @@ export default function useDateTimePicker({ setState }: DateTimePickerProps) {
 	}
 
 	function onTimeChange(e: React.ChangeEvent<HTMLInputElement>, field: "start" | "end") {
-		if (e.target.value.length !== 4) return;
+		if (e.target.value.length !== 4) return; // TODO: this is very temporary
 
 		setTime({
 			...time,
