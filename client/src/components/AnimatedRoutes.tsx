@@ -1,15 +1,25 @@
 import { AnimatePresence } from "framer-motion";
-import type { PropsWithChildren } from "react";
-import { Routes, useLocation } from "react-router";
+import { Fragment, useState } from "react";
+import { useLocation, useOutlet } from "react-router";
 
-export default function AnimatedRoutes(props: PropsWithChildren) {
+/**
+ * @see https://stackoverflow.com/questions/74190609/exit-animations-with-animatepresence-framer-motion-and-createbrowserrouter-r
+ */
+function AnimatedOutlet() {
+	const outlet = useOutlet();
+	const [outletState] = useState(outlet);
+
+	return <>{outletState}</>;
+}
+
+export default function AnimatedRoutes() {
 	const location = useLocation();
 
 	return (
 		<AnimatePresence mode="wait">
-			<Routes key={location.pathname} location={location}>
-				{props.children}
-			</Routes>
+			<Fragment key={location.pathname}>
+				<AnimatedOutlet />
+			</Fragment>
 		</AnimatePresence>
 	);
 }

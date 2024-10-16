@@ -1,4 +1,4 @@
-import useRegisterMutation from "@lib/use-register-mutation";
+import useRegisterMutation from "@/lib/query/use-register-mutation";
 import type { NewUser } from "@type/server/user.types";
 import { useState } from "react";
 

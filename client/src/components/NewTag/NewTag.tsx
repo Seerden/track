@@ -1,9 +1,12 @@
-import modalIds from "@/lib/modal-ids";
 import TagSelector from "../TagSelector/TagSelector";
 import * as S from "./NewTag.style";
 import useNewTag from "./use-new-tag";
 
-function NewTag() {
+type NewTagProps = {
+	modalId: string;
+};
+
+function NewTag({ modalId }: NewTagProps) {
 	const { onInputChange, onSubmit, tags } = useNewTag();
 
 	return (
@@ -36,7 +39,7 @@ function NewTag() {
 						title="Categorize"
 						maximum={1}
 						tagsById={tags?.tagsById}
-						modalId={modalIds.tagSelector.newTag}
+						modalId={modalId}
 					/>
 				</S.Tags>
 				<S.Button title="Save">💾</S.Button>

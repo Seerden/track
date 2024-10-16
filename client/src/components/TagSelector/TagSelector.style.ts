@@ -22,6 +22,9 @@ export const List = styled.ul<{ $oneLine?: boolean }>`
 	border: 3px solid azure;
 	/* box-shadow: 0 0 0.5rem 0 #ccc; */
 	padding: 0.8rem 1.2rem;
+	min-height: calc(
+		6px + 1.6rem + 4px + 1.24rem
+	); // a single row's font-size + padding + border
 
 	justify-content: stretch;
 
@@ -45,6 +48,7 @@ export const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean 
 	box-shadow: 0.2rem 0.1rem 0 0 #ddd;
 	padding: 0.2rem 0.6rem;
 	font-size: 0.82rem;
+	min-height: calc(4px + 1.24rem); // should be font-size + padding + border
 
 	list-style-type: none;
 	cursor: pointer;
