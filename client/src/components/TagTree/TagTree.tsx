@@ -11,9 +11,15 @@ import * as S from "./TagTree.style";
 
 type TagTreeProps = {
 	orientation?: "vertical" | "horizontal";
+	modalId?: string;
+	initialOpen?: boolean;
 };
 
-export default function TagTree({ orientation = "vertical" }: TagTreeProps) {
+export default function TagTree({
+	orientation = "vertical",
+	modalId = modalIds.tagTree,
+	initialOpen = true
+}: TagTreeProps) {
 	const { data: tagTreeData } = useTagsTreeQuery();
 	const { data: tagsData } = useTagsQuery();
 
@@ -24,7 +30,7 @@ export default function TagTree({ orientation = "vertical" }: TagTreeProps) {
 	if (!Object.values(tagsData.tagsById).length) return null;
 
 	return (
-		<Modal modalId={modalIds.tagTree} initialOpen>
+		<Modal modalId={modalId} initialOpen={initialOpen}>
 			<div>
 				<S.Container>
 					<h1>Tag tree</h1>

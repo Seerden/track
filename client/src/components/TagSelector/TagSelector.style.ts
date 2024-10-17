@@ -12,32 +12,20 @@ export const Wrapper = styled.div<{ $fullSize?: boolean }>`
 	max-width: ${(p) => (p.$fullSize ? "100%" : "400px")};
 `;
 
-export const List = styled.ul<{ $oneLine?: boolean }>`
+export const List = styled.ul`
 	display: flex;
+	background-color: #fff;
 	flex-direction: row;
 	flex-wrap: wrap;
 
 	gap: 0.5rem;
-	margin-top: 0.3rem;
+	/* margin-top: 0.3rem; */
 
-	border: 3px solid azure;
 	/* box-shadow: 0 0 0.5rem 0 #ccc; */
 	padding: 0.8rem 1.2rem;
 	min-height: 3.6rem; // this currently is the exact size of a single item; prevents layout shift when going from items -> no items
 
 	justify-content: stretch;
-
-	${(p) =>
-		// TODO: this is EXTREMELY WIP and does not look good or function comfortably
-		// at all
-		p.$oneLine &&
-		css`
-			max-height: 2.4rem;
-			overflow-y: scroll;
-			justify-content: start;
-
-			padding: 0.2rem;
-		`}
 `;
 
 export const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
@@ -100,9 +88,88 @@ export const Filter = styled.input`
 	border-radius: 3px;
 	border: 2px solid #ccc;
 	box-shadow: 0.1rem 0.1rem 0 0 #ddd;
-	margin-top: -1rem;
 	align-self: flex-end;
 	max-width: 150px;
 
 	font-size: 0.88rem;
+`;
+
+export const Actions = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+`;
+
+export const Dropdown = styled.div`
+	position: relative;
+`;
+
+export const DropdownTrigger = styled.button`
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0px;
+	outline: none;
+	border: none;
+
+	&:active {
+		transform: scale(1.1);
+		background-color: white;
+		& > svg {
+			fill: black;
+		}
+	}
+
+	&:focus:not(:active) {
+		outline: 2px solid dodgerblue;
+		background-color: #fff;
+	}
+
+	&:hover {
+		background-color: #fafafa;
+		box-shadow: 0 0.2rem 0.5rem 0 #999;
+	}
+`;
+
+DropdownTrigger.defaultProps = {
+	type: "button",
+};
+
+export const DropdownActions = styled.div`
+	display: flex;
+	flex-direction: row;
+	gap: 1rem;
+	align-items: flex-end;
+	margin: 1rem;
+
+	${DropdownTrigger} {
+		&:nth-of-type(1) {
+			margin-left: auto;
+		}
+	}
+
+	${Actions} {
+		justify-content: flex-start;
+		align-items: flex-start;
+
+		& > ${Filter} {
+			align-self: flex-start;
+		}
+	}
+`;
+
+export const DropdownContent = styled.div`
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	background-color: #eee;
+	border: 2px solid #ddd;
+	border-radius: 4px;
+	box-shadow:
+		0.2rem 0.2rem 0 0 #333,
+		0 0 1rem 0 #555;
+	width: 100%;
 `;

@@ -1,5 +1,5 @@
 import { useModalState } from "@/lib/state/modal-state";
-import type { RefObject} from "react";
+import type { RefObject } from "react";
 import { useEffect } from "react";
 
 type UseModalProps = {
