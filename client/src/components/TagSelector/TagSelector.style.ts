@@ -53,10 +53,12 @@ export const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean 
 	}
 
 	${(props) =>
-		!props.$hasParent &&
-		css`
-			border-color: #bbb;
-		`};
+		!props.$hasParent
+			? css`
+					box-shadow: 0rem 0.2rem 0rem 0rem #aaa;
+					background-color: #f2f2f2;
+				`
+			: css``};
 
 	${(props) =>
 		props.$isSelected &&
@@ -170,6 +172,6 @@ export const DropdownContent = styled.div`
 	border-radius: 4px;
 	box-shadow:
 		0.2rem 0.2rem 0 0 #333,
-		0 0 1rem 0 #555;
+		0 0 0.6rem 0 #999;
 	width: 100%;
 `;
