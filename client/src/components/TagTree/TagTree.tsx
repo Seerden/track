@@ -18,7 +18,7 @@ type TagTreeProps = {
 export default function TagTree({
 	orientation = "horizontal",
 	modalId = modalIds.tagTree,
-	initialOpen = true
+	initialOpen = false
 }: TagTreeProps) {
 	const { data: tagTreeData } = useTagsTreeQuery();
 	const { data: tagsData } = useTagsQuery();
