@@ -156,7 +156,7 @@ export default function TagSelector({
 		tag.name.toLowerCase().includes(filter.toLowerCase())
 	);
 
-	const [expanded, setExpanded] = useState<boolean>(true);
+	const [expanded, setExpanded] = useState<boolean>(false);
 	const _modalId = `${modalId}-thing`;
 	const { openModal, state } = useModalState(_modalId, true);
 
