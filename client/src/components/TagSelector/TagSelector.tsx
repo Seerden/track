@@ -170,11 +170,12 @@ export default function TagSelector({
 					</S.Title>
 				)}
 				<S.Dropdown>
-					{showNewTagButton && <NewTagButton modalId={modalId} />}
 					<S.Actions>
 						{!expanded && (
 							<>
 								<Filter filter={filter} updateFilter={updateFilter} />
+								{showNewTagButton && <NewTagButton modalId={modalId} />}
+
 								<S.DropdownTrigger
 									onClick={(e) => {
 										e.preventDefault();
@@ -192,6 +193,7 @@ export default function TagSelector({
 						<S.DropdownContent>
 							<S.DropdownActions>
 								<Filter filter={filter} updateFilter={updateFilter} />
+								{showNewTagButton && <NewTagButton modalId={modalId} />}
 								<S.DropdownTrigger>
 									<FaExpand
 										size={15}

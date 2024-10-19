@@ -6,10 +6,13 @@ export const Wrapper = styled.div<{ $fullSize?: boolean }>`
 	margin-top: 0.8rem;
 	border: 2px solid #ccc;
 	padding: 0.3rem 0.4rem;
+	z-index: 3;
 	display: flex;
 	flex-direction: column;
 
 	max-width: ${(p) => (p.$fullSize ? "100%" : "400px")};
+
+	min-height: 75px;
 `;
 
 export const List = styled.ul`
@@ -106,6 +109,13 @@ export const Actions = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	align-items: center;
+	margin-top: 0.3rem;
+	gap: 0.5rem;
+
+	button:nth-of-type(1) {
+		margin-left: auto;
+	}
 `;
 
 export const Dropdown = styled.div`
@@ -152,11 +162,10 @@ export const DropdownActions = styled.div`
 	gap: 1rem;
 	align-items: flex-end;
 	margin: 1rem;
+	justify-content: space-between;
 
-	${DropdownTrigger} {
-		&:nth-of-type(1) {
-			margin-left: auto;
-		}
+	button:nth-of-type(1) {
+		margin-left: auto;
 	}
 
 	${Actions} {
