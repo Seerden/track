@@ -24,9 +24,8 @@ export default function useNewNote({ inActivity }: UseNewNoteProps = {}) {
 
 	useEffect(() => {
 		// On mount, clear selectedTags state
-		// TODO: selectedTags state should be separate for this component; maybe add
-		// an id to the state key -- or make it like an atomFamily or something,
-		// idk yet
+		// TODO: see #64, tagSelection should be an atomFamily so we can target
+		// specific uses of it.
 		resetTagSelection();
 
 		// TODO: if `inActivity`, we take the activity_id from the
