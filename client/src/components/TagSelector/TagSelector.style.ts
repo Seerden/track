@@ -19,17 +19,21 @@ export const List = styled.ul`
 	flex-wrap: wrap;
 
 	gap: 0.5rem;
-	/* margin-top: 0.3rem; */
 
-	/* box-shadow: 0 0 0.5rem 0 #ccc; */
+	box-shadow: 0 0 0.5rem 0 #ccc;
 	padding: 0.8rem 1.2rem;
 	min-height: 3.6rem; // this currently is the exact size of a single item; prevents layout shift when going from items -> no items
+	max-height: 250px;
+	overflow-y: scroll;
 
 	justify-content: stretch;
 `;
 
 export const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
-	width: max-content;
+	display: flex;
+	flex: 1;
+	min-width: max-content;
+	justify-content: center;
 	border: 2px solid #ccc;
 	border-radius: 2px;
 	box-shadow: 0.2rem 0.1rem 0 0 #ddd;
@@ -64,6 +68,8 @@ export const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean 
 		props.$isSelected &&
 		css`
 			border-color: azure;
+			color: #143516;
+			font-weight: 500;
 			background-color: limegreen;
 			box-shadow: 0.3rem 0.3rem 0 -0.1rem limegreen;
 		`}
@@ -174,4 +180,45 @@ export const DropdownContent = styled.div`
 		0.2rem 0.2rem 0 0 #333,
 		0 0 0.6rem 0 #999;
 	width: 100%;
+`;
+
+export const SelectionList = styled.ul`
+	padding: 0.2rem 0;
+	margin: 0.7rem 0.4rem;
+	display: flex;
+	padding-right: 0.4rem; // this is to prevent horizontal
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	font-size: 0.85rem;
+	align-items: center;
+	user-select: none;
+	max-height: 120px;
+	overflow-y: scroll;
+`;
+
+export const SelectionItem = styled.li`
+	list-style: none;
+	display: flex;
+	padding: 0.3rem 0.5rem;
+	min-width: max-content;
+	flex: 1;
+	border-radius: 4px;
+	background-color: dodgerblue;
+	color: white;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0rem 0.2rem 0.2rem #ccc;
+`;
+
+export const PathPart = styled.span<{ $isLeaf: boolean }>`
+	color: ${(p) => (p.$isLeaf ? "white" : "lightblue")};
+	${(p) =>
+		!p.$isLeaf &&
+		css`
+			max-width: 75px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		`}
 `;

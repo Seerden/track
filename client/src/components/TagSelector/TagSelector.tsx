@@ -80,6 +80,56 @@ function Filter({ filter, updateFilter }: FilterProps) {
 		/>
 	);
 }
+function makePath(tag: TagWithIds | undefined, tags: TagWithIds[]): string[] {
+	if (!tag) return [];
+
+	if (!tag.parent_id) {
+		return [tag.name];
+	}
+	return [
+		tag.name,
+		...makePath(
+			tags.find((t) => t.tag_id === tag.parent_id),
+			tags
+		)
+	].reverse();
+}
+
+function makePathString(pathArray: string[]) {
+	return pathArray.join(">");
+}
+
+function Selection({
+	selectedTags,
+	tags
+}: {
+	selectedTags: TagWithIds[];
+	tags: TagWithIds[];
+}) {
+	if (!selectedTags.length) return null;
+
+	return (
+		<div>
+			<S.SelectionList>
+				{selectedTags.map((tag) => (
+					<S.SelectionItem key={tag.tag_id}>
+						{makePath(tag, tags)
+							.reverse()
+							.map((path, index) => (
+								<>
+									<S.PathPart $isLeaf={index === 0} key={path}>
+										{path}
+									</S.PathPart>
+									{index !== 0 && "/"}
+								</>
+							))
+							.reverse()}
+					</S.SelectionItem>
+				))}
+			</S.SelectionList>
+		</div>
+	);
+}
 
 export default function TagSelector({
 	title,
@@ -89,10 +139,16 @@ export default function TagSelector({
 	showNewTagButton,
 	modalId
 }: TagSelectorProps) {
-	const { tagSelection, updateTagSelection, filter, updateFilter, tags } =
-		useTagSelector({
-			maximum
-		});
+	const {
+		selectedTagIds,
+		tagSelection,
+		updateTagSelection,
+		filter,
+		updateFilter,
+		tags
+	} = useTagSelector({
+		maximum
+	});
 
 	// TODO: this first looks if tags were manually passed, if not it uses all
 	// of a user's tags. We need to rename the variables to make that clear.
@@ -158,6 +214,7 @@ export default function TagSelector({
 									<FaChevronUp size={15} color={"forestgreen"} />
 								</S.DropdownTrigger>
 							</S.DropdownActions>
+
 							<S.List>
 								<>
 									<TagSelectorItems
@@ -167,6 +224,12 @@ export default function TagSelector({
 									/>
 								</>
 							</S.List>
+							<Selection
+								tags={Object.values(tags?.tagsById ?? [])}
+								selectedTags={Object.values(tags?.tagsById ?? []).filter((t) =>
+									selectedTagIds.includes(t.tag_id)
+								)}
+							/>
 						</S.DropdownContent>
 					)}
 				</S.Dropdown>
