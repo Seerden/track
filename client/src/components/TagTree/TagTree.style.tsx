@@ -84,11 +84,10 @@ export const Children = styled(motion.ul)<{ $collapsed?: boolean }>`
 `;
 
 export const Tree = styled.ul<{
-	$orientation?: "horizontal" | "vertical";
+	$orientation?: "horizontal" | "vertical"; // TODO: figure out what the component should look like when vertical
 	$columnCount: number;
 }>`
 	max-height: 900px;
-	overflow-y: scroll;
 	padding-right: 1rem;
 	padding-top: 0.5rem;
 	margin-right: -1rem;
@@ -98,7 +97,6 @@ export const Tree = styled.ul<{
 	width: 100%;
 	display: grid;
 	gap: 2rem;
-	overflow-y: hidden;
 
 	> ${Tag} {
 		height: 98%;
@@ -123,16 +121,16 @@ export const Tree = styled.ul<{
 		p.$orientation === "horizontal"
 			? css`
 					align-items: flex-start;
-					overflow-x: auto;
+					overflow-x: scroll;
+					overflow-y: hidden;
 					white-space: nowrap;
+					grid-template-columns: repeat(${p.$columnCount ?? 1}, minmax(auto, 1fr));
 				`
 			: css`
 					flex-direction: column;
 					overflow-x: hidden;
 					overflow-y: scroll;
 				`}
-
-	grid-template-columns: repeat(${(p) => p.$columnCount ?? 1}, minmax(auto, 1fr));
 `;
 
 export const Container = styled.div`

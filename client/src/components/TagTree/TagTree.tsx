@@ -16,7 +16,7 @@ type TagTreeProps = {
 };
 
 export default function TagTree({
-	orientation = "vertical",
+	orientation = "horizontal",
 	modalId = modalIds.tagTree,
 	initialOpen = true
 }: TagTreeProps) {

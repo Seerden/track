@@ -1,8 +1,9 @@
 import TagTree from "@/components/TagTree/TagTree";
 import { useModalState } from "@/lib/state/modal-state";
+import useClickOutside from "@/lib/use-click-outside";
 import type { TagWithIds } from "@type/server/tag.types";
 import type { ById } from "@type/server/utility.types";
-import { useState } from "react";
+import { useRef } from "react";
 import { FaChevronDown, FaChevronUp, FaExpand } from "react-icons/fa";
 import NewTagButton from "./NewTagButton";
 import * as S from "./TagSelector.style";
@@ -156,7 +157,10 @@ export default function TagSelector({
 		tag.name.toLowerCase().includes(filter.toLowerCase())
 	);
 
-	const [expanded, setExpanded] = useState<boolean>(false);
+	const dropdownRef = useRef<HTMLDivElement>(null);
+	const { isOpen: expanded, setIsOpen: setExpanded } = useClickOutside({
+		ref: dropdownRef
+	});
 	const _modalId = `${modalId}-thing`;
 	const { openModal, state } = useModalState(_modalId, true);
 
@@ -190,7 +194,7 @@ export default function TagSelector({
 					</S.Actions>
 
 					{expanded && (
-						<S.DropdownContent>
+						<S.DropdownContent ref={dropdownRef}>
 							<S.DropdownActions>
 								<Filter filter={filter} updateFilter={updateFilter} />
 								{showNewTagButton && <NewTagButton modalId={modalId} />}
