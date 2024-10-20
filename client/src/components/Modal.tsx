@@ -1,6 +1,5 @@
-import { useModalState } from "@/lib/state/modal-state";
 import useModal from "@/lib/use-modal";
-import type { PropsWithChildren} from "react";
+import type { PropsWithChildren } from "react";
 import { useRef } from "react";
 import { createPortal } from "react-dom";
 import * as S from "./Modal.style";
@@ -16,13 +15,12 @@ export default function Modal({
 	initialOpen
 }: PropsWithChildren<ModalProps>) {
 	const modalRef = useRef(null);
-	const { closeModal } = useModal(modalRef, {
+	const { closeModal, isOpen } = useModal(modalRef, {
 		modalId,
 		initialOpen
 	});
-	const { state } = useModalState(modalId, initialOpen);
 
-	if (!state.isOpen) {
+	if (!isOpen) {
 		return null;
 	}
 
