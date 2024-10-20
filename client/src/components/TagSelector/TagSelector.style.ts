@@ -1,21 +1,23 @@
 import styled, { css } from "styled-components";
 
-export const Wrapper = styled.div<{ $fullSize?: boolean }>`
+const Wrapper = styled.div<{ $fullSize?: boolean }>`
 	position: relative;
 	min-width: 100%;
 	margin-top: 0.8rem;
-	border: 2px solid #ccc;
-	padding: 0.3rem 0.4rem;
+
+	box-shadow: 0 0 0.5rem 0 #ccc;
+
+	padding: 1rem 1.2rem;
 	z-index: 3;
 	display: flex;
 	flex-direction: column;
 
 	max-width: ${(p) => (p.$fullSize ? "100%" : "400px")};
 
-	min-height: 75px;
+	min-height: 120px; // TODO: this is hardcoded for the current size to prevent layout shift -- should be dynamic
 `;
 
-export const List = styled.ul`
+const List = styled.ul`
 	display: flex;
 	background-color: #fff;
 	flex-direction: row;
@@ -32,7 +34,7 @@ export const List = styled.ul`
 	justify-content: stretch;
 `;
 
-export const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
+const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
 	display: flex;
 	flex: 1;
 	min-width: max-content;
@@ -78,11 +80,11 @@ export const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean 
 		`}
 `;
 
-export const Title = styled.h3`
+const Title = styled.h3`
 	margin: 0;
 
 	padding: 0.35rem 0.75rem;
-	margin-top: -1.1rem;
+	margin-top: -1.6rem;
 	margin-left: 0.5rem;
 	background-color: #333;
 	color: azure;
@@ -93,19 +95,61 @@ export const Title = styled.h3`
 	border: 2px solid #777;
 `;
 
-export const Filter = styled.input`
+const Filter = styled.input`
 	display: flex;
 	padding: 0.2rem 0.4rem;
 	border-radius: 3px;
-	border: 2px solid #ccc;
+	outline: 2px solid #ccc;
 	box-shadow: 0.1rem 0.1rem 0 0 #ddd;
+	border: none;
 	align-self: flex-end;
 	max-width: 150px;
 
 	font-size: 0.88rem;
+
+	&:focus {
+		outline-color: dodgerblue;
+		box-shadow: 0rem 0.5rem 0.2rem -0.2rem #ccc;
+	}
 `;
 
-export const Actions = styled.div`
+const ClearFilter = styled.button`
+	position: absolute;
+	border: none;
+	display: flex;
+	right: 0.1rem;
+	align-items: center;
+	justify-content: center;
+	background-color: #aaa;
+	border-radius: 40%;
+	padding: 0.22em;
+	cursor: pointer;
+	color: white;
+	align-self: center;
+	width: 20px;
+	height: 20px;
+
+	&:hover {
+		background-color: deepskyblue;
+		color: white;
+		border-radius: 50%;
+	}
+`;
+
+ClearFilter.defaultProps = {
+	type: "button",
+};
+
+const FilterWrapper = styled.div`
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	gap: 0;
+	align-items: center;
+	justify-content: center;
+`;
+
+const Actions = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -118,11 +162,11 @@ export const Actions = styled.div`
 	}
 `;
 
-export const Dropdown = styled.div`
+const Dropdown = styled.div`
 	position: relative;
 `;
 
-export const DropdownTrigger = styled.button`
+const DropdownTrigger = styled.button`
 	border-radius: 50%;
 	width: 30px;
 	height: 30px;
@@ -156,12 +200,12 @@ DropdownTrigger.defaultProps = {
 	type: "button",
 };
 
-export const DropdownActions = styled.div`
+const DropdownActions = styled.div`
 	display: flex;
 	flex-direction: row;
 	gap: 1rem;
 	align-items: flex-end;
-	margin: 1rem;
+	margin: 0.8rem 1rem;
 	justify-content: space-between;
 
 	button:nth-of-type(1) {
@@ -178,8 +222,10 @@ export const DropdownActions = styled.div`
 	}
 `;
 
-export const DropdownContent = styled.div`
+const DropdownContent = styled.div`
 	position: absolute;
+	top: -0.8rem;
+	left: -1.1rem;
 	display: flex;
 	flex-direction: column;
 	background-color: #eee;
@@ -188,14 +234,16 @@ export const DropdownContent = styled.div`
 	box-shadow:
 		0.2rem 0.2rem 0 0 #333,
 		0 0 0.6rem 0 #999;
-	width: 100%;
+	width: calc(
+		100% + 2.2rem
+	); // 100% plus twice the left offset to center it against its parent
 `;
 
-export const SelectionList = styled.ul`
+const SelectionList = styled.ul`
 	padding: 0.2rem 0;
 	margin: 0.7rem 0.4rem;
 	display: flex;
-	padding-right: 0.4rem; // this is to prevent horizontal
+	padding-right: 0.4rem; // this is to prevent make scrollbar look better
 	flex-direction: row;
 	flex-wrap: wrap;
 	gap: 0.5rem;
@@ -206,7 +254,7 @@ export const SelectionList = styled.ul`
 	overflow-y: scroll;
 `;
 
-export const SelectionItem = styled.li`
+const SelectionItem = styled.li`
 	list-style: none;
 	display: flex;
 	padding: 0.3rem 0.5rem;
@@ -220,7 +268,7 @@ export const SelectionItem = styled.li`
 	box-shadow: 0rem 0.2rem 0.2rem #ccc;
 `;
 
-export const PathPart = styled.span<{ $isLeaf: boolean }>`
+const PathPart = styled.span<{ $isLeaf: boolean }>`
 	color: ${(p) => (p.$isLeaf ? "white" : "lightblue")};
 	${(p) =>
 		!p.$isLeaf &&
@@ -231,3 +279,30 @@ export const PathPart = styled.span<{ $isLeaf: boolean }>`
 			white-space: nowrap;
 		`}
 `;
+
+const EmptySelection = styled.div`
+	padding: 0.4rem 1.2rem;
+	color: azure;
+	background-color: dodgerblue;
+	max-width: max-content;
+	margin-top: 0.5rem;
+`;
+
+export default {
+	Wrapper,
+	List,
+	ListItem,
+	Title,
+	Filter,
+	ClearFilter,
+	FilterWrapper,
+	Actions,
+	Dropdown,
+	DropdownTrigger,
+	DropdownActions,
+	DropdownContent,
+	SelectionList,
+	SelectionItem,
+	PathPart,
+	EmptySelection,
+};

@@ -9,14 +9,13 @@ type ModalState = {
 
 type ModalStateParams = {
 	modalId: string;
-	initialOpen?: boolean;
 };
 
 export const modalStateFamily = atomFamily<ModalState, ModalStateParams>({
 	key: "modalStateFamily",
 	default: (params) => ({
 		modalId: params.modalId,
-		isOpen: params.initialOpen ?? false,
+		isOpen: false,
 	}),
 });
 

@@ -3,10 +3,12 @@ import { useModalState } from "@/lib/state/modal-state";
 import useClickOutside from "@/lib/use-click-outside";
 import type { TagWithIds } from "@type/server/tag.types";
 import type { ById } from "@type/server/utility.types";
-import { useRef } from "react";
+import type { MouseEvent } from "react";
+import { Fragment, useMemo, useRef } from "react";
 import { FaChevronDown, FaChevronUp, FaExpand } from "react-icons/fa";
+import { MdOutlineClear, MdOutlineFilterListOff } from "react-icons/md";
 import NewTagButton from "./NewTagButton";
-import * as S from "./TagSelector.style";
+import S from "./TagSelector.style";
 import useTagSelector from "./use-tag-selector";
 
 // These are passed from TagSelector > TagSelectorItems > TagSelectorItem
@@ -69,16 +71,32 @@ type TagSelectorProps = {
 type FilterProps = {
 	filter: string;
 	updateFilter: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	clearFilter: (e: MouseEvent<HTMLButtonElement>) => void;
+	onFocus?: () => void;
+	hasAutoFocus?: boolean;
 };
 
-function Filter({ filter, updateFilter }: FilterProps) {
+function Filter({
+	filter,
+	updateFilter,
+	clearFilter,
+	onFocus,
+	hasAutoFocus
+}: FilterProps) {
 	return (
-		<S.Filter
-			type="text"
-			placeholder="search categories"
-			value={filter}
-			onChange={(e) => updateFilter(e)}
-		/>
+		<S.FilterWrapper>
+			<S.Filter
+				onFocus={() => onFocus?.()}
+				autoFocus={hasAutoFocus}
+				type="text"
+				placeholder="search categories"
+				value={filter}
+				onChange={(e) => updateFilter(e)}
+			/>
+			<S.ClearFilter onClick={(e) => clearFilter(e)}>
+				<MdOutlineClear size={15} />
+			</S.ClearFilter>
+		</S.FilterWrapper>
 	);
 }
 function makePath(tag: TagWithIds | undefined, tags: TagWithIds[]): string[] {
@@ -102,33 +120,35 @@ function makePathString(pathArray: string[]) {
 
 function Selection({
 	selectedTags,
-	tags
+	tags,
+	fullPaths = false
 }: {
 	selectedTags: TagWithIds[];
 	tags: TagWithIds[];
+	fullPaths?: boolean;
 }) {
 	if (!selectedTags.length) return null;
 
 	return (
-		<div>
-			<S.SelectionList>
-				{selectedTags.map((tag) => (
-					<S.SelectionItem key={tag.tag_id}>
-						{makePath(tag, tags)
-							.reverse()
-							.map((path, index) => (
-								<>
-									<S.PathPart $isLeaf={index === 0} key={path}>
-										{path}
-									</S.PathPart>
-									{index !== 0 && "/"}
-								</>
-							))
-							.reverse()}
-					</S.SelectionItem>
-				))}
-			</S.SelectionList>
-		</div>
+		<S.SelectionList>
+			{selectedTags.map((tag) => (
+				<S.SelectionItem key={tag.tag_id}>
+					{fullPaths
+						? makePath(tag, tags)
+								.reverse()
+								.map((path, index) => (
+									<Fragment key={index}>
+										<S.PathPart $isLeaf={index === 0} key={path}>
+											{path}
+										</S.PathPart>
+										{index !== 0 && "/"}
+									</Fragment>
+								))
+								.reverse()
+						: tag.name}
+				</S.SelectionItem>
+			))}
+		</S.SelectionList>
 	);
 }
 
@@ -146,7 +166,9 @@ export default function TagSelector({
 		updateTagSelection,
 		filter,
 		updateFilter,
-		tags
+		clearFilter,
+		tags,
+		resetTagSelection
 	} = useTagSelector({
 		maximum
 	});
@@ -162,7 +184,13 @@ export default function TagSelector({
 		ref: dropdownRef
 	});
 	const _modalId = `${modalId}-thing`;
-	const { openModal, state } = useModalState(_modalId, true);
+	const { openModal, state } = useModalState(_modalId);
+
+	const _tags = Object.values(tagsById ?? tags?.tagsById ?? []);
+	const selectedTags = useMemo(
+		() => _tags.filter((t) => selectedTagIds.includes(t.tag_id)),
+		[tags, selectedTagIds]
+	);
 
 	return (
 		<>
@@ -177,12 +205,30 @@ export default function TagSelector({
 					<S.Actions>
 						{!expanded && (
 							<>
-								<Filter filter={filter} updateFilter={updateFilter} />
+								<Filter
+									filter={filter}
+									updateFilter={updateFilter}
+									clearFilter={(e) => clearFilter(e)}
+									onFocus={() => {
+										console.log("HI");
+										setExpanded(true);
+									}}
+								/>
+								{!!selectedTagIds.length && (
+									<S.DropdownTrigger
+										onClick={(e) => {
+											e.stopPropagation();
+											resetTagSelection();
+										}}
+									>
+										<MdOutlineFilterListOff color="orangered" />
+									</S.DropdownTrigger>
+								)}
 								{showNewTagButton && <NewTagButton modalId={modalId} />}
 
 								<S.DropdownTrigger
 									onClick={(e) => {
-										e.preventDefault();
+										console.log("HI");
 										e.stopPropagation();
 										setExpanded(true);
 									}}
@@ -192,27 +238,41 @@ export default function TagSelector({
 							</>
 						)}
 					</S.Actions>
+					{!expanded &&
+						(!selectedTags.length ? (
+							<S.EmptySelection>
+								You haven't selected any tags yet.
+							</S.EmptySelection>
+						) : (
+							<Selection tags={_tags} selectedTags={selectedTags} />
+						))}
 
 					{expanded && (
 						<S.DropdownContent ref={dropdownRef}>
 							<S.DropdownActions>
-								<Filter filter={filter} updateFilter={updateFilter} />
-								{showNewTagButton && <NewTagButton modalId={modalId} />}
-								<S.DropdownTrigger>
-									<FaExpand
-										size={15}
-										color={"dodgerblue"}
+								<Filter
+									filter={filter}
+									clearFilter={(e) => clearFilter(e)}
+									updateFilter={updateFilter}
+									hasAutoFocus
+								/>
+								{!!selectedTagIds.length && (
+									// TODO: vvv
+									<S.DropdownTrigger
 										onClick={(e) => {
-											console.log({ _modalId });
-											e.preventDefault();
 											e.stopPropagation();
-											openModal();
+											resetTagSelection();
 										}}
-									/>
+									>
+										<MdOutlineFilterListOff color="orangered" />
+									</S.DropdownTrigger>
+								)}
+								{showNewTagButton && <NewTagButton modalId={modalId} />}
+								<S.DropdownTrigger onClick={openModal}>
+									<FaExpand size={15} color={"dodgerblue"} />
 								</S.DropdownTrigger>
 								<S.DropdownTrigger
 									onClick={(e) => {
-										e.preventDefault();
 										e.stopPropagation();
 										setExpanded(false);
 									}}
@@ -230,12 +290,7 @@ export default function TagSelector({
 									/>
 								</>
 							</S.List>
-							<Selection
-								tags={Object.values(tags?.tagsById ?? [])}
-								selectedTags={Object.values(tags?.tagsById ?? []).filter((t) =>
-									selectedTagIds.includes(t.tag_id)
-								)}
-							/>
+							<Selection fullPaths tags={_tags} selectedTags={selectedTags} />
 						</S.DropdownContent>
 					)}
 				</S.Dropdown>
