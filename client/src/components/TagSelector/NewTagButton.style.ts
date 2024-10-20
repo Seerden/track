@@ -38,3 +38,7 @@ export const Button = styled.button<{
 		border-bottom-color: limegreen;
 	}
 `;
+
+Button.defaultProps = {
+	type: "button",
+};
