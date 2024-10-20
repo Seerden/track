@@ -14,18 +14,20 @@ export default function useClickOutside<T extends HTMLElement>({
 	const [isOpen, setIsOpen] = useState<boolean>(initialOpen);
 
 	useEffect(() => {
-		function onMousedown(event: MouseEvent) {
-			if (!ref.current || ref.current.contains(event.target as Node)) return;
-			handler?.(event);
+		function onClick(e: MouseEvent) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			if (!ref.current || ref.current.contains(e.target as Node)) return;
+
+			handler?.(e);
 			setIsOpen(false);
 		}
 
-		window.addEventListener("mousedown", onMousedown);
+		window.addEventListener("click", onClick);
 
-		return () => {
-			window.removeEventListener("mousedown", onMousedown);
-		};
-	}, [ref, handler]);
+		return () => window.removeEventListener("click", onClick);
+	}, [ref, handler, setIsOpen]);
 
 	return { isOpen, setIsOpen };
 }
