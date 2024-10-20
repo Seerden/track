@@ -1,7 +1,8 @@
 import { inputStyle } from "@lib/theme/snippets/input";
 import styled, { css } from "styled-components";
 
-export const Form = styled.form`
+// TODO: rename this
+export const Form = styled.section`
 	display: grid;
 	width: 100%;
 	gap: 0.1rem;
