@@ -13,14 +13,13 @@ export default function NewTagButton({ modalId, size = 15 }: NewTagButtonProps) 
 	const { toggleModal, state } = useModalState(modalId);
 
 	function handleOpen(e: React.MouseEvent<HTMLButtonElement>) {
-		e.preventDefault();
 		e.stopPropagation();
 		toggleModal();
 	}
 
 	return (
 		<>
-			<S.Button onClick={(e) => handleOpen(e)}>
+			<S.Button title="Make a new tag" onClick={(e) => handleOpen(e)}>
 				<AiFillTags size={size} />
 			</S.Button>
 
