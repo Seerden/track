@@ -6,8 +6,8 @@ export const Button = styled.button<{
 	$size?: CSS.Properties["width"];
 }>`
 	--new-tag-button-size: ${(p) => p.$size ?? "30px"};
-	width: var(--new-tag-button-size);
-	height: var(--new-tag-button-size);
+	min-width: var(--new-tag-button-size);
+	min-height: var(--new-tag-button-size);
 	border-radius: 50%;
 	justify-content: center;
 	align-self: center;
