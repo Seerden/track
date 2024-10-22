@@ -15,10 +15,12 @@ export default function useClickOutside<T extends HTMLElement>({
 
 	useEffect(() => {
 		function onClick(e: MouseEvent) {
+			if (!ref.current || ref.current.contains(e.target as Node)) {
+				return;
+			}
+
 			e.preventDefault();
 			e.stopPropagation();
-
-			if (!ref.current || ref.current.contains(e.target as Node)) return;
 
 			handler?.(e);
 			setIsOpen(false);
