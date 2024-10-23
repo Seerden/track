@@ -1,121 +1,47 @@
-import type {
-	FilterProps,
-	SelectionProps,
-	TagSelectorItemProps,
-	TagSelectorItemsProps,
-	TagSelectorProps
-} from "@/components/TagSelector/tag-selector.types";
+import Filter from "@/components/TagSelector/Filter";
+import Selection from "@/components/TagSelector/Selection";
+import type { TagSelectorProps } from "@/components/TagSelector/tag-selector.types";
+import TagSelectorItems from "@/components/TagSelector/TagSelectorItems";
 import TagTree from "@/components/TagTree/TagTree";
+import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
-import { makePath } from "@/lib/tag-path";
 import useClickOutside from "@/lib/use-click-outside";
-import type { TagWithIds } from "@type/server/tag.types";
-import type { MouseEvent } from "react";
-import { Fragment, useMemo, useRef } from "react";
+import type { FocusEvent, MouseEvent } from "react";
+import { useMemo, useRef } from "react";
 import { FaChevronDown, FaChevronUp, FaExpand } from "react-icons/fa";
-import { MdOutlineClear, MdOutlineFilterListOff } from "react-icons/md";
+import { MdOutlineFilterListOff } from "react-icons/md";
 import NewTagButton from "./NewTagButton";
 import S from "./TagSelector.style";
 import useTagSelector from "./use-tag-selector";
 
-function TagSelectorItem(p: TagSelectorItemProps) {
-	const hasParent = p.tag.parent_id !== null;
-	const isSelected = p.tagSelection?.[+p.tag.tag_id] ?? false;
-
-	return (
-		<S.ListItem
-			$hasParent={hasParent}
-			$isSelected={isSelected}
-			key={p.tag.tag_id}
-			onClick={() => p.updateTagSelection(+p.tag.tag_id)}
-		>
-			{p.tag.name}
-		</S.ListItem>
-	);
-}
-
-function TagSelectorItems(p: TagSelectorItemsProps) {
-	return p.tags.map((tag) => (
-		<TagSelectorItem
-			tagSelection={p.tagSelection}
-			updateTagSelection={p.updateTagSelection}
-			key={tag.tag_id}
-			tag={tag}
-		/>
-	));
-}
-
-function Filter(p: FilterProps) {
-	return (
-		<S.FilterWrapper>
-			<S.Filter
-				onFocus={(e) => p.onFocus?.(e)}
-				autoFocus={p.hasAutoFocus}
-				type="text"
-				placeholder="search categories"
-				value={p.filter}
-				onChange={p.updateFilter}
-			/>
-			<S.ClearFilter onClick={p.clearFilter}>
-				<MdOutlineClear size={15} />
-			</S.ClearFilter>
-		</S.FilterWrapper>
-	);
-}
-
-function Selection(p: SelectionProps) {
-	if (!p.selectedTags.length) return null;
-
-	function renderPath(tag: TagWithIds, tags: TagWithIds[]) {
-		return (
-			<S.SelectionItem key={tag.tag_id}>
-				{p.fullPaths
-					? makePath(tag, tags)
-							.map((path, index) => (
-								<Fragment key={index}>
-									<S.PathPart $isLeaf={index === 0} key={path}>
-										{path}
-									</S.PathPart>
-									{index !== 0 && "/"}
-								</Fragment>
-							))
-							.reverse()
-					: tag.name}
-			</S.SelectionItem>
-		);
-	}
-
-	return (
-		<S.SelectionList>
-			{p.selectedTags.map((tag) => renderPath(tag, p.tags))}
-		</S.SelectionList>
-	);
-}
-
 export default function TagSelector(p: TagSelectorProps) {
 	const t = useTagSelector({ maximum: p.maximum });
 
-	// TODO: this first looks if tags were manually passed, if not it uses all
-	// of a user's tags. We need to rename the variables to make that clear.
-	const tagsToDisplay = Object.values(p.tagsById ?? t.tags?.tagsById ?? []).filter(
-		(tag) => tag.name.toLowerCase().includes(t.filter.toLowerCase())
+	// TODO: If tags are passed through props (=p.tagsById), they take priority over all the
+	// user's tags (=t.tags.tagsById), We need to rename the variables to make that clear.
+	const _tags = Object.values(p.tagsById ?? t.tags?.tagsById ?? []);
+
+	const tagsToDisplay = _tags.filter((tag) =>
+		tag.name.toLowerCase().includes(t.filter.toLowerCase())
 	);
 
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	const { isOpen: expanded, setIsOpen: setExpanded } = useClickOutside({
+		// TODO: make ref a standalone parameter so we don't have to always wrap it in an object
 		ref: dropdownRef
 	});
-	const _modalId = `${p.modalId}-thing`; // TODO: don't do this -- I have it like this because modalId is used for NewTagButton here
-	const { openModal } = useModalState(_modalId);
+	// NOTE: tagTreeModalId has to depend on `modalId` because we can have
+	// multiple TagSelectors on the same page.
+	const tagTreeModalId = `${modalIds.tagTree.tagSelector}-${p.modalId}`;
+	const { openModal } = useModalState(tagTreeModalId);
 
-	const _tags = Object.values(p.tagsById ?? t.tags?.tagsById ?? []);
 	const selectedTags = useMemo(
 		() => _tags.filter((tag) => t.selectedTagIds.includes(tag.tag_id)),
 		[p.tagsById, t.tags, t.selectedTagIds]
 	);
 
-	function expandFilter(e: MouseEvent) {
-		e.stopPropagation();
+	function expandFilter<T>(e?: MouseEvent<T> | FocusEvent<T>) {
+		e?.stopPropagation();
 		setExpanded(true);
 	}
 
@@ -148,7 +74,7 @@ export default function TagSelector(p: TagSelectorProps) {
 									filter={t.filter}
 									updateFilter={t.updateFilter}
 									clearFilter={t.clearFilter}
-									onFocus={(e) => expandFilter}
+									onFocus={expandFilter}
 								/>
 								{!!t.selectedTagIds.length && (
 									<S.DropdownTrigger onClick={t.onResetSelection}>
@@ -209,7 +135,7 @@ export default function TagSelector(p: TagSelectorProps) {
 			</S.Wrapper>
 			{/* NOTE I don't think we need to conditionally render TagTree based on !!state.isOpen, 
             but if the modal ever acts weird, that's the first thing to try for a fix. */}
-			<TagTree modalId={_modalId} />
+			<TagTree modalId={tagTreeModalId} />
 		</>
 	);
 }

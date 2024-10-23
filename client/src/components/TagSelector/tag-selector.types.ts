@@ -36,5 +36,6 @@ export type TagSelectorProps = {
 	fullSize?: boolean;
 	maximum?: number;
 	showNewTagButton?: boolean;
+	/** The modalId that gets passed to `NewTagButton` */
 	modalId: string;
 };
