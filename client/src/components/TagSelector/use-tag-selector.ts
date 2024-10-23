@@ -1,6 +1,7 @@
 import useTagsQuery from "@lib/query/use-tags-query";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import type { ID } from "@type/server/utility.types";
+import type { MouseEvent } from "react";
 import { useState } from "react";
 
 type UseTagSelector = {
@@ -37,6 +38,11 @@ export default function useTagSelector({ maximum }: UseTagSelector = {}) {
 		}
 	}
 
+	function onResetSelection(e: MouseEvent<HTMLButtonElement>) {
+		e.stopPropagation();
+		resetTagSelection();
+	}
+
 	return {
 		tagSelection,
 		updateTagSelection,
@@ -46,5 +52,6 @@ export default function useTagSelector({ maximum }: UseTagSelector = {}) {
 		tags,
 		selectedTagIds,
 		resetTagSelection,
+		onResetSelection,
 	};
 }
