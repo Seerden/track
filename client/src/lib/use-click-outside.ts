@@ -1,16 +1,16 @@
+import type { RefObject } from "react";
 import { useEffect, useState } from "react";
 
-type UseClickOutside<T extends HTMLElement> = {
-	ref: React.RefObject<T>;
-	initialOpen?: boolean;
-	handler?: (e: MouseEvent) => void;
-};
-
-export default function useClickOutside<T extends HTMLElement>({
-	ref,
-	handler,
-	initialOpen = false,
-}: UseClickOutside<T>) {
+export default function useClickOutside<T extends HTMLElement>(
+	ref: RefObject<T>,
+	{
+		handler,
+		initialOpen = false,
+	}: {
+		initialOpen?: boolean;
+		handler?: (e: MouseEvent) => void;
+	} = {},
+) {
 	const [isOpen, setIsOpen] = useState<boolean>(initialOpen);
 
 	useEffect(() => {
@@ -21,7 +21,6 @@ export default function useClickOutside<T extends HTMLElement>({
 
 			e.preventDefault();
 			e.stopPropagation();
-
 			handler?.(e);
 			setIsOpen(false);
 		}

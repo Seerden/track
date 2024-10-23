@@ -19,25 +19,22 @@ export default function TagSelector(p: TagSelectorProps) {
 
 	// TODO: If tags are passed through props (=p.tagsById), they take priority over all the
 	// user's tags (=t.tags.tagsById), We need to rename the variables to make that clear.
-	const _tags = Object.values(p.tagsById ?? t.tags?.tagsById ?? []);
+	const tags = Object.values(p.tagsById ?? t.tags?.tagsById ?? []);
 
-	const tagsToDisplay = _tags.filter((tag) =>
+	const tagsToDisplay = tags.filter((tag) =>
 		tag.name.toLowerCase().includes(t.filter.toLowerCase())
 	);
 
 	const dropdownRef = useRef<HTMLDivElement>(null);
-	const { isOpen: expanded, setIsOpen: setExpanded } = useClickOutside({
-		// TODO: make ref a standalone parameter so we don't have to always wrap it in an object
-		ref: dropdownRef
-	});
+	const { isOpen: expanded, setIsOpen: setExpanded } = useClickOutside(dropdownRef);
 	// NOTE: tagTreeModalId has to depend on `modalId` because we can have
 	// multiple TagSelectors on the same page.
 	const tagTreeModalId = `${modalIds.tagTree.tagSelector}-${p.modalId}`;
 	const { openModal } = useModalState(tagTreeModalId);
 
 	const selectedTags = useMemo(
-		() => _tags.filter((tag) => t.selectedTagIds.includes(tag.tag_id)),
-		[p.tagsById, t.tags, t.selectedTagIds]
+		() => tags.filter((tag) => t.selectedTagIds.includes(tag.tag_id)),
+		[tags, t.selectedTagIds]
 	);
 
 	function expandFilter<T>(e?: MouseEvent<T> | FocusEvent<T>) {
@@ -95,7 +92,7 @@ export default function TagSelector(p: TagSelectorProps) {
 								You haven't selected any tags yet.
 							</S.EmptySelection>
 						) : (
-							<Selection tags={_tags} selectedTags={selectedTags} />
+							<Selection tags={tags} selectedTags={selectedTags} />
 						))}
 
 					{expanded && (
@@ -128,7 +125,7 @@ export default function TagSelector(p: TagSelectorProps) {
 									updateTagSelection={t.updateTagSelection}
 								/>
 							</S.List>
-							<Selection fullPaths tags={_tags} selectedTags={selectedTags} />
+							<Selection fullPaths tags={tags} selectedTags={selectedTags} />
 						</S.DropdownContent>
 					)}
 				</S.Dropdown>
