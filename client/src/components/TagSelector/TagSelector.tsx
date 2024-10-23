@@ -2,12 +2,11 @@ import Filter from "@/components/TagSelector/Filter";
 import Selection from "@/components/TagSelector/Selection";
 import type { TagSelectorProps } from "@/components/TagSelector/tag-selector.types";
 import TagSelectorItems from "@/components/TagSelector/TagSelectorItems";
+import useTagSelectorFilter from "@/components/TagSelector/use-tag-selector-filter";
 import TagTree from "@/components/TagTree/TagTree";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
-import useClickOutside from "@/lib/use-click-outside";
-import type { FocusEvent, MouseEvent } from "react";
-import { useMemo, useRef } from "react";
+import type { MouseEvent } from "react";
 import { FaChevronDown, FaChevronUp, FaExpand } from "react-icons/fa";
 import { MdOutlineFilterListOff } from "react-icons/md";
 import NewTagButton from "./NewTagButton";
@@ -15,37 +14,13 @@ import S from "./TagSelector.style";
 import useTagSelector from "./use-tag-selector";
 
 export default function TagSelector(p: TagSelectorProps) {
-	const t = useTagSelector({ maximum: p.maximum });
+	const t = useTagSelector({ maximum: p.maximum, tagsById: p.tagsById });
+	const f = useTagSelectorFilter(p.modalId);
 
-	// TODO: If tags are passed through props (=p.tagsById), they take priority over all the
-	// user's tags (=t.tags.tagsById), We need to rename the variables to make that clear.
-	const tags = Object.values(p.tagsById ?? t.tags?.tagsById ?? []);
-
-	const tagsToDisplay = tags.filter((tag) =>
-		tag.name.toLowerCase().includes(t.filter.toLowerCase())
-	);
-
-	const dropdownRef = useRef<HTMLDivElement>(null);
-	const { isOpen: expanded, setIsOpen: setExpanded } = useClickOutside(dropdownRef);
 	// NOTE: tagTreeModalId has to depend on `modalId` because we can have
 	// multiple TagSelectors on the same page.
 	const tagTreeModalId = `${modalIds.tagTree.tagSelector}-${p.modalId}`;
 	const { openModal } = useModalState(tagTreeModalId);
-
-	const selectedTags = useMemo(
-		() => tags.filter((tag) => t.selectedTagIds.includes(tag.tag_id)),
-		[tags, t.selectedTagIds]
-	);
-
-	function expandFilter<T>(e?: MouseEvent<T> | FocusEvent<T>) {
-		e?.stopPropagation();
-		setExpanded(true);
-	}
-
-	function minimizeFilter(e: MouseEvent) {
-		e.stopPropagation();
-		setExpanded(false);
-	}
 
 	function onModalOpen(e: MouseEvent) {
 		e.stopPropagation();
@@ -63,15 +38,16 @@ export default function TagSelector(p: TagSelectorProps) {
 						{p.title}
 					</S.Title>
 				)}
+
 				<S.Dropdown>
 					<S.Actions>
-						{!expanded && (
+						{!f.expanded && (
 							<>
 								<Filter
 									filter={t.filter}
 									updateFilter={t.updateFilter}
 									clearFilter={t.clearFilter}
-									onFocus={expandFilter}
+									onFocus={f.expandFilter}
 								/>
 								{!!t.selectedTagIds.length && (
 									<S.DropdownTrigger onClick={t.onResetSelection}>
@@ -80,23 +56,24 @@ export default function TagSelector(p: TagSelectorProps) {
 								)}
 								{p.showNewTagButton && <NewTagButton modalId={p.modalId} />}
 
-								<S.DropdownTrigger onClick={expandFilter}>
+								<S.DropdownTrigger onClick={f.expandFilter}>
 									<FaChevronDown size={15} color={"darkorchid"} />
 								</S.DropdownTrigger>
 							</>
 						)}
 					</S.Actions>
-					{!expanded &&
-						(!selectedTags.length ? (
+
+					{!f.expanded &&
+						(!t.selectedTags.length ? (
 							<S.EmptySelection>
 								You haven't selected any tags yet.
 							</S.EmptySelection>
 						) : (
-							<Selection tags={tags} selectedTags={selectedTags} />
+							<Selection tags={t.tags} selectedTags={t.selectedTags} />
 						))}
 
-					{expanded && (
-						<S.DropdownContent ref={dropdownRef}>
+					{f.expanded && (
+						<S.DropdownContent ref={f.dropdownRef}>
 							<S.DropdownActions>
 								<Filter
 									filter={t.filter}
@@ -104,28 +81,33 @@ export default function TagSelector(p: TagSelectorProps) {
 									updateFilter={t.updateFilter}
 									hasAutoFocus
 								/>
+
 								{!!t.selectedTagIds.length && (
 									<S.DropdownTrigger onClick={t.onResetSelection}>
 										<MdOutlineFilterListOff color="orangered" />
 									</S.DropdownTrigger>
 								)}
+
 								{p.showNewTagButton && <NewTagButton modalId={p.modalId} />}
+
 								<S.DropdownTrigger onClick={onModalOpen}>
 									<FaExpand size={15} color={"dodgerblue"} />
 								</S.DropdownTrigger>
-								<S.DropdownTrigger onClick={minimizeFilter}>
+
+								<S.DropdownTrigger onClick={f.minimizeFilter}>
 									<FaChevronUp size={15} color={"forestgreen"} />
 								</S.DropdownTrigger>
 							</S.DropdownActions>
 
 							<S.List>
 								<TagSelectorItems
-									tags={tagsToDisplay}
+									tags={t.tagsToDisplay}
 									tagSelection={t.tagSelection}
 									updateTagSelection={t.updateTagSelection}
 								/>
 							</S.List>
-							<Selection fullPaths tags={tags} selectedTags={selectedTags} />
+
+							<Selection fullPaths tags={t.tags} selectedTags={t.selectedTags} />
 						</S.DropdownContent>
 					)}
 				</S.Dropdown>
