@@ -2,7 +2,7 @@ import type { TagWithIds } from "@/types/server/tag.types";
 import useTagsQuery from "@lib/query/use-tags-query";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import type { ById, ID } from "@type/server/utility.types";
-import type { MouseEvent } from "react";
+import type { ChangeEvent, MouseEvent } from "react";
 import { useMemo, useState } from "react";
 
 type UseTagSelector = {
@@ -23,11 +23,11 @@ export default function useTagSelector({ maximum, tagsById }: UseTagSelector = {
 	} = useTagSelection();
 	const [filter, setFilter] = useState<string>("");
 
-	function updateFilter(e: React.ChangeEvent<HTMLInputElement>) {
+	function updateFilter(e: ChangeEvent<HTMLInputElement>) {
 		setFilter(e.target.value);
 	}
 
-	function clearFilter(e: React.MouseEvent<HTMLButtonElement>) {
+	function clearFilter(e: MouseEvent<HTMLButtonElement>) {
 		e.stopPropagation();
 		setFilter("");
 	}
@@ -40,7 +40,7 @@ export default function useTagSelector({ maximum, tagsById }: UseTagSelector = {
 		}
 	}
 
-	function onResetSelection(e: MouseEvent<HTMLButtonElement>) {
+	function onSelectionReset(e: MouseEvent<HTMLButtonElement>) {
 		e.stopPropagation();
 		resetTagSelection();
 	}
@@ -48,7 +48,6 @@ export default function useTagSelector({ maximum, tagsById }: UseTagSelector = {
 	// TODO: If tags are passed through props (=p.tagsById), they take priority over all the
 	// user's tags (=t.tags.tagsById), We need to rename the variables to make that clear.
 	const tags = Object.values(tagsById ?? tagsData?.tagsById ?? []);
-
 	const tagsToDisplay = tags.filter((tag) =>
 		tag.name.toLowerCase().includes(filter.toLowerCase()),
 	);
@@ -65,7 +64,7 @@ export default function useTagSelector({ maximum, tagsById }: UseTagSelector = {
 		clearFilter,
 		selectedTagIds,
 		resetTagSelection,
-		onResetSelection,
+		onSelectionReset,
 		tagsToDisplay,
 		selectedTags,
 		tags,

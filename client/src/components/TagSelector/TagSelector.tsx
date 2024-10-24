@@ -50,7 +50,7 @@ export default function TagSelector(p: TagSelectorProps) {
 									onFocus={f.expandFilter}
 								/>
 								{!!t.selectedTagIds.length && (
-									<S.DropdownTrigger onClick={t.onResetSelection}>
+									<S.DropdownTrigger onClick={t.onSelectionReset}>
 										<MdOutlineFilterListOff color="orangered" />
 									</S.DropdownTrigger>
 								)}
@@ -83,7 +83,7 @@ export default function TagSelector(p: TagSelectorProps) {
 								/>
 
 								{!!t.selectedTagIds.length && (
-									<S.DropdownTrigger onClick={t.onResetSelection}>
+									<S.DropdownTrigger onClick={t.onSelectionReset}>
 										<MdOutlineFilterListOff color="orangered" />
 									</S.DropdownTrigger>
 								)}
