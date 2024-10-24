@@ -4,5 +4,8 @@ import { pageStyle } from "../../theme/snippets/page";
 export const Page = styled.section`
 	${pageStyle};
 
-	overflow: hidden;
+	// TODO: we need to overflow-y in case there is a dropdown at the bottom of
+	// the page that needs to be visible. Or, we make it so that dropdowns snap
+	// to the bottom if they would otherwise overflow.
+	overflow: visible;
 `;

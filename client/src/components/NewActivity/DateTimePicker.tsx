@@ -26,7 +26,6 @@ export default function DateTimePicker({ setState }: DateTimePickerProps) {
 						<span>Date</span>
 						<input
 							type="date"
-							value={date.start}
 							defaultValue={defaultStartDate}
 							onChange={onStartDateChange}
 						/>

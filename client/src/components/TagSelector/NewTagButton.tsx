@@ -1,26 +1,26 @@
 import { useModalState } from "@/lib/state/modal-state";
-import { MdLabelImportant } from "react-icons/md";
+import { AiFillTags } from "react-icons/ai";
 import Modal from "../Modal";
 import NewTag from "../NewTag/NewTag";
 import * as S from "./NewTagButton.style";
 
 type NewTagButtonProps = {
 	modalId: string;
+	size?: number;
 };
 
-export default function NewTagButton({ modalId }: NewTagButtonProps) {
+export default function NewTagButton({ modalId, size = 15 }: NewTagButtonProps) {
 	const { toggleModal, state } = useModalState(modalId);
 
 	function handleOpen(e: React.MouseEvent<HTMLButtonElement>) {
-		e.preventDefault();
 		e.stopPropagation();
 		toggleModal();
 	}
 
 	return (
 		<>
-			<S.Button onClick={(e) => handleOpen(e)}>
-				<MdLabelImportant />
+			<S.Button title="Make a new tag" onClick={(e) => handleOpen(e)}>
+				<AiFillTags size={size} />
 			</S.Button>
 
 			{state.isOpen && (
