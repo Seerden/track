@@ -1,3 +1,4 @@
+import { createDate } from "@/lib/datetime/make-date";
 import { activityGuards } from "@/types/server/activity.guards";
 import type { AtLeast } from "@/types/server/utility.types";
 import type { DateTimeField } from "@type/form.types";
@@ -37,6 +38,13 @@ export function parseNewActivity(
 		!activityGuards.withTimestamps(newActivity)
 	) {
 		throw new Error("Activity must have either date fields or timestamp fields");
+	}
+
+	// Make sure the `end` field is set to end of day. TODO: this should
+	// generically be handled in DateTimePicker, but currently only newActivity
+	// uses that, so doing it here works fine for now.
+	if (activityGuards.withDates(newActivity)) {
+		newActivity.end_date = createDate(newActivity.end_date).endOf("day");
 	}
 
 	return newActivity;
