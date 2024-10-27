@@ -1,3 +1,4 @@
+import { Tag } from "@/components/TagCard/TagCard.style";
 import styled from "styled-components";
 
 export const Wrapper = styled.div``;
@@ -103,13 +104,14 @@ export const Task = styled.li`
 	box-sizing: border-box;
 	font-size: 0.9rem;
 	display: grid;
-	grid-template-columns: max-content 200px max-content auto;
+	grid-template-columns: max-content max-content max-content auto;
 	gap: 0.5rem;
 	border-radius: 2px;
 	background-color: #ddd;
 	width: 100%;
 	padding: 0.5rem 1rem;
 	align-items: center;
+	max-height: 90px;
 
 	max-width: 720px; // TODO: this is temporary, but we do want to limit size
 `;
@@ -150,7 +152,10 @@ export const Columns = styled.div`
 
 export const TaskName = styled.div`
 	display: flex;
-	width: 300px;
+	width: 200px;
+	white-space: normal;
+	overflow: hidden;
+	text-overflow: ellipsis;
 `;
 
 export const Times = styled.div`
@@ -160,8 +165,22 @@ export const Times = styled.div`
 export const Tags = styled.div`
 	display: flex;
 	justify-content: flex-end;
-	flex-wrap: nowrap;
+	flex-wrap: wrap;
 	gap: 0.4rem;
+	max-width: 250px;
+	justify-self: flex-end;
+	flex-wrap: wrap;
+	overflow-y: hidden;
+	max-height: 70px;
+
+	${Tag} {
+		display: flex;
+		max-height: 30px;
+		flex: 1;
+		overflow-y: visible;
+		white-space: nowrap;
+		max-width: 100%;
+	}
 `;
 
 export const Note = styled.li`
