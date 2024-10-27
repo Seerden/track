@@ -41,8 +41,8 @@ export default function useDateTimePicker({ setState }: DateTimePickerProps) {
 
 	const dateTime = useMemo(() => {
 		const [start, end] = [
-			createDate(allDay ? date.start : `${date.start}T${time.start}`).toISOString(),
-			createDate(allDay ? date.end : `${date.end}T${time.end}`).toISOString(),
+			createDate(allDay ? date.start : `${date.start}T${time.start}`),
+			createDate(allDay ? date.end : `${date.end}T${time.end}`),
 		];
 
 		return { start, end };
