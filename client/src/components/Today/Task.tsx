@@ -6,7 +6,8 @@ import type { ActivityWithIds } from "@type/server/activity.types";
 import type { TagWithIds } from "@type/server/tag.types";
 import type { ById } from "@type/server/utility.types";
 import TagCard from "../TagCard/TagCard";
-import * as S from "./Today.style";
+import T from "./Tasks.style";
+import S from "./Today.style";
 
 type TaskProps = {
 	activity: ActivityWithIds;
@@ -22,7 +23,7 @@ export default function Task({ activity, tagsById }: TaskProps) {
 	}
 
 	return (
-		<S.Task>
+		<T.Task>
 			<S.CheckboxWrapper>
 				<S.Checkbox
 					type="checkbox"
@@ -32,17 +33,17 @@ export default function Task({ activity, tagsById }: TaskProps) {
 				/>
 				<Checkbox checked={activity.completed} />
 			</S.CheckboxWrapper>
-			<S.TaskName>{activity.name}</S.TaskName>
-			<S.Times>
+			<T.TaskName>{activity.name}</T.TaskName>
+			<T.Times>
 				{activityStart(activity).format("HH:mm")}
 				{" - "}
 				{activityEnd(activity).format("HH:mm")}
-			</S.Times>
-			<S.Tags>
+			</T.Times>
+			<T.Tags>
 				{tags.map((tag) => (
 					<TagCard key={tag.tag_id} tag={tag} />
 				))}
-			</S.Tags>
-		</S.Task>
+			</T.Tags>
+		</T.Task>
 	);
 }

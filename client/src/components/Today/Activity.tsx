@@ -1,7 +1,7 @@
 import useActivity from "@/components/Today/use-activity.ts";
 import type { ActivityWithIds } from "@type/server/activity.types.ts";
 import type { ID } from "@type/server/utility.types.ts";
-import * as S from "./Today.style.ts";
+import S from "./Today.style.ts";
 
 export type ActivityProps = {
 	activity: ActivityWithIds;

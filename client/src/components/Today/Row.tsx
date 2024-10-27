@@ -2,7 +2,7 @@ import type { ActivityWithIds } from "@type/server/activity.types";
 import type { ID } from "@type/server/utility.types";
 import Activity from "./Activity";
 import HourMark from "./HourMark";
-import * as S from "./Today.style";
+import S from "./Today.style";
 
 type RowProps = {
 	index: number;
