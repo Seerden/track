@@ -18,7 +18,7 @@ module.exports = {
 		ecmaVersion: 12,
 		sourceType: "module",
 	},
-	plugins: ["react", "@typescript-eslint", "eslint-plugin-react-compiler"],
+	plugins: ["react", "@typescript-eslint", "eslint-plugin-react-compiler", "track"],
 	settings: {
 		react: {
 			version: "detect",
@@ -36,6 +36,7 @@ module.exports = {
 		"react/react-in-jsx-scope": "off",
 		"react-compiler/react-compiler": "error",
 		"@typescript-eslint/consistent-type-imports": "error",
+		"track/no-direct-styled-import": "error",
 	},
 	overrides: [
 		{
