@@ -28,8 +28,8 @@ function NewNote({ inActivity }: NewNoteProps) {
 					</S.Field>
 					<S.Field>
 						<TagSelector
+							title="Tags"
 							tagsById={tagsById}
-							oneLine
 							showNewTagButton
 							modalId={modalIds.tagSelector.newNote}
 						/>

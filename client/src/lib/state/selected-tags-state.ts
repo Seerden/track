@@ -18,7 +18,7 @@ export const tagSelectionState = atom<ById<boolean>>({
 // TODO: this is WIP -- have to see if it works as I expect and also implement
 // it for all current use-cases of the regular tagSelectionState. Also have to
 // tweak selectedTagIdsSelector to use this atomFamily instead of the regular
-// atom.
+// atom. See #64.
 export const tagSelectionFamilyState = atomFamily<ById<boolean>, string>({
 	key: "selectedTagsFamily",
 	default: () => ({}),

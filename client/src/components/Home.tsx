@@ -1,7 +1,8 @@
+import NewActivity from "@/components/NewActivity/NewActivity";
+import NewNote from "@/components/NewNote/NewNote";
+import TagTree from "@/components/TagTree/TagTree";
 import modalIds from "@/lib/modal-ids";
 import Modal from "./Modal";
-import NewActivity from "./NewActivity/NewActivity";
-import NewNote from "./NewNote/NewNote";
 import Notes from "./Notes/Notes";
 
 function Home() {
@@ -12,6 +13,8 @@ function Home() {
 			</Modal>
 			<NewNote />
 			<NewActivity />
+
+			<TagTree orientation="horizontal" />
 		</>
 	);
 }

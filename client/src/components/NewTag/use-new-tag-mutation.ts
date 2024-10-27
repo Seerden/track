@@ -1,4 +1,5 @@
 import { createRequestConfig } from "@/lib/fetch/create-request-config";
+import { queryClient } from "@/lib/query-client";
 import { makeAuthorizedUrl } from "@lib/fetch/make-authorized-url";
 import { useMutation } from "@tanstack/react-query";
 import type { TagInput, TagWithIds } from "@type/server/tag.types";
@@ -15,5 +16,10 @@ export function useNewTagMutation() {
 			return postTag({ newTag, parent_id });
 		},
 		mutationKey: ["new-tag"],
+		onSuccess: () => {
+			queryClient.invalidateQueries({
+				queryKey: ["tags"],
+			});
+		},
 	});
 }

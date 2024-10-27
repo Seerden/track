@@ -1,47 +1,44 @@
 import styled, { css } from "styled-components";
 
-export const Wrapper = styled.div<{ $fullSize?: boolean }>`
+const Wrapper = styled.div<{ $fullSize?: boolean }>`
 	position: relative;
 	min-width: 100%;
 	margin-top: 0.8rem;
-	border: 2px solid #ccc;
-	padding: 0.3rem 0.4rem;
+
+	box-shadow: 0 0 0.5rem 0 #ccc;
+
+	padding: 1rem 1.2rem;
+	z-index: 3;
 	display: flex;
 	flex-direction: column;
 
 	max-width: ${(p) => (p.$fullSize ? "100%" : "400px")};
+
+	min-height: 120px; // TODO: this is hardcoded for the current size to prevent layout shift -- should be dynamic
 `;
 
-export const List = styled.ul<{ $oneLine?: boolean }>`
+const List = styled.ul`
 	display: flex;
+	background-color: #fff;
 	flex-direction: row;
 	flex-wrap: wrap;
 
 	gap: 0.5rem;
-	margin-top: 0.3rem;
 
-	border: 3px solid azure;
-	/* box-shadow: 0 0 0.5rem 0 #ccc; */
+	box-shadow: 0 0 0.5rem 0 #ccc;
 	padding: 0.8rem 1.2rem;
 	min-height: 3.6rem; // this currently is the exact size of a single item; prevents layout shift when going from items -> no items
+	max-height: 250px;
+	overflow-y: scroll;
 
 	justify-content: stretch;
-
-	${(p) =>
-		// TODO: this is EXTREMELY WIP and does not look good or function comfortably
-		// at all
-		p.$oneLine &&
-		css`
-			max-height: 2.4rem;
-			overflow-y: scroll;
-			justify-content: start;
-
-			padding: 0.2rem;
-		`}
 `;
 
-export const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
-	width: max-content;
+const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
+	display: flex;
+	flex: 1;
+	min-width: max-content;
+	justify-content: center;
 	border: 2px solid #ccc;
 	border-radius: 2px;
 	box-shadow: 0.2rem 0.1rem 0 0 #ddd;
@@ -65,25 +62,29 @@ export const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean 
 	}
 
 	${(props) =>
-		!props.$hasParent &&
-		css`
-			border-color: #bbb;
-		`};
+		!props.$hasParent
+			? css`
+					box-shadow: 0rem 0.2rem 0rem 0rem #aaa;
+					background-color: #f2f2f2;
+				`
+			: css``};
 
 	${(props) =>
 		props.$isSelected &&
 		css`
 			border-color: azure;
+			color: #143516;
+			font-weight: 500;
 			background-color: limegreen;
 			box-shadow: 0.3rem 0.3rem 0 -0.1rem limegreen;
 		`}
 `;
 
-export const Title = styled.h3`
+const Title = styled.h3`
 	margin: 0;
 
 	padding: 0.35rem 0.75rem;
-	margin-top: -1.1rem;
+	margin-top: -1.6rem;
 	margin-left: 0.5rem;
 	background-color: #333;
 	color: azure;
@@ -94,15 +95,214 @@ export const Title = styled.h3`
 	border: 2px solid #777;
 `;
 
-export const Filter = styled.input`
+const Filter = styled.input`
 	display: flex;
 	padding: 0.2rem 0.4rem;
 	border-radius: 3px;
-	border: 2px solid #ccc;
+	outline: 2px solid #ccc;
 	box-shadow: 0.1rem 0.1rem 0 0 #ddd;
-	margin-top: -1rem;
+	border: none;
 	align-self: flex-end;
 	max-width: 150px;
 
 	font-size: 0.88rem;
+
+	&:focus {
+		outline-color: dodgerblue;
+		box-shadow: 0rem 0.5rem 0.2rem -0.2rem #ccc;
+	}
 `;
+
+const ClearFilter = styled.button`
+	position: absolute;
+	border: none;
+	display: flex;
+	right: 0.1rem;
+	align-items: center;
+	justify-content: center;
+	background-color: #aaa;
+	border-radius: 40%;
+	padding: 0.22em;
+	cursor: pointer;
+	color: white;
+	align-self: center;
+	width: 20px;
+	height: 20px;
+
+	&:hover {
+		background-color: deepskyblue;
+		color: white;
+		border-radius: 50%;
+	}
+`;
+
+ClearFilter.defaultProps = {
+	type: "button",
+};
+
+const FilterWrapper = styled.div`
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	gap: 0;
+	align-items: center;
+	justify-content: center;
+`;
+
+const Actions = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 0.3rem;
+	gap: 0.5rem;
+
+	button:nth-of-type(1) {
+		margin-left: auto;
+	}
+`;
+
+const Dropdown = styled.div`
+	position: relative;
+`;
+
+const DropdownTrigger = styled.button`
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0px;
+	outline: none;
+	border: none;
+
+	&:active {
+		transform: scale(1.1);
+		background-color: white;
+		& > svg {
+			fill: black;
+		}
+	}
+
+	&:focus:not(:active) {
+		outline: 2px solid dodgerblue;
+		background-color: #fff;
+	}
+
+	&:hover {
+		background-color: #fafafa;
+		box-shadow: 0 0.2rem 0.5rem 0 #999;
+	}
+`;
+
+DropdownTrigger.defaultProps = {
+	type: "button",
+};
+
+const DropdownActions = styled.div`
+	display: flex;
+	flex-direction: row;
+	gap: 1rem;
+	align-items: flex-end;
+	margin: 0.8rem 1rem;
+	justify-content: space-between;
+
+	button:nth-of-type(1) {
+		margin-left: auto;
+	}
+
+	${Actions} {
+		justify-content: flex-start;
+		align-items: flex-start;
+
+		& > ${Filter} {
+			align-self: flex-start;
+		}
+	}
+`;
+
+const DropdownContent = styled.div`
+	position: absolute;
+	top: -0.8rem;
+	left: -1.1rem;
+	display: flex;
+	flex-direction: column;
+	background-color: #eee;
+	border: 2px solid #ddd;
+	border-radius: 4px;
+	box-shadow:
+		0.2rem 0.2rem 0 0 #333,
+		0 0 0.6rem 0 #999;
+	width: calc(
+		100% + 2.2rem
+	); // 100% plus twice the left offset to center it against its parent
+`;
+
+const SelectionList = styled.ul`
+	padding: 0.2rem 0;
+	margin: 0.7rem 0.4rem;
+	display: flex;
+	padding-right: 0.4rem; // this is to prevent make scrollbar look better
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	font-size: 0.85rem;
+	align-items: center;
+	user-select: none;
+	max-height: 120px;
+	overflow-y: scroll;
+`;
+
+const SelectionItem = styled.li`
+	list-style: none;
+	display: flex;
+	padding: 0.3rem 0.5rem;
+	min-width: max-content;
+	flex: 1;
+	border-radius: 4px;
+	background-color: dodgerblue;
+	color: white;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0rem 0.2rem 0.2rem #ccc;
+`;
+
+const PathPart = styled.span<{ $isLeaf: boolean }>`
+	color: ${(p) => (p.$isLeaf ? "white" : "lightblue")};
+	${(p) =>
+		!p.$isLeaf &&
+		css`
+			max-width: 75px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		`}
+`;
+
+const EmptySelection = styled.div`
+	padding: 0.4rem 1.2rem;
+	color: azure;
+	background-color: dodgerblue;
+	max-width: max-content;
+	margin-top: 0.5rem;
+`;
+
+export default {
+	Wrapper,
+	List,
+	ListItem,
+	Title,
+	Filter,
+	ClearFilter,
+	FilterWrapper,
+	Actions,
+	Dropdown,
+	DropdownTrigger,
+	DropdownActions,
+	DropdownContent,
+	SelectionList,
+	SelectionItem,
+	PathPart,
+	EmptySelection,
+};
