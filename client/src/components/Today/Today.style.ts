@@ -110,6 +110,8 @@ export const Task = styled.li`
 	width: 100%;
 	padding: 0.5rem 1rem;
 	align-items: center;
+
+	max-width: 720px; // TODO: this is temporary, but we do want to limit size
 `;
 
 export const CheckboxWrapper = styled.label`
@@ -118,6 +120,14 @@ export const CheckboxWrapper = styled.label`
 	justify-content: center;
 	width: 27px;
 	height: 27px;
+
+	.on {
+		fill: forestgreen;
+	}
+
+	.off {
+		fill: #aaa;
+	}
 `;
 
 export const Checkbox = styled.input`
