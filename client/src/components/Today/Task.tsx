@@ -35,9 +35,8 @@ export default function Task({ activity, tagsById }: TaskProps) {
 			</S.CheckboxWrapper>
 			<T.TaskName>{activity.name}</T.TaskName>
 			<T.Times>
-				{activityStart(activity).format("HH:mm")}
-				{" - "}
-				{activityEnd(activity).format("HH:mm")}
+				<span>from {activityStart(activity).format("HH:mm")}</span>
+				<span>to {activityEnd(activity).format("HH:mm")}</span>
 			</T.Times>
 			<T.Tags>
 				{tags.map((tag) => (

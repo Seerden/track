@@ -37,6 +37,9 @@ const Tags = styled.div`
 
 const Times = styled.div`
 	width: max-content;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
 `;
 
 const Tasks = styled.ul`
