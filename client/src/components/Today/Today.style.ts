@@ -129,7 +129,7 @@ const Columns = styled.div`
 	display: grid;
 
 	@media (min-width: 1280px) {
-		grid-template-columns: 1.5fr 1fr 1fr;
+		grid-template-columns: 1fr max-content auto; // TODO: this is still temporary because the whole layout is temporary
 	}
 
 	grid-template-columns: 1fr;

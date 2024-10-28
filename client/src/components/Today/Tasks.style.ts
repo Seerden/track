@@ -77,6 +77,7 @@ const Task = styled.li`
 	border-radius: 3px;
 	background-color: #ddd; // TODO: apply some style for completed tasks
 	width: 100%;
+	min-width: max-content;
 	padding: 0.5rem 1rem;
 	align-items: center;
 	max-height: 90px;
