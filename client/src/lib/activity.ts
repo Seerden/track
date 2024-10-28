@@ -45,9 +45,17 @@ export function activityDuration(activity: ActivityWithIds) {
 export function activityStartHour(activity: ActivityWithIds, date: Datelike) {
 	const start = activityStart(activity);
 
-	if (!sameDay(start, date)) {
+	if (!activityFallsOnDay(activity, date)) {
 		return -1;
 	}
+
+	// A multiday activity that starts before `date` and continues on `date`
+	// _has_ to "start" at 00:00 on `date` by definition, because we do not allow
+	// interrupted activities in principle.
+	if (start.isBefore(createDate(date).startOf("day"))) {
+		return 0;
+	}
+
 	return getLocalHour(start);
 }
 
