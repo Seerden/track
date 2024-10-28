@@ -1,4 +1,6 @@
+import modalIds from "@/lib/modal-ids";
 import useTaskCompletionMutation from "@/lib/query/use-task-mutation";
+import { useModalState } from "@/lib/state/modal-state";
 import { Checkbox } from "@/lib/theme/components/Checkbox";
 import { activityEnd, activityStart } from "@lib/activity";
 import { filterTagsById } from "@lib/filter-tags";
@@ -22,8 +24,24 @@ export default function Task({ activity, tagsById }: TaskProps) {
 		mutate({ ...activity, completed: !activity.completed });
 	}
 
+	const { setModalState } = useModalState(modalIds.detailedActivity);
+
+	function openTaskModal(e: React.MouseEvent) {
+		setModalState(() => ({
+			isOpen: true,
+			itemId: activity.activity_id,
+			itemType: "activity"
+		}));
+		e.stopPropagation();
+	}
+
 	return (
-		<T.Task>
+		<T.Task
+			onClick={(e) => {
+				e.stopPropagation();
+				openTaskModal(e);
+			}}
+		>
 			<S.CheckboxWrapper>
 				<S.Checkbox
 					type="checkbox"
@@ -33,11 +51,11 @@ export default function Task({ activity, tagsById }: TaskProps) {
 				/>
 				<Checkbox checked={activity.completed} />
 			</S.CheckboxWrapper>
-			<T.TaskName>{activity.name}</T.TaskName>
 			<T.Times>
 				<span>from {activityStart(activity).format("HH:mm")}</span>
 				<span>to {activityEnd(activity).format("HH:mm")}</span>
 			</T.Times>
+			<T.TaskName>{activity.name}</T.TaskName>
 			<T.Tags>
 				{tags.map((tag) => (
 					<TagCard key={tag.tag_id} tag={tag} />

@@ -7,12 +7,9 @@ const TimelineWrapper = styled.section`
 	display: flex;
 	flex-direction: column;
 	padding: 1rem 3rem;
-	border: 2px solid #ccc;
 `;
 
-const NotesWrapper = styled.section`
-	border: 2px solid #ccc;
-`;
+const NotesWrapper = styled.section``;
 
 const BlockTitle = styled.h2`
 	width: max-content;
@@ -42,9 +39,30 @@ const HourMark = styled.span`
 	height: 1.5rem;
 	top: -0.75rem; // TODO: this has to be such that the text is centered right in between two rows
 	left: -1rem;
-	background-color: #ccc;
+	background-color: #eee;
+	outline: 1px solid #333;
+	font-size: 0.75rem;
+	color: #222;
 	width: max-content;
+	border-radius: 3px;
 	padding: 0 0.5rem;
+	user-select: none;
+`;
+
+const CheckboxWrapper = styled.label`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 27px;
+	height: 27px;
+
+	.on {
+		fill: forestgreen;
+	}
+
+	.off {
+		fill: #aaa;
+	}
 `;
 
 const cardWidth = 175;
@@ -58,6 +76,14 @@ const ActivityCard = styled.div<{ $level: number; $offset: number }>`
 	display: flex;
 	width: 100%;
 	height: max-content;
+
+	${CheckboxWrapper} {
+		position: absolute;
+		top: 0.2rem;
+		right: 0.2rem;
+		border-radius: 50%;
+		background-color: #eee;
+	}
 `;
 
 const Activity = styled.div<{ $durationHours: number }>`
@@ -85,23 +111,12 @@ const Activity = styled.div<{ $durationHours: number }>`
 
 const ActivityName = styled.span`
 	max-width: max-content;
-	padding: 0.2rem 1rem;
-`;
-
-const CheckboxWrapper = styled.label`
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 27px;
-	height: 27px;
-
-	.on {
-		fill: forestgreen;
-	}
-
-	.off {
-		fill: #aaa;
-	}
+	padding: 0.2rem;
+	z-index: 4;
+	// ellipsis on overflow
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 `;
 
 const Checkbox = styled.input`
@@ -113,8 +128,8 @@ const Checkbox = styled.input`
 const Columns = styled.div`
 	display: grid;
 
-	@media (min-width: 1920px) {
-		grid-template-columns: repeat(3, 1fr);
+	@media (min-width: 1280px) {
+		grid-template-columns: 1.5fr 1fr 1fr;
 	}
 
 	grid-template-columns: 1fr;
