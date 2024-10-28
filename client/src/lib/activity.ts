@@ -21,7 +21,11 @@ export function activityFallsOnDay(activity: ActivityWithIds, date: Datelike) {
 	const [start, end] = [activityStart(activity), activityEnd(activity)];
 	const day = createDate(date);
 
-	return sameDay(start, day) || sameDay(end, day);
+	return (
+		sameDay(start, day) ||
+		sameDay(end, day) ||
+		(start.isBefore(day) && end.isAfter(day))
+	);
 }
 
 /**
