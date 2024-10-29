@@ -1,6 +1,10 @@
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
-import { activityFallsOnDay, assignIndentationLevelToActivities } from "@lib/activity";
+import {
+	activityFallsOnDay,
+	assignIndentationLevelToActivities,
+	isAllDayActivityOnDate,
+} from "@lib/activity";
 import { today } from "@lib/datetime/make-date";
 import useActivitiesQuery from "@lib/query/use-activities-query";
 import { useMemo } from "react";
@@ -13,8 +17,14 @@ export default function useToday() {
 
 	const currentDate = today();
 	const todayActivities = activities.filter((activity) => {
-		return activityFallsOnDay(activity, currentDate);
+		return (
+			activityFallsOnDay(activity, currentDate) &&
+			!isAllDayActivityOnDate(activity, currentDate)
+		);
 	});
+	const allDayActivities = activities.filter((activity) =>
+		isAllDayActivityOnDate(activity, currentDate),
+	);
 	const indentation = assignIndentationLevelToActivities(todayActivities, currentDate);
 
 	const { state } = useModalState(modalIds.detailedActivity);
@@ -26,6 +36,7 @@ export default function useToday() {
 
 	return {
 		activities: todayActivities,
+		allDayActivities,
 		indentation,
 		currentDate,
 		shouldShowDetailedActivity,
