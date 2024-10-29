@@ -15,5 +15,19 @@ styling. Stay tuned for something that resembles an actual product. ⏳
   work in progress,
 - `wip:<message>` when a commit doesn't fully implement the thing that the
   message says is being worked on,
-- `note:<message>` for example when the commit refers to a TODO message being
+- `todo:<message>` for example when the commit refers to a TODO message being
   left inside the code.
+
+## .env structure
+These are the .env variables that need to be in `server/` and `docker/`
+```
+SESSION_SECRET= 
+PG_USER=
+PG_PASS=
+PG_DB=
+DB_HOST=
+PG_PORT=
+PG_TEST_DB=
+DB_TEST_HOST=
+PG_TEST_PORT=
+```
