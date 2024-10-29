@@ -36,7 +36,7 @@ export function activityFallsOnDay(activity: ActivityWithIds, date: Datelike) {
 export function activityDuration(activity: ActivityWithIds) {
 	const [start, end] = [activityStart(activity), activityEnd(activity)];
 
-	return Math.min(end.diff(start, "minute") / 60, 24);
+	return Math.min(end.diff(start, "minute") / 60, 24); // TODO: the maximum duration should be (24 - startHour) so that the activity doesn't overflow the day
 }
 
 /**
@@ -84,6 +84,8 @@ export function isAllDaySingleDayActivity(activity: ActivityWithIds) {
 	return activity.start_date && activity.end_date;
 }
 
+// TODO: isAllDaySingleDayActivity is not necessary if we use this one properly
+// instead.
 export function isAllDayActivityOnDate(activity: ActivityWithIds, date: Datelike) {
 	const [startOfDay, endOfDay] = [
 		createDate(date).startOf("day"),
