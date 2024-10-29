@@ -27,6 +27,9 @@ export default function Today() {
 									key={i}
 									index={i}
 									activities={activities.filter(
+										// TODO: here, also exclude all-day activities in
+										// the case that we do not want to display them
+										// directly on the timeline
 										(a) => activityStartHour(a, currentDate) === i
 									)}
 									indentation={indentation}
