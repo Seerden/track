@@ -6,6 +6,7 @@ const Wrapper = styled.div``;
 const TimelineWrapper = styled.section`
 	display: flex;
 	flex-direction: column;
+	gap: 1.5rem;
 	padding: 1rem 3rem;
 `;
 
@@ -165,6 +166,38 @@ const NoteContent = styled.div`
 	grid-area: content;
 `;
 
+const AllDayActivity = styled.li`
+	user-select: none;
+	position: relative;
+	list-style: none;
+	background-color: #eee;
+	padding: 0.2rem 1rem;
+	font-size: 0.9rem;
+	border-radius: 3px;
+	outline: 2px solid dodgerblue;
+	box-shadow: 0 0.2rem 0.3rem 0 #aaa;
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding-left: 2rem;
+
+	p {
+		// this targets the icon, should be an other type of element
+		position: absolute;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		outline: 2px solid dodgerblue;
+		left: -0.5rem;
+		border-radius: 50%;
+		padding: 0.4rem;
+		width: 30px;
+		height: 30px;
+		background-color: #444;
+	}
+`;
+
 export default {
 	Wrapper,
 	TimelineWrapper,
@@ -182,4 +215,5 @@ export default {
 	Note,
 	NoteTitle,
 	NoteContent,
+	AllDayActivity,
 };

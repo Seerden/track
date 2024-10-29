@@ -1,5 +1,6 @@
 import DetailedActivity from "@/components/Today/DetailedActivity";
 import { activityStartHour } from "@lib/activity";
+import { Ri24HoursLine } from "react-icons/ri";
 import Notes from "./Notes";
 import Row from "./Row";
 import Tasks from "./Tasks";
@@ -12,13 +13,25 @@ export default function Today() {
 		indentation,
 		currentDate,
 		modalState,
-		shouldShowDetailedActivity
+		shouldShowDetailedActivity,
+		allDayActivities,
 	} = useToday();
 
 	return (
 		<S.Wrapper>
 			<S.Columns>
 				<S.TimelineWrapper>
+					<ul>
+						{allDayActivities.map((activity) => (
+							<S.AllDayActivity>
+								<p title="This activity lasts all day">
+									<Ri24HoursLine size={25} color="white" />
+								</p>
+								<span>{activity.name}</span>
+							</S.AllDayActivity>
+						))}
+					</ul>
+
 					<S.Rows>
 						{Array.from(
 							{ length: 24 }, // render a row for every hour of the day
@@ -30,11 +43,11 @@ export default function Today() {
 										// TODO: here, also exclude all-day activities in
 										// the case that we do not want to display them
 										// directly on the timeline
-										(a) => activityStartHour(a, currentDate) === i
+										(a) => activityStartHour(a, currentDate) === i,
 									)}
 									indentation={indentation}
 								/>
-							)
+							),
 						)}
 					</S.Rows>
 				</S.TimelineWrapper>
