@@ -11,11 +11,12 @@ import useToday from "./use-today";
 export default function Today() {
 	const {
 		activities,
+		allDayActivities,
+		timestampedActivities,
 		indentation,
 		currentDate,
 		modalState,
-		shouldShowDetailedActivity,
-		allDayActivities
+		shouldShowDetailedActivity
 	} = useToday();
 
 	return (
@@ -38,7 +39,7 @@ export default function Today() {
 								<Row
 									key={i}
 									index={i}
-									activities={activities.filter(
+									activities={timestampedActivities.filter(
 										(a) => activityStartHour(a, currentDate) === i
 									)}
 									indentation={indentation}

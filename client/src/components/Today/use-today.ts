@@ -16,16 +16,22 @@ export default function useToday() {
 	}, [activitiesData]);
 
 	const currentDate = today();
+
 	const todayActivities = activities.filter((activity) => {
-		return (
-			activityFallsOnDay(activity, currentDate) &&
-			!isAllDayActivityOnDate(activity, currentDate)
-		);
+		return activityFallsOnDay(activity, currentDate);
 	});
+
 	const allDayActivities = activities.filter((activity) =>
 		isAllDayActivityOnDate(activity, currentDate),
 	);
-	const indentation = assignIndentationLevelToActivities(todayActivities, currentDate);
+
+	const timestampedActivities = activities.filter(
+		(activity) => !isAllDayActivityOnDate(activity, currentDate),
+	);
+	const indentation = assignIndentationLevelToActivities(
+		timestampedActivities,
+		currentDate,
+	);
 
 	const { state } = useModalState(modalIds.detailedActivity);
 	const shouldShowDetailedActivity = !!(
@@ -37,6 +43,7 @@ export default function useToday() {
 	return {
 		activities: todayActivities,
 		allDayActivities,
+		timestampedActivities,
 		indentation,
 		currentDate,
 		shouldShowDetailedActivity,
