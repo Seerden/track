@@ -1,5 +1,6 @@
 import AllDayActivity from "@/components/Today/AllDayActivity";
 import DetailedActivity from "@/components/Today/DetailedActivity";
+import { today } from "@/lib/datetime/make-date";
 import { activityStartHour } from "@lib/activity";
 import Notes from "./Notes";
 import Row from "./Row";
@@ -19,13 +20,16 @@ export default function Today() {
 
 	return (
 		<S.Wrapper>
+			<S.TimelineHeader>
+				<h1>{today().format("dddd (DD MMMM)")}</h1>
+			</S.TimelineHeader>
 			<S.Columns>
 				<S.TimelineWrapper>
-					<ul>
+					<S.AllDayActivityList>
 						{allDayActivities.map((activity) => (
 							<AllDayActivity activity={activity} key={activity.activity_id} />
 						))}
-					</ul>
+					</S.AllDayActivityList>
 
 					<S.Rows>
 						{Array.from(
@@ -35,9 +39,6 @@ export default function Today() {
 									key={i}
 									index={i}
 									activities={activities.filter(
-										// TODO: here, also exclude all-day activities in
-										// the case that we do not want to display them
-										// directly on the timeline
 										(a) => activityStartHour(a, currentDate) === i
 									)}
 									indentation={indentation}

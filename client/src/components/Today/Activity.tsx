@@ -28,7 +28,6 @@ export default function Activity({ activity, indentation }: ActivityProps) {
 			<S.Activity $durationHours={durationHours}>
 				<S.ActivityName>{activity.name}</S.ActivityName>
 				{activity.is_task && (
-					// checkbox!
 					// TODO: extract putCompletion to a hook, we already use it in 2
 					// other places I think so it should be generalized
 					// TODO: should really prioritize reworking checkboxes so we can
@@ -41,7 +40,7 @@ export default function Activity({ activity, indentation }: ActivityProps) {
 							// handle putCompletion()
 						}}
 					>
-						<input
+						<S.Checkbox
 							type="checkbox"
 							checked={activity.completed}
 							style={{ display: "none" }}

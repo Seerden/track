@@ -51,6 +51,7 @@ const HourMark = styled.span`
 `;
 
 const CheckboxWrapper = styled.label`
+	cursor: pointer;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -166,14 +167,23 @@ const NoteContent = styled.div`
 	grid-area: content;
 `;
 
+const AllDayActivityList = styled.ul`
+	display: flex;
+	flex-direction: column;
+	gap: 0.7rem;
+	width: max-content;
+	padding-inline: 3rem;
+`;
+
 const AllDayActivity = styled.li`
 	user-select: none;
+	cursor: pointer;
 	position: relative;
 	list-style: none;
 	background-color: dodgerblue;
-	color: black;
+	color: white;
 	padding: 0.2rem 1rem;
-	font-size: 0.9rem;
+	font-size: 0.93rem;
 	border-radius: 3px;
 	outline: 2px solid dodgerblue;
 	box-shadow: 0 0.2rem 0.3rem 0 #aaa;
@@ -181,23 +191,48 @@ const AllDayActivity = styled.li`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	padding-left: 2rem;
+	gap: 1rem;
+	padding-left: 0.3rem;
 
+	// this targets the icon, but should be something other than a p tag
 	p {
-		// this targets the icon, should be an other type of element
-		position: absolute;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		outline: 2px solid dodgerblue;
-		left: -0.5rem;
+		outline: 2px solid white;
+		border-radius: 7px;
+		padding: 0.05rem;
+		--size: 22px;
+		width: var(--size);
+		height: var(--size);
+		background-color: azure;
+
+		svg {
+			fill: black;
+		}
+
+		box-shadow: 0 0 0.3rem 0 #333;
+	}
+
+	/* TODO: really should extract all of these checkbox styles */
+	${CheckboxWrapper} {
+		margin-left: 1rem;
+		background-color: white;
 		border-radius: 50%;
-		padding: 0.4rem;
-		width: 30px;
-		height: 30px;
-		background-color: #444;
 	}
 `;
+
+const TimelineHeader = styled.header`
+	padding: 1rem 3rem;
+	padding-bottom: 0.5rem;
+
+	h1 {
+		// this is the element that displays the date
+		font-size: 2rem;
+		font-weight: 400;
+		margin: 0;
+	}
+`; // is a header the right tag, semantically?
 
 export default {
 	Wrapper,
@@ -216,5 +251,7 @@ export default {
 	Note,
 	NoteTitle,
 	NoteContent,
+	AllDayActivityList,
 	AllDayActivity,
+	TimelineHeader,
 };
