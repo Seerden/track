@@ -1,7 +1,6 @@
+import { useDetailedActivityModal } from "@/components/Today/use-detailed-activity-modal";
 import { filterTagsById } from "@/lib/filter-tags";
-import modalIds from "@/lib/modal-ids";
 import useTaskCompletionMutation from "@/lib/query/use-task-mutation";
-import { useModalState } from "@/lib/state/modal-state";
 import type { ActivityWithIds } from "@/types/server/activity.types";
 import type { TagWithIds } from "@/types/server/tag.types";
 import type { ID } from "@/types/server/utility.types";
@@ -22,17 +21,13 @@ export default function useTask({
 		mutate({ ...activity, completed: !activity.completed });
 	}
 
-	const { setModalState } = useModalState(modalIds.detailedActivity);
+	const { openDetailedActivityModal } = useDetailedActivityModal({ activity });
 
 	const maybeOpenTaskModal = useCallback(
 		(e: React.MouseEvent) => {
 			if (checkboxRef.current?.contains(e.target as Node)) return;
 
-			setModalState(() => ({
-				isOpen: true,
-				itemId: activity.activity_id,
-				itemType: "activity",
-			}));
+			openDetailedActivityModal();
 			e.stopPropagation();
 		},
 		[checkboxRef, activity],
