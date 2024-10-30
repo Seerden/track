@@ -170,7 +170,8 @@ const AllDayActivity = styled.li`
 	user-select: none;
 	position: relative;
 	list-style: none;
-	background-color: #eee;
+	background-color: dodgerblue;
+	color: black;
 	padding: 0.2rem 1rem;
 	font-size: 0.9rem;
 	border-radius: 3px;
