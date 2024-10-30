@@ -22,12 +22,10 @@ export default function AllDayActivity({ activity }: AllDayActivityProps) {
 		<S.AllDayActivity
 			key={activity.activity_id}
 			onClick={(e) => {
-				// TODO: this component needs a completion checkbox. then, we need
-				// tu duplicate the logic from Task.tsx that makes sure the  modal
-				// only opens if we click outside the checkbox.
 				if (checkboxRef.current?.contains(e.target as Node)) return;
-				openDetailedActivityModal();
+
 				e.stopPropagation();
+				openDetailedActivityModal();
 			}}
 		>
 			<p title="This activity lasts all day">
