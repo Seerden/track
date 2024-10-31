@@ -1,6 +1,5 @@
 import AllDayActivity from "@/components/Today/AllDayActivity";
 import DetailedActivity from "@/components/Today/DetailedActivity";
-import { today } from "@/lib/datetime/make-date";
 import { activityStartHour } from "@lib/activity";
 import Notes from "./Notes";
 import Row from "./Row";
@@ -22,7 +21,7 @@ export default function Today() {
 	return (
 		<S.Wrapper>
 			<S.TimelineHeader>
-				<h1>{today().format("dddd (DD MMMM)")}</h1>
+				<h1>{currentDate.format("dddd (DD MMMM)")}</h1>
 			</S.TimelineHeader>
 			<S.Columns>
 				<S.TimelineWrapper>
