@@ -2,6 +2,7 @@ import useActivity from "@/components/Today/hooks/use-activity.ts";
 import { Checkbox } from "@/lib/theme/components/Checkbox.tsx";
 import type { ActivityWithIds } from "@type/server/activity.types.ts";
 import type { ID } from "@type/server/utility.types.ts";
+import T from "./Activity.style.ts";
 import S from "./Today.style.ts";
 
 export type ActivityProps = {
@@ -18,15 +19,15 @@ export default function Activity({ activity, indentation }: ActivityProps) {
 	});
 
 	return (
-		<S.ActivityCard
+		<T.ActivityCard
 			key={activity.activity_id}
 			$level={level}
 			$offset={offset}
 			onClick={openActivityModal}
 		>
 			{/* TODO: on mouseover, display a short humanized time string */}
-			<S.Activity $durationHours={durationHours}>
-				<S.ActivityName>{activity.name}</S.ActivityName>
+			<T.Activity $durationHours={durationHours}>
+				<T.ActivityName>{activity.name}</T.ActivityName>
 				{activity.is_task && (
 					// TODO: extract putCompletion to a hook, we already use it in 2
 					// other places I think so it should be generalized
@@ -48,7 +49,7 @@ export default function Activity({ activity, indentation }: ActivityProps) {
 						<Checkbox checked={activity.completed} />
 					</S.CheckboxWrapper>
 				)}
-			</S.Activity>
-		</S.ActivityCard>
+			</T.Activity>
+		</T.ActivityCard>
 	);
 }
