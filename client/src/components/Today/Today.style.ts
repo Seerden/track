@@ -194,7 +194,7 @@ const AllDayActivity = styled.li`
 	gap: 1rem;
 	padding-left: 0.3rem;
 
-	// this targets the icon, but should be something other than a p tag
+	// TODO: this targets the icon, but should be something other than a p tag
 	p {
 		display: flex;
 		align-items: center;
