@@ -4,6 +4,7 @@ import { Checkbox } from "@/lib/theme/components/Checkbox";
 import type { ActivityWithIds } from "@/types/server/activity.types";
 import { useRef } from "react";
 import { Ri24HoursLine } from "react-icons/ri";
+import T from "./AllDayActivity.style";
 import S from "./Today.style";
 
 type AllDayActivityProps = {
@@ -19,7 +20,7 @@ export default function AllDayActivity({ activity }: AllDayActivityProps) {
 	}
 
 	return (
-		<S.AllDayActivity
+		<T.AllDayActivity
 			key={activity.activity_id}
 			onClick={(e) => {
 				if (checkboxRef.current?.contains(e.target as Node)) return;
@@ -45,6 +46,6 @@ export default function AllDayActivity({ activity }: AllDayActivityProps) {
 					<Checkbox checked={activity.completed} />
 				</S.CheckboxWrapper>
 			)}
-		</S.AllDayActivity>
+		</T.AllDayActivity>
 	);
 }
