@@ -35,11 +35,11 @@ export default function Task({ activity, tagsById }: TaskProps) {
 				<span>to {activityEnd(activity).format("HH:mm")}</span>
 			</T.Times>
 			<T.TaskName>{activity.name}</T.TaskName>
-			<T.Tags>
+			<S.Tags>
 				{tags.map((tag) => (
 					<TagCard key={tag.tag_id} tag={tag} />
 				))}
-			</T.Tags>
+			</S.Tags>
 		</T.Task>
 	);
 }

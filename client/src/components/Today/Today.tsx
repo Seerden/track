@@ -21,6 +21,7 @@ export default function Today() {
 
 	return (
 		<S.Wrapper>
+			{/* TODO: rename TimelineHeader->Header ? */}
 			<S.TimelineHeader>
 				<h1>{currentDate.format("dddd (DD MMMM)")}</h1>
 			</S.TimelineHeader>

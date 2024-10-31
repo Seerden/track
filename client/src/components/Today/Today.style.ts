@@ -1,3 +1,4 @@
+import { Tag } from "@/components/TagCard/TagCard.style";
 import styled from "styled-components";
 
 const Wrapper = styled.div``;
@@ -68,6 +69,28 @@ const TimelineHeader = styled.header`
 	}
 `; // is a header the right tag, semantically?
 
+const Tags = styled.div`
+	display: flex;
+	justify-content: flex-end;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+	max-width: 250px;
+	justify-self: flex-end;
+	flex-wrap: wrap;
+	overflow-y: hidden;
+	max-height: 70px;
+
+	${Tag} {
+		display: flex;
+		max-height: 30px;
+		flex: 1;
+		overflow-y: visible;
+		white-space: nowrap;
+		max-width: 100%;
+		justify-content: center;
+	}
+`;
+
 export default {
 	Wrapper,
 	TimelineWrapper,
@@ -78,4 +101,5 @@ export default {
 	Checkbox,
 	Columns,
 	TimelineHeader,
+	Tags,
 };

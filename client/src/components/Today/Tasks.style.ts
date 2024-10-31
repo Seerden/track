@@ -1,4 +1,3 @@
-import { Tag } from "@/components/TagCard/TagCard.style";
 import styled from "styled-components";
 
 const TasksWrapper = styled.section``;
@@ -15,28 +14,6 @@ const TaskName = styled.div`
 	padding: 0.4rem 0.7rem;
 	border-radius: 4px;
 	box-shadow: 0 0.1rem 0.2rem 0 #bbb;
-`;
-
-const Tags = styled.div`
-	display: flex;
-	justify-content: flex-end;
-	flex-wrap: wrap;
-	gap: 0.4rem;
-	max-width: 250px;
-	justify-self: flex-end;
-	flex-wrap: wrap;
-	overflow-y: hidden;
-	max-height: 70px;
-
-	${Tag} {
-		display: flex;
-		max-height: 30px;
-		flex: 1;
-		overflow-y: visible;
-		white-space: nowrap;
-		max-width: 100%;
-		justify-content: center;
-	}
 `;
 
 const Times = styled.div`
@@ -89,7 +66,6 @@ const Task = styled.li`
 export default {
 	TasksWrapper,
 	TaskName,
-	Tags,
 	Times,
 	Tasks,
 	Task,

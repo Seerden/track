@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import T from "./Tasks.style";
+import S from "./Today.style";
 
 const Note = styled.li`
 	list-style: none;
@@ -10,7 +10,7 @@ const Note = styled.li`
 		"content content"
 		"content content";
 
-	${T.Tags} {
+	${S.Tags} {
 		grid-area: tags;
 	}
 
