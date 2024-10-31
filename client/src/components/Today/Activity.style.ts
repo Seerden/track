@@ -1,5 +1,6 @@
+import { rowHeight } from "@/components/Today/Row.style";
 import { styled } from "styled-components";
-import S, { rowHeight } from "./Today.style";
+import S from "./Today.style";
 
 const cardWidth = 175;
 const cardGap = 5;

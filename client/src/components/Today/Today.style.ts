@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import T from "./Tasks.style";
 
 const Wrapper = styled.div``;
 
@@ -20,34 +19,6 @@ const BlockTitle = styled.h2`
 const Rows = styled.ul`
 	display: flex;
 	flex-direction: column;
-`;
-
-export const rowHeight = 40;
-
-const Row = styled.li`
-	position: relative;
-	display: flex;
-	border-top: 2px solid #ddd;
-	min-height: ${rowHeight}px;
-	width: 100%;
-`;
-
-const HourMark = styled.span`
-	display: flex;
-	align-self: center;
-	position: absolute;
-	line-height: 1.5rem;
-	height: 1.5rem;
-	top: -0.75rem; // TODO: this has to be such that the text is centered right in between two rows
-	left: -1rem;
-	background-color: #eee;
-	outline: 1px solid #333;
-	font-size: 0.75rem;
-	color: #222;
-	width: max-content;
-	border-radius: 3px;
-	padding: 0 0.5rem;
-	user-select: none;
 `;
 
 const CheckboxWrapper = styled.label`
@@ -85,34 +56,6 @@ const Columns = styled.div`
 	gap: 0.5rem;
 `;
 
-const Note = styled.li`
-	list-style: none;
-	display: grid;
-	align-items: center;
-	grid-template-areas:
-		"title tags"
-		"content content"
-		"content content";
-
-	${T.Tags} {
-		grid-area: tags;
-	}
-
-	background-color: #ddd;
-	padding: 0.5rem 0rem;
-`;
-
-const NoteTitle = styled.h3`
-	width: max-content;
-	padding: 0.3rem 0.8rem;
-	grid-area: title;
-`;
-
-const NoteContent = styled.div`
-	padding: 0.5rem 1rem;
-	grid-area: content;
-`;
-
 const TimelineHeader = styled.header`
 	padding: 1rem 3rem;
 	padding-bottom: 0.5rem;
@@ -131,13 +74,8 @@ export default {
 	NotesWrapper,
 	BlockTitle,
 	Rows,
-	Row,
-	HourMark,
 	CheckboxWrapper,
 	Checkbox,
 	Columns,
-	Note,
-	NoteTitle,
-	NoteContent,
 	TimelineHeader,
 };
