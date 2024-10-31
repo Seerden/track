@@ -57,7 +57,7 @@ const Columns = styled.div`
 	gap: 0.5rem;
 `;
 
-const TimelineHeader = styled.header`
+const Header = styled.header`
 	padding: 1rem 3rem;
 	padding-bottom: 0.5rem;
 
@@ -100,6 +100,6 @@ export default {
 	CheckboxWrapper,
 	Checkbox,
 	Columns,
-	TimelineHeader,
+	Header,
 	Tags,
 };
