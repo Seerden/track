@@ -21,18 +21,23 @@ export function activityFallsOnDay(activity: ActivityWithIds, date: Datelike) {
 	const [start, end] = [activityStart(activity), activityEnd(activity)];
 	const day = createDate(date);
 
-	return sameDay(start, day) || sameDay(end, day);
+	return (
+		sameDay(start, day) ||
+		sameDay(end, day) ||
+		(start.isBefore(day) && end.isAfter(day))
+	);
 }
 
 /**
  * Gets the duration of an activity in hours.
- * TODO: the 24-hour limit in here is a temporary fix for the UI. It shouldn't
- * be in this function.
+ * Note that for e.g. Today, we limit the activity visually to end at 23:59.
+ * This is done in the Today component though, so we don't have to worry about
+ * it here.
  */
 export function activityDuration(activity: ActivityWithIds) {
 	const [start, end] = [activityStart(activity), activityEnd(activity)];
 
-	return Math.min(end.diff(start, "minute") / 60, 24);
+	return end.diff(start, "minute") / 60;
 }
 
 /**
@@ -45,9 +50,17 @@ export function activityDuration(activity: ActivityWithIds) {
 export function activityStartHour(activity: ActivityWithIds, date: Datelike) {
 	const start = activityStart(activity);
 
-	if (!sameDay(start, date)) {
+	if (!activityFallsOnDay(activity, date)) {
 		return -1;
 	}
+
+	// A multiday activity that starts before `date` and continues on `date`
+	// _has_ to "start" at 00:00 on `date` by definition, because we do not allow
+	// interrupted activities in principle.
+	if (start.isBefore(createDate(date).startOf("day"))) {
+		return 0;
+	}
+
 	return getLocalHour(start);
 }
 
@@ -62,8 +75,25 @@ export function isSimultaneousActivity(one: ActivityWithIds, two: ActivityWithId
 	);
 }
 
-export function isAllDayActivity(activity: ActivityWithIds) {
+export function isAllDaySingleDayActivity(activity: ActivityWithIds) {
+	// an all-day activity can be found two ways: (1) either start_date and
+	// end_date are set and we assume the activity is all-day/multiday, or (2) a
+	// multiday activity has started_at and ended_at and we have to check for
+	// every day in-between if the activity is all day on that day. This function
+	// only handles (1). (2) is handled by isAllDayActivityOnDate, see below.
+
 	return activity.start_date && activity.end_date;
+}
+
+// TODO: isAllDaySingleDayActivity is not necessary if we use this one properly
+// instead.
+export function isAllDayActivityOnDate(activity: ActivityWithIds, date: Datelike) {
+	const [startOfDay, endOfDay] = [
+		createDate(date).startOf("day"),
+		createDate(date).endOf("day"),
+	];
+	const [startActivity, endActivity] = [activityStart(activity), activityEnd(activity)];
+	return !startOfDay.isBefore(startActivity) && !endOfDay.isAfter(endActivity);
 }
 
 export function getAllStartAndEndTimesOnDate(
@@ -78,7 +108,7 @@ export function getAllStartAndEndTimesOnDate(
 
 	for (const activity of activities) {
 		const [start, end] = [activityStart(activity), activityEnd(activity)];
-		if (isAllDayActivity(activity)) {
+		if (isAllDaySingleDayActivity(activity)) {
 			times.add(startOfDay.valueOf());
 			times.add(endOfDay.valueOf());
 			// the following check is only necessary in case we don't already only pass

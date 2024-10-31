@@ -7,7 +7,7 @@ module.exports = {
 	extends: [
 		"eslint:recommended",
 		"plugin:react/recommended",
-		"plugin:@typescript-eslint/recommended",
+		"plugin:@typescript-eslint/strict",
 		"prettier",
 	],
 	parser: "@typescript-eslint/parser",
@@ -19,6 +19,7 @@ module.exports = {
 		sourceType: "module",
 	},
 	plugins: ["react", "@typescript-eslint", "eslint-plugin-react-compiler", "track"],
+	root: true,
 	settings: {
 		react: {
 			version: "detect",

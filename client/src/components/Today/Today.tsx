@@ -1,3 +1,4 @@
+import AllDayActivity from "@/components/Today/AllDayActivity";
 import DetailedActivity from "@/components/Today/DetailedActivity";
 import { activityStartHour } from "@lib/activity";
 import Notes from "./Notes";
@@ -9,6 +10,8 @@ import useToday from "./use-today";
 export default function Today() {
 	const {
 		activities,
+		allDayActivities,
+		timestampedActivities,
 		indentation,
 		currentDate,
 		modalState,
@@ -17,8 +20,17 @@ export default function Today() {
 
 	return (
 		<S.Wrapper>
+			<S.TimelineHeader>
+				<h1>{currentDate.format("dddd (DD MMMM)")}</h1>
+			</S.TimelineHeader>
 			<S.Columns>
 				<S.TimelineWrapper>
+					<S.AllDayActivityList>
+						{allDayActivities.map((activity) => (
+							<AllDayActivity activity={activity} key={activity.activity_id} />
+						))}
+					</S.AllDayActivityList>
+
 					<S.Rows>
 						{Array.from(
 							{ length: 24 }, // render a row for every hour of the day
@@ -26,7 +38,7 @@ export default function Today() {
 								<Row
 									key={i}
 									index={i}
-									activities={activities.filter(
+									activities={timestampedActivities.filter(
 										(a) => activityStartHour(a, currentDate) === i
 									)}
 									indentation={indentation}
@@ -35,7 +47,9 @@ export default function Today() {
 						)}
 					</S.Rows>
 				</S.TimelineWrapper>
+
 				<Tasks activities={activities.filter((a) => a.is_task)} />
+
 				<Notes />
 			</S.Columns>
 			{shouldShowDetailedActivity && <DetailedActivity id={modalState.itemId} />}

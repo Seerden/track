@@ -38,6 +38,7 @@ function NewNote({ inActivity }: NewNoteProps) {
 				<S.Content>
 					<div>
 						<S.Label>Content</S.Label>
+						{/* TODO: this does not take tabs and newlines etc */}
 						<S.TextArea
 							name="content"
 							placeholder="I accidentally fed Scruffy twice today."
