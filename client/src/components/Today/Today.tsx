@@ -47,9 +47,9 @@ export default function Today() {
 						)}
 					</S.Rows>
 				</S.TimelineWrapper>
-				{/* TODO: split up `activities` and `nonAllDayActivities`, because Tasks needs
-             all of them, but the Rows, above, needs only the not-all-day ones */}
+
 				<Tasks activities={activities.filter((a) => a.is_task)} />
+
 				<Notes />
 			</S.Columns>
 			{shouldShowDetailedActivity && <DetailedActivity id={modalState.itemId} />}
