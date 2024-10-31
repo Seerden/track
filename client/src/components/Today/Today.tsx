@@ -1,12 +1,12 @@
 import AllDayActivity from "@/components/Today/AllDayActivity";
 import DetailedActivity from "@/components/Today/DetailedActivity";
 import { activityStartHour } from "@lib/activity";
-import T from "./AllDayActivity.style";
 import useToday from "./hooks/use-today";
 import Notes from "./Notes";
 import Row from "./Row";
+import T from "./style/AllDayActivity.style";
+import S from "./style/Today.style";
 import Tasks from "./Tasks";
-import S from "./Today.style";
 
 export default function Today() {
 	const {

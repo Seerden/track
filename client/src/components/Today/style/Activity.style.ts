@@ -1,4 +1,4 @@
-import { rowHeight } from "@/components/Today/Row.style";
+import { rowHeight } from "@/components/Today/style/Row.style";
 import { styled } from "styled-components";
 import S from "./Today.style";
 

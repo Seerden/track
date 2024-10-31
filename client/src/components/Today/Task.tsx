@@ -5,8 +5,8 @@ import type { ActivityWithIds } from "@type/server/activity.types";
 import type { TagWithIds } from "@type/server/tag.types";
 import type { ById } from "@type/server/utility.types";
 import TagCard from "../TagCard/TagCard";
-import T from "./Tasks.style";
-import S from "./Today.style";
+import T from "./style/Tasks.style";
+import S from "./style/Today.style";
 
 type TaskProps = {
 	activity: ActivityWithIds;

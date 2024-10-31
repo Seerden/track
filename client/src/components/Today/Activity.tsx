@@ -2,8 +2,8 @@ import useActivity from "@/components/Today/hooks/use-activity.ts";
 import { Checkbox } from "@/lib/theme/components/Checkbox.tsx";
 import type { ActivityWithIds } from "@type/server/activity.types.ts";
 import type { ID } from "@type/server/utility.types.ts";
-import T from "./Activity.style.ts";
-import S from "./Today.style.ts";
+import T from "./style/Activity.style.ts";
+import S from "./style/Today.style.ts";
 
 export type ActivityProps = {
 	activity: ActivityWithIds;

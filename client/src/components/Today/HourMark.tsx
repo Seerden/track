@@ -1,5 +1,5 @@
 import { formatHour } from "@lib/datetime/format-date";
-import H from "./HourMark.style";
+import H from "./style/HourMark.style";
 
 export default function HourMark({ index }: { index: number }) {
 	const label = formatHour(index);

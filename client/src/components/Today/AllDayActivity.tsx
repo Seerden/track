@@ -4,8 +4,8 @@ import { Checkbox } from "@/lib/theme/components/Checkbox";
 import type { ActivityWithIds } from "@/types/server/activity.types";
 import { useRef } from "react";
 import { Ri24HoursLine } from "react-icons/ri";
-import T from "./AllDayActivity.style";
-import S from "./Today.style";
+import T from "./style/AllDayActivity.style";
+import S from "./style/Today.style";
 
 type AllDayActivityProps = {
 	activity: ActivityWithIds;
