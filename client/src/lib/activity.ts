@@ -30,13 +30,14 @@ export function activityFallsOnDay(activity: ActivityWithIds, date: Datelike) {
 
 /**
  * Gets the duration of an activity in hours.
- * TODO: the 24-hour limit in here is a temporary fix for the UI. It shouldn't
- * be in this function.
+ * Note that for e.g. Today, we limit the activity visually to end at 23:59.
+ * This is done in the Today component though, so we don't have to worry about
+ * it here.
  */
 export function activityDuration(activity: ActivityWithIds) {
 	const [start, end] = [activityStart(activity), activityEnd(activity)];
 
-	return Math.min(end.diff(start, "minute") / 60, 24); // TODO: the maximum duration should be (24 - startHour) so that the activity doesn't overflow the day
+	return end.diff(start, "minute") / 60;
 }
 
 /**
