@@ -1,4 +1,4 @@
-import useTask from "@/components/Today/use-task";
+import useTask from "@/components/Today/hooks/use-task";
 import { Checkbox } from "@/lib/theme/components/Checkbox";
 import { activityEnd, activityStart } from "@lib/activity";
 import type { ActivityWithIds } from "@type/server/activity.types";

@@ -1,4 +1,4 @@
-import { useDetailedActivityModal } from "@/components/Today/use-detailed-activity-modal";
+import { useDetailedActivityModal } from "@/components/Today/hooks/use-detailed-activity-modal";
 import { filterTagsById } from "@/lib/filter-tags";
 import useTaskCompletionMutation from "@/lib/query/use-task-mutation";
 import type { ActivityWithIds } from "@/types/server/activity.types";

@@ -1,4 +1,4 @@
-import { useDetailedActivityModal } from "@/components/Today/use-detailed-activity-modal";
+import { useDetailedActivityModal } from "@/components/Today/hooks/use-detailed-activity-modal";
 import useTaskCompletionMutation from "@/lib/query/use-task-mutation";
 import { Checkbox } from "@/lib/theme/components/Checkbox";
 import type { ActivityWithIds } from "@/types/server/activity.types";

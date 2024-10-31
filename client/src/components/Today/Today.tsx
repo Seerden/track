@@ -5,7 +5,7 @@ import Notes from "./Notes";
 import Row from "./Row";
 import Tasks from "./Tasks";
 import S from "./Today.style";
-import useToday from "./use-today";
+import useToday from "./hooks/use-today";
 
 export default function Today() {
 	const {

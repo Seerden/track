@@ -1,4 +1,4 @@
-import useActivity from "@/components/Today/use-activity.ts";
+import useActivity from "@/components/Today/hooks/use-activity.ts";
 import { Checkbox } from "@/lib/theme/components/Checkbox.tsx";
 import type { ActivityWithIds } from "@type/server/activity.types.ts";
 import type { ID } from "@type/server/utility.types.ts";
