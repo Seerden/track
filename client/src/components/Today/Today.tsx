@@ -1,18 +1,13 @@
 import AllDayActivity from "@/components/Today/AllDayActivity";
 import DetailedActivity from "@/components/Today/DetailedActivity";
+import Rows from "@/components/Today/Rows";
 import { today } from "@/lib/datetime/make-date";
 import modalIds from "@/lib/modal-ids";
 import useActivitiesQuery from "@/lib/query/use-activities-query";
 import { useModalState } from "@/lib/state/modal-state";
-import {
-	activityFallsOnDay,
-	activityStartHour,
-	assignIndentationLevelToActivities,
-	isAllDayActivityOnDate
-} from "@lib/activity";
+import { activityFallsOnDay, isAllDayActivityOnDate } from "@lib/activity";
 import { useMemo } from "react";
 import Notes from "./Notes";
-import Row from "./Row";
 import S from "./style/Today.style";
 import Tasks from "./Tasks";
 
@@ -33,10 +28,6 @@ function useToday() {
 	const timestampedActivities = activities.filter(
 		(activity) => !isAllDayActivityOnDate(activity, currentDate)
 	);
-	const indentation = assignIndentationLevelToActivities(
-		timestampedActivities,
-		currentDate
-	);
 
 	const { state } = useModalState(modalIds.detailedActivity);
 	const shouldShowDetailedActivity = !!(
@@ -51,7 +42,6 @@ function useToday() {
 		activities: todayActivities,
 		allDayActivities,
 		timestampedActivities,
-		indentation,
 		currentDate,
 		shouldShowDetailedActivity,
 		selectedActivity
@@ -74,21 +64,7 @@ export default function Today() {
 						))}
 					</S.AllDayActivityList>
 
-					<S.Rows>
-						{Array.from(
-							{ length: 24 }, // render a row for every hour of the day
-							(_, i) => (
-								<Row
-									key={i}
-									index={i}
-									activities={t.timestampedActivities.filter(
-										(a) => activityStartHour(a, t.currentDate) === i
-									)}
-									indentation={t.indentation}
-								/>
-							)
-						)}
-					</S.Rows>
+					<Rows activities={t.timestampedActivities} currentDate={t.currentDate} />
 				</S.TimelineWrapper>
 
 				<Tasks activities={t.activities.filter((a) => a.is_task)} />

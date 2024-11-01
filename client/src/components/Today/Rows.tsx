@@ -1,0 +1,48 @@
+import Row from "@/components/Today/Row";
+import { activityStartHour, assignIndentationLevelToActivities } from "@/lib/activity";
+import type { Datelike } from "@/types/date.types";
+import type { ActivityWithIds } from "@/types/server/activity.types";
+import S from "./style/Today.style";
+
+function useRows({
+	activities,
+	currentDate
+}: {
+	activities: ActivityWithIds[];
+	/** `currentDate` will change to `date` once we make Today take a date as a
+	 * prop. */
+	currentDate: Datelike;
+}) {
+	const indentation = assignIndentationLevelToActivities(activities, currentDate);
+
+	return {
+		indentation
+	};
+}
+
+type RowsProps = {
+	activities: ActivityWithIds[];
+	currentDate: Datelike;
+};
+
+export default function Rows({ activities, currentDate }: RowsProps) {
+	const { indentation } = useRows({ activities, currentDate });
+
+	return (
+		<S.Rows>
+			{Array.from(
+				{ length: 24 }, // render a row for every hour of the day
+				(_, i) => (
+					<Row
+						key={i}
+						index={i}
+						activities={activities.filter(
+							(a) => activityStartHour(a, currentDate) === i
+						)}
+						indentation={indentation}
+					/>
+				)
+			)}
+		</S.Rows>
+	);
+}
