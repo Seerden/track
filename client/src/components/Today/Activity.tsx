@@ -6,7 +6,7 @@ import type { ActivityWithIds } from "@type/server/activity.types.ts";
 import T from "./style/Activity.style.ts";
 import S from "./style/Today.style.ts";
 
-function useActivity({ activity }: { activity: ActivityWithIds }) {
+function useActivity(activity: ActivityWithIds) {
 	const offset = activityStart(activity).minute() / 60;
 
 	/** This is the _displayed_ duration on the Today timeline. A multiday
@@ -19,17 +19,12 @@ function useActivity({ activity }: { activity: ActivityWithIds }) {
 
 	const { openDetailedActivityModal } = useDetailedActivityModal({ activity });
 
-	function openActivityModal(e: React.MouseEvent) {
-		openDetailedActivityModal();
-		e.stopPropagation();
-	}
-
 	const putCompletion = usePutTaskCompletion(activity);
 
 	return {
 		durationHours,
 		offset,
-		openActivityModal,
+		openDetailedActivityModal,
 		putCompletion
 	} as const;
 }
@@ -40,16 +35,18 @@ export type ActivityProps = {
 };
 
 export default function Activity({ activity, level }: ActivityProps) {
-	const { offset, openActivityModal, durationHours, putCompletion } = useActivity({
-		activity
-	});
+	const { offset, openDetailedActivityModal, durationHours, putCompletion } =
+		useActivity(activity);
 
 	return (
 		<T.ActivityCard
 			key={activity.activity_id}
 			$level={level}
 			$offset={offset}
-			onClick={openActivityModal}
+			onClick={(e) => {
+				e.stopPropagation();
+				openDetailedActivityModal();
+			}}
 		>
 			{/* TODO: on mouseover, display a short humanized time string */}
 			<T.Activity $durationHours={durationHours}>
@@ -58,7 +55,6 @@ export default function Activity({ activity, level }: ActivityProps) {
 					// TODO: should really prioritize reworking checkboxes so we can
 					// stop using this pattern
 					<S.CheckboxWrapper
-						style={{ zIndex: 4 }}
 						onClick={(e) => {
 							e.preventDefault();
 							e.stopPropagation();
