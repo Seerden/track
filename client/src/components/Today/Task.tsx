@@ -1,24 +1,15 @@
 import { useDetailedActivityModal } from "@/components/Today/hooks/use-detailed-activity-modal";
-import { filterTagsById } from "@/lib/filter-tags";
 import usePutTaskCompletion from "@/lib/hooks/use-put-task-completion";
 import { Checkbox } from "@/lib/theme/components/Checkbox";
 import { activityEnd, activityStart } from "@lib/activity";
 import type { ActivityWithIds } from "@type/server/activity.types";
 import type { TagWithIds } from "@type/server/tag.types";
-import type { ById, ID } from "@type/server/utility.types";
 import { useCallback, useRef } from "react";
 import TagCard from "../TagCard/TagCard";
 import T from "./style/Tasks.style";
 import S from "./style/Today.style";
 
-function useTask({
-	activity,
-	tagsById
-}: {
-	activity: ActivityWithIds;
-	tagsById?: Record<ID, TagWithIds>;
-}) {
-	const tags = filterTagsById(activity.tag_ids, tagsById); // TODO: pass this as a prop and, in Tasks, get it from a hook
+function useTask({ activity }: { activity: ActivityWithIds }) {
 	const checkboxRef = useRef<HTMLLabelElement>(null);
 
 	const putCompletion = usePutTaskCompletion(activity);
@@ -37,20 +28,18 @@ function useTask({
 	return {
 		checkboxRef,
 		maybeOpenTaskModal,
-		putCompletion,
-		tags
+		putCompletion
 	} as const;
 }
 
 type TaskProps = {
 	activity: ActivityWithIds;
-	tagsById?: ById<TagWithIds>;
+	tags?: TagWithIds[];
 };
 
-export default function Task({ activity, tagsById }: TaskProps) {
-	const { checkboxRef, maybeOpenTaskModal, putCompletion, tags } = useTask({
-		activity,
-		tagsById
+export default function Task({ activity, tags = [] }: TaskProps) {
+	const { checkboxRef, maybeOpenTaskModal, putCompletion } = useTask({
+		activity
 	});
 
 	return (
