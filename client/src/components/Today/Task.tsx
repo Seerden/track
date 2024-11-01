@@ -4,7 +4,7 @@ import { Checkbox } from "@/lib/theme/components/Checkbox";
 import { activityEnd, activityStart } from "@lib/activity";
 import type { ActivityWithIds } from "@type/server/activity.types";
 import type { TagWithIds } from "@type/server/tag.types";
-import { useCallback, useRef } from "react";
+import { useRef } from "react";
 import TagCard from "../TagCard/TagCard";
 import T from "./style/Tasks.style";
 import S from "./style/Today.style";
@@ -15,17 +15,10 @@ function useTask({ activity }: { activity: ActivityWithIds }) {
 	const putCompletion = usePutTaskCompletion(activity);
 
 	const { openDetailedActivityModal } = useDetailedActivityModal({ activity });
-	const openTaskModal = useCallback(
-		(e: React.MouseEvent) => {
-			openDetailedActivityModal();
-			e.stopPropagation();
-		},
-		[checkboxRef, activity]
-	);
 
 	return {
 		checkboxRef,
-		openTaskModal,
+		openDetailedActivityModal,
 		putCompletion
 	} as const;
 }
@@ -36,12 +29,17 @@ type TaskProps = {
 };
 
 export default function Task({ activity, tags = [] }: TaskProps) {
-	const { checkboxRef, openTaskModal, putCompletion } = useTask({
+	const { checkboxRef, openDetailedActivityModal, putCompletion } = useTask({
 		activity
 	});
 
 	return (
-		<T.Task onClick={openTaskModal}>
+		<T.Task
+			onClick={(e) => {
+				e.stopPropagation();
+				openDetailedActivityModal();
+			}}
+		>
 			<S.CheckboxWrapper
 				ref={checkboxRef}
 				onClick={(e) => {
