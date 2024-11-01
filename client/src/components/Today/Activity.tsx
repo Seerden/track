@@ -1,21 +1,19 @@
 import useActivity from "@/components/Today/hooks/use-activity.ts";
 import { Checkbox } from "@/lib/theme/components/Checkbox.tsx";
 import type { ActivityWithIds } from "@type/server/activity.types.ts";
-import type { ID } from "@type/server/utility.types.ts";
 import T from "./style/Activity.style.ts";
 import S from "./style/Today.style.ts";
 
 export type ActivityProps = {
 	activity: ActivityWithIds;
-	indentation: Map<ID, number>;
+	level: number;
 };
 
-export default function Activity({ activity, indentation }: ActivityProps) {
+export default function Activity({ activity, level }: ActivityProps) {
 	// TODO: I think indentation level should just be a prop, instead of passing
 	// it to the hook and calculating something there.
-	const { level, offset, openActivityModal, durationHours } = useActivity({
-		activity,
-		indentation
+	const { offset, openActivityModal, durationHours } = useActivity({
+		activity
 	});
 
 	return (

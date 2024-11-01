@@ -16,7 +16,11 @@ export default function Row({ index, activities, indentation }: RowProps) {
 			<HourMark index={index} />
 
 			{activities.map((a) => (
-				<Activity key={a.activity_id} activity={a} indentation={indentation} />
+				<Activity
+					key={a.activity_id}
+					activity={a}
+					level={indentation.get(a.activity_id) ?? 0}
+				/>
 			))}
 		</R.Row>
 	);
