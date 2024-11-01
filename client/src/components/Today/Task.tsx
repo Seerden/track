@@ -20,6 +20,9 @@ export default function Task({ activity, tagsById }: TaskProps) {
 	});
 
 	return (
+		// TODO: instead of maybeOpenTaskModal and putCompletion in onChange, I
+		// think we can do openTaskModal if we put the putCompletion on the
+		// CheckboxWrapper (onClick) instead of in Checkbox onChange
 		<T.Task onClick={maybeOpenTaskModal}>
 			<S.CheckboxWrapper ref={checkboxRef}>
 				<S.Checkbox
