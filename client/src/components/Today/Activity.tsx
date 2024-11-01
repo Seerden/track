@@ -1,8 +1,31 @@
-import useActivity from "@/components/Today/hooks/use-activity.ts";
+import { useDetailedActivityModal } from "@/components/Today/hooks/use-detailed-activity-modal.ts";
+import { activityDuration, activityStart, activityStartHour } from "@/lib/activity.ts";
+import usePutTaskCompletion from "@/lib/hooks/use-put-task-completion.ts";
 import { Checkbox } from "@/lib/theme/components/Checkbox.tsx";
 import type { ActivityWithIds } from "@type/server/activity.types.ts";
 import T from "./style/Activity.style.ts";
 import S from "./style/Today.style.ts";
+
+function useActivity(activity: ActivityWithIds) {
+	const offset = activityStart(activity).minute() / 60;
+	const { openDetailedActivityModal } = useDetailedActivityModal(activity);
+	const putCompletion = usePutTaskCompletion(activity);
+
+	/** This is the _displayed_ duration on the Today timeline. A multiday
+	 * activity still "ends" at midnight on this view. TODO: maybe change this
+	 * variable name to reflect this. */
+	const durationHours = Math.min(
+		activityDuration(activity),
+		24 - offset - activityStartHour(activity, activityStart(activity))
+	);
+
+	return {
+		durationHours,
+		offset,
+		openDetailedActivityModal,
+		putCompletion
+	} as const;
+}
 
 export type ActivityProps = {
 	activity: ActivityWithIds;
@@ -10,33 +33,30 @@ export type ActivityProps = {
 };
 
 export default function Activity({ activity, level }: ActivityProps) {
-	// TODO: I think indentation level should just be a prop, instead of passing
-	// it to the hook and calculating something there.
-	const { offset, openActivityModal, durationHours } = useActivity({
-		activity
-	});
+	const { offset, openDetailedActivityModal, durationHours, putCompletion } =
+		useActivity(activity);
 
 	return (
 		<T.ActivityCard
 			key={activity.activity_id}
 			$level={level}
 			$offset={offset}
-			onClick={openActivityModal}
+			onClick={(e) => {
+				e.stopPropagation();
+				openDetailedActivityModal();
+			}}
 		>
 			{/* TODO: on mouseover, display a short humanized time string */}
 			<T.Activity $durationHours={durationHours}>
 				<T.ActivityName>{activity.name}</T.ActivityName>
 				{activity.is_task && (
-					// TODO: extract putCompletion to a hook, we already use it in 2
-					// other places I think so it should be generalized
 					// TODO: should really prioritize reworking checkboxes so we can
 					// stop using this pattern
 					<S.CheckboxWrapper
-						style={{ zIndex: 4 }}
 						onClick={(e) => {
 							e.preventDefault();
 							e.stopPropagation();
-							// handle putCompletion()
+							putCompletion();
 						}}
 					>
 						<S.Checkbox

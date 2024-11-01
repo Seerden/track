@@ -1,15 +1,6 @@
 import styled from "styled-components";
 import S from "./Today.style";
 
-// TODO: maybe this should be in Today.style
-const AllDayActivityList = styled.ul`
-	display: flex;
-	flex-direction: column;
-	gap: 0.7rem;
-	width: max-content;
-	padding-inline: 3rem;
-`;
-
 const AllDayActivity = styled.li`
 	user-select: none;
 	cursor: pointer;
@@ -58,6 +49,5 @@ const AllDayActivity = styled.li`
 `;
 
 export default {
-	AllDayActivityList,
 	AllDayActivity,
 };

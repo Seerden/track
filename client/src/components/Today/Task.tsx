@@ -1,32 +1,53 @@
-import useTask from "@/components/Today/hooks/use-task";
+import { useDetailedActivityModal } from "@/components/Today/hooks/use-detailed-activity-modal";
+import usePutTaskCompletion from "@/lib/hooks/use-put-task-completion";
 import { Checkbox } from "@/lib/theme/components/Checkbox";
 import { activityEnd, activityStart } from "@lib/activity";
 import type { ActivityWithIds } from "@type/server/activity.types";
 import type { TagWithIds } from "@type/server/tag.types";
-import type { ById } from "@type/server/utility.types";
+import { useRef } from "react";
 import TagCard from "../TagCard/TagCard";
 import T from "./style/Tasks.style";
 import S from "./style/Today.style";
 
+function useTask(activity: ActivityWithIds) {
+	const checkboxRef = useRef<HTMLLabelElement>(null);
+	const putCompletion = usePutTaskCompletion(activity);
+	const { openDetailedActivityModal } = useDetailedActivityModal(activity);
+
+	return {
+		checkboxRef,
+		openDetailedActivityModal,
+		putCompletion
+	} as const;
+}
+
 type TaskProps = {
 	activity: ActivityWithIds;
-	tagsById?: ById<TagWithIds>;
+	tags?: TagWithIds[];
 };
 
-export default function Task({ activity, tagsById }: TaskProps) {
-	const { checkboxRef, maybeOpenTaskModal, putCompletion, tags } = useTask({
-		activity,
-		tagsById
-	});
+export default function Task({ activity, tags = [] }: TaskProps) {
+	const { checkboxRef, openDetailedActivityModal, putCompletion } = useTask(activity);
 
 	return (
-		<T.Task onClick={maybeOpenTaskModal}>
-			<S.CheckboxWrapper ref={checkboxRef}>
+		<T.Task
+			onClick={(e) => {
+				e.stopPropagation();
+				openDetailedActivityModal();
+			}}
+		>
+			<S.CheckboxWrapper
+				ref={checkboxRef}
+				onClick={(e) => {
+					e.preventDefault();
+					e.stopPropagation();
+					putCompletion();
+				}}
+			>
 				<S.Checkbox
 					type="checkbox"
 					style={{ display: "none" }}
 					checked={activity.completed}
-					onChange={putCompletion}
 				/>
 				<Checkbox checked={activity.completed} />
 			</S.CheckboxWrapper>
@@ -35,11 +56,13 @@ export default function Task({ activity, tagsById }: TaskProps) {
 				<span>to {activityEnd(activity).format("HH:mm")}</span>
 			</T.Times>
 			<T.TaskName>{activity.name}</T.TaskName>
-			<S.Tags>
-				{tags.map((tag) => (
-					<TagCard key={tag.tag_id} tag={tag} />
-				))}
-			</S.Tags>
+			{!!tags.length && ( // TODO: make sure the styling of the component doesn't do anything weird when Tags isn't rendered
+				<S.Tags>
+					{tags.map((tag) => (
+						<TagCard key={tag.tag_id} tag={tag} />
+					))}
+				</S.Tags>
+			)}
 		</T.Task>
 	);
 }

@@ -91,6 +91,14 @@ const Tags = styled.div`
 	}
 `;
 
+const AllDayActivityList = styled.ul`
+	display: flex;
+	flex-direction: column;
+	gap: 0.7rem;
+	width: max-content;
+	padding-inline: 3rem;
+`;
+
 export default {
 	Wrapper,
 	TimelineWrapper,
@@ -102,4 +110,5 @@ export default {
 	Columns,
 	Header,
 	Tags,
+	AllDayActivityList,
 };
