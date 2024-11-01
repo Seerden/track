@@ -192,5 +192,3 @@ export function startsInFuture(activity: ActivityWithIds) {
 export function hasNotEnded(activity: ActivityWithIds) {
 	return activityEnd(activity).isAfter(now());
 }
-
-// TODO: make newactivity dates local!! then adjust date functions to match

@@ -21,9 +21,7 @@ function format(date: Datelike) {
 
 export default function DetailedActivity({ activity }: DetailedActivityProps) {
 	const { data: tagsData } = useTagsQuery();
-
 	const putCompletion = usePutTaskCompletion(activity);
-
 	const humanizedStart = `${startsInFuture(activity) ? "starts" : "started"} ${activityStart(activity).fromNow()}`;
 	const showHumanizedStart = hasNotEnded(activity);
 
