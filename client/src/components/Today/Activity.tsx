@@ -8,6 +8,8 @@ import S from "./style/Today.style.ts";
 
 function useActivity(activity: ActivityWithIds) {
 	const offset = activityStart(activity).minute() / 60;
+	const { openDetailedActivityModal } = useDetailedActivityModal({ activity });
+	const putCompletion = usePutTaskCompletion(activity);
 
 	/** This is the _displayed_ duration on the Today timeline. A multiday
 	 * activity still "ends" at midnight on this view. TODO: maybe change this
@@ -16,10 +18,6 @@ function useActivity(activity: ActivityWithIds) {
 		activityDuration(activity),
 		24 - offset - activityStartHour(activity, activityStart(activity))
 	);
-
-	const { openDetailedActivityModal } = useDetailedActivityModal({ activity });
-
-	const putCompletion = usePutTaskCompletion(activity);
 
 	return {
 		durationHours,
