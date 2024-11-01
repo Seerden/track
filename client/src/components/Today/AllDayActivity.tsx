@@ -7,14 +7,25 @@ import { Ri24HoursLine } from "react-icons/ri";
 import T from "./style/AllDayActivity.style";
 import S from "./style/Today.style";
 
+function useAllDayActivity(activity: ActivityWithIds) {
+	const { openDetailedActivityModal } = useDetailedActivityModal({ activity });
+	const checkboxRef = useRef<HTMLLabelElement>(null);
+	const putCompletion = usePutTaskCompletion(activity);
+
+	return {
+		checkboxRef,
+		openDetailedActivityModal,
+		putCompletion
+	};
+}
+
 type AllDayActivityProps = {
 	activity: ActivityWithIds;
 };
 
 export default function AllDayActivity({ activity }: AllDayActivityProps) {
-	const { openDetailedActivityModal } = useDetailedActivityModal({ activity });
-	const checkboxRef = useRef<HTMLLabelElement>(null);
-	const putCompletion = usePutTaskCompletion(activity);
+	const { checkboxRef, openDetailedActivityModal, putCompletion } =
+		useAllDayActivity(activity);
 
 	return (
 		<T.AllDayActivity
