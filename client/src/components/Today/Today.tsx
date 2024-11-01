@@ -13,7 +13,6 @@ import {
 import { useMemo } from "react";
 import Notes from "./Notes";
 import Row from "./Row";
-import T from "./style/AllDayActivity.style";
 import S from "./style/Today.style";
 import Tasks from "./Tasks";
 
@@ -69,11 +68,11 @@ export default function Today() {
 			</S.Header>
 			<S.Columns>
 				<S.TimelineWrapper>
-					<T.AllDayActivityList>
+					<S.AllDayActivityList>
 						{t.allDayActivities.map((activity) => (
 							<AllDayActivity activity={activity} key={activity.activity_id} />
 						))}
-					</T.AllDayActivityList>
+					</S.AllDayActivityList>
 
 					<S.Rows>
 						{Array.from(
