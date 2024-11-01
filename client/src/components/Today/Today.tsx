@@ -1,12 +1,65 @@
 import AllDayActivity from "@/components/Today/AllDayActivity";
 import DetailedActivity from "@/components/Today/DetailedActivity";
-import { activityStartHour } from "@lib/activity";
-import useToday from "./hooks/use-today";
+import { today } from "@/lib/datetime/make-date";
+import modalIds from "@/lib/modal-ids";
+import useActivitiesQuery from "@/lib/query/use-activities-query";
+import { useModalState } from "@/lib/state/modal-state";
+import {
+	activityFallsOnDay,
+	activityStartHour,
+	assignIndentationLevelToActivities,
+	isAllDayActivityOnDate
+} from "@lib/activity";
+import { useMemo } from "react";
 import Notes from "./Notes";
 import Row from "./Row";
 import T from "./style/AllDayActivity.style";
 import S from "./style/Today.style";
 import Tasks from "./Tasks";
+
+function useToday() {
+	const { data: activitiesData } = useActivitiesQuery();
+	const activities = useMemo(() => {
+		return Object.values(activitiesData?.activitiesById ?? {}); // TODO: should this not be in a useActivities hook or someting?
+	}, [activitiesData]);
+
+	const currentDate = today();
+
+	const todayActivities = activities.filter((activity) => {
+		return activityFallsOnDay(activity, currentDate);
+	});
+
+	const allDayActivities = activities.filter((activity) =>
+		isAllDayActivityOnDate(activity, currentDate)
+	);
+
+	const timestampedActivities = activities.filter(
+		(activity) => !isAllDayActivityOnDate(activity, currentDate)
+	);
+	const indentation = assignIndentationLevelToActivities(
+		timestampedActivities,
+		currentDate
+	);
+
+	const { state } = useModalState(modalIds.detailedActivity);
+	const shouldShowDetailedActivity = !!(
+		state.isOpen &&
+		state.itemType === "activity" &&
+		state.itemId
+	);
+
+	const selectedActivity = activities.find((a) => a.activity_id === state.itemId);
+
+	return {
+		activities: todayActivities,
+		allDayActivities,
+		timestampedActivities,
+		indentation,
+		currentDate,
+		shouldShowDetailedActivity,
+		selectedActivity
+	};
+}
 
 export default function Today() {
 	const {

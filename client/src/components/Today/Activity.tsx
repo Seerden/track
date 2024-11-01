@@ -1,8 +1,38 @@
-import useActivity from "@/components/Today/hooks/use-activity.ts";
+import { useDetailedActivityModal } from "@/components/Today/hooks/use-detailed-activity-modal.ts";
+import { activityDuration, activityStart, activityStartHour } from "@/lib/activity.ts";
+import usePutTaskCompletion from "@/lib/hooks/use-put-task-completion.ts";
 import { Checkbox } from "@/lib/theme/components/Checkbox.tsx";
 import type { ActivityWithIds } from "@type/server/activity.types.ts";
 import T from "./style/Activity.style.ts";
 import S from "./style/Today.style.ts";
+
+function useActivity({ activity }: { activity: ActivityWithIds }) {
+	const offset = activityStart(activity).minute() / 60;
+
+	/** This is the _displayed_ duration on the Today timeline. A multiday
+	 * activity still "ends" at midnight on this view. TODO: maybe change this
+	 * variable name to reflect this. */
+	const durationHours = Math.min(
+		activityDuration(activity),
+		24 - offset - activityStartHour(activity, activityStart(activity))
+	);
+
+	const { openDetailedActivityModal } = useDetailedActivityModal({ activity });
+
+	function openActivityModal(e: React.MouseEvent) {
+		openDetailedActivityModal();
+		e.stopPropagation();
+	}
+
+	const putCompletion = usePutTaskCompletion(activity);
+
+	return {
+		durationHours,
+		offset,
+		openActivityModal,
+		putCompletion
+	} as const;
+}
 
 export type ActivityProps = {
 	activity: ActivityWithIds;
