@@ -58,29 +58,21 @@ function useToday() {
 		currentDate,
 		shouldShowDetailedActivity,
 		selectedActivity
-	};
+	} as const;
 }
 
 export default function Today() {
-	const {
-		activities,
-		allDayActivities,
-		timestampedActivities,
-		indentation,
-		currentDate,
-		selectedActivity,
-		shouldShowDetailedActivity
-	} = useToday();
+	const t = useToday();
 
 	return (
 		<S.Wrapper>
 			<S.Header>
-				<h1>{currentDate.format("dddd (DD MMMM)")}</h1>
+				<h1>{t.currentDate.format("dddd (DD MMMM)")}</h1>
 			</S.Header>
 			<S.Columns>
 				<S.TimelineWrapper>
 					<T.AllDayActivityList>
-						{allDayActivities.map((activity) => (
+						{t.allDayActivities.map((activity) => (
 							<AllDayActivity activity={activity} key={activity.activity_id} />
 						))}
 					</T.AllDayActivityList>
@@ -92,22 +84,22 @@ export default function Today() {
 								<Row
 									key={i}
 									index={i}
-									activities={timestampedActivities.filter(
-										(a) => activityStartHour(a, currentDate) === i
+									activities={t.timestampedActivities.filter(
+										(a) => activityStartHour(a, t.currentDate) === i
 									)}
-									indentation={indentation}
+									indentation={t.indentation}
 								/>
 							)
 						)}
 					</S.Rows>
 				</S.TimelineWrapper>
 
-				<Tasks activities={activities.filter((a) => a.is_task)} />
+				<Tasks activities={t.activities.filter((a) => a.is_task)} />
 
 				<Notes />
 			</S.Columns>
-			{shouldShowDetailedActivity && selectedActivity && (
-				<DetailedActivity activity={selectedActivity} />
+			{t.shouldShowDetailedActivity && t.selectedActivity && (
+				<DetailedActivity activity={t.selectedActivity} />
 			)}
 		</S.Wrapper>
 	);
