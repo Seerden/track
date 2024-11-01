@@ -1,4 +1,4 @@
-import AllDayActivity from "@/components/Today/AllDayActivity";
+import AllDayActivities from "@/components/Today/AllDayActivities";
 import DetailedActivity from "@/components/Today/DetailedActivity";
 import Rows from "@/components/Today/Rows";
 import { today } from "@/lib/datetime/make-date";
@@ -58,12 +58,7 @@ export default function Today() {
 			</S.Header>
 			<S.Columns>
 				<S.TimelineWrapper>
-					<S.AllDayActivityList>
-						{t.allDayActivities.map((activity) => (
-							<AllDayActivity activity={activity} key={activity.activity_id} />
-						))}
-					</S.AllDayActivityList>
-
+					<AllDayActivities activities={t.allDayActivities} />
 					<Rows activities={t.timestampedActivities} currentDate={t.currentDate} />
 				</S.TimelineWrapper>
 
