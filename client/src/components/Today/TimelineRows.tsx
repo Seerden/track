@@ -1,4 +1,4 @@
-import Row from "@/components/Today/Row";
+import TimelineRow from "@/components/Today/TimelineRow";
 import { activityStartHour, assignIndentationLevelToActivities } from "@/lib/activity";
 import type { Datelike } from "@/types/date.types";
 import type { ActivityWithIds } from "@/types/server/activity.types";
@@ -25,7 +25,7 @@ type RowsProps = {
 	currentDate: Datelike;
 };
 
-export default function Rows({ activities, currentDate }: RowsProps) {
+export default function TimelineRows({ activities, currentDate }: RowsProps) {
 	const { indentation } = useRows({ activities, currentDate });
 
 	return (
@@ -33,7 +33,7 @@ export default function Rows({ activities, currentDate }: RowsProps) {
 			{Array.from(
 				{ length: 24 }, // render a row for every hour of the day
 				(_, i) => (
-					<Row
+					<TimelineRow
 						key={i}
 						index={i}
 						activities={activities.filter(

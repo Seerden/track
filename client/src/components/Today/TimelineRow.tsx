@@ -2,7 +2,7 @@ import type { ActivityWithIds } from "@type/server/activity.types";
 import type { ID } from "@type/server/utility.types";
 import Activity from "./Activity";
 import HourMark from "./HourMark";
-import R from "./style/Row.style";
+import R from "./style/TimelineRow.style";
 
 type RowProps = {
 	index: number;
@@ -10,7 +10,7 @@ type RowProps = {
 	indentation: Map<ID, number>;
 };
 
-export default function Row({ index, activities, indentation }: RowProps) {
+export default function TimelineRow({ index, activities, indentation }: RowProps) {
 	return (
 		<R.Row>
 			<HourMark index={index} />

@@ -1,6 +1,6 @@
 import AllDayActivities from "@/components/Today/AllDayActivities";
 import DetailedActivity from "@/components/Today/DetailedActivity";
-import Rows from "@/components/Today/Rows";
+import TimelineRows from "@/components/Today/TimelineRows";
 import { today } from "@/lib/datetime/make-date";
 import modalIds from "@/lib/modal-ids";
 import useActivitiesQuery from "@/lib/query/use-activities-query";
@@ -59,7 +59,10 @@ export default function Today() {
 			<S.Columns>
 				<S.TimelineWrapper>
 					<AllDayActivities activities={t.allDayActivities} />
-					<Rows activities={t.timestampedActivities} currentDate={t.currentDate} />
+					<TimelineRows
+						activities={t.timestampedActivities}
+						currentDate={t.currentDate}
+					/>
 				</S.TimelineWrapper>
 
 				<Tasks activities={t.activities.filter((a) => a.is_task)} />
