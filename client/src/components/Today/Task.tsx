@@ -1,12 +1,12 @@
-import useTask from "@/components/Today/use-task";
+import useTask from "@/components/Today/hooks/use-task";
 import { Checkbox } from "@/lib/theme/components/Checkbox";
 import { activityEnd, activityStart } from "@lib/activity";
 import type { ActivityWithIds } from "@type/server/activity.types";
 import type { TagWithIds } from "@type/server/tag.types";
 import type { ById } from "@type/server/utility.types";
 import TagCard from "../TagCard/TagCard";
-import T from "./Tasks.style";
-import S from "./Today.style";
+import T from "./style/Tasks.style";
+import S from "./style/Today.style";
 
 type TaskProps = {
 	activity: ActivityWithIds;
@@ -35,11 +35,11 @@ export default function Task({ activity, tagsById }: TaskProps) {
 				<span>to {activityEnd(activity).format("HH:mm")}</span>
 			</T.Times>
 			<T.TaskName>{activity.name}</T.TaskName>
-			<T.Tags>
+			<S.Tags>
 				{tags.map((tag) => (
 					<TagCard key={tag.tag_id} tag={tag} />
 				))}
-			</T.Tags>
+			</S.Tags>
 		</T.Task>
 	);
 }

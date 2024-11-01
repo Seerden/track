@@ -1,5 +1,5 @@
 import Modal from "@/components/Modal";
-import S from "@/components/Today/DetailedActivity.style";
+import S from "@/components/Today/style/DetailedActivity.style";
 import { activityEnd, activityStart, hasNotEnded, startsInFuture } from "@/lib/activity";
 import { createDate } from "@/lib/datetime/make-date";
 import modalIds from "@/lib/modal-ids";

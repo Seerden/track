@@ -1,11 +1,12 @@
 import AllDayActivity from "@/components/Today/AllDayActivity";
 import DetailedActivity from "@/components/Today/DetailedActivity";
 import { activityStartHour } from "@lib/activity";
+import useToday from "./hooks/use-today";
 import Notes from "./Notes";
 import Row from "./Row";
+import T from "./style/AllDayActivity.style";
+import S from "./style/Today.style";
 import Tasks from "./Tasks";
-import S from "./Today.style";
-import useToday from "./use-today";
 
 export default function Today() {
 	const {
@@ -20,16 +21,16 @@ export default function Today() {
 
 	return (
 		<S.Wrapper>
-			<S.TimelineHeader>
+			<S.Header>
 				<h1>{currentDate.format("dddd (DD MMMM)")}</h1>
-			</S.TimelineHeader>
+			</S.Header>
 			<S.Columns>
 				<S.TimelineWrapper>
-					<S.AllDayActivityList>
+					<T.AllDayActivityList>
 						{allDayActivities.map((activity) => (
 							<AllDayActivity activity={activity} key={activity.activity_id} />
 						))}
-					</S.AllDayActivityList>
+					</T.AllDayActivityList>
 
 					<S.Rows>
 						{Array.from(

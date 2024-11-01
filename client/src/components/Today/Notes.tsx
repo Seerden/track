@@ -2,7 +2,7 @@ import { isToday } from "@lib/datetime/compare";
 import useNotesQuery from "@lib/query/use-notes-query";
 import useTagsQuery from "@lib/query/use-tags-query";
 import { Note } from "./Note";
-import S from "./Today.style";
+import S from "./style/Today.style";
 
 export default function Notes() {
 	const { data } = useNotesQuery();

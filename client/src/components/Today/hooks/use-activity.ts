@@ -1,5 +1,5 @@
 import type { ActivityProps } from "@/components/Today/Activity";
-import { useDetailedActivityModal } from "@/components/Today/use-detailed-activity-modal";
+import { useDetailedActivityModal } from "@/components/Today/hooks/use-detailed-activity-modal";
 import { activityDuration, activityStart, activityStartHour } from "@/lib/activity";
 
 type UseActivityProps = ActivityProps;

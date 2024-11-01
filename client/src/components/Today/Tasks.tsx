@@ -1,8 +1,8 @@
 import useTagsQuery from "@lib/query/use-tags-query";
 import type { ActivityWithIds } from "@type/server/activity.types";
 import Task from "./Task";
-import T from "./Tasks.style";
-import S from "./Today.style";
+import T from "./style/Tasks.style";
+import S from "./style/Today.style";
 
 type TasksProps = {
 	activities: ActivityWithIds[];

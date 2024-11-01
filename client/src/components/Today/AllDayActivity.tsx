@@ -1,10 +1,11 @@
-import { useDetailedActivityModal } from "@/components/Today/use-detailed-activity-modal";
+import { useDetailedActivityModal } from "@/components/Today/hooks/use-detailed-activity-modal";
 import useTaskCompletionMutation from "@/lib/query/use-task-mutation";
 import { Checkbox } from "@/lib/theme/components/Checkbox";
 import type { ActivityWithIds } from "@/types/server/activity.types";
 import { useRef } from "react";
 import { Ri24HoursLine } from "react-icons/ri";
-import S from "./Today.style";
+import T from "./style/AllDayActivity.style";
+import S from "./style/Today.style";
 
 type AllDayActivityProps = {
 	activity: ActivityWithIds;
@@ -19,7 +20,7 @@ export default function AllDayActivity({ activity }: AllDayActivityProps) {
 	}
 
 	return (
-		<S.AllDayActivity
+		<T.AllDayActivity
 			key={activity.activity_id}
 			onClick={(e) => {
 				if (checkboxRef.current?.contains(e.target as Node)) return;
@@ -45,6 +46,6 @@ export default function AllDayActivity({ activity }: AllDayActivityProps) {
 					<Checkbox checked={activity.completed} />
 				</S.CheckboxWrapper>
 			)}
-		</S.AllDayActivity>
+		</T.AllDayActivity>
 	);
 }
