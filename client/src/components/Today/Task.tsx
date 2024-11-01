@@ -9,7 +9,7 @@ import TagCard from "../TagCard/TagCard";
 import T from "./style/Tasks.style";
 import S from "./style/Today.style";
 
-function useTask({ activity }: { activity: ActivityWithIds }) {
+function useTask(activity: ActivityWithIds) {
 	const checkboxRef = useRef<HTMLLabelElement>(null);
 	const putCompletion = usePutTaskCompletion(activity);
 	const { openDetailedActivityModal } = useDetailedActivityModal(activity);
@@ -27,9 +27,7 @@ type TaskProps = {
 };
 
 export default function Task({ activity, tags = [] }: TaskProps) {
-	const { checkboxRef, openDetailedActivityModal, putCompletion } = useTask({
-		activity
-	});
+	const { checkboxRef, openDetailedActivityModal, putCompletion } = useTask(activity);
 
 	return (
 		<T.Task
