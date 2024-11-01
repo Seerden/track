@@ -56,11 +56,13 @@ export default function Task({ activity, tags = [] }: TaskProps) {
 				<span>to {activityEnd(activity).format("HH:mm")}</span>
 			</T.Times>
 			<T.TaskName>{activity.name}</T.TaskName>
-			<S.Tags>
-				{tags.map((tag) => (
-					<TagCard key={tag.tag_id} tag={tag} />
-				))}
-			</S.Tags>
+			{!!tags.length && ( // TODO: make sure the styling of the component doesn't do anything weird when Tags isn't rendered
+				<S.Tags>
+					{tags.map((tag) => (
+						<TagCard key={tag.tag_id} tag={tag} />
+					))}
+				</S.Tags>
+			)}
 		</T.Task>
 	);
 }
