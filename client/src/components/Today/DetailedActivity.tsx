@@ -2,16 +2,15 @@ import Modal from "@/components/Modal";
 import S from "@/components/Today/style/DetailedActivity.style";
 import { activityEnd, activityStart, hasNotEnded, startsInFuture } from "@/lib/activity";
 import { createDate } from "@/lib/datetime/make-date";
+import usePutTaskCompletion from "@/lib/hooks/use-put-task-completion";
 import modalIds from "@/lib/modal-ids";
-import useActivitiesQuery from "@/lib/query/use-activities-query";
 import useTagsQuery from "@/lib/query/use-tags-query";
-import useTaskCompletionMutation from "@/lib/query/use-task-mutation";
 import { Checkbox } from "@/lib/theme/components/Checkbox";
 import type { Datelike } from "@/types/date.types";
 import type { ActivityWithIds } from "@/types/server/activity.types";
 
 type DetailedActivityProps = {
-	id?: ActivityWithIds["activity_id"];
+	activity: ActivityWithIds;
 };
 
 // TODO: instead of this, do time (humanizedDate), with a tooltip on
@@ -20,21 +19,10 @@ function format(date: Datelike) {
 	return createDate(date).format("HH:mm (YYYY/MM/DD)");
 }
 
-export default function DetailedActivity({ id }: DetailedActivityProps) {
-	const { data: activitiesData } = useActivitiesQuery();
+export default function DetailedActivity({ activity }: DetailedActivityProps) {
 	const { data: tagsData } = useTagsQuery();
-	const { mutate } = useTaskCompletionMutation();
 
-	// TODO: this should _definitely_ be in a useTaskCompletionMutation hook.
-	// It's being done in Task.tsx as well, and just shouldn't be done at the
-	// component-level like this.
-	function putCompletion(activity: ActivityWithIds) {
-		mutate({ ...activity, completed: !activity.completed });
-	}
-
-	if (!activitiesData || !id) return null;
-
-	const activity = activitiesData.activitiesById[id];
+	const putCompletion = usePutTaskCompletion(activity);
 
 	const humanizedStart = `${startsInFuture(activity) ? "starts" : "started"} ${activityStart(activity).fromNow()}`;
 	const showHumanizedStart = hasNotEnded(activity);
@@ -45,7 +33,7 @@ export default function DetailedActivity({ id }: DetailedActivityProps) {
 				<S.Title>
 					{activity.is_task && (
 						<S.CheckboxWrapper>
-							<input type="checkbox" onChange={() => putCompletion(activity)} />
+							<input type="checkbox" onChange={putCompletion} />
 							<Checkbox checked={activity.completed} />
 						</S.CheckboxWrapper>
 					)}

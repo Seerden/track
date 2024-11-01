@@ -15,7 +15,7 @@ export default function Today() {
 		timestampedActivities,
 		indentation,
 		currentDate,
-		modalState,
+		selectedActivity,
 		shouldShowDetailedActivity
 	} = useToday();
 
@@ -53,7 +53,9 @@ export default function Today() {
 
 				<Notes />
 			</S.Columns>
-			{shouldShowDetailedActivity && <DetailedActivity id={modalState.itemId} />}
+			{shouldShowDetailedActivity && selectedActivity && (
+				<DetailedActivity activity={selectedActivity} />
+			)}
 		</S.Wrapper>
 	);
 }

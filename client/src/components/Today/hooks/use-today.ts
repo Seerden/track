@@ -40,6 +40,8 @@ export default function useToday() {
 		state.itemId
 	);
 
+	const selectedActivity = activities.find((a) => a.activity_id === state.itemId);
+
 	return {
 		activities: todayActivities,
 		allDayActivities,
@@ -47,6 +49,6 @@ export default function useToday() {
 		indentation,
 		currentDate,
 		shouldShowDetailedActivity,
-		modalState: state,
+		selectedActivity,
 	};
 }

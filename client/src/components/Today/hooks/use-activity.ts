@@ -1,5 +1,6 @@
 import { useDetailedActivityModal } from "@/components/Today/hooks/use-detailed-activity-modal";
 import { activityDuration, activityStart, activityStartHour } from "@/lib/activity";
+import usePutTaskCompletion from "@/lib/hooks/use-put-task-completion";
 import type { ActivityWithIds } from "@/types/server/activity.types";
 
 export default function useActivity({ activity }: { activity: ActivityWithIds }) {
@@ -20,9 +21,12 @@ export default function useActivity({ activity }: { activity: ActivityWithIds })
 		e.stopPropagation();
 	}
 
+	const putCompletion = usePutTaskCompletion(activity);
+
 	return {
 		durationHours,
 		offset,
 		openActivityModal,
+		putCompletion,
 	};
 }

@@ -1,5 +1,5 @@
 import { useDetailedActivityModal } from "@/components/Today/hooks/use-detailed-activity-modal";
-import useTaskCompletionMutation from "@/lib/query/use-task-mutation";
+import usePutTaskCompletion from "@/lib/hooks/use-put-task-completion";
 import { Checkbox } from "@/lib/theme/components/Checkbox";
 import type { ActivityWithIds } from "@/types/server/activity.types";
 import { useRef } from "react";
@@ -14,10 +14,7 @@ type AllDayActivityProps = {
 export default function AllDayActivity({ activity }: AllDayActivityProps) {
 	const { openDetailedActivityModal } = useDetailedActivityModal({ activity });
 	const checkboxRef = useRef<HTMLLabelElement>(null);
-	const { mutate } = useTaskCompletionMutation();
-	function putCompletion() {
-		mutate({ ...activity, completed: !activity.completed });
-	}
+	const putCompletion = usePutTaskCompletion(activity);
 
 	return (
 		<T.AllDayActivity

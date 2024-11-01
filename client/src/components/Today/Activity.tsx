@@ -10,9 +10,7 @@ export type ActivityProps = {
 };
 
 export default function Activity({ activity, level }: ActivityProps) {
-	// TODO: I think indentation level should just be a prop, instead of passing
-	// it to the hook and calculating something there.
-	const { offset, openActivityModal, durationHours } = useActivity({
+	const { offset, openActivityModal, durationHours, putCompletion } = useActivity({
 		activity
 	});
 
@@ -27,8 +25,6 @@ export default function Activity({ activity, level }: ActivityProps) {
 			<T.Activity $durationHours={durationHours}>
 				<T.ActivityName>{activity.name}</T.ActivityName>
 				{activity.is_task && (
-					// TODO: extract putCompletion to a hook, we already use it in 2
-					// other places I think so it should be generalized
 					// TODO: should really prioritize reworking checkboxes so we can
 					// stop using this pattern
 					<S.CheckboxWrapper
@@ -36,7 +32,7 @@ export default function Activity({ activity, level }: ActivityProps) {
 						onClick={(e) => {
 							e.preventDefault();
 							e.stopPropagation();
-							// handle putCompletion()
+							putCompletion();
 						}}
 					>
 						<S.Checkbox
