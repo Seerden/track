@@ -8,7 +8,7 @@ import T from "./style/AllDayActivity.style";
 import S from "./style/Today.style";
 
 function useAllDayActivity(activity: ActivityWithIds) {
-	const { openDetailedActivityModal } = useDetailedActivityModal({ activity });
+	const { openDetailedActivityModal } = useDetailedActivityModal(activity);
 	const checkboxRef = useRef<HTMLLabelElement>(null);
 	const putCompletion = usePutTaskCompletion(activity);
 

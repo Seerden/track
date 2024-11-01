@@ -12,7 +12,7 @@ import S from "./style/Today.style";
 function useTask({ activity }: { activity: ActivityWithIds }) {
 	const checkboxRef = useRef<HTMLLabelElement>(null);
 	const putCompletion = usePutTaskCompletion(activity);
-	const { openDetailedActivityModal } = useDetailedActivityModal({ activity });
+	const { openDetailedActivityModal } = useDetailedActivityModal(activity);
 
 	return {
 		checkboxRef,

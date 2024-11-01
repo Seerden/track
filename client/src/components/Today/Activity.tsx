@@ -8,7 +8,7 @@ import S from "./style/Today.style.ts";
 
 function useActivity(activity: ActivityWithIds) {
 	const offset = activityStart(activity).minute() / 60;
-	const { openDetailedActivityModal } = useDetailedActivityModal({ activity });
+	const { openDetailedActivityModal } = useDetailedActivityModal(activity);
 	const putCompletion = usePutTaskCompletion(activity);
 
 	/** This is the _displayed_ duration on the Today timeline. A multiday
