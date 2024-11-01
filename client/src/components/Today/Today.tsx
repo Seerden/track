@@ -19,20 +19,18 @@ import Tasks from "./Tasks";
 
 function useToday() {
 	const { data: activitiesData } = useActivitiesQuery();
-	const activities = useMemo(() => {
-		return Object.values(activitiesData?.activitiesById ?? {}); // TODO: should this not be in a useActivities hook or someting?
-	}, [activitiesData]);
 
 	const currentDate = today();
 
+	const activities = useMemo(() => {
+		return Object.values(activitiesData?.activitiesById ?? {}); // TODO: should this not be in a useActivities hook or someting?
+	}, [activitiesData]);
 	const todayActivities = activities.filter((activity) => {
 		return activityFallsOnDay(activity, currentDate);
 	});
-
 	const allDayActivities = activities.filter((activity) =>
 		isAllDayActivityOnDate(activity, currentDate)
 	);
-
 	const timestampedActivities = activities.filter(
 		(activity) => !isAllDayActivityOnDate(activity, currentDate)
 	);
