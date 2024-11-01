@@ -15,10 +15,8 @@ function useTask({ activity }: { activity: ActivityWithIds }) {
 	const putCompletion = usePutTaskCompletion(activity);
 
 	const { openDetailedActivityModal } = useDetailedActivityModal({ activity });
-	const maybeOpenTaskModal = useCallback(
+	const openTaskModal = useCallback(
 		(e: React.MouseEvent) => {
-			if (checkboxRef.current?.contains(e.target as Node)) return;
-
 			openDetailedActivityModal();
 			e.stopPropagation();
 		},
@@ -27,7 +25,7 @@ function useTask({ activity }: { activity: ActivityWithIds }) {
 
 	return {
 		checkboxRef,
-		maybeOpenTaskModal,
+		openTaskModal,
 		putCompletion
 	} as const;
 }
@@ -38,21 +36,24 @@ type TaskProps = {
 };
 
 export default function Task({ activity, tags = [] }: TaskProps) {
-	const { checkboxRef, maybeOpenTaskModal, putCompletion } = useTask({
+	const { checkboxRef, openTaskModal, putCompletion } = useTask({
 		activity
 	});
 
 	return (
-		// TODO: instead of maybeOpenTaskModal and putCompletion in onChange, I
-		// think we can do openTaskModal if we put the putCompletion on the
-		// CheckboxWrapper (onClick) instead of in Checkbox onChange
-		<T.Task onClick={maybeOpenTaskModal}>
-			<S.CheckboxWrapper ref={checkboxRef}>
+		<T.Task onClick={openTaskModal}>
+			<S.CheckboxWrapper
+				ref={checkboxRef}
+				onClick={(e) => {
+					e.preventDefault();
+					e.stopPropagation();
+					putCompletion();
+				}}
+			>
 				<S.Checkbox
 					type="checkbox"
 					style={{ display: "none" }}
 					checked={activity.completed}
-					onChange={putCompletion}
 				/>
 				<Checkbox checked={activity.completed} />
 			</S.CheckboxWrapper>
