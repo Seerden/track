@@ -22,16 +22,15 @@ export default function Calendar({ month, year }: CalendarProps) {
 	 * monday is specified as the start of a week, then we prepend three empty
 	 * cells, and we could represent those by null, or whatever) */
 
-	const weekdayOnFirstDayOfMonth = date.startOf("month").day();
-	const firstDayOfMonthOffset =
-		weekdayOnFirstDayOfMonth - (firstDayOfWeek === "monday" ? 1 : 0);
+	const firstOfMonthWeekday = date.startOf("month").day();
+	const daysOffset = firstOfMonthWeekday - (firstDayOfWeek === "monday" ? 1 : 0);
 
 	const daysOfMonthForCells: Array<number | null> = Array.from(
 		{ length: numberOfDaysInMonth },
 		(_, i) => i + 1
 	);
 	const offsetArray: Array<number | null> = Array.from(
-		{ length: firstDayOfMonthOffset },
+		{ length: daysOffset },
 		() => null
 	);
 	const dayOfMonthCells = offsetArray.concat(daysOfMonthForCells);
