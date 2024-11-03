@@ -1,18 +1,11 @@
 import dayjs from "dayjs";
 import S from "./Calendar.style";
 
-type CalendarProps = {
-	/** Month to focus on initially. */
-	month: number;
-	/** Year to focus on initially. */
-	year: number;
-};
-
 type Cell = number | null;
 type Row = Cell[];
 type Rows = Row[];
 
-export default function Calendar({ month, year }: CalendarProps) {
+function useCalendar({ month, year }: CalendarProps) {
 	const firstDayOfWeek: "monday" | "sunday" = "monday";
 
 	const date = dayjs(new Date(year, month, 1));
@@ -47,16 +40,33 @@ export default function Calendar({ month, year }: CalendarProps) {
 		i += 7;
 	}
 
-	console.log({ rows });
-
 	// TODO: use dayjs to determine these strings (which allows for localization
 	// and customization), and optionally shift the days to allow for any day to
 	// be the first day of the week
 	const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
+	const title = dayjs(new Date(year, month, 1)).format("MMMM YYYY");
+
+	return {
+		rows,
+		daysOfWeek,
+		title
+	} as const;
+}
+
+export type CalendarProps = {
+	/** Month to focus on initially. */
+	month: number;
+	/** Year to focus on initially. */
+	year: number;
+};
+
+export default function Calendar({ month, year }: CalendarProps) {
+	const { title, daysOfWeek, rows } = useCalendar({ month, year });
+
 	return (
 		<S.Calendar>
-			<S.Title>{dayjs(new Date(year, month, 1)).format("MMMM YYYY")}</S.Title>
+			<S.Title>{title}</S.Title>
 			<S.Days style={{ display: "flex", flexDirection: "row", listStyle: "none" }}>
 				{daysOfWeek.map((day) => (
 					<S.Day key={day}>{day}</S.Day>
