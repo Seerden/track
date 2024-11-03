@@ -1,3 +1,4 @@
+import Calendar from "@/components/Calendar/Calendar";
 import AllDayActivities from "@/components/Today/AllDayActivities";
 import DetailedActivity from "@/components/Today/DetailedActivity";
 import TimelineRows from "@/components/Today/TimelineRows";
@@ -53,10 +54,12 @@ export default function Today() {
 
 	return (
 		<S.Wrapper>
+			{/* TODO: we want the header to be aligned above the Timeline */}
 			<S.Header>
 				<h1>{t.currentDate.format("dddd (DD MMMM)")}</h1>
 			</S.Header>
 			<S.Columns>
+				<Calendar month={t.currentDate.month()} year={t.currentDate.year()} />
 				<S.TimelineWrapper>
 					<AllDayActivities activities={t.allDayActivities} />
 					<TimelineRows
