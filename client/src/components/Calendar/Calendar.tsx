@@ -67,7 +67,7 @@ export default function Calendar({ month, year }: CalendarProps) {
 	return (
 		<S.Calendar>
 			<S.Title>{title}</S.Title>
-			<S.Days style={{ display: "flex", flexDirection: "row", listStyle: "none" }}>
+			<S.Days>
 				{daysOfWeek.map((day) => (
 					<S.Day key={day}>{day}</S.Day>
 				))}
