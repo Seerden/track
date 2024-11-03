@@ -54,6 +54,20 @@ function useCalendar({ month, year }: CalendarProps) {
 	} as const;
 }
 
+type CalendarRowProps = {
+	row: Row;
+};
+
+function CalendarRow({ row }: CalendarRowProps) {
+	return (
+		<S.Row>
+			{row.map((day, index) => (
+				<S.Cell key={index}>{day}</S.Cell>
+			))}
+		</S.Row>
+	);
+}
+
 export type CalendarProps = {
 	/** Month to focus on initially. */
 	month: number;
@@ -78,15 +92,5 @@ export default function Calendar({ month, year }: CalendarProps) {
 				))}
 			</S.Rows>
 		</S.Calendar>
-	);
-}
-
-function CalendarRow({ row }: { row: (null | number)[] }) {
-	return (
-		<S.Row>
-			{row.map((day, index) => (
-				<S.Cell key={index}>{day}</S.Cell>
-			))}
-		</S.Row>
 	);
 }
