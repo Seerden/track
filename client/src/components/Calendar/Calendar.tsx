@@ -1,13 +1,30 @@
 import dayjs from "dayjs";
+import React, { useEffect, useState } from "react";
 import S from "./Calendar.style";
 
 type Cell = number | null;
 type Row = Cell[];
 type Rows = Row[];
 
-function useCalendar({ month, year }: CalendarProps) {
-	const firstDayOfWeek: "monday" | "sunday" = "monday";
+type UseCalendarProps = CalendarProps & {
+	setExternalState?: React.Dispatch<React.SetStateAction<Date | null>>;
+};
 
+function useCalendar({ month, year, setExternalState }: UseCalendarProps) {
+	const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+	function selectDate(day: number | null) {
+		if (!day) return;
+		const date = new Date(year, month, day);
+		setSelectedDate(date);
+	}
+
+	useEffect(() => {
+		if (!selectedDate) return;
+
+		setExternalState?.(selectedDate);
+	}, [selectedDate]);
+
+	const firstDayOfWeek: "monday" | "sunday" = "monday"; // TODO: make this configurable by user
 	const date = dayjs(new Date(year, month, 1));
 	const numberOfDaysInMonth = date.daysInMonth();
 
@@ -20,6 +37,8 @@ function useCalendar({ month, year }: CalendarProps) {
 	 * monday is specified as the start of a week, then we prepend three empty
 	 * cells, and we could represent those by null, or whatever) */
 
+	// TODO: put the offset in a variable and allow for any day to be the first
+	// day of the week
 	const firstOfMonthDay =
 		(date.startOf("month").day() + (firstDayOfWeek === "monday" ? 6 : 0)) % 7;
 	const lastOfMonthDay =
@@ -31,8 +50,8 @@ function useCalendar({ month, year }: CalendarProps) {
 	const emptyCellsStart: Row = Array.from({ length: firstOfMonthDay }, () => null);
 	const emptyCellsEnd: Row = Array.from({ length: 6 - lastOfMonthDay }, () => null);
 	const cells: Row = [...emptyCellsStart, ...dayCellsWithValue, ...emptyCellsEnd]; // TODO: use concat instead of spreading
-	const rows: Rows = [];
 
+	const rows: Rows = [];
 	let i = 0;
 	while (i < cells.length) {
 		const slice: Row = cells.slice(i, i + 7);
@@ -50,19 +69,23 @@ function useCalendar({ month, year }: CalendarProps) {
 	return {
 		rows,
 		daysOfWeek,
-		title
+		title,
+		selectDate
 	} as const;
 }
 
 type CalendarRowProps = {
 	row: Row;
+	selectDate: (day: number | null) => void;
 };
 
-function CalendarRow({ row }: CalendarRowProps) {
+function CalendarRow({ row, selectDate }: CalendarRowProps) {
 	return (
 		<S.Row>
 			{row.map((day, index) => (
-				<S.Cell key={index}>{day}</S.Cell>
+				<S.Cell key={index} onClick={() => selectDate(day)}>
+					{day}
+				</S.Cell>
 			))}
 		</S.Row>
 	);
@@ -76,7 +99,7 @@ export type CalendarProps = {
 };
 
 export default function Calendar({ month, year }: CalendarProps) {
-	const { title, daysOfWeek, rows } = useCalendar({ month, year });
+	const { title, daysOfWeek, rows, selectDate } = useCalendar({ month, year });
 
 	return (
 		<S.Calendar>
@@ -88,7 +111,7 @@ export default function Calendar({ month, year }: CalendarProps) {
 			</S.Days>
 			<S.Rows>
 				{rows.map((row, i) => (
-					<CalendarRow key={i} row={row} />
+					<CalendarRow key={i} row={row} selectDate={selectDate} />
 				))}
 			</S.Rows>
 		</S.Calendar>
