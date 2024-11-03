@@ -9,15 +9,17 @@ const Calendar = styled.div`
 	flex-direction: column;
 	user-select: none;
 	width: max-content;
-	margin: 2rem;
+	height: max-content;
+	margin-left: 1rem;
+	margin-top: 1rem;
 	font-size: 0.9rem;
 	font-family: "Roboto";
 	padding: 1rem;
-	border: 3px solid #ddd;
+	border: 2px solid #ddd;
 	border-radius: 5px;
 	box-shadow:
 		1.5rem 1.5rem 0 -1.3rem dodgerblue,
-		0 0 0.3rem 0 #ccc;
+		0 0 0.5rem 0 #ddd;
 `;
 
 const Title = styled.h2`
