@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
 
 const gap = "0.1rem";
-const defaultCellWidth = 40;
-const defaultCellHeight = 25;
+const defaultCellWidth = 30;
+const defaultCellHeight = 20;
 
 const Calendar = styled.div`
 	display: flex;
