@@ -16,8 +16,8 @@ const Calendar = styled.div`
 	border: 3px solid #ddd;
 	border-radius: 5px;
 	box-shadow:
-		0 0 0.2rem 0 #ccc,
-		1.5rem 1.5rem 0 -1.3rem dodgerblue;
+		1.5rem 1.5rem 0 -1.3rem dodgerblue,
+		0 0 0.3rem 0 #ccc;
 `;
 
 const Title = styled.h2`
@@ -31,9 +31,8 @@ const Days = styled.div`
 	display: flex;
 	flex-direction: row;
 	gap: ${gap};
-	padding-block: ${gap};
 	width: max-content;
-	margin-bottom: ${gap};
+	margin-bottom: calc(4 * ${gap});
 	border-radius: 5px;
 	background-color: #eee;
 	border-bottom: 2px solid dodgerblue;
