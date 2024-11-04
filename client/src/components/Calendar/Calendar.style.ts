@@ -1,8 +1,10 @@
+import type { CSSProperties } from "styled-components";
 import styled, { css } from "styled-components";
 
 const gap = "0.1rem";
 const defaultCellWidth = 30;
 const defaultCellHeight = 20;
+const highlightColor: CSSProperties["color"] = "dodgerblue";
 
 const Calendar = styled.div`
 	display: flex;
@@ -12,21 +14,23 @@ const Calendar = styled.div`
 	height: max-content;
 	margin-left: 1rem;
 	margin-top: 1rem;
-	font-size: 0.9rem;
+	--font-size: 0.9rem;
+	font-size: var(--font-size);
+	line-height: var(--font-size);
 	font-family: "Roboto";
 	padding: 1rem;
 	border: 2px solid #ddd;
 	border-radius: 5px;
 	box-shadow:
-		1.5rem 1.5rem 0 -1.3rem dodgerblue,
+		1.5rem 1.5rem 0 -1.3rem ${highlightColor},
 		0 0 0.5rem 0 #ddd;
 `;
 
 const Title = styled.h2`
 	font-size: 1.2rem;
 	align-self: flex-end;
-	color: dodgerblue;
-	margin-bottom: ${gap};
+	color: ${highlightColor};
+	margin-bottom: calc(4 * ${gap});
 `;
 
 const Days = styled.div`
@@ -37,7 +41,7 @@ const Days = styled.div`
 	margin-bottom: calc(4 * ${gap});
 	border-radius: 5px;
 	background-color: #eee;
-	border-bottom: 2px solid dodgerblue;
+	border-bottom: 2px solid ${highlightColor};
 	font-weight: 500;
 	font-size: 0.8rem;
 `;
@@ -82,19 +86,18 @@ const cellStyles = {
 		cursor: pointer;
 
 		&:hover {
-			outline: 1px solid dodgerblue;
-			border-radius: 0;
+			outline: 1px solid ${highlightColor};
 		}
 
 		&:active {
-			background-color: dodgerblue;
+			background-color: ${highlightColor};
 			color: azure;
 			outline: none;
 		}
 	`,
 } as const;
 
-const Cell = styled.input<StyledCellProps>`
+const Cell = styled.button<StyledCellProps>`
 	border: none;
 	display: flex;
 	justify-content: center;
@@ -104,7 +107,13 @@ const Cell = styled.input<StyledCellProps>`
 	${({ children }) => (children ? cellStyles.nonEmpty : cellStyles.empty)};
 
 	// TODO: add 'selected' styles
-	${(p) => p.$selected && css``}
+	${(p) =>
+		p.$selected &&
+		css`
+			background-color: ${highlightColor};
+			color: azure;
+			box-shadow: 0 0 0.2rem 0 #ccc;
+		`}
 `;
 
 Cell.defaultProps = {
