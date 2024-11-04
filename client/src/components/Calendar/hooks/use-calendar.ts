@@ -10,6 +10,7 @@ type UseCalendarProps = CalendarProps & {
 	setExternalState?: React.Dispatch<React.SetStateAction<Maybe<Dayjs>>>;
 };
 
+/** Functionality hook for Calendar.tsx */
 export function useCalendar({
 	initialMonth,
 	initialYear,

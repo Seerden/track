@@ -2,6 +2,7 @@ import type { CalendarProps, MonthAndYear } from "@/components/Calendar/calendar
 import type { DateValue } from "@mantine/dates";
 import { useState } from "react";
 
+/** Functionality hook for Calendar.tsx */
 export default function useMonthPicker({
 	initialMonth,
 	initialYear,
