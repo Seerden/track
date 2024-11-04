@@ -41,9 +41,6 @@ const Title = styled.h2`
 `;
 
 const MonthPickerWrapper = styled.div`
-	/* position: absolute; */
-	/* top: 100%; */
-	/* left: 0; */
 	background-color: #eee;
 	box-shadow: 0 0.5rem 1.5rem 0 #bbb;
 	border-radius: 5px;
@@ -91,31 +88,6 @@ const Row = styled.div`
 	gap: ${gap};
 `;
 
-// Probably prefer doing a Cell and an EmptyCell component instead of this
-const cellStyles = {
-	empty: css`
-		background-color: unset;
-		border-radius: none;
-		box-shadow: none;
-	`,
-	nonEmpty: css`
-		background-color: #eaeaea;
-		border-radius: 3px;
-		box-shadow: 0 0.5rem 0 -0.35rem #ddd;
-		cursor: pointer;
-
-		&:hover {
-			outline: 1px solid ${highlightColor};
-		}
-
-		&:active {
-			background-color: ${highlightColor};
-			color: azure;
-			outline: none;
-		}
-	`,
-} as const;
-
 const Cell = styled.button<StyledCellProps>`
 	border: none;
 	display: flex;
@@ -123,9 +95,7 @@ const Cell = styled.button<StyledCellProps>`
 	align-items: center;
 	width: ${({ width }) => width ?? defaultCellWidth}px;
 	height: ${({ height }) => height ?? defaultCellHeight}px;
-	${({ children }) => (children ? cellStyles.nonEmpty : cellStyles.empty)};
 
-	// TODO: add 'selected' styles
 	${(p) =>
 		p.$selected &&
 		css`
@@ -133,6 +103,32 @@ const Cell = styled.button<StyledCellProps>`
 			color: azure;
 			box-shadow: 0 0 0.2rem 0 #ccc;
 		`}
+
+	${(p) =>
+		// a 'null' cell has no children, so this is nicer than using something like
+		// an EmptyCell, keeps the JSX cleaner.
+		p.children
+			? css`
+					background-color: #eaeaea;
+					border-radius: 3px;
+					box-shadow: 0 0.5rem 0 -0.35rem #ddd;
+					cursor: pointer;
+
+					&:hover {
+						outline: 1px solid ${highlightColor};
+					}
+
+					&:active {
+						background-color: ${highlightColor};
+						color: azure;
+						outline: none;
+					}
+				`
+			: css`
+					background-color: unset;
+					border-radius: none;
+					box-shadow: none;
+				`}
 `;
 
 Cell.defaultProps = {
