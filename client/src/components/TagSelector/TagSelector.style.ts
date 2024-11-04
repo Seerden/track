@@ -106,6 +106,7 @@ const Filter = styled.input`
 	max-width: 150px;
 
 	font-size: 0.88rem;
+	line-height: 0.88rem;
 
 	&:focus {
 		outline-color: dodgerblue;
