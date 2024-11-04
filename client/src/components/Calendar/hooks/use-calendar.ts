@@ -17,6 +17,10 @@ export function useCalendar({
 }: UseCalendarProps) {
 	const [selectedDate, setSelectedDate] = useState<Maybe<Dayjs>>();
 
+	useEffect(() => {
+		if (selectedDate) setExternalState?.(selectedDate);
+	}, [selectedDate]);
+
 	const [monthAndYear, setMonthAndYear] = useState<MonthAndYear>(() => ({
 		month: initialMonth,
 		year: initialYear,
@@ -35,10 +39,6 @@ export function useCalendar({
 		},
 		[monthAndYear, setSelectedDate],
 	);
-
-	useEffect(() => {
-		if (selectedDate) setExternalState?.(selectedDate);
-	}, [selectedDate]);
 
 	const rows = buildCalendarRows(firstDayOfTheMonth);
 
