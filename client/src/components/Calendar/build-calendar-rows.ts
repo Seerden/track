@@ -1,4 +1,4 @@
-import { Dayjs } from "dayjs";
+import type { Dayjs } from "dayjs";
 
 export type WeekStartDay = "monday" | "sunday";
 export type Cell = number | null;
