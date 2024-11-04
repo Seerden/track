@@ -14,7 +14,7 @@ const Calendar = styled.div`
 	height: max-content;
 	margin-left: 1rem;
 	margin-top: 1rem;
-	--font-size: 0.9rem;
+	--font-size: 0.8rem;
 	font-size: var(--font-size);
 	line-height: var(--font-size);
 	font-family: "Roboto";
@@ -26,11 +26,30 @@ const Calendar = styled.div`
 		0 0 0.5rem 0 #ddd;
 `;
 
+const TitleWrapper = styled.div`
+	width: 100%;
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+`;
+
 const Title = styled.h2`
 	font-size: 1.2rem;
-	align-self: flex-end;
 	color: ${highlightColor};
 	margin-bottom: calc(4 * ${gap});
+`;
+
+const MonthPickerWrapper = styled.div`
+	position: absolute;
+	top: 100%;
+	left: 0;
+	background-color: #eee;
+	box-shadow: 0 0.5rem 1.5rem 0 #bbb;
+	padding: 0.5rem 2rem;
+	border-radius: 5px;
+	border: 2px solid #ccc;
+	z-index: 3;
 `;
 
 const Days = styled.div`
@@ -120,4 +139,14 @@ Cell.defaultProps = {
 	type: "button",
 };
 
-export default { Calendar, Title, Days, Day, Cell, Rows, Row };
+export default {
+	Calendar,
+	TitleWrapper,
+	Title,
+	MonthPickerWrapper,
+	Days,
+	Day,
+	Cell,
+	Rows,
+	Row,
+};

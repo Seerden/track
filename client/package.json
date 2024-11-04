@@ -11,6 +11,9 @@
     "test": "jest --silent=false"
   },
   "dependencies": {
+    "@mantine/core": "^7.13.4",
+    "@mantine/dates": "^7.13.4",
+    "@mantine/hooks": "^7.13.4",
     "@tanstack/react-query": "^5.51.23",
     "dayjs": "^1.11.12",
     "eslint-plugin-react-compiler": "^0.0.0-experimental-42acc6a-20241001",

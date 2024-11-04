@@ -24,10 +24,10 @@ function useToday() {
 		return activityFallsOnDay(activity, currentDate);
 	});
 	const allDayActivities = activities.filter((activity) =>
-		isAllDayActivityOnDate(activity, currentDate)
+		isAllDayActivityOnDate(activity, currentDate),
 	);
 	const timestampedActivities = activities.filter(
-		(activity) => !isAllDayActivityOnDate(activity, currentDate)
+		(activity) => !isAllDayActivityOnDate(activity, currentDate),
 	);
 
 	const { state } = useModalState(modalIds.detailedActivity);
@@ -45,7 +45,7 @@ function useToday() {
 		timestampedActivities,
 		currentDate,
 		shouldShowDetailedActivity,
-		selectedActivity
+		selectedActivity,
 	} as const;
 }
 
@@ -56,7 +56,10 @@ export default function Today() {
 		<S.Wrapper>
 			{/* TODO: we want the header to be aligned above the Timeline */}
 			<S.Columns>
-				<Calendar month={t.currentDate.month()} year={t.currentDate.year()} />
+				<Calendar
+					initialMonth={t.currentDate.month()}
+					initialYear={t.currentDate.year()}
+				/>
 				<S.TimelineWrapper>
 					<S.Header>
 						<h1>{t.currentDate.format("dddd (DD MMMM)")}</h1>
