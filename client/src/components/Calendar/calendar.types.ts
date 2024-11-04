@@ -14,3 +14,8 @@ export type MonthAndYear = {
 	month: number;
 	year: number;
 };
+
+export type WeekStartDay = "monday" | "sunday";
+export type Cell = number | null;
+export type Row = Cell[];
+export type Rows = Row[];

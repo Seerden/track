@@ -1,9 +1,5 @@
+import type { Row, Rows, WeekStartDay } from "@/components/Calendar/calendar.types";
 import type { Dayjs } from "dayjs";
-
-export type WeekStartDay = "monday" | "sunday";
-export type Cell = number | null;
-export type Row = Cell[];
-export type Rows = Row[];
 
 /**
  * Every row in a calendar has 7 cells (1 cell for each weekday), but the first

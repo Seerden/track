@@ -1,5 +1,4 @@
-import type { Row } from "@/components/Calendar/build-calendar-rows";
-import type { CalendarProps } from "@/components/Calendar/calendar.types";
+import type { CalendarProps, Row } from "@/components/Calendar/calendar.types";
 import { useCalendar } from "@/components/Calendar/hooks/use-calendar";
 import useMonthPicker from "@/components/Calendar/hooks/use-month-picker";
 import { daysOfWeekShort } from "@/lib/datetime/weekdays";
