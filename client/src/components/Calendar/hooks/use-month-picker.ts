@@ -11,7 +11,7 @@ export default function useMonthPicker({
 	setExternalState?: React.Dispatch<React.SetStateAction<MonthAndYear>>;
 }) {
 	const [showMonthPicker, setShowMonthPicker] = useState(false);
-	const initialValue = new Date(initialYear, initialMonth, 1); // TODO: use firstDayOfMonth function here
+	const initialValue = new Date(initialYear, initialMonth, 1); // note: MonthPicker expects Date, so don't use our dayjs helpers
 	const [monthValue, setMonthValue] = useState(initialValue);
 
 	function handleMonthChange(value: DateValue) {
