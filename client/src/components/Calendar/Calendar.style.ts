@@ -7,6 +7,7 @@ const defaultCellHeight = 20;
 const highlightColor: CSSProperties["color"] = "dodgerblue";
 
 const Calendar = styled.div`
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	user-select: none;
@@ -28,7 +29,6 @@ const Calendar = styled.div`
 
 const TitleWrapper = styled.div`
 	width: 100%;
-	position: relative;
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;
@@ -41,15 +41,15 @@ const Title = styled.h2`
 `;
 
 const MonthPickerWrapper = styled.div`
-	position: absolute;
-	top: 100%;
-	left: 0;
+	/* position: absolute; */
+	/* top: 100%; */
+	/* left: 0; */
 	background-color: #eee;
 	box-shadow: 0 0.5rem 1.5rem 0 #bbb;
-	padding: 0.5rem 2rem;
 	border-radius: 5px;
-	border: 2px solid #ccc;
+	outline: 2px solid #ccc;
 	z-index: 3;
+	margin: 1px; // with the current default size, this is exactly the margin necessary to prevent layout shift
 `;
 
 const Days = styled.div`
