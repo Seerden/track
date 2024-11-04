@@ -45,6 +45,7 @@ const Days = styled.div`
 type StyledCellProps = {
 	width?: number;
 	height?: number;
+	$selected?: boolean;
 };
 
 const Day = styled.div<StyledCellProps>`
@@ -93,7 +94,7 @@ const cellStyles = {
 	`,
 } as const;
 
-const Cell = styled.button<StyledCellProps>`
+const Cell = styled.input<StyledCellProps>`
 	border: none;
 	display: flex;
 	justify-content: center;
@@ -101,6 +102,9 @@ const Cell = styled.button<StyledCellProps>`
 	width: ${({ width }) => width ?? defaultCellWidth}px;
 	height: ${({ height }) => height ?? defaultCellHeight}px;
 	${({ children }) => (children ? cellStyles.nonEmpty : cellStyles.empty)};
+
+	// TODO: add 'selected' styles
+	${(p) => p.$selected && css``}
 `;
 
 Cell.defaultProps = {
