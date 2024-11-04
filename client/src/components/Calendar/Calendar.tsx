@@ -1,3 +1,6 @@
+import { createDate } from "@/lib/datetime/make-date";
+import type { Maybe } from "@/types/server/utility.types";
+import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import S from "./Calendar.style";
@@ -7,14 +10,14 @@ type Row = Cell[];
 type Rows = Row[];
 
 type UseCalendarProps = CalendarProps & {
-	setExternalState?: React.Dispatch<React.SetStateAction<Date | null>>;
+	setExternalState?: React.Dispatch<React.SetStateAction<Maybe<Dayjs>>>;
 };
 
 function useCalendar({ month, year, setExternalState }: UseCalendarProps) {
-	const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+	const [selectedDate, setSelectedDate] = useState<Maybe<Dayjs>>();
 	function selectDate(day: number | null) {
 		if (!day) return;
-		const date = new Date(year, month, day);
+		const date = createDate(new Date(year, month, day));
 		setSelectedDate(date);
 	}
 
@@ -61,7 +64,7 @@ function useCalendar({ month, year, setExternalState }: UseCalendarProps) {
 
 	// TODO: use dayjs to determine these strings (which allows for localization
 	// and customization), and optionally shift the days to allow for any day to
-	// be the first day of the week
+	// be the first day of the week -- see https://day.js.org/docs/en/plugin/locale-data
 	const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 	const title = dayjs(new Date(year, month, 1)).format("MMMM YYYY");
@@ -70,20 +73,32 @@ function useCalendar({ month, year, setExternalState }: UseCalendarProps) {
 		rows,
 		daysOfWeek,
 		title,
-		selectDate
+		selectDate,
+		selectedDate
 	} as const;
 }
 
 type CalendarRowProps = {
 	row: Row;
 	selectDate: (day: number | null) => void;
+	selectedDate?: Maybe<Dayjs>;
 };
 
-function CalendarRow({ row, selectDate }: CalendarRowProps) {
+function CalendarRow({ row, selectDate, selectedDate }: CalendarRowProps) {
+	function isSelected(day: number | null) {
+		if (!selectedDate || !day) return false;
+		return day === selectedDate.date();
+	}
+
 	return (
 		<S.Row>
 			{row.map((day, index) => (
-				<S.Cell key={index} onClick={() => selectDate(day)}>
+				<S.Cell
+					disabled={day === null}
+					key={index}
+					onClick={() => selectDate(day)}
+					$selected={isSelected(day)}
+				>
 					{day}
 				</S.Cell>
 			))}
@@ -99,7 +114,10 @@ export type CalendarProps = {
 };
 
 export default function Calendar({ month, year }: CalendarProps) {
-	const { title, daysOfWeek, rows, selectDate } = useCalendar({ month, year });
+	const { title, daysOfWeek, rows, selectDate, selectedDate } = useCalendar({
+		month,
+		year
+	});
 
 	return (
 		<S.Calendar>
@@ -111,7 +129,12 @@ export default function Calendar({ month, year }: CalendarProps) {
 			</S.Days>
 			<S.Rows>
 				{rows.map((row, i) => (
-					<CalendarRow key={i} row={row} selectDate={selectDate} />
+					<CalendarRow
+						key={i}
+						row={row}
+						selectDate={selectDate}
+						selectedDate={selectedDate}
+					/>
 				))}
 			</S.Rows>
 		</S.Calendar>
