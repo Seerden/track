@@ -2,7 +2,7 @@ import Filter from "@/components/TagSelector/Filter";
 import Selection from "@/components/TagSelector/Selection";
 import type { TagSelectorProps } from "@/components/TagSelector/tag-selector.types";
 import TagSelectorItems from "@/components/TagSelector/TagSelectorItems";
-import useTagSelectorFilter from "@/components/TagSelector/use-tag-selector-filter";
+import useTagSelectorFilter from "@/components/TagSelector/useTagSelectorFilter";
 import TagTree from "@/components/TagTree/TagTree";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
