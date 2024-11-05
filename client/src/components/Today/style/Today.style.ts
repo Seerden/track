@@ -49,7 +49,7 @@ const Columns = styled.div`
 	display: grid;
 
 	@media (min-width: 1280px) {
-		grid-template-columns: 1fr max-content auto; // TODO: this is still temporary because the whole layout is temporary
+		grid-template-columns: max-content 1fr max-content auto; // TODO: this is still temporary because the whole layout is temporary
 	}
 
 	grid-template-columns: 1fr;
@@ -110,5 +110,5 @@ export default {
 	Columns,
 	Header,
 	Tags,
-	AllDayActivityList,
+	AllDayActivityList
 };

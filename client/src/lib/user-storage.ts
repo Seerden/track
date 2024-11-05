@@ -26,5 +26,5 @@ function destroyLocalUser() {
 export const localUser = {
 	get: getLocalUser,
 	set: setLocalUser,
-	destroy: destroyLocalUser,
+	destroy: destroyLocalUser
 };

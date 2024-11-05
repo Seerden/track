@@ -106,6 +106,7 @@ const Filter = styled.input`
 	max-width: 150px;
 
 	font-size: 0.88rem;
+	line-height: 0.88rem;
 
 	&:focus {
 		outline-color: dodgerblue;
@@ -137,7 +138,7 @@ const ClearFilter = styled.button`
 `;
 
 ClearFilter.defaultProps = {
-	type: "button",
+	type: "button"
 };
 
 const FilterWrapper = styled.div`
@@ -197,7 +198,7 @@ const DropdownTrigger = styled.button`
 `;
 
 DropdownTrigger.defaultProps = {
-	type: "button",
+	type: "button"
 };
 
 const DropdownActions = styled.div`
@@ -304,5 +305,5 @@ export default {
 	SelectionList,
 	SelectionItem,
 	PathPart,
-	EmptySelection,
+	EmptySelection
 };

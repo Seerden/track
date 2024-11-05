@@ -15,6 +15,6 @@ export default function useRegisterMutation() {
 		async mutationFn(newUser) {
 			return postRegister(newUser);
 		},
-		mutationKey: ["register"],
+		mutationKey: ["register"]
 	});
 }

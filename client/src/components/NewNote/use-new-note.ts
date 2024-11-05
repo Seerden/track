@@ -19,7 +19,7 @@ export default function useNewNote({ inActivity }: UseNewNoteProps = {}) {
 	const { selectedTagIds, resetTagSelection } = useTagSelection();
 	const [note, setNote] = useState<Partial<NewNote>>({
 		content: "",
-		user_id: currentUser?.user_id,
+		user_id: currentUser?.user_id
 	});
 
 	useEffect(() => {
@@ -57,19 +57,19 @@ export default function useNewNote({ inActivity }: UseNewNoteProps = {}) {
 						// TODO: also optimistically populate the UI with the newly
 						// created note if possible. depends on from which
 						// page/context this hook/component is called though
-					},
-				},
+					}
+				}
 			);
 		}
 	}
 
 	/** Input change handler for `title` and `content` fields. */
 	function onInputChange(
-		event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+		event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) {
 		setNote((current) => ({
 			...current,
-			[event.target.name]: event.target.value,
+			[event.target.name]: event.target.value
 		}));
 	}
 
@@ -77,6 +77,6 @@ export default function useNewNote({ inActivity }: UseNewNoteProps = {}) {
 		note,
 		onInputChange,
 		onSubmit,
-		tagsData,
+		tagsData
 	};
 }

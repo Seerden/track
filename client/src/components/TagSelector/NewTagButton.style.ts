@@ -40,5 +40,5 @@ export const Button = styled.button<{
 `;
 
 Button.defaultProps = {
-	type: "button",
+	type: "button"
 };

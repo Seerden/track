@@ -3,7 +3,7 @@ import type { ActivityWithIds } from "@type/server/activity.types";
 
 export function getDateField({
 	type,
-	activity,
+	activity
 }: {
 	type: "start" | "end";
 	activity: ActivityWithIds;
@@ -24,7 +24,7 @@ export function getDateField({
 export function getFormattedDateField({
 	type,
 	activity,
-	short,
+	short
 }: {
 	type: "start" | "end";
 	activity: ActivityWithIds;

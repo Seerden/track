@@ -7,7 +7,7 @@ async function getTags() {
 	const url = makeAuthorizedUrl("/data/tags");
 	const response = await fetch(url, {
 		credentials: "include",
-		method: "GET",
+		method: "GET"
 	});
 
 	// TODO: when tags are fetched, tree also -- maybe this means we should put
@@ -23,6 +23,6 @@ export default function useTagsQuery() {
 		// add user_id to the queryKey
 		queryKey: ["tags"],
 		queryFn: getTags,
-		...defaultQueryConfig,
+		...defaultQueryConfig
 	});
 }

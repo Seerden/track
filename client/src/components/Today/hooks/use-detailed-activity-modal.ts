@@ -9,7 +9,7 @@ export function useDetailedActivityModal(activity: ActivityWithIds) {
 		setModalState(() => ({
 			isOpen: true,
 			itemId: activity.activity_id,
-			itemType: "activity",
+			itemType: "activity"
 		}));
 	}
 

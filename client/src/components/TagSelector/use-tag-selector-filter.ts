@@ -26,6 +26,6 @@ export default function useTagSelectorFilter(modalId: string) {
 		expanded,
 		setExpanded,
 		expandFilter,
-		minimizeFilter,
+		minimizeFilter
 	};
 }

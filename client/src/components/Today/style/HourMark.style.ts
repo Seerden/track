@@ -19,5 +19,5 @@ const HourMark = styled.span`
 `;
 
 export default {
-	HourMark,
+	HourMark
 };

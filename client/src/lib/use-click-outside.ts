@@ -5,11 +5,11 @@ export default function useClickOutside<T extends HTMLElement>(
 	ref: RefObject<T>,
 	{
 		handler,
-		initialOpen = false,
+		initialOpen = false
 	}: {
 		initialOpen?: boolean;
 		handler?: (e: MouseEvent) => void;
-	} = {},
+	} = {}
 ) {
 	const [isOpen, setIsOpen] = useState<boolean>(initialOpen);
 

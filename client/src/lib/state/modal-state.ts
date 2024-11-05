@@ -15,8 +15,8 @@ export const modalStateFamily = atomFamily<ModalState, ModalStateParams>({
 	key: "modalStateFamily",
 	default: (params) => ({
 		modalId: params.modalId,
-		isOpen: false,
-	}),
+		isOpen: false
+	})
 });
 
 export function useModalState(modalId: string) {
@@ -49,6 +49,6 @@ export function useModalState(modalId: string) {
 		setModalOpen,
 		toggleModal,
 		setModalItemId,
-		setModalState,
+		setModalState
 	};
 }

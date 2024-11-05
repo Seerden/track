@@ -12,7 +12,12 @@ export function formatDate(date: Datelike, { short }: { short?: boolean } = {}):
  * TODO: is there a dayjs function for this?
  */
 export function formatHour(
-	index: number, // index 0 is 12am, 1 is 1am, 12 is 12pm, 23 is 11pm, etc
+	index: number // index 0 is 12am, 1 is 1am, 12 is 12pm, 23 is 11pm, etc
 ) {
 	return `${index < 10 ? "0" : ""}${index}:00`;
+}
+
+export function formatToMonthAndYear(date: Datelike): string {
+	const d = createDate(date);
+	return d.format("MMMM YYYY");
 }

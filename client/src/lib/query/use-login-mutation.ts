@@ -22,6 +22,6 @@ export default function useLoginMutation() {
 		onSuccess: ({ user }) => {
 			localUser.set(user);
 			client.setQueryData(["me"], { user });
-		},
+		}
 	});
 }

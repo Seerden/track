@@ -19,7 +19,7 @@ export default function useTagSelector({ maximum, tagsById }: UseTagSelector = {
 		setTagSelection,
 		toggleTagSelection,
 		selectedTagIds,
-		resetTagSelection,
+		resetTagSelection
 	} = useTagSelection();
 	const [filter, setFilter] = useState<string>("");
 
@@ -49,11 +49,11 @@ export default function useTagSelector({ maximum, tagsById }: UseTagSelector = {
 	// user's tags (=t.tags.tagsById), We need to rename the variables to make that clear.
 	const tags = Object.values(tagsById ?? tagsData?.tagsById ?? []);
 	const tagsToDisplay = tags.filter((tag) =>
-		tag.name.toLowerCase().includes(filter.toLowerCase()),
+		tag.name.toLowerCase().includes(filter.toLowerCase())
 	);
 	const selectedTags = useMemo(
 		() => tags.filter((tag) => selectedTagIds.includes(tag.tag_id)),
-		[tagsData, selectedTagIds],
+		[tagsData, selectedTagIds]
 	);
 
 	return {
@@ -67,6 +67,6 @@ export default function useTagSelector({ maximum, tagsById }: UseTagSelector = {
 		onSelectionReset,
 		tagsToDisplay,
 		selectedTags,
-		tags,
+		tags
 	};
 }

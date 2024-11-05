@@ -7,6 +7,6 @@ export default function useActivityList() {
 
 	return {
 		activitiesData,
-		tagsData,
+		tagsData
 	};
 }

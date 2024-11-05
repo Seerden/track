@@ -7,7 +7,7 @@ import T from "./style/Activity.style.ts";
 import S from "./style/Today.style.ts";
 
 function useActivity(activity: ActivityWithIds) {
-	const offset = activityStart(activity).minute() / 60;
+	const offset = activityStart(activity).minute() / 60; // TODO: BUG: this takes the start on the first day, needs the start on the displayed day
 	const { openDetailedActivityModal } = useDetailedActivityModal(activity);
 	const putCompletion = usePutTaskCompletion(activity);
 
@@ -15,6 +15,8 @@ function useActivity(activity: ActivityWithIds) {
 	 * activity still "ends" at midnight on this view. TODO: maybe change this
 	 * variable name to reflect this. */
 	const durationHours = Math.min(
+		// TODO: same as above, needs to be on the displayed day, not on the
+		// activity's first day
 		activityDuration(activity),
 		24 - offset - activityStartHour(activity, activityStart(activity))
 	);

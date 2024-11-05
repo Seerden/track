@@ -7,12 +7,12 @@ export const queryClient = new QueryClient({
 			enabled: true,
 			gcTime: 1000 * 60 * 5,
 			refetchOnMount: true,
-			refetchOnWindowFocus: "always",
-		},
-	},
+			refetchOnWindowFocus: "always"
+		}
+	}
 });
 
 export const defaultQueryConfig = {
 	enabled: true,
-	retry: false,
+	retry: false
 } as const;

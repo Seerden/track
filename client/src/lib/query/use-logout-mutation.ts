@@ -19,6 +19,6 @@ export default function useLogoutMutation() {
 			// unset local user on successful logout
 			localUser.destroy();
 			client.removeQueries({ queryKey: ["me"] });
-		},
+		}
 	});
 }

@@ -21,7 +21,7 @@ export default function useDateTimePicker({ setState }: DateTimePickerProps) {
 	const { startField, endField } = useMemo(() => {
 		return {
 			startField: allDay ? "start_date" : "started_at",
-			endField: allDay ? "end_date" : "ended_at",
+			endField: allDay ? "end_date" : "ended_at"
 		} as const;
 	}, [allDay]);
 
@@ -30,19 +30,19 @@ export default function useDateTimePicker({ setState }: DateTimePickerProps) {
 
 	const [date, setDate] = useState({
 		start: defaultStartDate,
-		end: defaultStartDate,
+		end: defaultStartDate
 	});
 
 	const currentTime = today();
 	const [time, setTime] = useState({
 		start: currentTime.format("HHmm"),
-		end: currentTime.add(1, "hour").format("HHmm"),
+		end: currentTime.add(1, "hour").format("HHmm")
 	});
 
 	const dateTime = useMemo(() => {
 		const [start, end] = [
 			createDate(allDay ? date.start : `${date.start}T${time.start}`),
-			createDate(allDay ? date.end : `${date.end}T${time.end}`),
+			createDate(allDay ? date.end : `${date.end}T${time.end}`)
 		];
 
 		return { start, end };
@@ -56,7 +56,7 @@ export default function useDateTimePicker({ setState }: DateTimePickerProps) {
 	function handleDateChange(value: string, field: "start" | "end") {
 		setDate((current) => ({
 			...current,
-			[field]: value,
+			[field]: value
 		}));
 	}
 
@@ -87,7 +87,7 @@ export default function useDateTimePicker({ setState }: DateTimePickerProps) {
 
 		setTime({
 			...time,
-			[field]: parseTimeString(e.target.value),
+			[field]: parseTimeString(e.target.value)
 		});
 	}
 
@@ -102,6 +102,6 @@ export default function useDateTimePicker({ setState }: DateTimePickerProps) {
 		onStartDateChange,
 		onEndDateChange,
 		onAllDayChange,
-		onTimeChange,
+		onTimeChange
 	};
 }

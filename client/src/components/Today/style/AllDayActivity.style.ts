@@ -49,5 +49,5 @@ const AllDayActivity = styled.li`
 `;
 
 export default {
-	AllDayActivity,
+	AllDayActivity
 };

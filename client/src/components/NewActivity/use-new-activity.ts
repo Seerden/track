@@ -16,7 +16,7 @@ export default function useNewActivity() {
 	const [newActivity, setNewActivity] = useState<Partial<NewActivity>>(() => ({
 		name: "",
 		description: "",
-		user_id: currentUser?.user_id,
+		user_id: currentUser?.user_id
 	}));
 
 	useEffect(() => {
@@ -35,8 +35,8 @@ export default function useNewActivity() {
 			{
 				onSuccess: () => {
 					navigate("/activities"); // TODO: put routes in a variable
-				},
-			},
+				}
+			}
 		);
 	}
 
@@ -45,14 +45,14 @@ export default function useNewActivity() {
 
 		setNewActivity((current) => ({
 			...current,
-			[name]: type === "checkbox" ? checked : value,
+			[name]: type === "checkbox" ? checked : value
 		}));
 	}
 
 	function onDateTimeChange({ name, value }: { name: DateTimeField; value: string }) {
 		setNewActivity((current) => ({
 			...current,
-			[name]: value,
+			[name]: value
 		}));
 	}
 
@@ -60,6 +60,6 @@ export default function useNewActivity() {
 		onSubmit,
 		onInputChange,
 		onDateTimeChange,
-		isTask,
+		isTask
 	};
 }

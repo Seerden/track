@@ -19,3 +19,7 @@ export function now() {
 export function createDate(date: Datelike) {
 	return dayjs(date).utc().local();
 }
+
+export function createFirstOfTheMonth({ month, year }: { month: number; year: number }) {
+	return createDate(new Date(year, month)).startOf("month");
+}
