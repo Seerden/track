@@ -1,4 +1,4 @@
-import useRegister from "./use-register";
+import useRegister from "./useRegister";
 
 function Register() {
 	const register = useRegister();
