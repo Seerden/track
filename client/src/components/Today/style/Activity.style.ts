@@ -23,14 +23,14 @@ const ActivityCard = styled.div<{ $level: number; $offset: number }>`
 	}
 `;
 
-const Activity = styled.div<{ $durationHours: number }>`
+const Activity = styled.div<{ $durationHours: number; $isTask?: boolean }>`
 	display: flex;
 	position: absolute;
 	z-index: 2;
 	height: ${(p) => rowHeight * p.$durationHours}px;
 
 	padding: 0.5rem 1rem;
-	background-color: limegreen;
+	background-color: ${(p) => (p.$isTask ? "dodgerblue" : "limegreen")};
 	align-items: ${(p) => (p.$durationHours > 2 ? "flex-start" : "center")};
 
 	outline: 2px solid #eee;
@@ -41,7 +41,7 @@ const Activity = styled.div<{ $durationHours: number }>`
 
 	&:hover {
 		z-index: 3;
-		background-color: green;
+		background-color: ${(p) => (p.$isTask ? "royalblue" : "forestgreen")};
 		color: azure;
 	}
 `;
