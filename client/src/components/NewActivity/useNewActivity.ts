@@ -1,8 +1,8 @@
+import useAuthentication from "@/lib/useAuthentication";
 import useRouteProps from "@/lib/useRouteProps";
 import type { Datelike } from "@/types/date.types";
 import { hasUserId } from "@/types/server/user-id.guards";
 import { useTagSelection } from "@lib/state/selected-tags-state";
-import useAuthentication from "@lib/use-authentication";
 import type { DateTimeField } from "@type/form.types";
 import type { NewActivity } from "@type/server/activity.types";
 import { useEffect, useMemo, useState } from "react";

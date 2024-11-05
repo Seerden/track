@@ -1,4 +1,4 @@
-import useReconcileSession from "@lib/use-reconcile-session";
+import useReconcileSession from "@/lib/useReconcileSession";
 
 export default function Header() {
 	useReconcileSession();

@@ -1,6 +1,6 @@
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
-import useClickOutside from "@/lib/use-click-outside";
+import useClickOutside from "@/lib/useClickOutside";
 import type { FocusEvent, MouseEvent } from "react";
 import { useRef } from "react";
 
