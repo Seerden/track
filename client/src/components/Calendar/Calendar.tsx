@@ -58,7 +58,7 @@ export default function Calendar({
 
 	return (
 		<S.Calendar>
-			{showMonthPicker ? (
+			{showMonthPicker && (
 				<S.MonthPickerWrapper>
 					<MonthPicker
 						flex="1"
@@ -67,30 +67,27 @@ export default function Calendar({
 						size={"xs"}
 					/>
 				</S.MonthPickerWrapper>
-			) : (
-				<>
-					<S.TitleWrapper>
-						<S.Title onClick={() => setShowMonthPicker(true)}>{title}</S.Title>
-					</S.TitleWrapper>
-					<S.Days>
-						{daysOfWeekShort.map((day) => (
-							<S.Day key={day}>{day}</S.Day>
-						))}
-					</S.Days>
-					<S.Rows>
-						{rows.map((row, i) => (
-							<CalendarRow
-								month={monthAndYear.month}
-								year={monthAndYear.year}
-								key={i}
-								row={row}
-								selectDate={selectDate}
-								selectedDate={selectedDate}
-							/>
-						))}
-					</S.Rows>
-				</>
 			)}
+			<S.TitleWrapper>
+				<S.Title onClick={() => setShowMonthPicker(true)}>{title}</S.Title>
+			</S.TitleWrapper>
+			<S.Days>
+				{daysOfWeekShort.map((day) => (
+					<S.Day key={day}>{day}</S.Day>
+				))}
+			</S.Days>
+			<S.Rows>
+				{rows.map((row, i) => (
+					<CalendarRow
+						month={monthAndYear.month}
+						year={monthAndYear.year}
+						key={i}
+						row={row}
+						selectDate={selectDate}
+						selectedDate={selectedDate}
+					/>
+				))}
+			</S.Rows>
 		</S.Calendar>
 	);
 }

@@ -41,12 +41,13 @@ const Title = styled.h2`
 `;
 
 const MonthPickerWrapper = styled.div`
+	position: absolute;
+	top: 1rem;
 	background-color: #eee;
-	box-shadow: 0 0.5rem 1.5rem 0 #bbb;
+	box-shadow: 0 0.5rem 1rem 0 #777;
 	border-radius: 5px;
 	outline: 2px solid #ccc;
 	z-index: 3;
-	margin: 1px; // with the current default size, this is exactly the margin necessary to prevent layout shift
 `;
 
 const Days = styled.div`
@@ -97,14 +98,6 @@ const Cell = styled.button<StyledCellProps>`
 	height: ${({ height }) => height ?? defaultCellHeight}px;
 
 	${(p) =>
-		p.$selected &&
-		css`
-			background-color: ${highlightColor};
-			color: azure;
-			box-shadow: 0 0 0.2rem 0 #ccc;
-		`}
-
-	${(p) =>
 		// a 'null' cell has no children, so this is nicer than using something like
 		// an EmptyCell, keeps the JSX cleaner.
 		p.children
@@ -129,6 +122,14 @@ const Cell = styled.button<StyledCellProps>`
 					border-radius: none;
 					box-shadow: none;
 				`}
+
+	${(p) =>
+		p.$selected &&
+		css`
+			background-color: ${highlightColor};
+			color: azure;
+			box-shadow: 0 0 0.2rem 0 #ccc;
+		`}
 `;
 
 Cell.defaultProps = {
