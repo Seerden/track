@@ -4,7 +4,7 @@ import { activityEnd, activityStart, hasNotEnded, startsInFuture } from "@/lib/a
 import { createDate } from "@/lib/datetime/make-date";
 import usePutTaskCompletion from "@/lib/hooks/use-put-task-completion";
 import modalIds from "@/lib/modal-ids";
-import useTagsQuery from "@/lib/query/use-tags-query";
+import useTagsQuery from "@/lib/query/useTagsQuery";
 import { Checkbox } from "@/lib/theme/components/Checkbox";
 import type { Datelike } from "@/types/date.types";
 import type { ActivityWithIds } from "@/types/server/activity.types";

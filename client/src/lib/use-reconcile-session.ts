@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import useMeQuery from "./query/use-me-query";
+import useMeQuery from "./query/useMeQuery";
 import useAuthentication from "./use-authentication";
 import { localUser } from "./user-storage";
 
