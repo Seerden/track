@@ -1,21 +1,33 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-const HourMark = styled.span`
+const HourMark = styled.span<{ $highlighted?: boolean }>`
+	--size: 1rem;
+
 	display: flex;
 	align-self: center;
 	position: absolute;
-	line-height: 1.5rem;
-	height: 1.5rem;
-	top: -0.75rem; // TODO: this has to be such that the text is centered right in between two rows
+	line-height: var(--size);
+	height: var(--size);
+	top: calc(-1 * var(--size) / 2);
 	left: -1rem;
-	background-color: #eee;
-	outline: 1px solid #333;
 	font-size: 0.75rem;
-	color: #222;
 	width: max-content;
 	border-radius: 3px;
 	padding: 0 0.5rem;
 	user-select: none;
+
+	${(p) =>
+		p.$highlighted
+			? css`
+					background-color: red;
+					outline: 1px solid white;
+					color: white;
+				`
+			: css`
+					background-color: #eee;
+					outline: 1px solid #ddd;
+					color: #222;
+				`}
 `;
 
 export default {
