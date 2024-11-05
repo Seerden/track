@@ -1,5 +1,5 @@
+import useRouteProps from "@/lib/useRouteProps";
 import useAuthentication from "@lib/use-authentication";
-import useRouteProps from "@lib/use-route-props";
 import type { PropsWithChildren } from "react";
 import Login from "./Login/Login";
 
