@@ -227,7 +227,7 @@ function firstOverlappingActivity(
 				const second = activities.find((a) => a.activity_id === otherId);
 				if (!first || !second) continue;
 				if (isSimultaneousActivity(first, second)) {
-					return sortActivitiesByTime([first, second]).at(0); // .at(1) looks better, but .at(0) looks more like intended order
+					return sortActivitiesByTime([first, second]).at(1); // .at(1) looks better, but .at(0) looks more like intended order
 				}
 			}
 		}
