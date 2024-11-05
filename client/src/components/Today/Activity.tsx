@@ -1,4 +1,4 @@
-import { useDetailedActivityModal } from "@/components/Today/hooks/use-detailed-activity-modal.ts";
+import { useDetailedActivityModal } from "@/components/Today/hooks/useDetailedActivityModal.ts";
 import { activityDuration, activityStart, activityStartHour } from "@/lib/activity.ts";
 import usePutTaskCompletion from "@/lib/hooks/use-put-task-completion.ts";
 import { Checkbox } from "@/lib/theme/components/Checkbox.tsx";
