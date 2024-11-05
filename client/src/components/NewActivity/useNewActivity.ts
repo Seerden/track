@@ -1,4 +1,5 @@
 import useRouteProps from "@/lib/useRouteProps";
+import type { Datelike } from "@/types/date.types";
 import { hasUserId } from "@/types/server/user-id.guards";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import useAuthentication from "@lib/use-authentication";
@@ -49,7 +50,7 @@ export default function useNewActivity() {
 		}));
 	}
 
-	function onDateTimeChange({ name, value }: { name: DateTimeField; value: string }) {
+	function onDateTimeChange({ name, value }: { name: DateTimeField; value: Datelike }) {
 		setNewActivity((current) => ({
 			...current,
 			[name]: value
