@@ -65,6 +65,7 @@ export default function Activity({ activity, level }: ActivityProps) {
 							type="checkbox"
 							checked={activity.completed}
 							style={{ display: "none" }}
+							onChange={() => undefined} // TODO: this is just to prevent a warning
 						/>
 						<Checkbox checked={activity.completed} />
 					</S.CheckboxWrapper>
