@@ -1,6 +1,6 @@
 import { buildCalendarRows } from "@/components/Calendar/build-calendar-rows";
 import type { MonthAndYear } from "@/components/Calendar/calendar.types";
-import { toMonthAndYear } from "@/lib/datetime/format-date";
+import { formatToMonthAndYear } from "@/lib/datetime/format-date";
 import { createDate, firstOfTheMonth } from "@/lib/datetime/make-date";
 import type { Maybe } from "@/types/server/utility.types";
 import type { Dayjs } from "dayjs";
@@ -43,7 +43,10 @@ export function useCalendar({ initialMonth, initialYear, onChange }: UseCalendar
 
 	const rows = buildCalendarRows(firstDayOfTheMonth);
 
-	const title = useMemo(() => toMonthAndYear(firstDayOfTheMonth), [firstDayOfTheMonth]);
+	const title = useMemo(
+		() => formatToMonthAndYear(firstDayOfTheMonth),
+		[firstDayOfTheMonth]
+	);
 
 	return {
 		monthAndYear,

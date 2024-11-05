@@ -17,7 +17,7 @@ export function formatHour(
 	return `${index < 10 ? "0" : ""}${index}:00`;
 }
 
-export function toMonthAndYear(date: Datelike): string {
+export function formatToMonthAndYear(date: Datelike): string {
 	const d = createDate(date);
 	return d.format("MMMM YYYY");
 }
