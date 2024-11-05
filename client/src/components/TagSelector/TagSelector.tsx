@@ -11,7 +11,7 @@ import { FaChevronDown, FaChevronUp, FaExpand } from "react-icons/fa";
 import { MdOutlineFilterListOff } from "react-icons/md";
 import NewTagButton from "./NewTagButton";
 import S from "./TagSelector.style";
-import useTagSelector from "./use-tag-selector";
+import useTagSelector from "./useTagSelector";
 
 export default function TagSelector(p: TagSelectorProps) {
 	const t = useTagSelector({ maximum: p.maximum, tagsById: p.tagsById });
