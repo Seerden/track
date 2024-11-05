@@ -43,7 +43,11 @@ export default function Activity({ activity, level }: ActivityProps) {
 			}}
 		>
 			{/* TODO: on mouseover, display a short humanized time string */}
-			<T.Activity $isTask={activity.is_task} $durationHours={durationHours}>
+			<T.Activity
+				$isTask={activity.is_task}
+				$durationHours={durationHours}
+				$completed={activity.completed}
+			>
 				<T.ActivityName>{activity.name}</T.ActivityName>
 			</T.Activity>
 		</T.ActivityCard>
