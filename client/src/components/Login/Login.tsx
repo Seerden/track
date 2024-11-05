@@ -1,4 +1,4 @@
-import useLogin from "./use-login";
+import useLogin from "./useLogin";
 
 function Login() {
 	const login = useLogin();
