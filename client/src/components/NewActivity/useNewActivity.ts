@@ -7,7 +7,7 @@ import type { DateTimeField } from "@type/form.types";
 import type { NewActivity } from "@type/server/activity.types";
 import { useEffect, useMemo, useState } from "react";
 import { parseNewActivity } from "./parse-new-activity";
-import { useNewActivityMutation } from "./use-new-activity-mutation";
+import { useNewActivityMutation } from "./useNewActivityMutation";
 
 export default function useNewActivity() {
 	const { mutate: submit } = useNewActivityMutation();
