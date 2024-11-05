@@ -1,3 +1,5 @@
+import CurrentTimeMark from "@/components/Today/CurrentTimeMark";
+import useCurrentTime from "@/lib/hooks/useCurrentTime";
 import type { ActivityWithIds } from "@type/server/activity.types";
 import type { ID } from "@type/server/utility.types";
 import Activity from "./Activity";
@@ -11,9 +13,15 @@ type RowProps = {
 };
 
 export default function TimelineRow({ index, activities, indentation }: RowProps) {
+	const currentTime = useCurrentTime();
+	const isCurrentHour = currentTime.hour() === index;
+	const offset = currentTime.minute() / 60;
+
 	return (
 		<R.Row>
-			<HourMark index={index} />
+			<HourMark index={index} highlighted={isCurrentHour} />
+
+			{isCurrentHour && <CurrentTimeMark offset={offset} />}
 
 			{activities.map((a) => (
 				<Activity
