@@ -7,7 +7,7 @@ export type CalendarProps = {
 	/** Year to focus on initially. */
 	initialYear: number;
 	/** Function to set the selected date. */
-	setState?: React.Dispatch<React.SetStateAction<Maybe<Dayjs>>>;
+	onChange?: React.Dispatch<React.SetStateAction<Maybe<Dayjs>>>;
 };
 
 export type MonthAndYear = {

@@ -41,16 +41,12 @@ function CalendarRow({ month, year, row, selectDate, selectedDate }: CalendarRow
 	);
 }
 
-export default function Calendar({
-	initialMonth,
-	initialYear,
-	setState: setExternalState
-}: CalendarProps) {
+export default function Calendar({ initialMonth, initialYear, onChange }: CalendarProps) {
 	const { monthAndYear, setMonthAndYear, title, rows, selectDate, selectedDate } =
 		useCalendar({
 			initialMonth,
 			initialYear,
-			setExternalState
+			onChange
 		});
 
 	const { handleMonthChange, showMonthPicker, setShowMonthPicker, monthValue } =

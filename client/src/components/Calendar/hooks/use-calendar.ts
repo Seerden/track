@@ -7,19 +7,15 @@ import type { Dayjs } from "dayjs";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 type UseCalendarProps = CalendarProps & {
-	setExternalState?: React.Dispatch<React.SetStateAction<Maybe<Dayjs>>>;
+	onChange?: React.Dispatch<React.SetStateAction<Maybe<Dayjs>>>;
 };
 
 /** Functionality hook for Calendar.tsx */
-export function useCalendar({
-	initialMonth,
-	initialYear,
-	setExternalState,
-}: UseCalendarProps) {
+export function useCalendar({ initialMonth, initialYear, onChange }: UseCalendarProps) {
 	const [selectedDate, setSelectedDate] = useState<Maybe<Dayjs>>();
 
 	useEffect(() => {
-		if (selectedDate) setExternalState?.(selectedDate);
+		if (selectedDate) onChange?.(selectedDate);
 	}, [selectedDate]);
 
 	const [monthAndYear, setMonthAndYear] = useState<MonthAndYear>(() => ({
