@@ -90,7 +90,7 @@ export function isAllDaySingleDayActivity(activity: ActivityWithIds) {
 export function isAllDayActivityOnDate(activity: ActivityWithIds, date: Datelike) {
 	const [startOfDay, endOfDay] = [
 		createDate(date).startOf("day"),
-		createDate(date).endOf("day"),
+		createDate(date).endOf("day")
 	];
 	const [startActivity, endActivity] = [activityStart(activity), activityEnd(activity)];
 	return !startOfDay.isBefore(startActivity) && !endOfDay.isAfter(endActivity);
@@ -98,7 +98,7 @@ export function isAllDayActivityOnDate(activity: ActivityWithIds, date: Datelike
 
 export function getAllStartAndEndTimesOnDate(
 	activities: ActivityWithIds[],
-	date: Datelike,
+	date: Datelike
 ) {
 	const times = new Set<number>();
 
@@ -157,14 +157,14 @@ function activityOccursOnTimestamp(activity: ActivityWithIds, timestamp: number)
  * */
 export function assignIndentationLevelToActivities(
 	activities: ActivityWithIds[],
-	date: Datelike,
+	date: Datelike
 ) {
 	const timestamps = getAllStartAndEndTimesOnDate(activities, date);
 	const indentation = new Map<ID, number>();
 
 	for (const timestamp of timestamps) {
 		const activitiesAtTimestamp = activities.filter((a) =>
-			activityOccursOnTimestamp(a, timestamp),
+			activityOccursOnTimestamp(a, timestamp)
 		);
 
 		const sortedByStartAndEnd = activitiesAtTimestamp.sort((a, b) => {
@@ -177,7 +177,7 @@ export function assignIndentationLevelToActivities(
 		for (const [index, value] of sortedByStartAndEnd.entries()) {
 			indentation.set(
 				value.activity_id,
-				Math.max(index, indentation.get(value.activity_id) ?? 0),
+				Math.max(index, indentation.get(value.activity_id) ?? 0)
 			);
 		}
 	}

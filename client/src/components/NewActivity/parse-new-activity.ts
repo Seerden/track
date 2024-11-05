@@ -10,7 +10,7 @@ import { type NewActivity } from "@type/server/activity.types";
  * actually satisfies this requirement.
  */
 export function parseNewActivity(
-	newActivity: AtLeast<Partial<NewActivity>, "user_id">,
+	newActivity: AtLeast<Partial<NewActivity>, "user_id">
 ): NewActivity {
 	const requiredFields: (keyof NewActivity)[] = ["user_id", "name"];
 
@@ -24,7 +24,7 @@ export function parseNewActivity(
 		"start_date",
 		"end_date",
 		"started_at",
-		"ended_at",
+		"ended_at"
 	];
 
 	for (const field of dateFields) {
@@ -53,7 +53,7 @@ export function parseNewActivity(
 /** TODO: currently unused -- have a careful look at what a valid new activity
  * is, then use this both client-side and server-side. */
 export function isValidNewActivity(
-	newActivity: AtLeast<Partial<NewActivity>, "user_id">,
+	newActivity: AtLeast<Partial<NewActivity>, "user_id">
 ): newActivity is NewActivity {
 	return (
 		newActivity.user_id !== undefined &&

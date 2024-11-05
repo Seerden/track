@@ -11,7 +11,7 @@ type UseModalProps = {
 
 export default function useModal(
 	modalRef: RefObject<HTMLElement | null>,
-	{ keys, outsideClickHandler, modalId, initialOpen }: UseModalProps,
+	{ keys, outsideClickHandler, modalId, initialOpen }: UseModalProps
 ) {
 	const { state, setModalOpen } = useModalState(modalId);
 

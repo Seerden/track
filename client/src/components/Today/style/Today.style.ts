@@ -110,5 +110,5 @@ export default {
 	Columns,
 	Header,
 	Tags,
-	AllDayActivityList,
+	AllDayActivityList
 };

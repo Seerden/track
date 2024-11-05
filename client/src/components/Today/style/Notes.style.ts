@@ -32,5 +32,5 @@ const NoteContent = styled.div`
 export default {
 	Note,
 	NoteTitle,
-	NoteContent,
+	NoteContent
 };

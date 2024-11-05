@@ -9,7 +9,7 @@ import { localUser } from "../user-storage";
 export async function getMe() {
 	const response = await fetch(`${baseUrl}/auth/me`, {
 		credentials: "include",
-		method: "GET",
+		method: "GET"
 	});
 	const data = await response.json();
 
@@ -30,6 +30,6 @@ export default function useMeQuery() {
 	return useQuery<UserData>({
 		queryKey: ["me"],
 		queryFn: getMe,
-		...defaultQueryConfig,
+		...defaultQueryConfig
 	});
 }

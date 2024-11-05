@@ -7,6 +7,6 @@ export default function useNotes() {
 
 	return {
 		notes,
-		tags,
+		tags
 	};
 }

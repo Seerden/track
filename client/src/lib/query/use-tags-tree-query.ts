@@ -8,7 +8,7 @@ export async function getTagsTree() {
 	const url = makeAuthorizedUrl("/data/tags/tree");
 	const response = await fetch(url, {
 		credentials: "include",
-		method: "GET",
+		method: "GET"
 	});
 	return response.json();
 }
@@ -22,6 +22,6 @@ export default function useTagsTreeQuery() {
 		// add user_id to the queryKey
 		queryKey: ["tags", "tree"],
 		queryFn: getTagsTree,
-		...defaultQueryConfig,
+		...defaultQueryConfig
 	});
 }

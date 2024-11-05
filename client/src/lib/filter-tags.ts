@@ -7,7 +7,7 @@ import type { ById, ID, Maybe } from "../types/server/utility.types";
  */
 export function filterTagsById(
 	ids: Maybe<ID[]>,
-	tagsById: ById<TagWithIds> = {},
+	tagsById: ById<TagWithIds> = {}
 ): TagWithIds[] {
 	if (!ids?.length) return [];
 

@@ -13,6 +13,6 @@ export function useNewNoteMutation() {
 		async mutationFn({ note, tagIds }) {
 			return postNote({ note, tagIds });
 		},
-		mutationKey: ["new-note"],
+		mutationKey: ["new-note"]
 	});
 }

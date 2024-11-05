@@ -133,7 +133,7 @@ const Cell = styled.button<StyledCellProps>`
 `;
 
 Cell.defaultProps = {
-	type: "button",
+	type: "button"
 };
 
 export default {
@@ -145,5 +145,5 @@ export default {
 	Day,
 	Cell,
 	Rows,
-	Row,
+	Row
 };

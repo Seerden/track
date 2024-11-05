@@ -9,7 +9,7 @@ async function getNotes() {
 	const url = makeAuthorizedUrl("/data/notes");
 	const response = await fetch(url, {
 		credentials: "include",
-		method: "GET",
+		method: "GET"
 	});
 
 	return response.json();
@@ -21,6 +21,6 @@ export default function useNotesQuery() {
 	return useQuery<NotesData>({
 		queryKey: ["notes"],
 		queryFn: getNotes,
-		...defaultQueryConfig,
+		...defaultQueryConfig
 	});
 }

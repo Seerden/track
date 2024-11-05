@@ -17,7 +17,7 @@ export default function useLogin() {
 	function onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
 		setUserLogin((current) => ({
 			...current,
-			[event.target.name]: event.target.value,
+			[event.target.name]: event.target.value
 		}));
 	}
 
@@ -35,7 +35,7 @@ export default function useLogin() {
 				// modal. probably we redirect to the user's home page, because I
 				// expect almost everyting will be behind a login wall.
 				localUser.set(user);
-			},
+			}
 		});
 	}
 
@@ -44,6 +44,6 @@ export default function useLogin() {
 		togglePasswordVisible,
 		userLogin,
 		onInputChange,
-		onSubmit,
+		onSubmit
 	};
 }

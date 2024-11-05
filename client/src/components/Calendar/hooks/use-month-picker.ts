@@ -12,7 +12,7 @@ type UseMonthPickerProps = {
 export default function useMonthPicker({
 	initialMonth,
 	initialYear,
-	onChange,
+	onChange
 }: UseMonthPickerProps) {
 	const [showMonthPicker, setShowMonthPicker] = useState(false);
 	const initialValue = new Date(initialYear, initialMonth, 1); // note: MonthPicker expects Date, so don't use our dayjs helpers
@@ -24,7 +24,7 @@ export default function useMonthPicker({
 		setMonthValue(value);
 		onChange?.({
 			month: value.getMonth(),
-			year: value.getFullYear(),
+			year: value.getFullYear()
 		});
 		setShowMonthPicker(false);
 	}
@@ -34,6 +34,6 @@ export default function useMonthPicker({
 		setShowMonthPicker,
 		monthValue,
 		setMonthValue,
-		handleMonthChange,
+		handleMonthChange
 	};
 }

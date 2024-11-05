@@ -13,7 +13,7 @@ export default function useNewTag() {
 
 	const [newTag, setNewTag] = useState<NewTag>({
 		name: "",
-		user_id: currentUser!.user_id, // TODO: find a way to refine this typing so that currentUser cannot be undefined here
+		user_id: currentUser!.user_id // TODO: find a way to refine this typing so that currentUser cannot be undefined here
 	});
 
 	const { selectedTagIds, resetTagSelection } = useTagSelection();
@@ -43,14 +43,14 @@ export default function useNewTag() {
 					// TODO: redirect
 					// TODO: invalidate or refetch tags query, maybe also optimistically
 					// update the tags query with the new tag already
-				},
-			},
+				}
+			}
 		);
 	}
 
 	return {
 		onInputChange,
 		onSubmit,
-		tags,
+		tags
 	};
 }

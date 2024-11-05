@@ -20,21 +20,21 @@ export function useCalendar({ initialMonth, initialYear, onChange }: UseCalendar
 
 	const [monthAndYear, setMonthAndYear] = useState<MonthAndYear>(() => ({
 		month: initialMonth,
-		year: initialYear,
+		year: initialYear
 	}));
 
 	const firstDayOfTheMonth = useMemo(
 		() => firstOfTheMonth(monthAndYear), // TODO: use firstDayOfMonth function here
-		[monthAndYear],
+		[monthAndYear]
 	);
 
 	const selectDate = useCallback(
 		(day: number) => {
 			setSelectedDate(
-				createDate(new Date(monthAndYear.year, monthAndYear.month, day)),
+				createDate(new Date(monthAndYear.year, monthAndYear.month, day))
 			);
 		},
-		[monthAndYear, setSelectedDate],
+		[monthAndYear, setSelectedDate]
 	);
 
 	const rows = buildCalendarRows(firstDayOfTheMonth);
@@ -47,6 +47,6 @@ export function useCalendar({ initialMonth, initialYear, onChange }: UseCalendar
 		rows,
 		title,
 		selectDate,
-		selectedDate,
+		selectedDate
 	} as const;
 }

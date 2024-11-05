@@ -4,12 +4,12 @@ module.exports = {
 		docs: {
 			description: "Disallow named exports in .style.ts files",
 			category: "Best Practices",
-			recommended: false,
+			recommended: false
 		},
 		messages: {
 			noNamedExports:
-				"Named exports of styled components are not allowed in .style.ts files. Use a single default export for styled components instead.",
-		},
+				"Named exports of styled components are not allowed in .style.ts files. Use a single default export for styled components instead."
+		}
 	},
 	create(context) {
 		return {
@@ -26,11 +26,11 @@ module.exports = {
 					if (declaration?.init?.tag?.object?.name === "styled") {
 						context.report({
 							node,
-							messageId: "noNamedExports",
+							messageId: "noNamedExports"
 						});
 					}
 				});
-			},
+			}
 		};
-	},
+	}
 };

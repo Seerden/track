@@ -15,7 +15,7 @@ const Badge = styled.div<{ height?: CSS.Properties["height"] }>`
 `;
 
 const BadgeStyles = {
-	Badge,
+	Badge
 };
 
 export default BadgeStyles;

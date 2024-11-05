@@ -24,10 +24,10 @@ function useToday() {
 		return activityFallsOnDay(activity, currentDate);
 	});
 	const allDayActivities = activities.filter((activity) =>
-		isAllDayActivityOnDate(activity, currentDate),
+		isAllDayActivityOnDate(activity, currentDate)
 	);
 	const timestampedActivities = activities.filter(
-		(activity) => !isAllDayActivityOnDate(activity, currentDate),
+		(activity) => !isAllDayActivityOnDate(activity, currentDate)
 	);
 
 	const { state } = useModalState(modalIds.detailedActivity);
@@ -45,7 +45,7 @@ function useToday() {
 		timestampedActivities,
 		currentDate,
 		shouldShowDetailedActivity,
-		selectedActivity,
+		selectedActivity
 	} as const;
 }
 

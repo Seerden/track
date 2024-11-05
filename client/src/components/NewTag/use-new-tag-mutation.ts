@@ -18,8 +18,8 @@ export function useNewTagMutation() {
 		mutationKey: ["new-tag"],
 		onSuccess: () => {
 			queryClient.invalidateQueries({
-				queryKey: ["tags"],
+				queryKey: ["tags"]
 			});
-		},
+		}
 	});
 }

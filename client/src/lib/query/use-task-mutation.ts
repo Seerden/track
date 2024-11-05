@@ -18,6 +18,6 @@ export default function useTaskCompletionMutation() {
 		mutationKey: ["task-completion"],
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["activities"] });
-		},
+		}
 	});
 }

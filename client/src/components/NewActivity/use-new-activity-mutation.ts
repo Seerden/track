@@ -5,7 +5,7 @@ import type { ActivityInput, ActivityWithIds } from "@type/server/activity.types
 
 async function postNewActivity({
 	activity,
-	tagIds,
+	tagIds
 }: ActivityInput): Promise<ActivityWithIds> {
 	const url = makeAuthorizedUrl("/data/activity");
 	const insertedActivity: Promise<ActivityWithIds> = (
@@ -20,6 +20,6 @@ export function useNewActivityMutation() {
 		async mutationFn(activityInput) {
 			return postNewActivity(activityInput);
 		},
-		mutationKey: ["new-activity"],
+		mutationKey: ["new-activity"]
 	});
 }

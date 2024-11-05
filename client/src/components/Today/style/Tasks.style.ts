@@ -68,5 +68,5 @@ export default {
 	TaskName,
 	Times,
 	Tasks,
-	Task,
+	Task
 };

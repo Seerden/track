@@ -11,5 +11,5 @@ const Row = styled.li`
 `;
 
 export default {
-	Row,
+	Row
 };

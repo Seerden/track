@@ -5,14 +5,14 @@ import {
 	selector,
 	useRecoilState,
 	useRecoilValue,
-	useResetRecoilState,
+	useResetRecoilState
 } from "recoil";
 
 // TODO: we might want to use an atom famiy here to allow for multiple tag
 // selection states
 export const tagSelectionState = atom<ById<boolean>>({
 	default: {},
-	key: "selectedTags",
+	key: "selectedTags"
 });
 
 // TODO: this is WIP -- have to see if it works as I expect and also implement
@@ -21,7 +21,7 @@ export const tagSelectionState = atom<ById<boolean>>({
 // atom. See #64.
 export const tagSelectionFamilyState = atomFamily<ById<boolean>, string>({
 	key: "selectedTagsFamily",
-	default: () => ({}),
+	default: () => ({})
 });
 
 export const selectedTagIdsSelector = selector({
@@ -31,7 +31,7 @@ export const selectedTagIdsSelector = selector({
 			.filter((tagId) => selectedTags[+tagId])
 			.map((id) => +id);
 	},
-	key: "selectedTagIds",
+	key: "selectedTagIds"
 });
 
 export function useTagSelection() {
@@ -50,6 +50,6 @@ export function useTagSelection() {
 		toggleTagSelection,
 		selectedTagIds,
 		setTagSelection,
-		resetTagSelection,
+		resetTagSelection
 	};
 }

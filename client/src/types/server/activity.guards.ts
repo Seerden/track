@@ -1,11 +1,11 @@
 import type {
 	ActivityWithDates,
-	ActivityWithTimestamps,
+	ActivityWithTimestamps
 } from "@/types/server/activity.types";
 import { missing } from "@/types/server/utility.guards";
 
 function isActivityWithTimestamps(
-	activity: Partial<ActivityWithTimestamps | ActivityWithDates>,
+	activity: Partial<ActivityWithTimestamps | ActivityWithDates>
 ): activity is ActivityWithTimestamps {
 	return (
 		activity.started_at !== null &&
@@ -16,7 +16,7 @@ function isActivityWithTimestamps(
 }
 
 function isActivityWithDates(
-	activity: Partial<ActivityWithTimestamps | ActivityWithDates>,
+	activity: Partial<ActivityWithTimestamps | ActivityWithDates>
 ): activity is ActivityWithDates {
 	return (
 		missing(activity.started_at) &&
@@ -28,5 +28,5 @@ function isActivityWithDates(
 
 export const activityGuards = {
 	withTimestamps: isActivityWithTimestamps,
-	withDates: isActivityWithDates,
+	withDates: isActivityWithDates
 };
