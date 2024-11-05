@@ -20,6 +20,6 @@ export function createDate(date: Datelike) {
 	return dayjs(date).utc().local();
 }
 
-export function firstOfTheMonth({ month, year }: { month: number; year: number }) {
+export function createFirstOfTheMonth({ month, year }: { month: number; year: number }) {
 	return createDate(new Date(year, month)).startOf("month");
 }

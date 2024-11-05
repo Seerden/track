@@ -1,7 +1,7 @@
 import { buildCalendarRows } from "@/components/Calendar/build-calendar-rows";
 import type { MonthAndYear } from "@/components/Calendar/calendar.types";
 import { formatToMonthAndYear } from "@/lib/datetime/format-date";
-import { createDate, firstOfTheMonth } from "@/lib/datetime/make-date";
+import { createDate, createFirstOfTheMonth } from "@/lib/datetime/make-date";
 import type { Maybe } from "@/types/server/utility.types";
 import type { Dayjs } from "dayjs";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -26,7 +26,7 @@ export function useCalendar({ initialMonth, initialYear, onChange }: UseCalendar
 	}));
 
 	const firstDayOfTheMonth = useMemo(
-		() => firstOfTheMonth(monthAndYear),
+		() => createFirstOfTheMonth(monthAndYear),
 		[monthAndYear]
 	);
 
