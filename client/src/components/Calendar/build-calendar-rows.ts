@@ -3,9 +3,11 @@ import type { Dayjs } from "dayjs";
 
 /**
  * Every row in a calendar has 7 cells (1 cell for each weekday), but the first
- * row may have some empty cells, depending on what day of the week the month
- * starts on.
- *
+ * (and last) rows may have some empty cells, depending on what day of the week
+ * the month starts on.
+ */
+
+/*
  * We'll build the rows as follows:
  * (1) create an array of indexes (where each index represents the day of the month)
  *   (e.g. [1, 2, 3, ..., 31])
@@ -15,7 +17,7 @@ import type { Dayjs } from "dayjs";
  */
 
 /** Given a Dayjs object, build a (null|number)[] that contains the cells
- * required to display in a calendar format. Null cells represent days belonging
+ * required to display a calendar. Null cells represent days belonging
  * to other months, numbered cells refer to the days of the month (e.g. 1 refers
  * to the first day of the month, etc.)
  *

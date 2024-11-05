@@ -1,12 +1,14 @@
 import { buildCalendarRows } from "@/components/Calendar/build-calendar-rows";
-import type { CalendarProps, MonthAndYear } from "@/components/Calendar/calendar.types";
+import type { MonthAndYear } from "@/components/Calendar/calendar.types";
 import { toMonthAndYear } from "@/lib/datetime/format-date";
 import { createDate, firstOfTheMonth } from "@/lib/datetime/make-date";
 import type { Maybe } from "@/types/server/utility.types";
 import type { Dayjs } from "dayjs";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-type UseCalendarProps = CalendarProps & {
+type UseCalendarProps = {
+	initialMonth: number;
+	initialYear: number;
 	onChange?: React.Dispatch<React.SetStateAction<Maybe<Dayjs>>>;
 };
 
