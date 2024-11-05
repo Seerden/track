@@ -48,6 +48,7 @@ export default function Task({ activity, tags = [] }: TaskProps) {
 					type="checkbox"
 					style={{ display: "none" }}
 					checked={activity.completed}
+					onChange={() => undefined} // TODO: this is just to prevent a warning
 				/>
 				<Checkbox checked={activity.completed} />
 			</S.CheckboxWrapper>

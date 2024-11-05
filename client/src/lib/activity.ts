@@ -122,7 +122,7 @@ export function getAllStartAndEndTimesOnDate(
 		}
 	}
 
-	return times;
+	return new Set(Array.from(times).sort());
 }
 
 function activityOccursOnTimestamp(activity: ActivityWithIds, timestamp: number) {
@@ -167,22 +167,63 @@ export function assignIndentationLevelToActivities(
 			activityOccursOnTimestamp(a, timestamp)
 		);
 
-		const sortedByStartAndEnd = activitiesAtTimestamp.sort((a, b) => {
-			const [startA, endA] = [activityStart(a), activityEnd(a)];
-			const [startB, endB] = [activityStart(b), activityEnd(b)];
-
-			return startA.isSame(startB) ? endA.diff(endB) : startA.diff(startB);
-		});
+		const sortedByStartAndEnd = sortActivitiesByTime(activitiesAtTimestamp);
 
 		for (const [index, value] of sortedByStartAndEnd.entries()) {
-			indentation.set(
-				value.activity_id,
-				Math.max(index, indentation.get(value.activity_id) ?? 0)
-			);
+			const newLevel = Math.max(index, indentation.get(value.activity_id) ?? 0);
+
+			indentation.set(value.activity_id, newLevel);
 		}
 	}
 
+	let activityToOffset = offsetOverlapping(activities, indentation);
+	// TODO: absolutely ideally, newLevel would be specific to the ID that is
+	// being offset, but that complicates the logic for offsetOverlapping for
+	// little gain; the most important thing is just to have no overlapping
+	// activities on the timeline, and this works well enough for realistic
+	// use-cases.
+	let newLevel = 0;
+	while (activityToOffset) {
+		indentation.set(activityToOffset.activity_id, newLevel++);
+
+		activityToOffset = offsetOverlapping(activities, indentation);
+	}
+
 	return indentation;
+}
+
+function sortActivitiesByTime(activities: ActivityWithIds[]) {
+	return activities.sort((a, b) => {
+		const [startA, endA] = [activityStart(a), activityEnd(a)];
+		const [startB, endB] = [activityStart(b), activityEnd(b)];
+
+		return startA.isSame(startB) ? endA.diff(endB) : startA.diff(startB);
+	});
+}
+
+function offsetOverlapping(activities: ActivityWithIds[], indentation: Map<ID, number>) {
+	const grouped = Array.from(
+		{ length: 1 + Math.max(...Array.from(indentation.values())) },
+		() => [] as number[]
+	);
+	for (const [id, level] of indentation.entries()) {
+		grouped[level]?.push(id);
+	}
+
+	for (const group of grouped) {
+		for (const id of group) {
+			// rest of group
+			const rest = group.filter((i) => i !== id);
+			for (const otherId of rest) {
+				const first = activities.find((a) => a.activity_id === id);
+				const second = activities.find((a) => a.activity_id === otherId);
+				if (!first || !second) continue;
+				if (isSimultaneousActivity(first, second)) {
+					return sortActivitiesByTime([first, second]).at(0); // .at(1) looks better, but .at(0) is what's intended
+				}
+			}
+		}
+	}
 }
 
 export function startsInFuture(activity: ActivityWithIds) {
