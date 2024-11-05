@@ -41,16 +41,20 @@ function CalendarRow({ month, year, row, selectDate, selectedDate }: CalendarRow
 	);
 }
 
-export default function Calendar({ initialMonth, initialYear, onChange }: CalendarProps) {
+export default function Calendar({
+	initialMonth,
+	initialYear,
+	onChange: setExternalState
+}: CalendarProps) {
 	const { monthAndYear, setMonthAndYear, title, rows, selectDate, selectedDate } =
 		useCalendar({
 			initialMonth,
 			initialYear,
-			onChange
+			onChange: setExternalState
 		});
 
 	const { handleMonthChange, showMonthPicker, setShowMonthPicker, monthValue } =
-		useMonthPicker({ initialMonth, initialYear, setExternalState: setMonthAndYear });
+		useMonthPicker({ initialMonth, initialYear, onChange: setMonthAndYear });
 
 	return (
 		<S.Calendar>
