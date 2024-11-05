@@ -1,5 +1,5 @@
 import { rowHeight } from "@/components/Today/style/TimelineRow.style";
-import { styled } from "styled-components";
+import { css, styled } from "styled-components";
 import S from "./Today.style";
 
 const cardWidth = 175;
@@ -7,6 +7,8 @@ const cardGap = 5;
 
 const ActivityCard = styled.div<{ $level: number; $offset: number }>`
 	position: absolute;
+	cursor: pointer;
+	user-select: none;
 	top: calc(${(p) => p.$offset * 100}%);
 	left: calc(3rem + ${(p) => p.$level * (cardGap + cardWidth)}px);
 	font-size: 0.86rem;
@@ -23,14 +25,18 @@ const ActivityCard = styled.div<{ $level: number; $offset: number }>`
 	}
 `;
 
-const Activity = styled.div<{ $durationHours: number }>`
+const Activity = styled.div<{
+	$durationHours: number;
+	$isTask?: boolean;
+	$completed?: boolean;
+}>`
 	display: flex;
 	position: absolute;
 	z-index: 2;
 	height: ${(p) => rowHeight * p.$durationHours}px;
 
 	padding: 0.5rem 1rem;
-	background-color: limegreen;
+	background-color: ${(p) => (p.$isTask ? "dodgerblue" : "limegreen")};
 	align-items: ${(p) => (p.$durationHours > 2 ? "flex-start" : "center")};
 
 	outline: 2px solid #eee;
@@ -39,9 +45,19 @@ const Activity = styled.div<{ $durationHours: number }>`
 
 	transition: all 35ms ease-in;
 
+	${(p) =>
+		p.$completed &&
+		css`
+			opacity: 0.4;
+
+			&:hover {
+				opacity: 0.8;
+			}
+		`}
+
 	&:hover {
 		z-index: 3;
-		background-color: green;
+		background-color: ${(p) => (p.$isTask ? "royalblue" : "forestgreen")};
 		color: azure;
 	}
 `;

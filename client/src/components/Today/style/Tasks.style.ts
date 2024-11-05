@@ -39,6 +39,7 @@ const Tasks = styled.ul`
 const Task = styled.li`
 	user-select: none;
 	list-style: none;
+	cursor: pointer;
 	box-sizing: border-box;
 	font-size: 0.9rem;
 	display: grid;
