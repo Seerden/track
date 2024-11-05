@@ -2,7 +2,7 @@ import Modal from "@/components/Modal";
 import S from "@/components/Today/style/DetailedActivity.style";
 import { activityEnd, activityStart, hasNotEnded, startsInFuture } from "@/lib/activity";
 import { createDate } from "@/lib/datetime/make-date";
-import usePutTaskCompletion from "@/lib/hooks/use-put-task-completion";
+import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
 import useTagsQuery from "@/lib/query/useTagsQuery";
 import { Checkbox } from "@/lib/theme/components/Checkbox";

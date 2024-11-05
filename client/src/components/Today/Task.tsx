@@ -1,5 +1,5 @@
 import { useDetailedActivityModal } from "@/components/Today/hooks/useDetailedActivityModal";
-import usePutTaskCompletion from "@/lib/hooks/use-put-task-completion";
+import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import { Checkbox } from "@/lib/theme/components/Checkbox";
 import { activityEnd, activityStart } from "@lib/activity";
 import type { ActivityWithIds } from "@type/server/activity.types";
