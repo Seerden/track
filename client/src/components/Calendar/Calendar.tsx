@@ -11,7 +11,7 @@ type CalendarRowProps = {
 	month: number;
 	year: number;
 	row: Row;
-	selectDate: (day: number) => void;
+	selectDate: (day: number | null) => void;
 	selectedDate?: Maybe<Dayjs>;
 };
 
@@ -31,7 +31,7 @@ function CalendarRow({ month, year, row, selectDate, selectedDate }: CalendarRow
 				<S.Cell
 					disabled={day === null}
 					key={index}
-					onClick={() => (day ? selectDate(day) : undefined)}
+					onClick={() => selectDate(day)}
 					$selected={isSelected(day)}
 				>
 					{day}

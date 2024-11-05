@@ -24,12 +24,14 @@ export function useCalendar({ initialMonth, initialYear, onChange }: UseCalendar
 	}));
 
 	const firstDayOfTheMonth = useMemo(
-		() => firstOfTheMonth(monthAndYear), // TODO: use firstDayOfMonth function here
+		() => firstOfTheMonth(monthAndYear),
 		[monthAndYear]
 	);
 
 	const selectDate = useCallback(
-		(day: number) => {
+		(day: number | null) => {
+			if (day === null) return;
+
 			setSelectedDate(
 				createDate(new Date(monthAndYear.year, monthAndYear.month, day))
 			);
