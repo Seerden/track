@@ -1,5 +1,5 @@
 import { filterTagsById } from "@/lib/filter-tags";
-import useTagsQuery from "@lib/query/use-tags-query";
+import useTagsQuery from "@/lib/query/useTagsQuery";
 import type { ActivityWithIds } from "@type/server/activity.types";
 import Task from "./Task";
 import T from "./style/Tasks.style";

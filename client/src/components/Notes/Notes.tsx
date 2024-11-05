@@ -2,7 +2,7 @@ import { formatDate } from "@lib/datetime/format-date";
 import type { TagsData } from "@type/data.types";
 import type { NoteWithIds } from "@type/server/note.types";
 import * as S from "./Notes.style";
-import useNotes from "./use-notes";
+import useNotes from "./useNotes";
 
 function makeNoteTitle(note: NoteWithIds) {
 	return note.title?.length ? note.title : formatDate(note.created_at);

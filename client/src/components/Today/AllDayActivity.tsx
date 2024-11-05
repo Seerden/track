@@ -1,5 +1,5 @@
-import { useDetailedActivityModal } from "@/components/Today/hooks/use-detailed-activity-modal";
-import usePutTaskCompletion from "@/lib/hooks/use-put-task-completion";
+import { useDetailedActivityModal } from "@/components/Today/hooks/useDetailedActivityModal";
+import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import { Checkbox } from "@/lib/theme/components/Checkbox";
 import type { ActivityWithIds } from "@/types/server/activity.types";
 import { useRef } from "react";

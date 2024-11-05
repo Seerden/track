@@ -3,7 +3,7 @@ import type { ActivityWithIds } from "@type/server/activity.types";
 import type { TagWithIds } from "@type/server/tag.types";
 import * as S from "./ActivityList.style";
 import { getFormattedDateField } from "./get-date-field";
-import useActivityList from "./use-activity-list";
+import useActivityList from "./useActivityList";
 
 export default function ActivityList() {
 	const { activitiesData, tagsData } = useActivityList();

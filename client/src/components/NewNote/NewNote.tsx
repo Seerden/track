@@ -1,7 +1,7 @@
 import modalIds from "@/lib/modal-ids";
 import TagSelector from "../TagSelector/TagSelector";
 import * as S from "./NewNote.style";
-import useNewNote from "./use-new-note";
+import useNewNote from "./useNewNote";
 
 type NewNoteProps = {
 	inActivity?: boolean;

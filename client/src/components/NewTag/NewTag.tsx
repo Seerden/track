@@ -1,6 +1,6 @@
 import TagSelector from "../TagSelector/TagSelector";
 import * as S from "./NewTag.style";
-import useNewTag from "./use-new-tag";
+import useNewTag from "./useNewTag";
 
 type NewTagProps = {
 	modalId: string;

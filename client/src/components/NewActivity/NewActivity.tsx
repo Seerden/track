@@ -4,7 +4,7 @@ import { type NewActivity } from "@type/server/activity.types";
 import TagSelector from "../TagSelector/TagSelector";
 import DateTimePicker from "./DateTimePicker";
 import * as N from "./NewActivity.style";
-import useNewActivity from "./use-new-activity";
+import useNewActivity from "./useNewActivity";
 
 function NewActivity() {
 	const { onInputChange, onSubmit, onDateTimeChange, isTask } = useNewActivity();

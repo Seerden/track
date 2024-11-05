@@ -1,10 +1,10 @@
+import useTagsQuery from "@/lib/query/useTagsQuery";
+import useAuthentication from "@/lib/useAuthentication";
 import { queryClient } from "@lib/query-client";
-import useTagsQuery from "@lib/query/use-tags-query";
 import { useTagSelection } from "@lib/state/selected-tags-state";
-import useAuthentication from "@lib/use-authentication";
 import type { NewTag } from "@type/server/tag.types";
 import { useEffect, useState } from "react";
-import { useNewTagMutation } from "./use-new-tag-mutation";
+import { useNewTagMutation } from "./useNewTagMutation";
 
 export default function useNewTag() {
 	const { currentUser } = useAuthentication();

@@ -2,7 +2,7 @@ import Filter from "@/components/TagSelector/Filter";
 import Selection from "@/components/TagSelector/Selection";
 import type { TagSelectorProps } from "@/components/TagSelector/tag-selector.types";
 import TagSelectorItems from "@/components/TagSelector/TagSelectorItems";
-import useTagSelectorFilter from "@/components/TagSelector/use-tag-selector-filter";
+import useTagSelectorFilter from "@/components/TagSelector/useTagSelectorFilter";
 import TagTree from "@/components/TagTree/TagTree";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
@@ -11,7 +11,7 @@ import { FaChevronDown, FaChevronUp, FaExpand } from "react-icons/fa";
 import { MdOutlineFilterListOff } from "react-icons/md";
 import NewTagButton from "./NewTagButton";
 import S from "./TagSelector.style";
-import useTagSelector from "./use-tag-selector";
+import useTagSelector from "./useTagSelector";
 
 export default function TagSelector(p: TagSelectorProps) {
 	const t = useTagSelector({ maximum: p.maximum, tagsById: p.tagsById });

@@ -4,7 +4,7 @@ import DetailedActivity from "@/components/Today/DetailedActivity";
 import TimelineRows from "@/components/Today/TimelineRows";
 import { today } from "@/lib/datetime/make-date";
 import modalIds from "@/lib/modal-ids";
-import useActivitiesQuery from "@/lib/query/use-activities-query";
+import useActivitiesQuery from "@/lib/query/useActivitiesQuery";
 import { useModalState } from "@/lib/state/modal-state";
 import { activityFallsOnDay, isAllDayActivityOnDate } from "@lib/activity";
 import { useMemo } from "react";

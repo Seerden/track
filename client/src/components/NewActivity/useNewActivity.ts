@@ -1,12 +1,13 @@
+import useAuthentication from "@/lib/useAuthentication";
+import useRouteProps from "@/lib/useRouteProps";
+import type { Datelike } from "@/types/date.types";
 import { hasUserId } from "@/types/server/user-id.guards";
 import { useTagSelection } from "@lib/state/selected-tags-state";
-import useAuthentication from "@lib/use-authentication";
-import useRouteProps from "@lib/use-route-props";
 import type { DateTimeField } from "@type/form.types";
 import type { NewActivity } from "@type/server/activity.types";
 import { useEffect, useMemo, useState } from "react";
 import { parseNewActivity } from "./parse-new-activity";
-import { useNewActivityMutation } from "./use-new-activity-mutation";
+import { useNewActivityMutation } from "./useNewActivityMutation";
 
 export default function useNewActivity() {
 	const { mutate: submit } = useNewActivityMutation();
@@ -49,7 +50,7 @@ export default function useNewActivity() {
 		}));
 	}
 
-	function onDateTimeChange({ name, value }: { name: DateTimeField; value: string }) {
+	function onDateTimeChange({ name, value }: { name: DateTimeField; value: Datelike }) {
 		setNewActivity((current) => ({
 			...current,
 			[name]: value

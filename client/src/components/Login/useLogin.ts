@@ -1,4 +1,4 @@
-import useLoginMutation from "@lib/query/use-login-mutation";
+import useLoginMutation from "@/lib/query/useLoginMutation";
 import { localUser } from "@lib/user-storage";
 import { type UserLogin } from "@type/server/user.types";
 import { useState } from "react";
