@@ -1,4 +1,4 @@
-import useModal from "@/lib/use-modal";
+import useModal from "@/lib/useModal";
 import type { PropsWithChildren } from "react";
 import { useRef } from "react";
 import { createPortal } from "react-dom";
