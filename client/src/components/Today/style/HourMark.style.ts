@@ -1,3 +1,4 @@
+import { getFontSize } from "@/lib/theme/font";
 import styled, { css } from "styled-components";
 
 const HourMark = styled.span<{ $highlighted?: boolean }>`
@@ -10,7 +11,7 @@ const HourMark = styled.span<{ $highlighted?: boolean }>`
 	height: var(--size);
 	top: calc(-1 * var(--size) / 2);
 	left: -1rem;
-	font-size: 0.75rem;
+	font-size: ${(p) => getFontSize(p, 0.75)};
 	width: max-content;
 	border-radius: 3px;
 	padding: 0 0.5rem;

@@ -1,3 +1,4 @@
+import { getFontSize } from "@/lib/theme/font";
 import styled from "styled-components";
 import S from "./Today.style";
 
@@ -9,7 +10,7 @@ const AllDayActivity = styled.li`
 	background-color: dodgerblue;
 	color: white;
 	padding: 0.2rem 1rem;
-	font-size: 0.93rem;
+	font-size: ${(p) => getFontSize(p, 0.93)};
 	border-radius: 3px;
 	outline: 2px solid dodgerblue;
 	box-shadow: 0 0.2rem 0.3rem 0 #aaa;

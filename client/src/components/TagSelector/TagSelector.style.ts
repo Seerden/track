@@ -1,3 +1,4 @@
+import { getFontSize } from "@/lib/theme/font";
 import styled, { css } from "styled-components";
 
 const Wrapper = styled.div<{ $fullSize?: boolean }>`
@@ -43,7 +44,7 @@ const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
 	border-radius: 2px;
 	box-shadow: 0.2rem 0.1rem 0 0 #ddd;
 	padding: 0.2rem 0.6rem;
-	font-size: 0.82rem;
+	font-size: ${(p) => getFontSize(p, 0.82)};
 	min-height: calc(4px + 1.24rem); // should be font-size + padding + border
 	height: max-content;
 
@@ -89,7 +90,7 @@ const Title = styled.h3`
 	background-color: #333;
 	color: azure;
 	max-width: max-content;
-	font-size: 1.1rem;
+	font-size: ${(p) => getFontSize(p, 1.1)};
 
 	border-radius: 3px;
 	border: 2px solid #777;
@@ -105,8 +106,9 @@ const Filter = styled.input`
 	align-self: flex-end;
 	max-width: 150px;
 
-	font-size: 0.88rem;
-	line-height: 0.88rem;
+	--font-size: ${(p) => getFontSize(p, 0.88)};
+	font-size: var(--font-size);
+	line-height: var(--font-size);
 
 	&:focus {
 		outline-color: ${(p) => p.theme.colors.blue.main};
@@ -248,7 +250,7 @@ const SelectionList = styled.ul`
 	flex-direction: row;
 	flex-wrap: wrap;
 	gap: 0.5rem;
-	font-size: 0.85rem;
+	font-size: ${(p) => getFontSize(p, 0.85)};
 	align-items: center;
 	user-select: none;
 	max-height: 120px;

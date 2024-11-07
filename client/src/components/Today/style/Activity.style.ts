@@ -1,4 +1,5 @@
 import { rowHeight } from "@/components/Today/style/TimelineRow.style";
+import { getFontSize } from "@/lib/theme/font";
 import { css, styled } from "styled-components";
 import S from "./Today.style";
 
@@ -11,7 +12,7 @@ const ActivityCard = styled.div<{ $level: number; $offset: number }>`
 	user-select: none;
 	top: calc(${(p) => p.$offset * 100}%);
 	left: calc(3rem + ${(p) => p.$level * (cardGap + cardWidth)}px);
-	font-size: 0.85rem;
+	font-size: ${(p) => getFontSize(p, 0.85)};
 	display: flex;
 	width: 100%;
 	height: max-content;

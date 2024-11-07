@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
 	max-width: 500px;
 
 	h1 {
-		font-size: 1.1rem;
+		font-size: ${(p) => getFontSize(p, 1.1)};
 		margin: 0;
 		margin-left: 0.8rem;
 		margin-top: -1.5rem;

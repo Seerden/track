@@ -27,7 +27,7 @@ const Times = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
-	font-size: 0.8rem;
+	font-size: ${(p) => getFontSize(p, 0.8)};
 
 	color: #555;
 `;

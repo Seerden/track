@@ -1,4 +1,5 @@
 import { Tag } from "@/components/TagCard/TagCard.style";
+import { getFontSize } from "@/lib/theme/font";
 import styled, { css } from "styled-components";
 
 const Wrapper = styled.div``;
@@ -79,9 +80,9 @@ const Header = styled.header`
 
 	// this is the element that displays the date
 	h1 {
-		font-size: 1.2rem;
+		font-size: ${(p) => getFontSize(p, 1.2)};
 		@media (min-width: 1440px) {
-			font-size: 2rem;
+			font-size: ${(p) => getFontSize(p, 2)};
 		}
 		font-weight: 400;
 		margin: 0;

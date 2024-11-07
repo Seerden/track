@@ -26,7 +26,7 @@ export const Item = styled.li`
 `;
 
 export const Name = styled.h2`
-	font-size: 1.35rem;
+	font-size: ${(p) => getFontSize(p, 1.35)};
 	margin-bottom: 0.2rem;
 	border-bottom: 2px solid darkorchid;
 	width: max-content;
@@ -38,7 +38,7 @@ export const Name = styled.h2`
 `;
 
 export const Dates = styled.div`
-	font-size: 0.8rem;
+	font-size: ${(p) => getFontSize(p, 0.8)};
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;

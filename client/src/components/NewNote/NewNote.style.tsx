@@ -1,3 +1,4 @@
+import { getFontSize } from "@/lib/theme/font";
 import { inputStyle } from "@lib/theme/snippets/input";
 import { styled } from "styled-components";
 
@@ -17,7 +18,7 @@ export const Title = styled.h2`
 	margin-top: -1.5rem;
 	margin-left: 0.2rem;
 	margin-bottom: 0.6rem;
-	font-size: 1.2rem;
+	font-size: ${(p) => getFontSize(p, 1.2)};
 	border: 2px solid #ccc;
 	border-radius: 2px;
 	padding: 0.2rem 0.8rem;
