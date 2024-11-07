@@ -42,12 +42,14 @@ function CalendarRow({ month, year, row, selectDate, selectedDate }: CalendarRow
 }
 
 export default function Calendar({
+	initialDay,
 	initialMonth,
 	initialYear,
 	onChange: setExternalState
 }: CalendarProps) {
 	const { monthAndYear, setMonthAndYear, title, rows, selectDate, selectedDate } =
 		useCalendar({
+			initialDay,
 			initialMonth,
 			initialYear,
 			onChange: setExternalState

@@ -7,7 +7,8 @@ import modalIds from "@/lib/modal-ids";
 import useActivitiesQuery from "@/lib/query/useActivitiesQuery";
 import { useModalState } from "@/lib/state/modal-state";
 import { activityFallsOnDay, isAllDayActivityOnDate } from "@lib/activity";
-import { useMemo } from "react";
+import type { Dayjs } from "dayjs";
+import { useMemo, useState } from "react";
 import Notes from "./Notes";
 import S from "./style/Today.style";
 import Tasks from "./Tasks";
@@ -15,7 +16,7 @@ import Tasks from "./Tasks";
 function useToday() {
 	const { data: activitiesData } = useActivitiesQuery();
 
-	const currentDate = today();
+	const [currentDate, setCurrentDate] = useState<Dayjs>(() => today());
 
 	const activities = useMemo(() => {
 		return Object.values(activitiesData?.activitiesById ?? {}); // TODO: should this not be in a useActivities hook or someting?
@@ -44,6 +45,7 @@ function useToday() {
 		allDayActivities,
 		timestampedActivities,
 		currentDate,
+		setCurrentDate,
 		shouldShowDetailedActivity,
 		selectedActivity
 	} as const;
@@ -59,6 +61,8 @@ export default function Today() {
 				<Calendar
 					initialMonth={t.currentDate.month()}
 					initialYear={t.currentDate.year()}
+					initialDay={t.currentDate.date()}
+					onChange={t.setCurrentDate}
 				/>
 				<S.TimelineWrapper>
 					<S.Header>
