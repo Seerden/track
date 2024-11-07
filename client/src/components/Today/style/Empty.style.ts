@@ -5,6 +5,7 @@ const Empty = styled.p`
 	color: ${(p) => p.theme.colors.white};
 	padding: 0.5rem 1rem;
 	border-radius: 3px;
+	max-width: max-content;
 `;
 
 export default {
