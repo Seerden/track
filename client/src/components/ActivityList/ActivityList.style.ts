@@ -1,6 +1,7 @@
+import { getFontSize } from "@/lib/theme/font";
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
 	margin: 1.2rem auto;
 
 	padding: 1.2rem 2rem;
@@ -9,13 +10,13 @@ export const Wrapper = styled.div`
 	border: 2px solid #aaa;
 `;
 
-export const List = styled.ul`
+const List = styled.ul`
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
 `;
 
-export const Item = styled.li`
+const Item = styled.li`
 	position: relative;
 	padding: 0.8rem 1.2rem;
 	box-shadow: 0 0 0.3rem 0 #ccc;
@@ -25,7 +26,7 @@ export const Item = styled.li`
 	min-width: 400px; // TODO: make this responsive
 `;
 
-export const Name = styled.h2`
+const Name = styled.h2`
 	font-size: ${(p) => getFontSize(p, 1.35)};
 	margin-bottom: 0.2rem;
 	border-bottom: 2px solid darkorchid;
@@ -37,20 +38,20 @@ export const Name = styled.h2`
 	margin-bottom: 0;
 `;
 
-export const Dates = styled.div`
+const Dates = styled.div`
 	font-size: ${(p) => getFontSize(p, 0.8)};
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
 `;
 
-export const Title = styled.div`
+const Title = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 `;
 
-export const Description = styled.section`
+const Description = styled.section`
 	box-shadow:
 		0.3rem 0.3rem 0 -0.1rem #ccc,
 		0 0 0.5rem 0 #ccc;
@@ -63,9 +64,9 @@ export const Description = styled.section`
 	border-radius: 3px;
 `;
 
-export const Date = styled.span``;
+const Date = styled.span``;
 
-export const Tag = styled.div`
+const Tag = styled.div`
 	margin-top: 0.4rem;
 	padding: 0.2rem 0.6rem;
 	background-color: gold;
@@ -77,7 +78,7 @@ export const Tag = styled.div`
 
 const checkboxSize = `25px`;
 
-export const Checkbox = styled.input`
+const Checkbox = styled.input`
 	position: absolute;
 	top: 50%;
 	right: -10px;
@@ -105,9 +106,23 @@ export const Checkbox = styled.input`
 	}
 `;
 
-export const Tags = styled.div`
+const Tags = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.3rem;
 	justify-content: flex-end;
 `;
+
+export default {
+	Wrapper,
+	List,
+	Item,
+	Name,
+	Dates,
+	Title,
+	Description,
+	Date,
+	Tag,
+	Checkbox,
+	Tags
+};
