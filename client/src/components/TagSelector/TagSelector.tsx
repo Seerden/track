@@ -63,14 +63,11 @@ export default function TagSelector(p: TagSelectorProps) {
 						)}
 					</S.Actions>
 
-					{!f.expanded &&
-						(!t.selectedTags.length ? (
-							<S.EmptySelection>
-								You haven't selected any tags yet.
-							</S.EmptySelection>
-						) : (
-							<Selection tags={t.tags} selectedTags={t.selectedTags} />
-						))}
+					{!t.selectedTags.length ? (
+						<S.EmptySelection>You haven't selected any tags yet.</S.EmptySelection>
+					) : (
+						<Selection tags={t.tags} selectedTags={t.selectedTags} />
+					)}
 
 					{f.expanded && (
 						<S.DropdownContent ref={f.dropdownRef}>
@@ -101,6 +98,7 @@ export default function TagSelector(p: TagSelectorProps) {
 
 							<S.List>
 								<TagSelectorItems
+									modalId={p.modalId}
 									tags={t.tagsToDisplay}
 									tagSelection={t.tagSelection}
 									updateTagSelection={t.updateTagSelection}
