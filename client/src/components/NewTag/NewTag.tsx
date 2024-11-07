@@ -34,14 +34,16 @@ function NewTag({ modalId }: NewTagProps) {
 					/>
 				</S.Field>
 
-				<S.Tags>
-					<TagSelector
-						title="Categorize"
-						maximum={1}
-						tagsById={tags?.tagsById}
-						modalId={modalId}
-					/>
-				</S.Tags>
+				{Object.keys(tags?.tagsById ?? {}).length > 0 && (
+					<S.Tags>
+						<TagSelector
+							title="Categorize"
+							maximum={1}
+							tagsById={tags?.tagsById}
+							modalId={modalId}
+						/>
+					</S.Tags>
+				)}
 				<S.Button title="Save">💾</S.Button>
 			</S.Fields>
 		</S.Form>

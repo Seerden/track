@@ -1,3 +1,4 @@
+import { getFontSize } from "@/lib/theme/font";
 import styled from "styled-components";
 
 const Wrapper = styled.section`
@@ -23,7 +24,8 @@ const Title = styled.h2`
 		text-overflow: ellipsis;
 	}
 	grid-area: title;
-	font-size: 1.5rem;
+	font-size: ${(p) => getFontSize(p, 1.5)};
+	line-height: 2rem;
 	font-weight: bold;
 	margin-bottom: 0.5rem;
 	background-color: indigo;
@@ -50,14 +52,14 @@ const Datetime = styled.div`
 	width: max-content;
 	flex-direction: column;
 	align-items: flex-end;
-	font-size: 0.8rem;
+	font-size: ${(p) => getFontSize(p, 0.8)};
 	margin-top: 0.3rem;
 	color: #888;
 	margin-left: 0.3rem;
 `;
 
 const HumanizedStart = styled.p`
-	font-size: 0.9rem;
+	font-size: ${(p) => getFontSize(p, 0.9)};
 	line-height: 0.92rem;
 	color: azure;
 	background-color: darkorchid;
@@ -77,7 +79,7 @@ const Tags = styled.ul`
 	grid-area: tags;
 	margin-top: 0.5rem;
 	gap: 0.4rem;
-	font-size: 0.85rem;
+	font-size: ${(p) => getFontSize(p, 0.85)};
 	margin-left: auto;
 `;
 
@@ -116,7 +118,7 @@ const CheckboxWrapper = styled.label`
 		background-color: azure;
 
 		&.on {
-			fill: forestgreen;
+			fill: ${(p) => p.theme.colors.green.main};
 			color: white;
 		}
 

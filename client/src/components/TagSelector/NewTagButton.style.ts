@@ -32,10 +32,10 @@ export const Button = styled.button<{
 	transition: all 25ms linear;
 
 	&:hover {
-		background-color: forestgreen;
+		background-color: ${(p) => p.theme.colors.green.main};
 		box-shadow: 0 0.8rem 0 -0.6rem #ddd;
 		/* transform: translateX(5px); */
-		border-bottom-color: limegreen;
+		border-bottom-color: ${(p) => p.theme.colors.green.secondary};
 	}
 `;
 

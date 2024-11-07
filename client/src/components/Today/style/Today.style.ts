@@ -1,5 +1,6 @@
 import { Tag } from "@/components/TagCard/TagCard.style";
-import styled from "styled-components";
+import { getFontSize } from "@/lib/theme/font";
+import styled, { css } from "styled-components";
 
 const Wrapper = styled.div``;
 
@@ -8,13 +9,30 @@ const TimelineWrapper = styled.section`
 	flex-direction: column;
 	gap: 1.5rem;
 	padding: 1rem 3rem;
+
+	max-width: 100%;
+	min-width: 500px;
+	@media (min-width: 1280px) {
+		width: 700px;
+	}
 `;
 
-const NotesWrapper = styled.section``;
+export const column = css`
+	@media (min-width: 1280px) {
+		min-width: 350px;
+	}
+`;
+
+const Column = styled.section`
+	${column};
+	padding: 0 1rem;
+`;
+
+const NotesWrapper = styled(Column)``;
 
 const BlockTitle = styled.h2`
 	width: max-content;
-	padding: 0.5rem 1rem;
+	padding: 0.5rem 0;
 `;
 
 const Rows = styled.ul`
@@ -31,7 +49,7 @@ const CheckboxWrapper = styled.label`
 	height: 27px;
 
 	.on {
-		fill: forestgreen;
+		fill: ${(p) => p.theme.colors.green.main};
 	}
 
 	.off {
@@ -49,7 +67,7 @@ const Columns = styled.div`
 	display: grid;
 
 	@media (min-width: 1280px) {
-		grid-template-columns: max-content 1fr max-content auto; // TODO: this is still temporary because the whole layout is temporary
+		grid-template-columns: max-content auto max-content auto; // TODO: this is still temporary because the whole layout is temporary
 	}
 
 	grid-template-columns: 1fr;
@@ -58,14 +76,18 @@ const Columns = styled.div`
 `;
 
 const Header = styled.header`
-	padding: 1rem 3rem;
-	padding-bottom: 0.5rem;
+	padding: 1rem 0;
 
+	// this is the element that displays the date
 	h1 {
-		// this is the element that displays the date
-		font-size: 2rem;
+		font-size: ${(p) => getFontSize(p, 1.2)};
+		@media (min-width: 1440px) {
+			font-size: ${(p) => getFontSize(p, 2)};
+		}
 		font-weight: 400;
 		margin: 0;
+		padding: 0;
+		width: max-content;
 	}
 `; // is a header the right tag, semantically?
 

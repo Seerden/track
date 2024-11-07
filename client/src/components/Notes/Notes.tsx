@@ -29,9 +29,7 @@ function NoteElement({ note, tags }: { note: NoteWithIds; tags?: TagsData }) {
 export default function Notes() {
 	const { notes, tags } = useNotes();
 
-	if (!notes?.notesById) {
-		return <></>;
-	}
+	if (!notes?.notesById) return <></>;
 
 	return (
 		<S.Page>

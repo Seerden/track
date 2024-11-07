@@ -1,6 +1,12 @@
+import { column } from "@/components/Today/style/Today.style";
+import { getFontSize } from "@/lib/theme/font";
 import styled from "styled-components";
 
-const TasksWrapper = styled.section``;
+// TODO: make this shared with Notes for now since they are currently the same
+const TasksWrapper = styled.section`
+	${column};
+	padding: 0 1rem;
+`;
 
 const TaskName = styled.div`
 	display: flex;
@@ -21,7 +27,7 @@ const Times = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
-	font-size: 0.8rem;
+	font-size: ${(p) => getFontSize(p, 0.8)};
 
 	color: #555;
 `;
@@ -31,7 +37,7 @@ const Tasks = styled.ul`
 	flex-direction: column;
 	gap: 0.6rem;
 	overflow-x: auto;
-	margin: 0 0.5rem;
+	padding: 0 0.5rem;
 	max-width: 720px;
 	height: 100%; // TODO: only apply this when in list/column view?
 `;
@@ -41,7 +47,7 @@ const Task = styled.li`
 	list-style: none;
 	cursor: pointer;
 	box-sizing: border-box;
-	font-size: 0.9rem;
+	font-size: ${(p) => getFontSize(p, 0.9)};
 	display: grid;
 
 	grid-template-columns: max-content min-content max-content auto;

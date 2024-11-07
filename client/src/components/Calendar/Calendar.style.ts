@@ -1,3 +1,4 @@
+import { getFontSize } from "@/lib/theme/font";
 import type { CSSProperties } from "styled-components";
 import styled, { css } from "styled-components";
 
@@ -15,7 +16,7 @@ const Calendar = styled.div`
 	height: max-content;
 	margin-left: 1rem;
 	margin-top: 1rem;
-	--font-size: 0.8rem;
+	--font-size: ${(p) => getFontSize(p, 0.8)};
 	font-size: var(--font-size);
 	line-height: var(--font-size);
 	font-family: "Roboto";
@@ -35,7 +36,7 @@ const TitleWrapper = styled.div`
 `;
 
 const Title = styled.h2`
-	font-size: 1.2rem;
+	font-size: ${(p) => getFontSize(p, 1.2)};
 	color: ${highlightColor};
 	margin-bottom: calc(4 * ${gap});
 `;
@@ -60,7 +61,7 @@ const Days = styled.div`
 	background-color: #eee;
 	border-bottom: 2px solid ${highlightColor};
 	font-weight: 500;
-	font-size: 0.8rem;
+	font-size: ${(p) => getFontSize(p, 0.8)};
 `;
 
 type StyledCellProps = {

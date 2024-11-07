@@ -1,4 +1,5 @@
 import BadgeStyles from "@/lib/theme/components/Badge.style";
+import { getFontSize } from "@/lib/theme/font";
 import { motion } from "framer-motion";
 import styled, { css } from "styled-components";
 
@@ -6,7 +7,7 @@ const borderColors = ["#444", "#777", "#aaa", "#ddd"];
 const colors = ["deepskyblue", "blueviolet", "darkorchid", "darkviolet", "indigo"];
 
 export const TagName = styled.label<{ $level: number }>`
-	font-size: 0.9rem;
+	font-size: ${(p) => getFontSize(p, 0.9)};
 	min-width: 50px;
 	position: relative;
 
@@ -99,6 +100,7 @@ export const Tree = styled.ul<{
 	gap: 2rem;
 
 	> ${Tag} {
+		min-width: 150px; // TODO: this is temporary and needs to become responsive
 		height: 98%;
 		justify-content: flex-start;
 		width: max-content;

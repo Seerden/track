@@ -1,3 +1,4 @@
+import Empty from "@/components/Today/Empty";
 import { filterTagsById } from "@/lib/filter-tags";
 import useNotesQuery from "@/lib/query/useNotesQuery";
 import useTagsQuery from "@/lib/query/useTagsQuery";
@@ -18,6 +19,7 @@ export default function Notes() {
 	return (
 		<S.NotesWrapper>
 			<S.BlockTitle>Notes</S.BlockTitle>
+			{!notes.length && <Empty>No notes found for today.</Empty>}
 			{notes.map((n) => (
 				<Note
 					key={n.note_id}

@@ -1,3 +1,4 @@
+import { getFontSize } from "@/lib/theme/font";
 import styled from "styled-components";
 import type { CSS } from "styled-components/dist/types";
 
@@ -5,7 +6,7 @@ const Badge = styled.div<{ height?: CSS.Properties["height"] }>`
 	display: flex;
 	place-items: center;
 	border-radius: 8px;
-	font-size: 0.82rem;
+	font-size: ${(p) => getFontSize(p, 0.82)};
 
 	background-color: ${(p) => p.color ?? "#ccc"};
 	width: max-content;

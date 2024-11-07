@@ -1,3 +1,4 @@
+import { getFontSize } from "@/lib/theme/font";
 import { inputStyle } from "@lib/theme/snippets/input";
 import styled, { css } from "styled-components";
 
@@ -10,7 +11,7 @@ export const Wrapper = styled.div`
 	max-width: 500px;
 
 	h1 {
-		font-size: 1.1rem;
+		font-size: ${(p) => getFontSize(p, 1.1)};
 		margin: 0;
 		margin-left: 0.8rem;
 		margin-top: -1.5rem;
@@ -55,7 +56,7 @@ export const Button = styled.button`
 	margin-top: 0.3rem;
 	align-self: center;
 	width: max-content;
-	font-size: 0.9rem;
+	font-size: ${(p) => getFontSize(p, 0.9)};
 	background-color: #ddd;
 	border-radius: 5px;
 	border: 2px solid transparent;
@@ -73,7 +74,7 @@ export const Button = styled.button`
 `;
 
 export const Label = styled.label<{ $showWarning?: boolean }>`
-	font-size: 0.9rem;
+	font-size: ${(p) => getFontSize(p, 0.9)};
 
 	display: flex;
 	flex-direction: column;
@@ -93,7 +94,7 @@ export const Label = styled.label<{ $showWarning?: boolean }>`
 		background-color: #fff;
 		padding: 0.2rem 0.6rem;
 		border-radius: 0 15px 0 0;
-		font-size: 0.9rem;
+		font-size: ${(p) => getFontSize(p, 0.9)};
 	}
 
 	input {
@@ -132,7 +133,7 @@ export const Task = styled.label`
 		justify-self: center;
 
 		&.on {
-			color: forestgreen;
+			color: ${(p) => p.theme.colors.green.main};
 		}
 
 		&.off {

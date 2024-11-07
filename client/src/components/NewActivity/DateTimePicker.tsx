@@ -1,7 +1,7 @@
 import { Checkbox } from "@lib/theme/components/Checkbox";
 import { FaInfo } from "react-icons/fa";
 import type { DateTimePickerProps } from "./datetime-picker.types";
-import * as S from "./DateTimePicker.style";
+import S from "./DateTimePicker.style";
 import useDateTimePicker from "./useDateTimePicker";
 
 export default function DateTimePicker({ setState }: DateTimePickerProps) {

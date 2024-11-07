@@ -1,3 +1,4 @@
+import { getFontSize } from "@/lib/theme/font";
 import { styled } from "styled-components";
 
 export const Page = styled.section`
@@ -33,7 +34,7 @@ export const Note = styled.li`
 `;
 
 export const Title = styled.h2`
-	font-size: 1.02rem;
+	font-size: ${(p) => getFontSize(p, 1.02)};
 	padding: 0.3rem 0.7rem;
 	background-color: #eee;
 	border: 2px solid #ccc;
@@ -53,7 +54,7 @@ export const Tags = styled.ul`
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.1rem;
-	font-size: 0.75rem;
+	font-size: ${(p) => getFontSize(p, 0.75)};
 `;
 
 export const Tag = styled.li`
