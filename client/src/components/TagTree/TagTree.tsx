@@ -34,12 +34,6 @@ export default function TagTree({
 			<div>
 				<S.Container>
 					<h1>Tag tree</h1>
-					<div>
-						<label>
-							filter
-							<input type="text" />
-						</label>
-					</div>
 					<S.Tree $orientation={orientation} $columnCount={rootTags.length}>
 						{rootTags.map((tag) => (
 							<Tag key={tag.tag_id} tag={tag} level={0} />
