@@ -109,7 +109,7 @@ const Filter = styled.input`
 	line-height: 0.88rem;
 
 	&:focus {
-		outline-color: dodgerblue;
+		outline-color: ${(p) => p.theme.colors.blue.main};
 		box-shadow: 0rem 0.5rem 0.2rem -0.2rem #ccc;
 	}
 `;
@@ -187,7 +187,7 @@ const DropdownTrigger = styled.button`
 	}
 
 	&:focus:not(:active) {
-		outline: 2px solid dodgerblue;
+		outline: 2px solid ${(p) => p.theme.colors.blue.main};
 		background-color: #fff;
 	}
 
@@ -262,7 +262,7 @@ const SelectionItem = styled.li`
 	min-width: max-content;
 	flex: 1;
 	border-radius: 4px;
-	background-color: dodgerblue;
+	background-color: ${(p) => p.theme.colors.blue.main};
 	color: white;
 	justify-content: center;
 	align-items: center;
@@ -284,7 +284,7 @@ const PathPart = styled.span<{ $isLeaf: boolean }>`
 const EmptySelection = styled.div`
 	padding: 0.4rem 1.2rem;
 	color: azure;
-	background-color: dodgerblue;
+	background-color: ${(p) => p.theme.colors.blue.main};
 	max-width: max-content;
 	margin-top: 0.5rem;
 `;

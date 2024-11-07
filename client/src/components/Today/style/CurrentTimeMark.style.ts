@@ -7,7 +7,7 @@ const Circle = styled.div`
 	z-index: 4;
 	border-radius: 50%;
 	position: absolute;
-	left: 0;
+	right: 0;
 	--size: 15px;
 	top: calc(50% - var(--size) / 2);
 	min-height: var(--size);

@@ -11,7 +11,7 @@ const ActivityCard = styled.div<{ $level: number; $offset: number }>`
 	user-select: none;
 	top: calc(${(p) => p.$offset * 100}%);
 	left: calc(3rem + ${(p) => p.$level * (cardGap + cardWidth)}px);
-	font-size: 0.86rem;
+	font-size: 0.85rem;
 	display: flex;
 	width: 100%;
 	height: max-content;
@@ -38,6 +38,7 @@ const Activity = styled.div<{
 	padding: 0.5rem 1rem;
 	background-color: ${(p) => (p.$isTask ? "dodgerblue" : "limegreen")};
 	align-items: ${(p) => (p.$durationHours > 2 ? "flex-start" : "center")};
+	color: ${(p) => (p.$isTask ? "azure" : "black")};
 
 	outline: 2px solid #eee;
 	width: ${cardWidth}px;
@@ -57,7 +58,7 @@ const Activity = styled.div<{
 
 	&:hover {
 		z-index: 3;
-		background-color: ${(p) => (p.$isTask ? "royalblue" : "forestgreen")};
+		background-color: ${(p) => (p.$isTask ? "royalblue" : p.theme.colors.green.main)};
 		color: azure;
 	}
 `;

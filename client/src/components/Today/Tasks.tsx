@@ -1,3 +1,4 @@
+import Empty from "@/components/Today/Empty";
 import { filterTagsById } from "@/lib/filter-tags";
 import useTagsQuery from "@/lib/query/useTagsQuery";
 import type { ActivityWithIds } from "@type/server/activity.types";
@@ -16,6 +17,8 @@ export default function Tasks({ activities }: TasksProps) {
 		<T.TasksWrapper>
 			<S.BlockTitle>Tasks</S.BlockTitle>
 			<T.Tasks>
+				{!activities.length && <Empty>No tasks found for today.</Empty>}
+
 				{activities.map((a) => (
 					<Task
 						key={a.activity_id}

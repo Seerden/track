@@ -1,4 +1,33 @@
-export const colors = {
-	black: "#000",
-	white: "#fff"
-} as const;
+const baseColors = {
+	blue: {
+		main: "dodgerblue",
+		secondary: "deepskyblue"
+	},
+	yellow: {
+		main: "gold",
+		secondary: "orange"
+	},
+	red: {
+		main: "tomato",
+		secondary: "orangered"
+	},
+	green: {
+		main: "forestgreen",
+		secondary: "limegreen"
+	},
+	black: "black",
+	white: "white"
+};
+
+const highlightColors = {
+	primary: baseColors.yellow.main,
+	secondary: baseColors.red.secondary,
+	success: baseColors.green.main,
+	info: baseColors.blue.main,
+	warning: baseColors.red.secondary,
+	danger: baseColors.red.main,
+	light: "azure",
+	dark: "#333"
+};
+
+export const colors = { ...baseColors, highlight: highlightColors };

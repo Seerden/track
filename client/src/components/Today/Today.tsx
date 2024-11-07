@@ -64,7 +64,9 @@ export default function Today() {
 					<S.Header>
 						<h1>{t.currentDate.format("dddd (DD MMMM)")}</h1>
 					</S.Header>
-					<AllDayActivities activities={t.allDayActivities} />
+					{!!t.allDayActivities.length && (
+						<AllDayActivities activities={t.allDayActivities} />
+					)}
 					<TimelineRows
 						activities={t.timestampedActivities}
 						currentDate={t.currentDate}

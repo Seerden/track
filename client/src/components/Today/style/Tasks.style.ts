@@ -1,6 +1,10 @@
+import { column } from "@/components/Today/style/Today.style";
+import { getFontSize } from "@/lib/theme/font";
 import styled from "styled-components";
 
-const TasksWrapper = styled.section``;
+const TasksWrapper = styled.section`
+	${column};
+`;
 
 const TaskName = styled.div`
 	display: flex;
@@ -41,7 +45,7 @@ const Task = styled.li`
 	list-style: none;
 	cursor: pointer;
 	box-sizing: border-box;
-	font-size: 0.9rem;
+	font-size: ${(p) => getFontSize(p, 0.9)};
 	display: grid;
 
 	grid-template-columns: max-content min-content max-content auto;

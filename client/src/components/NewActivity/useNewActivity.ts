@@ -35,7 +35,7 @@ export default function useNewActivity() {
 			{ activity: parseNewActivity(newActivity), tagIds: selectedTagIds },
 			{
 				onSuccess: () => {
-					navigate("/activities"); // TODO: put routes in a variable
+					navigate("/today"); // TODO: put routes in a variable
 				}
 			}
 		);

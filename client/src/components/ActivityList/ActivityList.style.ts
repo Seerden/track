@@ -70,7 +70,7 @@ export const Tag = styled.div`
 	padding: 0.2rem 0.6rem;
 	background-color: gold;
 	color: black;
-	font-size: 0.9rem;
+	font-size: ${(p) => p.theme.font.size["0.9"]};
 	width: max-content;
 	border-radius: 3px;
 `;
@@ -93,9 +93,10 @@ export const Checkbox = styled.input`
 	transition: all 25ms ease-out;
 
 	&:checked {
-		accent-color: forestgreen;
-		background-color: forestgreen;
-		border-color: forestgreen;
+		--color: ${(p) => p.theme.colors.green.main};
+		accent-color: var(--color);
+		background-color: var(--color);
+		border-color: var(--color);
 	}
 
 	&:hover {

@@ -43,7 +43,7 @@ export const Label = styled.label<{ $faded?: boolean }>`
 	}
 
 	span {
-		font-size: 0.9rem;
+		font-size: ${(p) => p.theme.font.size["0.9"]};
 		background-color: #fff;
 		width: 100%;
 		padding: 0.2rem 0.6rem;
@@ -132,7 +132,7 @@ export const Icon = styled.span`
 	}
 
 	.on {
-		color: forestgreen;
+		color: ${(p) => p.theme.colors.green.main};
 	}
 `;
 

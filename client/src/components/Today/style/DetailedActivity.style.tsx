@@ -1,3 +1,4 @@
+import { getFontSize } from "@/lib/theme/font";
 import styled from "styled-components";
 
 const Wrapper = styled.section`
@@ -24,6 +25,7 @@ const Title = styled.h2`
 	}
 	grid-area: title;
 	font-size: 1.5rem;
+	line-height: 2rem;
 	font-weight: bold;
 	margin-bottom: 0.5rem;
 	background-color: indigo;
@@ -57,7 +59,7 @@ const Datetime = styled.div`
 `;
 
 const HumanizedStart = styled.p`
-	font-size: 0.9rem;
+	font-size: ${(p) => getFontSize(p, 0.9)};
 	line-height: 0.92rem;
 	color: azure;
 	background-color: darkorchid;
@@ -116,7 +118,7 @@ const CheckboxWrapper = styled.label`
 		background-color: azure;
 
 		&.on {
-			fill: forestgreen;
+			fill: ${(p) => p.theme.colors.green.main};
 			color: white;
 		}
 
