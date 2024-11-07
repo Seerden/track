@@ -14,7 +14,7 @@ const Wrapper = styled.div<{ $fullSize?: boolean }>`
 
 	max-width: ${(p) => (p.$fullSize ? "100%" : "400px")};
 
-	min-height: 120px; // TODO: this is hardcoded for the current size to prevent layout shift -- should be dynamic
+	min-height: 130px; // TODO: this is hardcoded for the current size to prevent layout shift -- should be dynamic
 `;
 
 const List = styled.ul`
