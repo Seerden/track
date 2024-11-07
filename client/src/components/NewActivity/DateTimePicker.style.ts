@@ -2,7 +2,7 @@ import { inputStyle } from "@lib/theme/snippets/input";
 import styled, { css } from "styled-components";
 
 // TODO: rename this
-export const Form = styled.section`
+const Form = styled.section`
 	display: grid;
 	width: 100%;
 	gap: 0.1rem;
@@ -18,12 +18,12 @@ const flexRow = css`
 	flex-direction: row;
 `;
 
-export const Row = styled.div`
+const Row = styled.div`
 	${flexRow};
 	justify-content: space-between;
 `;
 
-export const Label = styled.label<{ $faded?: boolean }>`
+const Label = styled.label<{ $faded?: boolean }>`
 	position: relative;
 	${flexColumn};
 	align-items: stretch;
@@ -74,7 +74,8 @@ export const Label = styled.label<{ $faded?: boolean }>`
 			}
 		`}
 `;
-export const Fields = styled.fieldset`
+
+const Fields = styled.fieldset`
 	position: relative;
 	${flexRow};
 	padding: 0;
@@ -88,7 +89,7 @@ export const Fields = styled.fieldset`
 
 // TODO: these match the styling from Task in NewActivity, so they should be
 // extracted to a shared snippet.
-export const AllDay = styled.label`
+const AllDay = styled.label`
 	${flexRow};
 	align-items: center;
 	width: max-content;
@@ -114,14 +115,14 @@ export const AllDay = styled.label`
 	}
 `;
 
-export const Checkbox = styled.input`
+const Checkbox = styled.input`
 	outline: none;
 	border: none;
 	width: 0px;
 	height: 0px;
 `;
 
-export const Icon = styled.span`
+const Icon = styled.span`
 	border: none;
 	width: 30px;
 	display: flex;
@@ -137,7 +138,7 @@ export const Icon = styled.span`
 `;
 
 const size = "25px";
-export const Info = styled.div`
+const Info = styled.div`
 	position: absolute;
 	top: calc(50% -${size});
 	right: calc(-0.25 * ${size});
@@ -151,3 +152,14 @@ export const Info = styled.div`
 	color: white;
 	outline: 2px solid white;
 `;
+
+export default {
+	Form,
+	Row,
+	Label,
+	Fields,
+	AllDay,
+	Checkbox,
+	Icon,
+	Info
+};
