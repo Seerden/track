@@ -2,8 +2,10 @@ import { column } from "@/components/Today/style/Today.style";
 import { getFontSize } from "@/lib/theme/font";
 import styled from "styled-components";
 
+// TODO: make this shared with Notes for now since they are currently the same
 const TasksWrapper = styled.section`
 	${column};
+	padding: 0 1rem;
 `;
 
 const TaskName = styled.div`
@@ -35,7 +37,7 @@ const Tasks = styled.ul`
 	flex-direction: column;
 	gap: 0.6rem;
 	overflow-x: auto;
-	margin: 0 0.5rem;
+	padding: 0 0.5rem;
 	max-width: 720px;
 	height: 100%; // TODO: only apply this when in list/column view?
 `;
