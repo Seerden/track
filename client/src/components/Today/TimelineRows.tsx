@@ -34,6 +34,7 @@ export default function TimelineRows({ activities, currentDate }: RowsProps) {
 				{ length: 24 }, // render a row for every hour of the day
 				(_, i) => (
 					<TimelineRow
+						date={currentDate}
 						key={i}
 						index={i}
 						activities={activities.filter(
