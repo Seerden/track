@@ -100,6 +100,7 @@ export const Tree = styled.ul<{
 	gap: 2rem;
 
 	> ${Tag} {
+		min-width: 150px; // TODO: this is temporary and needs to become responsive
 		height: 98%;
 		justify-content: flex-start;
 		width: max-content;
