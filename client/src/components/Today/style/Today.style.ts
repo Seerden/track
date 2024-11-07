@@ -8,6 +8,12 @@ const TimelineWrapper = styled.section`
 	flex-direction: column;
 	gap: 1.5rem;
 	padding: 1rem 3rem;
+
+	max-width: 100%;
+	min-width: 500px;
+	@media (min-width: 1280px) {
+		width: 700px;
+	}
 `;
 
 export const column = css`
@@ -17,14 +23,15 @@ export const column = css`
 `;
 
 const Column = styled.section`
-	${column}
+	${column};
+	padding: 0 1rem;
 `;
 
 const NotesWrapper = styled(Column)``;
 
 const BlockTitle = styled.h2`
 	width: max-content;
-	padding: 0.5rem 1rem;
+	padding: 0.5rem 0;
 `;
 
 const Rows = styled.ul`
@@ -59,7 +66,7 @@ const Columns = styled.div`
 	display: grid;
 
 	@media (min-width: 1280px) {
-		grid-template-columns: max-content 1fr max-content auto; // TODO: this is still temporary because the whole layout is temporary
+		grid-template-columns: max-content auto max-content auto; // TODO: this is still temporary because the whole layout is temporary
 	}
 
 	grid-template-columns: 1fr;
