@@ -61,11 +61,11 @@ services:
       command: ["postgres", "-p 5434", "-c", "log_statement=all"]
 volumes:
    node_modules: 
-      # driver: local
-      # driver_opts:
-      #    type: none
-      #    o: bind
-      #    device: ../client/node_modules
+      driver: local
+      driver_opts:
+         type: none
+         o: bind
+         device: ../client/node_modules
    node_modules_server:
       driver: local
       driver_opts:
