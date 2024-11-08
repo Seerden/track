@@ -13,5 +13,12 @@ export default defineConfig({
 			"@type": path.resolve(__dirname, "./src/types")
 		},
 		extensions: [".js", ".jsx", ".ts", ".tsx", ".json"]
+	},
+	server: {
+		port: 5173, // use env variable
+		host: true,
+		watch: {
+			usePolling: true
+		}
 	}
 });
