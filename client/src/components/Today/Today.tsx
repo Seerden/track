@@ -53,12 +53,18 @@ function useToday() {
 
 export default function Today() {
 	const t = useToday();
+	const currentYear = today().year(); // TODO: this will not be reactive, so will not automatically flip around midnight
+	// TODO: this also is not reactive enough
+	const title = t.currentDate.format(
+		`dddd (D MMMM${t.currentDate.year() !== currentYear ? " YYYY" : ""})`
+	);
 
 	return (
 		<S.Wrapper>
 			{/* TODO: we want the header to be aligned above the Timeline */}
 			<S.Columns>
 				<Calendar
+					// TODO: want to pass a single prop for the initial date
 					initialMonth={t.currentDate.month()}
 					initialYear={t.currentDate.year()}
 					initialDay={t.currentDate.date()}
@@ -66,7 +72,7 @@ export default function Today() {
 				/>
 				<S.TimelineWrapper>
 					<S.Header>
-						<h1>{t.currentDate.format("dddd (DD MMMM)")}</h1>
+						<h1>{title}</h1>
 					</S.Header>
 					{!!t.allDayActivities.length && (
 						<AllDayActivities activities={t.allDayActivities} />
