@@ -4,10 +4,10 @@
   "description": "`npm run dev` on the client to start the vite dev server.",
   "main": "index.js",
   "scripts": {
-    "dev": "cd ./docker && docker-compose --file ./dev.yml up --build --force-recreate --remove-orphans",
+    "dev": "cd ./docker && docker-compose run client npm i --verbose && docker-compose --file ./compose.yml up --force-recreate --remove-orphans",
     "prod": "cd ./docker && docker-compose --file ./docker-compose.prod.yml up --force-recreate --remove-orphans --build server database store test-database",
-    "dev-build": "cd ./docker && docker-compose --file ./dev.yml up --force-recreate --remove-orphans --build server database store test-database",
-    "dev-down": "cd ./docker && docker-compose --file ./dev.yml down --volumes",
+    "dev-build": "cd ./docker && docker-compose --file ./compose.yml up --force-recreate --remove-orphans --build server database store test-database",
+    "dev-down": "cd ./docker && docker-compose --file ./compose.yml down --volumes -v",
     "prod-down": "cd ./docker && docker-compose --file ./docker-compose.prod.yml down --volumes",
     "db": "docker exec -it docker-database-1 psql track -U postgres",
     "test-db": "docker exec -it docker-test-database-1 psql track-test -U postgres -p 5434",
