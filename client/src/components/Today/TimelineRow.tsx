@@ -10,8 +10,9 @@ import R from "./style/TimelineRow.style";
 
 type RowProps = {
 	date: Datelike;
-	/** Index is a number [0,24] that represents the hour of the day. Index `24`
-	 * refers to midnight of the current day. */
+	/** `index` is a number [0,24] that represents the hour of the day. Index 24
+	 * refers to midnight of the following day and is only there for display
+	 * purposes. */
 	index: number;
 	activities: ActivityWithIds[];
 	indentation: Map<ID, number>;
