@@ -63,13 +63,7 @@ export default function Today() {
 		<S.Wrapper>
 			{/* TODO: we want the header to be aligned above the Timeline */}
 			<S.Columns>
-				<Calendar
-					// TODO: want to pass a single prop for the initial date
-					initialMonth={t.currentDate.month()}
-					initialYear={t.currentDate.year()}
-					initialDay={t.currentDate.date()}
-					onChange={t.setCurrentDate}
-				/>
+				<Calendar initialDate={t.currentDate} onChange={t.setCurrentDate} />
 				<S.TimelineWrapper>
 					<S.Header>
 						<h1>{title}</h1>
