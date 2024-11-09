@@ -1,6 +1,7 @@
 import { getFontSize } from "@/lib/theme/font";
 import { noBorders } from "@/lib/theme/snippets/border";
 import { flex } from "@/lib/theme/snippets/flex";
+import { spacing } from "@/lib/theme/snippets/spacing";
 import styled, { css } from "styled-components";
 
 const Wrapper = styled.div<{ $fullSize?: boolean }>`
@@ -10,7 +11,7 @@ const Wrapper = styled.div<{ $fullSize?: boolean }>`
 
 	box-shadow: 0 0 0.5rem 0 #ccc;
 
-	padding: 1rem 1.2rem;
+	padding: 1rem;
 	z-index: 3;
 	${flex.column};
 
@@ -27,7 +28,7 @@ const List = styled.ul`
 	gap: 0.5rem;
 
 	box-shadow: 0 0 0.5rem 0 #ccc;
-	padding: 0.8rem 1.2rem;
+	${spacing.padding.wide({ size: 0.8, ratio: 1.5 })};
 	min-height: 3.6rem; // this currently is the exact size of a single item; prevents layout shift when going from items -> no items
 	max-height: 250px;
 	overflow-y: scroll;
@@ -43,7 +44,7 @@ const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
 	border: 2px solid #ccc;
 	border-radius: 2px;
 	box-shadow: 0.2rem 0.1rem 0 0 #ddd;
-	padding: 0.2rem 0.6rem;
+	${spacing.padding.wide({ size: 0.2, ratio: 2.5 })};
 	font-size: ${(p) => getFontSize(p, 0.82)};
 	min-height: calc(4px + 1.24rem); // should be font-size + padding + border
 	height: max-content;
@@ -82,11 +83,11 @@ const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
 `;
 
 const Title = styled.h3`
+	${spacing.padding.wide({ size: 0.3, ratio: 2.5 })};
 	margin: 0;
-
-	padding: 0.35rem 0.75rem;
 	margin-top: -1.6rem;
 	margin-left: 0.5rem;
+
 	background-color: #333;
 	color: azure;
 	max-width: max-content;
@@ -98,7 +99,7 @@ const Title = styled.h3`
 
 const Filter = styled.input`
 	display: flex;
-	padding: 0.2rem 0.4rem;
+	${spacing.padding.wide({ size: 0.2, ratio: 2 })};
 	border-radius: 3px;
 	border: none;
 	outline: 2px solid #ccc;
@@ -128,7 +129,7 @@ const ClearFilter = styled.button`
 
 	background-color: #aaa;
 	border-radius: 40%;
-	padding: 0.22em;
+	padding: 0.2rem;
 	cursor: pointer;
 	color: white;
 
@@ -212,7 +213,7 @@ const DropdownActions = styled.div`
 	justify-content: space-between;
 
 	gap: 1rem;
-	margin: 0.8rem 1rem;
+	${spacing.margin.wide({ size: 0.8, ratio: 1.25 })}
 
 	button:nth-of-type(1) {
 		margin-left: auto;
@@ -254,7 +255,7 @@ const SelectionList = styled.ul`
 
 	padding: 0.2rem 0;
 	padding-right: 0.4rem; // this is to prevent make scrollbar look better
-	margin: 0.7rem 0.4rem;
+	${spacing.margin.tall({ size: 0.4, ratio: 2 })}
 	gap: 0.5rem;
 	font-size: ${(p) => getFontSize(p, 0.85)};
 
@@ -270,7 +271,7 @@ const SelectionItem = styled.li`
 	flex: 1;
 
 	list-style: none;
-	padding: 0.3rem 0.5rem;
+	${spacing.padding.wide({ size: 0.3, ratio: 1.5 })};
 	min-width: max-content;
 	border-radius: 4px;
 	background-color: ${(p) => p.theme.colors.blue.main};
@@ -291,7 +292,7 @@ const PathPart = styled.span<{ $isLeaf: boolean }>`
 `;
 
 const EmptySelection = styled.div`
-	padding: 0.4rem 1.2rem;
+	${spacing.padding.wide({ size: 0.4, ratio: 2.5 })};
 	color: azure;
 	background-color: ${(p) => p.theme.colors.blue.main};
 	max-width: max-content;

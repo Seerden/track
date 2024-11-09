@@ -1,6 +1,7 @@
 import BadgeStyles from "@/lib/theme/components/Badge.style";
 import { getFontSize } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
+import { spacing } from "@/lib/theme/snippets/spacing";
 import { motion } from "framer-motion";
 import styled, { css } from "styled-components";
 
@@ -29,8 +30,8 @@ const TagName = styled.label<{ $level: number }>`
 	justify-content: space-between;
 	align-items: center;
 	gap: 0.5rem;
-	margin: 0.3rem 0.5rem;
-	padding: 0.5rem 0.7rem;
+	${spacing.margin.wide({ size: 0.3, ratio: 2 })};
+	${spacing.padding.wide({ size: 0.3, ratio: 1.5 })};
 	outline: 2px solid #eee;
 	border-radius: 4px;
 	box-shadow: 0.6rem 0.6rem 0 -0.3rem #ddd;
@@ -141,7 +142,7 @@ const Container = styled.div`
 	box-shadow:
 		0.5rem 0.5rem 0 -0.3rem deepskyblue,
 		0 0 0.8rem 0 #ccc;
-	padding: 1rem 2rem;
+	${spacing.padding.wide({ size: 1, ratio: 2 })}
 	border-radius: 3px;
 	margin: 3rem auto;
 `;

@@ -1,11 +1,12 @@
 import { getFontSize } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
+import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
 	margin: 1.2rem auto;
+	${spacing.padding.wide({ size: 1.2, ratio: 1.5 })};
 
-	padding: 1.2rem 2rem;
 	box-shadow: 0 0 1rem 0 #aaa;
 	max-width: 720px;
 	border: 2px solid #aaa;
@@ -18,7 +19,7 @@ const List = styled.ul`
 
 const Item = styled.li`
 	position: relative;
-	padding: 0.8rem 1.2rem;
+	${spacing.padding.wide({ size: 0.8, ratio: 1.5 })};
 	box-shadow: 0 0 0.3rem 0 #ccc;
 
 	list-style: none;
@@ -31,7 +32,7 @@ const Name = styled.h2`
 	margin-bottom: 0.2rem;
 	border-bottom: 2px solid darkorchid;
 	width: max-content;
-	padding: 0.1rem 1rem;
+	${spacing.padding.wide({ size: 0.2, ratio: 5 })};
 	background-color: darkorchid;
 	border-radius: 2px;
 	color: azure;
@@ -56,7 +57,7 @@ const Description = styled.section`
 		0.3rem 0.3rem 0 -0.1rem #ccc,
 		0 0 0.5rem 0 #ccc;
 	/* background-color: #e1e1e1; */
-	padding: 0.7rem 0.5rem;
+	padding: 0.6rem;
 	margin: 1rem;
 	max-width: 400px;
 	border-radius: 3px;
@@ -68,7 +69,7 @@ const Date = styled.span``;
 
 const Tag = styled.div`
 	margin-top: 0.4rem;
-	padding: 0.2rem 0.6rem;
+	${spacing.padding.wide({ size: 0.2, ratio: 3 })};
 	background-color: gold;
 	color: black;
 	font-size: ${(p) => p.theme.font.size["0.9"]};

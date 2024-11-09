@@ -1,5 +1,6 @@
 import { getFontSize } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
+import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
 
 const Wrapper = styled.section`
@@ -64,7 +65,7 @@ const HumanizedStart = styled.p`
 	background-color: darkorchid;
 	border-radius: 3px;
 	margin-top: 0.4rem;
-	padding: 0.5rem 1rem;
+	${spacing.padding.wide({ size: 0.5, ratio: 2 })};
 	display: flex;
 	width: max-content;
 `;
@@ -84,7 +85,7 @@ const Tags = styled.ul`
 const Tag = styled.li`
 	user-select: none;
 	list-style: none;
-	padding: 0.35rem 0.6rem;
+	${spacing.padding.wide({ size: 0.3, ratio: 2 })};
 	border-radius: 3px;
 	box-shadow: 0.3rem 0.3rem 0 -0.15rem deepskyblue;
 	background-color: dodgerblue;
