@@ -16,8 +16,7 @@ export default function Tasks({ activities }: TasksProps) {
 	return (
 		<T.TasksWrapper>
 			<S.BlockTitle>Tasks</S.BlockTitle>
-			{!activities.length && <Empty>No tasks found for today.</Empty>}
-			{activities.length > 0 && (
+			{activities.length ? (
 				<T.Tasks>
 					{activities.map((a) => (
 						<Task
@@ -27,6 +26,8 @@ export default function Tasks({ activities }: TasksProps) {
 						/>
 					))}
 				</T.Tasks>
+			) : (
+				<Empty>No tasks found for today.</Empty>
 			)}
 		</T.TasksWrapper>
 	);
