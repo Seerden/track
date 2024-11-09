@@ -26,11 +26,11 @@ function TagSelectorItems(p: TagSelectorItemsProps) {
 	const { openModal } = useModalState(p.modalId);
 	const { data } = useTagsQuery();
 
-	if (data?.tagsById && Object.keys(data.tagsById).length > 0 && p.tags.length === 0) {
+	if (data?.byId && Object.keys(data.byId).length > 0 && p.tags.length === 0) {
 		return <p>No tags found for selected filter.</p>;
 	}
 
-	if (data?.tagsById && Object.keys(data.tagsById).length === 0)
+	if (data?.byId && Object.keys(data.byId).length === 0)
 		return (
 			<button
 				type="button"

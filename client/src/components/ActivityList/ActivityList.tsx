@@ -8,12 +8,12 @@ import useActivityList from "./useActivityList";
 export default function ActivityList() {
 	const { activitiesData, tagsData } = useActivityList();
 
-	if (!activitiesData?.activitiesById) {
+	if (!activitiesData?.byId) {
 		return <></>;
 	}
 
-	const activities = Object.values(activitiesData.activitiesById);
-	const tagsById = tagsData?.tagsById;
+	const activities = Object.values(activitiesData.byId);
+	const tagsById = tagsData?.byId;
 
 	return (
 		<S.Wrapper>

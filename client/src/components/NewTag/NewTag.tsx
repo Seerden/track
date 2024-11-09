@@ -34,12 +34,12 @@ function NewTag({ modalId }: NewTagProps) {
 					/>
 				</S.Field>
 
-				{Object.keys(tags?.tagsById ?? {}).length > 0 && (
+				{Object.keys(tags?.byId ?? {}).length > 0 && (
 					<S.Tags>
 						<TagSelector
 							title="Categorize"
 							maximum={1}
-							tagsById={tags?.tagsById}
+							tagsById={tags?.byId}
 							modalId={modalId}
 						/>
 					</S.Tags>

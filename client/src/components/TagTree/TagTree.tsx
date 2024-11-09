@@ -25,9 +25,9 @@ export default function TagTree({
 
 	if (!tagTreeData || !tagsData) return null;
 
-	const rootTags = Object.keys(tagTreeData.tree).map((id) => tagsData.tagsById[+id]);
+	const rootTags = Object.keys(tagTreeData.byId).map((id) => tagsData.byId[+id]);
 
-	if (!Object.values(tagsData.tagsById).length) return null;
+	if (!Object.values(tagsData.byId).length) return null;
 
 	return (
 		<Modal modalId={modalId} initialOpen={initialOpen}>
@@ -62,7 +62,7 @@ function Tag({ tag, level }: TagProps) {
 		return null;
 	}
 
-	const children = tag.child_ids?.map((id) => getTag(id, tagsData.tagsById));
+	const children = tag.child_ids?.map((id) => getTag(id, tagsData.byId));
 
 	return (
 		<S.Tag $level={level} layout>
