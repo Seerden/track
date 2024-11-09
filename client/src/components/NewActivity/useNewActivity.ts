@@ -46,7 +46,7 @@ export default function useNewActivity() {
 
 		setNewActivity((current) => ({
 			...current,
-			[name]: type === "checkbox" ? checked : value
+			[name]: type === "checkbox" ? !current.is_task : value
 		}));
 	}
 
