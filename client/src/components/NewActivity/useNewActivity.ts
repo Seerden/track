@@ -1,3 +1,4 @@
+import { queryClient } from "@/lib/query-client";
 import useAuthentication from "@/lib/useAuthentication";
 import useRouteProps from "@/lib/useRouteProps";
 import type { Datelike } from "@/types/date.types";
@@ -35,7 +36,9 @@ export default function useNewActivity() {
 			{ activity: parseNewActivity(newActivity), tagIds: selectedTagIds },
 			{
 				onSuccess: () => {
+					// TODO: only navigate if not already on the today page
 					navigate("/today"); // TODO: put routes in a variable
+					queryClient.invalidateQueries({ queryKey: ["activities"] });
 				}
 			}
 		);
