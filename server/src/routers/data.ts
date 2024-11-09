@@ -42,7 +42,7 @@ dataRouter.get("/tags/tree", isAuthorized, async (req, res) => {
 	const user_id = req.session.user!.user_id; // always exists if we're here, because of middleware
 	const tagsById = await getTagsWithRelations({ user_id });
 	const tree = createTagTreeMap(tagsById);
-	res.json({ tree });
+	res.json({ byId: tree });
 });
 
 dataRouter.get("/notes", isAuthorized, async (req, res) => {

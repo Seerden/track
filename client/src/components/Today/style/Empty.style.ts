@@ -1,9 +1,10 @@
+import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
 
 const Empty = styled.p`
 	background-color: ${(p) => p.theme.colors.highlight.info};
 	color: ${(p) => p.theme.colors.white};
-	padding: 0.5rem 1rem;
+	${spacing.padding.wide({ size: 0.5, ratio: 2 })};
 	border-radius: 3px;
 	max-width: max-content;
 `;

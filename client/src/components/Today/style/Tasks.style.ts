@@ -1,6 +1,7 @@
 import { column } from "@/components/Today/style/Today.style";
 import { getFontSize } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
+import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
 
 // TODO: make this shared with Notes for now since they are currently the same
@@ -18,7 +19,7 @@ const TaskName = styled.div`
 
 	color: #333;
 	background-color: #eee;
-	padding: 0.4rem 0.7rem;
+	${spacing.padding.wide({ size: 0.3, ratio: 2.5 })};
 	border-radius: 4px;
 	box-shadow: 0 0.1rem 0.2rem 0 #bbb;
 `;
@@ -61,7 +62,7 @@ const Task = styled.li`
 	background-color: #ddd; // TODO: apply some style for completed tasks
 	width: 100%;
 	min-width: max-content;
-	padding: 0.5rem 1rem;
+	${spacing.padding.wide({ size: 0.5, ratio: 2 })};
 	align-items: center;
 	max-height: 90px;
 	box-shadow: 0.55rem 0.55rem 0.2rem -0.3rem #ccc;

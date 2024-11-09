@@ -1,3 +1,4 @@
+import { spacing } from "@/lib/theme/snippets/spacing";
 import { css } from "styled-components";
 import { pageBorder } from "./border";
 import { pageShadow } from "./shadow";
@@ -9,7 +10,7 @@ export const pageStyle = css`
 	justify-content: center;
 	margin: 0 auto;
 	margin-top: 1rem;
-	padding: 1.2rem 1.6rem;
+	${spacing.padding.wide({ size: 1.2, ratio: 1.5 })};
 
 	${pageShadow};
 

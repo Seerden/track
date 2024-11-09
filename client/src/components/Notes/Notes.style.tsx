@@ -1,5 +1,6 @@
 import { getFontSize } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
+import { spacing } from "@/lib/theme/snippets/spacing";
 import { styled } from "styled-components";
 
 export const Page = styled.section`
@@ -7,7 +8,7 @@ export const Page = styled.section`
 	border: 2px solid darkorchid;
 	margin: 1.2rem auto;
 
-	padding: 0.5rem 1.5rem;
+	${spacing.padding.wide({ size: 0.5, ratio: 3 })};
 	box-shadow: 0 0 2rem 0 #ccc;
 
 	// TODO: this is temporary
@@ -27,7 +28,7 @@ export const List = styled.ul`
 export const Note = styled.li`
 	list-style: none;
 
-	padding: 0.6rem 0.9rem;
+	${spacing.padding.wide({ size: 0.6, ratio: 1.5 })};
 	border: 2px solid darkorchid;
 	box-shadow: 0 0 1rem 0 #ccc;
 	width: 45%;
@@ -35,7 +36,7 @@ export const Note = styled.li`
 
 export const Title = styled.h2`
 	font-size: ${(p) => getFontSize(p, 1.02)};
-	padding: 0.3rem 0.7rem;
+	${spacing.padding.wide({ size: 0.3, ratio: 2.5 })};
 	background-color: #eee;
 	border: 2px solid #ccc;
 	border-radius: 2px;
@@ -60,7 +61,7 @@ export const Tag = styled.li`
 	border-radius: 3px;
 	list-style: none;
 	background-color: darkorchid;
-	padding: 0.2rem 0.5rem;
+	${spacing.padding.wide({ size: 0.2, ratio: 2.5 })};
 	margin-top: -1rem;
 	height: max-content;
 	color: white;

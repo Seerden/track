@@ -1,3 +1,4 @@
+import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
 import S from "./Today.style";
 
@@ -15,17 +16,17 @@ const Note = styled.li`
 	}
 
 	background-color: #ddd;
-	padding: 0.5rem 0rem;
+	padding: 0.5rem 0;
 `;
 
 const NoteTitle = styled.h3`
 	width: max-content;
-	padding: 0.3rem 0.8rem;
+	${spacing.padding.wide({ size: 0.3, ratio: 3 })};
 	grid-area: title;
 `;
 
 const NoteContent = styled.div`
-	padding: 0.5rem 1rem;
+	${spacing.padding.wide({ size: 0.5, ratio: 2 })};
 	grid-area: content;
 `;
 

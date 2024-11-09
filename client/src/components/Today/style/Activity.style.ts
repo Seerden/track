@@ -1,5 +1,6 @@
 import { rowHeight } from "@/components/Today/style/TimelineRow.style";
 import { getFontSize } from "@/lib/theme/font";
+import { spacing } from "@/lib/theme/snippets/spacing";
 import { css, styled } from "styled-components";
 import S from "./Today.style";
 
@@ -36,8 +37,9 @@ const Activity = styled.div<{
 	z-index: 2;
 	height: ${(p) => rowHeight * p.$durationHours}px;
 
-	padding: 0.5rem 1rem;
-	background-color: ${(p) => (p.$isTask ? "dodgerblue" : "limegreen")};
+	${spacing.padding.wide({ size: 0.5, ratio: 2 })};
+	background-color: ${(p) =>
+		p.$isTask ? "dodgerblue" : "limegreen"}; // TODO: get these from theme
 	align-items: ${(p) => (p.$durationHours > 2 ? "flex-start" : "center")};
 	color: ${(p) => (p.$isTask ? "azure" : "black")};
 

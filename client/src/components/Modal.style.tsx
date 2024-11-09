@@ -1,3 +1,4 @@
+import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
 
 export const ModalWrapper = styled.div`
@@ -45,7 +46,7 @@ export const Close = styled.button`
 
 export const Modal = styled.div`
 	position: relative;
-	padding: 1.2rem 1.5rem;
+	${spacing.padding.wide({ size: 1.2, ratio: 1.25 })}
 	background-color: #efefef; // TODO: this should be a theme value
 	height: max-content;
 	margin-top: 25vh; // TODO: this should be responsive, so should everything else obviously

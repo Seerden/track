@@ -1,11 +1,12 @@
 import { getFontSize } from "@/lib/theme/font";
 import { noBorders } from "@/lib/theme/snippets/border";
 import { flex } from "@/lib/theme/snippets/flex";
+import { spacing } from "@/lib/theme/snippets/spacing";
 import { inputStyle } from "@lib/theme/snippets/input";
 import { styled } from "styled-components";
 
 export const Wrapper = styled.section`
-	padding: 0.6rem 0.9rem;
+	${spacing.padding.wide({ size: 0.6, ratio: 1.5 })};
 	border: 2px solid deeppink;
 	margin: 1.2rem;
 	box-shadow: 0 0 1rem 0 #ccc;
@@ -23,7 +24,7 @@ export const Title = styled.h2`
 	font-size: ${(p) => getFontSize(p, 1.2)};
 	border: 2px solid #ccc;
 	border-radius: 2px;
-	padding: 0.2rem 0.8rem;
+	${spacing.padding.wide({ size: 0.2, ratio: 4 })};
 	background-color: #ddd;
 `;
 
@@ -34,7 +35,7 @@ export const Field = styled.span`
 export const Label = styled.label`
 	display: flex;
 	width: max-content;
-	padding: 0.2rem 0.8rem;
+	${spacing.padding.wide({ size: 0.2, ratio: 4 })};
 	background-color: deeppink;
 	color: azure;
 	margin-left: -0.5rem;
@@ -56,7 +57,7 @@ export const MainFields = styled.div`
 export const TextArea = styled.textarea`
 	${noBorders};
 	border-bottom: 1px solid #ccc;
-	padding: 0.3rem 0.5rem;
+	${spacing.padding.wide({ size: 0.3, ratio: 1.5 })};
 	width: 100%;
 	min-height: 100px;
 	margin-bottom: 1rem;

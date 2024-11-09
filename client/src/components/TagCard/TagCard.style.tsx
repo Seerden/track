@@ -1,9 +1,10 @@
 import { getFontSize } from "@/lib/theme/font";
+import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
 
 export const Tag = styled.div`
 	border-radius: 4px;
-	padding: 0.3rem 0.6rem;
+	${spacing.padding.wide({ size: 0.3, ratio: 2 })};
 	background-color: darkorchid;
 	color: azure;
 	max-width: max-content;

@@ -1,5 +1,6 @@
 import { noBorders } from "@/lib/theme/snippets/border";
 import { flex } from "@/lib/theme/snippets/flex";
+import { spacing } from "@/lib/theme/snippets/spacing";
 import { inputStyle } from "@lib/theme/snippets/input";
 import styled, { css } from "styled-components";
 
@@ -39,7 +40,7 @@ const Label = styled.label<{ $faded?: boolean }>`
 		font-size: ${(p) => p.theme.font.size["0.9"]};
 		background-color: #fff;
 		width: 100%;
-		padding: 0.2rem 0.6rem;
+		${spacing.padding.wide({ size: 0.2, ratio: 3 })};
 		border-radius: 0 15px 0 0;
 	}
 

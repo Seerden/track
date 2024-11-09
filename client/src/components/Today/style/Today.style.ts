@@ -1,6 +1,7 @@
 import { Tag } from "@/components/TagCard/TagCard.style";
 import { getFontSize } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
+import { spacing } from "@/lib/theme/snippets/spacing";
 import styled, { css } from "styled-components";
 
 const Wrapper = styled.div``;
@@ -8,7 +9,7 @@ const Wrapper = styled.div``;
 const TimelineWrapper = styled.section`
 	${flex.column};
 	gap: 1.5rem;
-	padding: 1rem 3rem;
+	${spacing.padding.wide({ size: 1, ratio: 3 })};
 
 	max-width: 100%;
 	min-width: 500px;

@@ -1,10 +1,11 @@
 import { getFontSize } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
+import { spacing } from "@/lib/theme/snippets/spacing";
 import { inputStyle } from "@lib/theme/snippets/input";
 import styled, { css } from "styled-components";
 
 export const Wrapper = styled.div`
-	padding: 0.5rem 1.1rem;
+	${spacing.padding.wide({ size: 0.5, ratio: 2 })};
 	padding-top: 0.8rem;
 	margin: 1.2rem;
 	border: 2px solid #ccc;
@@ -20,7 +21,7 @@ export const Wrapper = styled.div`
 
 		max-width: max-content;
 		background-color: #ddd;
-		padding: 0.5rem 1.4rem;
+		${spacing.padding.wide({ size: 0.5, ratio: 3 })};
 		box-shadow:
 			-0.2rem 0.2rem 0 0 #ccc,
 			-0.6rem -0.4rem 0 0 deepskyblue,
@@ -50,7 +51,7 @@ export const Form = styled.form`
 `;
 
 export const Button = styled.button`
-	padding: 0.6rem 1.5rem;
+	${spacing.padding.wide({ size: 0.6, ratio: 2.5 })};
 	margin-bottom: -1.5rem;
 	margin-top: 0.3rem;
 	align-self: center;
@@ -90,7 +91,7 @@ export const Label = styled.label<{ $showWarning?: boolean }>`
 
 	span {
 		background-color: #fff;
-		padding: 0.2rem 0.6rem;
+		${spacing.padding.wide({ size: 0.2, ratio: 3 })};
 		border-radius: 0 15px 0 0;
 		font-size: ${(p) => getFontSize(p, 0.9)};
 	}
@@ -115,7 +116,7 @@ export const Task = styled.label`
 	gap: 0.2rem;
 
 	background-color: #eaeaea;
-	margin: 0.2rem 0.5rem;
+	${spacing.margin.wide({ size: 0.2, ratio: 2.5 })}
 	border: 2px solid white;
 	border-radius: 3px;
 

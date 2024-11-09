@@ -1,5 +1,6 @@
 import { getFontSize } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
+import { spacing } from "@/lib/theme/snippets/spacing";
 import { inputStyle } from "@lib/theme/snippets/input";
 import styled from "styled-components";
 
@@ -8,7 +9,7 @@ import styled from "styled-components";
 export const Form = styled.section`
 	${flex.column};
 	margin: 1.2rem;
-	padding: 0.6rem 0.9rem;
+	${spacing.padding.wide({ size: 0.6, ratio: 1.5 })};
 	justify-content: space-between;
 	border: 3px solid limegreen;
 
@@ -23,7 +24,7 @@ export const Form = styled.section`
 
 		border: 2px solid #ccc;
 		border-radius: 2px;
-		padding: 0.2rem 0.8rem;
+		${spacing.padding.wide({ size: 0.2, ratio: 4 })};
 		background-color: #ddd;
 	}
 
