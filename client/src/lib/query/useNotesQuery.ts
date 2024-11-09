@@ -15,7 +15,7 @@ async function getNotes() {
 	return response.json();
 }
 
-type NotesData = Data<"notesById", ById<NoteWithIds>>;
+type NotesData = Data<"byId", ById<NoteWithIds>>;
 
 export default function useNotesQuery() {
 	return useQuery<NotesData>({

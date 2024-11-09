@@ -47,7 +47,7 @@ export default function useTagSelector({ maximum, tagsById }: UseTagSelector = {
 
 	// TODO: If tags are passed through props (=p.tagsById), they take priority over all the
 	// user's tags (=t.tags.tagsById), We need to rename the variables to make that clear.
-	const tags = Object.values(tagsById ?? tagsData?.tagsById ?? []);
+	const tags = Object.values(tagsById ?? tagsData?.byId ?? []);
 	const tagsToDisplay = tags.filter((tag) =>
 		tag.name.toLowerCase().includes(filter.toLowerCase())
 	);

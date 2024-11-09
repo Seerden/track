@@ -10,7 +10,7 @@ export default function Notes() {
 	const { data: notesData } = useNotesQuery();
 	const { data: tags } = useTagsQuery();
 
-	const notes = Object.values(notesData?.notesById ?? {}).filter((note) =>
+	const notes = Object.values(notesData?.byId ?? {}).filter((note) =>
 		// TODO: note.date is not a field in the client when creating a new note,
 		// so it will always be undefined currently, so using created_at is a
 		// temporary solution.
@@ -21,11 +21,7 @@ export default function Notes() {
 			<S.BlockTitle>Notes</S.BlockTitle>
 			{!notes.length && <Empty>No notes found for today.</Empty>}
 			{notes.map((n) => (
-				<Note
-					key={n.note_id}
-					note={n}
-					tags={filterTagsById(n.tag_ids, tags?.tagsById)}
-				/>
+				<Note key={n.note_id} note={n} tags={filterTagsById(n.tag_ids, tags?.byId)} />
 			))}
 		</S.NotesWrapper>
 	);

@@ -10,7 +10,7 @@ type NewNoteProps = {
 function NewNote({ inActivity }: NewNoteProps) {
 	const { onInputChange, onSubmit, tagsData } = useNewNote({ inActivity });
 
-	const tagsById = tagsData?.tagsById;
+	const tagsById = tagsData?.byId;
 
 	return (
 		<S.Wrapper>

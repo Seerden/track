@@ -71,10 +71,10 @@ export default function DetailedActivity({ activity }: DetailedActivityProps) {
 					</S.Task>
 				)}
 
-				{tagsData?.tagsById && (
+				{tagsData?.byId && (
 					<S.Tags>
 						{activity.tag_ids.map((id) => (
-							<S.Tag key={id}>{tagsData.tagsById[id].name}</S.Tag>
+							<S.Tag key={id}>{tagsData.byId[id].name}</S.Tag>
 						))}
 					</S.Tags>
 				)}

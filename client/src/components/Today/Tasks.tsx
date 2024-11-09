@@ -22,7 +22,7 @@ export default function Tasks({ activities }: TasksProps) {
 						<Task
 							key={a.activity_id}
 							activity={a}
-							tags={filterTagsById(a.tag_ids, tags?.tagsById)}
+							tags={filterTagsById(a.tag_ids, tags?.byId)}
 						/>
 					))}
 				</T.Tasks>

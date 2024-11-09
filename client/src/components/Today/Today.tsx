@@ -20,7 +20,7 @@ function useToday() {
 	const [currentDate, setCurrentDate] = useState<Dayjs>(() => today());
 
 	const activities = useMemo(() => {
-		return Object.values(activitiesData?.activitiesById ?? {}); // TODO: should this not be in a useActivities hook or someting?
+		return Object.values(activitiesData?.byId ?? {}); // TODO: should this not be in a useActivities hook or someting?
 	}, [activitiesData]);
 	const todayActivities = activities.filter((activity) => {
 		return activityFallsOnDay(activity, currentDate);

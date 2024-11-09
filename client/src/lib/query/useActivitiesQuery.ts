@@ -15,7 +15,7 @@ async function getActivities() {
 	return response.json();
 }
 
-type ActivitiesData = Data<"activitiesById", ById<ActivityWithIds>>;
+type ActivitiesData = Data<"byId", ById<ActivityWithIds>>;
 
 export default function useActivitiesQuery() {
 	return useQuery<ActivitiesData>({

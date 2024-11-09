@@ -17,7 +17,7 @@ function NoteElement({ note, tags }: { note: NoteWithIds; tags?: TagsData }) {
 				<S.Title>{title}</S.Title>
 				<S.Tags>
 					{note.tag_ids?.map((id) => (
-						<S.Tag key={id}>{tags?.tagsById?.[id]?.name}</S.Tag>
+						<S.Tag key={id}>{tags?.byId?.[id]?.name}</S.Tag>
 					))}
 				</S.Tags>
 			</S.NoteHeader>
@@ -29,14 +29,14 @@ function NoteElement({ note, tags }: { note: NoteWithIds; tags?: TagsData }) {
 export default function Notes() {
 	const { notes, tags } = useNotes();
 
-	if (!notes?.notesById) return <></>;
+	if (!notes?.byId) return <></>;
 
 	return (
 		<S.Page>
 			<h1>My notes 📔</h1>
 
 			<S.List>
-				{Object.values(notes.notesById).map((note) => (
+				{Object.values(notes.byId).map((note) => (
 					<NoteElement key={note.note_id} note={note} tags={tags} />
 				))}
 			</S.List>

@@ -13,7 +13,7 @@ export async function getTagsTree() {
 	return response.json();
 }
 
-type TagsTreeData = Data<"tree", ById<{ members: number[] }>>;
+type TagsTreeData = Data<"byId", ById<{ members: number[] }>>;
 
 export default function useTagsTreeQuery() {
 	return useQuery<TagsTreeData>({

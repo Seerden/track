@@ -29,7 +29,7 @@ dataRouter.post("/activity", async (req, res) => {
 dataRouter.get("/tags", isAuthorized, async (req, res) => {
 	const user_id = req.session.user!.user_id; // always exists if we're here, because of middleware
 	const tagsById = await getTagsWithRelations({ user_id });
-	res.json({ tagsById });
+	res.json({ byId: tagsById });
 });
 
 dataRouter.post("/tag", isAuthorized, async (req, res) => {
@@ -48,7 +48,7 @@ dataRouter.get("/tags/tree", isAuthorized, async (req, res) => {
 dataRouter.get("/notes", isAuthorized, async (req, res) => {
 	const user_id = req.session.user!.user_id; // always exists if we're here, because of middleware
 	const notesById = await queryNotesAndRelations({ user_id });
-	res.json({ notesById });
+	res.json({ byId: notesById });
 });
 
 dataRouter.post("/note", isAuthorized, async (req, res) => {
@@ -61,7 +61,7 @@ dataRouter.get("/activities", isAuthorized, async (req, res) => {
 	const user_id = req.session.user!.user_id;
 	const activitiesById = await queryActivitiesAndRelations({ user_id });
 
-	res.json({ activitiesById });
+	res.json({ byId: activitiesById });
 });
 
 dataRouter.put("/task/completion", isAuthorized, async (req, res) => {
