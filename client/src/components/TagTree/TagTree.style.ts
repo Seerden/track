@@ -1,12 +1,13 @@
 import BadgeStyles from "@/lib/theme/components/Badge.style";
 import { getFontSize } from "@/lib/theme/font";
+import { flex } from "@/lib/theme/snippets/flex";
 import { motion } from "framer-motion";
 import styled, { css } from "styled-components";
 
 const borderColors = ["#444", "#777", "#aaa", "#ddd"];
 const colors = ["deepskyblue", "blueviolet", "darkorchid", "darkviolet", "indigo"];
 
-export const TagName = styled.label<{ $level: number }>`
+const TagName = styled.label<{ $level: number }>`
 	font-size: ${(p) => getFontSize(p, 0.9)};
 	min-width: 50px;
 	position: relative;
@@ -24,8 +25,7 @@ export const TagName = styled.label<{ $level: number }>`
       user-select: none;
    `}
 
-	display: flex;
-	flex-direction: row;
+	${flex.row};
 	justify-content: space-between;
 	align-items: center;
 	gap: 0.5rem;
@@ -49,8 +49,7 @@ export const TagName = styled.label<{ $level: number }>`
 `;
 
 export const Tag = styled(motion.li)<{ $level: number }>`
-	display: flex;
-	flex-direction: column;
+	${flex.column};
 	justify-content: center;
 	list-style: none;
 	/* margin-left: ${(p) => p.$level * 1}rem; */
@@ -84,7 +83,7 @@ export const Children = styled(motion.ul)<{ $collapsed?: boolean }>`
 	}
 `;
 
-export const Tree = styled.ul<{
+const Tree = styled.ul<{
 	$orientation?: "horizontal" | "vertical"; // TODO: figure out what the component should look like when vertical
 	$columnCount: number;
 }>`
@@ -129,17 +128,16 @@ export const Tree = styled.ul<{
 					grid-template-columns: repeat(${p.$columnCount ?? 1}, minmax(auto, 1fr));
 				`
 			: css`
-					flex-direction: column;
+					flex-direction: column; // TODO: does this do anything? display is grid
 					overflow-x: hidden;
 					overflow-y: scroll;
 				`}
 `;
 
-export const Container = styled.div`
+const Container = styled.div`
 	width: 90vw;
 	max-width: 90vw;
-	display: flex;
-	flex-direction: column;
+	${flex.column};
 	box-shadow:
 		0.5rem 0.5rem 0 -0.3rem deepskyblue,
 		0 0 0.8rem 0 #ccc;
@@ -148,6 +146,15 @@ export const Container = styled.div`
 	margin: 3rem auto;
 `;
 
-export const DropdownCheckbox = styled.input`
+const DropdownCheckbox = styled.input`
 	display: none;
 `;
+
+export default {
+	Tag,
+	TagName,
+	Children,
+	Tree,
+	Container,
+	DropdownCheckbox
+};

@@ -1,4 +1,5 @@
 import { getFontSize } from "@/lib/theme/font";
+import { flex } from "@/lib/theme/snippets/flex";
 import styled from "styled-components";
 
 const Wrapper = styled.section`
@@ -33,8 +34,7 @@ const Title = styled.h2`
 	padding: 0.5rem;
 	padding-right: 1.5rem;
 	border-radius: 3px 3px 10px 3px;
-	display: flex;
-	flex-direction: row;
+	${flex.row};
 	justify-content: space-between;
 	gap: 1rem;
 	width: max-content;
@@ -48,9 +48,8 @@ const Time = styled.div`
 const Description = styled.div``;
 
 const Datetime = styled.div`
-	display: flex;
+	${flex.column};
 	width: max-content;
-	flex-direction: column;
 	align-items: flex-end;
 	font-size: ${(p) => getFontSize(p, 0.8)};
 	margin-top: 0.3rem;
@@ -71,9 +70,8 @@ const HumanizedStart = styled.p`
 `;
 
 const Tags = styled.ul`
-	display: flex;
+	${flex.row};
 	flex-wrap: wrap;
-	flex-direction: row;
 	align-self: flex-end;
 	justify-content: flex-end;
 	grid-area: tags;

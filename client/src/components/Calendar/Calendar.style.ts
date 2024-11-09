@@ -1,4 +1,5 @@
 import { getFontSize } from "@/lib/theme/font";
+import { flex } from "@/lib/theme/snippets/flex";
 import type { CSSProperties } from "styled-components";
 import styled, { css } from "styled-components";
 
@@ -9,8 +10,9 @@ const highlightColor: CSSProperties["color"] = "dodgerblue";
 
 const Calendar = styled.div`
 	position: relative;
-	display: flex;
-	flex-direction: column;
+
+	${flex.column};
+
 	user-select: none;
 	width: max-content;
 	height: max-content;
@@ -30,8 +32,8 @@ const Calendar = styled.div`
 
 const TitleWrapper = styled.div`
 	width: 100%;
-	display: flex;
-	flex-direction: row;
+
+	${flex.row};
 	justify-content: flex-end;
 `;
 
@@ -52,16 +54,17 @@ const MonthPickerWrapper = styled.div`
 `;
 
 const Days = styled.div`
-	display: flex;
-	flex-direction: row;
+	${flex.row};
 	gap: ${gap};
+
 	width: max-content;
 	margin-bottom: calc(4 * ${gap});
 	border-radius: 5px;
 	background-color: #eee;
 	border-bottom: 2px solid ${highlightColor};
-	font-weight: 500;
+
 	font-size: ${(p) => getFontSize(p, 0.8)};
+	font-weight: 500;
 `;
 
 type StyledCellProps = {
@@ -79,22 +82,22 @@ const Day = styled.div<StyledCellProps>`
 `;
 
 const Rows = styled.div`
-	display: flex;
-	flex-direction: column;
+	${flex.column};
 	gap: calc(3 * ${gap});
 `;
 
 const Row = styled.div`
-	display: flex;
-	flex-direction: row;
+	${flex.row};
 	gap: ${gap};
 `;
 
 const Cell = styled.button<StyledCellProps>`
-	border: none;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
+	border: none;
+
 	width: ${({ width }) => width ?? defaultCellWidth}px;
 	height: ${({ height }) => height ?? defaultCellHeight}px;
 

@@ -1,3 +1,5 @@
+import { noBorders } from "@/lib/theme/snippets/border";
+import { flex } from "@/lib/theme/snippets/flex";
 import { inputStyle } from "@lib/theme/snippets/input";
 import styled, { css } from "styled-components";
 
@@ -8,25 +10,16 @@ const Form = styled.section`
 	gap: 0.1rem;
 `;
 
-const flexColumn = css`
-	display: flex;
-	flex-direction: column;
-`;
-
-const flexRow = css`
-	display: flex;
-	flex-direction: row;
-`;
-
 const Row = styled.div`
-	${flexRow};
+	${flex.row};
 	justify-content: space-between;
 `;
 
 const Label = styled.label<{ $faded?: boolean }>`
 	position: relative;
-	${flexColumn};
+	${flex.column};
 	align-items: stretch;
+
 	margin: 0.5rem;
 	width: 100%;
 
@@ -77,10 +70,12 @@ const Label = styled.label<{ $faded?: boolean }>`
 
 const Fields = styled.fieldset`
 	position: relative;
-	${flexRow};
+	${flex.row};
+
 	padding: 0;
 	max-width: 100%;
 
+	/* TODO: why is there an empty rule here? */
 	${Label} {
 		span {
 		}
@@ -90,16 +85,19 @@ const Fields = styled.fieldset`
 // TODO: these match the styling from Task in NewActivity, so they should be
 // extracted to a shared snippet.
 const AllDay = styled.label`
-	${flexRow};
+	${flex.row};
 	align-items: center;
-	width: max-content;
-	border: 2px solid white;
-	border-radius: 3px;
+	justify-content: center;
+	gap: 0.2rem;
+
 	margin: 0.5rem;
 	padding: 0 1rem;
 
-	gap: 0.2rem;
-	justify-content: center;
+	width: max-content;
+
+	border: 2px solid white;
+	border-radius: 3px;
+
 	background-color: #eaeaea;
 
 	&:hover,
@@ -116,14 +114,17 @@ const AllDay = styled.label`
 `;
 
 const Checkbox = styled.input`
-	outline: none;
-	border: none;
+	${noBorders};
 	width: 0px;
 	height: 0px;
 `;
 
+Checkbox.defaultProps = {
+	"aria-hidden": true
+};
+
 const Icon = styled.span`
-	border: none;
+	${noBorders};
 	width: 30px;
 	display: flex;
 	justify-content: center;
@@ -142,15 +143,18 @@ const Info = styled.div`
 	position: absolute;
 	top: calc(50% -${size});
 	right: calc(-0.25 * ${size});
+
 	background-color: deepskyblue;
 	border-radius: 50%;
+	color: white;
+	outline: 2px solid white;
+
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
 	width: ${size};
 	height: ${size};
-	color: white;
-	outline: 2px solid white;
 `;
 
 export default {

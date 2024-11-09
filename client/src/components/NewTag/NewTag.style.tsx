@@ -1,12 +1,12 @@
 import { getFontSize } from "@/lib/theme/font";
+import { flex } from "@/lib/theme/snippets/flex";
 import { inputStyle } from "@lib/theme/snippets/input";
 import styled from "styled-components";
 
 // TODO: style this similarly to NewActivity -- this means creating common theme
 // snippets for 'Form', 'FormTitle', 'Fields', etc.
 export const Form = styled.section`
-	display: flex;
-	flex-direction: column;
+	${flex.column};
 	margin: 1.2rem;
 	padding: 0.6rem 0.9rem;
 	justify-content: space-between;
@@ -40,8 +40,7 @@ export const Fields = styled.form`
 `;
 
 export const Field = styled.label`
-	display: flex;
-	flex-direction: column;
+	${flex.column};
 	gap: 0.2rem;
 
 	input {

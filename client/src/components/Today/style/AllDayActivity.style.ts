@@ -1,4 +1,5 @@
 import { getFontSize } from "@/lib/theme/font";
+import { flex } from "@/lib/theme/snippets/flex";
 import styled from "styled-components";
 import S from "./Today.style";
 
@@ -15,8 +16,7 @@ const AllDayActivity = styled.li`
 	outline: 2px solid dodgerblue;
 	box-shadow: 0 0.2rem 0.3rem 0 #aaa;
 
-	display: flex;
-	flex-direction: row;
+	${flex.row};
 	align-items: center;
 	gap: 1rem;
 	padding-left: 0.3rem;

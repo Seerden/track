@@ -1,4 +1,5 @@
 import { getFontSize } from "@/lib/theme/font";
+import { flex } from "@/lib/theme/snippets/flex";
 import { styled } from "styled-components";
 
 export const Page = styled.section`
@@ -17,11 +18,10 @@ export const Page = styled.section`
 `;
 
 export const List = styled.ul`
-	display: flex;
+	${flex.row};
 	flex-wrap: wrap;
-	flex-direction: row;
-	gap: 0.7rem;
 	justify-content: space-between;
+	gap: 0.7rem;
 `;
 
 export const Note = styled.li`
@@ -45,8 +45,7 @@ export const Title = styled.h2`
 `;
 
 export const NoteHeader = styled.span`
-	display: flex;
-	flex-direction: row;
+	${flex.row};
 	justify-content: space-between;
 `;
 
