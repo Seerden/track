@@ -1,4 +1,5 @@
 import { queryClient } from "@/lib/query-client";
+import { useModalState } from "@/lib/state/modal-state";
 import useAuthentication from "@/lib/useAuthentication";
 import useRouteProps from "@/lib/useRouteProps";
 import type { Datelike } from "@/types/date.types";
@@ -10,7 +11,13 @@ import { useEffect, useMemo, useState } from "react";
 import { parseNewActivity } from "./parse-new-activity";
 import { useNewActivityMutation } from "./useNewActivityMutation";
 
-export default function useNewActivity() {
+export default function useNewActivity({
+	initialIsTask = false,
+	modalId
+}: {
+	initialIsTask?: boolean;
+	modalId: string;
+}) {
 	const { mutate: submit } = useNewActivityMutation();
 	const { navigate } = useRouteProps();
 	const { currentUser } = useAuthentication();
@@ -18,14 +25,17 @@ export default function useNewActivity() {
 	const [newActivity, setNewActivity] = useState<Partial<NewActivity>>(() => ({
 		name: "",
 		description: "",
-		user_id: currentUser?.user_id
+		user_id: currentUser?.user_id,
+		is_task: initialIsTask
 	}));
 
 	useEffect(() => {
 		resetTagSelection();
 	}, []);
 
-	const isTask = useMemo(() => newActivity.is_task, [newActivity.is_task]);
+	const isTask = useMemo(() => !!newActivity.is_task, [newActivity.is_task]);
+
+	const { closeModal } = useModalState(modalId);
 
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
@@ -39,6 +49,9 @@ export default function useNewActivity() {
 					// TODO: only navigate if not already on the today page
 					navigate("/today"); // TODO: put routes in a variable
 					queryClient.invalidateQueries({ queryKey: ["activities"] });
+					// only close modal if it's open, but that is the behavior by
+					// design anyway
+					closeModal();
 				}
 			}
 		);

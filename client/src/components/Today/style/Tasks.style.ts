@@ -37,9 +37,8 @@ const Tasks = styled.ul`
 	${flex.column};
 	gap: 0.6rem;
 	overflow-x: auto;
-	padding: 0 0.5rem;
+	padding: 0.5rem;
 	max-width: 720px;
-	height: 100%; // TODO: only apply this when in list/column view?
 `;
 
 const Task = styled.li`

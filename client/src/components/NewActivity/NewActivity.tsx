@@ -1,17 +1,24 @@
 import modalIds from "@/lib/modal-ids";
+import N from "@/lib/theme/components/form.style";
 import { Checkbox } from "@lib/theme/components/Checkbox";
 import { type NewActivity } from "@type/server/activity.types";
 import TagSelector from "../TagSelector/TagSelector";
 import DateTimePicker from "./DateTimePicker";
-import * as N from "./NewActivity.style";
+import S from "./NewActivity.style";
 import useNewActivity from "./useNewActivity";
 
-function NewActivity() {
-	const { onInputChange, onSubmit, onDateTimeChange, isTask } = useNewActivity();
+type NewActivityProps = {
+	isTask?: boolean;
+};
+
+function NewActivity({ isTask: initialIsTask }: NewActivityProps) {
+	const { onInputChange, onSubmit, onDateTimeChange, isTask } = useNewActivity({
+		initialIsTask
+	});
 
 	return (
 		<N.Wrapper>
-			<h1>Create an activity</h1>
+			<N.FormTitle>Create an activity</N.FormTitle>
 			<N.Form onSubmit={onSubmit}>
 				<N.Row name="description">
 					<N.Label>
@@ -23,11 +30,11 @@ function NewActivity() {
 						<span>Description (optional)</span>
 						<input name="description" type="text" onChange={onInputChange} />
 					</N.Label> */}
-					<N.Task>
+					<S.Task>
 						<span>Task?</span>
 						<input name="is_task" type="checkbox" onChange={onInputChange} />
 						<Checkbox checked={isTask} />
-					</N.Task>
+					</S.Task>
 				</N.Row>
 
 				<N.Row>
