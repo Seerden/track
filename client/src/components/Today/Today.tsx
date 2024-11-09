@@ -41,6 +41,11 @@ function useToday() {
 
 	const selectedActivity = activities.find((a) => a.activity_id === state.itemId);
 
+	const currentYear = today().year(); // TODO: edge case: make this reactive so it updates on New Year's
+	const title = currentDate.format(
+		`dddd (D MMMM${currentDate.year() !== currentYear ? " YYYY" : ""})`
+	);
+
 	return {
 		activities: todayActivities,
 		allDayActivities,
@@ -48,17 +53,13 @@ function useToday() {
 		currentDate,
 		setCurrentDate,
 		shouldShowDetailedActivity,
-		selectedActivity
+		selectedActivity,
+		title
 	} as const;
 }
 
 export default function Today() {
 	const t = useToday();
-	const currentYear = today().year(); // TODO: this will not be reactive, so will not automatically flip around midnight
-	// TODO: this also is not reactive enough
-	const title = t.currentDate.format(
-		`dddd (D MMMM${t.currentDate.year() !== currentYear ? " YYYY" : ""})`
-	);
 
 	return (
 		<S.Wrapper>
@@ -67,7 +68,7 @@ export default function Today() {
 				<Calendar initialDate={t.currentDate} onChange={t.setCurrentDate} />
 				<S.TimelineWrapper>
 					<S.Header>
-						<h1>{title}</h1>
+						<h1>{t.title}</h1>
 					</S.Header>
 					{!!t.allDayActivities.length && (
 						<AllDayActivities activities={t.allDayActivities} />
