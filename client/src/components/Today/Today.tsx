@@ -92,7 +92,7 @@ export default function Today() {
 						</button>
 					</div>
 					<Modal initialOpen={false} modalId={modalIds.activities.new}>
-						<NewActivity />
+						<NewActivity modalId={modalIds.activities.new} />
 					</Modal>
 				</S.TimelineWrapper>
 

@@ -9,11 +9,13 @@ import useNewActivity from "./useNewActivity";
 
 type NewActivityProps = {
 	isTask?: boolean;
+	modalId: string;
 };
 
-function NewActivity({ isTask: initialIsTask }: NewActivityProps) {
+function NewActivity({ isTask: initialIsTask, modalId }: NewActivityProps) {
 	const { onInputChange, onSubmit, onDateTimeChange, isTask } = useNewActivity({
-		initialIsTask
+		initialIsTask,
+		modalId
 	});
 
 	return (

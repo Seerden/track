@@ -45,7 +45,7 @@ export default function Tasks({ activities }: TasksProps) {
 			</button>
 
 			<Modal initialOpen={false} modalId={modalIds.activities.newTask}>
-				<NewActivity isTask />
+				<NewActivity isTask modalId={modalIds.activities.newTask} />
 			</Modal>
 		</T.TasksWrapper>
 	);
