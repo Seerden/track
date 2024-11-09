@@ -13,6 +13,7 @@ import Notes from "./Notes";
 import S from "./style/Today.style";
 import Tasks from "./Tasks";
 
+/** Functionality hook for the Today component. */
 function useToday() {
 	const { data: activitiesData } = useActivitiesQuery();
 
