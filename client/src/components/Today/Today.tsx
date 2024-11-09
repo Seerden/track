@@ -7,15 +7,17 @@ import modalIds from "@/lib/modal-ids";
 import useActivitiesQuery from "@/lib/query/useActivitiesQuery";
 import { useModalState } from "@/lib/state/modal-state";
 import { activityFallsOnDay, isAllDayActivityOnDate } from "@lib/activity";
-import { useMemo } from "react";
+import type { Dayjs } from "dayjs";
+import { useMemo, useState } from "react";
 import Notes from "./Notes";
 import S from "./style/Today.style";
 import Tasks from "./Tasks";
 
+/** Functionality hook for the Today component. */
 function useToday() {
 	const { data: activitiesData } = useActivitiesQuery();
 
-	const currentDate = today();
+	const [currentDate, setCurrentDate] = useState<Dayjs>(() => today());
 
 	const activities = useMemo(() => {
 		return Object.values(activitiesData?.activitiesById ?? {}); // TODO: should this not be in a useActivities hook or someting?
@@ -39,13 +41,20 @@ function useToday() {
 
 	const selectedActivity = activities.find((a) => a.activity_id === state.itemId);
 
+	const currentYear = today().year(); // TODO: edge case: make this reactive so it updates on New Year's
+	const title = currentDate.format(
+		`dddd (D MMMM${currentDate.year() !== currentYear ? " YYYY" : ""})`
+	);
+
 	return {
 		activities: todayActivities,
 		allDayActivities,
 		timestampedActivities,
 		currentDate,
+		setCurrentDate,
 		shouldShowDetailedActivity,
-		selectedActivity
+		selectedActivity,
+		title
 	} as const;
 }
 
@@ -56,13 +65,10 @@ export default function Today() {
 		<S.Wrapper>
 			{/* TODO: we want the header to be aligned above the Timeline */}
 			<S.Columns>
-				<Calendar
-					initialMonth={t.currentDate.month()}
-					initialYear={t.currentDate.year()}
-				/>
+				<Calendar initialDate={t.currentDate} onChange={t.setCurrentDate} />
 				<S.TimelineWrapper>
 					<S.Header>
-						<h1>{t.currentDate.format("dddd (DD MMMM)")}</h1>
+						<h1>{t.title}</h1>
 					</S.Header>
 					{!!t.allDayActivities.length && (
 						<AllDayActivities activities={t.allDayActivities} />

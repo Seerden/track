@@ -7,22 +7,21 @@ import type { Dayjs } from "dayjs";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 type UseCalendarProps = {
-	initialMonth: number;
-	initialYear: number;
-	onChange?: React.Dispatch<React.SetStateAction<Maybe<Dayjs>>>;
+	initialDate: Dayjs;
+	onChange?: React.Dispatch<React.SetStateAction<Dayjs>>;
 };
 
 /** Functionality hook for Calendar.tsx */
-export function useCalendar({ initialMonth, initialYear, onChange }: UseCalendarProps) {
-	const [selectedDate, setSelectedDate] = useState<Maybe<Dayjs>>();
+export function useCalendar({ initialDate, onChange }: UseCalendarProps) {
+	const [selectedDate, setSelectedDate] = useState<Maybe<Dayjs>>(initialDate);
 
 	useEffect(() => {
 		if (selectedDate) onChange?.(selectedDate);
 	}, [selectedDate]);
 
 	const [monthAndYear, setMonthAndYear] = useState<MonthAndYear>(() => ({
-		month: initialMonth,
-		year: initialYear
+		month: initialDate.month(),
+		year: initialDate.year()
 	}));
 
 	const firstDayOfTheMonth = useMemo(

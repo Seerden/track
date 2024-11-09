@@ -16,17 +16,19 @@ export default function Tasks({ activities }: TasksProps) {
 	return (
 		<T.TasksWrapper>
 			<S.BlockTitle>Tasks</S.BlockTitle>
-			<T.Tasks>
-				{!activities.length && <Empty>No tasks found for today.</Empty>}
-
-				{activities.map((a) => (
-					<Task
-						key={a.activity_id}
-						activity={a}
-						tags={filterTagsById(a.tag_ids, tags?.tagsById)}
-					/>
-				))}
-			</T.Tasks>
+			{activities.length ? (
+				<T.Tasks>
+					{activities.map((a) => (
+						<Task
+							key={a.activity_id}
+							activity={a}
+							tags={filterTagsById(a.tag_ids, tags?.tagsById)}
+						/>
+					))}
+				</T.Tasks>
+			) : (
+				<Empty>No tasks found for today.</Empty>
+			)}
 		</T.TasksWrapper>
 	);
 }
