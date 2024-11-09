@@ -1,4 +1,5 @@
 import { getFontSize } from "@/lib/theme/font";
+import { flex } from "@/lib/theme/snippets/flex";
 import { inputStyle } from "@lib/theme/snippets/input";
 import styled, { css } from "styled-components";
 
@@ -30,8 +31,7 @@ export const Wrapper = styled.div`
 
 export const Row = styled.fieldset`
 	padding: 0.5rem;
-	display: flex;
-	flex-direction: row;
+	${flex.row};
 
 	width: 100%;
 	max-width: 100%;
@@ -45,8 +45,7 @@ export const Row = styled.fieldset`
 `;
 
 export const Form = styled.form`
-	display: flex;
-	flex-direction: column;
+	${flex.column};
 	gap: 0.5rem;
 `;
 
@@ -76,8 +75,7 @@ export const Button = styled.button`
 export const Label = styled.label<{ $showWarning?: boolean }>`
 	font-size: ${(p) => getFontSize(p, 0.9)};
 
-	display: flex;
-	flex-direction: column;
+	${flex.column};
 	width: 75%;
 	border-radius: 0 15px 0 0;
 	margin: 0;
@@ -111,15 +109,15 @@ export const Label = styled.label<{ $showWarning?: boolean }>`
 `;
 
 export const Task = styled.label`
+	${flex.row};
+	align-items: center;
 	padding: 0 1rem;
+	gap: 0.2rem;
+
 	background-color: #eaeaea;
-	display: flex;
 	margin: 0.2rem 0.5rem;
 	border: 2px solid white;
 	border-radius: 3px;
-	flex-direction: row;
-	align-items: center;
-	gap: 0.2rem;
 
 	input[type="checkbox"] {
 		width: 0;

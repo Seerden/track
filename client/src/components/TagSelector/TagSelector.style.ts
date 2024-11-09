@@ -1,4 +1,6 @@
 import { getFontSize } from "@/lib/theme/font";
+import { noBorders } from "@/lib/theme/snippets/border";
+import { flex } from "@/lib/theme/snippets/flex";
 import styled, { css } from "styled-components";
 
 const Wrapper = styled.div<{ $fullSize?: boolean }>`
@@ -10,8 +12,7 @@ const Wrapper = styled.div<{ $fullSize?: boolean }>`
 
 	padding: 1rem 1.2rem;
 	z-index: 3;
-	display: flex;
-	flex-direction: column;
+	${flex.column};
 
 	max-width: ${(p) => (p.$fullSize ? "100%" : "400px")};
 
@@ -19,9 +20,8 @@ const Wrapper = styled.div<{ $fullSize?: boolean }>`
 `;
 
 const List = styled.ul`
-	display: flex;
+	${flex.row};
 	background-color: #fff;
-	flex-direction: row;
 	flex-wrap: wrap;
 
 	gap: 0.5rem;
@@ -100,9 +100,9 @@ const Filter = styled.input`
 	display: flex;
 	padding: 0.2rem 0.4rem;
 	border-radius: 3px;
+	border: none;
 	outline: 2px solid #ccc;
 	box-shadow: 0.1rem 0.1rem 0 0 #ddd;
-	border: none;
 	align-self: flex-end;
 	max-width: 150px;
 
@@ -118,19 +118,23 @@ const Filter = styled.input`
 
 const ClearFilter = styled.button`
 	position: absolute;
-	border: none;
-	display: flex;
 	right: 0.1rem;
+
+	${noBorders};
+	display: flex;
 	align-items: center;
 	justify-content: center;
+	align-self: center;
+
 	background-color: #aaa;
 	border-radius: 40%;
 	padding: 0.22em;
 	cursor: pointer;
 	color: white;
-	align-self: center;
-	width: 20px;
-	height: 20px;
+
+	--size: 20px;
+	width: var(--size);
+	height: var(--size);
 
 	&:hover {
 		background-color: deepskyblue;
@@ -145,16 +149,16 @@ ClearFilter.defaultProps = {
 
 const FilterWrapper = styled.div`
 	position: relative;
-	display: flex;
-	flex-direction: row;
-	gap: 0;
+
+	${flex.row};
 	align-items: center;
 	justify-content: center;
+
+	gap: 0;
 `;
 
 const Actions = styled.div`
-	display: flex;
-	flex-direction: row;
+	${flex.row};
 	justify-content: space-between;
 	align-items: center;
 	margin-top: 0.3rem;
@@ -177,8 +181,7 @@ const DropdownTrigger = styled.button`
 	justify-content: center;
 	align-items: center;
 	padding: 0px;
-	outline: none;
-	border: none;
+	${noBorders};
 
 	&:active {
 		transform: scale(1.1);
@@ -204,12 +207,12 @@ DropdownTrigger.defaultProps = {
 };
 
 const DropdownActions = styled.div`
-	display: flex;
-	flex-direction: row;
-	gap: 1rem;
+	${flex.row};
 	align-items: flex-end;
-	margin: 0.8rem 1rem;
 	justify-content: space-between;
+
+	gap: 1rem;
+	margin: 0.8rem 1rem;
 
 	button:nth-of-type(1) {
 		margin-left: auto;
@@ -229,45 +232,49 @@ const DropdownContent = styled.div`
 	position: absolute;
 	top: -0.8rem;
 	left: -1.1rem;
-	display: flex;
-	flex-direction: column;
+
+	${flex.column};
+
 	background-color: #eee;
 	border: 2px solid #ddd;
 	border-radius: 4px;
 	box-shadow:
 		0.2rem 0.2rem 0 0 #333,
 		0 0 0.6rem 0 #999;
+
 	width: calc(
 		100% + 2.2rem
 	); // 100% plus twice the left offset to center it against its parent
 `;
 
 const SelectionList = styled.ul`
-	padding: 0.2rem 0;
-	margin: 0.7rem 0.4rem;
-	display: flex;
-	padding-right: 0.4rem; // this is to prevent make scrollbar look better
-	flex-direction: row;
+	${flex.row};
 	flex-wrap: wrap;
+	align-items: center;
+
+	padding: 0.2rem 0;
+	padding-right: 0.4rem; // this is to prevent make scrollbar look better
+	margin: 0.7rem 0.4rem;
 	gap: 0.5rem;
 	font-size: ${(p) => getFontSize(p, 0.85)};
-	align-items: center;
+
 	user-select: none;
 	max-height: 120px;
 	overflow-y: scroll;
 `;
 
 const SelectionItem = styled.li`
-	list-style: none;
 	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex: 1;
+
+	list-style: none;
 	padding: 0.3rem 0.5rem;
 	min-width: max-content;
-	flex: 1;
 	border-radius: 4px;
 	background-color: ${(p) => p.theme.colors.blue.main};
 	color: white;
-	justify-content: center;
-	align-items: center;
 	box-shadow: 0rem 0.2rem 0.2rem #ccc;
 `;
 

@@ -7,7 +7,7 @@ import type { TagWithIds } from "@/types/server/tag.types";
 import type { ById, ID } from "@/types/server/utility.types";
 import { useState } from "react";
 import { MdOutlineExpandLess, MdOutlineExpandMore } from "react-icons/md";
-import * as S from "./TagTree.style";
+import S from "./TagTree.style";
 
 type TagTreeProps = {
 	orientation?: "vertical" | "horizontal";

@@ -1,5 +1,6 @@
 import { column } from "@/components/Today/style/Today.style";
 import { getFontSize } from "@/lib/theme/font";
+import { flex } from "@/lib/theme/snippets/flex";
 import styled from "styled-components";
 
 // TODO: make this shared with Notes for now since they are currently the same
@@ -24,8 +25,7 @@ const TaskName = styled.div`
 
 const Times = styled.div`
 	width: max-content;
-	display: flex;
-	flex-direction: column;
+	${flex.column};
 	align-items: flex-end;
 	font-size: ${(p) => getFontSize(p, 0.8)};
 
@@ -33,8 +33,7 @@ const Times = styled.div`
 `;
 
 const Tasks = styled.ul`
-	display: flex;
-	flex-direction: column;
+	${flex.column};
 	gap: 0.6rem;
 	overflow-x: auto;
 	padding: 0 0.5rem;

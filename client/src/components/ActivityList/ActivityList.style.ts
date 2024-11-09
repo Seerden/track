@@ -1,4 +1,5 @@
 import { getFontSize } from "@/lib/theme/font";
+import { flex } from "@/lib/theme/snippets/flex";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -11,8 +12,7 @@ const Wrapper = styled.div`
 `;
 
 const List = styled.ul`
-	display: flex;
-	flex-direction: column;
+	${flex.column};
 	gap: 0.5rem;
 `;
 
@@ -40,8 +40,8 @@ const Name = styled.h2`
 
 const Dates = styled.div`
 	font-size: ${(p) => getFontSize(p, 0.8)};
-	display: flex;
-	flex-direction: column;
+
+	${flex.column};
 	align-items: flex-end;
 `;
 

@@ -1,4 +1,6 @@
 import { getFontSize } from "@/lib/theme/font";
+import { noBorders } from "@/lib/theme/snippets/border";
+import { flex } from "@/lib/theme/snippets/flex";
 import { inputStyle } from "@lib/theme/snippets/input";
 import { styled } from "styled-components";
 
@@ -26,8 +28,7 @@ export const Title = styled.h2`
 `;
 
 export const Field = styled.span`
-	display: flex;
-	flex-direction: column;
+	${flex.column};
 `;
 
 export const Label = styled.label`
@@ -53,7 +54,7 @@ export const MainFields = styled.div`
 `;
 
 export const TextArea = styled.textarea`
-	border: none;
+	${noBorders};
 	border-bottom: 1px solid #ccc;
 	padding: 0.3rem 0.5rem;
 	width: 100%;
@@ -67,8 +68,7 @@ export const TextArea = styled.textarea`
 `;
 
 export const Form = styled.form`
-	display: flex;
-	flex-direction: column;
+	${flex.column};
 	gap: 1rem;
 	position: relative;
 `;

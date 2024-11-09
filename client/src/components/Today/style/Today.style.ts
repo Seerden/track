@@ -1,12 +1,12 @@
 import { Tag } from "@/components/TagCard/TagCard.style";
 import { getFontSize } from "@/lib/theme/font";
+import { flex } from "@/lib/theme/snippets/flex";
 import styled, { css } from "styled-components";
 
 const Wrapper = styled.div``;
 
 const TimelineWrapper = styled.section`
-	display: flex;
-	flex-direction: column;
+	${flex.column};
 	gap: 1.5rem;
 	padding: 1rem 3rem;
 
@@ -36,8 +36,7 @@ const BlockTitle = styled.h2`
 `;
 
 const Rows = styled.ul`
-	display: flex;
-	flex-direction: column;
+	${flex.column};
 `;
 
 const CheckboxWrapper = styled.label`
@@ -114,8 +113,7 @@ const Tags = styled.div`
 `;
 
 const AllDayActivityList = styled.ul`
-	display: flex;
-	flex-direction: column;
+	${flex.column};
 	gap: 0.7rem;
 	width: max-content;
 	padding-inline: 3rem;
