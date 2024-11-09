@@ -1,4 +1,6 @@
 import Calendar from "@/components/Calendar/Calendar";
+import Modal from "@/components/Modal";
+import NewActivity from "@/components/NewActivity/NewActivity";
 import AllDayActivities from "@/components/Today/AllDayActivities";
 import DetailedActivity from "@/components/Today/DetailedActivity";
 import TimelineRows from "@/components/Today/TimelineRows";
@@ -60,6 +62,7 @@ function useToday() {
 
 export default function Today() {
 	const t = useToday();
+	const { openModal } = useModalState(modalIds.activities.new);
 
 	return (
 		<S.Wrapper>
@@ -77,6 +80,20 @@ export default function Today() {
 						activities={t.timestampedActivities}
 						currentDate={t.currentDate}
 					/>
+					<div>
+						<button
+							type="button"
+							onClick={(e) => {
+								e.stopPropagation();
+								openModal();
+							}}
+						>
+							New activity
+						</button>
+					</div>
+					<Modal initialOpen={false} modalId={modalIds.activities.new}>
+						<NewActivity />
+					</Modal>
 				</S.TimelineWrapper>
 
 				<Tasks activities={t.activities.filter((a) => a.is_task)} />

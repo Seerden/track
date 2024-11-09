@@ -66,6 +66,10 @@ dataRouter.get("/activities", isAuthorized, async (req, res) => {
 
 dataRouter.put("/task/completion", isAuthorized, async (req, res) => {
 	const { input } = req.body as { input: ActivityUpdateInput };
-	const updatedActivity = await updateActivityCompletion({ input });
-	res.json({ activity: updatedActivity });
+	const [activity] = await updateActivityCompletion({ input });
+	const activities = await queryActivitiesAndRelations({
+		user_id: req.session.user!.user_id,
+	});
+	const updatedActivity = activities[activity.activity_id];
+	res.json(updatedActivity);
 });

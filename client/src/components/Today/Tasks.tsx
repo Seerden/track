@@ -1,6 +1,10 @@
+import Modal from "@/components/Modal";
+import NewActivity from "@/components/NewActivity/NewActivity";
 import Empty from "@/components/Today/Empty";
 import { filterTagsById } from "@/lib/filter-tags";
+import modalIds from "@/lib/modal-ids";
 import useTagsQuery from "@/lib/query/useTagsQuery";
+import { useModalState } from "@/lib/state/modal-state";
 import type { ActivityWithIds } from "@type/server/activity.types";
 import Task from "./Task";
 import T from "./style/Tasks.style";
@@ -12,6 +16,7 @@ type TasksProps = {
 
 export default function Tasks({ activities }: TasksProps) {
 	const { data: tags } = useTagsQuery();
+	const { openModal } = useModalState(modalIds.activities.newTask);
 
 	return (
 		<T.TasksWrapper>
@@ -29,6 +34,19 @@ export default function Tasks({ activities }: TasksProps) {
 			) : (
 				<Empty>No tasks found for today.</Empty>
 			)}
+			<button
+				type="button"
+				onClick={(e) => {
+					e.stopPropagation();
+					openModal();
+				}}
+			>
+				New task
+			</button>
+
+			<Modal initialOpen={false} modalId={modalIds.activities.newTask}>
+				<NewActivity isTask />
+			</Modal>
 		</T.TasksWrapper>
 	);
 }
