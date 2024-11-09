@@ -36,7 +36,7 @@ export default function TimelineRows({ activities, currentDate }: RowsProps) {
 					<TimelineRow
 						date={currentDate}
 						key={i}
-						index={i % 24}
+						index={i}
 						activities={activities.filter(
 							(a) => activityStartHour(a, currentDate) === i
 						)}

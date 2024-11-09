@@ -1,5 +1,5 @@
 import CurrentTimeMark from "@/components/Today/CurrentTimeMark";
-import { createDate } from "@/lib/datetime/make-date";
+import { isToday } from "@/lib/datetime/compare";
 import useCurrentTime from "@/lib/hooks/useCurrentTime";
 import type { Datelike } from "@/types/date.types";
 import type { ActivityWithIds } from "@type/server/activity.types";
@@ -10,6 +10,8 @@ import R from "./style/TimelineRow.style";
 
 type RowProps = {
 	date: Datelike;
+	/** Index is a number [0,24] that represents the hour of the day. Index `24`
+	 * refers to midnight of the current day. */
 	index: number;
 	activities: ActivityWithIds[];
 	indentation: Map<ID, number>;
@@ -17,13 +19,12 @@ type RowProps = {
 
 export default function TimelineRow({ date, index, activities, indentation }: RowProps) {
 	const currentTime = useCurrentTime();
-	const isToday = createDate(new Date()).isSame(createDate(date), "day"); // TODO: there should be a helper for this
-	const isCurrentHour = currentTime.hour() === index && isToday;
+	const isCurrentHour = isToday(date) && currentTime.hour() === index;
 	const offset = currentTime.minute() / 60;
 
 	return (
 		<R.Row>
-			<HourMark index={index} highlighted={isCurrentHour} />
+			<HourMark index={index % 24} highlighted={isCurrentHour} />
 
 			{isCurrentHour && <CurrentTimeMark offset={offset} />}
 
