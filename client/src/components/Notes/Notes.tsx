@@ -17,6 +17,7 @@ function NoteElement({ note, tags }: { note: NoteWithIds; tags?: TagsData }) {
 				<S.Title>{title}</S.Title>
 				<S.Tags>
 					{note.tag_ids?.map((id) => (
+						// TODO: use a helper function to get the tag
 						<S.Tag key={id}>{tags?.byId?.[id]?.name}</S.Tag>
 					))}
 				</S.Tags>
