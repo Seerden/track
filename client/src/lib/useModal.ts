@@ -34,9 +34,9 @@ export default function useModal(
 	}
 
 	function onClickOutside(e: MouseEvent) {
-		e.preventDefault();
-		e.stopPropagation();
 		if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+			e.preventDefault();
+			e.stopPropagation();
 			const idToClose = modalRef.current.dataset.modalId;
 			if (!idToClose) return;
 			outsideClickHandler?.(e) ?? closeModal(idToClose);
