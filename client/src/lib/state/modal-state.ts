@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { atom, useRecoilState } from "recoil";
 
 const modalIdsState = atom<string[]>({
@@ -8,12 +7,6 @@ const modalIdsState = atom<string[]>({
 
 export function useModalState() {
 	const [modalIds, setModalIds] = useRecoilState(modalIdsState);
-
-	useEffect(() => {
-		if (modalIds.length) {
-			console.log({ modalIds });
-		}
-	}, [modalIds]);
 
 	function openModal(modalId: string) {
 		setModalIds((current) => {
