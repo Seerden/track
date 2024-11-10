@@ -1,4 +1,4 @@
-import useModal from "@/lib/useModal";
+import useModal from "@/lib/hooks/useModal";
 import type { PropsWithChildren } from "react";
 import { useRef } from "react";
 import * as S from "./Modal.style";

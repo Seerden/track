@@ -1,9 +1,9 @@
 import { queryClient } from "@/lib/query-client";
 import { useModalState } from "@/lib/state/modal-state";
-import useAuthentication from "@/lib/useAuthentication";
-import useRouteProps from "@/lib/useRouteProps";
 import type { Datelike } from "@/types/date.types";
 import { hasUserId } from "@/types/server/user-id.guards";
+import useAuthentication from "@lib/hooks/useAuthentication";
+import useRouteProps from "@lib/hooks/useRouteProps";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import type { DateTimeField } from "@type/form.types";
 import type { NewActivity } from "@type/server/activity.types";
