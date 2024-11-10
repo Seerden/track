@@ -10,7 +10,7 @@ function NewTag({ modalId }: NewTagProps) {
 	const { onInputChange, onSubmit, tags } = useNewTag();
 
 	return (
-		<S.Form onSubmit={onSubmit}>
+		<S.Form role="form">
 			<h1>New 🏷️</h1>
 
 			<S.Fields>
@@ -44,7 +44,9 @@ function NewTag({ modalId }: NewTagProps) {
 						/>
 					</S.Tags>
 				)}
-				<S.Button title="Save">💾</S.Button>
+				<S.Button type="submit" title="Save" onClick={onSubmit}>
+					💾
+				</S.Button>
 			</S.Fields>
 		</S.Form>
 	);
