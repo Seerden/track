@@ -9,8 +9,8 @@ export default function usePutTaskCompletion(task: ActivityWithIds) {
 
 	function updateActivitiesCache(updatedActivity: ActivityWithIds) {
 		queryClient.setQueryData<ActivitiesData>(["activities"], (old): ActivitiesData => {
-			// This should never happen, since how could we update an activity that doesn't exist?
 			if (!old)
+				// This should never happen, since how could we update an activity that doesn't exist?
 				return {
 					byId: {
 						[updatedActivity.activity_id]: updatedActivity
