@@ -19,15 +19,6 @@ export function useModalState() {
 		setModalIds((current) => current.filter((id) => id !== modalId));
 	}
 
-	// TODO: currently unused, but could come in useful when we make modals
-	// thatdo not cover the entire screen
-	function closeModalAndDescendants(modalId: string) {
-		setModalIds((current) => {
-			const index = current.indexOf(modalId);
-			return current.slice(0, index);
-		});
-	}
-
 	function setModalOpen({ modalId, value }: { modalId: string; value: boolean }) {
 		setModalIds((current) =>
 			value ? [...current, modalId] : current.filter((id) => id !== modalId)
@@ -48,12 +39,6 @@ export function useModalState() {
 		closeModal,
 		openModal,
 		setModalOpen,
-		toggleModal,
-		closeModalAndDescendants
+		toggleModal
 	};
 }
-
-export const modalCountState = atom<number>({
-	default: 0,
-	key: "modalCountState"
-});
