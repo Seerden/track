@@ -1,4 +1,4 @@
-export const baseUrl = import.meta.env.VITE_API_URL; // TODO: use something else in production
+export const baseUrl = "http://localhost:5000"; // TODO: use something else in production
 
 export const postConfig: RequestInit = {
 	method: "POST",
