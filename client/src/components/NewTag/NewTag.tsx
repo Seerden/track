@@ -1,6 +1,6 @@
 import F from "@/lib/theme/components/form.style";
 import TagSelector from "../TagSelector/TagSelector";
-import * as S from "./NewTag.style";
+import S from "./NewTag.style";
 import useNewTag from "./useNewTag";
 
 type NewTagProps = {
