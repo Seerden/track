@@ -1,6 +1,6 @@
 import { queryClient } from "@/lib/query-client";
-import type { ActivitiesData } from "@/lib/query/useActivitiesQuery";
 import useTaskCompletionMutation from "@/lib/query/useTaskMutation";
+import type { ActivitiesData } from "@/types/data.types";
 import type { ActivityWithIds } from "@/types/server/activity.types";
 import { useCallback } from "react";
 
