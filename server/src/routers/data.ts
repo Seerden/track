@@ -11,7 +11,10 @@ import {
 	createTagTreeMap,
 	getTagsWithRelations,
 } from "../lib/data/merge-tags-and-relations";
-import { queryActivitiesAndRelations } from "../lib/data/query-activities";
+import {
+	queryActivitiesAndRelations,
+	queryActivityByIdWithRelations,
+} from "../lib/data/query-activities";
 import { queryNotesAndRelations } from "../lib/data/query-notes";
 
 export const dataRouter = Router({ mergeParams: true });
@@ -67,9 +70,8 @@ dataRouter.get("/activities", isAuthorized, async (req, res) => {
 dataRouter.put("/task/completion", isAuthorized, async (req, res) => {
 	const { input } = req.body as { input: ActivityUpdateInput };
 	const [activity] = await updateActivityCompletion({ input });
-	const activities = await queryActivitiesAndRelations({
-		user_id: req.session.user!.user_id,
+	const updatedActivity = await queryActivityByIdWithRelations({
+		activity_id: activity.activity_id,
 	});
-	const updatedActivity = activities[activity.activity_id];
 	res.json(updatedActivity);
 });

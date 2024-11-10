@@ -2,7 +2,7 @@ import type { Activity, ActivityWithIds } from "../../../types/data/activity.typ
 import type { ActivityTagRelation } from "../../../types/data/relational.types";
 import type { ById } from "../../../types/data/utility.types";
 
-export async function mergeActivitiesAndRelations(
+export function mergeActivitiesAndRelations(
 	activities: Activity[],
 	activityTagRelations: ActivityTagRelation[]
 ) {
