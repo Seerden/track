@@ -33,6 +33,7 @@ const FormTitle = styled.h1`
 const Row = styled.fieldset`
 	padding: 0.5rem;
 	${flex.row};
+	gap: 0.5rem;
 
 	width: 100%;
 	max-width: 100%;
