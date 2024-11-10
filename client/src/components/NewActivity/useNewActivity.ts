@@ -16,7 +16,7 @@ export default function useNewActivity({
 	modalId
 }: {
 	initialIsTask?: boolean;
-	modalId: string;
+	modalId?: string;
 }) {
 	const { mutate: submit } = useNewActivityMutation();
 	const { navigate } = useRouteProps();
@@ -35,7 +35,7 @@ export default function useNewActivity({
 
 	const isTask = useMemo(() => !!newActivity.is_task, [newActivity.is_task]);
 
-	const { closeModal } = useModalState(modalId);
+	const { closeModal } = useModalState();
 
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
@@ -51,14 +51,14 @@ export default function useNewActivity({
 					queryClient.invalidateQueries({ queryKey: ["activities"] });
 					// only close modal if it's open, but that is the behavior by
 					// design anyway
-					closeModal();
+					if (modalId) closeModal(modalId);
 				}
 			}
 		);
 	}
 
 	function onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-		const { type, name, value, checked } = e.target;
+		const { type, name, value } = e.target;
 
 		setNewActivity((current) => ({
 			...current,

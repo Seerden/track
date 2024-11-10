@@ -10,11 +10,11 @@ type NewTagButtonProps = {
 };
 
 export default function NewTagButton({ modalId, size = 15 }: NewTagButtonProps) {
-	const { toggleModal, state } = useModalState(modalId);
+	const { toggleModal, modalIds } = useModalState();
 
 	function handleOpen(e: React.MouseEvent<HTMLButtonElement>) {
 		e.stopPropagation();
-		toggleModal();
+		toggleModal(modalId);
 	}
 
 	return (
@@ -23,7 +23,7 @@ export default function NewTagButton({ modalId, size = 15 }: NewTagButtonProps) 
 				<AiFillTags size={size} />
 			</S.Button>
 
-			{state.isOpen && (
+			{modalIds.includes(modalId) && (
 				// NOTE: passing the same modalId here twice may seem weird, but
 				// it's technically possible for this thing to get nested modals
 				// (e.g. when a modal contains a TagSelector, which contains a

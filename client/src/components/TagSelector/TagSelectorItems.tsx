@@ -23,7 +23,7 @@ function TagSelectorItem(p: TagSelectorItemProps) {
 }
 
 function TagSelectorItems(p: TagSelectorItemsProps) {
-	const { openModal } = useModalState(p.modalId);
+	const { openModal } = useModalState();
 	const { data } = useTagsQuery();
 
 	if (data?.byId && Object.keys(data.byId).length > 0 && p.tags.length === 0) {
@@ -35,7 +35,7 @@ function TagSelectorItems(p: TagSelectorItemsProps) {
 			<button
 				type="button"
 				onClick={(e) => {
-					openModal();
+					openModal(p.modalId);
 					e.stopPropagation();
 				}}
 				style={{

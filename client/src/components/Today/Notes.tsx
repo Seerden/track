@@ -13,7 +13,7 @@ import S from "./style/Today.style";
 export default function Notes() {
 	const { data: notesData } = useNotesQuery();
 	const { data: tags } = useTagsQuery();
-	const { openModal } = useModalState(modalIds.notes.new);
+	const { openModal } = useModalState();
 
 	const notes = Object.values(notesData?.byId ?? {}).filter((note) =>
 		// TODO: note.date is not a field in the client when creating a new note,
@@ -33,7 +33,7 @@ export default function Notes() {
 				type="button"
 				onClick={(e) => {
 					e.stopPropagation();
-					openModal();
+					openModal(modalIds.notes.new);
 				}}
 			>
 				New note

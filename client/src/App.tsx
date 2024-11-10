@@ -25,7 +25,6 @@ function App() {
 							<main>
 								<Header />
 								<AnimatedRoutes />
-								<div id="modal-root" />
 							</main>
 						</Suspense>
 					</ThemeProvider>

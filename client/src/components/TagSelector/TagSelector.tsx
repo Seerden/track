@@ -20,11 +20,11 @@ export default function TagSelector(p: TagSelectorProps) {
 	// NOTE: tagTreeModalId has to depend on `modalId` because we can have
 	// multiple TagSelectors on the same page.
 	const tagTreeModalId = `${modalIds.tagTree.tagSelector}-${p.modalId}`;
-	const { openModal } = useModalState(tagTreeModalId);
+	const { openModal } = useModalState();
 
 	function onModalOpen(e: MouseEvent) {
 		e.stopPropagation();
-		openModal();
+		openModal(tagTreeModalId);
 	}
 
 	return (
