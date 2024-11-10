@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import useMeQuery from "./query/useMeQuery";
+import useMeQuery from "../query/useMeQuery";
+import { localUser } from "../user-storage";
 import useAuthentication from "./useAuthentication";
-import { localUser } from "./user-storage";
 
 /** Reconcile client-side authentication state with server-side state. */
 export default function useReconcileSession() {
