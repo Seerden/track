@@ -1,7 +1,7 @@
 import modalIds from "@/lib/modal-ids";
 import useTagsQuery from "@/lib/query/useTagsQuery";
 import { useModalState } from "@/lib/state/modal-state";
-import useAuthentication from "@/lib/useAuthentication";
+import useAuthentication from "@lib/hooks/useAuthentication";
 import { queryClient } from "@lib/query-client";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import type { NewTag } from "@type/server/tag.types";

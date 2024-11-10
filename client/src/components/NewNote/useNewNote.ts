@@ -1,7 +1,7 @@
 import { useNewNoteMutation } from "@/lib/query/useNewNoteMutation";
 import useTagsQuery from "@/lib/query/useTagsQuery";
-import useAuthentication from "@/lib/useAuthentication";
-import useRouteProps from "@/lib/useRouteProps";
+import useAuthentication from "@lib/hooks/useAuthentication";
+import useRouteProps from "@lib/hooks/useRouteProps";
 import { queryClient } from "@lib/query-client";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import type { NewNote } from "@type/server/note.types";
