@@ -118,11 +118,8 @@ const Checkbox = styled.input`
 	${noBorders};
 	width: 0px;
 	height: 0px;
+	display: none;
 `;
-
-Checkbox.defaultProps = {
-	"aria-hidden": true
-};
 
 const Icon = styled.span`
 	${noBorders};
