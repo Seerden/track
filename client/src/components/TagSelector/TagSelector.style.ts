@@ -164,8 +164,9 @@ const Actions = styled.div`
 	align-items: center;
 	margin-top: 0.3rem;
 	gap: 0.5rem;
+	width: 100%;
 
-	button:nth-of-type(1) {
+	& > button:nth-of-type(1) {
 		margin-left: auto;
 	}
 `;

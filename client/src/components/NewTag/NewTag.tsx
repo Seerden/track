@@ -1,3 +1,4 @@
+import F from "@/lib/theme/components/form.style";
 import TagSelector from "../TagSelector/TagSelector";
 import * as S from "./NewTag.style";
 import useNewTag from "./useNewTag";
@@ -10,45 +11,48 @@ function NewTag({ modalId }: NewTagProps) {
 	const { onInputChange, onSubmit, tags } = useNewTag();
 
 	return (
-		<S.Form role="form">
-			<h1>New 🏷️</h1>
+		<F.Wrapper role="form">
+			<F.Form>
+				<F.FormTitle>New🏷️</F.FormTitle>
 
-			<S.Fields>
-				<S.Field>
-					Name
-					<input
-						type="text"
-						placeholder="Tag name"
-						name="name"
-						onChange={onInputChange}
-					/>
-				</S.Field>
-
-				<S.Field>
-					Description
-					<input
-						placeholder="Tag description"
-						type="text"
-						name="description"
-						onChange={onInputChange}
-					/>
-				</S.Field>
-
-				{Object.keys(tags?.byId ?? {}).length > 0 && (
-					<S.Tags>
-						<TagSelector
-							title="Categorize"
-							maximum={1}
-							tagsById={tags?.byId}
-							modalId={modalId}
+				<F.Row>
+					<F.Label>
+						<span>Name</span>
+						<input
+							type="text"
+							placeholder="Tag name"
+							name="name"
+							onChange={onInputChange}
 						/>
-					</S.Tags>
-				)}
-				<S.Button type="submit" title="Save" onClick={onSubmit}>
+					</F.Label>
+
+					<F.Label>
+						<span>Description</span>
+						<input
+							placeholder="Tag description"
+							type="text"
+							name="description"
+							onChange={onInputChange}
+						/>
+					</F.Label>
+				</F.Row>
+				<F.Row>
+					{Object.keys(tags?.byId ?? {}).length > 0 && (
+						<S.Tags>
+							<TagSelector
+								title="Categorize"
+								maximum={1}
+								tagsById={tags?.byId}
+								modalId={modalId}
+							/>
+						</S.Tags>
+					)}
+				</F.Row>
+				<F.Button type="submit" title="Save" onClick={onSubmit}>
 					💾
-				</S.Button>
-			</S.Fields>
-		</S.Form>
+				</F.Button>
+			</F.Form>
+		</F.Wrapper>
 	);
 }
 
