@@ -16,7 +16,7 @@ type TasksProps = {
 
 export default function Tasks({ activities }: TasksProps) {
 	const { data: tags } = useTagsQuery();
-	const { openModal } = useModalState(modalIds.activities.newTask);
+	const { openModal } = useModalState();
 
 	return (
 		<T.TasksWrapper>
@@ -38,7 +38,7 @@ export default function Tasks({ activities }: TasksProps) {
 				type="button"
 				onClick={(e) => {
 					e.stopPropagation();
-					openModal();
+					openModal(modalIds.activities.newTask);
 				}}
 			>
 				New task

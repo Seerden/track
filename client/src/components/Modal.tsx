@@ -1,7 +1,6 @@
 import useModal from "@/lib/useModal";
 import type { PropsWithChildren } from "react";
 import { useRef } from "react";
-import { createPortal } from "react-dom";
 import * as S from "./Modal.style";
 
 type ModalProps = {
@@ -24,13 +23,17 @@ export default function Modal({
 		return null;
 	}
 
-	return createPortal(
+	return (
 		<S.ModalWrapper>
-			<S.Modal ref={modalRef}>
-				<S.Close onClick={closeModal} />
+			<S.Modal ref={modalRef} data-modal-id={modalId}>
+				<S.Close
+					onClick={(e) => {
+						e.stopPropagation();
+						closeModal(modalId);
+					}}
+				/>
 				{children}
 			</S.Modal>
-		</S.ModalWrapper>,
-		document.querySelector("#modal-root")!
+		</S.ModalWrapper>
 	);
 }

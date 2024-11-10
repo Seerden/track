@@ -1,16 +1,21 @@
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import type { ActivityWithIds } from "@/types/server/activity.types";
+import type { ID, Maybe } from "@/types/server/utility.types";
+import { atom, useSetRecoilState } from "recoil";
+
+export const activeItemState = atom<Maybe<ID>>({
+	key: "activeItemState",
+	default: null
+});
 
 export function useDetailedActivityModal(activity: ActivityWithIds) {
-	const { setModalState } = useModalState(modalIds.detailedActivity);
+	const { openModal } = useModalState();
+	const setActiveItem = useSetRecoilState(activeItemState);
 
 	function openDetailedActivityModal() {
-		setModalState(() => ({
-			isOpen: true,
-			itemId: activity.activity_id,
-			itemType: "activity"
-		}));
+		setActiveItem(activity.activity_id);
+		openModal(modalIds.detailedActivity);
 	}
 
 	return { openDetailedActivityModal };

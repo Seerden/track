@@ -13,31 +13,33 @@ export default function useModal(
 	modalRef: RefObject<HTMLElement | null>,
 	{ keys, outsideClickHandler, modalId, initialOpen }: UseModalProps
 ) {
-	const { state, setModalOpen } = useModalState(modalId);
+	const { setModalOpen, modalIds } = useModalState();
 
 	useEffect(() => {
 		if (initialOpen) {
-			setModalOpen(true);
+			setModalOpen({ modalId, value: true });
 		}
 	}, []);
 
-	function closeModal() {
-		setModalOpen(false);
+	function closeModal(modalId: string) {
+		setModalOpen({ modalId, value: false });
 		window.removeEventListener("click", onClickOutside);
 		window.removeEventListener("keydown", onKeydown);
 	}
 
 	function onKeydown(e: KeyboardEvent) {
 		if (modalRef.current && ["Escape"].concat(keys ?? []).includes(e.code)) {
-			closeModal();
+			closeModal(modalId);
 		}
 	}
 
 	function onClickOutside(e: MouseEvent) {
+		e.preventDefault();
+		e.stopPropagation();
 		if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-			e.preventDefault();
-			e.stopPropagation();
-			outsideClickHandler?.(e) ?? closeModal();
+			const idToClose = modalRef.current.dataset.modalId;
+			if (!idToClose) return;
+			outsideClickHandler?.(e) ?? closeModal(idToClose);
 		}
 	}
 
@@ -51,5 +53,5 @@ export default function useModal(
 		};
 	}, [modalRef.current]);
 
-	return { isOpen: state.isOpen, closeModal };
+	return { isOpen: modalIds.includes(modalId), closeModal };
 }

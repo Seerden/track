@@ -3,6 +3,7 @@ import Modal from "@/components/Modal";
 import NewActivity from "@/components/NewActivity/NewActivity";
 import AllDayActivities from "@/components/Today/AllDayActivities";
 import DetailedActivity from "@/components/Today/DetailedActivity";
+import { activeItemState } from "@/components/Today/hooks/useDetailedActivityModal";
 import TimelineRows from "@/components/Today/TimelineRows";
 import { today } from "@/lib/datetime/make-date";
 import modalIds from "@/lib/modal-ids";
@@ -11,6 +12,7 @@ import { useModalState } from "@/lib/state/modal-state";
 import { activityFallsOnDay, isAllDayActivityOnDate } from "@lib/activity";
 import type { Dayjs } from "dayjs";
 import { useMemo, useState } from "react";
+import { useRecoilValue } from "recoil";
 import Notes from "./Notes";
 import S from "./style/Today.style";
 import Tasks from "./Tasks";
@@ -34,14 +36,12 @@ function useToday() {
 		(activity) => !isAllDayActivityOnDate(activity, currentDate)
 	);
 
-	const { state } = useModalState(modalIds.detailedActivity);
-	const shouldShowDetailedActivity = !!(
-		state.isOpen &&
-		state.itemType === "activity" &&
-		state.itemId
-	);
+	const { modalIds: openModalIds } = useModalState();
 
-	const selectedActivity = activities.find((a) => a.activity_id === state.itemId);
+	const shouldShowDetailedActivity = !!openModalIds.includes(modalIds.detailedActivity);
+
+	const activeItemId = useRecoilValue(activeItemState);
+	const selectedActivity = activities.find((a) => a.activity_id === activeItemId);
 
 	const currentYear = today().year(); // TODO: edge case: make this reactive so it updates on New Year's
 	const title = currentDate.format(
@@ -62,7 +62,7 @@ function useToday() {
 
 export default function Today() {
 	const t = useToday();
-	const { openModal } = useModalState(modalIds.activities.new);
+	const { openModal } = useModalState();
 
 	return (
 		<S.Wrapper>
@@ -85,7 +85,7 @@ export default function Today() {
 							type="button"
 							onClick={(e) => {
 								e.stopPropagation();
-								openModal();
+								openModal(modalIds.activities.new);
 							}}
 						>
 							New activity

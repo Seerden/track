@@ -1,54 +1,66 @@
-import type { ID } from "@/types/server/utility.types";
-import { atomFamily, useRecoilState } from "recoil";
+import { useEffect } from "react";
+import { atom, useRecoilState } from "recoil";
 
-type ModalState = {
-	isOpen: boolean;
-	itemType?: string;
-	itemId?: ID;
-};
-
-type ModalStateParams = {
-	modalId: string;
-};
-
-export const modalStateFamily = atomFamily<ModalState, ModalStateParams>({
-	key: "modalStateFamily",
-	default: (params) => ({
-		modalId: params.modalId,
-		isOpen: false
-	})
+const modalIdsState = atom<string[]>({
+	key: "modalIdsState",
+	default: []
 });
 
-export function useModalState(modalId: string) {
-	const [state, setModalState] = useRecoilState(modalStateFamily({ modalId }));
+export function useModalState() {
+	const [modalIds, setModalIds] = useRecoilState(modalIdsState);
 
-	function openModal() {
-		setModalState((current) => ({ ...current, isOpen: true }));
+	useEffect(() => {
+		if (modalIds.length) {
+			console.log({ modalIds });
+		}
+	}, [modalIds]);
+
+	function openModal(modalId: string) {
+		setModalIds((current) => {
+			if (current.includes(modalId)) return current;
+			return [...current, modalId];
+		});
 	}
 
-	function closeModal() {
-		setModalState((current) => ({ ...current, isOpen: false }));
+	function closeModal(modalId: string) {
+		setModalIds((current) => current.filter((id) => id !== modalId));
 	}
 
-	function setModalOpen(value: boolean) {
-		setModalState((current) => ({ ...current, isOpen: value }));
+	// TODO: currently unused, but could come in useful when we make modals
+	// thatdo not cover the entire screen
+	function closeModalAndDescendants(modalId: string) {
+		setModalIds((current) => {
+			const index = current.indexOf(modalId);
+			return current.slice(0, index);
+		});
 	}
 
-	function toggleModal() {
-		setModalState((current) => ({ ...current, isOpen: !current.isOpen }));
+	function setModalOpen({ modalId, value }: { modalId: string; value: boolean }) {
+		setModalIds((current) =>
+			value ? [...current, modalId] : current.filter((id) => id !== modalId)
+		);
 	}
 
-	function setModalItemId(itemId: ID) {
-		setModalState((current) => ({ ...current, itemId }));
+	function toggleModal(modalId: string) {
+		setModalIds((current) =>
+			current.includes(modalId)
+				? current.filter((id) => id !== modalId)
+				: [...current, modalId]
+		);
 	}
 
 	return {
-		state,
+		modalIds,
+		setModalIds,
 		closeModal,
 		openModal,
 		setModalOpen,
 		toggleModal,
-		setModalItemId,
-		setModalState
+		closeModalAndDescendants
 	};
 }
+
+export const modalCountState = atom<number>({
+	default: 0,
+	key: "modalCountState"
+});

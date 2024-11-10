@@ -9,7 +9,7 @@ import useNewActivity from "./useNewActivity";
 
 type NewActivityProps = {
 	isTask?: boolean;
-	modalId: string;
+	modalId?: string;
 };
 
 function NewActivity({ isTask: initialIsTask, modalId }: NewActivityProps) {

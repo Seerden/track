@@ -2,9 +2,9 @@ import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
 
 export const ModalWrapper = styled.div`
+	overflow: hidden;
 	z-index: 100; // TODO: should put these indexes somewhere so we can reason about them
 	position: fixed;
-	overflow-y: scroll;
 	top: 0;
 	left: 0;
 	width: 100%;
