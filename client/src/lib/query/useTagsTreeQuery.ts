@@ -1,5 +1,5 @@
+import type { TagsTreeData } from "@/types/data.types";
 import { useQuery } from "@tanstack/react-query";
-import type { DataById } from "@type/query.types";
 import { makeAuthorizedUrl } from "../fetch/make-authorized-url";
 import { defaultQueryConfig } from "../query-client";
 
@@ -11,8 +11,6 @@ export async function getTagsTree() {
 	});
 	return response.json();
 }
-
-type TagsTreeData = DataById<{ members: number[] }>;
 
 export default function useTagsTreeQuery() {
 	return useQuery<TagsTreeData>({
