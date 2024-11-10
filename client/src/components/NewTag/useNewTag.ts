@@ -1,4 +1,6 @@
+import modalIds from "@/lib/modal-ids";
 import useTagsQuery from "@/lib/query/useTagsQuery";
+import { useModalState } from "@/lib/state/modal-state";
 import useAuthentication from "@/lib/useAuthentication";
 import { queryClient } from "@lib/query-client";
 import { useTagSelection } from "@lib/state/selected-tags-state";
@@ -18,6 +20,7 @@ export default function useNewTag() {
 
 	const { selectedTagIds, resetTagSelection } = useTagSelection();
 	const parent_id = selectedTagIds.length === 1 ? selectedTagIds[0] : undefined;
+	const { closeModal } = useModalState();
 
 	useEffect(() => {
 		// make sure we reset tag selection on mount so that we don't accidentally
@@ -31,7 +34,7 @@ export default function useNewTag() {
 		setNewTag((current) => ({ ...current, [e.target.name]: e.target.value }));
 	}
 
-	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+	function onSubmit(e: React.FormEvent<HTMLButtonElement>) {
 		e.preventDefault();
 		e.stopPropagation();
 
@@ -40,9 +43,7 @@ export default function useNewTag() {
 			{
 				onSuccess: () => {
 					queryClient.invalidateQueries({ queryKey: ["tags"] });
-					// TODO: redirect
-					// TODO: invalidate or refetch tags query, maybe also optimistically
-					// update the tags query with the new tag already
+					closeModal(modalIds.tagSelector.newActivity);
 				}
 			}
 		);

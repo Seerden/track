@@ -32,7 +32,7 @@ export const Form = styled.section`
 	width: max-content;
 `;
 
-export const Fields = styled.form`
+export const Fields = styled.section`
 	position: relative;
 	display: grid;
 	grid-template-columns: 1fr 1fr;
