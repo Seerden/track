@@ -1,5 +1,4 @@
 import { Datelike } from "types/date.types";
-import type { TagWithIds } from "./tag.types";
 import type { ID, NullUnused, Timestamp } from "./utility.types";
 
 type ActivityTimestamps = {
@@ -43,11 +42,6 @@ export type Activity = NewActivity &
 		activity_id: ID;
 		created_at: Timestamp;
 	};
-
-/** An activity with (joined) tag fields. */
-export type ActivityWithTags = Activity & {
-	tags: TagWithIds[]; // many-to-many
-};
 
 export type ActivityWithIds = Activity & {
 	tag_ids: ID[];
