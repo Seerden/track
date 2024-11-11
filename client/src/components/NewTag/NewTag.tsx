@@ -1,4 +1,5 @@
 import F from "@/lib/theme/components/form.style";
+import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
 import TagSelector from "../TagSelector/TagSelector";
 import S from "./NewTag.style";
 import useNewTag from "./useNewTag";
@@ -18,7 +19,7 @@ function NewTag({ modalId }: NewTagProps) {
 				<F.Row>
 					<F.Label>
 						<span>Name</span>
-						<input
+						<DefaultInput
 							type="text"
 							placeholder="Tag name"
 							name="name"
@@ -28,7 +29,7 @@ function NewTag({ modalId }: NewTagProps) {
 
 					<F.Label>
 						<span>Description</span>
-						<input
+						<DefaultInput
 							placeholder="Tag description"
 							type="text"
 							name="description"

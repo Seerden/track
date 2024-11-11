@@ -1,5 +1,6 @@
 import modalIds from "@/lib/modal-ids";
 import N from "@/lib/theme/components/form.style";
+import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
 import { Checkbox } from "@lib/theme/components/Checkbox";
 import { type NewActivity } from "@type/server/activity.types";
 import TagSelector from "../TagSelector/TagSelector";
@@ -25,7 +26,12 @@ function NewActivity({ isTask: initialIsTask, modalId }: NewActivityProps) {
 				<N.Row name="description">
 					<N.Label>
 						<span>Title</span>
-						<input name="name" onChange={onInputChange} type="text" required />
+						<DefaultInput
+							name="name"
+							onChange={onInputChange}
+							type="text"
+							required
+						/>
 					</N.Label>
 					{/* TODO: for now I'm removing the description field from here -- want to implement Notes for this */}
 					{/* <N.Label>

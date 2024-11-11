@@ -1,7 +1,7 @@
+import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
 import { noBorders } from "@/lib/theme/snippets/border";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import { inputStyle } from "@lib/theme/snippets/input";
 import styled, { css } from "styled-components";
 
 // TODO: rename this
@@ -44,9 +44,7 @@ const Label = styled.label<{ $faded?: boolean }>`
 		border-radius: 0 15px 0 0;
 	}
 
-	input {
-		${inputStyle};
-
+	${DefaultInput} {
 		&[type="date"] {
 			width: 120px;
 		}
