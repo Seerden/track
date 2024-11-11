@@ -2,6 +2,7 @@ import Calendar from "@/components/Calendar/Calendar";
 import Modal from "@/components/Modal";
 import NewActivity from "@/components/NewActivity/NewActivity";
 import AllDayActivities from "@/components/Today/AllDayActivities";
+import ChangeDayButton from "@/components/Today/ChangeDayButton";
 import DetailedActivity from "@/components/Today/DetailedActivity";
 import { activeItemState } from "@/components/Today/hooks/useDetailedActivityModal";
 import TimelineRows from "@/components/Today/TimelineRows";
@@ -12,7 +13,6 @@ import { useModalState } from "@/lib/state/modal-state";
 import { activityFallsOnDay, isAllDayActivityOnDate } from "@lib/activity";
 import type { Dayjs } from "dayjs";
 import { useMemo, useState } from "react";
-import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import { useRecoilValue } from "recoil";
 import Notes from "./Notes";
 import S from "./style/Today.style";
@@ -66,31 +66,6 @@ function useToday() {
 	} as const;
 }
 
-function ChangeDay({
-	type,
-	onClick
-}: {
-	type: "next" | "previous";
-	onClick: (e?: React.MouseEvent<HTMLButtonElement>) => void;
-}) {
-	const Icon = type === "next" ? MdNavigateNext : MdNavigateBefore;
-
-	const size = 25; // TODO: make this responsive
-
-	return (
-		<S.ChangeDayButton
-			$size={size}
-			$direction={type === "next" ? "right" : "left"}
-			onClick={(e) => {
-				e.stopPropagation();
-				onClick();
-			}}
-		>
-			<Icon size={size} fill="white" />
-		</S.ChangeDayButton>
-	);
-}
-
 export default function Today() {
 	const t = useToday();
 	const { openModal } = useModalState();
@@ -103,9 +78,12 @@ export default function Today() {
 				<S.TimelineWrapper>
 					<S.Header>
 						<h1>
-							<ChangeDay type="previous" onClick={() => t.changeDay("previous")} />
+							<ChangeDayButton
+								type="previous"
+								onClick={() => t.changeDay("previous")}
+							/>
 							{t.title}
-							<ChangeDay type="next" onClick={() => t.changeDay("next")} />
+							<ChangeDayButton type="next" onClick={() => t.changeDay("next")} />
 						</h1>
 					</S.Header>
 					{!!t.allDayActivities.length && (
