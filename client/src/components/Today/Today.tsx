@@ -12,6 +12,7 @@ import { useModalState } from "@/lib/state/modal-state";
 import { activityFallsOnDay, isAllDayActivityOnDate } from "@lib/activity";
 import type { Dayjs } from "dayjs";
 import { useMemo, useState } from "react";
+import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
 import { useRecoilValue } from "recoil";
 import Notes from "./Notes";
 import S from "./style/Today.style";
@@ -22,6 +23,10 @@ function useToday() {
 	const { data: activitiesData } = useActivitiesQuery();
 
 	const [currentDate, setCurrentDate] = useState<Dayjs>(() => today());
+
+	function changeDay(direction: "next" | "previous") {
+		setCurrentDate((current) => current.add(direction === "next" ? 1 : -1, "day"));
+	}
 
 	const activities = useMemo(() => {
 		return Object.values(activitiesData?.byId ?? {}); // TODO: should this not be in a useActivities hook or someting?
@@ -56,8 +61,34 @@ function useToday() {
 		setCurrentDate,
 		shouldShowDetailedActivity,
 		selectedActivity,
-		title
+		title,
+		changeDay
 	} as const;
+}
+
+function ChangeDay({
+	type,
+	onClick
+}: {
+	type: "next" | "previous";
+	onClick: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+}) {
+	const Icon = type === "next" ? MdNavigateNext : MdNavigateBefore;
+
+	const size = 25; // TODO: make this responsive
+
+	return (
+		<S.ChangeDayButton
+			$size={size}
+			$direction={type === "next" ? "right" : "left"}
+			onClick={(e) => {
+				e.stopPropagation();
+				onClick();
+			}}
+		>
+			<Icon size={size} fill="white" />
+		</S.ChangeDayButton>
+	);
 }
 
 export default function Today() {
@@ -71,7 +102,11 @@ export default function Today() {
 				<Calendar initialDate={t.currentDate} onChange={t.setCurrentDate} />
 				<S.TimelineWrapper>
 					<S.Header>
-						<h1>{t.title}</h1>
+						<h1>
+							<ChangeDay type="previous" onClick={() => t.changeDay("previous")} />
+							{t.title}
+							<ChangeDay type="next" onClick={() => t.changeDay("next")} />
+						</h1>
 					</S.Header>
 					{!!t.allDayActivities.length && (
 						<AllDayActivities activities={t.allDayActivities} />

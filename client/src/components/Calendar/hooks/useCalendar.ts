@@ -16,6 +16,12 @@ export function useCalendar({ initialDate, onChange }: UseCalendarProps) {
 	const [selectedDate, setSelectedDate] = useState<Maybe<Dayjs>>(initialDate);
 
 	useEffect(() => {
+		// This effect is necessary because it's possible to change the date in
+		// other parts of the page, and we want to keep the selected date in sync.
+		if (initialDate) setSelectedDate(initialDate);
+	}, [initialDate]);
+
+	useEffect(() => {
 		if (selectedDate) onChange?.(selectedDate);
 	}, [selectedDate]);
 
