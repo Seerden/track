@@ -45,5 +45,9 @@ export type HabitEntry = NewHabitEntry & {
  */
 export type HabitInput = {
 	habit: NewHabit;
-	tagIds?: ID[];
+	tag_ids?: ID[];
+};
+
+export type HabitEntryInput = {
+	habitEntry: NewHabitEntry;
 };

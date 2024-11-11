@@ -1,4 +1,4 @@
-import type { ID, Nullable, Timestamp, Varchar } from "@/types/server/utility.types";
+import type { ID, Nullable, Timestamp, Varchar } from "./utility.types";
 
 /** These are the fields the user fills in. */
 export type NewHabit = {
@@ -45,5 +45,9 @@ export type HabitEntry = NewHabitEntry & {
  */
 export type HabitInput = {
 	habit: NewHabit;
-	tagIds?: ID[];
+	tag_ids?: ID[];
+};
+
+export type HabitEntryInput = {
+	habitEntry: NewHabitEntry;
 };
