@@ -33,3 +33,7 @@ const ChangeDayButton = styled(Button.Unstyled)<{
 		box-shadow: 0 0 0.3rem 0 #333;
 	}
 `;
+
+export default {
+	ChangeDayButton
+};
