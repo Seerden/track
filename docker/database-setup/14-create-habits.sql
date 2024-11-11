@@ -22,3 +22,11 @@ create table if not exists habit_entries (
    index integer not null check(index >= 0),
    value varchar(255) not null
 );
+
+create table if not exists habits_tags (
+   user_id serial not null references users(user_id),
+   habit_id serial not null references habits(habit_id),
+   tag_id serial not null references tags(tag_id),
+   created_at timestamp default now(),
+   primary key (habit_id, tag_id)
+);
