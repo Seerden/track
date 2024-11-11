@@ -1,4 +1,4 @@
-import { Datelike } from "types/date.types";
+import type { Datelike } from "../date.types";
 
 /** unix (milli?)seconds? or whatever a postgres Timestamp is, I guess.
  * TODO: figure out What postgres timestamps get parsed to */
@@ -19,3 +19,6 @@ export type NullUnused<TUsed, TUnused> = TUsed & {
 export type AtLeast<T, K extends keyof T> = T & Required<Pick<T, K>>;
 
 export type HasUserIdField<T> = T & { user_id?: ID };
+
+export type Nullable<T> = T | null;
+export type Varchar = string; // TODO: make sure we parse this correctly

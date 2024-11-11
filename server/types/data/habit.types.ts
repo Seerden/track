@@ -1,10 +1,7 @@
-import type { ID, Timestamp } from "./utility.types";
-
-type Nullable<T> = T | null;
-type Varchar = string; // TODO: make sure we parse this correctly
+import type { ID, Nullable, Timestamp, Varchar } from "./utility.types";
 
 /** These are the fields the user fills in. */
-type NewHabit = {
+export type NewHabit = {
 	user_id: ID;
 	name: string;
 	description: string;
@@ -18,18 +15,18 @@ type NewHabit = {
 };
 
 /** Matches the shape of the `habits` table. */
-type Habit = NewHabit & {
+export type Habit = NewHabit & {
 	habit_id: ID;
 	created_at: Timestamp;
 };
 
 /** Like other data types, a habit can also be linked to any number of tags. */
-type HabitWithIds = Habit & {
+export type HabitWithIds = Habit & {
 	tag_ids: ID[];
 };
 
 /** These are the fields the user fills in. */
-type NewHabitEntry = {
+export type NewHabitEntry = {
 	habit_id: ID;
 	user_id: ID;
 	date: Timestamp;
@@ -38,7 +35,7 @@ type NewHabitEntry = {
 };
 
 /** Matches the shape of the `habit_entries` table. */
-type HabitEntry = NewHabitEntry & {
+export type HabitEntry = NewHabitEntry & {
 	habit_entry_id: ID;
 	created_at: Timestamp;
 };
@@ -46,7 +43,7 @@ type HabitEntry = NewHabitEntry & {
 /** This is the what the client sends to /habit POST endpoint.
  * TODO: this has the same shape as e.g. ActivityInput. Should we generalize this?
  */
-type HabitInput = {
+export type HabitInput = {
 	habit: NewHabit;
 	tagIds?: ID[];
 };
