@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Empty = styled.p`
 	background-color: ${(p) => p.theme.colors.highlight.info};
-	color: ${(p) => p.theme.colors.white};
+	color: ${(p) => p.theme.colors.tint.white};
 	${spacing.padding.wide({ size: 0.5, ratio: 2 })};
 	border-radius: 3px;
 	max-width: max-content;

@@ -80,14 +80,32 @@ const Header = styled.header`
 
 	// this is the element that displays the date
 	h1 {
-		font-size: ${(p) => getFontSize(p, 1.2)};
+		--font-size: ${(p) => getFontSize(p, 1.2)};
+		font-size: var(--font-size);
+		line-height: var(--font-size);
+
+		max-width: 40%;
+
+		@media (min-width: 1280px) {
+			// this needs to be the same breakpoint as the one in columns
+			padding: 0 3rem;
+			max-width: 100%;
+		}
+
 		@media (min-width: 1440px) {
-			font-size: ${(p) => getFontSize(p, 2)};
+			--font-size: ${(p) => getFontSize(p, 2)};
+			font-size: var(--font-size);
+			line-height: var(--font-size);
 		}
 		font-weight: 400;
 		margin: 0;
 		padding: 0;
-		width: max-content;
+
+		/* These flex styles are there to keep space between the title and the
+      day-change buttons. */
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 	}
 `; // is a header the right tag, semantically?
 

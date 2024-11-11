@@ -2,6 +2,7 @@ import Calendar from "@/components/Calendar/Calendar";
 import Modal from "@/components/Modal";
 import NewActivity from "@/components/NewActivity/NewActivity";
 import AllDayActivities from "@/components/Today/AllDayActivities";
+import ChangeDayButton from "@/components/Today/ChangeDayButton";
 import DetailedActivity from "@/components/Today/DetailedActivity";
 import { activeItemState } from "@/components/Today/hooks/useDetailedActivityModal";
 import TimelineRows from "@/components/Today/TimelineRows";
@@ -22,6 +23,10 @@ function useToday() {
 	const { data: activitiesData } = useActivitiesQuery();
 
 	const [currentDate, setCurrentDate] = useState<Dayjs>(() => today());
+
+	function changeDay(direction: "next" | "previous") {
+		setCurrentDate((current) => current.add(direction === "next" ? 1 : -1, "day"));
+	}
 
 	const activities = useMemo(() => {
 		return Object.values(activitiesData?.byId ?? {}); // TODO: should this not be in a useActivities hook or someting?
@@ -56,7 +61,8 @@ function useToday() {
 		setCurrentDate,
 		shouldShowDetailedActivity,
 		selectedActivity,
-		title
+		title,
+		changeDay
 	} as const;
 }
 
@@ -71,7 +77,14 @@ export default function Today() {
 				<Calendar initialDate={t.currentDate} onChange={t.setCurrentDate} />
 				<S.TimelineWrapper>
 					<S.Header>
-						<h1>{t.title}</h1>
+						<h1>
+							<ChangeDayButton
+								type="previous"
+								onClick={() => t.changeDay("previous")}
+							/>
+							{t.title}
+							<ChangeDayButton type="next" onClick={() => t.changeDay("next")} />
+						</h1>
 					</S.Header>
 					{!!t.allDayActivities.length && (
 						<AllDayActivities activities={t.allDayActivities} />

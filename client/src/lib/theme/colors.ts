@@ -1,4 +1,8 @@
 const baseColors = {
+	purple: {
+		main: "indigo",
+		secondary: "blueviolet"
+	},
 	blue: {
 		main: "dodgerblue",
 		secondary: "deepskyblue"
@@ -19,6 +23,11 @@ const baseColors = {
 	white: "white"
 };
 
+const tintColors = {
+	black: "black",
+	white: "white"
+};
+
 const highlightColors = {
 	primary: baseColors.yellow.main,
 	secondary: baseColors.red.secondary,
@@ -30,4 +39,6 @@ const highlightColors = {
 	dark: "#333"
 };
 
-export const colors = { ...baseColors, highlight: highlightColors };
+export const colors = { ...baseColors, highlight: highlightColors, tint: tintColors };
+
+export type ColorKey = keyof typeof baseColors;
