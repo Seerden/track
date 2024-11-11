@@ -18,3 +18,11 @@ export type NoteTagRelation = {
 	user_id: ID;
 	created_at: Date;
 };
+
+/** Matches the shape of the `habits_tags` table. */
+export type HabitTagRelation = {
+	habit_id: ID;
+	tag_id: ID;
+	user_id: ID;
+	created_at: Date;
+};

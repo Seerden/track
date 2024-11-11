@@ -1,4 +1,4 @@
-import { ID } from "./utility.types";
+import type { ID } from "./utility.types";
 
 export type ActivityTagRelation = {
 	user_id: ID;
@@ -14,6 +14,14 @@ export type TagTagRelation = {
 
 export type NoteTagRelation = {
 	note_id: ID;
+	tag_id: ID;
+	user_id: ID;
+	created_at: Date;
+};
+
+/** Matches the shape of the `habits_tags` table. */
+export type HabitTagRelation = {
+	habit_id: ID;
 	tag_id: ID;
 	user_id: ID;
 	created_at: Date;
