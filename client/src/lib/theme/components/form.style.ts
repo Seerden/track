@@ -46,6 +46,19 @@ const Row = styled.fieldset`
 	}
 `;
 
+const CompactRow = styled(Row)`
+	justify-content: flex-start;
+	align-items: center;
+
+	input {
+		${inputStyle};
+		line-height: 0.93rem;
+		font-size: 0.93rem;
+
+		width: 50px;
+	}
+`;
+
 const Form = styled.form`
 	${flex.column};
 	gap: 0.5rem;
@@ -124,6 +137,7 @@ const formStyle = {
 	Wrapper,
 	FormTitle,
 	Row,
+	CompactRow,
 	Form,
 	Button,
 	Label
