@@ -1,3 +1,5 @@
+import TagSelector from "@/components/TagSelector/TagSelector";
+import modalIds from "@/lib/modal-ids";
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
 import F from "@lib/theme/components/form.style";
 import { useCallback, useState } from "react";
@@ -216,6 +218,12 @@ export default function NewHabit() {
 						)}
 					</div>
 				</F.Row>
+
+				<TagSelector
+					modalId={modalIds.tagSelector.newHabit}
+					showNewTagButton
+					title="Add tags"
+				/>
 
 				<F.Button>Create habit</F.Button>
 			</F.Form>
