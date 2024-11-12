@@ -39,9 +39,9 @@ export default function Habit({ habit }: PropsWithChildren<HabitProps>) {
 					alignItems: "flex-start"
 				}}
 			>
-				<span>Started {createDate(habit.start_timestamp).fromNow()}</span>
+				<span>Tracking started {createDate(habit.start_timestamp).fromNow()}</span>
 				{habit.end_timestamp && (
-					<span>Ends {createDate(habit.end_timestamp).fromNow()}</span>
+					<span>Tracking ends {createDate(habit.end_timestamp).fromNow()}</span>
 				)}
 			</C.Datetime>
 			{tagsData?.byId && (
