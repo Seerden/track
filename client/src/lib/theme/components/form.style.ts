@@ -107,13 +107,10 @@ const Label = styled.label<{ $showWarning?: boolean }>`
 		resize: none;
 		height: 100px;
 		min-width: 100%;
-	}
 
-	input,
-	textarea {
 		&:not([type="checkbox"]) {
 			/* max-width: 150px;
-			width: 150px; */
+         width: 150px; */
 
 			${inputStyle}
 		}

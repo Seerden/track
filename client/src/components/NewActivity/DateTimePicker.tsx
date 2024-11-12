@@ -1,3 +1,4 @@
+import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
 import { Checkbox } from "@lib/theme/components/Checkbox";
 import { FaInfo } from "react-icons/fa";
 import type { DateTimePickerProps } from "./datetime-picker.types";
@@ -24,7 +25,7 @@ export default function DateTimePicker({ setState }: DateTimePickerProps) {
 				<S.Fields>
 					<S.Label>
 						<span>Date</span>
-						<input
+						<DefaultInput
 							type="date"
 							defaultValue={defaultStartDate}
 							onChange={onStartDateChange}
@@ -33,7 +34,7 @@ export default function DateTimePicker({ setState }: DateTimePickerProps) {
 
 					<S.Label $faded={!manualEndDate}>
 						<span>End date</span>
-						<input type="date" value={date.end} onChange={onEndDateChange} />
+						<DefaultInput type="date" value={date.end} onChange={onEndDateChange} />
 					</S.Label>
 					<S.Info
 						title={
@@ -48,7 +49,7 @@ export default function DateTimePicker({ setState }: DateTimePickerProps) {
 				<S.Fields>
 					<S.Label $faded={allDay}>
 						<span>Start time</span>
-						<input
+						<DefaultInput
 							type="text"
 							onBlur={(e) => onTimeChange(e, "start")}
 							// TODO: Need something in the UI to clarify the time
@@ -61,7 +62,7 @@ export default function DateTimePicker({ setState }: DateTimePickerProps) {
 					</S.Label>
 					<S.Label $faded={allDay}>
 						<span>End time</span>
-						<input
+						<DefaultInput
 							type="text"
 							placeholder={"HHmm"}
 							onBlur={(e) => onTimeChange(e, "end")}
