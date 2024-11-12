@@ -2,22 +2,12 @@ import useNewHabit from "@/components/NewHabit/useNewHabit";
 import TagSelector from "@/components/TagSelector/TagSelector";
 import { createDate } from "@/lib/datetime/make-date";
 import modalIds from "@/lib/modal-ids";
+import { CheckboxIcon } from "@/lib/theme/components/Checkbox";
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
 import F from "@lib/theme/components/form.style";
 import { useState } from "react";
 import { LuCalendarOff, LuCalendarPlus } from "react-icons/lu";
-import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 import S from "./style/NewHabit.style";
-
-function Icon({ checked }: { checked: boolean }) {
-	const size = 20;
-
-	return checked ? (
-		<MdCheckBox size={size} color={"forestgreen"} />
-	) : (
-		<MdCheckBoxOutlineBlank size={size} color="orange" />
-	);
-}
 
 export default function NewHabit() {
 	const [hasEndDate, setHasEndDate] = useState(false);
@@ -91,7 +81,7 @@ export default function NewHabit() {
 								}}
 							/>
 							<S.RadioLabelText>
-								<Icon checked={habit.goal_type === "checkbox"} />
+								<CheckboxIcon checked={habit.goal_type === "checkbox"} />
 								with a checkbox
 							</S.RadioLabelText>
 						</S.RadioOption>
@@ -104,7 +94,7 @@ export default function NewHabit() {
 								onChange={onInputChange}
 							/>{" "}
 							<S.RadioLabelText>
-								<Icon checked={habit.goal_type === "goal"} />
+								<CheckboxIcon checked={habit.goal_type === "goal"} />
 								with a detailed goal
 							</S.RadioLabelText>
 							<div
