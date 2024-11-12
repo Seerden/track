@@ -27,9 +27,15 @@ const Tasks = styled.ul`
 	overflow-x: auto;
 	padding: 0.5rem;
 	max-width: 720px;
+
+	display: grid;
+	grid-template-columns: max-content max-content auto 1fr;
 `;
 
-const Task = styled(ListStyle.Item)``;
+const Task = styled(ListStyle.Item)`
+	grid-template-columns: subgrid;
+	grid-column: 1 / -1;
+`;
 
 export default {
 	TasksWrapper,

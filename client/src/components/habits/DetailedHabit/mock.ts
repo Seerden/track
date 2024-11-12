@@ -5,7 +5,7 @@ export const habit: HabitWithIds = {
 	user_id: 4,
 	created_at: new Date(),
 	description: "Gotta stay active!",
-	frequency: 1,
+	frequency: 2,
 	interval: 1,
 	interval_unit: "day",
 	goal_type: "goal",

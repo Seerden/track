@@ -11,7 +11,8 @@ const Item = styled.li`
 	font-size: ${(p) => getFontSize(p, 0.9)};
 	display: grid;
 
-	grid-template-columns: max-content min-content max-content auto;
+	// TODO: these are only for Tasks, so they should be moved there
+	grid-template-columns: max-content max-content max-content auto;
 
 	gap: 1rem;
 
@@ -35,7 +36,7 @@ const Item = styled.li`
 // I don't like that this is a div
 const ItemName = styled.div`
 	display: flex;
-	max-width: 200px;
+	/* max-width: 200px; */
 	white-space: normal;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -45,9 +46,19 @@ const ItemName = styled.div`
 	${spacing.padding.wide({ size: 0.3, ratio: 2.5 })};
 	border-radius: 4px;
 	box-shadow: 0 0.1rem 0.2rem 0 #bbb;
+
+	flex-grow: 1;
+`;
+
+const Info = styled.div`
+	color: #111;
+	${spacing.padding.wide({ size: 0.3, ratio: 3 })};
+	border-radius: 4px;
+	font-size: 0.82rem;
 `;
 
 export default {
 	Item,
-	ItemName
+	ItemName,
+	Info
 };
