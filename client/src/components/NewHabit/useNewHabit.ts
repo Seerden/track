@@ -25,7 +25,7 @@ export default function useNewHabit() {
 	const [habit, setHabit] = useState<Omit<NewHabit, "user_id">>({
 		name: "",
 		description: "",
-		start_timestamp: new Date(),
+		start_timestamp: createDate(new Date()),
 		end_timestamp: null,
 		frequency: 1,
 		interval: 1,
@@ -50,10 +50,6 @@ export default function useNewHabit() {
 		});
 	}
 
-	useEffect(() => {
-		console.log({ habit });
-	}, [habit]);
-
 	const maybePlural = useCallback(
 		(s: string) => {
 			return habit.interval === 1 ? s : s + "s";
@@ -61,6 +57,9 @@ export default function useNewHabit() {
 		[habit.interval]
 	);
 
+	/** Input change handler that can handle all fields in NewHabit.
+	 * @todo is it time to generalize this so we can reuse it in other forms?
+	 */
 	function onInputChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
 		const value = e.target.value;
 		let parsedValue: Nullable<string | number | Dayjs> = value;
