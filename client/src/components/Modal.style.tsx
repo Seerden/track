@@ -47,7 +47,7 @@ export const Close = styled.button`
 export const Modal = styled.div`
 	position: relative;
 	${spacing.padding.wide({ size: 1.2, ratio: 1.25 })}
-	background-color: #efefef; // TODO: this should be a theme value
+	background-color: #eee; // TODO: this should be a theme value
 	height: max-content;
 	margin-top: 25vh; // TODO: this should be responsive, so should everything else obviously
 	border: 1px solid #444;
