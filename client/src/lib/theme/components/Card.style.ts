@@ -86,7 +86,7 @@ const InfoLabel = styled.span`
 	line-height: 0.92rem;
 	background-color: indigo;
 	border-radius: 3px 0 0 3px;
-	width: max-content;
+	width: 110px;
 `;
 
 const InfoValue = styled.span`
