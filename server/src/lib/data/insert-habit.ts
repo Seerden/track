@@ -1,6 +1,6 @@
 import { sqlConnection } from "@/db/init";
 import { RequestHandler } from "express";
-import { Habit, HabitInput, NewHabit } from "types/data/habit.types";
+import { Habit, HabitInput, HabitWithIds, NewHabit } from "types/data/habit.types";
 import { HabitTagRelation } from "types/data/relational.types";
 import { ID } from "types/data/utility.types";
 import { WithSQL } from "types/sql.types";
@@ -32,7 +32,7 @@ export async function insertHabitWithTags({
 	sql = sqlConnection,
 	habit,
 	tagIds,
-}: WithSQL<{ habit: NewHabit; tagIds?: ID[] }>) {
+}: WithSQL<{ habit: NewHabit; tagIds?: ID[] }>): Promise<HabitWithIds> {
 	return await sql.begin(async (q) => {
 		const insertedHabit = await insertHabit({ sql: q, habit });
 		let linkedTagIds: ID[] = [];
