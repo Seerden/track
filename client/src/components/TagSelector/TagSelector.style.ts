@@ -1,3 +1,4 @@
+import FilterInput from "@/lib/theme/components/input/FilterInput.style";
 import { getFontSize } from "@/lib/theme/font";
 import { noBorders } from "@/lib/theme/snippets/border";
 import { flex } from "@/lib/theme/snippets/flex";
@@ -85,8 +86,7 @@ const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
 const Title = styled.h3`
 	${spacing.padding.wide({ size: 0.3, ratio: 2.5 })};
 	margin: 0;
-	margin-top: -1.6rem;
-	margin-left: 0.5rem;
+	margin-top: -2rem;
 
 	background-color: #333;
 	color: azure;
@@ -95,26 +95,6 @@ const Title = styled.h3`
 
 	border-radius: 3px;
 	border: 2px solid #777;
-`;
-
-const Filter = styled.input`
-	display: flex;
-	${spacing.padding.wide({ size: 0.2, ratio: 2 })};
-	border-radius: 3px;
-	border: none;
-	outline: 2px solid #ccc;
-	box-shadow: 0.1rem 0.1rem 0 0 #ddd;
-	align-self: flex-end;
-	max-width: 150px;
-
-	--font-size: ${(p) => getFontSize(p, 0.88)};
-	font-size: var(--font-size);
-	line-height: var(--font-size);
-
-	&:focus {
-		outline-color: ${(p) => p.theme.colors.blue.main};
-		box-shadow: 0rem 0.5rem 0.2rem -0.2rem #ccc;
-	}
 `;
 
 const ClearFilter = styled.button`
@@ -224,7 +204,7 @@ const DropdownActions = styled.div`
 		justify-content: flex-start;
 		align-items: flex-start;
 
-		& > ${Filter} {
+		& > ${FilterInput} {
 			align-self: flex-start;
 		}
 	}
@@ -305,7 +285,6 @@ export default {
 	List,
 	ListItem,
 	Title,
-	Filter,
 	ClearFilter,
 	FilterWrapper,
 	Actions,

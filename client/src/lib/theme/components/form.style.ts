@@ -9,7 +9,7 @@ const Wrapper = styled.div`
 	padding-top: 0.8rem;
 	margin: 1.2rem;
 	border: 2px solid #ccc;
-	box-shadow: 0 0 0.5rem 0 #aaa;
+	box-shadow: 0 0.3rem 1.2rem -0.1rem #ddd;
 	max-width: 500px;
 `;
 
@@ -46,9 +46,22 @@ const Row = styled.fieldset`
 	}
 `;
 
+const CompactRow = styled(Row)`
+	align-items: baseline;
+
+	input {
+		${inputStyle};
+		line-height: 0.93rem;
+		font-size: 0.93rem;
+
+		width: 50px;
+	}
+`;
+
 const Form = styled.form`
 	${flex.column};
-	gap: 0.5rem;
+	gap: 1rem;
+	padding: 0 0.5rem;
 `;
 
 const Button = styled.button`
@@ -107,13 +120,10 @@ const Label = styled.label<{ $showWarning?: boolean }>`
 		resize: none;
 		height: 100px;
 		min-width: 100%;
-	}
 
-	input,
-	textarea {
 		&:not([type="checkbox"]) {
 			/* max-width: 150px;
-			width: 150px; */
+         width: 150px; */
 
 			${inputStyle}
 		}
@@ -127,6 +137,7 @@ const formStyle = {
 	Wrapper,
 	FormTitle,
 	Row,
+	CompactRow,
 	Form,
 	Button,
 	Label

@@ -5,6 +5,8 @@ const Unstyled = styled.button`
 	${unstyledButton};
 `;
 
+Unstyled.defaultProps = { type: "button" };
+
 const Button = {
 	Unstyled
 };

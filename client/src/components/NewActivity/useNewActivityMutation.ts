@@ -3,6 +3,8 @@ import { makeAuthorizedUrl } from "@lib/fetch/make-authorized-url";
 import { useMutation } from "@tanstack/react-query";
 import type { ActivityInput, ActivityWithIds } from "@type/server/activity.types";
 
+// TODO: move this to @lib/query
+
 async function postNewActivity({
 	activity,
 	tagIds
