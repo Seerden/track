@@ -1,13 +1,9 @@
-import Modal from "@/components/Modal";
-import NewHabit from "@/components/NewHabit/NewHabit";
-import modalIds from "@/lib/modal-ids";
+import Habits from "@/components/Habits/Habits";
 
 function Home() {
 	return (
 		<>
-			<Modal initialOpen modalId={modalIds.habits.new}>
-				<NewHabit />
-			</Modal>
+			<Habits />
 		</>
 	);
 }
