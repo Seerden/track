@@ -1,20 +1,13 @@
-import NewActivity from "@/components/NewActivity/NewActivity";
-import NewNote from "@/components/NewNote/NewNote";
-import TagTree from "@/components/TagTree/TagTree";
+import Modal from "@/components/Modal";
+import NewHabit from "@/components/NewHabit/NewHabit";
 import modalIds from "@/lib/modal-ids";
-import Modal from "./Modal";
-import Notes from "./Notes/Notes";
 
 function Home() {
 	return (
 		<>
-			<Modal initialOpen modalId={modalIds.notes.home}>
-				<Notes />
+			<Modal initialOpen modalId={modalIds.habits.new}>
+				<NewHabit />
 			</Modal>
-			<NewNote />
-			<NewActivity />
-
-			<TagTree orientation="horizontal" />
 		</>
 	);
 }

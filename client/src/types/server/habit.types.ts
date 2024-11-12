@@ -10,8 +10,9 @@ export type NewHabit = {
 	interval: number;
 	frequency: number;
 	interval_unit: string;
-	type: Varchar;
-	type_unit: Varchar;
+	goal_type: Varchar;
+	goal_unit: Nullable<Varchar>; // TODO: just a string
+	goal: Nullable<number>;
 };
 
 /** Matches the shape of the `habits` table. */
@@ -45,7 +46,7 @@ export type HabitEntry = NewHabitEntry & {
  */
 export type HabitInput = {
 	habit: NewHabit;
-	tag_ids?: ID[];
+	tagIds?: ID[];
 };
 
 export type HabitEntryInput = {

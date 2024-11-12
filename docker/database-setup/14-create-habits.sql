@@ -9,8 +9,9 @@ create table if not exists habits (
    frequency integer not null check(frequency > 0),
    interval_unit varchar(32) not null,
    created_at timestamp default now(),
-   type varchar(32) not null,
-   type_unit varchar(32)
+   goal_type varchar(32) not null,
+   goal_unit varchar(32),
+   goal integer check(goal > 0)
 );
 
 create table if not exists habit_entries (

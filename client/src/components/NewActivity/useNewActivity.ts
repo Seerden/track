@@ -1,7 +1,7 @@
 import { queryClient } from "@/lib/query-client";
 import { useModalState } from "@/lib/state/modal-state";
 import type { Datelike } from "@/types/date.types";
-import { hasUserId } from "@/types/server/user-id.guards";
+import { hasValidUserId } from "@/types/server/user-id.guards";
 import useAuthentication from "@lib/hooks/useAuthentication";
 import useRouteProps from "@lib/hooks/useRouteProps";
 import { useTagSelection } from "@lib/state/selected-tags-state";
@@ -40,7 +40,7 @@ export default function useNewActivity({
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 
-		if (!hasUserId(newActivity)) return;
+		if (!hasValidUserId(newActivity)) return;
 
 		submit(
 			{ activity: parseNewActivity(newActivity), tagIds: selectedTagIds },
