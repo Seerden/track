@@ -96,7 +96,6 @@ const RadioOption = styled.label`
 		margin-bottom: 0.3rem;
 	}
 
-	// selector for any selected children
 	&:has(input[type="radio"]:checked) {
 		border-color: ${(p) => p.theme.colors.green.secondary};
 		background-color: #eee;
