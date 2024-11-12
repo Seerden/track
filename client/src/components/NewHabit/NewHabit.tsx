@@ -86,7 +86,14 @@ export default function NewHabit() {
 								type="radio"
 								name="goal_type"
 								value="checkbox"
-								onChange={onInputChange}
+								onChange={(e) => {
+									onInputChange(e);
+									setHabit((current) => ({
+										...current,
+										goal: null,
+										goal_unit: null
+									}));
+								}}
 							/>
 							<S.RadioLabelText>
 								<Icon checked={habit.goal_type === "checkbox"} />
@@ -120,6 +127,7 @@ export default function NewHabit() {
 										}}
 										type="number"
 										name="goal"
+										value={habit.goal ?? ""}
 										onChange={onInputChange}
 										placeholder="e.g. 10.000"
 										disabled={habit.goal_type !== "goal"}
@@ -135,6 +143,7 @@ export default function NewHabit() {
 										}}
 										type="text"
 										name="goal_unit"
+										value={habit.goal_unit ?? ""}
 										onChange={onInputChange}
 										placeholder="e.g. steps"
 										disabled={habit.goal_type !== "goal"}
