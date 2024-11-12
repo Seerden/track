@@ -18,9 +18,9 @@ async function linkTagsToHabit({
 	sql = sqlConnection,
 	user_id,
 	habit_id,
-	tag_ids,
-}: WithSQL<{ habit_id: ID; user_id: ID; tag_ids: ID[] }>) {
-	const tagRelations = tag_ids.map((tag_id) => ({ user_id, habit_id, tag_id }));
+	tagIds,
+}: WithSQL<{ habit_id: ID; user_id: ID; tagIds: ID[] }>) {
+	const tagRelations = tagIds.map((tag_id) => ({ user_id, habit_id, tag_id }));
 
 	return sql<HabitTagRelation[]>`
       insert into habits_tags ${sql(tagRelations)}
@@ -31,18 +31,18 @@ async function linkTagsToHabit({
 export async function insertHabitWithTags({
 	sql = sqlConnection,
 	habit,
-	tag_ids,
-}: WithSQL<{ habit: NewHabit; tag_ids?: ID[] }>) {
+	tagIds,
+}: WithSQL<{ habit: NewHabit; tagIds?: ID[] }>) {
 	return await sql.begin(async (q) => {
 		const insertedHabit = await insertHabit({ sql: q, habit });
 		let linkedTagIds: ID[] = [];
 
-		if (Array.isArray(tag_ids) && tag_ids?.length) {
+		if (Array.isArray(tagIds) && tagIds?.length) {
 			const relations = await linkTagsToHabit({
 				sql: q,
 				user_id: insertedHabit.user_id,
 				habit_id: insertedHabit.habit_id,
-				tag_ids,
+				tagIds,
 			});
 			linkedTagIds = relations.map((r) => r.tag_id);
 		}
@@ -52,7 +52,7 @@ export async function insertHabitWithTags({
 }
 
 export const postHabits: RequestHandler = async (req, res) => {
-	const { habit, tag_ids } = req.body as HabitInput;
-	const habitWithTags = await insertHabitWithTags({ habit, tag_ids });
+	const { habit, tagIds } = req.body as HabitInput;
+	const habitWithTags = await insertHabitWithTags({ habit, tagIds });
 	res.json(habitWithTags);
 };
