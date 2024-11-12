@@ -1,6 +1,9 @@
 import { createDate } from "@/lib/datetime/make-date";
 import useAuthentication from "@/lib/hooks/useAuthentication";
+import useRouteProps from "@/lib/hooks/useRouteProps";
+import modalIds from "@/lib/modal-ids";
 import { useNewHabitMutation } from "@/lib/query/useNewHabitMutation";
+import { useModalState } from "@/lib/state/modal-state";
 import { useTagSelection } from "@/lib/state/selected-tags-state";
 import type { NewHabit } from "@/types/server/habit.types";
 import { hasValidUserId } from "@/types/server/user-id.guards";
@@ -12,6 +15,8 @@ export default function useNewHabit() {
 	const { currentUser } = useAuthentication();
 	const { mutate: submit } = useNewHabitMutation();
 	const { selectedTagIds, resetTagSelection } = useTagSelection();
+	const { navigate } = useRouteProps();
+	const { closeModal } = useModalState();
 
 	useEffect(() => {
 		resetTagSelection();
@@ -44,10 +49,18 @@ export default function useNewHabit() {
 
 		if (!hasValidUserId(habitWithUserIdField)) return;
 
-		submit({
-			habit: parseNewHabit(habitWithUserIdField),
-			tagIds: selectedTagIds
-		});
+		submit(
+			{
+				habit: parseNewHabit(habitWithUserIdField),
+				tagIds: selectedTagIds
+			},
+			{
+				onSuccess: () => {
+					navigate("/today");
+					closeModal(modalIds.habits.new);
+				}
+			}
+		);
 	}
 
 	const maybePlural = useCallback(
