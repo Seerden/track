@@ -74,13 +74,7 @@ export default function NewHabit() {
 					<div style={{ fontSize: "0.95rem", marginBottom: "0.4rem" }}>
 						How do you want to track your progress for this habit?
 					</div>
-					<div
-						style={{
-							display: "flex",
-							flexDirection: "row",
-							gap: "1rem"
-						}}
-					>
+					<S.RadioField aria-label="Choose how to track your progress">
 						<S.RadioOption>
 							<S.RadioButton
 								type="radio"
@@ -154,7 +148,7 @@ export default function NewHabit() {
 								</S.Label>
 							</div>
 						</S.RadioOption>
-					</div>
+					</S.RadioField>
 				</S.ProgressionFieldset>
 
 				<F.Row

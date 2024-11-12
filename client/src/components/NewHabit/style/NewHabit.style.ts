@@ -56,6 +56,12 @@ const RadioButton = styled.input`
 	height: 0;
 `;
 
+const RadioField = styled.fieldset`
+	${flex.row};
+	gap: 1rem;
+	padding: 0;
+`;
+
 const RadioLabelText = styled.span`
 	// needs to be a span because a parent element styles this
 	gap: 0.3rem;
@@ -85,9 +91,17 @@ const RadioOption = styled.label`
 	&:has(input[type="radio"]:checked) {
 		border-color: ${(p) => p.theme.colors.green.secondary};
 		background-color: #eee;
+
 		box-shadow:
 			0 0.6rem 1rem -0.4rem #aaa,
 			0.3rem 0.5rem 0.1rem -0.1rem ${(p) => p.theme.colors.green.secondary};
+
+		&:focus-within {
+			box-shadow:
+				0 0.6rem 1rem -0.4rem #aaa,
+				0 0.3rem 1.2rem 0 #ccc,
+				0.3rem 0.5rem 0.1rem -0.1rem ${(p) => p.theme.colors.green.secondary};
+		}
 
 		${RadioLabelText} {
 			box-shadow: 0 0.5rem 0 -0.3rem ${(p) => p.theme.colors.green.secondary};
@@ -148,6 +162,7 @@ const FixedLengthString = styled.span`
 export default {
 	ClearEndDateButton,
 	SetEndDateButton,
+	RadioField,
 	RadioButton,
 	RadioOption,
 	Label,
