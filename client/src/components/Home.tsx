@@ -1,11 +1,8 @@
-import Habits from "@/components/Habits/Habits";
+import Habit from "@/components/habits/DetailedHabit/DetailedHabit";
+import { habit } from "@/components/habits/DetailedHabit/mock";
 
 function Home() {
-	return (
-		<>
-			<Habits />
-		</>
-	);
+	return <Habit habit={habit} />;
 }
 
 export default Home;

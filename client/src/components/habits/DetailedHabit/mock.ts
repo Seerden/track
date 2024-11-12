@@ -1,8 +1,7 @@
-import Habit from "@/components/Habits/Habit";
 import { createDate } from "@/lib/datetime/make-date";
 import type { HabitWithIds } from "@/types/server/habit.types";
 
-const habit: HabitWithIds = {
+export const habit: HabitWithIds = {
 	user_id: 4,
 	created_at: new Date(),
 	description: "Gotta stay active!",
@@ -18,11 +17,3 @@ const habit: HabitWithIds = {
 	end_timestamp: createDate(new Date()).add(1, "year"),
 	tag_ids: [40]
 };
-
-export default function Habits() {
-	return (
-		<ul>
-			<Habit habit={habit} />
-		</ul>
-	);
-}

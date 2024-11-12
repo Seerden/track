@@ -9,7 +9,7 @@ type HabitProps = {
 	habit: HabitWithIds;
 };
 
-export default function Habit({ habit }: PropsWithChildren<HabitProps>) {
+export default function DetailedHabit({ habit }: PropsWithChildren<HabitProps>) {
 	const { data: tagsData } = useTagsQuery();
 
 	return (
