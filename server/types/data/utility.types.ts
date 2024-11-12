@@ -18,7 +18,7 @@ export type NullUnused<TUsed, TUnused> = TUsed & {
 /** Type is identical to T except T[K] cannot be optional, if it even was before. */
 export type AtLeast<T, K extends keyof T> = T & Required<Pick<T, K>>;
 
-export type HasUserIdField<T> = T & { user_id?: ID };
+export type HasUserIdField<T> = T & { user_id?: Nullable<ID> };
 
 export type Nullable<T> = T | null;
 export type Varchar = string; // TODO: make sure we parse this correctly
