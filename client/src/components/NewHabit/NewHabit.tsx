@@ -86,6 +86,7 @@ export default function NewHabit() {
 								type="radio"
 								name="goal_type"
 								value="checkbox"
+								checked={habit.goal_type === "checkbox"}
 								onChange={(e) => {
 									onInputChange(e);
 									setHabit((current) => ({
@@ -104,6 +105,7 @@ export default function NewHabit() {
 							<S.RadioButton
 								type="radio"
 								name="goal_type"
+								checked={habit.goal_type === "goal"}
 								value="goal"
 								onChange={onInputChange}
 							/>{" "}
