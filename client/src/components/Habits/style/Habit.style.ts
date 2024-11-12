@@ -33,6 +33,8 @@ const InfoFields = styled.section`
 	${CardStyle.InfoLine} {
 		width: 100%;
 	}
+
+	margin-bottom: 1rem;
 `;
 
 export default {
