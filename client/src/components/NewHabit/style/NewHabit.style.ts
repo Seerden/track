@@ -118,7 +118,11 @@ const Label = styled.label`
 	}
 
 	&:has(input:disabled) {
-		opacity: 0;
+		opacity: 0.5;
+
+		input {
+			background-color: white;
+		}
 	}
 `;
 
