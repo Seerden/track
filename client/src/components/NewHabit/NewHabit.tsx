@@ -71,9 +71,9 @@ export default function NewHabit() {
 					</S.Select>
 				</F.CompactRow>
 				<S.ProgressionFieldset>
-					<div style={{ fontSize: "0.95rem", marginBottom: "0.4rem" }}>
+					<S.ProgressionTitle>
 						How do you want to track your progress for this habit?
-					</div>
+					</S.ProgressionTitle>
 					<S.RadioField aria-label="Choose how to track your progress">
 						<S.RadioOption>
 							<S.RadioButton
@@ -158,13 +158,7 @@ export default function NewHabit() {
 					}}
 				>
 					{hasEndDate && (
-						<label
-							style={{
-								position: "absolute",
-								right: "0.1rem",
-								top: "0.1rem"
-							}}
-						>
+						<S.ClearEndDateButtonWrapper>
 							<S.ClearEndDateButton
 								type="button"
 								onClick={() => {
@@ -177,22 +171,11 @@ export default function NewHabit() {
 							>
 								<LuCalendarOff size={15} fill={"orangered"} color="white" />
 							</S.ClearEndDateButton>
-						</label>
+						</S.ClearEndDateButtonWrapper>
 					)}
 
-					<div
-						style={{
-							display: "flex",
-							flexDirection: "row",
-							gap: "0.5rem",
-							justifyContent: "space-between"
-						}}
-					>
-						<F.Label
-							style={{
-								width: "calc(50% - 0.5rem)"
-							}}
-						>
+					<S.DateFields>
+						<F.Label>
 							<span>Start date</span>
 							<DefaultInput
 								name="start_timestamp"
@@ -204,11 +187,7 @@ export default function NewHabit() {
 						</F.Label>
 
 						{hasEndDate ? (
-							<F.Label
-								style={{
-									width: "calc(50% - 0.5rem)"
-								}}
-							>
+							<F.Label>
 								<span>End date</span>
 								<DefaultInput
 									type="date"
@@ -218,14 +197,11 @@ export default function NewHabit() {
 								/>
 							</F.Label>
 						) : (
-							<S.SetEndDateButton
-								type="button"
-								onClick={() => setHasEndDate(true)}
-							>
+							<S.SetEndDateButton onClick={() => setHasEndDate(true)}>
 								Add end date <LuCalendarPlus size={15} />
 							</S.SetEndDateButton>
 						)}
-					</div>
+					</S.DateFields>
 				</F.Row>
 
 				<TagSelector

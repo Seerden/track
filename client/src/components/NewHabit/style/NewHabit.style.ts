@@ -1,8 +1,17 @@
 import StyledButtons from "@/lib/theme/components/Button.style";
+import F from "@/lib/theme/components/form.style";
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
+import { font } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import { inputStyle } from "@/lib/theme/snippets/input";
 import styled from "styled-components";
+
+const ClearEndDateButtonWrapper = styled.div`
+	position: absolute;
+	--offset: 0.1rem;
+	top: var(--offset);
+	right: var(--offset);
+`;
 
 const ClearEndDateButton = styled(StyledButtons.Unstyled)`
 	cursor: pointer;
@@ -149,6 +158,11 @@ const ProgressionFieldset = styled.fieldset`
 	padding: 1.2rem;
 `;
 
+const ProgressionTitle = styled.div`
+	font-size: ${font.size[0.93]};
+	margin-bottom: 0.4rem;
+`;
+
 const Select = styled.select`
 	${inputStyle}
 	width: 6rem; // largest value is "months", so 6rem is enough to fit everything and prevent layout shifts
@@ -159,7 +173,20 @@ const FixedLengthString = styled.span`
 	width: 2.2rem;
 `;
 
+const DateFields = styled.div`
+	${flex.row};
+	justify-content: space-between;
+
+	--gap: 0.5rem;
+	gap: var(--gap);
+
+	${F.Label} {
+		width: calc(50% - var(--gap));
+	}
+`;
+
 export default {
+	ClearEndDateButtonWrapper,
 	ClearEndDateButton,
 	SetEndDateButton,
 	RadioField,
@@ -168,6 +195,8 @@ export default {
 	Label,
 	RadioLabelText,
 	ProgressionFieldset,
+	ProgressionTitle,
 	Select,
-	FixedLengthString
+	FixedLengthString,
+	DateFields
 };
