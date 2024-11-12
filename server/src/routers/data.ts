@@ -1,3 +1,6 @@
+import { postHabits } from "@/lib/data/insert-habit";
+import { postHabitEntry } from "@/lib/data/insert-habit-entry";
+import { getHabits } from "@/lib/data/query-habits";
 import { updateActivityCompletion } from "@lib/data/update-activity";
 import { Router } from "express";
 import type { ActivityInput, ActivityUpdateInput } from "../../types/data/activity.types";
@@ -75,3 +78,7 @@ dataRouter.put("/task/completion", isAuthorized, async (req, res) => {
 	});
 	res.json(updatedActivity);
 });
+
+dataRouter.get("/habits", isAuthorized, getHabits);
+dataRouter.post("/habit", isAuthorized, postHabits);
+dataRouter.post("/habit/entry", isAuthorized, postHabitEntry);
