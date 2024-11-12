@@ -5,6 +5,9 @@ export default {
 		newTag: "new-tag-tag-selector",
 		newHabit: "new-habit-tag-selector"
 	},
+	habits: {
+		new: "new-habit"
+	},
 	notes: {
 		home: "home-notes",
 		new: "new-note"
