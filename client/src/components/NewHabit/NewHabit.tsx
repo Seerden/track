@@ -1,13 +1,23 @@
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
 import F from "@lib/theme/components/form.style";
 import { useCallback, useState } from "react";
-import { MdFilterListOff } from "react-icons/md";
+import { LuCalendarOff, LuCalendarPlus } from "react-icons/lu";
+import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 import S from "./style/NewHabit.style";
+
+function Icon({ checked }: { checked: boolean }) {
+	return checked ? (
+		<MdCheckBox size={20} color={"forestgreen"} />
+	) : (
+		<MdCheckBoxOutlineBlank size={20} color="orange" />
+	);
+}
 
 export default function NewHabit() {
 	const [interval, setInterval] = useState(1);
 	const [frequency, setFrequency] = useState(1);
 	const [hasEndDate, setHasEndDate] = useState(false);
+	const [progressionType, setProgressionType] = useState<"checkbox" | "goal">("goal");
 
 	const maybePlural = useCallback(
 		(s: string) => {
@@ -15,6 +25,10 @@ export default function NewHabit() {
 		},
 		[interval]
 	);
+
+	const IconCheckbox =
+		progressionType === "checkbox" ? MdCheckBox : MdCheckBoxOutlineBlank;
+	const IconGoal = progressionType === "checkbox" ? MdCheckBoxOutlineBlank : MdCheckBox;
 
 	return (
 		<F.Wrapper>
@@ -50,12 +64,98 @@ export default function NewHabit() {
 						type="number"
 					/>{" "}
 					<select>
-						<option>{maybePlural("day")}</option>
-						<option>{maybePlural("week")}</option>
-						<option>{maybePlural("month")}</option>
-						<option>{maybePlural("year")}</option>
+						<option value="day">{maybePlural("day")}</option>
+						<option value="week">{maybePlural("week")}</option>
+						<option value="month">{maybePlural("month")}</option>
+						<option value="year">{maybePlural("year")}</option>
 					</select>
 				</F.CompactRow>
+				<div
+					style={{
+						display: "flex",
+						flexDirection: "column",
+						backgroundColor: "#fff",
+						borderRadius: "3px",
+						boxShadow: "0 0 0.3rem 0 #aaa",
+						outline: "2px solid white",
+						padding: "1.2rem"
+					}}
+				>
+					<div style={{ fontSize: "0.95rem", marginBottom: "0.4rem" }}>
+						How do you want to track your progress for this habit?
+					</div>
+					<div
+						style={{
+							display: "flex",
+							flexDirection: "row",
+							gap: "1rem"
+						}}
+					>
+						<S.RadioOption>
+							<S.RadioButton
+								type="radio"
+								name="tracking"
+								value="checkbox"
+								onChange={(e) =>
+									setProgressionType(e.target.value as "checkbox" | "goal")
+								}
+							/>
+							<S.RadioLabelText>
+								<Icon checked={progressionType === "checkbox"} />
+								with a checkbox
+							</S.RadioLabelText>
+						</S.RadioOption>
+						<S.RadioOption>
+							<S.RadioButton
+								type="radio"
+								name="tracking"
+								value="goal"
+								onChange={(e) =>
+									setProgressionType(e.target.value as "checkbox" | "goal")
+								}
+							/>{" "}
+							<S.RadioLabelText>
+								<Icon checked={progressionType === "goal"} />
+								with a detailed goal
+							</S.RadioLabelText>
+							<div
+								style={{
+									display: "flex",
+									flexDirection: "row",
+									gap: "0.5rem"
+								}}
+							>
+								<S.Label>
+									<span>target</span>
+									<DefaultInput
+										style={{
+											width: "95px",
+											fontSize: "0.82rem"
+										}}
+										type="number"
+										onChange={() => {}}
+										name="target"
+										placeholder="e.g. 10.000"
+									/>
+								</S.Label>
+								<S.Label>
+									<span>unit</span>
+									<DefaultInput
+										style={{
+											width: "75px",
+											fontSize: "0.82rem"
+										}}
+										type="text"
+										onChange={() => {}}
+										name="unit"
+										placeholder="e.g. steps"
+									/>
+								</S.Label>
+							</div>
+						</S.RadioOption>
+					</div>
+				</div>
+
 				<F.Row
 					style={{
 						position: "relative",
@@ -66,15 +166,15 @@ export default function NewHabit() {
 						<label
 							style={{
 								position: "absolute",
-								right: "0.5rem",
-								top: "0.5rem"
+								right: "0.1rem",
+								top: "0.1rem"
 							}}
 						>
 							<S.ClearEndDateButton
 								type="button"
 								onClick={() => setHasEndDate(false)}
 							>
-								<MdFilterListOff size={15} fill={"white"} />
+								<LuCalendarOff size={15} fill={"orangered"} color="white" />
 							</S.ClearEndDateButton>
 						</label>
 					)}
@@ -111,11 +211,12 @@ export default function NewHabit() {
 								type="button"
 								onClick={() => setHasEndDate(true)}
 							>
-								Set end date
+								Add end date <LuCalendarPlus size={15} />
 							</S.SetEndDateButton>
 						)}
 					</div>
 				</F.Row>
+
 				<F.Button>Create habit</F.Button>
 			</F.Form>
 		</F.Wrapper>

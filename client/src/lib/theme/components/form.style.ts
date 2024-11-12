@@ -61,7 +61,8 @@ const CompactRow = styled(Row)`
 
 const Form = styled.form`
 	${flex.column};
-	gap: 0.5rem;
+	gap: 1rem;
+	padding: 0 0.5rem;
 `;
 
 const Button = styled.button`
