@@ -1,6 +1,7 @@
 import StyledButtons from "@/lib/theme/components/Button.style";
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
 import { flex } from "@/lib/theme/snippets/flex";
+import { inputStyle } from "@/lib/theme/snippets/input";
 import styled from "styled-components";
 
 const ClearEndDateButton = styled(StyledButtons.Unstyled)`
@@ -115,6 +116,29 @@ const Label = styled.label`
 	${DefaultInput} {
 		padding-top: 0.1rem;
 	}
+
+	&:has(input:disabled) {
+		opacity: 0;
+	}
+`;
+
+const ProgressionFieldset = styled.fieldset`
+	${flex.column};
+	background-color: white;
+	border-radius: 3px;
+	box-shadow: 0 0 0.3rem 0 #aaa;
+	outline: 2px solid white;
+	padding: 1.2rem;
+`;
+
+const Select = styled.select`
+	${inputStyle}
+	width: 6rem; // largest value is "months", so 6rem is enough to fit everything and prevent layout shifts
+`;
+
+const FixedLengthString = styled.span`
+	display: inline-block;
+	width: 2.2rem;
 `;
 
 export default {
@@ -123,5 +147,8 @@ export default {
 	RadioButton,
 	RadioOption,
 	Label,
-	RadioLabelText
+	RadioLabelText,
+	ProgressionFieldset,
+	Select,
+	FixedLengthString
 };

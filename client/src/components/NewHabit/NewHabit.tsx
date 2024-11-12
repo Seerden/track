@@ -1,49 +1,45 @@
+import useNewHabit from "@/components/NewHabit/useNewHabit";
 import TagSelector from "@/components/TagSelector/TagSelector";
+import { createDate } from "@/lib/datetime/make-date";
 import modalIds from "@/lib/modal-ids";
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
 import F from "@lib/theme/components/form.style";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { LuCalendarOff, LuCalendarPlus } from "react-icons/lu";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 import S from "./style/NewHabit.style";
 
 function Icon({ checked }: { checked: boolean }) {
+	const size = 20;
+
 	return checked ? (
-		<MdCheckBox size={20} color={"forestgreen"} />
+		<MdCheckBox size={size} color={"forestgreen"} />
 	) : (
-		<MdCheckBoxOutlineBlank size={20} color="orange" />
+		<MdCheckBoxOutlineBlank size={size} color="orange" />
 	);
 }
 
 export default function NewHabit() {
-	const [interval, setInterval] = useState(1);
-	const [frequency, setFrequency] = useState(1);
 	const [hasEndDate, setHasEndDate] = useState(false);
-	const [progressionType, setProgressionType] = useState<"checkbox" | "goal">("goal");
-
-	const maybePlural = useCallback(
-		(s: string) => {
-			return interval === 1 ? s : s + "s";
-		},
-		[interval]
-	);
-
-	const IconCheckbox =
-		progressionType === "checkbox" ? MdCheckBox : MdCheckBoxOutlineBlank;
-	const IconGoal = progressionType === "checkbox" ? MdCheckBoxOutlineBlank : MdCheckBox;
+	const { habit, onInputChange, maybePlural, setHabit, onSubmit } = useNewHabit();
 
 	return (
 		<F.Wrapper>
 			<F.FormTitle>Start a new habit</F.FormTitle>
-			<F.Form onSubmit={() => {}}>
+			<F.Form onSubmit={onSubmit}>
 				<F.Row>
 					<F.Label>
 						<span>Habit name</span>
-						<DefaultInput type="text" onChange={() => {}} name="name" required />
+						<DefaultInput
+							type="text"
+							onChange={onInputChange}
+							name="name"
+							required
+						/>
 					</F.Label>
 					<F.Label>
 						<span>Description</span>
-						<DefaultInput type="text" onChange={() => {}} name="description" />
+						<DefaultInput type="text" onChange={onInputChange} name="description" />
 					</F.Label>
 				</F.Row>
 				<F.CompactRow>
@@ -52,37 +48,29 @@ export default function NewHabit() {
 						type="number"
 						min={1}
 						step={1}
-						onChange={(e) => {
-							setFrequency(+e.target.value);
-						}}
+						defaultValue={1}
+						name="frequency"
+						onChange={onInputChange}
 					/>{" "}
-					time{frequency > 1 && "s"} every
+					<S.FixedLengthString>time{habit.frequency > 1 && "s"}</S.FixedLengthString>{" "}
+					every
 					<input
-						onChange={(e) => {
-							setInterval(+e.target.value);
-						}}
+						name="interval"
+						onChange={onInputChange}
 						min={1}
 						step={1}
+						defaultValue={1}
 						type="number"
 					/>{" "}
-					<select>
-						<option value="day">{maybePlural("day")}</option>
-						<option value="week">{maybePlural("week")}</option>
-						<option value="month">{maybePlural("month")}</option>
-						<option value="year">{maybePlural("year")}</option>
-					</select>
+					<S.Select name="interval_unit" onChange={onInputChange}>
+						{["day", "week", "month", "year"].map((unit) => (
+							<option key={unit} value={unit}>
+								{maybePlural(unit)}
+							</option>
+						))}
+					</S.Select>
 				</F.CompactRow>
-				<div
-					style={{
-						display: "flex",
-						flexDirection: "column",
-						backgroundColor: "#fff",
-						borderRadius: "3px",
-						boxShadow: "0 0 0.3rem 0 #aaa",
-						outline: "2px solid white",
-						padding: "1.2rem"
-					}}
-				>
+				<S.ProgressionFieldset>
 					<div style={{ fontSize: "0.95rem", marginBottom: "0.4rem" }}>
 						How do you want to track your progress for this habit?
 					</div>
@@ -96,28 +84,24 @@ export default function NewHabit() {
 						<S.RadioOption>
 							<S.RadioButton
 								type="radio"
-								name="tracking"
+								name="goal_type"
 								value="checkbox"
-								onChange={(e) =>
-									setProgressionType(e.target.value as "checkbox" | "goal")
-								}
+								onChange={onInputChange}
 							/>
 							<S.RadioLabelText>
-								<Icon checked={progressionType === "checkbox"} />
+								<Icon checked={habit.goal_type === "checkbox"} />
 								with a checkbox
 							</S.RadioLabelText>
 						</S.RadioOption>
 						<S.RadioOption>
 							<S.RadioButton
 								type="radio"
-								name="tracking"
+								name="goal_type"
 								value="goal"
-								onChange={(e) =>
-									setProgressionType(e.target.value as "checkbox" | "goal")
-								}
+								onChange={onInputChange}
 							/>{" "}
 							<S.RadioLabelText>
-								<Icon checked={progressionType === "goal"} />
+								<Icon checked={habit.goal_type === "goal"} />
 								with a detailed goal
 							</S.RadioLabelText>
 							<div
@@ -135,9 +119,11 @@ export default function NewHabit() {
 											fontSize: "0.82rem"
 										}}
 										type="number"
-										onChange={() => {}}
-										name="target"
+										name="goal"
+										onChange={onInputChange}
 										placeholder="e.g. 10.000"
+										disabled={habit.goal_type !== "goal"}
+										required={habit.goal_type === "goal"}
 									/>
 								</S.Label>
 								<S.Label>
@@ -148,15 +134,17 @@ export default function NewHabit() {
 											fontSize: "0.82rem"
 										}}
 										type="text"
-										onChange={() => {}}
-										name="unit"
+										name="goal_unit"
+										onChange={onInputChange}
 										placeholder="e.g. steps"
+										disabled={habit.goal_type !== "goal"}
+										required={habit.goal_type === "goal"}
 									/>
 								</S.Label>
 							</div>
 						</S.RadioOption>
 					</div>
-				</div>
+				</S.ProgressionFieldset>
 
 				<F.Row
 					style={{
@@ -174,7 +162,13 @@ export default function NewHabit() {
 						>
 							<S.ClearEndDateButton
 								type="button"
-								onClick={() => setHasEndDate(false)}
+								onClick={() => {
+									setHasEndDate(false);
+									setHabit((current) => ({
+										...current,
+										end_timestamp: null
+									}));
+								}}
 							>
 								<LuCalendarOff size={15} fill={"orangered"} color="white" />
 							</S.ClearEndDateButton>
@@ -195,19 +189,29 @@ export default function NewHabit() {
 							}}
 						>
 							<span>Start date</span>
-							<DefaultInput type="date" onChange={() => {}} required />
+							<DefaultInput
+								name="start_timestamp"
+								type="date"
+								value={createDate(habit.start_timestamp).format("YYYY-MM-DD")}
+								onChange={onInputChange}
+								required
+							/>
 						</F.Label>
+
 						{hasEndDate ? (
-							<>
-								<F.Label
-									style={{
-										width: "50%"
-									}}
-								>
-									<span>End date</span>
-									<DefaultInput type="date" onChange={() => {}} required />
-								</F.Label>
-							</>
+							<F.Label
+								style={{
+									width: "calc(50% - 0.5rem)"
+								}}
+							>
+								<span>End date</span>
+								<DefaultInput
+									type="date"
+									name="end_timestamp"
+									onChange={onInputChange}
+									required
+								/>
+							</F.Label>
 						) : (
 							<S.SetEndDateButton
 								type="button"
@@ -225,7 +229,7 @@ export default function NewHabit() {
 					title="Add tags"
 				/>
 
-				<F.Button>Create habit</F.Button>
+				<F.Button type="submit">Create habit</F.Button>
 			</F.Form>
 		</F.Wrapper>
 	);
