@@ -1,6 +1,3 @@
-// take styles from DetailedActivity and put them here, so we can also use them
-// for things like habit cards
-
 import { getFontSize } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacing } from "@/lib/theme/snippets/spacing";
