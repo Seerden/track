@@ -49,14 +49,12 @@ function NewActivity({ isTask: initialIsTask, modalId }: NewActivityProps) {
 					<DateTimePicker setState={onDateTimeChange} />
 				</N.Row>
 
-				<N.Row>
-					<TagSelector
-						fullSize
-						title="Tags"
-						showNewTagButton
-						modalId={modalIds.tagSelector.newActivity}
-					/>
-				</N.Row>
+				<TagSelector
+					fullSize
+					title="Tags"
+					showNewTagButton
+					modalId={modalIds.tagSelector.newActivity}
+				/>
 
 				<N.Button>Create activity</N.Button>
 			</N.Form>
