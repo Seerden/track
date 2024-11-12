@@ -47,8 +47,7 @@ const Row = styled.fieldset`
 `;
 
 const CompactRow = styled(Row)`
-	justify-content: flex-start;
-	align-items: center;
+	align-items: baseline;
 
 	input {
 		${inputStyle};
