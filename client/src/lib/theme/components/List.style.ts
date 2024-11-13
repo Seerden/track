@@ -2,6 +2,17 @@ import { getFontSize } from "@/lib/theme/font";
 import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
 
+// was Tasks.style -> Tasks
+// TODO: use this in Tasks
+const ItemList = styled.ul`
+	gap: 0.6rem;
+	overflow-x: visible;
+	max-width: 720px;
+
+	display: grid;
+	grid-template-columns: max-content max-content auto; // TODO: this always has to be specified manually because every use case has a different number of children
+`;
+
 // was Tasks.style -> Task
 const Item = styled.li`
 	user-select: none;
@@ -58,6 +69,7 @@ const Info = styled.div`
 `;
 
 export default {
+	ItemList,
 	Item,
 	ItemName,
 	Info

@@ -1,11 +1,12 @@
+import HabitEntrySlider from "@/components/habits/HabitEntryItem/HabitEntrySlider";
+import HabitEntryToggle from "@/components/habits/HabitEntryItem/HabitEntryToggle";
 import L from "@/lib/theme/components/List.style";
 import type { HabitEntry, HabitWithIds } from "@/types/server/habit.types";
 import type { ById } from "@/types/server/utility.types";
-import { Slider } from "@mantine/core";
 import { useState } from "react";
 
 // TODO: put this in @types/
-type HabitWithEntries = HabitWithIds & {
+export type HabitWithEntries = HabitWithIds & {
 	entries: ById<HabitEntry>;
 };
 
@@ -18,12 +19,11 @@ function frequencyString({
 	goal_type
 }: HabitWithIds) {
 	let prefix = "";
-	const frequencySuffix = frequency > 1 ? "s" : "";
 	const intervalSuffix = interval > 1 ? "s" : "";
 	const frequencyLine =
 		frequency === 1 ? (interval > 1 ? "once" : "") : `${frequency} times`;
 	const intervalLine = interval === 1 ? "every" : `per ${interval}`;
-	const humanized = `${frequencyLine} ${intervalLine} ${interval_unit}${intervalSuffix} `;
+	const humanized = `${frequencyLine} ${intervalLine} ${interval_unit}${intervalSuffix}`;
 	if (goal_type === "goal") {
 		prefix = `${goal} ${goal_unit}, `;
 	}
@@ -42,14 +42,16 @@ function frequencyString({
  */
 
 export default function HabitEntryItem({ habit }: { habit: HabitWithEntries }) {
-	const [value, setValue] = useState(0); // actually gets the value of the entry at the given index
+	const [value, setValue] = useState(0); // actually needs to be the value of the entry at the given index
 	const [showValue, setShowValue] = useState(true);
 
 	return (
 		<L.Item
+			onClick={() => {}} // TODO: open detailed habit modal
 			style={{
 				display: "grid",
-				gridTemplateColumns: "max-content max-content 1fr",
+				gridTemplateColumns: "subgrid",
+				gridColumn: "1 / -1",
 				maxWidth: "500px"
 			}}
 		>
@@ -61,38 +63,24 @@ export default function HabitEntryItem({ habit }: { habit: HabitWithEntries }) {
 					flexDirection: "row",
 					justifySelf: "flex-end",
 					alignItems: "center",
-					gap: "1rem"
+					gap: "1rem",
+					width: "100%"
 				}}
 			>
-				<input type="checkbox" />
-				<label>
-					<span
-						style={{
-							visibility: showValue ? "visible" : "hidden"
-						}}
-					>
-						{value} {habit.goal_unit}
-					</span>
-					<Slider
-						defaultValue={0}
-						labelAlwaysOn={false}
-						showLabelOnHover={false}
-						min={0}
-						size={"sm"}
-						thumbSize={15}
-						max={habit.goal ?? 1}
-						step={1}
-						label={(value) => `${value} ${habit.goal_unit}`}
-						color={value >= (habit.goal ?? 1) ? "green" : "blue"}
-						style={{ width: "100px" }}
-						onChange={(value) => {
-							setShowValue(false);
-							setValue(value);
-						}}
-						onChangeEnd={() => setShowValue(true)}
-						value={value}
+				{habit.goal_type === "checkbox" ? (
+					<HabitEntryToggle
+						value={Boolean(habit.entries[0]?.value) ?? false} // TODO
+						setValue={() => {}} // TODO
 					/>
-				</label>
+				) : (
+					<HabitEntrySlider
+						habit={habit}
+						value={value}
+						setValue={setValue}
+						showValue={showValue}
+						setShowValue={setShowValue}
+					/>
+				)}
 			</div>
 		</L.Item>
 	);

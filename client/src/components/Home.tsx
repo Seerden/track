@@ -1,12 +1,17 @@
 import DetailedHabit from "@/components/habits/DetailedHabit/DetailedHabit";
-import { habit } from "@/components/habits/DetailedHabit/mock";
-import HabitEntryItem from "@/components/habits/HabitEntryItem/HabitEntryItem";
+import { booleanHabit, habit } from "@/components/habits/DetailedHabit/mock";
+import HabitEntryItems from "@/components/habits/HabitEntryItem/HabitEntryItems";
 
 function Home() {
 	return (
 		<>
 			<DetailedHabit habit={habit} />
-			<HabitEntryItem habit={{ ...habit, entries: {} }} />
+			<HabitEntryItems
+				habits={[
+					{ ...habit, entries: {} },
+					{ ...booleanHabit, entries: {} }
+				]}
+			/>
 		</>
 	);
 }
