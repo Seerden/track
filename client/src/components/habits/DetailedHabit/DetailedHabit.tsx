@@ -3,17 +3,17 @@ import useTagsQuery from "@/lib/query/useTagsQuery";
 import C from "@/lib/theme/components/Card.style";
 import type { HabitWithIds } from "@/types/server/habit.types";
 import type { PropsWithChildren } from "react";
-import S from "./style/Habit.style";
+import S from "./style/DetailedHabit.style";
 
-type HabitProps = {
+type DetailedHabitProps = {
 	habit: HabitWithIds;
 };
 
-export default function DetailedHabit({ habit }: PropsWithChildren<HabitProps>) {
+export default function DetailedHabit({ habit }: PropsWithChildren<DetailedHabitProps>) {
 	const { data: tagsData } = useTagsQuery();
 
 	return (
-		<S.HabitCard>
+		<S.DetailedHabitCard>
 			<C.Title>{habit.name}</C.Title>
 			<p>{habit.description}</p>
 			<S.InfoFields>
@@ -51,6 +51,6 @@ export default function DetailedHabit({ habit }: PropsWithChildren<HabitProps>) 
 					))}
 				</C.Tags>
 			)}
-		</S.HabitCard>
+		</S.DetailedHabitCard>
 	);
 }

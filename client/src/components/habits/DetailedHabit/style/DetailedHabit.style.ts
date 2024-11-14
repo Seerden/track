@@ -2,7 +2,7 @@ import CardStyle from "@/lib/theme/components/Card.style";
 import { flex } from "@/lib/theme/snippets/flex";
 import styled from "styled-components";
 
-const HabitCard = styled(CardStyle.Wrapper)`
+const DetailedHabitCard = styled(CardStyle.Wrapper)`
 	margin: auto;
 	max-width: max-content;
 	list-style: none;
@@ -38,6 +38,6 @@ const InfoFields = styled.section`
 `;
 
 export default {
-	HabitCard,
+	DetailedHabitCard,
 	InfoFields
 };
