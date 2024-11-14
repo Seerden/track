@@ -1,32 +1,19 @@
 import CardStyle from "@/lib/theme/components/Card.style";
-import { flex } from "@/lib/theme/snippets/flex";
 import styled from "styled-components";
 
+/** TODO: DetailedHabit is only really shown in a modal, which has some padding etc.
+ * of its own, so the style for this is very barebones. If we want to show it
+ * outside of a modal, we need some additional styling to make it look better. */
 const DetailedHabitCard = styled(CardStyle.Wrapper)`
-	margin: auto;
 	max-width: max-content;
 	list-style: none;
-
-	padding: 2rem;
-
-	border: 2px solid #ddd;
-	border-radius: 3px;
-	background-color: #eee;
-	outline: 2px solid white;
-
-	box-shadow: 0.2rem 0.2rem 0.5rem 0 #ddd;
-
-	// dev
-	margin-top: 2rem;
 `;
 
 const InfoFields = styled.section`
-	${flex.column};
+	display: grid;
+	grid-template-columns: max-content auto;
 
 	width: 100%;
-
-	align-items: stretch;
-	justify-content: stretch;
 
 	max-width: max-content;
 

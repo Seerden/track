@@ -72,8 +72,12 @@ const InfoLine = styled.p`
 	margin-top: 0.4rem;
 	width: max-content;
 
-	${flex.row};
-	align-items: center;
+	// only applies the subgrid if there's multiple children
+	&:has(* + *) {
+		display: grid;
+		grid-template-columns: subgrid;
+		grid-column: 1 / -1;
+	}
 `;
 
 const InfoLabel = styled.span`

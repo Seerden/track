@@ -1,4 +1,5 @@
 import CardStyle from "@/lib/theme/components/Card.style";
+import { flex } from "@/lib/theme/snippets/flex";
 import styled from "styled-components";
 
 const Wrapper = styled(CardStyle.Wrapper)`
@@ -17,6 +18,9 @@ const Title = styled(CardStyle.Title)`
 
 const Time = styled.div`
 	grid-area: time;
+
+	${flex.column};
+	gap: 0.5rem;
 `;
 
 const Description = styled.div``;
