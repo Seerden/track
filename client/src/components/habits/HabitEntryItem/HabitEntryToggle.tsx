@@ -18,19 +18,20 @@ export default function HabitEntryToggle({
 	entry,
 	onChange
 }: HabitEntryToggleProps) {
-	const defaultValue = Boolean(isSynthetic(entry) ? false : entry.value);
+	const defaultValue = Boolean(isSynthetic(entry) ? false : entry.value === "true");
 	const [value, setValue] = useState(defaultValue);
 
 	if (habit.goal_type !== "checkbox") return;
 
 	return (
-		<label>
+		// the style is temporary, want to implement a nicer checkbox
+		<label style={{ width: "max-content" }}>
 			<input
 				type="checkbox"
 				checked={value}
 				onChange={(e) => {
+					onChange({ input: entry, value: (!value).toString() });
 					setValue(e.target.checked);
-					onChange({ input: entry, value: value.toString() });
 				}}
 			/>
 		</label>
