@@ -7,7 +7,7 @@ import type {
 } from "@/types/server/habit.types";
 import type { SliderProps } from "@mantine/core";
 import { Slider } from "@mantine/core";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const sliderProps: SliderProps = {
 	labelAlwaysOn: false,
@@ -30,6 +30,16 @@ export default function HabitEntrySlider({
 	const defaultValue = isSynthetic(entry) ? 0 : +entry.value;
 	const [value, setValue] = useState(() => defaultValue); // TODO: do we need to do anything else to fully synchronize this with the entry's value?
 
+	useEffect(() => {
+		console.log({ value });
+	}, [value]);
+
+	const handleChangeEnd = useCallback(
+		(sliderValue: number) => {
+			onChangeEnd({ input: entry, value: sliderValue.toString() });
+		},
+		[value] // does not need to ba a callback
+	);
 	if (habit.goal_type !== "goal") return;
 
 	return (
@@ -49,11 +59,12 @@ export default function HabitEntrySlider({
 					maxWidth: "200px",
 					width: "100%"
 				}}
-				onChange={(value) => {
-					setValue(value);
+				onChange={(sliderValue) => {
+					setValue(sliderValue);
 				}}
-				onChangeEnd={(value) => {
-					onChangeEnd({ input: entry, value: value.toString() });
+				onChangeEnd={(sliderValue) => {
+					setValue(sliderValue);
+					handleChangeEnd(sliderValue);
 				}}
 				value={value}
 			/>

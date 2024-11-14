@@ -30,7 +30,7 @@ export default function HabitEntryToggle({
 				checked={value}
 				onChange={(e) => {
 					setValue(e.target.checked);
-					onChange({ input: entry, value: e.target.checked.toString() });
+					onChange({ input: entry, value: value.toString() });
 				}}
 			/>
 		</label>

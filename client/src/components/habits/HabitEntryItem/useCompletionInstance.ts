@@ -22,6 +22,7 @@ export default function useCompletionInstance() {
 	}) {
 		function onSuccess() {
 			queryClient.invalidateQueries({ queryKey: ["habit-entries"], exact: true });
+			queryClient.invalidateQueries({ queryKey: ["habits"], exact: true });
 		}
 
 		if (!user_id) return;
@@ -36,7 +37,9 @@ export default function useCompletionInstance() {
 			});
 			submitNewEntry({ habitEntry: realEntry }, { onSuccess });
 		} else {
-			putEntry({ input }, { onSuccess });
+			putEntry({ input: { ...input, ...(value && { value }) } }, { onSuccess }); // TODO: I don't like that i have to manually add value, fix the type and names to make this intuitive
+			// TODO ^ note above is because submitNewEntry and putEntry have
+			// different signatures and I wasn't accounting for that
 		}
 	}
 
