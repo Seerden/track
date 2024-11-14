@@ -1,20 +1,27 @@
-import { postConfig, putConfig } from "./fetch-constants";
+import { deleteConfig, postConfig, putConfig } from "./fetch-constants";
 
-function createPostConfig<T>(data?: T): RequestInit {
+/** Add data to the request body only if data exists. */
+function maybeWithBody<T>(config: RequestInit, data?: T): RequestInit {
 	return {
-		...postConfig,
+		...config,
 		...(data && { body: JSON.stringify(data) })
 	};
 }
 
+function createPostConfig<T>(data?: T): RequestInit {
+	return maybeWithBody(postConfig, data);
+}
+
 function createPutConfig<T>(data?: T): RequestInit {
-	return {
-		...putConfig,
-		...(data && { body: JSON.stringify(data) })
-	};
+	return maybeWithBody(putConfig, data);
+}
+
+function createDeleteConfig<T>(data?: T): RequestInit {
+	return maybeWithBody(deleteConfig, data);
 }
 
 export const createRequestConfig = {
 	post: createPostConfig,
-	put: createPutConfig
+	put: createPutConfig,
+	delete: createDeleteConfig
 };
