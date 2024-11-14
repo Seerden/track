@@ -1,6 +1,8 @@
 import { postHabits } from "@/lib/data/insert-habit";
 import { postHabitEntry } from "@/lib/data/insert-habit-entry";
+import { getHabitEntriesByUser } from "@/lib/data/query-habit-entries";
 import { getHabits } from "@/lib/data/query-habits";
+import { putHabitEntry } from "@/lib/data/update-habit-entry";
 import { updateActivityCompletion } from "@lib/data/update-activity";
 import { Router } from "express";
 import type { ActivityInput, ActivityUpdateInput } from "../../types/data/activity.types";
@@ -82,3 +84,5 @@ dataRouter.put("/task/completion", isAuthorized, async (req, res) => {
 dataRouter.get("/habits", isAuthorized, getHabits);
 dataRouter.post("/habit", isAuthorized, postHabits);
 dataRouter.post("/habit/entry", isAuthorized, postHabitEntry);
+dataRouter.get("/habit/entries", isAuthorized, getHabitEntriesByUser);
+dataRouter.put("/habit/entry", isAuthorized, putHabitEntry);
