@@ -21,6 +21,5 @@ export default function useHabitsData() {
 		}, {} as ById<HabitWithEntries>);
 	}, [habitsData, habitEntriesData]);
 
-	console.log({ byId });
 	return byId;
 }

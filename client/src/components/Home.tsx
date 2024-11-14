@@ -4,7 +4,7 @@ import { withSyntheticHabitEntries } from "@/components/habits/HabitEntryItem/sy
 import { createDate } from "@/lib/datetime/make-date";
 import useHabitsData from "@/lib/hooks/useHabitsData";
 import type { Timescale } from "@/types/timescale.types";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 
 // TODO this is just a placeholder
 const timescale: Timescale = {
@@ -15,12 +15,6 @@ const timescale: Timescale = {
 
 function Home() {
 	const habitsWithEntriesById = useHabitsData();
-
-	useEffect(() => {
-		console.log({
-			habitsWithEntriesById
-		});
-	}, [habitsWithEntriesById]);
 
 	if (!habitsWithEntriesById) return null;
 	const _habits = useMemo(() => {
