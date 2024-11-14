@@ -27,6 +27,8 @@ export default function HabitEntryItem({
 	return (
 		<L.Item
 			onClick={(e) => {
+				// TODO: this onClick also triggers when the user clicks a child
+				// element, like a checkbox. We don't want that.
 				e.stopPropagation();
 				openDetailedHabitModal(habit.habit_id);
 			}}
