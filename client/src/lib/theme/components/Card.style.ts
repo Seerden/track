@@ -97,7 +97,6 @@ const InfoValue = styled.span`
 	color: azure;
 	background-color: darkorchid;
 	border-radius: 0 3px 3px 0;
-	flex: 1 1 0;
 `;
 
 export default {
