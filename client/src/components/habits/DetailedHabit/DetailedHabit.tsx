@@ -16,7 +16,7 @@ export default function DetailedHabit({ habit }: PropsWithChildren<DetailedHabit
 	const humanizedEnd = habit.end_timestamp
 		? createDate(habit.end_timestamp).fromNow()
 		: null;
-	const humanizedFrequency = `${habit.frequency} time(s) per ${habit.interval} ${habit.interval_unit}(s)`;
+	const humanizedFrequency = `${habit.frequency} time(s) per ${habit.interval} ${habit.interval_unit}(s)`; // TODO: consider using frequencyString from elsewhere
 
 	return (
 		<S.DetailedHabitCard>
