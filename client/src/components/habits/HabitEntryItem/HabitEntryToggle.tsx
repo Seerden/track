@@ -24,7 +24,7 @@ export default function HabitEntryToggle({
 	if (habit.goal_type !== "checkbox") return;
 
 	return (
-		// the style is temporary, want to implement a nicer checkbox
+		// TODO: styling
 		<label style={{ width: "max-content" }}>
 			<input
 				type="checkbox"
