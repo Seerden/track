@@ -7,7 +7,7 @@ import type {
 } from "@/types/server/habit.types";
 import type { SliderProps } from "@mantine/core";
 import { Slider } from "@mantine/core";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 const sliderProps: SliderProps = {
 	labelAlwaysOn: false,
@@ -29,10 +29,6 @@ export default function HabitEntrySlider({
 }: HabitEntrySliderProps) {
 	const defaultValue = isSynthetic(entry) ? 0 : +entry.value;
 	const [value, setValue] = useState(() => defaultValue); // TODO: do we need to do anything else to fully synchronize this with the entry's value?
-
-	useEffect(() => {
-		console.log({ value });
-	}, [value]);
 
 	const handleChangeEnd = useCallback(
 		(sliderValue: number) => {
