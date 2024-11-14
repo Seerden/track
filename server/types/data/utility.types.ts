@@ -1,4 +1,4 @@
-import type { Datelike } from "../date.types";
+import { Datelike } from "types/date.types";
 
 /** unix (milli?)seconds? or whatever a postgres Timestamp is, I guess.
  * TODO: figure out What postgres timestamps get parsed to */
@@ -9,7 +9,13 @@ export type ID = number;
 
 export type Maybe<T> = T | null | undefined;
 
-export type ById<T> = Record<ID, T>;
+/** We usually construct these using ids as the key, which aren't really
+ * strings, but actually numbers, but they get parsed to strings when they
+ * become keys. We define ById as follows because using Record<ID, T> results in
+ * arrays being accepted as a valid ById type.
+ * @see https://stackoverflow.com/questions/71422178/typescript-record-accepts-array-why
+ **/
+export type ById<T> = T extends (infer U)[] ? never : Record<ID, T>;
 
 export type NullUnused<TUsed, TUnused> = TUsed & {
 	[k in keyof TUnused]: null;
