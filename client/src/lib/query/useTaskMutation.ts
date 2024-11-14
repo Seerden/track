@@ -29,14 +29,12 @@ function updateActivitiesCache(updatedActivity: ActivityWithIds) {
 
 		if (!updatedActivity) return old;
 
-		const newActivitiesData = {
+		return {
 			byId: {
 				...old.byId,
 				[updatedActivity.activity_id]: updatedActivity
 			} as ById<ActivityWithIds>
 		};
-
-		return newActivitiesData;
 	});
 }
 
