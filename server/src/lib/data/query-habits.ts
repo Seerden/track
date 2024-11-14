@@ -1,5 +1,6 @@
 import { sqlConnection } from "@/db/init";
 import { mergeHabitsAndRelations } from "@/lib/data/merge-habits-and-relations";
+import { queryHabitEntriesByUser } from "@/lib/data/query-habit-entries";
 import type { RequestHandler } from "express";
 import { Habit } from "types/data/habit.types";
 import { HabitTagRelation } from "types/data/relational.types";
@@ -23,8 +24,9 @@ async function queryHabitTagsByUser({
 async function queryHabitsAndRelations({ user_id }: { user_id: ID }) {
 	const habits = await queryHabitsByUser({ user_id });
 	const habitTagRelations = await queryHabitTagsByUser({ user_id });
+	const entries = await queryHabitEntriesByUser({ user_id });
 
-	return mergeHabitsAndRelations(habits, habitTagRelations);
+	return mergeHabitsAndRelations(habits, habitTagRelations, entries);
 }
 
 export const getHabits: RequestHandler = async (req, res) => {
