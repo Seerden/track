@@ -2,18 +2,15 @@ import { getFontSize } from "@/lib/theme/font";
 import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
 
-// was Tasks.style -> Tasks
-// TODO: use this in Tasks
 const ItemList = styled.ul`
 	gap: 0.6rem;
 	overflow-x: visible;
 	max-width: 720px;
+	padding: 0.5rem;
 
 	display: grid;
-	grid-template-columns: max-content max-content auto; // TODO: this always has to be specified manually because every use case has a different number of children
 `;
 
-// was Tasks.style -> Task
 const Item = styled.li`
 	user-select: none;
 	list-style: none;
@@ -42,8 +39,7 @@ const Item = styled.li`
 	max-width: 720px; // TODO: this is temporary, but we do want to limit size
 `;
 
-// was Tasks.style -> TaskName
-// I don't like that this is a div
+// TODO: I don't like that this is a div
 const ItemName = styled.div`
 	display: flex;
 	/* max-width: 200px; */

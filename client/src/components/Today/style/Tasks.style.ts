@@ -21,14 +21,8 @@ const Times = styled.div`
 	color: #555;
 `;
 
-const Tasks = styled.ul`
-	${flex.column};
-	gap: 0.6rem;
+const Tasks = styled(ListStyle.ItemList)`
 	overflow-x: auto;
-	padding: 0.5rem;
-	max-width: 720px;
-
-	display: grid;
 	grid-template-columns: max-content max-content auto 1fr;
 `;
 

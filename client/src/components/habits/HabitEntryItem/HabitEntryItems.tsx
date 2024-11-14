@@ -21,7 +21,11 @@ export default function HabitEntryItems({ habits }: HabitEntryItemsProps) {
 
 	return (
 		<>
-			<L.ItemList>
+			<L.ItemList
+				style={{
+					gridTemplateColumns: "max-content max-content auto"
+				}}
+			>
 				{Object.values(habits).map((habit) => (
 					<HabitEntryItem key={habit.habit_id} habit={habit} />
 				))}
