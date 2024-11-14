@@ -11,9 +11,6 @@ import type { HabitWithPossiblySyntheticEntries } from "@/types/server/habit.typ
  * actually have multiple entries. Only in a daily view for a habit with a
  * once-a-day frequency (or similar for week, month, etc.) will it only have a
  * single entry.
- *
- * I want to style this similarly to Tasks list items from Today, so part of
- * implementing this component will be to generalize the styles from that component.
  */
 
 export default function HabitEntryItem({
