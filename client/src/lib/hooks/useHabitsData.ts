@@ -1,14 +1,14 @@
 import useHabitEntriesQuery from "@/lib/query/habits/useHabitEntriesQuery";
 import useHabitsQuery from "@/lib/query/habits/useHabitsQuery";
-import type { HabitWithEntries } from "@/types/server/habit.types";
+import type { Habit, HabitWithEntries } from "@/types/server/habit.types";
 import type { ById } from "@/types/server/utility.types";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 export default function useHabitsData() {
 	const { data: habitsData } = useHabitsQuery();
 	const { data: habitEntriesData } = useHabitEntriesQuery();
 
-	const byId = useMemo(() => {
+	const habitsWithEntriesById = useMemo(() => {
 		if (!habitsData || !habitEntriesData) return {};
 
 		return Object.entries(habitsData.byId).reduce((acc, [id, habit]) => {
@@ -21,5 +21,12 @@ export default function useHabitsData() {
 		}, {} as ById<HabitWithEntries>);
 	}, [habitsData, habitEntriesData]);
 
-	return byId;
+	const getHabit = useCallback(
+		({ habit_id }: Pick<Habit, "habit_id">) => {
+			return habitsWithEntriesById[habit_id];
+		},
+		[habitsWithEntriesById]
+	);
+
+	return { habitsWithEntriesById, getHabit };
 }

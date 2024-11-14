@@ -1,5 +1,7 @@
 import Completion from "@/components/habits/HabitEntryItem/Completion";
 import { frequencyString } from "@/components/habits/HabitEntryItem/frequency-string";
+import useDetailedHabitModal from "@/components/habits/HabitEntryItem/useDetailedHabitModal";
+import useHabitDeleteMutation from "@/lib/query/habits/useDeleteHabitMutation";
 import L from "@/lib/theme/components/List.style";
 import type { HabitWithPossiblySyntheticEntries } from "@/types/server/habit.types";
 
@@ -19,9 +21,15 @@ export default function HabitEntryItem({
 }: {
 	habit: HabitWithPossiblySyntheticEntries;
 }) {
+	const { mutate } = useHabitDeleteMutation();
+	const { openDetailedHabitModal } = useDetailedHabitModal();
+
 	return (
 		<L.Item
-			onClick={() => {}} // TODO: open detailed habit modal
+			onClick={(e) => {
+				e.stopPropagation();
+				openDetailedHabitModal(habit.habit_id);
+			}}
 			style={{
 				display: "grid",
 				gridTemplateColumns: "subgrid",

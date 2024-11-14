@@ -14,7 +14,7 @@ const timescale: Timescale = {
 };
 
 function Home() {
-	const habitsWithEntriesById = useHabitsData();
+	const { habitsWithEntriesById } = useHabitsData();
 
 	if (!habitsWithEntriesById) return null;
 	const _habits = useMemo(() => {
