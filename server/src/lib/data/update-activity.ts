@@ -3,7 +3,7 @@ import { sqlConnection } from "src/db/init";
 import { Activity, ActivityUpdateInput } from "types/data/activity.types";
 import { WithSQL } from "types/sql.types";
 
-export function updateActivityCompletion({
+export async function updateActivityCompletion({
 	sql = sqlConnection,
 	input,
 }: WithSQL<{ input: ActivityUpdateInput }>) {
