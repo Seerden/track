@@ -1,62 +1,60 @@
-import type { HabitWithIds } from "@/types/server/habit.types";
+import type { EntryMutationFunction } from "@/lib/query/habits/useHabitEntryMutation";
+import { isSynthetic } from "@/types/server/habit-entry.guards";
+import type {
+	HabitEntry,
+	HabitWithIds,
+	SyntheticHabitEntry
+} from "@/types/server/habit.types";
+import type { SliderProps } from "@mantine/core";
 import { Slider } from "@mantine/core";
+import { useState } from "react";
+
+const sliderProps: SliderProps = {
+	labelAlwaysOn: false,
+	showLabelOnHover: false,
+	size: "sm",
+	thumbSize: 15
+};
 
 type HabitEntrySliderProps = {
 	habit: HabitWithIds;
-	value: number;
-	setValue: (value: number) => void;
-	showValue: boolean;
-	setShowValue: (show: boolean) => void;
+	entry: HabitEntry | SyntheticHabitEntry;
+	onChangeEnd: EntryMutationFunction;
 };
 
 export default function HabitEntrySlider({
 	habit,
-	value,
-	setValue,
-	showValue,
-	setShowValue
+	entry,
+	onChangeEnd
 }: HabitEntrySliderProps) {
-	const sliderCount = 1; // TODO: this should be dynamic, based on the frequency, which in turn is dependent on the interval and currently displayed timescale
+	const defaultValue = isSynthetic(entry) ? 0 : +entry.value;
+	const [value, setValue] = useState(() => defaultValue); // TODO: do we need to do anything else to fully synchronize this with the entry's value?
 
-	if (habit.goal_type !== "goal") {
-		// TODO: properly handle this, maybe by splitting up the habit type to be
-		// a union of checkbox and goal-type habits
-		return;
-	}
+	if (habit.goal_type !== "goal") return;
 
 	return (
-		<label
-			style={{
-				width: `calc(100% / ${sliderCount})`
-			}}
-		>
-			<span
-				style={{
-					visibility: showValue ? "visible" : "hidden"
-				}}
-			>
+		<label>
+			<span>
 				{value} {habit.goal_unit}
 			</span>
 			<Slider
-				defaultValue={0} // TODO: use the value from the entry
-				labelAlwaysOn={false}
-				showLabelOnHover={false}
+				{...sliderProps}
+				defaultValue={defaultValue}
 				min={0} // TODO: is this always the correct minimum value?
-				size={"sm"}
-				thumbSize={15}
 				max={habit.goal ?? 1} // TODO: habit.goal should always exist if goal_type is "goal"
 				step={1}
 				label={(value) => `${value} ${habit.goal_unit}`}
 				color={value >= (habit.goal ?? 1) ? "green" : "blue"} // TODO: expand this into a gradient?
 				style={{
 					maxWidth: "200px",
-					width: "100%" // TODO: this width should be dynamic, based on the frequency, which in turn is dependent on the interval and currently displayed timescale
+					width: "100%"
 				}}
 				onChange={(value) => {
-					setShowValue(false);
 					setValue(value);
 				}}
-				onChangeEnd={() => setShowValue(true)}
+				onChangeEnd={(value) => {
+					onChangeEnd({ input: entry, value: value.toString() });
+				}}
 				value={value}
 			/>
 		</label>

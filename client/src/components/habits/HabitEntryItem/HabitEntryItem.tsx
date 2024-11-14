@@ -1,34 +1,7 @@
-import HabitEntrySlider from "@/components/habits/HabitEntryItem/HabitEntrySlider";
-import HabitEntryToggle from "@/components/habits/HabitEntryItem/HabitEntryToggle";
+import Completion from "@/components/habits/HabitEntryItem/Completion";
+import { frequencyString } from "@/components/habits/HabitEntryItem/frequency-string";
 import L from "@/lib/theme/components/List.style";
-import type { HabitEntry, HabitWithIds } from "@/types/server/habit.types";
-import type { ById } from "@/types/server/utility.types";
-import { useState } from "react";
-
-// TODO: put this in @types/
-export type HabitWithEntries = HabitWithIds & {
-	entries: ById<HabitEntry>;
-};
-
-function frequencyString({
-	frequency,
-	interval,
-	interval_unit,
-	goal,
-	goal_unit,
-	goal_type
-}: HabitWithIds) {
-	let prefix = "";
-	const intervalSuffix = interval > 1 ? "s" : "";
-	const frequencyLine =
-		frequency === 1 ? (interval > 1 ? "once" : "") : `${frequency} times`;
-	const intervalLine = interval === 1 ? "every" : `per ${interval}`;
-	const humanized = `${frequencyLine} ${intervalLine} ${interval_unit}${intervalSuffix}`;
-	if (goal_type === "goal") {
-		prefix = `${goal} ${goal_unit}, `;
-	}
-	return prefix + humanized;
-}
+import type { HabitWithPossiblySyntheticEntries } from "@/types/server/habit.types";
 
 /**
  * I'm calling this `HabitEntryItem` but that's a misnomer. The component
@@ -41,10 +14,11 @@ function frequencyString({
  * implementing this component will be to generalize the styles from that component.
  */
 
-export default function HabitEntryItem({ habit }: { habit: HabitWithEntries }) {
-	const [value, setValue] = useState(0); // actually needs to be the value of the entry at the given index
-	const [showValue, setShowValue] = useState(true);
-
+export default function HabitEntryItem({
+	habit
+}: {
+	habit: HabitWithPossiblySyntheticEntries;
+}) {
 	return (
 		<L.Item
 			onClick={() => {}} // TODO: open detailed habit modal
@@ -67,20 +41,7 @@ export default function HabitEntryItem({ habit }: { habit: HabitWithEntries }) {
 					width: "100%"
 				}}
 			>
-				{habit.goal_type === "checkbox" ? (
-					<HabitEntryToggle
-						value={Boolean(habit.entries[0]?.value) ?? false} // TODO
-						setValue={() => {}} // TODO
-					/>
-				) : (
-					<HabitEntrySlider
-						habit={habit}
-						value={value}
-						setValue={setValue}
-						showValue={showValue}
-						setShowValue={setShowValue}
-					/>
-				)}
+				<Completion habit={habit} entries={habit.entries} />
 			</div>
 		</L.Item>
 	);
