@@ -32,10 +32,7 @@ const Tasks = styled.ul`
 	grid-template-columns: max-content max-content auto 1fr;
 `;
 
-const Task = styled(ListStyle.Item)`
-	grid-template-columns: subgrid;
-	grid-column: 1 / -1;
-`;
+const Task = styled(ListStyle.Item)``;
 
 export default {
 	TasksWrapper,

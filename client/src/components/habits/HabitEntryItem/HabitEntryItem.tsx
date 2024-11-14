@@ -33,9 +33,6 @@ export default function HabitEntryItem({
 				openDetailedHabitModal(habit.habit_id);
 			}}
 			style={{
-				display: "grid",
-				gridTemplateColumns: "subgrid",
-				gridColumn: "1 / -1",
 				maxWidth: "500px"
 			}}
 		>

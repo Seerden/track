@@ -18,12 +18,11 @@ const Item = styled.li`
 	user-select: none;
 	list-style: none;
 	cursor: pointer;
-	box-sizing: border-box;
 	font-size: ${(p) => getFontSize(p, 0.9)};
-	display: grid;
 
-	// TODO: these are only for Tasks, so they should be moved there
-	grid-template-columns: max-content max-content max-content auto;
+	display: grid;
+	grid-template-columns: subgrid;
+	grid-column: 1 / -1;
 
 	gap: 1rem;
 
