@@ -47,7 +47,7 @@ export async function insertHabitWithTags({
 			linkedTagIds = relations.map((r) => r.tag_id);
 		}
 
-		return Object.assign(insertedHabit, { tag_ids: linkedTagIds });
+		return Object.assign(insertedHabit, { tag_ids: linkedTagIds, entry_ids: [] });
 	});
 }
 
