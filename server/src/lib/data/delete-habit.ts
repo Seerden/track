@@ -1,7 +1,7 @@
 import { sqlConnection } from "@/db/init";
-import { RequestHandler } from "express";
-import { Habit } from "types/data/habit.types";
-import { WithSQL } from "types/sql.types";
+import type { RequestHandler } from "express";
+import type { Habit } from "types/data/habit.types";
+import type { WithSQL } from "types/sql.types";
 
 export const deleteHabit: RequestHandler = async (req, res) => {
 	const { habit_id } = req.params;

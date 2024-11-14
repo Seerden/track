@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { sqlConnection } from "src/db/init";
-import { Activity, ActivityUpdateInput } from "types/data/activity.types";
-import { WithSQL } from "types/sql.types";
+import type { Activity, ActivityUpdateInput } from "types/data/activity.types";
+import type { WithSQL } from "types/sql.types";
 
 export async function updateActivityCompletion({
 	sql = sqlConnection,

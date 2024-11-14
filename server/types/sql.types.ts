@@ -1,4 +1,4 @@
-import { sqlConnection } from "../src/db/init";
+import type { sqlConnection } from "../src/db/init";
 
 export type SQL = typeof sqlConnection;
 

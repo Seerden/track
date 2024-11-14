@@ -1,4 +1,4 @@
-import { ActivityWithDates, ActivityWithTimestamps } from "types/data/activity.types";
+import type { ActivityWithDates, ActivityWithTimestamps } from "types/data/activity.types";
 import { missing } from "types/data/utility.guards";
 
 function isActivityWithTimestamps(

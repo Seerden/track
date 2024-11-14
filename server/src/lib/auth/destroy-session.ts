@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { sessionCookieName } from "../redis/redis-client";
 
 /** Destroy the active express session, if it exists to begin with. */

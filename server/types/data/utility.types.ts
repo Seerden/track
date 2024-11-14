@@ -1,4 +1,4 @@
-import { Datelike } from "types/date.types";
+import type { Datelike } from "types/date.types";
 
 /** unix (milli?)seconds? or whatever a postgres Timestamp is, I guess.
  * TODO: figure out What postgres timestamps get parsed to */

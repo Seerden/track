@@ -1,6 +1,6 @@
 import { hash } from "bcryptjs";
-import { NewUser, User, UserInput } from "../../../types/data/user.types";
-import { WithSQL } from "../../../types/sql.types";
+import type { NewUser, User, UserInput } from "../../../types/data/user.types";
+import type { WithSQL } from "../../../types/sql.types";
 import { sqlConnection } from "../../db/init";
 import { userExists } from "./query-user";
 

@@ -1,4 +1,4 @@
-import { HabitEntry, SyntheticHabitEntry } from "types/data/habit.types";
+import type { HabitEntry, SyntheticHabitEntry } from "types/data/habit.types";
 
 export function isSynthetic(
 	entry: HabitEntry | SyntheticHabitEntry

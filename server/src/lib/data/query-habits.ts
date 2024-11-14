@@ -2,10 +2,10 @@ import { sqlConnection } from "@/db/init";
 import { mergeHabitsAndRelations } from "@/lib/data/merge-habits-and-relations";
 import { queryHabitEntriesByUser } from "@/lib/data/query-habit-entries";
 import type { RequestHandler } from "express";
-import { Habit } from "types/data/habit.types";
-import { HabitTagRelation } from "types/data/relational.types";
-import { ID } from "types/data/utility.types";
-import { WithSQL } from "types/sql.types";
+import type { Habit } from "types/data/habit.types";
+import type { HabitTagRelation } from "types/data/relational.types";
+import type { ID } from "types/data/utility.types";
+import type { WithSQL } from "types/sql.types";
 
 async function queryHabitsByUser({
 	sql = sqlConnection,

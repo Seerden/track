@@ -1,7 +1,7 @@
 import { sqlConnection } from "@/db/init";
-import { RequestHandler } from "express";
-import { HabitEntry, HabitEntryUpdateInput } from "types/data/habit.types";
-import { WithSQL } from "types/sql.types";
+import type { RequestHandler } from "express";
+import type { HabitEntry, HabitEntryUpdateInput } from "types/data/habit.types";
+import type { WithSQL } from "types/sql.types";
 
 // TODO: rename this file to put-habit-entry
 export const putHabitEntry: RequestHandler = async (req, res) => {
