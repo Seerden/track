@@ -4,6 +4,7 @@ import { queryClient } from "@/lib/query-client";
 import type { ActivitiesData } from "@/types/data.types";
 import type { Data } from "@/types/query.types";
 import type { ActivityUpdateInput, ActivityWithIds } from "@/types/server/activity.types";
+import type { ById } from "@/types/server/utility.types";
 import { useMutation } from "@tanstack/react-query";
 
 async function putTaskCompletion(input: ActivityUpdateInput): Promise<ActivityWithIds> {
@@ -24,16 +25,18 @@ function updateActivitiesCache(updatedActivity: ActivityWithIds) {
 				byId: {
 					[updatedActivity.activity_id]: updatedActivity
 				}
-			};
+			} as { byId: ById<ActivityWithIds> };
 
 		if (!updatedActivity) return old;
 
-		return {
+		const newActivitiesData = {
 			byId: {
 				...old.byId,
 				[updatedActivity.activity_id]: updatedActivity
-			}
+			} as ById<ActivityWithIds>
 		};
+
+		return newActivitiesData;
 	});
 }
 
