@@ -41,7 +41,7 @@ export function useTagSelection() {
 
 	function toggleTagSelection(tag_id: ID) {
 		setTagSelection((current) => {
-			return { ...current, [tag_id]: !current[tag_id] };
+			return { ...current, [tag_id]: !current[tag_id] } as ById<boolean>;
 		});
 	}
 
