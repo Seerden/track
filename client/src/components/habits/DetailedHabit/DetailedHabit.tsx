@@ -12,6 +12,12 @@ type DetailedHabitProps = {
 export default function DetailedHabit({ habit }: PropsWithChildren<DetailedHabitProps>) {
 	const { data: tagsData } = useTagsQuery();
 
+	const humanizedStart = createDate(habit.start_timestamp).fromNow();
+	const humanizedEnd = habit.end_timestamp
+		? createDate(habit.end_timestamp).fromNow()
+		: null;
+	const humanizedFrequency = `${habit.frequency} time(s) per ${habit.interval} ${habit.interval_unit}(s)`;
+
 	return (
 		<S.DetailedHabitCard>
 			<C.Title>{habit.name}</C.Title>
@@ -27,9 +33,7 @@ export default function DetailedHabit({ habit }: PropsWithChildren<DetailedHabit
 				)}
 				<C.InfoLine>
 					<C.InfoLabel>How often?</C.InfoLabel>
-					<C.InfoValue>
-						{habit.frequency} time(s) per {habit.interval} {habit.interval_unit}(s)
-					</C.InfoValue>
+					<C.InfoValue>{humanizedFrequency}</C.InfoValue>
 				</C.InfoLine>
 			</S.InfoFields>
 			<C.Datetime
@@ -39,10 +43,8 @@ export default function DetailedHabit({ habit }: PropsWithChildren<DetailedHabit
 					alignItems: "flex-start"
 				}}
 			>
-				<span>Tracking started {createDate(habit.start_timestamp).fromNow()}</span>
-				{habit.end_timestamp && (
-					<span>Tracking ends {createDate(habit.end_timestamp).fromNow()}</span>
-				)}
+				<span>Tracking started {humanizedStart}</span>
+				{habit.end_timestamp && <span>Tracking ends {humanizedEnd}</span>}
 			</C.Datetime>
 			{tagsData?.byId && (
 				<C.Tags>
