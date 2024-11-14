@@ -151,7 +151,8 @@ export default function NewHabit() {
 						<S.ClearEndDateButtonWrapper>
 							<S.ClearEndDateButton
 								type="button"
-								onClick={() => {
+								onClick={(e) => {
+									e.stopPropagation();
 									setHasEndDate(false);
 									setHabit((current) => ({
 										...current,
@@ -187,7 +188,12 @@ export default function NewHabit() {
 								/>
 							</F.Label>
 						) : (
-							<S.SetEndDateButton onClick={() => setHasEndDate(true)}>
+							<S.SetEndDateButton
+								onClick={(e) => {
+									e.stopPropagation();
+									setHasEndDate(true);
+								}}
+							>
 								Add end date <LuCalendarPlus size={15} />
 							</S.SetEndDateButton>
 						)}
