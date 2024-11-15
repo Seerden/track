@@ -1,4 +1,4 @@
-import type { EntryMutationFunction } from "@/lib/query/habits/useHabitEntryMutation";
+import type { HabitEntryUpdateMutationFunction } from "@/lib/query/habits/useHabitEntryMutation";
 import { isSynthetic } from "@/types/server/habit-entry.guards";
 import type {
 	HabitEntry,
@@ -10,7 +10,7 @@ import { useState } from "react";
 type HabitEntryToggleProps = {
 	habit: HabitWithIds;
 	entry: HabitEntry | SyntheticHabitEntry;
-	onChange: EntryMutationFunction;
+	onChange: HabitEntryUpdateMutationFunction;
 };
 
 export default function HabitEntryToggle({

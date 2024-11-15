@@ -8,12 +8,14 @@ import type {
 } from "@/types/server/habit.types";
 import { useMutation } from "@tanstack/react-query";
 
-export type EntryMutationArgs = {
+export type HabitEntryUpdateMutationArgs = {
 	input: HabitEntry | SyntheticHabitEntry;
 	value?: string;
 };
 
-export type EntryMutationFunction = (args: EntryMutationArgs) => void;
+export type HabitEntryUpdateMutationFunction = (
+	args: HabitEntryUpdateMutationArgs
+) => void;
 
 async function putHabitEntry(input: HabitEntryUpdateInput) {
 	const url = makeAuthorizedUrl("/data/habit/entry");

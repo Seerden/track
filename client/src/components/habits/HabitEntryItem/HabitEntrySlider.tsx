@@ -1,4 +1,4 @@
-import type { EntryMutationFunction } from "@/lib/query/habits/useHabitEntryMutation";
+import type { HabitEntryUpdateMutationFunction } from "@/lib/query/habits/useHabitEntryMutation";
 import { isSynthetic } from "@/types/server/habit-entry.guards";
 import type {
 	HabitEntry,
@@ -19,7 +19,7 @@ const sliderProps: SliderProps = {
 type HabitEntrySliderProps = {
 	habit: HabitWithIds;
 	entry: HabitEntry | SyntheticHabitEntry;
-	onChangeEnd: EntryMutationFunction;
+	onChangeEnd: HabitEntryUpdateMutationFunction;
 };
 
 export default function HabitEntrySlider({
