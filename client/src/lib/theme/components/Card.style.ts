@@ -22,7 +22,7 @@ const Title = styled.h2`
 	line-height: 2rem;
 	font-weight: bold;
 	margin-bottom: 0.5rem;
-	background-color: indigo;
+	background-color: ${(p) => p.theme.colors.purple.main};
 	color: white;
 	padding: 0.5rem 1.5rem;
 	border-radius: 3px 3px 10px 3px;
@@ -60,8 +60,8 @@ const Tag = styled.li`
 	list-style: none;
 	${spacing.padding.wide({ size: 0.3, ratio: 2 })};
 	border-radius: 3px;
-	box-shadow: 0.3rem 0.3rem 0 -0.15rem deepskyblue;
-	background-color: dodgerblue;
+	box-shadow: 0.3rem 0.3rem 0 -0.15rem ${(p) => p.theme.colors.blue.secondary};
+	background-color: ${(p) => p.theme.colors.blue.main};
 	width: max-content;
 	color: azure;
 	align-self: flex-end;
@@ -85,7 +85,7 @@ const InfoLabel = styled.span`
 	font-size: ${(p) => getFontSize(p, 0.9)};
 	color: white;
 	line-height: 0.92rem;
-	background-color: indigo;
+	background-color: ${(p) => p.theme.colors.purple.main};
 	border-radius: 3px 0 0 3px;
 	width: 110px;
 `;
@@ -95,7 +95,7 @@ const InfoValue = styled.span`
 	font-size: ${(p) => getFontSize(p, 0.9)};
 	line-height: 0.92rem;
 	color: azure;
-	background-color: darkorchid;
+	background-color: ${(p) => p.theme.colors.purple.tertiary};
 	border-radius: 0 3px 3px 0;
 `;
 
