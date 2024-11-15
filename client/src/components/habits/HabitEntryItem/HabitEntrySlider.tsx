@@ -48,6 +48,8 @@ export default function HabitEntrySlider({
 				max={habit.goal ?? 1} // TODO: habit.goal should always exist if goal_type is "goal"
 				step={1}
 				label={(value) => `${value} ${habit.goal_unit}`}
+				// TODO: color and styling are work in progress that is out of scope
+				// for https://github.com/Seerden/track/pull/112. Handle it soon after.
 				color={sliderValue >= (habit.goal ?? 1) ? "green" : "blue"} // TODO: expand this into a gradient?
 				style={{
 					maxWidth: "200px",

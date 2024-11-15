@@ -1,5 +1,5 @@
 import DetailedHabit from "@/components/habits/DetailedHabit/DetailedHabit";
-import HabitEntryItems from "@/components/habits/HabitEntryItem/HabitEntryItems";
+import Habits from "@/components/habits/HabitEntryItem/Habits";
 import { withSyntheticHabitEntries } from "@/components/habits/HabitEntryItem/synthetic";
 import { createDate } from "@/lib/datetime/make-date";
 import useHabitsData from "@/lib/hooks/useHabitsData";
@@ -28,7 +28,7 @@ function Home() {
 		<>
 			<DetailedHabit habit={habitList[0]} />
 			simulating daily view
-			<HabitEntryItems habits={_habits} />
+			<Habits habits={_habits} />
 		</>
 	);
 }

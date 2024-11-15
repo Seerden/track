@@ -4,49 +4,33 @@ import useDetailedHabitModal from "@/components/habits/HabitEntryItem/useDetaile
 import useHabitDeleteMutation from "@/lib/query/habits/useDeleteHabitMutation";
 import L from "@/lib/theme/components/List.style";
 import type { HabitWithPossiblySyntheticEntries } from "@/types/server/habit.types";
+import S from "./style/Habit.style";
 
-/**
- * I'm calling this `HabitEntryItem` but that's a misnomer. The component
- * represents a habit with its entries for a given date (range), so it can
- * actually have multiple entries. Only in a daily view for a habit with a
- * once-a-day frequency (or similar for week, month, etc.) will it only have a
- * single entry.
- */
-
-export default function HabitEntryItem({
-	habit
-}: {
+type HabitProps = {
 	habit: HabitWithPossiblySyntheticEntries;
-}) {
+};
+
+export default function Habit({ habit }: HabitProps) {
 	const { mutate } = useHabitDeleteMutation();
 	const { openDetailedHabitModal } = useDetailedHabitModal();
 
 	return (
-		<L.Item
+		<S.Wrapper
 			onClick={(e) => {
 				// TODO: this onClick also triggers when the user clicks a child
-				// element, like a checkbox. We don't want that.
+				// element, like a checkbox. We don't want that. In Task, we have an
+				// e.stopPropagation() on the checkbox wrapper to prevent this. We'd
+				// also need to do the same to the slider wrapper.. bit hacky, maybe
+				// just trigger modal open on button click instead of the whole item.
 				e.stopPropagation();
 				openDetailedHabitModal(habit.habit_id);
-			}}
-			style={{
-				maxWidth: "500px"
 			}}
 		>
 			<L.ItemName>{habit.name}</L.ItemName>
 			<L.Info>{frequencyString(habit)}</L.Info>
-			<div
-				style={{
-					display: "flex",
-					flexDirection: "row",
-					justifySelf: "flex-end",
-					alignItems: "center",
-					gap: "1rem",
-					width: "100%"
-				}}
-			>
+			<S.CompletionWrapper>
 				<Completion habit={habit} entries={habit.entries} />
-			</div>
-		</L.Item>
+			</S.CompletionWrapper>
+		</S.Wrapper>
 	);
 }

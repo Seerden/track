@@ -4,6 +4,7 @@ import type {
 	HabitWithIds,
 	SyntheticHabitEntry
 } from "@/types/server/habit.types";
+import S from "./style/Completion.style";
 
 type CompletionProps = {
 	habit: HabitWithIds;
@@ -12,16 +13,10 @@ type CompletionProps = {
 
 export default function Completion({ habit, entries }: CompletionProps) {
 	return (
-		<ul
-			style={{
-				width: "100%",
-				display: "grid",
-				gap: "0.8rem",
-				gridTemplateColumns: `repeat(${entries.length}, calc(100% / ${entries.length} - 0.8rem))`
-			}}
-		>
+		<S.List $itemCount={entries.length}>
 			{entries.map((entry) => (
 				<CompletionInstance
+					// TODO: figure this out ⬇️
 					// note that index is not unique even for the same habit. index
 					// is just the order on a given day. the actual displayed order
 					// should not be by index, but by created_at.
@@ -31,6 +26,6 @@ export default function Completion({ habit, entries }: CompletionProps) {
 					habit={habit}
 				/>
 			))}
-		</ul>
+		</S.List>
 	);
 }

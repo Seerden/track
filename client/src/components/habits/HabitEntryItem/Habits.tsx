@@ -1,5 +1,5 @@
 import DetailedHabit from "@/components/habits/DetailedHabit/DetailedHabit";
-import HabitEntryItem from "@/components/habits/HabitEntryItem/HabitEntryItem";
+import Habit from "@/components/habits/HabitEntryItem/Habit";
 import { activeHabitIdState } from "@/components/habits/HabitEntryItem/useDetailedHabitModal";
 import Modal from "@/components/Modal";
 import useHabitsData from "@/lib/hooks/useHabitsData";
@@ -9,11 +9,11 @@ import type { HabitWithPossiblySyntheticEntries } from "@/types/server/habit.typ
 import type { ById } from "@/types/server/utility.types";
 import { useRecoilValue } from "recoil";
 
-type HabitEntryItemsProps = {
+type HabitsProps = {
 	habits: ById<HabitWithPossiblySyntheticEntries>;
 };
 
-export default function HabitEntryItems({ habits }: HabitEntryItemsProps) {
+export default function Habits({ habits }: HabitsProps) {
 	const { getHabit } = useHabitsData();
 	const activeHabitId = useRecoilValue(activeHabitIdState);
 
@@ -25,7 +25,7 @@ export default function HabitEntryItems({ habits }: HabitEntryItemsProps) {
 				}}
 			>
 				{Object.values(habits).map((habit) => (
-					<HabitEntryItem key={habit.habit_id} habit={habit} />
+					<Habit key={habit.habit_id} habit={habit} />
 				))}
 			</L.ItemList>
 
