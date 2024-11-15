@@ -11,7 +11,7 @@ import type {
 import type { ById, ID } from "@/types/server/utility.types";
 import type { TimeWindow } from "@/types/time-window.types";
 
-export function daysInInterval(interval: TimeWindow["type"]) {
+export function daysInInterval(interval: TimeWindow["intervalUnit"]) {
 	switch (interval) {
 		case "day":
 			return 1;
@@ -36,13 +36,13 @@ function expectedEntryCount(timeWindow: TimeWindow, habit: Habit) {
 	// the number of days in the displayed interval. for now, we just assume only
 	// a single day/week/month/year is displayed.
 	// TODO: handle the case where we display multiple days/weeks/months/years
-	const dayCount = daysInInterval(timeWindow.type);
+	const dayCount = daysInInterval(timeWindow.intervalUnit);
 
 	// number of expected habit completions for the given habit settings and the given displayed interval
 	const habitCompletionsPerDay =
 		habit.frequency /
 		habit.interval /
-		daysInInterval(habit.interval_unit as TimeWindow["type"]);
+		daysInInterval(habit.interval_unit as TimeWindow["intervalUnit"]);
 	return Math.ceil(dayCount * habitCompletionsPerDay);
 }
 

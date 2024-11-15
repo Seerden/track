@@ -8,7 +8,7 @@ import { useMemo } from "react";
 
 // TODO this is just a placeholder
 const timeWindow: TimeWindow = {
-	type: "day",
+	intervalUnit: "day",
 	startDate: createDate(new Date()).startOf("day"),
 	endDate: createDate(new Date()).add(2, "day")
 };

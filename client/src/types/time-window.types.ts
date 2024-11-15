@@ -1,7 +1,7 @@
 import type { Datelike } from "@/types/date.types";
 
 export type TimeWindow = {
-	type: "day" | "week" | "month" | "year"; // TODO: name this "interval_unit"? also add an interval field
+	intervalUnit: "day" | "week" | "month" | "year"; // TODO: name this "interval_unit"? also add an interval field
 	startDate: Datelike;
 	endDate: Datelike;
 };
