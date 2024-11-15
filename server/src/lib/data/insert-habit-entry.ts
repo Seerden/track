@@ -1,7 +1,7 @@
 import { sqlConnection } from "@/db/init";
-import { RequestHandler } from "express";
-import { HabitEntry, HabitEntryInput, NewHabitEntry } from "types/data/habit.types";
-import { WithSQL } from "types/sql.types";
+import type { RequestHandler } from "express";
+import type { HabitEntry, HabitEntryInput, NewHabitEntry } from "types/data/habit.types";
+import type { WithSQL } from "types/sql.types";
 
 async function insertHabitEntry({
 	sql = sqlConnection,

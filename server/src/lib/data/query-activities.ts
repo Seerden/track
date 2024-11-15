@@ -1,7 +1,7 @@
-import { Activity } from "../../../types/data/activity.types";
-import { ActivityTagRelation } from "../../../types/data/relational.types";
-import { ID } from "../../../types/data/utility.types";
-import { WithSQL } from "../../../types/sql.types";
+import type { Activity } from "../../../types/data/activity.types";
+import type { ActivityTagRelation } from "../../../types/data/relational.types";
+import type { ID } from "../../../types/data/utility.types";
+import type { WithSQL } from "../../../types/sql.types";
 import { sqlConnection } from "../../db/init";
 import { mergeActivitiesAndRelations } from "./merge-activities-and-relations";
 

@@ -1,6 +1,7 @@
 import Calendar from "@/components/Calendar/Calendar";
 import Modal from "@/components/Modal";
 import NewActivity from "@/components/NewActivity/NewActivity";
+import NewHabit from "@/components/NewHabit/NewHabit";
 import AllDayActivities from "@/components/Today/AllDayActivities";
 import ChangeDayButton from "@/components/Today/ChangeDayButton";
 import DetailedActivity from "@/components/Today/DetailedActivity";
@@ -74,7 +75,24 @@ export default function Today() {
 		<S.Wrapper>
 			{/* TODO: we want the header to be aligned above the Timeline */}
 			<S.Columns>
-				<Calendar initialDate={t.currentDate} onChange={t.setCurrentDate} />
+				<div>
+					<Calendar initialDate={t.currentDate} onChange={t.setCurrentDate} />
+					<button
+						style={{
+							marginTop: "1rem"
+						}}
+						type="button"
+						onClick={(e) => {
+							e.stopPropagation();
+							openModal(modalIds.habits.new);
+						}}
+					>
+						New habit
+					</button>
+					<Modal initialOpen={false} modalId={modalIds.habits.new}>
+						<NewHabit />
+					</Modal>
+				</div>
 				<S.TimelineWrapper>
 					<S.Header>
 						<h1>

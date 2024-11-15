@@ -17,3 +17,12 @@ export const putConfig: RequestInit = {
 		"Content-Type": "application/json"
 	}
 };
+
+export const deleteConfig: RequestInit = {
+	method: "DELETE",
+	credentials: "include",
+	headers: {
+		Accept: "application/json",
+		"Content-Type": "application/json"
+	}
+};

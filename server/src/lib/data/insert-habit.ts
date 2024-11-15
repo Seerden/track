@@ -1,9 +1,9 @@
 import { sqlConnection } from "@/db/init";
-import { RequestHandler } from "express";
-import { Habit, HabitInput, HabitWithIds, NewHabit } from "types/data/habit.types";
-import { HabitTagRelation } from "types/data/relational.types";
-import { ID } from "types/data/utility.types";
-import { WithSQL } from "types/sql.types";
+import type { RequestHandler } from "express";
+import type { Habit, HabitInput, HabitWithIds, NewHabit } from "types/data/habit.types";
+import type { HabitTagRelation } from "types/data/relational.types";
+import type { ID } from "types/data/utility.types";
+import type { WithSQL } from "types/sql.types";
 
 async function insertHabit({ sql = sqlConnection, habit }: WithSQL<{ habit: NewHabit }>) {
 	const [insertedHabit] = await sql<[Habit]>`
@@ -47,7 +47,7 @@ export async function insertHabitWithTags({
 			linkedTagIds = relations.map((r) => r.tag_id);
 		}
 
-		return Object.assign(insertedHabit, { tag_ids: linkedTagIds });
+		return Object.assign(insertedHabit, { tag_ids: linkedTagIds, entry_ids: [] });
 	});
 }
 

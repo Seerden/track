@@ -16,7 +16,7 @@ create table if not exists habits (
 
 create table if not exists habit_entries (
    habit_entry_id serial unique not null primary key,
-   habit_id serial not null references habits(habit_id),
+   habit_id serial not null references habits(habit_id) on delete cascade,
    user_id serial not null references users(user_id),
    created_at timestamp default now(),
    date date not null,
@@ -26,7 +26,7 @@ create table if not exists habit_entries (
 
 create table if not exists habits_tags (
    user_id serial not null references users(user_id),
-   habit_id serial not null references habits(habit_id),
+   habit_id serial not null references habits(habit_id) on delete cascade,
    tag_id serial not null references tags(tag_id),
    created_at timestamp default now(),
    primary key (habit_id, tag_id)

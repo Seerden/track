@@ -1,10 +1,10 @@
-import {
+import type {
 	ActivityTagRelation,
 	TagTagRelation,
 } from "../../../types/data/relational.types";
-import { TagWithId } from "../../../types/data/tag.types";
-import { ID } from "../../../types/data/utility.types";
-import { WithSQL } from "../../../types/sql.types";
+import type { TagWithId } from "../../../types/data/tag.types";
+import type { ID } from "../../../types/data/utility.types";
+import type { WithSQL } from "../../../types/sql.types";
 import { sqlConnection } from "../../db/init";
 
 /** Get all of a user's tags. */

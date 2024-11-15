@@ -10,7 +10,7 @@ export type NewHabit = {
 	interval: number;
 	frequency: number;
 	interval_unit: string;
-	goal_type: Varchar;
+	goal_type: "checkbox" | "goal";
 	goal_unit: Nullable<Varchar>; // TODO: just a string
 	goal: Nullable<number>;
 };
@@ -21,9 +21,11 @@ export type Habit = NewHabit & {
 	created_at: Timestamp;
 };
 
-/** Like other data types, a habit can also be linked to any number of tags. */
+/** Like other data types, a habit can also be linked to any number of tags.
+ * Unlike other types, this also has entry_ids, which belong to habit_entries. */
 export type HabitWithIds = Habit & {
 	tag_ids: ID[];
+	entry_ids: ID[];
 };
 
 /** These are the fields the user fills in. */
@@ -41,6 +43,24 @@ export type HabitEntry = NewHabitEntry & {
 	created_at: Timestamp;
 };
 
+/** This is a synthetic habit entry, which is not stored in the database, but is
+ * an intermediate value used in the UI. */
+export type SyntheticHabitEntry = Omit<
+	HabitEntry,
+	"user_id" | "value" | "habit_entry_id"
+> & { synthetic: true };
+
+/** Same as HabitWithIds, but the entries are now merged into the object. This
+ * also still has entry_ids, which may be unnecessary since the whole entries
+ * are in there, but it can't hurt to leave them around. */
+export type HabitWithEntries = HabitWithIds & {
+	entries: HabitEntry[];
+};
+
+export type HabitWithPossiblySyntheticEntries = HabitWithIds & {
+	entries: Array<HabitEntry | SyntheticHabitEntry>;
+};
+
 /** This is the what the client sends to /habit POST endpoint.
  * TODO: this has the same shape as e.g. ActivityInput. Should we generalize this?
  */
@@ -52,3 +72,9 @@ export type HabitInput = {
 export type HabitEntryInput = {
 	habitEntry: NewHabitEntry;
 };
+
+export type HabitEntryUpdate = {
+	value: HabitEntry["value"];
+};
+
+export type HabitEntryUpdateInput = HabitEntryUpdate & Pick<HabitEntry, "habit_entry_id">;

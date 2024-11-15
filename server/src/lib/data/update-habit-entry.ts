@@ -1,0 +1,24 @@
+import { sqlConnection } from "@/db/init";
+import type { RequestHandler } from "express";
+import type { HabitEntry, HabitEntryUpdateInput } from "types/data/habit.types";
+import type { WithSQL } from "types/sql.types";
+
+// TODO: rename this file to put-habit-entry
+export const putHabitEntry: RequestHandler = async (req, res) => {
+	const { input } = req.body as { input: HabitEntryUpdateInput };
+	const [habitEntry] = await updateHabitEntry({ input });
+
+	res.json({ habitEntry });
+};
+
+async function updateHabitEntry({
+	sql = sqlConnection,
+	input,
+}: WithSQL<{ input: HabitEntryUpdateInput }>) {
+	return sql<[HabitEntry]>`
+      update habit_entries
+      set ${sql(input)}
+      where habit_entry_id = ${input.habit_entry_id}
+      returning *
+   `;
+}

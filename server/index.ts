@@ -1,6 +1,7 @@
 import cors from "cors";
 import "dotenv/config";
-import express, { RequestHandler } from "express";
+import type { RequestHandler } from "express";
+import express from "express";
 import session from "express-session";
 import { pingDatabase } from "./src/db/init";
 import { logRequests } from "./src/lib/log-requests";

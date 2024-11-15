@@ -1,5 +1,5 @@
 import RedisStore from "connect-redis";
-import session from "express-session";
+import type session from "express-session";
 import Redis from "ioredis";
 
 // NOTE: `store` is the name of our redis service in docker-compose, and 6379 is

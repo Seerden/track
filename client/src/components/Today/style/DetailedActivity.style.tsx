@@ -1,13 +1,10 @@
-import { getFontSize } from "@/lib/theme/font";
+import CardStyle from "@/lib/theme/components/Card.style";
 import { flex } from "@/lib/theme/snippets/flex";
-import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
 
-const Wrapper = styled.section`
-	padding-top: 1rem;
-	min-width: 400px;
-
+const Wrapper = styled(CardStyle.Wrapper)`
 	display: grid;
+	// TODO: this is obsolete I think
 	grid-template-areas:
 		"title title"
 		"time task"
@@ -15,85 +12,20 @@ const Wrapper = styled.section`
 		"tags tags";
 `;
 
-const Title = styled.h2`
-	box-shadow: 0 0 0.3rem 0 #888;
-	position: relative;
-
-	span {
-		display: block;
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
-	}
+const Title = styled(CardStyle.Title)`
 	grid-area: title;
-	font-size: ${(p) => getFontSize(p, 1.5)};
-	line-height: 2rem;
-	font-weight: bold;
-	margin-bottom: 0.5rem;
-	background-color: indigo;
-	color: white;
-	padding: 0.5rem;
-	padding-right: 1.5rem;
-	border-radius: 3px 3px 10px 3px;
-	${flex.row};
-	justify-content: space-between;
-	gap: 1rem;
-	width: max-content;
-	max-width: 100%;
 `;
 
 const Time = styled.div`
 	grid-area: time;
+
+	${flex.column};
+	gap: 0.5rem;
 `;
 
 const Description = styled.div``;
 
-const Datetime = styled.div`
-	${flex.column};
-	width: max-content;
-	align-items: flex-end;
-	font-size: ${(p) => getFontSize(p, 0.8)};
-	margin-top: 0.3rem;
-	color: #888;
-	margin-left: 0.3rem;
-`;
-
-const HumanizedStart = styled.p`
-	font-size: ${(p) => getFontSize(p, 0.9)};
-	line-height: 0.92rem;
-	color: azure;
-	background-color: darkorchid;
-	border-radius: 3px;
-	margin-top: 0.4rem;
-	${spacing.padding.wide({ size: 0.5, ratio: 2 })};
-	display: flex;
-	width: max-content;
-`;
-
-const Tags = styled.ul`
-	${flex.row};
-	flex-wrap: wrap;
-	align-self: flex-end;
-	justify-content: flex-end;
-	grid-area: tags;
-	margin-top: 0.5rem;
-	gap: 0.4rem;
-	font-size: ${(p) => getFontSize(p, 0.85)};
-	margin-left: auto;
-`;
-
-const Tag = styled.li`
-	user-select: none;
-	list-style: none;
-	${spacing.padding.wide({ size: 0.3, ratio: 2 })};
-	border-radius: 3px;
-	box-shadow: 0.3rem 0.3rem 0 -0.15rem deepskyblue;
-	background-color: dodgerblue;
-	width: max-content;
-	color: azure;
-	align-self: flex-end;
-	justify-self: flex-end;
-`;
+const HumanizedStart = styled(CardStyle.InfoValue)``;
 
 const Task = styled.div`
 	grid-area: task;
@@ -132,10 +64,10 @@ const StyledDetailedActivity = {
 	Title,
 	Time,
 	Description,
-	Datetime,
+	Datetime: CardStyle.Datetime,
 	HumanizedStart,
-	Tags,
-	Tag,
+	Tags: CardStyle.Tags,
+	Tag: CardStyle.Tag,
 	Task,
 	CheckboxWrapper
 };

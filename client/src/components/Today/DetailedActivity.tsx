@@ -5,6 +5,7 @@ import { createDate } from "@/lib/datetime/make-date";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
 import useTagsQuery from "@/lib/query/useTagsQuery";
+import CardStyle from "@/lib/theme/components/Card.style";
 import { Checkbox } from "@/lib/theme/components/Checkbox";
 import type { Datelike } from "@/types/date.types";
 import type { ActivityWithIds } from "@/types/server/activity.types";
@@ -44,7 +45,9 @@ export default function DetailedActivity({ activity }: DetailedActivityProps) {
 
 				<S.Time>
 					{showHumanizedStart && (
-						<S.HumanizedStart>{humanizedStart}</S.HumanizedStart>
+						<CardStyle.InfoLine>
+							<S.HumanizedStart>{humanizedStart}</S.HumanizedStart>
+						</CardStyle.InfoLine>
 					)}
 					<S.Datetime>
 						<span>

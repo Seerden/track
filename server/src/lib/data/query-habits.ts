@@ -1,10 +1,11 @@
 import { sqlConnection } from "@/db/init";
 import { mergeHabitsAndRelations } from "@/lib/data/merge-habits-and-relations";
+import { queryHabitEntriesByUser } from "@/lib/data/query-habit-entries";
 import type { RequestHandler } from "express";
-import { Habit } from "types/data/habit.types";
-import { HabitTagRelation } from "types/data/relational.types";
-import { ID } from "types/data/utility.types";
-import { WithSQL } from "types/sql.types";
+import type { Habit } from "types/data/habit.types";
+import type { HabitTagRelation } from "types/data/relational.types";
+import type { ID } from "types/data/utility.types";
+import type { WithSQL } from "types/sql.types";
 
 async function queryHabitsByUser({
 	sql = sqlConnection,
@@ -23,8 +24,9 @@ async function queryHabitTagsByUser({
 async function queryHabitsAndRelations({ user_id }: { user_id: ID }) {
 	const habits = await queryHabitsByUser({ user_id });
 	const habitTagRelations = await queryHabitTagsByUser({ user_id });
+	const entries = await queryHabitEntriesByUser({ user_id });
 
-	return mergeHabitsAndRelations(habits, habitTagRelations);
+	return mergeHabitsAndRelations(habits, habitTagRelations, entries);
 }
 
 export const getHabits: RequestHandler = async (req, res) => {

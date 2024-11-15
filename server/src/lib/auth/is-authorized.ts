@@ -1,4 +1,4 @@
-import { Middleware } from "../../../types/middleware.types";
+import type { Middleware } from "../../../types/middleware.types";
 
 // express middleware to check if user from query is same as user in session
 export const isAuthorized: Middleware = (req, res, next) => {

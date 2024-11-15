@@ -1,6 +1,6 @@
-import { Note, NoteWithIds } from "../../../types/data/note.types";
-import { NoteTagRelation } from "../../../types/data/relational.types";
-import { ById } from "../../../types/data/utility.types";
+import type { Note, NoteWithIds } from "../../../types/data/note.types";
+import type { NoteTagRelation } from "../../../types/data/relational.types";
+import type { ById } from "../../../types/data/utility.types";
 
 /** Takes a list of notes, and a list of node<->tag relations and outputs a
  * single notesById object. */
