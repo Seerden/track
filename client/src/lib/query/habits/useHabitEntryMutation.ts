@@ -1,6 +1,5 @@
 import { createRequestConfig } from "@/lib/fetch/create-request-config";
 import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
-import type { Data } from "@/types/query.types";
 import type {
 	HabitEntry,
 	HabitEntryUpdateInput,
@@ -23,9 +22,9 @@ async function putHabitEntry(input: HabitEntryUpdateInput) {
 }
 
 export default function useHabitEntryMutation() {
-	return useMutation<HabitEntry, unknown, Data<"input", HabitEntryUpdateInput>>({
+	return useMutation<HabitEntry, unknown, HabitEntryUpdateInput>({
 		async mutationFn(habitEntry) {
-			return putHabitEntry(habitEntry.input);
+			return putHabitEntry(habitEntry);
 		},
 		mutationKey: ["habit-entry"]
 	});

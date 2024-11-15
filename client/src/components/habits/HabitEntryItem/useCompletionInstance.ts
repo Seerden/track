@@ -27,9 +27,9 @@ export default function useCompletionInstance() {
 
 		if (!user_id) return;
 
-		if (isSynthetic(input)) {
-			if (value === undefined) return;
+		if (value === undefined || value === "") return;
 
+		if (isSynthetic(input)) {
 			const realEntry = syntheticToReal({
 				entry: input,
 				user_id,
@@ -37,9 +37,7 @@ export default function useCompletionInstance() {
 			});
 			submitNewEntry({ habitEntry: realEntry }, { onSuccess });
 		} else {
-			putEntry({ input: { ...input, ...(value && { value }) } }, { onSuccess }); // TODO: I don't like that i have to manually add value, fix the type and names to make this intuitive
-			// TODO ^ note above is because submitNewEntry and putEntry have
-			// different signatures and I wasn't accounting for that
+			putEntry({ ...input, value }, { onSuccess });
 		}
 	}
 
