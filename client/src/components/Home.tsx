@@ -3,11 +3,11 @@ import HabitEntryItems from "@/components/habits/HabitEntryItem/HabitEntryItems"
 import { withSyntheticHabitEntries } from "@/components/habits/HabitEntryItem/synthetic";
 import { createDate } from "@/lib/datetime/make-date";
 import useHabitsData from "@/lib/hooks/useHabitsData";
-import type { Timescale } from "@/types/timescale.types";
+import type { TimeWindow } from "@/types/time-window.types";
 import { useMemo } from "react";
 
 // TODO this is just a placeholder
-const timescale: Timescale = {
+const timeWindow: TimeWindow = {
 	type: "day",
 	startDate: createDate(new Date()).startOf("day"),
 	endDate: createDate(new Date()).add(2, "day")
@@ -18,8 +18,8 @@ function Home() {
 
 	if (!habitsWithEntriesById) return null;
 	const _habits = useMemo(() => {
-		return withSyntheticHabitEntries(habitsWithEntriesById, timescale);
-	}, [habitsWithEntriesById, timescale]);
+		return withSyntheticHabitEntries(habitsWithEntriesById, timeWindow);
+	}, [habitsWithEntriesById, timeWindow]);
 
 	const habitList = Object.values(_habits);
 	if (!habitList.length) return null;
@@ -28,7 +28,7 @@ function Home() {
 		<>
 			<DetailedHabit habit={habitList[0]} />
 			simulating daily view
-			<HabitEntryItems timescale={timescale} habits={_habits} />
+			<HabitEntryItems habits={_habits} />
 		</>
 	);
 }

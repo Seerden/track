@@ -1,4 +1,3 @@
-import type { Timescale } from "@/components/Home";
 import { createDate } from "@/lib/datetime/make-date";
 import type { Datelike } from "@/types/date.types";
 import type {
@@ -10,8 +9,9 @@ import type {
 	SyntheticHabitEntry
 } from "@/types/server/habit.types";
 import type { ById, ID } from "@/types/server/utility.types";
+import type { TimeWindow } from "@/types/time-window.types";
 
-export function daysInInterval(interval: Timescale["type"]) {
+export function daysInInterval(interval: TimeWindow["type"]) {
 	switch (interval) {
 		case "day":
 			return 1;
@@ -32,17 +32,17 @@ export function daysInInterval(interval: Timescale["type"]) {
  * should have 1 entry (TODO: actually, 1 at most, if we're on wednesday and there's
  * already 2 completed entries, we don't need to display any new entries.)
  **/
-function expectedEntryCount(timescale: Timescale, habit: Habit) {
+function expectedEntryCount(timeWindow: TimeWindow, habit: Habit) {
 	// the number of days in the displayed interval. for now, we just assume only
 	// a single day/week/month/year is displayed.
 	// TODO: handle the case where we display multiple days/weeks/months/years
-	const dayCount = daysInInterval(timescale.type);
+	const dayCount = daysInInterval(timeWindow.type);
 
 	// number of expected habit completions for the given habit settings and the given displayed interval
 	const habitCompletionsPerDay =
 		habit.frequency /
 		habit.interval /
-		daysInInterval(habit.interval_unit as Timescale["type"]);
+		daysInInterval(habit.interval_unit as TimeWindow["type"]);
 	return Math.ceil(dayCount * habitCompletionsPerDay);
 }
 
@@ -71,18 +71,18 @@ function makeSyntheticEntry({
  */
 export function withSyntheticHabitEntries(
 	habits: ById<HabitWithEntries>,
-	timescale: Timescale
+	timeWindow: TimeWindow
 ): ById<HabitWithPossiblySyntheticEntries> {
 	const habitsWithSyntheticEntries = Object.values(habits).map((habit) => {
-		const expectedCount = expectedEntryCount(timescale, habit);
+		const expectedCount = expectedEntryCount(timeWindow, habit);
 
 		const entries: Array<HabitEntry | SyntheticHabitEntry> = structuredClone(
 			habit.entries
 		).filter((entry) => {
 			const shouldBeVisible =
 				createDate(entry.date).valueOf() >=
-					createDate(timescale.startDate).valueOf() &&
-				createDate(entry.date).valueOf() <= createDate(timescale.endDate).valueOf();
+					createDate(timeWindow.startDate).valueOf() &&
+				createDate(entry.date).valueOf() <= createDate(timeWindow.endDate).valueOf();
 			console.log({ shouldBeVisible, entry });
 			return shouldBeVisible;
 		});

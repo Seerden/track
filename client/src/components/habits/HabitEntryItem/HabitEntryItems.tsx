@@ -7,11 +7,9 @@ import modalIds from "@/lib/modal-ids";
 import L from "@/lib/theme/components/List.style";
 import type { HabitWithPossiblySyntheticEntries } from "@/types/server/habit.types";
 import type { ById } from "@/types/server/utility.types";
-import type { Timescale } from "@/types/timescale.types";
 import { useRecoilValue } from "recoil";
 
 type HabitEntryItemsProps = {
-	timescale: Timescale;
 	habits: ById<HabitWithPossiblySyntheticEntries>;
 };
 
