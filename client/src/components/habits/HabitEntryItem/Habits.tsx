@@ -1,13 +1,11 @@
 import DetailedHabit from "@/components/habits/DetailedHabit/DetailedHabit";
 import Habit from "@/components/habits/HabitEntryItem/Habit";
-import { activeHabitIdState } from "@/components/habits/HabitEntryItem/useDetailedHabitModal";
+import useDetailedHabitModal from "@/components/habits/HabitEntryItem/useDetailedHabitModal";
 import Modal from "@/components/Modal";
 import useHabitsData from "@/lib/hooks/useHabitsData";
-import modalIds from "@/lib/modal-ids";
 import L from "@/lib/theme/components/List.style";
 import type { HabitWithPossiblySyntheticEntries } from "@/types/server/habit.types";
 import type { ById } from "@/types/server/utility.types";
-import { useRecoilValue } from "recoil";
 
 type HabitsProps = {
 	habits: ById<HabitWithPossiblySyntheticEntries>;
@@ -15,7 +13,7 @@ type HabitsProps = {
 
 export default function Habits({ habits }: HabitsProps) {
 	const { getHabit } = useHabitsData();
-	const activeHabitId = useRecoilValue(activeHabitIdState);
+	const { activeHabitId, shouldShowModal, modalId } = useDetailedHabitModal();
 
 	return (
 		<>
@@ -29,8 +27,8 @@ export default function Habits({ habits }: HabitsProps) {
 				))}
 			</L.ItemList>
 
-			{activeHabitId !== null && (
-				<Modal modalId={modalIds.detailedActivity} initialOpen={false}>
+			{shouldShowModal && (
+				<Modal modalId={modalId} initialOpen={false}>
 					<DetailedHabit habit={getHabit({ habit_id: activeHabitId })} />
 				</Modal>
 			)}

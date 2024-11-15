@@ -9,6 +9,21 @@ import type { Habit } from "@/types/server/habit.types";
 import type { ID } from "@/types/server/utility.types";
 import { atom, useRecoilState } from "recoil";
 
+type WithActiveHabit = {
+	shouldShowModal: true;
+	activeHabitId: ID;
+};
+
+type WithoutActiveHabit = {
+	shouldShowModal: false;
+	activeHabitId: null;
+};
+
+type Return = (WithActiveHabit | WithoutActiveHabit) & {
+	modalId: string;
+	openDetailedHabitModal: (id: Habit["habit_id"]) => void;
+};
+
 export const activeHabitIdState = atom<ID | null>({
 	default: null,
 	key: "active-habit-id"
@@ -18,13 +33,17 @@ export default function useDetailedHabitModal() {
 	const [activeHabitId, setActiveHabitId] = useRecoilState(activeHabitIdState);
 	const { openModal } = useModalState();
 
+	const shouldShowModal = (activeHabitId !== null) as true | false;
+	const modalId = modalIds.detailedActivity;
 	function openDetailedHabitModal(id: Habit["habit_id"]) {
 		setActiveHabitId(id);
-		openModal(modalIds.detailedActivity); // TODO: generalize this as describe at the top of this file
+		openModal(modalId); // TODO: generalize this as describe at the top of this file
 	}
 
 	return {
-		openDetailedHabitModal,
-		activeHabitId
-	};
+		shouldShowModal,
+		modalId,
+		activeHabitId,
+		openDetailedHabitModal
+	} as Return;
 }
