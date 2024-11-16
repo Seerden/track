@@ -140,7 +140,6 @@ const AllDayActivityList = styled.ul`
 	padding-inline: 3rem;
 `;
 
-// const Habits = styled.div``;
 const Habits = styled.div`
 	/* the Habits component is an ItemList, and each Habit is an Item, so we can
    tweak the styles if we target those styled components. */
