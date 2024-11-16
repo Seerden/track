@@ -1,5 +1,5 @@
 import App from "@/App";
-import NewHabit from "@/components/NewHabit/NewHabit";
+import NewHabit from "@/components/habits/NewHabit/NewHabit";
 import Protected from "@/components/Protected";
 import Suspended from "@/components/Suspended";
 import Page from "@/lib/framer/components/Page";
