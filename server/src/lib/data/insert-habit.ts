@@ -1,6 +1,5 @@
 import { sqlConnection } from "@/db/init";
-import type { RequestHandler } from "express";
-import type { Habit, HabitInput, HabitWithIds, NewHabit } from "types/data/habit.types";
+import type { Habit, HabitWithIds, NewHabit } from "types/data/habit.types";
 import type { HabitTagRelation } from "types/data/relational.types";
 import type { ID } from "types/data/utility.types";
 import type { WithSQL } from "types/sql.types";
@@ -50,9 +49,3 @@ export async function insertHabitWithTags({
 		return Object.assign(insertedHabit, { tag_ids: linkedTagIds, entry_ids: [] });
 	});
 }
-
-export const postHabits: RequestHandler = async (req, res) => {
-	const { habit, tagIds } = req.body as HabitInput;
-	const habitWithTags = await insertHabitWithTags({ habit, tagIds });
-	res.json(habitWithTags);
-};

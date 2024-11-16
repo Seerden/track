@@ -1,25 +1,19 @@
-import { deleteHabit } from "@/lib/data/delete-habit";
-import { postHabits } from "@/lib/data/insert-habit";
-import { postHabitEntry } from "@/lib/data/insert-habit-entry";
-import { getHabitEntriesByUser } from "@/lib/data/query-habit-entries";
-import { getHabits } from "@/lib/data/query-habits";
+import deleteHabit from "@/lib/data/request-handlers/delete/delete-habit";
+import getActivities from "@/lib/data/request-handlers/get/get-activities";
+import getHabitEntries from "@/lib/data/request-handlers/get/get-habit-entries";
+import getHabits from "@/lib/data/request-handlers/get/get-habits";
+import getNotes from "@/lib/data/request-handlers/get/get-notes";
+import getTags from "@/lib/data/request-handlers/get/get-tags";
+import getTagsTree from "@/lib/data/request-handlers/get/get-tags-tree";
 import postActivity from "@/lib/data/request-handlers/post/post-activity";
+import postHabit from "@/lib/data/request-handlers/post/post-habit";
+import postHabitEntry from "@/lib/data/request-handlers/post/post-habit-entry";
 import postNote from "@/lib/data/request-handlers/post/post-note";
 import postTag from "@/lib/data/request-handlers/post/post-tag";
-import { putHabitEntry } from "@/lib/data/update-habit-entry";
-import { updateActivityCompletion } from "@lib/data/update-activity";
+import putHabitEntry from "@/lib/data/request-handlers/put/put-habit-entry";
+import putTaskCompletion from "@/lib/data/request-handlers/put/put-task";
 import { Router } from "express";
-import type { ActivityUpdateInput } from "../../types/data/activity.types";
 import { isAuthorized } from "../lib/auth/is-authorized";
-import {
-	createTagTreeMap,
-	getTagsWithRelations,
-} from "../lib/data/merge-tags-and-relations";
-import {
-	queryActivitiesAndRelations,
-	queryActivityByIdWithRelations,
-} from "../lib/data/query-activities";
-import { queryNotesAndRelations } from "../lib/data/query-notes";
 
 export const dataRouter = Router({ mergeParams: true });
 
@@ -27,50 +21,26 @@ export const dataRouter = Router({ mergeParams: true });
 // TODO: turn every handler into a function itself, so that the router is just a
 // list of testable functions
 
+/* Activities */
+dataRouter.get("/activities", isAuthorized, getActivities);
 dataRouter.post("/activity", isAuthorized, postActivity);
+dataRouter.put("/task/completion", isAuthorized, putTaskCompletion);
 
-dataRouter.get("/tags", isAuthorized, async (req, res) => {
-	const user_id = req.session.user!.user_id; // always exists if we're here, because of middleware
-	const tagsById = await getTagsWithRelations({ user_id });
-	res.json({ byId: tagsById });
-});
-
+/* Tags */
+dataRouter.get("/tags", isAuthorized, getTags);
 dataRouter.post("/tag", isAuthorized, postTag);
 
-dataRouter.get("/tags/tree", isAuthorized, async (req, res) => {
-	const user_id = req.session.user!.user_id; // always exists if we're here, because of middleware
-	const tagsById = await getTagsWithRelations({ user_id });
-	const tree = createTagTreeMap(tagsById);
-	res.json({ byId: tree });
-});
+dataRouter.get("/tags/tree", isAuthorized, getTagsTree);
 
-dataRouter.get("/notes", isAuthorized, async (req, res) => {
-	const user_id = req.session.user!.user_id; // always exists if we're here, because of middleware
-	const notesById = await queryNotesAndRelations({ user_id });
-	res.json({ byId: notesById });
-});
-
+/* Notes */
+dataRouter.get("/notes", isAuthorized, getNotes);
 dataRouter.post("/note", isAuthorized, postNote);
 
-dataRouter.get("/activities", isAuthorized, async (req, res) => {
-	const user_id = req.session.user!.user_id;
-	const activitiesById = await queryActivitiesAndRelations({ user_id });
-
-	res.json({ byId: activitiesById });
-});
-
-dataRouter.put("/task/completion", isAuthorized, async (req, res) => {
-	const { input } = req.body as { input: ActivityUpdateInput };
-	const [activity] = await updateActivityCompletion({ input });
-	const updatedActivity = await queryActivityByIdWithRelations({
-		activity_id: activity.activity_id,
-	});
-	res.json(updatedActivity);
-});
-
+/* Habits */
 dataRouter.get("/habits", isAuthorized, getHabits);
-dataRouter.post("/habit", isAuthorized, postHabits);
-dataRouter.post("/habit/entry", isAuthorized, postHabitEntry);
-dataRouter.get("/habit/entries", isAuthorized, getHabitEntriesByUser);
-dataRouter.put("/habit/entry", isAuthorized, putHabitEntry);
+dataRouter.post("/habit", isAuthorized, postHabit);
 dataRouter.delete("/habit/:habit_id", isAuthorized, deleteHabit);
+
+dataRouter.get("/habit/entries", isAuthorized, getHabitEntries);
+dataRouter.post("/habit/entry", isAuthorized, postHabitEntry);
+dataRouter.put("/habit/entry", isAuthorized, putHabitEntry);
