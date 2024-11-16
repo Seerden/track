@@ -25,6 +25,10 @@ export default function useHabitsData() {
 
 	const getHabitsForTimeWindow = useCallback(
 		(timeWindow: TimeWindow) => {
+			// TODO: filter out habits whose start/end date do not fall within
+			// timeWindow.
+			// TODO: (unsure if we should do that here) consider disallowing
+			// interaction with entries once their timeWindow has passed.
 			return withSyntheticHabitEntries(habitsWithEntriesById, timeWindow);
 		},
 		[habitsWithEntriesById]
