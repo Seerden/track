@@ -83,7 +83,6 @@ export function withSyntheticHabitEntries(
 				createDate(entry.date).valueOf() >=
 					createDate(timeWindow.startDate).valueOf() &&
 				createDate(entry.date).valueOf() <= createDate(timeWindow.endDate).valueOf();
-			console.log({ shouldBeVisible, entry });
 			return shouldBeVisible;
 		});
 
@@ -93,7 +92,11 @@ export function withSyntheticHabitEntries(
 				const syntheticEntry: SyntheticHabitEntry = makeSyntheticEntry({
 					habit,
 					index,
-					date: createDate(new Date())
+					// TODO: for now, using timeWindow.startDate probably works well
+					// enough, but I think it's still not perfect for the case where
+					// a user adds an entry in retrospect. Maybe we should just
+					// disallow that altogether.
+					date: timeWindow.startDate
 				});
 				index += 1;
 				entries.push(syntheticEntry);
