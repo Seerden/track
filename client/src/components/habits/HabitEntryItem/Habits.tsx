@@ -2,7 +2,6 @@ import DetailedHabit from "@/components/habits/DetailedHabit/DetailedHabit";
 import Habit from "@/components/habits/HabitEntryItem/Habit";
 import useDetailedHabitModal from "@/components/habits/HabitEntryItem/useDetailedHabitModal";
 import Modal from "@/components/Modal";
-import useHabitsData from "@/lib/hooks/useHabitsData";
 import L from "@/lib/theme/components/List.style";
 import type { HabitWithPossiblySyntheticEntries } from "@/types/server/habit.types";
 import type { ById } from "@/types/server/utility.types";
@@ -12,8 +11,7 @@ type HabitsProps = {
 };
 
 export default function Habits({ habits }: HabitsProps) {
-	const { getHabit } = useHabitsData();
-	const { activeHabitId, shouldShowModal, modalId } = useDetailedHabitModal();
+	const { activeHabit, shouldShowModal, modalId } = useDetailedHabitModal();
 
 	return (
 		<>
@@ -29,7 +27,7 @@ export default function Habits({ habits }: HabitsProps) {
 
 			{shouldShowModal && (
 				<Modal modalId={modalId} initialOpen={false}>
-					<DetailedHabit habit={getHabit({ habit_id: activeHabitId })} />
+					<DetailedHabit habit={activeHabit} />
 				</Modal>
 			)}
 		</>

@@ -1,4 +1,5 @@
 import Calendar from "@/components/Calendar/Calendar";
+import Habits from "@/components/habits/HabitEntryItem/Habits";
 import Modal from "@/components/Modal";
 import NewActivity from "@/components/NewActivity/NewActivity";
 import NewHabit from "@/components/NewHabit/NewHabit";
@@ -8,9 +9,11 @@ import DetailedActivity from "@/components/Today/DetailedActivity";
 import { activeItemState } from "@/components/Today/hooks/useDetailedActivityModal";
 import TimelineRows from "@/components/Today/TimelineRows";
 import { today } from "@/lib/datetime/make-date";
+import useHabitsData from "@/lib/hooks/useHabitsData";
 import modalIds from "@/lib/modal-ids";
 import useActivitiesQuery from "@/lib/query/useActivitiesQuery";
 import { useModalState } from "@/lib/state/modal-state";
+import type { TimeWindow } from "@/types/time-window.types";
 import { activityFallsOnDay, isAllDayActivityOnDate } from "@lib/activity";
 import type { Dayjs } from "dayjs";
 import { useMemo, useState } from "react";
@@ -22,8 +25,17 @@ import Tasks from "./Tasks";
 /** Functionality hook for the Today component. */
 function useToday() {
 	const { data: activitiesData } = useActivitiesQuery();
+	const { getHabitsForTimeWindow } = useHabitsData();
 
 	const [currentDate, setCurrentDate] = useState<Dayjs>(() => today());
+	const timeWindow: TimeWindow = useMemo(
+		() => ({
+			startDate: currentDate.startOf("day"),
+			endDate: currentDate.endOf("day"),
+			intervalUnit: "day" // TODO: this needs to change as soon as we want to support other intervals in Today.
+		}),
+		[currentDate]
+	);
 
 	function changeDay(direction: "next" | "previous") {
 		setCurrentDate((current) => current.add(direction === "next" ? 1 : -1, "day"));
@@ -55,6 +67,7 @@ function useToday() {
 	);
 
 	return {
+		habits: getHabitsForTimeWindow(timeWindow),
 		activities: todayActivities,
 		allDayActivities,
 		timestampedActivities,
@@ -104,9 +117,17 @@ export default function Today() {
 							<ChangeDayButton type="next" onClick={() => t.changeDay("next")} />
 						</h1>
 					</S.Header>
+
+					{!!t.habits && (
+						<S.Habits>
+							<Habits habits={t.habits} />
+						</S.Habits>
+					)}
+
 					{!!t.allDayActivities.length && (
 						<AllDayActivities activities={t.allDayActivities} />
 					)}
+
 					<TimelineRows
 						activities={t.timestampedActivities}
 						currentDate={t.currentDate}

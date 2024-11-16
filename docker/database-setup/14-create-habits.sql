@@ -19,7 +19,7 @@ create table if not exists habit_entries (
    habit_id serial not null references habits(habit_id) on delete cascade,
    user_id serial not null references users(user_id),
    created_at timestamp default now(),
-   date date not null,
+   date timestamptz not null,
    index integer not null check(index >= 0),
    value varchar(255) not null
 );
