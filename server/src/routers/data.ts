@@ -3,16 +3,14 @@ import { postHabits } from "@/lib/data/insert-habit";
 import { postHabitEntry } from "@/lib/data/insert-habit-entry";
 import { getHabitEntriesByUser } from "@/lib/data/query-habit-entries";
 import { getHabits } from "@/lib/data/query-habits";
+import postActivity from "@/lib/data/request-handlers/post/post-activity";
+import postNote from "@/lib/data/request-handlers/post/post-note";
+import postTag from "@/lib/data/request-handlers/post/post-tag";
 import { putHabitEntry } from "@/lib/data/update-habit-entry";
 import { updateActivityCompletion } from "@lib/data/update-activity";
 import { Router } from "express";
-import type { ActivityInput, ActivityUpdateInput } from "../../types/data/activity.types";
-import type { NoteInput } from "../../types/data/note.types";
-import type { TagInput } from "../../types/data/tag.types";
+import type { ActivityUpdateInput } from "../../types/data/activity.types";
 import { isAuthorized } from "../lib/auth/is-authorized";
-import { insertActivityWithTags } from "../lib/data/insert-activity";
-import { insertNoteWithTags } from "../lib/data/insert-note";
-import { insertTagWithRelation } from "../lib/data/insert-tags";
 import {
 	createTagTreeMap,
 	getTagsWithRelations,
@@ -29,11 +27,7 @@ export const dataRouter = Router({ mergeParams: true });
 // TODO: turn every handler into a function itself, so that the router is just a
 // list of testable functions
 
-dataRouter.post("/activity", async (req, res) => {
-	const { activity, tagIds } = req.body as ActivityInput;
-	const insertedActivity = await insertActivityWithTags({ activity, tag_ids: tagIds });
-	res.json({ activity: insertedActivity });
-});
+dataRouter.post("/activity", isAuthorized, postActivity);
 
 dataRouter.get("/tags", isAuthorized, async (req, res) => {
 	const user_id = req.session.user!.user_id; // always exists if we're here, because of middleware
@@ -41,11 +35,7 @@ dataRouter.get("/tags", isAuthorized, async (req, res) => {
 	res.json({ byId: tagsById });
 });
 
-dataRouter.post("/tag", isAuthorized, async (req, res) => {
-	const { newTag, parent_id } = req.body as TagInput;
-	const tag = await insertTagWithRelation({ newTag, parent_id });
-	res.json({ tag });
-});
+dataRouter.post("/tag", isAuthorized, postTag);
 
 dataRouter.get("/tags/tree", isAuthorized, async (req, res) => {
 	const user_id = req.session.user!.user_id; // always exists if we're here, because of middleware
@@ -60,11 +50,7 @@ dataRouter.get("/notes", isAuthorized, async (req, res) => {
 	res.json({ byId: notesById });
 });
 
-dataRouter.post("/note", isAuthorized, async (req, res) => {
-	const { note, tagIds } = req.body as NoteInput;
-	const insertedNote = await insertNoteWithTags({ note, tag_ids: tagIds });
-	res.json({ note: insertedNote });
-});
+dataRouter.post("/note", isAuthorized, postNote);
 
 dataRouter.get("/activities", isAuthorized, async (req, res) => {
 	const user_id = req.session.user!.user_id;
