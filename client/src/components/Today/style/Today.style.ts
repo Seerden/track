@@ -10,7 +10,7 @@ const Wrapper = styled.div``;
 
 const TimelineWrapper = styled.section`
 	${flex.column};
-	gap: 1.5rem;
+	gap: 1rem;
 	${spacing.padding.wide({ size: 1, ratio: 3 })};
 
 	max-width: 100%;
@@ -140,11 +140,12 @@ const AllDayActivityList = styled.ul`
 	padding-inline: 3rem;
 `;
 
+// const Habits = styled.div``;
 const Habits = styled.div`
 	/* the Habits component is an ItemList, and each Habit is an Item, so we can
    tweak the styles if we target those styled components. */
 	${ListStyle.ItemList} {
-		gap: 0.4rem;
+		gap: 0.2rem;
 		padding-inline: 3rem;
 
 		* {
@@ -152,25 +153,38 @@ const Habits = styled.div`
 		}
 
 		${ListStyle.Item} {
-			// TODO: I want to match exactly the spacing of AllDayActivityList
-			box-shadow: 0 0 0.2rem 0 #ccc;
-			outline: 2px solid ${(p) => p.theme.colors.blue.main};
-			background-color: ${(p) => p.theme.colors.blue.main};
+			border-radius: 2px;
+			border: 1px solid white;
+
+			box-shadow:
+				0 0rem 0.3rem 0 #ccc,
+				0 0 0.3rem 0 #ddd;
+			background-color: #eee;
+
+			// TODO: I want this to exactly match the spacing of AllDayActivityList
+			${spacing.padding.wide({ size: 0.3, ratio: 3 })}
 
 			${ListStyle.ItemName} {
-				box-shadow: 0 0 0.3rem 0 #666;
+				box-shadow: 0 0 0.1rem 0 #777;
+				border: 1px solid white;
 			}
 
 			${ListStyle.Info}, label {
-				color: white;
+				/* color: white; */
 			}
 
 			${HabitStyle.CompletionWrapper} {
 				background-color: #eee;
-				padding: 0.5rem;
+				${spacing.padding.wide({ size: 0.1, ratio: 3 })};
+				border-radius: 3px;
 
 				span {
 					color: black;
+				}
+
+				// slider background mantine
+				* {
+					--slider-track-bg: #d5d5d5;
 				}
 			}
 		}

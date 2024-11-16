@@ -117,14 +117,17 @@ export default function Today() {
 							<ChangeDayButton type="next" onClick={() => t.changeDay("next")} />
 						</h1>
 					</S.Header>
-					{!!t.allDayActivities.length && (
-						<AllDayActivities activities={t.allDayActivities} />
-					)}
+
 					{!!t.habits && (
 						<S.Habits>
 							<Habits habits={t.habits} />
 						</S.Habits>
 					)}
+
+					{!!t.allDayActivities.length && (
+						<AllDayActivities activities={t.allDayActivities} />
+					)}
+
 					<TimelineRows
 						activities={t.timestampedActivities}
 						currentDate={t.currentDate}
