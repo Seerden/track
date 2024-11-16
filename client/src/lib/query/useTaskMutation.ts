@@ -2,8 +2,8 @@ import { createRequestConfig } from "@/lib/fetch/create-request-config";
 import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
 import { queryClient } from "@/lib/query-client";
 import type { ActivitiesData } from "@/types/data.types";
-import type { Data } from "@/types/query.types";
 import type { ActivityUpdateInput, ActivityWithIds } from "@/types/server/activity.types";
+import type { ById } from "@/types/server/utility.types";
 import { useMutation } from "@tanstack/react-query";
 
 async function putTaskCompletion(input: ActivityUpdateInput): Promise<ActivityWithIds> {
@@ -24,7 +24,7 @@ function updateActivitiesCache(updatedActivity: ActivityWithIds) {
 				byId: {
 					[updatedActivity.activity_id]: updatedActivity
 				}
-			};
+			} as { byId: ById<ActivityWithIds> };
 
 		if (!updatedActivity) return old;
 
@@ -32,15 +32,15 @@ function updateActivitiesCache(updatedActivity: ActivityWithIds) {
 			byId: {
 				...old.byId,
 				[updatedActivity.activity_id]: updatedActivity
-			}
+			} as ById<ActivityWithIds>
 		};
 	});
 }
 
 export default function useTaskCompletionMutation() {
-	return useMutation<ActivityWithIds, unknown, Data<"input", ActivityUpdateInput>>({
+	return useMutation<ActivityWithIds, unknown, ActivityUpdateInput>({
 		async mutationFn(activity) {
-			return putTaskCompletion(activity.input);
+			return putTaskCompletion(activity);
 		},
 		mutationKey: ["task-completion"],
 		onSuccess: updateActivitiesCache

@@ -86,8 +86,7 @@ const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
 const Title = styled.h3`
 	${spacing.padding.wide({ size: 0.3, ratio: 2.5 })};
 	margin: 0;
-	margin-top: -1.6rem;
-	margin-left: 0.5rem;
+	margin-top: -2rem;
 
 	background-color: #333;
 	color: azure;

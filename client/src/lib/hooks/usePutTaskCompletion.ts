@@ -6,7 +6,7 @@ export default function usePutTaskCompletion(task: ActivityWithIds) {
 	const { mutate } = useTaskCompletionMutation();
 
 	const putCompletion = useCallback(() => {
-		mutate({ input: { ...task, completed: !task.completed } });
+		mutate({ ...task, completed: !task.completed });
 	}, [task, mutate]);
 
 	return putCompletion;

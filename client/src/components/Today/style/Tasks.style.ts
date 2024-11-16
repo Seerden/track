@@ -1,7 +1,7 @@
 import { column } from "@/components/Today/style/Today.style";
+import ListStyle from "@/lib/theme/components/List.style";
 import { getFontSize } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
-import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
 
 // TODO: make this shared with Notes for now since they are currently the same
@@ -10,19 +10,7 @@ const TasksWrapper = styled.section`
 	padding: 0 1rem;
 `;
 
-const TaskName = styled.div`
-	display: flex;
-	max-width: 200px;
-	white-space: normal;
-	overflow: hidden;
-	text-overflow: ellipsis;
-
-	color: #333;
-	background-color: #eee;
-	${spacing.padding.wide({ size: 0.3, ratio: 2.5 })};
-	border-radius: 4px;
-	box-shadow: 0 0.1rem 0.2rem 0 #bbb;
-`;
+const TaskName = styled(ListStyle.ItemName)``;
 
 const Times = styled.div`
 	width: max-content;
@@ -33,41 +21,12 @@ const Times = styled.div`
 	color: #555;
 `;
 
-const Tasks = styled.ul`
-	${flex.column};
-	gap: 0.6rem;
+const Tasks = styled(ListStyle.ItemList)`
 	overflow-x: auto;
-	padding: 0.5rem;
-	max-width: 720px;
+	grid-template-columns: max-content max-content auto 1fr;
 `;
 
-const Task = styled.li`
-	user-select: none;
-	list-style: none;
-	cursor: pointer;
-	box-sizing: border-box;
-	font-size: ${(p) => getFontSize(p, 0.9)};
-	display: grid;
-
-	grid-template-columns: max-content min-content max-content auto;
-
-	gap: 1rem;
-
-	@media (min-width: 1920px) {
-		gap: 2rem;
-	}
-
-	border-radius: 3px;
-	background-color: #ddd; // TODO: apply some style for completed tasks
-	width: 100%;
-	min-width: max-content;
-	${spacing.padding.wide({ size: 0.5, ratio: 2 })};
-	align-items: center;
-	max-height: 90px;
-	box-shadow: 0.55rem 0.55rem 0.2rem -0.3rem #ccc;
-
-	max-width: 720px; // TODO: this is temporary, but we do want to limit size
-`;
+const Task = styled(ListStyle.Item)``;
 
 export default {
 	TasksWrapper,

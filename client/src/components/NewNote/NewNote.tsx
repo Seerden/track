@@ -14,7 +14,11 @@ function NewNote({ inActivity }: NewNoteProps) {
 	const tagsById = tagsData?.byId;
 
 	return (
-		<F.Wrapper>
+		<F.Wrapper
+			style={{
+				minWidth: 500
+			}}
+		>
 			<F.FormTitle> Take a note</F.FormTitle>
 			<F.Form onSubmit={onSubmit}>
 				<F.Row>

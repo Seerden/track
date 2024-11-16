@@ -1,7 +1,8 @@
 const baseColors = {
 	purple: {
 		main: "indigo",
-		secondary: "blueviolet"
+		secondary: "blueviolet",
+		tertiary: "darkorchid"
 	},
 	blue: {
 		main: "dodgerblue",

@@ -1,7 +1,7 @@
-import { Note } from "../../../types/data/note.types";
-import { NoteTagRelation } from "../../../types/data/relational.types";
-import { ID } from "../../../types/data/utility.types";
-import { WithSQL } from "../../../types/sql.types";
+import type { Note } from "../../../types/data/note.types";
+import type { NoteTagRelation } from "../../../types/data/relational.types";
+import type { ID } from "../../../types/data/utility.types";
+import type { WithSQL } from "../../../types/sql.types";
 import { sqlConnection } from "../../db/init";
 import { mergeNotesAndRelations } from "./merge-notes-and-relations";
 

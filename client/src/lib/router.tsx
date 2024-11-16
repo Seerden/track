@@ -1,4 +1,5 @@
 import App from "@/App";
+import NewHabit from "@/components/NewHabit/NewHabit";
 import Protected from "@/components/Protected";
 import Suspended from "@/components/Suspended";
 import Page from "@/lib/framer/components/Page";
@@ -81,6 +82,21 @@ const topLevelRoutes: RouteObject[] = [
 				element: (
 					<Protected>
 						<NewNote />
+					</Protected>
+				)
+			}
+		]
+	},
+	{
+		path: "/habits",
+		children: [
+			{
+				path: "new",
+				element: (
+					<Protected>
+						<Page>
+							<NewHabit />
+						</Page>
 					</Protected>
 				)
 			}

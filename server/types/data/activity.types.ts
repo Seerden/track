@@ -1,4 +1,4 @@
-import { Datelike } from "types/date.types";
+import type { Datelike } from "types/date.types";
 import type { ID, NullUnused, Timestamp } from "./utility.types";
 
 type ActivityTimestamps = {

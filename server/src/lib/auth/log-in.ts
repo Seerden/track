@@ -1,6 +1,6 @@
 import { compare } from "bcryptjs";
-import { Request, Response } from "express";
-import { UserLogin } from "../../../types/data/user.types";
+import type { Request, Response } from "express";
+import type { UserLogin } from "../../../types/data/user.types";
 import { getUserByName } from "../data/query-user";
 import { destroySession } from "./destroy-session";
 
