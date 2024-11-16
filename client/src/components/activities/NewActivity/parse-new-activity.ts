@@ -29,6 +29,7 @@ export function parseNewActivity(
 
 	for (const field of dateFields) {
 		if (newActivity[field] === "") {
+			// eslint-disable-next-line @typescript-eslint/no-dynamic-delete
 			delete newActivity[field];
 		}
 	}

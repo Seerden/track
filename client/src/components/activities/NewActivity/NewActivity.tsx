@@ -1,9 +1,9 @@
 import modalIds from "@/lib/modal-ids";
 import N from "@/lib/theme/components/form.style";
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
+import TagSelector from "@components/TagSelector/TagSelector";
 import { Checkbox } from "@lib/theme/components/Checkbox";
 import { type NewActivity } from "@type/server/activity.types";
-import TagSelector from "../TagSelector/TagSelector";
 import DateTimePicker from "./DateTimePicker";
 import S from "./NewActivity.style";
 import useNewActivity from "./useNewActivity";
