@@ -1,7 +1,7 @@
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import type { PropsWithChildren } from "react";
-import Login from "./Login/Login";
+import Login from "./auth/Login/Login";
 
 export default function Protected({ children }: PropsWithChildren) {
 	const { isLoggedIn, currentUser, data } = useAuthentication();
