@@ -1,4 +1,4 @@
-import HabitStyle from "@/components/habits/HabitEntryItem/style/Habit.style";
+import HabitStyle from "@/components/habits/Habits/style/Habit.style";
 import { Tag } from "@/components/TagCard/TagCard.style";
 import ListStyle from "@/lib/theme/components/List.style";
 import { font, getFontSize } from "@/lib/theme/font";

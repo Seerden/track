@@ -1,6 +1,6 @@
 import DetailedHabit from "@/components/habits/DetailedHabit/DetailedHabit";
-import Habit from "@/components/habits/HabitEntryItem/Habit";
-import useDetailedHabitModal from "@/components/habits/HabitEntryItem/useDetailedHabitModal";
+import Habit from "@/components/habits/Habits/Habit";
+import useDetailedHabitModal from "@/components/habits/Habits/useDetailedHabitModal";
 import Modal from "@/components/Modal";
 import L from "@/lib/theme/components/List.style";
 import type { HabitWithPossiblySyntheticEntries } from "@/types/server/habit.types";

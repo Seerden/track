@@ -1,5 +1,5 @@
 import Calendar from "@/components/Calendar/Calendar";
-import Habits from "@/components/habits/HabitEntryItem/Habits";
+import Habits from "@/components/habits/Habits/Habits";
 import Modal from "@/components/Modal";
 import NewActivity from "@/components/NewActivity/NewActivity";
 import NewHabit from "@/components/NewHabit/NewHabit";

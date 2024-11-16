@@ -1,6 +1,6 @@
-import Completion from "@/components/habits/HabitEntryItem/Completion";
-import { frequencyString } from "@/components/habits/HabitEntryItem/frequency-string";
-import useDetailedHabitModal from "@/components/habits/HabitEntryItem/useDetailedHabitModal";
+import Completion from "@/components/habits/Habits/Completion";
+import { frequencyString } from "@/components/habits/Habits/frequency-string";
+import useDetailedHabitModal from "@/components/habits/Habits/useDetailedHabitModal";
 import useHabitDeleteMutation from "@/lib/query/habits/useDeleteHabitMutation";
 import L from "@/lib/theme/components/List.style";
 import type { HabitWithPossiblySyntheticEntries } from "@/types/server/habit.types";

@@ -1,4 +1,4 @@
-import { withSyntheticHabitEntries } from "@/components/habits/HabitEntryItem/synthetic";
+import { withSyntheticHabitEntries } from "@/components/habits/Habits/synthetic";
 import useHabitEntriesQuery from "@/lib/query/habits/useHabitEntriesQuery";
 import useHabitsQuery from "@/lib/query/habits/useHabitsQuery";
 import type { Habit, HabitWithEntries } from "@/types/server/habit.types";

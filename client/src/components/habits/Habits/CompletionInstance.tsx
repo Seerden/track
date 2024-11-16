@@ -1,6 +1,6 @@
-import HabitEntrySlider from "@/components/habits/HabitEntryItem/HabitEntrySlider";
-import HabitEntryToggle from "@/components/habits/HabitEntryItem/HabitEntryToggle";
-import useCompletionInstance from "@/components/habits/HabitEntryItem/useCompletionInstance";
+import HabitEntrySlider from "@/components/habits/Habits/HabitEntrySlider";
+import HabitEntryToggle from "@/components/habits/Habits/HabitEntryToggle";
+import useCompletionInstance from "@/components/habits/Habits/useCompletionInstance";
 import type {
 	HabitEntry,
 	HabitWithIds,

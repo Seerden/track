@@ -1,4 +1,4 @@
-import CompletionInstance from "@/components/habits/HabitEntryItem/CompletionInstance";
+import CompletionInstance from "@/components/habits/Habits/CompletionInstance";
 import type {
 	HabitEntry,
 	HabitWithIds,

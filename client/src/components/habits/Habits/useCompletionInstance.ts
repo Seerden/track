@@ -1,4 +1,4 @@
-import { syntheticToReal } from "@/components/habits/HabitEntryItem/synthetic";
+import { syntheticToReal } from "@/components/habits/Habits/synthetic";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import { queryClient } from "@/lib/query-client";
 import useHabitEntryMutation from "@/lib/query/habits/useHabitEntryMutation";
