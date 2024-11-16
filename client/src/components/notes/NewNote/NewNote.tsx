@@ -1,7 +1,7 @@
 import modalIds from "@/lib/modal-ids";
 import F from "@/lib/theme/components/form.style";
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
-import TagSelector from "../TagSelector/TagSelector";
+import TagSelector from "../../TagSelector/TagSelector";
 import useNewNote from "./useNewNote";
 
 type NewNoteProps = {

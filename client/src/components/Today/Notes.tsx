@@ -1,5 +1,5 @@
 import Modal from "@/components/Modal";
-import NewNote from "@/components/NewNote/NewNote";
+import NewNote from "@/components/notes/NewNote/NewNote";
 import Empty from "@/components/Today/Empty";
 import { filterTagsById } from "@/lib/filter-tags";
 import modalIds from "@/lib/modal-ids";

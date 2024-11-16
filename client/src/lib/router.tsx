@@ -8,14 +8,14 @@ import type { RouteObject } from "react-router-dom";
 import { createBrowserRouter } from "react-router-dom";
 
 const Home = lazy(() => import("@components/Home"));
-const NewNote = lazy(() => import("@components/NewNote/NewNote"));
+const NewNote = lazy(() => import("@/components/notes/NewNote/NewNote"));
 const Register = lazy(() => import("@/components/auth/Register/Register"));
 const NewActivity = lazy(() => import("@components/activities/NewActivity/NewActivity"));
 const ActivityList = lazy(
 	() => import("@/components/activities/ActivityList/ActivityList")
 );
 const Today = lazy(() => import("@components/Today/Today"));
-const Notes = lazy(() => import("@components/Notes/Notes"));
+const Notes = lazy(() => import("@/components/notes/Notes/Notes"));
 
 const topLevelRoutes: RouteObject[] = [
 	{
