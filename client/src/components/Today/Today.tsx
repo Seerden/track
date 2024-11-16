@@ -120,7 +120,11 @@ export default function Today() {
 					{!!t.allDayActivities.length && (
 						<AllDayActivities activities={t.allDayActivities} />
 					)}
-					{!!t.habits && <Habits habits={t.habits} />}
+					{!!t.habits && (
+						<S.Habits>
+							<Habits habits={t.habits} />
+						</S.Habits>
+					)}
 					<TimelineRows
 						activities={t.timestampedActivities}
 						currentDate={t.currentDate}

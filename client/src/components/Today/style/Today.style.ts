@@ -1,5 +1,7 @@
+import HabitStyle from "@/components/habits/HabitEntryItem/style/Habit.style";
 import { Tag } from "@/components/TagCard/TagCard.style";
-import { getFontSize } from "@/lib/theme/font";
+import ListStyle from "@/lib/theme/components/List.style";
+import { font, getFontSize } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacing } from "@/lib/theme/snippets/spacing";
 import styled, { css } from "styled-components";
@@ -138,6 +140,43 @@ const AllDayActivityList = styled.ul`
 	padding-inline: 3rem;
 `;
 
+const Habits = styled.div`
+	/* the Habits component is an ItemList, and each Habit is an Item, so we can
+   tweak the styles if we target those styled components. */
+	${ListStyle.ItemList} {
+		gap: 0.4rem;
+		padding-inline: 3rem;
+
+		* {
+			font-size: ${font.size["0.8"]};
+		}
+
+		${ListStyle.Item} {
+			// TODO: I want to match exactly the spacing of AllDayActivityList
+			box-shadow: 0 0 0.2rem 0 #ccc;
+			outline: 2px solid ${(p) => p.theme.colors.blue.main};
+			background-color: ${(p) => p.theme.colors.blue.main};
+
+			${ListStyle.ItemName} {
+				box-shadow: 0 0 0.3rem 0 #666;
+			}
+
+			${ListStyle.Info}, label {
+				color: white;
+			}
+
+			${HabitStyle.CompletionWrapper} {
+				background-color: #eee;
+				padding: 0.5rem;
+
+				span {
+					color: black;
+				}
+			}
+		}
+	}
+`;
+
 export default {
 	Wrapper,
 	TimelineWrapper,
@@ -149,5 +188,6 @@ export default {
 	Columns,
 	Header,
 	Tags,
-	AllDayActivityList
+	AllDayActivityList,
+	Habits
 };
