@@ -1,4 +1,4 @@
-import Modal from "@/components/Modal/Modal";
+import Modal from "@/components/utility/Modal/Modal";
 import modalIds from "@/lib/modal-ids";
 import useTagsQuery from "@/lib/query/useTagsQuery";
 import useTagsTreeQuery from "@/lib/query/useTagsTreeQuery";

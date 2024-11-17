@@ -1,5 +1,5 @@
-import { buildCalendarRows } from "@/components/Calendar/build-calendar-rows";
-import type { MonthAndYear } from "@/components/Calendar/calendar.types";
+import { buildCalendarRows } from "@/components/utility/Calendar/build-calendar-rows";
+import type { MonthAndYear } from "@/components/utility/Calendar/calendar.types";
 import { formatToMonthAndYear } from "@/lib/datetime/format-date";
 import { createDate, createFirstOfTheMonth } from "@/lib/datetime/make-date";
 import type { Maybe } from "@/types/server/utility.types";

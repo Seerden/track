@@ -1,13 +1,13 @@
 import NewActivity from "@/components/activities/NewActivity/NewActivity";
-import Calendar from "@/components/Calendar/Calendar";
 import Habits from "@/components/habits/Habits/Habits";
 import NewHabit from "@/components/habits/NewHabit/NewHabit";
-import Modal from "@/components/Modal/Modal";
 import AllDayActivities from "@/components/Today/AllDayActivities";
 import ChangeDayButton from "@/components/Today/ChangeDayButton";
 import DetailedActivity from "@/components/Today/DetailedActivity";
 import { activeItemState } from "@/components/Today/hooks/useDetailedActivityModal";
 import TimelineRows from "@/components/Today/TimelineRows";
+import Calendar from "@/components/utility/Calendar/Calendar";
+import Modal from "@/components/utility/Modal/Modal";
 import { today } from "@/lib/datetime/make-date";
 import useHabitsData from "@/lib/hooks/useHabitsData";
 import modalIds from "@/lib/modal-ids";

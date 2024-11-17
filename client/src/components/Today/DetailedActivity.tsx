@@ -1,5 +1,5 @@
-import Modal from "@/components/Modal/Modal";
 import S from "@/components/Today/style/DetailedActivity.style";
+import Modal from "@/components/utility/Modal/Modal";
 import { activityEnd, activityStart, hasNotEnded, startsInFuture } from "@/lib/activity";
 import { createDate } from "@/lib/datetime/make-date";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";

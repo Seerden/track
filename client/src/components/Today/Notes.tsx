@@ -1,6 +1,6 @@
-import Modal from "@/components/Modal/Modal";
 import NewNote from "@/components/notes/NewNote/NewNote";
 import Empty from "@/components/Today/Empty";
+import Modal from "@/components/utility/Modal/Modal";
 import { filterTagsById } from "@/lib/filter-tags";
 import modalIds from "@/lib/modal-ids";
 import useNotesQuery from "@/lib/query/useNotesQuery";

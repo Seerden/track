@@ -1,4 +1,4 @@
-import type { MonthAndYear } from "@/components/Calendar/calendar.types";
+import type { MonthAndYear } from "@/components/utility/Calendar/calendar.types";
 import type { DateValue } from "@mantine/dates";
 import type { Dayjs } from "dayjs";
 import { useState } from "react";
