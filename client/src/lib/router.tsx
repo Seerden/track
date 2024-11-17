@@ -1,5 +1,4 @@
 import App from "@/App";
-import NewHabit from "@/components/habits/NewHabit/NewHabit";
 import Protected from "@/components/Protected";
 import Suspended from "@/components/Suspended";
 import Page from "@/lib/framer/components/Page";
@@ -7,10 +6,11 @@ import { lazy } from "react";
 import type { RouteObject } from "react-router-dom";
 import { createBrowserRouter } from "react-router-dom";
 
-const Home = lazy(() => import("@components/Home"));
+const Home = lazy(() => import("@/components/Home/Home"));
 const NewNote = lazy(() => import("@/components/notes/NewNote/NewNote"));
 const Register = lazy(() => import("@/components/auth/Register/Register"));
 const NewActivity = lazy(() => import("@components/activities/NewActivity/NewActivity"));
+const NewHabit = lazy(() => import("@components/habits/NewHabit/NewHabit"));
 const ActivityList = lazy(
 	() => import("@/components/activities/ActivityList/ActivityList")
 );
