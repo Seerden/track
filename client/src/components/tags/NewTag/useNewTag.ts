@@ -15,6 +15,7 @@ export default function useNewTag() {
 
 	const [newTag, setNewTag] = useState<NewTag>({
 		name: "",
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		user_id: currentUser!.user_id // TODO: find a way to refine this typing so that currentUser cannot be undefined here
 	});
 
