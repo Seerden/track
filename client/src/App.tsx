@@ -9,7 +9,7 @@ import "./App.scss";
 import { queryClient } from "./lib/query-client";
 import { theme } from "./lib/theme/theme";
 
-const Header = lazy(() => import("@components/Header/Header"));
+const Header = lazy(() => import("@/components/layout/Header/Header"));
 
 function App() {
 	return (
