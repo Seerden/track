@@ -1,6 +1,6 @@
 import App from "@/App";
-import Protected from "@/components/Protected";
-import Suspended from "@/components/Suspended";
+import Protected from "@/components/utility/Protected";
+import Suspended from "@/components/utility/Suspended";
 import Page from "@/lib/framer/components/Page";
 import { lazy } from "react";
 import type { RouteObject } from "react-router-dom";
