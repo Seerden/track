@@ -1,4 +1,4 @@
-import AnimatedRoutes from "@/components/AnimatedRoutes";
+import { AnimatedRoutes } from "@/components/wrappers/";
 import { createTheme, DEFAULT_THEME, MantineProvider } from "@mantine/core";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -9,7 +9,7 @@ import "./App.scss";
 import { queryClient } from "./lib/query-client";
 import { theme } from "./lib/theme/theme";
 
-const Header = lazy(() => import("@components/Header/Header"));
+const Header = lazy(() => import("@/components/layout/Header/Header"));
 
 function App() {
 	return (

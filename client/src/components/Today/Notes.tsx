@@ -1,10 +1,10 @@
-import Modal from "@/components/Modal";
-import NewNote from "@/components/NewNote/NewNote";
+import NewNote from "@/components/notes/NewNote/NewNote";
 import Empty from "@/components/Today/Empty";
+import Modal from "@/components/utility/Modal/Modal";
 import { filterTagsById } from "@/lib/filter-tags";
+import useNotesQuery from "@/lib/hooks/query/notes/useNotesQuery";
+import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
 import modalIds from "@/lib/modal-ids";
-import useNotesQuery from "@/lib/query/useNotesQuery";
-import useTagsQuery from "@/lib/query/useTagsQuery";
 import { useModalState } from "@/lib/state/modal-state";
 import { isToday } from "@lib/datetime/compare";
 import { Note } from "./Note";

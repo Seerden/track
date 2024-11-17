@@ -1,5 +1,5 @@
-import HabitStyle from "@/components/habits/HabitEntryItem/style/Habit.style";
-import { Tag } from "@/components/TagCard/TagCard.style";
+import HabitStyle from "@/components/habits/Habits/style/Habit.style";
+import TagCardStyle from "@/components/tags/TagCard/style/TagCard.style";
 import ListStyle from "@/lib/theme/components/List.style";
 import { font, getFontSize } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
@@ -122,7 +122,7 @@ const Tags = styled.div`
 	overflow-y: hidden;
 	max-height: 70px;
 
-	${Tag} {
+	${TagCardStyle.Tag} {
 		display: flex;
 		max-height: 30px;
 		flex: 1;

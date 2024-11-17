@@ -1,6 +1,6 @@
-import { withSyntheticHabitEntries } from "@/components/habits/HabitEntryItem/synthetic";
-import useHabitEntriesQuery from "@/lib/query/habits/useHabitEntriesQuery";
-import useHabitsQuery from "@/lib/query/habits/useHabitsQuery";
+import { withSyntheticHabitEntries } from "@/components/habits/Habits/synthetic";
+import useHabitEntriesQuery from "@/lib/hooks/query/habits/useHabitEntriesQuery";
+import useHabitsQuery from "@/lib/hooks/query/habits/useHabitsQuery";
 import type { Habit, HabitWithEntries } from "@/types/server/habit.types";
 import type { ById } from "@/types/server/utility.types";
 import type { TimeWindow } from "@/types/time-window.types";

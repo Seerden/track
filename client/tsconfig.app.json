@@ -32,7 +32,8 @@
 			"@components/*": ["src/components/*"],
 			"@lib/*": ["src/lib/*"],
 			"@type/*": ["src/types/*"]
-		}
+		},
+		"types": ["vitest/globals"]
 	},
 	"include": ["src"]
 }

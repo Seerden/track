@@ -5,7 +5,7 @@ import { activityEnd, activityStart } from "@lib/activity";
 import type { ActivityWithIds } from "@type/server/activity.types";
 import type { TagWithIds } from "@type/server/tag.types";
 import { useRef } from "react";
-import TagCard from "../TagCard/TagCard";
+import TagCard from "../tags/TagCard/TagCard";
 import T from "./style/Tasks.style";
 import S from "./style/Today.style";
 

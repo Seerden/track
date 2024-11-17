@@ -15,7 +15,7 @@ export type Maybe<T> = T | null | undefined;
  * arrays being accepted as a valid ById type.
  * @see https://stackoverflow.com/questions/71422178/typescript-record-accepts-array-why
  **/
-export type ById<T> = T extends (infer U)[] ? never : Record<ID, T>;
+export type ById<T> = T extends unknown[] ? never : Record<ID, T>;
 
 export type NullUnused<TUsed, TUnused> = TUsed & {
 	[k in keyof TUnused]: null;

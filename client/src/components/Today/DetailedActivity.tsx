@@ -1,10 +1,10 @@
-import Modal from "@/components/Modal";
 import S from "@/components/Today/style/DetailedActivity.style";
+import Modal from "@/components/utility/Modal/Modal";
 import { activityEnd, activityStart, hasNotEnded, startsInFuture } from "@/lib/activity";
 import { createDate } from "@/lib/datetime/make-date";
+import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
-import useTagsQuery from "@/lib/query/useTagsQuery";
 import CardStyle from "@/lib/theme/components/Card.style";
 import { Checkbox } from "@/lib/theme/components/Checkbox";
 import type { Datelike } from "@/types/date.types";
