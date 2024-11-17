@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { pageStyle } from "../../theme/snippets/page";
 
-export const Page = styled.section`
+const Page = styled.section`
 	${pageStyle};
 
 	// TODO: we need to overflow-y in case there is a dropdown at the bottom of
@@ -9,3 +9,7 @@ export const Page = styled.section`
 	// to the bottom if they would otherwise overflow.
 	overflow: visible;
 `;
+
+export default {
+	Page
+};

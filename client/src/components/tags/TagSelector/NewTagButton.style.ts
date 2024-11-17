@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import type { CSS } from "styled-components/dist/types";
 
-export const Button = styled.button<{
+const Button = styled.button<{
 	$absolute?: boolean;
 	$size?: CSS.Properties["width"];
 }>`
@@ -41,4 +41,8 @@ export const Button = styled.button<{
 
 Button.defaultProps = {
 	type: "button"
+};
+
+export default {
+	Button
 };

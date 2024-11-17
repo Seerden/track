@@ -3,7 +3,7 @@ import { flex } from "@/lib/theme/snippets/flex";
 import { spacing } from "@/lib/theme/snippets/spacing";
 import { styled } from "styled-components";
 
-export const Page = styled.section`
+const Page = styled.section`
 	max-width: 750px; // TODO: determine a page-level component width that looks good
 	border: 2px solid darkorchid;
 	margin: 1.2rem auto;
@@ -18,14 +18,14 @@ export const Page = styled.section`
 	}
 `;
 
-export const List = styled.ul`
+const List = styled.ul`
 	${flex.row};
 	flex-wrap: wrap;
 	justify-content: space-between;
 	gap: 0.7rem;
 `;
 
-export const Note = styled.li`
+const Note = styled.li`
 	list-style: none;
 
 	${spacing.padding.wide({ size: 0.6, ratio: 1.5 })};
@@ -34,7 +34,7 @@ export const Note = styled.li`
 	width: 45%;
 `;
 
-export const Title = styled.h2`
+const Title = styled.h2`
 	font-size: ${(p) => getFontSize(p, 1.02)};
 	${spacing.padding.wide({ size: 0.3, ratio: 2.5 })};
 	background-color: #eee;
@@ -45,19 +45,19 @@ export const Title = styled.h2`
 	box-shadow: 0 0 0.2rem 0 #ddd;
 `;
 
-export const NoteHeader = styled.span`
+const NoteHeader = styled.span`
 	${flex.row};
 	justify-content: space-between;
 `;
 
-export const Tags = styled.ul`
+const Tags = styled.ul`
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.1rem;
 	font-size: ${(p) => getFontSize(p, 0.75)};
 `;
 
-export const Tag = styled.li`
+const Tag = styled.li`
 	border-radius: 3px;
 	list-style: none;
 	background-color: darkorchid;
@@ -66,3 +66,13 @@ export const Tag = styled.li`
 	height: max-content;
 	color: white;
 `;
+
+export default {
+	Page,
+	List,
+	Note,
+	Title,
+	NoteHeader,
+	Tags,
+	Tag
+};
