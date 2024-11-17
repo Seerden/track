@@ -1,7 +1,7 @@
 import type {
 	TagSelectorItemProps,
 	TagSelectorItemsProps
-} from "@/components/TagSelector/tag-selector.types";
+} from "@/components/tags/TagSelector/tag-selector.types";
 import useTagsQuery from "@/lib/query/useTagsQuery";
 import { useModalState } from "@/lib/state/modal-state";
 import S from "./TagSelector.style";

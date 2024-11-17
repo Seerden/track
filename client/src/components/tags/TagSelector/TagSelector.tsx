@@ -1,9 +1,9 @@
-import Filter from "@/components/TagSelector/Filter";
-import Selection from "@/components/TagSelector/Selection";
-import type { TagSelectorProps } from "@/components/TagSelector/tag-selector.types";
-import TagSelectorItems from "@/components/TagSelector/TagSelectorItems";
-import useTagSelectorFilter from "@/components/TagSelector/useTagSelectorFilter";
-import TagTree from "@/components/TagTree/TagTree";
+import Filter from "@/components/tags/TagSelector/Filter";
+import Selection from "@/components/tags/TagSelector/Selection";
+import type { TagSelectorProps } from "@/components/tags/TagSelector/tag-selector.types";
+import TagSelectorItems from "@/components/tags/TagSelector/TagSelectorItems";
+import useTagSelectorFilter from "@/components/tags/TagSelector/useTagSelectorFilter";
+import TagTree from "@/components/tags/TagTree/TagTree";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import type { MouseEvent } from "react";
@@ -15,7 +15,7 @@ import useTagSelector from "./useTagSelector";
 
 export default function TagSelector(p: TagSelectorProps) {
 	const t = useTagSelector({ maximum: p.maximum, tagsById: p.tagsById });
-	const f = useTagSelectorFilter(p.modalId);
+	const f = useTagSelectorFilter();
 
 	// NOTE: tagTreeModalId has to depend on `modalId` because we can have
 	// multiple TagSelectors on the same page.

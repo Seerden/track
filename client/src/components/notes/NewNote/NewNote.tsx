@@ -1,15 +1,11 @@
+import TagSelector from "@/components/tags/TagSelector/TagSelector";
 import modalIds from "@/lib/modal-ids";
 import F from "@/lib/theme/components/form.style";
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
-import TagSelector from "../../TagSelector/TagSelector";
 import useNewNote from "./useNewNote";
 
-type NewNoteProps = {
-	inActivity?: boolean;
-};
-
-function NewNote({ inActivity }: NewNoteProps) {
-	const { onInputChange, onSubmit, tagsData } = useNewNote({ inActivity });
+function NewNote() {
+	const { onInputChange, onSubmit, tagsData } = useNewNote();
 
 	const tagsById = tagsData?.byId;
 

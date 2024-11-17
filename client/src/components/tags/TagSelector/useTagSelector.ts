@@ -34,7 +34,7 @@ export default function useTagSelector({ maximum, tagsById }: UseTagSelector = {
 
 	function updateTagSelection(tagId: ID) {
 		if (maximum === 1) {
-			setTagSelection((current) => ({ [tagId]: !current[tagId] }));
+			setTagSelection((current) => ({ [tagId]: !current[tagId] }) as ById<boolean>);
 		} else {
 			toggleTagSelection(tagId);
 		}

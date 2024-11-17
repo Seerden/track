@@ -1,5 +1,4 @@
-import useNewHabit from "@/components/NewHabit/useNewHabit";
-import TagSelector from "@/components/TagSelector/TagSelector";
+import TagSelector from "@/components/tags/TagSelector/TagSelector";
 import { createDate } from "@/lib/datetime/make-date";
 import modalIds from "@/lib/modal-ids";
 import { CheckboxIcon } from "@/lib/theme/components/Checkbox";
@@ -8,6 +7,7 @@ import F from "@lib/theme/components/form.style";
 import { useState } from "react";
 import { LuCalendarOff, LuCalendarPlus } from "react-icons/lu";
 import S from "./style/NewHabit.style";
+import useNewHabit from "./useNewHabit";
 
 export default function NewHabit() {
 	const [hasEndDate, setHasEndDate] = useState(false);

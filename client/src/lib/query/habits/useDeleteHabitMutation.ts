@@ -15,7 +15,7 @@ export default function useHabitDeleteMutation() {
 			return deleteHabit(habit);
 		},
 		mutationKey: ["delete-habit"],
-		onSuccess: (deletedId) => {
+		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["habits"], exact: true });
 			queryClient.invalidateQueries({ queryKey: ["habit-entries"], exact: true });
 		}

@@ -8,7 +8,8 @@
 		"build": "tsc -b && vite build",
 		"lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
 		"preview": "vite preview",
-		"test": "jest --silent=false"
+		"test": "jest --silent=false",
+		"typecheck": "tsc --build --verbose"
 	},
 	"dependencies": {
 		"@mantine/core": "^7.13.4",
@@ -57,7 +58,7 @@
 		"whatwg-fetch": "^3.6.20"
 	},
 	"os": [
-      "linux",
+		"linux",
 		"win32"
 	],
 	"msw": {

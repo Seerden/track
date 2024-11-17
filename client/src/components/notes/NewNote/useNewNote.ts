@@ -7,11 +7,7 @@ import { useTagSelection } from "@lib/state/selected-tags-state";
 import type { NewNote } from "@type/server/note.types";
 import { useEffect, useState } from "react";
 
-type UseNewNoteProps = {
-	inActivity?: boolean;
-};
-
-export default function useNewNote({ inActivity }: UseNewNoteProps = {}) {
+export default function useNewNote() {
 	const { data: tagsData } = useTagsQuery();
 	const { navigate } = useRouteProps();
 	const { currentUser } = useAuthentication();

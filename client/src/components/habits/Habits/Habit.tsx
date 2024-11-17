@@ -1,7 +1,5 @@
 import Completion from "@/components/habits/Habits/Completion";
 import { frequencyString } from "@/components/habits/Habits/frequency-string";
-import useDetailedHabitModal from "@/components/habits/Habits/useDetailedHabitModal";
-import useHabitDeleteMutation from "@/lib/query/habits/useDeleteHabitMutation";
 import L from "@/lib/theme/components/List.style";
 import type { HabitWithPossiblySyntheticEntries } from "@/types/server/habit.types";
 import S from "./style/Habit.style";
@@ -11,8 +9,8 @@ type HabitProps = {
 };
 
 export default function Habit({ habit }: HabitProps) {
-	const { mutate } = useHabitDeleteMutation();
-	const { openDetailedHabitModal } = useDetailedHabitModal();
+	// const { mutate } = useHabitDeleteMutation();
+	// const { openDetailedHabitModal } = useDetailedHabitModal();
 
 	return (
 		<S.Wrapper

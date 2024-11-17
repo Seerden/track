@@ -1,7 +1,7 @@
 import { useModalState } from "@/lib/state/modal-state";
+import Modal from "@components/Modal";
+import NewTag from "@components/tags/NewTag/NewTag";
 import { AiFillTags } from "react-icons/ai";
-import Modal from "../Modal";
-import NewTag from "../NewTag/NewTag";
 import * as S from "./NewTagButton.style";
 
 type NewTagButtonProps = {
