@@ -1,3 +1,9 @@
+/**
+ * I've adapted this slightly from my old jest setup file, so I don't know what
+ * does and doesn't _have_ to be in here to work properly. As long as nothing
+ * breaks, don't worry about it. Same goes for render-utils.
+ */
+
 import { setupServer } from "msw/node";
 import "whatwg-fetch";
 import { handlers } from "./src/mocks/handlers";
