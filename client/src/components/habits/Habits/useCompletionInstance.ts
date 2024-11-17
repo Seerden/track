@@ -1,8 +1,8 @@
 import { syntheticToReal } from "@/components/habits/Habits/synthetic";
+import useHabitEntryMutation from "@/lib/hooks/query/habits/useHabitEntryMutation";
+import useNewHabitEntryMutation from "@/lib/hooks/query/habits/useNewHabitEntryMutation";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import { queryClient } from "@/lib/query-client";
-import useHabitEntryMutation from "@/lib/query/habits/useHabitEntryMutation";
-import useNewHabitEntryMutation from "@/lib/query/habits/useNewHabitEntryMutation";
 import { isSynthetic } from "@/types/server/habit-entry.guards";
 import type { HabitEntry, SyntheticHabitEntry } from "@/types/server/habit.types";
 

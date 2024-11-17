@@ -1,4 +1,4 @@
-import type { HabitEntryUpdateMutationFunction } from "@/lib/query/habits/useHabitEntryMutation";
+import type { HabitEntryUpdateMutationFunction } from "@/lib/hooks/query/habits/useHabitEntryMutation";
 import { isSynthetic } from "@/types/server/habit-entry.guards";
 import type {
 	HabitEntry,

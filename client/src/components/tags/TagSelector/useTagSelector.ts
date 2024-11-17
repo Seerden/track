@@ -1,4 +1,4 @@
-import useTagsQuery from "@/lib/query/tags/useTagsQuery";
+import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
 import type { TagWithIds } from "@/types/server/tag.types";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import type { ById, ID } from "@type/server/utility.types";
