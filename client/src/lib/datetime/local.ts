@@ -1,6 +1,6 @@
+import { createDate } from "@/lib/datetime/make-date";
 import type { Datelike } from "@/types/date.types";
-import dayjs from "dayjs";
 
 export function getLocalHour(date: Datelike) {
-	return dayjs(date).utc().local().hour();
+	return createDate(date).hour();
 }
