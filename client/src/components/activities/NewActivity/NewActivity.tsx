@@ -5,7 +5,7 @@ import TagSelector from "@components/tags/TagSelector/TagSelector";
 import { Checkbox } from "@lib/theme/components/Checkbox";
 import { type NewActivity } from "@type/server/activity.types";
 import DateTimePicker from "./DateTimePicker";
-import S from "./NewActivity.style";
+import S from "./style/NewActivity.style";
 import useNewActivity from "./useNewActivity";
 
 type NewActivityProps = {

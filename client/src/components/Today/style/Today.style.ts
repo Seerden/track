@@ -1,5 +1,5 @@
 import HabitStyle from "@/components/habits/Habits/style/Habit.style";
-import { Tag } from "@/components/tags/TagCard/TagCard.style";
+import { Tag } from "@/components/tags/TagCard/style/TagCard.style";
 import ListStyle from "@/lib/theme/components/List.style";
 import { font, getFontSize } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";

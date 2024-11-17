@@ -2,7 +2,7 @@ import type { SelectionProps } from "@/components/tags/TagSelector/tag-selector.
 import { makePath } from "@/lib/tag-path";
 import type { TagWithIds } from "@/types/server/tag.types";
 import { Fragment } from "react/jsx-runtime";
-import S from "./TagSelector.style";
+import S from "./style/TagSelector.style";
 
 function Selection(p: SelectionProps) {
 	if (!p.selectedTags.length) return null;

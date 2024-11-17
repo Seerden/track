@@ -5,7 +5,7 @@ import { daysOfWeekShort } from "@/lib/datetime/weekdays";
 import type { Maybe } from "@/types/server/utility.types";
 import { MonthPicker } from "@mantine/dates";
 import type { Dayjs } from "dayjs";
-import S from "./Calendar.style";
+import S from "./style/Calendar.style";
 
 type CalendarRowProps = {
 	month: number;

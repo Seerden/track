@@ -1,7 +1,7 @@
 import F from "@/lib/theme/components/form.style";
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
 import TagSelector from "../TagSelector/TagSelector";
-import S from "./NewTag.style";
+import S from "./style/NewTag.style";
 import useNewTag from "./useNewTag";
 
 type NewTagProps = {

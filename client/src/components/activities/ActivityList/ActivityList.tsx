@@ -1,8 +1,8 @@
 import { filterTagsById } from "@lib/filter-tags";
 import type { ActivityWithIds } from "@type/server/activity.types";
 import type { TagWithIds } from "@type/server/tag.types";
-import S from "./ActivityList.style";
 import { getFormattedDateField } from "./get-date-field";
+import S from "./style/ActivityList.style";
 import useActivityList from "./useActivityList";
 
 export default function ActivityList() {

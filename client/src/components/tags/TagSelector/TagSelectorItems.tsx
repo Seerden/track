@@ -4,7 +4,7 @@ import type {
 } from "@/components/tags/TagSelector/tag-selector.types";
 import useTagsQuery from "@/lib/query/useTagsQuery";
 import { useModalState } from "@/lib/state/modal-state";
-import S from "./TagSelector.style";
+import S from "./style/TagSelector.style";
 
 function TagSelectorItem(p: TagSelectorItemProps) {
 	const hasParent = p.tag.parent_id !== null;

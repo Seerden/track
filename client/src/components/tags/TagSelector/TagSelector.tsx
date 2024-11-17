@@ -10,7 +10,7 @@ import type { MouseEvent } from "react";
 import { FaChevronDown, FaChevronUp, FaExpand } from "react-icons/fa";
 import { MdOutlineFilterListOff } from "react-icons/md";
 import NewTagButton from "./NewTagButton";
-import S from "./TagSelector.style";
+import S from "./style/TagSelector.style";
 import useTagSelector from "./useTagSelector";
 
 export default function TagSelector(p: TagSelectorProps) {

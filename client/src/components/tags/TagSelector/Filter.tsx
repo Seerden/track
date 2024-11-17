@@ -1,7 +1,7 @@
 import type { FilterProps } from "@/components/tags/TagSelector/tag-selector.types";
 import FilterInput from "@/lib/theme/components/input/FilterInput.style";
 import { MdOutlineClear } from "react-icons/md";
-import S from "./TagSelector.style";
+import S from "./style/TagSelector.style";
 
 function Filter(p: FilterProps) {
 	return (
