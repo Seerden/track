@@ -1,6 +1,6 @@
-import useLoginMutation from "../query/user/useLoginMutation";
-import useLogoutMutation from "../query/user/useLogoutMutation";
-import useMeQuery from "../query/user/useMeQuery";
+import useLoginMutation from "@lib/hooks/query/user/useLoginMutation";
+import useLogoutMutation from "@lib/hooks/query/user/useLogoutMutation";
+import useMeQuery from "@lib/hooks/query/user/useMeQuery";
 
 export default function useAuthentication() {
 	const { mutate: login } = useLoginMutation();
