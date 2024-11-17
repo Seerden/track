@@ -1,7 +1,7 @@
 import Modal from "@/components/utility/Modal/Modal";
 import modalIds from "@/lib/modal-ids";
-import useTagsQuery from "@/lib/query/useTagsQuery";
-import useTagsTreeQuery from "@/lib/query/useTagsTreeQuery";
+import useTagsQuery from "@/lib/query/tags/useTagsQuery";
+import useTagsTreeQuery from "@/lib/query/tags/useTagsTreeQuery";
 import Badge from "@/lib/theme/components/Badge";
 import type { TagWithIds } from "@/types/server/tag.types";
 import type { ById, ID } from "@/types/server/utility.types";

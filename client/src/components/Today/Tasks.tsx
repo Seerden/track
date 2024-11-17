@@ -3,7 +3,7 @@ import NewActivity from "@/components/activities/NewActivity/NewActivity";
 import Modal from "@/components/utility/Modal/Modal";
 import { filterTagsById } from "@/lib/filter-tags";
 import modalIds from "@/lib/modal-ids";
-import useTagsQuery from "@/lib/query/useTagsQuery";
+import useTagsQuery from "@/lib/query/tags/useTagsQuery";
 import { useModalState } from "@/lib/state/modal-state";
 import type { ActivityWithIds } from "@type/server/activity.types";
 import Task from "./Task";

@@ -4,7 +4,7 @@ import type { Datelike } from "@/types/date.types";
 import { hasValidUserId } from "@/types/server/user-id.guards";
 import useAuthentication from "@lib/hooks/useAuthentication";
 import useRouteProps from "@lib/hooks/useRouteProps";
-import { useNewActivityMutation } from "@lib/query/useNewActivityMutation";
+import { useNewActivityMutation } from "@lib/query/activities/useNewActivityMutation";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import type { DateTimeField } from "@type/form.types";
 import type { NewActivity } from "@type/server/activity.types";

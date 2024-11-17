@@ -11,7 +11,7 @@ import Modal from "@/components/utility/Modal/Modal";
 import { today } from "@/lib/datetime/make-date";
 import useHabitsData from "@/lib/hooks/useHabitsData";
 import modalIds from "@/lib/modal-ids";
-import useActivitiesQuery from "@/lib/query/useActivitiesQuery";
+import useActivitiesQuery from "@/lib/query/activities/useActivitiesQuery";
 import { useModalState } from "@/lib/state/modal-state";
 import type { TimeWindow } from "@/types/time-window.types";
 import { activityFallsOnDay, isAllDayActivityOnDate } from "@lib/activity";

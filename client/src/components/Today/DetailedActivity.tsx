@@ -4,7 +4,7 @@ import { activityEnd, activityStart, hasNotEnded, startsInFuture } from "@/lib/a
 import { createDate } from "@/lib/datetime/make-date";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
-import useTagsQuery from "@/lib/query/useTagsQuery";
+import useTagsQuery from "@/lib/query/tags/useTagsQuery";
 import CardStyle from "@/lib/theme/components/Card.style";
 import { Checkbox } from "@/lib/theme/components/Checkbox";
 import type { Datelike } from "@/types/date.types";

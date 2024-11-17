@@ -1,5 +1,5 @@
-import useActivitiesQuery from "@/lib/query/useActivitiesQuery";
-import useTagsQuery from "@/lib/query/useTagsQuery";
+import useActivitiesQuery from "@/lib/query/activities/useActivitiesQuery";
+import useTagsQuery from "@/lib/query/tags/useTagsQuery";
 
 export default function useActivityList() {
 	const { data: activitiesData } = useActivitiesQuery();

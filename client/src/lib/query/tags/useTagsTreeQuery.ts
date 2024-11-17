@@ -1,7 +1,7 @@
 import type { TagsTreeData } from "@/types/data.types";
 import { useQuery } from "@tanstack/react-query";
-import { makeAuthorizedUrl } from "../fetch/make-authorized-url";
-import { defaultQueryConfig } from "../query-client";
+import { makeAuthorizedUrl } from "../../fetch/make-authorized-url";
+import { defaultQueryConfig } from "../../query-client";
 
 export async function getTagsTree() {
 	const url = makeAuthorizedUrl("/data/tags/tree");

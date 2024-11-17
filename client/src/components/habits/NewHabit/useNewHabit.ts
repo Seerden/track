@@ -2,7 +2,7 @@ import { createDate } from "@/lib/datetime/make-date";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import modalIds from "@/lib/modal-ids";
-import { useNewHabitMutation } from "@/lib/query/useNewHabitMutation";
+import { useNewHabitMutation } from "@/lib/query/habits/useNewHabitMutation";
 import { useModalState } from "@/lib/state/modal-state";
 import { useTagSelection } from "@/lib/state/selected-tags-state";
 import type { NewHabit } from "@/types/server/habit.types";

@@ -1,5 +1,5 @@
-import useNotesQuery from "@/lib/query/useNotesQuery";
-import useTagsQuery from "@/lib/query/useTagsQuery";
+import useNotesQuery from "@/lib/query/notes/useNotesQuery";
+import useTagsQuery from "@/lib/query/tags/useTagsQuery";
 
 export default function useNotes() {
 	const { data: notes } = useNotesQuery();

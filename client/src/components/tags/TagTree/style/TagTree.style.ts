@@ -5,7 +5,6 @@ import { spacing } from "@/lib/theme/snippets/spacing";
 import { motion } from "framer-motion";
 import styled, { css } from "styled-components";
 
-const borderColors = ["#444", "#777", "#aaa", "#ddd"];
 const colors = ["deepskyblue", "blueviolet", "darkorchid", "darkviolet", "indigo"];
 
 const TagName = styled.label<{ $level: number }>`

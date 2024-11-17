@@ -1,7 +1,7 @@
+import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
+import { defaultQueryConfig } from "@/lib/query-client";
 import type { ActivitiesData } from "@/types/data.types";
 import { useQuery } from "@tanstack/react-query";
-import { makeAuthorizedUrl } from "../fetch/make-authorized-url";
-import { defaultQueryConfig } from "../query-client";
 
 async function getActivities() {
 	const url = makeAuthorizedUrl("/data/activities");

@@ -1,4 +1,4 @@
-import useTaskCompletionMutation from "@/lib/query/useTaskMutation";
+import useTaskCompletionMutation from "@/lib/query/activities/useTaskMutation";
 import type { ActivityWithIds } from "@/types/server/activity.types";
 import { useCallback } from "react";
 

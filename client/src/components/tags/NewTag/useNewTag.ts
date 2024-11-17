@@ -1,5 +1,5 @@
 import modalIds from "@/lib/modal-ids";
-import useTagsQuery from "@/lib/query/useTagsQuery";
+import useTagsQuery from "@/lib/query/tags/useTagsQuery";
 import { useModalState } from "@/lib/state/modal-state";
 import useAuthentication from "@lib/hooks/useAuthentication";
 import { queryClient } from "@lib/query-client";
