@@ -1,4 +1,4 @@
-import Modal from "@/components/Modal";
+import Modal from "@/components/Modal/Modal";
 import Empty from "@/components/Today/Empty";
 import NewActivity from "@/components/activities/NewActivity/NewActivity";
 import { filterTagsById } from "@/lib/filter-tags";

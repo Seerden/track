@@ -1,7 +1,7 @@
 import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
 
-export const ModalWrapper = styled.div`
+const ModalWrapper = styled.div`
 	overflow: hidden;
 	z-index: 100; // TODO: should put these indexes somewhere so we can reason about them
 	position: fixed;
@@ -15,7 +15,7 @@ export const ModalWrapper = styled.div`
 	justify-content: center;
 `;
 
-export const Close = styled.button`
+const Close = styled.button`
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -44,7 +44,7 @@ export const Close = styled.button`
 	}
 `;
 
-export const Modal = styled.div`
+const Modal = styled.div`
 	position: relative;
 	${spacing.padding.wide({ size: 1.2, ratio: 1.25 })}
 	background-color: #eee; // TODO: this should be a theme value
@@ -56,3 +56,5 @@ export const Modal = styled.div`
 		0.8rem 0.8rem 0.1rem -0.2rem #aaa,
 		1.1rem -0.5rem 0.1rem -0.2rem deepskyblue;
 `;
+
+export default { ModalWrapper, Close, Modal };

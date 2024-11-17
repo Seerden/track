@@ -2,7 +2,7 @@ import NewActivity from "@/components/activities/NewActivity/NewActivity";
 import Calendar from "@/components/Calendar/Calendar";
 import Habits from "@/components/habits/Habits/Habits";
 import NewHabit from "@/components/habits/NewHabit/NewHabit";
-import Modal from "@/components/Modal";
+import Modal from "@/components/Modal/Modal";
 import AllDayActivities from "@/components/Today/AllDayActivities";
 import ChangeDayButton from "@/components/Today/ChangeDayButton";
 import DetailedActivity from "@/components/Today/DetailedActivity";
