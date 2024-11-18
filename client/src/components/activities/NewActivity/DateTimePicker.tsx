@@ -11,6 +11,7 @@ export default function DateTimePicker({ setState }: DateTimePickerProps) {
 		manualEndDate,
 		defaultStartDate,
 		date,
+		time,
 		onStartDateChange,
 		onEndDateChange,
 		onAllDayChange,
@@ -18,6 +19,14 @@ export default function DateTimePicker({ setState }: DateTimePickerProps) {
 	} = useDateTimePicker({
 		setState
 	});
+
+	// TODO: defaultStartDate is currently _always_ set to today. Use the
+	// selectedTimeWindow state in Today and also here (through NewActivity? Or
+	// directly here?) to properly determine this. The intended functionality is
+	// that the current time gets suggested if the user is creating an activity
+	// for today, otherwise no time is suggested. Also, if Today is set to a date
+	// other than today, the default dates should be set to that date, instead of
+	// to today.
 
 	return (
 		<S.Form>
@@ -52,6 +61,7 @@ export default function DateTimePicker({ setState }: DateTimePickerProps) {
 						<DefaultInput
 							type="text"
 							onBlur={(e) => onTimeChange(e, "start")}
+							defaultValue={time.start}
 							// TODO: Need something in the UI to clarify the time
 							// format (also in the endTime field), just this
 							// placeholder is not enough -- do this after implementing
@@ -66,6 +76,7 @@ export default function DateTimePicker({ setState }: DateTimePickerProps) {
 							type="text"
 							placeholder={"HHmm"}
 							onBlur={(e) => onTimeChange(e, "end")}
+							defaultValue={time.end}
 							disabled={allDay}
 						/>
 					</S.Label>

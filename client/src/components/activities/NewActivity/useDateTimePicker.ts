@@ -98,6 +98,7 @@ export default function useDateTimePicker({ setState }: DateTimePickerProps) {
 		setManualEndDate,
 		date,
 		setDate,
+		time,
 		defaultStartDate,
 		onStartDateChange,
 		onEndDateChange,
