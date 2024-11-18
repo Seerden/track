@@ -1,5 +1,5 @@
 import { insertTagWithRelation } from "@/lib/data/insert-tags";
-import { TagInput } from "@t/data/tag.types";
+import { TagInput } from "@t/data//tag.types";
 import { RequestHandler } from "express";
 
 const postTag: RequestHandler = async (req, res) => {

@@ -1,6 +1,6 @@
-import type { Activity, NewActivity } from "../../../types/data/activity.types";
-import type { ActivityTagRelation } from "../../../types/data/relational.types";
-import type { ID } from "../../../types/data/utility.types";
+import type { Activity, NewActivity } from "@t/data/activity.types";
+import type { ActivityTagRelation } from "@t/data/relational.types";
+import type { ID } from "@t/data/utility.types";
 import type { WithSQL } from "../../../types/sql.types";
 import { sqlConnection } from "../../db/init";
 

@@ -20,7 +20,8 @@
 		"paths": {
 			"@/*": ["server/src/*"],
 			"@lib/*": ["server/src/lib/*"],
-			"@t/*": ["shared/types/*"]
+			"@t/*": ["shared/types/*"],
+			"types/*": ["server/types/*"]
 		}
 	},
 	"exclude": ["./node_modules", "node_modules"],

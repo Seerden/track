@@ -1,5 +1,5 @@
 import { insertActivityWithTags } from "@/lib/data/insert-activity";
-import { ActivityInput } from "@t/data/activity.types";
+import { ActivityInput } from "@t/data//activity.types";
 import { RequestHandler } from "express";
 
 const postActivity: RequestHandler = async (req, res) => {

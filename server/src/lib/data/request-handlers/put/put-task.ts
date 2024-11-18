@@ -1,6 +1,6 @@
 import { queryActivityByIdWithRelations } from "@/lib/data/query-activities";
 import { updateActivityCompletion } from "@/lib/data/update-activity";
-import { ActivityUpdateInput } from "@t/data/activity.types";
+import { ActivityUpdateInput } from "@t/data//activity.types";
 import { RequestHandler } from "express";
 
 const putTaskCompletion: RequestHandler = async (req, res) => {

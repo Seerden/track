@@ -1,9 +1,9 @@
 import { sqlConnection } from "@/db/init";
 import { mergeHabitsAndRelations } from "@/lib/data/merge-habits-and-relations";
 import { queryHabitEntriesByUser } from "@/lib/data/query-habit-entries";
-import type { Habit } from "@t/data/habit.types";
-import type { HabitTagRelation } from "@t/data/relational.types";
-import type { ID } from "@t/data/utility.types";
+import type { Habit } from "@t/data//habit.types";
+import type { HabitTagRelation } from "@t/data//relational.types";
+import type { ID } from "@t/data//utility.types";
 import type { WithSQL } from "types/sql.types";
 
 async function queryHabitsByUser({

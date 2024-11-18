@@ -1,5 +1,5 @@
 import { insertNoteWithTags } from "@/lib/data/insert-note";
-import { NoteInput } from "@t/data/note.types";
+import { NoteInput } from "@t/data//note.types";
 import { RequestHandler } from "express";
 
 const postNote: RequestHandler = async (req, res) => {

@@ -1,6 +1,6 @@
-import type { TagTagRelation } from "../../../types/data/relational.types";
-import type { TagWithId, TagWithIds } from "../../../types/data/tag.types";
-import type { ById, ID } from "../../../types/data/utility.types";
+import type { TagTagRelation } from "@t/data/relational.types";
+import type { TagWithId, TagWithIds } from "@t/data/tag.types";
+import type { ById, ID } from "@t/data/utility.types";
 import { queryTagsAndRelations } from "./query-tags";
 
 /**

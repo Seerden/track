@@ -1,6 +1,6 @@
-import type { Note } from "../../../types/data/note.types";
-import type { NoteTagRelation } from "../../../types/data/relational.types";
-import type { ID } from "../../../types/data/utility.types";
+import type { Note } from "@t/data/note.types";
+import type { NoteTagRelation } from "@t/data/relational.types";
+import type { ID } from "@t/data/utility.types";
 import type { WithSQL } from "../../../types/sql.types";
 import { sqlConnection } from "../../db/init";
 import { mergeNotesAndRelations } from "./merge-notes-and-relations";
@@ -26,7 +26,7 @@ async function queryNoteTagsByUser({
 /** Gets all of a user's notes including their tag(_id)s */
 export async function queryNotesAndRelations(
 	{ user_id }: { user_id: ID },
-	sql = sqlConnection
+	sql = sqlConnection,
 ) {
 	const notes = await queryNotesByUser({ sql, user_id });
 	const noteTagRelations = await queryNoteTagsByUser({ sql, user_id });
