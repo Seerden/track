@@ -1,5 +1,8 @@
 import TimelineRow from "@/components/Today/TimelineRow";
-import { activityStartHour, assignIndentationLevelToActivities } from "@/lib/activity";
+import {
+	activityStartHourOnDate,
+	assignIndentationLevelToActivities
+} from "@/lib/activity";
 import type { ActivityWithIds } from "@t/data/activity.types";
 import type { Datelike } from "@t/data/utility.types";
 import S from "./style/Today.style";
@@ -38,7 +41,7 @@ export default function TimelineRows({ activities, currentDate }: RowsProps) {
 						key={i}
 						index={i}
 						activities={activities.filter(
-							(a) => activityStartHour(a, currentDate) === i
+							(a) => activityStartHourOnDate(a, currentDate) === i
 						)}
 						indentation={indentation}
 					/>

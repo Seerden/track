@@ -1,24 +1,20 @@
 import { useDetailedActivityModal } from "@/components/Today/hooks/useDetailedActivityModal";
-import { activityDuration, activityStart, activityStartHour } from "@/lib/activity";
+import { activityDurationOnDate, activityStartOnDate } from "@/lib/activity";
 import type { ActivityWithIds } from "@t/data/activity.types";
+import { Datelike } from "@t/data/utility.types";
 import T from "./style/Activity.style";
 
-function useActivity(activity: ActivityWithIds) {
-	const offset = activityStart(activity).minute() / 60; // TODO: BUG: this takes the start on the first day, needs the start on the displayed day
+function useActivity(activity: ActivityWithIds, date: Datelike) {
+	const start = activityStartOnDate(activity, date);
+	const offset = !start ? 0 : start.minute() / 60;
 	const { openDetailedActivityModal } = useDetailedActivityModal(activity);
 
 	/** This is the _displayed_ duration on the Today timeline. A multiday
-	 * activity still "ends" at midnight on this view. TODO: maybe change this
-	 * variable name to reflect this. */
-	const durationHours = Math.min(
-		// TODO: same as above, needs to be on the displayed day, not on the
-		// activity's first day
-		activityDuration(activity),
-		24 - offset - activityStartHour(activity, activityStart(activity))
-	);
+	 * activity still "ends" at midnight on this view. */
+	const durationHoursOnDate = activityDurationOnDate(activity, date);
 
 	return {
-		durationHours,
+		durationHoursOnDate,
 		offset,
 		openDetailedActivityModal
 	} as const;
@@ -27,10 +23,14 @@ function useActivity(activity: ActivityWithIds) {
 export type ActivityProps = {
 	activity: ActivityWithIds;
 	level: number;
+	date: Datelike;
 };
 
-export default function Activity({ activity, level }: ActivityProps) {
-	const { offset, openDetailedActivityModal, durationHours } = useActivity(activity);
+export default function Activity({ activity, level, date }: ActivityProps) {
+	const { offset, openDetailedActivityModal, durationHoursOnDate } = useActivity(
+		activity,
+		date
+	);
 
 	return (
 		<T.ActivityCard
@@ -45,7 +45,7 @@ export default function Activity({ activity, level }: ActivityProps) {
 			{/* TODO: on mouseover, display a short humanized time string */}
 			<T.Activity
 				$isTask={activity.is_task}
-				$durationHours={durationHours}
+				$durationHours={durationHoursOnDate}
 				$completed={activity.completed}
 			>
 				<T.ActivityName>{activity.name}</T.ActivityName>

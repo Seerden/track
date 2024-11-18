@@ -20,6 +20,7 @@ module.exports = {
 	},
 	plugins: ["react", "@typescript-eslint", "eslint-plugin-react-compiler", "track"],
 	root: true,
+	ignores: ["node_modules", "build", "dist"],
 	settings: {
 		react: {
 			version: "detect"
