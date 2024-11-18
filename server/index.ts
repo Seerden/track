@@ -16,7 +16,7 @@ async function start() {
 		cors({
 			origin: true, // Could also use client domain (in dev: http://localhost:3000)
 			credentials: true,
-		})
+		}),
 	);
 
 	app.use(logRequests);
@@ -26,7 +26,7 @@ async function start() {
 			limit: "5mb",
 			parameterLimit: 10000,
 			extended: true,
-		}) as RequestHandler
+		}) as RequestHandler,
 	);
 
 	app.use(express.json() as RequestHandler);

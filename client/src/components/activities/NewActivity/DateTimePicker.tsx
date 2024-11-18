@@ -12,7 +12,7 @@ export default function DateTimePicker({ setState }: DateTimePickerProps) {
 		defaultStartDate,
 		date,
 		defaultStartTime,
-      defaultEndTime,
+		defaultEndTime,
 		onStartDateChange,
 		onEndDateChange,
 		onAllDayChange,

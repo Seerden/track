@@ -1,5 +1,5 @@
 import { deleteHabitById } from "@/lib/data/delete-habit";
-import { RequestHandler } from "express";
+import type { RequestHandler } from "express";
 
 const deleteHabit: RequestHandler = async (req, res) => {
 	const { habit_id } = req.params;

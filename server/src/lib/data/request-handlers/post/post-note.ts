@@ -1,6 +1,6 @@
 import { insertNoteWithTags } from "@/lib/data/insert-note";
-import { NoteInput } from "@t/data/note.types";
-import { RequestHandler } from "express";
+import type { NoteInput } from "@t/data/note.types";
+import type { RequestHandler } from "express";
 
 const postNote: RequestHandler = async (req, res) => {
 	const { note, tagIds } = req.body as NoteInput;

@@ -1,5 +1,5 @@
 import { groupById, queryHabitEntriesByUser } from "@/lib/data/query-habit-entries";
-import { RequestHandler } from "express";
+import type { RequestHandler } from "express";
 
 const getHabitEntries: RequestHandler = async (req, res) => {
 	const user_id = req.session.user!.user_id;

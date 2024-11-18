@@ -1,7 +1,7 @@
 import { queryActivityByIdWithRelations } from "@/lib/data/query-activities";
 import { updateActivityCompletion } from "@/lib/data/update-activity";
-import { ActivityUpdateInput } from "@t/data/activity.types";
-import { RequestHandler } from "express";
+import type { ActivityUpdateInput } from "@t/data/activity.types";
+import type { RequestHandler } from "express";
 
 const putTaskCompletion: RequestHandler = async (req, res) => {
 	const { input } = req.body as { input: ActivityUpdateInput };
