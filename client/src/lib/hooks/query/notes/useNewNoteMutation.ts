@@ -1,3 +1,4 @@
+import { mk } from "@/lib/query-keys";
 import { createRequestConfig } from "@lib/fetch/create-request-config";
 import { makeAuthorizedUrl } from "@lib/fetch/make-authorized-url";
 import { useMutation } from "@tanstack/react-query";
@@ -13,6 +14,6 @@ export function useNewNoteMutation() {
 		async mutationFn({ note, tagIds }) {
 			return postNote({ note, tagIds });
 		},
-		mutationKey: ["new-note"]
+		mutationKey: mk.notes.new
 	});
 }

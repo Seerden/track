@@ -1,5 +1,6 @@
 import { createRequestConfig } from "@/lib/fetch/create-request-config";
 import { baseUrl } from "@/lib/fetch/fetch-constants";
+import { mk, qk } from "@/lib/query-keys";
 import { localUser } from "@/lib/user-storage";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Data } from "@type/query.types";
@@ -15,13 +16,13 @@ export default function useLoginMutation() {
 	const client = useQueryClient();
 
 	return useMutation<Data<"user", User>, unknown, UserLogin>({
-		mutationKey: ["me"],
+		mutationKey: mk.user.login,
 		async mutationFn(user) {
 			return postLogin(user);
 		},
 		onSuccess: ({ user }) => {
 			localUser.set(user);
-			client.setQueryData(["me"], { user });
+			client.setQueryData(qk.user.me, { user });
 		}
 	});
 }

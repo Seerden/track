@@ -1,6 +1,6 @@
 import { baseUrl } from "@/lib/fetch/fetch-constants";
 import { defaultQueryConfig } from "@/lib/query-client";
-import qk from "@/lib/query-keys";
+import { qk } from "@/lib/query-keys";
 import { localUser } from "@/lib/user-storage";
 import { useQuery } from "@tanstack/react-query";
 import type { Data } from "@type/query.types";

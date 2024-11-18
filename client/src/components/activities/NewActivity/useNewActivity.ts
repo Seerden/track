@@ -1,5 +1,5 @@
 import { queryClient } from "@/lib/query-client";
-import qk from "@/lib/query-keys";
+import { qk } from "@/lib/query-keys";
 import { useModalState } from "@/lib/state/modal-state";
 import type { Datelike } from "@/types/date.types";
 import { hasValidUserId } from "@/types/server/user-id.guards";

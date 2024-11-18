@@ -1,6 +1,6 @@
 import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
 import { defaultQueryConfig } from "@/lib/query-client";
-import qk from "@/lib/query-keys";
+import { qk } from "@/lib/query-keys";
 import type { HabitsData } from "@/types/data.types";
 import { useQuery } from "@tanstack/react-query";
 

@@ -1,4 +1,4 @@
-import qk from "@/lib/query-keys";
+import { qk } from "@/lib/query-keys";
 import type { TagsTreeData } from "@/types/data.types";
 import { makeAuthorizedUrl } from "@lib/fetch/make-authorized-url";
 import { defaultQueryConfig } from "@lib/query-client";

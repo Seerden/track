@@ -1,6 +1,6 @@
 import { useNewNoteMutation } from "@/lib/hooks/query/notes/useNewNoteMutation";
 import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
-import qk from "@/lib/query-keys";
+import { qk } from "@/lib/query-keys";
 import useAuthentication from "@lib/hooks/useAuthentication";
 import useRouteProps from "@lib/hooks/useRouteProps";
 import { queryClient } from "@lib/query-client";

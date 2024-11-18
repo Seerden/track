@@ -1,4 +1,4 @@
-import qk from "@/lib/query-keys";
+import { qk } from "@/lib/query-keys";
 import { makeAuthorizedUrl } from "@lib/fetch/make-authorized-url";
 import { defaultQueryConfig, queryClient } from "@lib/query-client";
 import { useQuery } from "@tanstack/react-query";

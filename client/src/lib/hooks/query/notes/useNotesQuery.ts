@@ -1,4 +1,4 @@
-import qk from "@/lib/query-keys";
+import { qk } from "@/lib/query-keys";
 import type { NotesData } from "@/types/data.types";
 import { makeAuthorizedUrl } from "@lib/fetch/make-authorized-url";
 import { defaultQueryConfig } from "@lib/query-client";

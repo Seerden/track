@@ -1,3 +1,4 @@
+/** query keys */
 const qk = {
 	user: {
 		me: ["me"] as const
@@ -22,4 +23,39 @@ const qk = {
 	}
 } as const;
 
-export default qk;
+/** mutation keys */
+const mk = {
+	user: {
+		login: ["login"] as const,
+		logout: ["logout"] as const,
+		register: ["register"] as const
+	},
+
+	tags: {
+		new: ["new-tag"] as const
+	},
+
+	activities: {
+		new: ["new-activity"] as const,
+		update: {
+			task: {
+				completion: ["task-completion"] as const
+			}
+		}
+	},
+
+	notes: {
+		new: ["new"] as const
+	},
+
+	habits: {
+		new: ["new-habit"] as const,
+		delete: ["delete-habit"] as const,
+		entries: {
+			new: ["new-habit-entry"] as const,
+			update: ["habit-entry"] as const
+		}
+	}
+} as const;
+
+export { mk, qk };
