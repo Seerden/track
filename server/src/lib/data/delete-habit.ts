@@ -1,5 +1,5 @@
 import { sqlConnection } from "@/db/init";
-import type { Habit } from "@t/data//habit.types";
+import type { Habit } from "@t/data/habit.types";
 import type { WithSQL } from "types/sql.types";
 
 export async function deleteHabitById({

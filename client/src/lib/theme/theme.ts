@@ -1,5 +1,5 @@
-import { font } from "@/lib/theme/font.ts";
-import { colors } from "./colors.ts";
+import { font } from "@/lib/theme/font";
+import { colors } from "./colors";
 export const theme = {
 	colors,
 	font

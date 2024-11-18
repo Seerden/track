@@ -1,5 +1,5 @@
-import type { TagWithIds } from "../types/server/tag.types";
-import type { ById, ID, Maybe } from "../types/server/utility.types";
+import type { TagWithIds } from "@t/data/tag.types";
+import type { ById, ID, Maybe } from "@t/data/utility.types";
 
 /**
  * Given a tagsById object and a list of tag `ids`, return the list of tags that

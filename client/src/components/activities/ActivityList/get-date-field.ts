@@ -1,5 +1,4 @@
 import { formatDate } from "@lib/datetime/format-date";
-import { activityGuards } from "@t/data/activity.guards";
 import type { ActivityWithIds } from "@t/data/activity.types";
 
 export function getDateField({
@@ -12,11 +11,9 @@ export function getDateField({
 	let field;
 
 	if (type === "start") {
-		field = activityGuards.withDates(activity)
-			? activity.start_date
-			: activity.started_at;
+		field = activity.start_date ?? activity.started_at;
 	} else {
-		field = activityGuards.withDates(activity) ? activity.end_date : activity.ended_at;
+		field = activity.end_date ?? activity.ended_at;
 	}
 
 	return field;

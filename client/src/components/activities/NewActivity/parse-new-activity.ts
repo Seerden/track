@@ -1,8 +1,8 @@
 import { createDate } from "@/lib/datetime/make-date";
+import type { DateTimeField } from "@/types/form.types";
 import { activityGuards } from "@t/data/activity.guards";
 import { type NewActivity } from "@t/data/activity.types";
 import type { AtLeast } from "@t/data/utility.types";
-import type { DateTimeField } from "@type/form.types";
 
 /**
  * An activity either has date fields (start_date, end_date) or timestamp fields
@@ -48,7 +48,7 @@ export function parseNewActivity(
 		newActivity.end_date = createDate(newActivity.end_date).endOf("day");
 	}
 
-	return newActivity;
+	return newActivity as NewActivity;
 }
 
 /** TODO: currently unused -- have a careful look at what a valid new activity

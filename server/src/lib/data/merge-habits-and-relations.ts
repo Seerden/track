@@ -1,6 +1,6 @@
-import type { Habit, HabitEntry, HabitWithIds } from "@t/data//habit.types";
-import type { HabitTagRelation } from "@t/data//relational.types";
-import type { ById } from "@t/data//utility.types";
+import type { Habit, HabitEntry, HabitWithIds } from "@t/data/habit.types";
+import type { HabitTagRelation } from "@t/data/relational.types";
+import type { ById } from "@t/data/utility.types";
 
 export function mergeHabitsAndRelations(
 	habits: Habit[],

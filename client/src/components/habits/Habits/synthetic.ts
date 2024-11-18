@@ -1,7 +1,6 @@
 import { createDate } from "@/lib/datetime/make-date";
-import type { Datelike } from "@/types/date.types";
 import type { TimeWindow } from "@/types/time-window.types";
-import type { ById, ID } from "shared/types/data/utility.types";
+import type { ById, Datelike, ID } from "shared/types/data/utility.types";
 import type {
 	Habit,
 	HabitEntry,

@@ -1,7 +1,7 @@
-import { useDetailedActivityModal } from "@/components/Today/hooks/useDetailedActivityModal.ts";
-import { activityDuration, activityStart, activityStartHour } from "@/lib/activity.ts";
-import type { ActivityWithIds } from "@t/data/activity.types.ts";
-import T from "./style/Activity.style.ts";
+import { useDetailedActivityModal } from "@/components/Today/hooks/useDetailedActivityModal";
+import { activityDuration, activityStart, activityStartHour } from "@/lib/activity";
+import type { ActivityWithIds } from "@t/data/activity.types";
+import T from "./style/Activity.style";
 
 function useActivity(activity: ActivityWithIds) {
 	const offset = activityStart(activity).minute() / 60; // TODO: BUG: this takes the start on the first day, needs the start on the displayed day

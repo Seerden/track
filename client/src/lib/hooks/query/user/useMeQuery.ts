@@ -2,10 +2,10 @@ import { baseUrl } from "@/lib/fetch/fetch-constants";
 import { defaultQueryConfig } from "@/lib/query-client";
 import { qk } from "@/lib/query-keys";
 import { localUser } from "@/lib/user-storage";
+import type { Data } from "@/types/query.types";
 import type { User } from "@t/data/user.types";
 import type { Maybe } from "@t/data/utility.types";
 import { useQuery } from "@tanstack/react-query";
-import type { Data } from "@type/query.types";
 
 export async function getMe() {
 	const response = await fetch(`${baseUrl}/auth/me`, {

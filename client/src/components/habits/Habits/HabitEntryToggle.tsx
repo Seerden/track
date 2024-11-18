@@ -14,7 +14,9 @@ export default function HabitEntryToggle({
 	entry,
 	onChange
 }: HabitEntryToggleProps) {
-	const defaultValue = Boolean(isSynthetic(entry) ? false : entry.value === "true");
+	const defaultValue = Boolean(
+		isSynthetic(entry) ? false : (entry as HabitEntry).value === "true"
+	);
 	const [value, setValue] = useState(defaultValue);
 
 	if (habit.goal_type !== "checkbox") return;

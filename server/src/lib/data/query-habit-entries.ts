@@ -1,6 +1,6 @@
 import { sqlConnection } from "@/db/init";
-import type { HabitEntry } from "@t/data//habit.types";
-import type { ById, ID } from "@t/data//utility.types";
+import type { HabitEntry } from "@t/data/habit.types";
+import type { ById, ID } from "@t/data/utility.types";
 import type { WithSQL } from "types/sql.types";
 
 export async function queryHabitEntriesByUser({

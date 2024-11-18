@@ -1,4 +1,4 @@
-import { type NewUser, type UserLogin } from "@t/data//user.types";
+import { type NewUser, type UserLogin } from "@t/data/user.types";
 import { Router } from "express";
 import { destroySession } from "../lib/auth/destroy-session";
 import { login } from "../lib/auth/log-in";

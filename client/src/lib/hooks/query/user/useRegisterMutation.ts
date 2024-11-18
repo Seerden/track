@@ -1,9 +1,9 @@
 import { createRequestConfig } from "@/lib/fetch/create-request-config";
 import { baseUrl } from "@/lib/fetch/fetch-constants";
 import { mk } from "@/lib/query-keys";
+import type { Data } from "@/types/query.types";
 import type { NewUser, User } from "@t/data/user.types";
 import { useMutation } from "@tanstack/react-query";
-import type { Data } from "@type/query.types";
 
 async function postRegister(newUser: NewUser) {
 	return (

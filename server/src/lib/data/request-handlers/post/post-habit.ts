@@ -1,5 +1,5 @@
 import { insertHabitWithTags } from "@/lib/data/insert-habit";
-import { HabitInput } from "@t/data//habit.types";
+import { HabitInput } from "@t/data/habit.types";
 import { RequestHandler } from "express";
 
 const postHabit: RequestHandler = async (req, res) => {

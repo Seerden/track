@@ -1,5 +1,5 @@
 import { sqlConnection } from "@/db/init";
-import type { Activity, ActivityUpdateInput } from "@t/data//activity.types";
+import type { Activity, ActivityUpdateInput } from "@t/data/activity.types";
 import dayjs from "dayjs";
 import type { WithSQL } from "types/sql.types";
 
