@@ -1,7 +1,6 @@
 import router from "@/lib/router";
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
-
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import duration from "dayjs/plugin/duration";
@@ -15,6 +14,7 @@ import { RouterProvider } from "react-router-dom";
 import "./index.scss";
 import { worker } from "./mocks/browser";
 import "./normalize.css";
+
 dayjs.extend(duration);
 dayjs.extend(relativeTime);
 dayjs.extend(tz);
