@@ -26,34 +26,34 @@ const qk = {
 /** mutation keys */
 const mk = {
 	user: {
-		login: ["login"] as const,
-		logout: ["logout"] as const,
-		register: ["register"] as const
+		login: ["login"],
+		logout: ["logout"],
+		register: ["register"]
 	},
 
 	tags: {
-		new: ["new-tag"] as const
+		new: ["new-tag"]
 	},
 
 	activities: {
-		new: ["new-activity"] as const,
+		new: ["new-activity"],
 		update: {
 			task: {
-				completion: ["task-completion"] as const
+				completion: ["task-completion"]
 			}
 		}
 	},
 
 	notes: {
-		new: ["new"] as const
+		new: ["new"]
 	},
 
 	habits: {
-		new: ["new-habit"] as const,
-		delete: ["delete-habit"] as const,
+		new: ["new-habit"],
+		delete: ["delete-habit"],
 		entries: {
-			new: ["new-habit-entry"] as const,
-			update: ["habit-entry"] as const
+			new: ["new-habit-entry"],
+			update: ["habit-entry"]
 		}
 	}
 } as const;
