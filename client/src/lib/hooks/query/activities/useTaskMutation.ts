@@ -1,6 +1,7 @@
 import { createRequestConfig } from "@/lib/fetch/create-request-config";
 import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
 import { queryClient } from "@/lib/query-client";
+import { mk, qk } from "@/lib/query-keys";
 import type { ActivitiesData } from "@/types/data.types";
 import type { ActivityUpdateInput, ActivityWithIds } from "@/types/server/activity.types";
 import type { ById } from "@/types/server/utility.types";
@@ -17,7 +18,7 @@ async function putTaskCompletion(input: ActivityUpdateInput): Promise<ActivityWi
  * cannot be used outside of a hook because it depends on the react-query context.
  */
 function updateActivitiesCache(updatedActivity: ActivityWithIds) {
-	queryClient.setQueryData<ActivitiesData>(["activities"], (old): ActivitiesData => {
+	queryClient.setQueryData<ActivitiesData>(qk.activities.all, (old): ActivitiesData => {
 		if (!old)
 			// This should never happen, since how could we update an activity that doesn't exist?
 			return {
@@ -42,7 +43,7 @@ export default function useTaskCompletionMutation() {
 		async mutationFn(activity) {
 			return putTaskCompletion(activity);
 		},
-		mutationKey: ["task-completion"],
+		mutationKey: mk.activities.update.task.completion,
 		onSuccess: updateActivitiesCache
 	});
 }

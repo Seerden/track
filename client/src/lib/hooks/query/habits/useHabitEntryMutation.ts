@@ -1,5 +1,6 @@
 import { createRequestConfig } from "@/lib/fetch/create-request-config";
 import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
+import { mk } from "@/lib/query-keys";
 import type {
 	HabitEntry,
 	HabitEntryUpdateInput,
@@ -26,6 +27,6 @@ export default function useHabitEntryMutation() {
 		async mutationFn(habitEntry) {
 			return putHabitEntry(habitEntry);
 		},
-		mutationKey: ["habit-entry"]
+		mutationKey: mk.habits.entries.update
 	});
 }

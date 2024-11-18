@@ -1,5 +1,6 @@
 import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
 import modalIds from "@/lib/modal-ids";
+import { qk } from "@/lib/query-keys";
 import { useModalState } from "@/lib/state/modal-state";
 import useAuthentication from "@lib/hooks/useAuthentication";
 import { queryClient } from "@lib/query-client";
@@ -43,7 +44,7 @@ export default function useNewTag() {
 			{ newTag, parent_id },
 			{
 				onSuccess: () => {
-					queryClient.invalidateQueries({ queryKey: ["tags"] });
+					queryClient.invalidateQueries({ queryKey: qk.tags.all });
 					closeModal(modalIds.tagSelector.newActivity);
 				}
 			}

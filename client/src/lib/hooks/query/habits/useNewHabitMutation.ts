@@ -1,5 +1,6 @@
 import { createRequestConfig } from "@/lib/fetch/create-request-config";
 import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
+import { mk } from "@/lib/query-keys";
 import type { HabitInput, HabitWithIds } from "@/types/server/habit.types";
 import { useMutation } from "@tanstack/react-query";
 
@@ -17,6 +18,6 @@ export function useNewHabitMutation() {
 		async mutationFn(habitInput) {
 			return postNewHabit(habitInput);
 		},
-		mutationKey: ["new-habit"]
+		mutationKey: mk.habits.new
 	});
 }
