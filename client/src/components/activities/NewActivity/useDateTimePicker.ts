@@ -1,6 +1,6 @@
 import { isToday } from "@/lib/datetime/compare";
 import { selectedTimeWindowState } from "@/lib/state/selected-time-window-state";
-import { createDate, today } from "@lib/datetime/make-date";
+import { createDate, now } from "@lib/datetime/make-date";
 import { parseTimeString } from "@lib/datetime/parse-string";
 import { useEffect, useMemo, useState } from "react";
 import { useRecoilValue } from "recoil";
@@ -39,7 +39,7 @@ export default function useDateTimePicker({ setState }: DateTimePickerProps) {
 		end: defaultStartDate
 	});
 
-	const currentTime = today();
+	const currentTime = now();
 
 	const [time, setTime] = useState({
 		start: currentTime.format("HHmm"),
