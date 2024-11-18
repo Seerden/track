@@ -24,7 +24,7 @@ services:
          context: ../server
          dockerfile: Dockerfile
       volumes:
-         - ../:track
+         - ../:/track
          - ../server:/track/server
          - node_modules_server:/track/server/node_modules
       depends_on:
