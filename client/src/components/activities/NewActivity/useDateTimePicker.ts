@@ -1,6 +1,9 @@
+import { isToday } from "@/lib/datetime/compare";
+import { selectedTimeWindowState } from "@/lib/state/selected-time-window-state";
 import { createDate, today } from "@lib/datetime/make-date";
 import { parseTimeString } from "@lib/datetime/parse-string";
 import { useEffect, useMemo, useState } from "react";
+import { useRecoilValue } from "recoil";
 import type { DateTimePickerProps } from "./datetime-picker.types";
 
 export default function useDateTimePicker({ setState }: DateTimePickerProps) {
@@ -26,7 +29,10 @@ export default function useDateTimePicker({ setState }: DateTimePickerProps) {
 	}, [allDay]);
 
 	const [manualEndDate, setManualEndDate] = useState(false);
-	const defaultStartDate = today().format("YYYY-MM-DD");
+	const timeWindow = useRecoilValue(selectedTimeWindowState);
+	const defaultStartDate = useMemo(() => {
+		return timeWindow.startDate.format("YYYY-MM-DD");
+	}, [timeWindow.startDate]);
 
 	const [date, setDate] = useState({
 		start: defaultStartDate,
@@ -34,10 +40,18 @@ export default function useDateTimePicker({ setState }: DateTimePickerProps) {
 	});
 
 	const currentTime = today();
+
 	const [time, setTime] = useState({
 		start: currentTime.format("HHmm"),
 		end: currentTime.add(1, "hour").format("HHmm")
 	});
+
+	const defaultTime = useMemo(() => {
+		return isToday(timeWindow.startDate) ? currentTime.format("HHmm") : null;
+	}, [timeWindow.startDate, currentTime]);
+
+	const defaultStartTime = defaultTime ? defaultTime : "";
+	const defaultEndTime = defaultTime ? currentTime.add(1, "hour").format("HHmm") : "";
 
 	const dateTime = useMemo(() => {
 		const [start, end] = [
@@ -98,11 +112,12 @@ export default function useDateTimePicker({ setState }: DateTimePickerProps) {
 		setManualEndDate,
 		date,
 		setDate,
-		time,
 		defaultStartDate,
 		onStartDateChange,
 		onEndDateChange,
 		onAllDayChange,
-		onTimeChange
+		onTimeChange,
+		defaultStartTime,
+		defaultEndTime
 	};
 }

@@ -11,7 +11,8 @@ export default function DateTimePicker({ setState }: DateTimePickerProps) {
 		manualEndDate,
 		defaultStartDate,
 		date,
-		time,
+		defaultStartTime,
+      defaultEndTime,
 		onStartDateChange,
 		onEndDateChange,
 		onAllDayChange,
@@ -61,7 +62,7 @@ export default function DateTimePicker({ setState }: DateTimePickerProps) {
 						<DefaultInput
 							type="text"
 							onBlur={(e) => onTimeChange(e, "start")}
-							defaultValue={time.start}
+							defaultValue={defaultStartTime}
 							// TODO: Need something in the UI to clarify the time
 							// format (also in the endTime field), just this
 							// placeholder is not enough -- do this after implementing
@@ -76,7 +77,7 @@ export default function DateTimePicker({ setState }: DateTimePickerProps) {
 							type="text"
 							placeholder={"HHmm"}
 							onBlur={(e) => onTimeChange(e, "end")}
-							defaultValue={time.end}
+							defaultValue={defaultEndTime}
 							disabled={allDay}
 						/>
 					</S.Label>
