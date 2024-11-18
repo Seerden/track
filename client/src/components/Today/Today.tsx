@@ -13,11 +13,11 @@ import useActivitiesQuery from "@/lib/hooks/query/activities/useActivitiesQuery"
 import useHabitsData from "@/lib/hooks/useHabitsData";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
-import type { TimeWindow } from "@/types/time-window.types";
+import { selectedTimeWindowState } from "@/lib/state/selected-time-window-state";
 import { activityFallsOnDay, isAllDayActivityOnDate } from "@lib/activity";
 import type { Dayjs } from "dayjs";
-import { useMemo, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useEffect, useMemo, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import Notes from "./Notes";
 import S from "./style/Today.style";
 import Tasks from "./Tasks";
@@ -28,14 +28,17 @@ function useToday() {
 	const { getHabitsForTimeWindow } = useHabitsData();
 
 	const [currentDate, setCurrentDate] = useState<Dayjs>(() => today());
-	const timeWindow: TimeWindow = useMemo(
-		() => ({
-			startDate: currentDate.startOf("day"),
-			endDate: currentDate.endOf("day"),
-			intervalUnit: "day" // TODO: this needs to change as soon as we want to support other intervals in Today.
-		}),
-		[currentDate]
-	);
+	const [timeWindow, setTimeWindow] = useRecoilState(selectedTimeWindowState);
+
+	useEffect(() => {
+		if (currentDate) {
+			setTimeWindow({
+				startDate: currentDate.startOf("day"),
+				endDate: currentDate.endOf("day"),
+				intervalUnit: "day"
+			});
+		}
+	}, [currentDate]);
 
 	function changeDay(direction: "next" | "previous") {
 		setCurrentDate((current) => current.add(direction === "next" ? 1 : -1, "day"));
