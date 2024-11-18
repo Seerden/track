@@ -75,7 +75,11 @@ export default function DetailedActivity({ activity }: DetailedActivityProps) {
 				)}
 
 				{tagsData?.byId && (
-					<S.Tags>
+					<S.Tags
+						style={{
+							gridArea: "tags"
+						}}
+					>
 						{activity.tag_ids.map((id) => (
 							<S.Tag key={id}>{tagsData.byId[id].name}</S.Tag>
 						))}
