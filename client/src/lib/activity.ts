@@ -16,6 +16,28 @@ export function activityEnd(activity: ActivityWithIds) {
 	return createDate(activity.end_date ?? activity.ended_at);
 }
 
+/** Determine the dayjs date at which the given activity starts on the given day.
+ * A multiday activity that starts before `date` will thus start on 00:00 on `date`,
+ * but if the activity only takes place on `date`, this returns the actual start
+ * of the activity. If the activity doesn't fall on `date` at all, this returns
+ * null. */
+export function activityStartOnDate(activity: ActivityWithIds, date: Datelike) {
+	if (!activityFallsOnDay(activity, date)) return null;
+
+	const _date = createDate(date).startOf("day");
+	const start = activityStart(activity);
+	return start.isBefore(_date) ? _date : start;
+}
+
+/** Analogous to `activityStartOnDate`. */
+export function activityEndOnDate(activity: ActivityWithIds, date: Datelike) {
+	if (!activityFallsOnDay(activity, date)) return null;
+	const _date = createDate(date).endOf("day");
+	const end = activityEnd(activity);
+	return end.isAfter(_date) ? _date : end;
+}
+
+/** Checks if any part of `activity` falls on `date`. */
 export function activityFallsOnDay(activity: ActivityWithIds, date: Datelike) {
 	const [start, end] = [activityStart(activity), activityEnd(activity)];
 	const day = createDate(date);
@@ -27,40 +49,33 @@ export function activityFallsOnDay(activity: ActivityWithIds, date: Datelike) {
 	);
 }
 
-/**
- * Gets the duration of an activity in hours.
+/** Gets the duration of an activity in hours on the given `date`.
  * Note that for e.g. Today, we limit the activity visually to end at 23:59.
  * This is done in the Today component though, so we don't have to worry about
- * it here.
- */
-export function activityDuration(activity: ActivityWithIds) {
-	const [start, end] = [activityStart(activity), activityEnd(activity)];
+ * it here. */
+export function activityDurationOnDate(activity: ActivityWithIds, date: Datelike) {
+	const [start, end] = [
+		activityStartOnDate(activity, date),
+		activityEndOnDate(activity, date)
+	];
+
+	if (!end || !start) return 0;
 
 	return end.diff(start, "minute") / 60;
 }
 
-/**
- * Find the hour of the day (given that the activity takes place on `date`) that
+/** Find the hour of the day (given that the activity takes place on `date`) that
  * `activity` starts at. Returns -1 if the activity does not take place on
  * `date`.
  *
- * This  allows us to render activities in the correct hour row in the UI.
- */
-export function activityStartHour(activity: ActivityWithIds, date: Datelike) {
-	const start = activityStart(activity);
-
+ * @usage this  allows us to render activities in the correct hour row in the UI. */
+export function activityStartHourOnDate(activity: ActivityWithIds, date: Datelike) {
 	if (!activityFallsOnDay(activity, date)) {
 		return -1;
 	}
 
-	// A multiday activity that starts before `date` and continues on `date`
-	// _has_ to "start" at 00:00 on `date` by definition, because we do not allow
-	// interrupted activities in principle.
-	if (start.isBefore(createDate(date).startOf("day"))) {
-		return 0;
-	}
-
-	return getLocalHour(start);
+	const start = activityStartOnDate(activity, date);
+	return start ? getLocalHour(start) : -1;
 }
 
 /** Checks if two activities (partially) occur at the same time. */
@@ -74,18 +89,22 @@ export function isSimultaneousActivity(one: ActivityWithIds, two: ActivityWithId
 	);
 }
 
+/** Checks if an activity is a single-day all-day activity, i.e. starts at
+ * midnight on a day, and ends at 23:59 (midnight) on the same day. */
 export function isAllDaySingleDayActivity(activity: ActivityWithIds) {
-	// an all-day activity can be found two ways: (1) either start_date and
-	// end_date are set and we assume the activity is all-day/multiday, or (2) a
-	// multiday activity has started_at and ended_at and we have to check for
-	// every day in-between if the activity is all day on that day. This function
-	// only handles (1). (2) is handled by isAllDayActivityOnDate, see below.
-
-	return activity.start_date && activity.end_date;
+	const [start, end] = [activityStart(activity), activityEnd(activity)];
+	const [startDay, endDay] = [start.startOf("day"), end.endOf("day")];
+	return (
+		start.isSame(startDay) &&
+		end.isSame(endDay) &&
+		start.isSame(startDay.startOf("day")) &&
+		end.isSame(endDay.endOf("day"))
+	);
 }
 
-// TODO: isAllDaySingleDayActivity is not necessary if we use this one properly
-// instead.
+/** Checks if an an `activity` lasts all day on the given `date`.
+ * TODO: `isAllDaySingleDayActivity()` is not necessary if we use this one properly
+ * instead. */
 export function isAllDayActivityOnDate(activity: ActivityWithIds, date: Datelike) {
 	const [startOfDay, endOfDay] = [
 		createDate(date).startOf("day"),
@@ -95,6 +114,9 @@ export function isAllDayActivityOnDate(activity: ActivityWithIds, date: Datelike
 	return !startOfDay.isBefore(startActivity) && !endOfDay.isAfter(endActivity);
 }
 
+/** Given a list of `activities` and a `date`, this finds all the unique
+ * (unix) timestamps at which at least one activity starts, or at least one
+ * activity ends. */
 export function getAllStartAndEndTimesOnDate(
 	activities: ActivityWithIds[],
 	date: Datelike
@@ -124,6 +146,7 @@ export function getAllStartAndEndTimesOnDate(
 	return new Set(Array.from(times).sort());
 }
 
+/** Check if `activity` occurs on `timestamp` (unix timestamp). */
 function activityOccursOnTimestamp(activity: ActivityWithIds, timestamp: number) {
 	const [start, end] = [activityStart(activity), activityEnd(activity)];
 	return (
@@ -192,6 +215,8 @@ export function assignIndentationLevelToActivities(
 	return indentation;
 }
 
+/** Sort a list of `activities` in order of ascending time. If two activities
+ * start at the same time, the one that lasts longer goes first. */
 function sortActivitiesByTime(activities: ActivityWithIds[]) {
 	return activities.sort((a, b) => {
 		const [startA, endA] = [activityStart(a), activityEnd(a)];
@@ -233,10 +258,14 @@ function firstOverlappingActivity(
 	}
 }
 
+/** Checks if an `activity` starts after the point in time at which this function
+ * is called. */
 export function startsInFuture(activity: ActivityWithIds) {
 	return activityStart(activity).isAfter(now());
 }
 
+/** Checks if an `activity` ends after the point in time at which this function is
+ *called. */
 export function hasNotEnded(activity: ActivityWithIds) {
 	return activityEnd(activity).isAfter(now());
 }

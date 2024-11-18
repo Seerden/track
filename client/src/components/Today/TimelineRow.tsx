@@ -31,6 +31,7 @@ export default function TimelineRow({ date, index, activities, indentation }: Ro
 			{activities.map((a) => (
 				<Activity
 					key={a.activity_id}
+					date={date}
 					activity={a}
 					level={indentation.get(a.activity_id) ?? 0}
 				/>
