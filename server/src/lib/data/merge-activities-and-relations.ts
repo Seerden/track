@@ -1,10 +1,10 @@
-import type { Activity, ActivityWithIds } from "../../../types/data/activity.types";
-import type { ActivityTagRelation } from "../../../types/data/relational.types";
-import type { ById } from "../../../types/data/utility.types";
+import type { Activity, ActivityWithIds } from "@t/data/activity.types";
+import type { ActivityTagRelation } from "@t/data/relational.types";
+import type { ById } from "@t/data/utility.types";
 
 export function mergeActivitiesAndRelations(
 	activities: Activity[],
-	activityTagRelations: ActivityTagRelation[]
+	activityTagRelations: ActivityTagRelation[],
 ) {
 	const activitiesById = {} as ById<ActivityWithIds>;
 	for (const activity of activities) {

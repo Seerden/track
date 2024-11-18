@@ -5,7 +5,7 @@ import useAuthentication from "@lib/hooks/useAuthentication";
 import useRouteProps from "@lib/hooks/useRouteProps";
 import { queryClient } from "@lib/query-client";
 import { useTagSelection } from "@lib/state/selected-tags-state";
-import type { NewNote } from "@type/server/note.types";
+import type { NewNote } from "@t/data/note.types";
 import { useEffect, useState } from "react";
 
 export default function useNewNote() {

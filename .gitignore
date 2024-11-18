@@ -11,3 +11,5 @@ docker/database-backup
 docker/test-database-backup
 
 **/**.rest
+
+**/dist/

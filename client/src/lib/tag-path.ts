@@ -1,5 +1,5 @@
-import type { TagWithIds } from "@/types/server/tag.types";
-import type { Maybe } from "@/types/server/utility.types";
+import type { TagWithIds } from "@t/data/tag.types";
+import type { Maybe } from "@t/data/utility.types";
 
 /** Given a `tag`, and `tags` which is assumed to be the complete list of a
  * user's tags, build an array of tag names that represents `tag`'s "family

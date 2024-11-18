@@ -1,11 +1,7 @@
 import HabitEntrySlider from "@/components/habits/Habits/HabitEntrySlider";
 import HabitEntryToggle from "@/components/habits/Habits/HabitEntryToggle";
 import useCompletionInstance from "@/components/habits/Habits/useCompletionInstance";
-import type {
-	HabitEntry,
-	HabitWithIds,
-	SyntheticHabitEntry
-} from "@/types/server/habit.types";
+import type { HabitEntry, HabitWithIds, SyntheticHabitEntry } from "@t/data/habit.types";
 
 type CompletionInstanceProps = {
 	entry: HabitEntry | SyntheticHabitEntry;

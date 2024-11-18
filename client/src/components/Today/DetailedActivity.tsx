@@ -7,8 +7,8 @@ import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
 import CardStyle from "@/lib/theme/components/Card.style";
 import { Checkbox } from "@/lib/theme/components/Checkbox";
-import type { Datelike } from "@/types/date.types";
-import type { ActivityWithIds } from "@/types/server/activity.types";
+import type { ActivityWithIds } from "@t/data/activity.types";
+import type { Datelike } from "@t/data/utility.types";
 
 type DetailedActivityProps = {
 	activity: ActivityWithIds;

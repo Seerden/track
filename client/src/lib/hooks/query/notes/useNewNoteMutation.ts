@@ -1,8 +1,8 @@
 import { mk } from "@/lib/query-keys";
 import { createRequestConfig } from "@lib/fetch/create-request-config";
 import { makeAuthorizedUrl } from "@lib/fetch/make-authorized-url";
+import type { NoteInput, NoteWithIds } from "@t/data/note.types";
 import { useMutation } from "@tanstack/react-query";
-import type { NoteInput, NoteWithIds } from "@type/server/note.types";
 
 async function postNote({ note, tagIds }: NoteInput) {
 	const url = makeAuthorizedUrl("/data/note");

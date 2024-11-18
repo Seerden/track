@@ -5,7 +5,7 @@ import { filterTagsById } from "@/lib/filter-tags";
 import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
-import type { ActivityWithIds } from "@type/server/activity.types";
+import type { ActivityWithIds } from "@t/data/activity.types";
 import Task from "./Task";
 import T from "./style/Tasks.style";
 import S from "./style/Today.style";

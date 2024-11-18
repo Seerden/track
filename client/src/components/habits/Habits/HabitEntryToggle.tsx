@@ -1,10 +1,6 @@
 import type { HabitEntryUpdateMutationFunction } from "@/lib/hooks/query/habits/useHabitEntryMutation";
-import { isSynthetic } from "@/types/server/habit-entry.guards";
-import type {
-	HabitEntry,
-	HabitWithIds,
-	SyntheticHabitEntry
-} from "@/types/server/habit.types";
+import { isSynthetic } from "@t/data/habit-entry.guards";
+import type { HabitEntry, HabitWithIds, SyntheticHabitEntry } from "@t/data/habit.types";
 import { useState } from "react";
 
 type HabitEntryToggleProps = {
@@ -18,7 +14,9 @@ export default function HabitEntryToggle({
 	entry,
 	onChange
 }: HabitEntryToggleProps) {
-	const defaultValue = Boolean(isSynthetic(entry) ? false : entry.value === "true");
+	const defaultValue = Boolean(
+		isSynthetic(entry) ? false : (entry as HabitEntry).value === "true"
+	);
 	const [value, setValue] = useState(defaultValue);
 
 	if (habit.goal_type !== "checkbox") return;

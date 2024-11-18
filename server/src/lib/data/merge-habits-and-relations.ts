@@ -1,11 +1,11 @@
-import type { Habit, HabitEntry, HabitWithIds } from "types/data/habit.types";
-import type { HabitTagRelation } from "types/data/relational.types";
-import type { ById } from "types/data/utility.types";
+import type { Habit, HabitEntry, HabitWithIds } from "@t/data/habit.types";
+import type { HabitTagRelation } from "@t/data/relational.types";
+import type { ById } from "@t/data/utility.types";
 
 export function mergeHabitsAndRelations(
 	habits: Habit[],
 	habitTagRelations: HabitTagRelation[],
-	entries: HabitEntry[]
+	entries: HabitEntry[],
 ) {
 	const byId = {} as ById<HabitWithIds>;
 	for (const habit of habits) {

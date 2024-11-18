@@ -1,5 +1,5 @@
-import type { TagWithIds } from "@/types/server/tag.types";
-import type { ById } from "@/types/server/utility.types";
+import type { TagWithIds } from "@t/data/tag.types";
+import type { ById } from "@t/data/utility.types";
 import type { FocusEvent, MouseEvent } from "react";
 
 // These are passed from TagSelector > TagSelectorItems > TagSelectorItem

@@ -3,8 +3,8 @@ import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
 import { queryClient } from "@/lib/query-client";
 import { mk, qk } from "@/lib/query-keys";
 import type { ActivitiesData } from "@/types/data.types";
-import type { ActivityUpdateInput, ActivityWithIds } from "@/types/server/activity.types";
-import type { ById } from "@/types/server/utility.types";
+import type { ActivityUpdateInput, ActivityWithIds } from "@t/data/activity.types";
+import type { ById } from "@t/data/utility.types";
 import { useMutation } from "@tanstack/react-query";
 
 async function putTaskCompletion(input: ActivityUpdateInput): Promise<ActivityWithIds> {

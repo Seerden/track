@@ -1,4 +1,4 @@
-import router from "@/lib/router.tsx";
+import router from "@/lib/router";
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 
@@ -13,7 +13,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import "./index.scss";
-import { worker } from "./mocks/browser.ts";
+import { worker } from "./mocks/browser";
 import "./normalize.css";
 dayjs.extend(duration);
 dayjs.extend(relativeTime);

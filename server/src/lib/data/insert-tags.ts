@@ -1,6 +1,6 @@
-import type { TagTagRelation } from "../../../types/data/relational.types";
-import type { NewTag, TagInput, TagWithId, TagWithIds } from "../../../types/data/tag.types";
-import type { ID } from "../../../types/data/utility.types";
+import type { TagTagRelation } from "@t/data/relational.types";
+import type { NewTag, TagInput, TagWithId, TagWithIds } from "@t/data/tag.types";
+import type { ID } from "@t/data/utility.types";
 import type { WithSQL } from "../../../types/sql.types";
 import { sqlConnection } from "../../db/init";
 

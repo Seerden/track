@@ -1,7 +1,7 @@
 import { createDate } from "@/lib/datetime/make-date";
 import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
 import C from "@/lib/theme/components/Card.style";
-import type { HabitWithIds } from "@/types/server/habit.types";
+import type { HabitWithIds } from "@t/data/habit.types";
 import type { PropsWithChildren } from "react";
 import S from "./style/DetailedHabit.style";
 

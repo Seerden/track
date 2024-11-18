@@ -1,4 +1,4 @@
-import type { Datelike } from "@type/date.types";
+import type { Datelike } from "@t/data/utility.types";
 import { createDate, today } from "./make-date";
 
 export function sameDay(one: Datelike, two: Datelike) {

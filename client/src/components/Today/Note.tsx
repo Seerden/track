@@ -1,5 +1,5 @@
-import type { NoteWithIds } from "@type/server/note.types";
-import type { TagWithIds } from "@type/server/tag.types";
+import type { NoteWithIds } from "@t/data/note.types";
+import type { TagWithIds } from "@t/data/tag.types";
 import TagCard from "../tags/TagCard/TagCard";
 import N from "./style/Notes.style";
 import S from "./style/Today.style";

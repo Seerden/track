@@ -1,9 +1,6 @@
-import type {
-	ActivityTagRelation,
-	TagTagRelation,
-} from "../../../types/data/relational.types";
-import type { TagWithId } from "../../../types/data/tag.types";
-import type { ID } from "../../../types/data/utility.types";
+import type { ActivityTagRelation, TagTagRelation } from "@t/data/relational.types";
+import type { TagWithId } from "@t/data/tag.types";
+import type { ID } from "@t/data/utility.types";
 import type { WithSQL } from "../../../types/sql.types";
 import { sqlConnection } from "../../db/init";
 

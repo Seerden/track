@@ -12,16 +12,19 @@
 		"strictNullChecks": true,
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
-		"baseUrl": "./",
+		"baseUrl": "../",
+		"rootDir": "../",
 		"types": ["jest", "node"],
 		"typeRoots": ["./types", "./node_modules/@types"],
-      "noImplicitAny": true,
-      "paths": {
-        "@/*": ["src/*"],
-        "@lib/*": ["src/lib/*"],
-      }
-      
+		"noImplicitAny": true,
+		"paths": {
+			"@/*": ["server/src/*"],
+			"@lib/*": ["server/src/lib/*"],
+			"@t/*": ["shared/types/*"],
+			"types/*": ["server/types/*"]
+		},
+		"composite": true
 	},
 	"exclude": ["./node_modules", "node_modules"],
-   "include": ["src", "types" ] // is this necessary?
+	"include": ["../server/src", "../server/types", "../shared"]
 }

@@ -1,4 +1,4 @@
-import type { ById } from "@/types/server/utility.types";
+import type { ById } from "@t/data/utility.types";
 
 /** Why do I use this in other projects? This is just an object. */
 export type Data<K extends string, T> = Record<K, T>;

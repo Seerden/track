@@ -1,5 +1,5 @@
 import { activityFallsOnDay } from "@/lib/activity";
-import type { ActivityWithIds } from "@/types/server/activity.types";
+import type { ActivityWithIds } from "@t/data/activity.types";
 
 describe("activityFallsOnDay", () => {
 	const mockActivity: ActivityWithIds = {

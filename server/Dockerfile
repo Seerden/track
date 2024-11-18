@@ -1,5 +1,11 @@
 FROM node:18.12.0-alpine
 
+WORKDIR /track
+
+COPY . .
+
+RUN npm install
+
 WORKDIR /track/server
 
 COPY package*.json ./

@@ -1,12 +1,12 @@
-import type { Note, NoteWithIds } from "../../../types/data/note.types";
-import type { NoteTagRelation } from "../../../types/data/relational.types";
-import type { ById } from "../../../types/data/utility.types";
+import type { Note, NoteWithIds } from "@t/data/note.types";
+import type { NoteTagRelation } from "@t/data/relational.types";
+import type { ById } from "@t/data/utility.types";
 
 /** Takes a list of notes, and a list of node<->tag relations and outputs a
  * single notesById object. */
 export function mergeNotesAndRelations(
 	notes: Note[],
-	noteTagRelations: NoteTagRelation[]
+	noteTagRelations: NoteTagRelation[],
 ) {
 	const notesById = {} as ById<NoteWithIds>;
 	for (const note of notes) {

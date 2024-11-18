@@ -1,9 +1,9 @@
 import { withSyntheticHabitEntries } from "@/components/habits/Habits/synthetic";
 import useHabitEntriesQuery from "@/lib/hooks/query/habits/useHabitEntriesQuery";
 import useHabitsQuery from "@/lib/hooks/query/habits/useHabitsQuery";
-import type { Habit, HabitWithEntries } from "@/types/server/habit.types";
-import type { ById } from "@/types/server/utility.types";
 import type { TimeWindow } from "@/types/time-window.types";
+import type { Habit, HabitWithEntries } from "@t/data/habit.types";
+import type { ById } from "@t/data/utility.types";
 import { useCallback, useMemo } from "react";
 
 export default function useHabitsData() {

@@ -6,8 +6,8 @@
 import useHabitsData from "@/lib/hooks/useHabitsData";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
-import type { Habit, HabitWithEntries } from "@/types/server/habit.types";
-import type { ID } from "@/types/server/utility.types";
+import type { Habit, HabitWithEntries } from "@t/data/habit.types";
+import type { ID } from "@t/data/utility.types";
 import { useMemo } from "react";
 import { atom, useRecoilState } from "recoil";
 

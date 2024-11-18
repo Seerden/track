@@ -1,8 +1,7 @@
 import { getLocalHour } from "@/lib/datetime/local";
 import { createDate, now } from "@/lib/datetime/make-date";
-import type { Datelike } from "../types/date.types";
-import type { ActivityWithIds } from "../types/server/activity.types";
-import type { ID } from "../types/server/utility.types";
+import type { ActivityWithIds } from "@t/data/activity.types";
+import type { Datelike, ID } from "@t/data/utility.types";
 import { sameDay } from "./datetime/compare";
 
 /** Gets the `start` of an activity, which is either a timestamp or

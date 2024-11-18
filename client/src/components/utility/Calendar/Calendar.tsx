@@ -2,8 +2,8 @@ import type { CalendarProps, Row } from "@/components/utility/Calendar/calendar.
 import { useCalendar } from "@/components/utility/Calendar/hooks/useCalendar";
 import useMonthPicker from "@/components/utility/Calendar/hooks/useMonthPicker";
 import { daysOfWeekShort } from "@/lib/datetime/weekdays";
-import type { Maybe } from "@/types/server/utility.types";
 import { MonthPicker } from "@mantine/dates";
+import type { Maybe } from "@t/data/utility.types";
 import type { Dayjs } from "dayjs";
 import S from "./style/Calendar.style";
 

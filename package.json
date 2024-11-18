@@ -4,6 +4,7 @@
   "description": "`npm run dev` on the client to start the vite dev server.",
   "main": "index.js",
   "scripts": {
+    "dev:shared": "npx tsc --build --watch shared",
     "dev": "cd ./docker && docker-compose --file ./compose.yml up --build --force-recreate --remove-orphans",
     "prod": "cd ./docker && docker-compose --file ./docker-compose.prod.yml up --force-recreate --remove-orphans --build server database store test-database",
     "dev-build": "cd ./docker && docker-compose --file ./compose.yml up --force-recreate --remove-orphans --build server database store test-database",
@@ -16,5 +17,10 @@
     "store": "docker exec -it docker-store-1 redis-cli"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "workspaces": [
+    "shared",
+    "client",
+    "server"
+  ]
 }

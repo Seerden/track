@@ -6,7 +6,7 @@ import type { ReactElement, ReactNode } from "react";
 import { MemoryRouter } from "react-router";
 import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "styled-components";
-import { queryClient } from "../query-client.ts";
+import { queryClient } from "../query-client";
 import { theme } from "../theme/theme";
 
 const WithProviders = ({ children }: { children: ReactNode }) => {
