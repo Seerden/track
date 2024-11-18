@@ -1,3 +1,4 @@
+import qk from "@/lib/query-keys";
 import type { TagsTreeData } from "@/types/data.types";
 import { makeAuthorizedUrl } from "@lib/fetch/make-authorized-url";
 import { defaultQueryConfig } from "@lib/query-client";
@@ -17,7 +18,7 @@ export default function useTagsTreeQuery() {
 		// TODO: if someone switches accounts, they might get the wrong tags --
 		// make sure to invalidate all user-data queries when the user changes, or
 		// add user_id to the queryKey
-		queryKey: ["tags", "tree"],
+		queryKey: qk.tags.tree,
 		queryFn: getTagsTree,
 		...defaultQueryConfig
 	});

@@ -1,5 +1,6 @@
 import { useNewNoteMutation } from "@/lib/hooks/query/notes/useNewNoteMutation";
 import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
+import qk from "@/lib/query-keys";
 import useAuthentication from "@lib/hooks/useAuthentication";
 import useRouteProps from "@lib/hooks/useRouteProps";
 import { queryClient } from "@lib/query-client";
@@ -47,7 +48,7 @@ export default function useNewNote() {
 					onSuccess: () => {
 						// TODO: redirect, or close the modal.
 
-						queryClient.invalidateQueries({ queryKey: ["notes"] });
+						queryClient.invalidateQueries({ queryKey: qk.notes.all });
 						navigate("/notes");
 
 						// TODO: also optimistically populate the UI with the newly

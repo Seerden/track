@@ -1,5 +1,6 @@
 import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
 import { defaultQueryConfig } from "@/lib/query-client";
+import qk from "@/lib/query-keys";
 import type { HabitsData } from "@/types/data.types";
 import { useQuery } from "@tanstack/react-query";
 
@@ -15,7 +16,7 @@ async function getHabits() {
 
 export default function useHabitsQuery() {
 	return useQuery<HabitsData>({
-		queryKey: ["habits"],
+		queryKey: qk.habits.all,
 		queryFn: getHabits,
 		...defaultQueryConfig
 	});

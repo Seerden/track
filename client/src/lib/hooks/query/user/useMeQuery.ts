@@ -1,5 +1,6 @@
 import { baseUrl } from "@/lib/fetch/fetch-constants";
 import { defaultQueryConfig } from "@/lib/query-client";
+import qk from "@/lib/query-keys";
 import { localUser } from "@/lib/user-storage";
 import { useQuery } from "@tanstack/react-query";
 import type { Data } from "@type/query.types";
@@ -13,11 +14,9 @@ export async function getMe() {
 	});
 	const data = await response.json();
 
-	// this would have been in onSuccess in the past
 	if (data.user) {
 		localUser.set(data.user);
 	} else {
-		// this would have been in onError in the past
 		localUser.destroy();
 	}
 
@@ -28,7 +27,7 @@ type UserData = Data<"user", Maybe<User>>;
 
 export default function useMeQuery() {
 	return useQuery<UserData>({
-		queryKey: ["me"],
+		queryKey: qk.user.me,
 		queryFn: getMe,
 		...defaultQueryConfig
 	});

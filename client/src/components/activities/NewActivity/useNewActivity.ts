@@ -1,4 +1,5 @@
 import { queryClient } from "@/lib/query-client";
+import qk from "@/lib/query-keys";
 import { useModalState } from "@/lib/state/modal-state";
 import type { Datelike } from "@/types/date.types";
 import { hasValidUserId } from "@/types/server/user-id.guards";
@@ -48,7 +49,9 @@ export default function useNewActivity({
 				onSuccess: () => {
 					// TODO: only navigate if not already on the today page
 					navigate("/today"); // TODO: put routes in a variable
-					queryClient.invalidateQueries({ queryKey: ["activities"] });
+					queryClient.invalidateQueries({
+						queryKey: qk.activities.all
+					});
 					// only close modal if it's open, but that is the behavior by
 					// design anyway
 					if (modalId) closeModal(modalId);

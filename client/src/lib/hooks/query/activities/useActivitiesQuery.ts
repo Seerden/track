@@ -1,5 +1,6 @@
 import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
 import { defaultQueryConfig } from "@/lib/query-client";
+import qk from "@/lib/query-keys";
 import type { ActivitiesData } from "@/types/data.types";
 import { useQuery } from "@tanstack/react-query";
 
@@ -15,7 +16,7 @@ async function getActivities() {
 
 export default function useActivitiesQuery() {
 	return useQuery<ActivitiesData>({
-		queryKey: ["activities"],
+		queryKey: qk.activities.all,
 		queryFn: getActivities,
 		...defaultQueryConfig
 	});

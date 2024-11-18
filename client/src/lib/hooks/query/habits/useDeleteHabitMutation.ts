@@ -1,6 +1,7 @@
 import { createRequestConfig } from "@/lib/fetch/create-request-config";
 import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
 import { queryClient } from "@/lib/query-client";
+import qk from "@/lib/query-keys";
 import type { Habit } from "@/types/server/habit.types";
 import { useMutation } from "@tanstack/react-query";
 
@@ -16,8 +17,8 @@ export default function useHabitDeleteMutation() {
 		},
 		mutationKey: ["delete-habit"],
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ["habits"], exact: true });
-			queryClient.invalidateQueries({ queryKey: ["habit-entries"], exact: true });
+			queryClient.invalidateQueries({ queryKey: qk.habits.all, exact: true });
+			queryClient.invalidateQueries({ queryKey: qk.habits.entries, exact: true });
 		}
 	});
 }

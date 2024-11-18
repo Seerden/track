@@ -1,5 +1,6 @@
 import { createRequestConfig } from "@/lib/fetch/create-request-config";
 import { baseUrl } from "@/lib/fetch/fetch-constants";
+import qk from "@/lib/query-keys";
 import { localUser } from "@/lib/user-storage";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -18,7 +19,7 @@ export default function useLogoutMutation() {
 		onSuccess: () => {
 			// unset local user on successful logout
 			localUser.destroy();
-			client.removeQueries({ queryKey: ["me"] });
+			client.removeQueries({ queryKey: qk.user.me });
 		}
 	});
 }
