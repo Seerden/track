@@ -22,8 +22,9 @@
 			"@lib/*": ["server/src/lib/*"],
 			"@t/*": ["shared/types/*"],
 			"types/*": ["server/types/*"]
-		}
+		},
+		"composite": true
 	},
 	"exclude": ["./node_modules", "node_modules"],
-	"include": ["src", "types"] // is this necessary?
+	"include": ["../server/src", "../server/types", "../shared"]
 }

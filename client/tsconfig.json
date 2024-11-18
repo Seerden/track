@@ -1,4 +1,7 @@
 {
+	"compilerOptions": {
+		"composite": true
+	},
 	"extends": "../tsconfig.json",
 	"files": [],
 	"references": [
@@ -11,7 +14,5 @@
 		{
 			"path": "../shared"
 		}
-	],
-	"include": ["src/**/*", "../shared/**/*"],
-	"exclude": ["node_modules"]
+	]
 }
