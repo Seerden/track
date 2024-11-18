@@ -1,12 +1,8 @@
 import type { HabitEntryUpdateMutationFunction } from "@/lib/hooks/query/habits/useHabitEntryMutation";
-import { isSynthetic } from "@/types/server/habit-entry.guards";
-import type {
-	HabitEntry,
-	HabitWithIds,
-	SyntheticHabitEntry
-} from "@/types/server/habit.types";
 import type { SliderProps } from "@mantine/core";
 import { Slider } from "@mantine/core";
+import { isSynthetic } from "@t/data/habit-entry.guards";
+import type { HabitEntry, HabitWithIds, SyntheticHabitEntry } from "@t/data/habit.types";
 import { useState } from "react";
 
 const sliderProps: SliderProps = {

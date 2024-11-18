@@ -1,6 +1,6 @@
 import { sqlConnection } from "@/db/init";
-import type { HabitEntry } from "types/data/habit.types";
-import type { ById, ID } from "types/data/utility.types";
+import type { HabitEntry } from "@t/data/habit.types";
+import type { ById, ID } from "@t/data/utility.types";
 import type { WithSQL } from "types/sql.types";
 
 export async function queryHabitEntriesByUser({
@@ -16,7 +16,7 @@ type IdFieldUnion<T> = {
 
 export function groupById<T extends object>(
 	data: T[],
-	idField: IdFieldUnion<T>
+	idField: IdFieldUnion<T>,
 ): ById<T> {
 	return data.reduce((acc, item) => {
 		const a = item[idField] as number;

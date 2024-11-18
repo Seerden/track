@@ -1,6 +1,7 @@
 {
 	"compilerOptions": {
 		"outDir": "./dist",
+		"rootDir": "../",
 		"noImplicitAny": true,
 		"composite": true,
 		"tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
@@ -10,12 +11,12 @@
 		"module": "ESNext",
 		"skipLibCheck": true,
 		"moduleResolution": "bundler",
-		"allowImportingTsExtensions": true,
+		"allowImportingTsExtensions": false,
 		"allowJs": true,
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"moduleDetection": "force",
-		"noEmit": true,
+		"noEmit": false,
 		"jsx": "react-jsx",
 		"strict": true,
 		"noUnusedLocals": true,
@@ -26,14 +27,15 @@
 		"allowSyntheticDefaultImports": true,
 		"esModuleInterop": true,
 		"strictNullChecks": true,
-		"baseUrl": "./",
+		"baseUrl": "../",
 		"paths": {
-			"@/*": ["src/*"],
-			"@components/*": ["src/components/*"],
-			"@lib/*": ["src/lib/*"],
-			"@type/*": ["src/types/*"]
+			"@/*": ["client/src/*"],
+			"@components/*": ["client/src/components/*"],
+			"@lib/*": ["client/src/lib/*"],
+			"@t/*": ["shared/types/*"]
 		},
 		"types": ["vitest/globals"]
 	},
-	"include": ["src"]
+	"include": ["src", "../shared"],
+	"exclude": ["node_modules"]
 }

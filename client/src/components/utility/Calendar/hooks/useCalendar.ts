@@ -2,7 +2,7 @@ import { buildCalendarRows } from "@/components/utility/Calendar/build-calendar-
 import type { MonthAndYear } from "@/components/utility/Calendar/calendar.types";
 import { formatToMonthAndYear } from "@/lib/datetime/format-date";
 import { createDate, createFirstOfTheMonth } from "@/lib/datetime/make-date";
-import type { Maybe } from "@/types/server/utility.types";
+import type { Maybe } from "@t/data/utility.types";
 import type { Dayjs } from "dayjs";
 import { useCallback, useEffect, useMemo, useState } from "react";
 

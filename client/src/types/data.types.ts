@@ -1,6 +1,6 @@
-import type { ActivityWithIds } from "@/types/server/activity.types";
-import type { HabitEntry, HabitWithIds } from "@/types/server/habit.types";
-import type { NoteWithIds } from "@/types/server/note.types";
+import type { ActivityWithIds } from "@t/data/activity.types";
+import type { HabitEntry, HabitWithIds } from "@t/data/habit.types";
+import type { NoteWithIds } from "@t/data/note.types";
 import type { DataById } from "./query.types";
 import type { TagWithIds } from "./server/tag.types";
 

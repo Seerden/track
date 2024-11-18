@@ -1,6 +1,6 @@
 import { formatDate } from "@lib/datetime/format-date";
+import type { NoteWithIds } from "@t/data/note.types";
 import type { TagsData } from "@type/data.types";
-import type { NoteWithIds } from "@type/server/note.types";
 import S from "./style/Notes.style";
 import useNotes from "./useNotes";
 

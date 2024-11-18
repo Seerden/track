@@ -16,5 +16,10 @@
     "store": "docker exec -it docker-store-1 redis-cli"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "workspaces": [
+    "shared",
+    "client",
+    "server"
+  ]
 }

@@ -1,7 +1,7 @@
 import { useDetailedActivityModal } from "@/components/Today/hooks/useDetailedActivityModal";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import { Checkbox } from "@/lib/theme/components/Checkbox";
-import type { ActivityWithIds } from "@/types/server/activity.types";
+import type { ActivityWithIds } from "@t/data/activity.types";
 import { useRef } from "react";
 import { Ri24HoursLine } from "react-icons/ri";
 import T from "./style/AllDayActivity.style";

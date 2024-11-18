@@ -1,7 +1,7 @@
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
-import type { ActivityWithIds } from "@/types/server/activity.types";
-import type { ID, Maybe } from "@/types/server/utility.types";
+import type { ActivityWithIds } from "@t/data/activity.types";
+import type { ID, Maybe } from "@t/data/utility.types";
 import { atom, useSetRecoilState } from "recoil";
 
 export const activeItemState = atom<Maybe<ID>>({

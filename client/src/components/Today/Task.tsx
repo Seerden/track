@@ -2,8 +2,8 @@ import { useDetailedActivityModal } from "@/components/Today/hooks/useDetailedAc
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import { Checkbox } from "@/lib/theme/components/Checkbox";
 import { activityEnd, activityStart } from "@lib/activity";
-import type { ActivityWithIds } from "@type/server/activity.types";
-import type { TagWithIds } from "@type/server/tag.types";
+import type { ActivityWithIds } from "@t/data/activity.types";
+import type { TagWithIds } from "@t/data/tag.types";
 import { useRef } from "react";
 import TagCard from "../tags/TagCard/TagCard";
 import T from "./style/Tasks.style";

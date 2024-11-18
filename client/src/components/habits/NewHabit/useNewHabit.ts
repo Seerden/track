@@ -5,9 +5,9 @@ import useRouteProps from "@/lib/hooks/useRouteProps";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import { useTagSelection } from "@/lib/state/selected-tags-state";
-import type { NewHabit } from "@/types/server/habit.types";
-import { hasValidUserId } from "@/types/server/user-id.guards";
-import type { Nullable } from "@/types/server/utility.types";
+import type { NewHabit } from "@t/data/habit.types";
+import { hasValidUserId } from "@t/data/user-id.guards";
+import type { Nullable } from "@t/data/utility.types";
 import type { Dayjs } from "dayjs";
 import { useCallback, useEffect, useMemo, useState } from "react";
 

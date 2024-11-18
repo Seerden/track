@@ -2,13 +2,13 @@ import { queryClient } from "@/lib/query-client";
 import { qk } from "@/lib/query-keys";
 import { useModalState } from "@/lib/state/modal-state";
 import type { Datelike } from "@/types/date.types";
-import { hasValidUserId } from "@/types/server/user-id.guards";
 import { useNewActivityMutation } from "@lib/hooks/query/activities/useNewActivityMutation";
 import useAuthentication from "@lib/hooks/useAuthentication";
 import useRouteProps from "@lib/hooks/useRouteProps";
 import { useTagSelection } from "@lib/state/selected-tags-state";
+import type { NewActivity } from "@t/data/activity.types";
+import { hasValidUserId } from "@t/data/user-id.guards";
 import type { DateTimeField } from "@type/form.types";
-import type { NewActivity } from "@type/server/activity.types";
 import { useEffect, useMemo, useState } from "react";
 import { parseNewActivity } from "./parse-new-activity";
 

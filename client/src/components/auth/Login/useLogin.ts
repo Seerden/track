@@ -1,6 +1,6 @@
 import useLoginMutation from "@/lib/hooks/query/user/useLoginMutation";
 import { localUser } from "@lib/user-storage";
-import { type UserLogin } from "@type/server/user.types";
+import { type UserLogin } from "@t/data/user.types";
 import { useState } from "react";
 
 export default function useLogin() {

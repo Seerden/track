@@ -1,6 +1,6 @@
-import { activityGuards } from "@/types/server/activity.guards";
 import { formatDate } from "@lib/datetime/format-date";
-import type { ActivityWithIds } from "@type/server/activity.types";
+import { activityGuards } from "@t/data/activity.guards";
+import type { ActivityWithIds } from "@t/data/activity.types";
 
 export function getDateField({
 	type,

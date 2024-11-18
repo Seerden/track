@@ -3,8 +3,8 @@ import Habit from "@/components/habits/Habits/Habit";
 import useDetailedHabitModal from "@/components/habits/Habits/useDetailedHabitModal";
 import Modal from "@/components/utility/Modal/Modal";
 import L from "@/lib/theme/components/List.style";
-import type { HabitWithPossiblySyntheticEntries } from "@/types/server/habit.types";
-import type { ById } from "@/types/server/utility.types";
+import type { HabitWithPossiblySyntheticEntries } from "@t/data/habit.types";
+import type { ById } from "@t/data/utility.types";
 
 type HabitsProps = {
 	habits: ById<HabitWithPossiblySyntheticEntries>;

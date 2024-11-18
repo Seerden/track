@@ -1,7 +1,7 @@
 import Completion from "@/components/habits/Habits/Completion";
 import { frequencyString } from "@/components/habits/Habits/frequency-string";
 import L from "@/lib/theme/components/List.style";
-import type { HabitWithPossiblySyntheticEntries } from "@/types/server/habit.types";
+import type { HabitWithPossiblySyntheticEntries } from "@t/data/habit.types";
 import S from "./style/Habit.style";
 
 type HabitProps = {

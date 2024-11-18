@@ -1,7 +1,7 @@
 import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
-import type { TagWithIds } from "@/types/server/tag.types";
 import { useTagSelection } from "@lib/state/selected-tags-state";
-import type { ById, ID } from "@type/server/utility.types";
+import type { TagWithIds } from "@t/data/tag.types";
+import type { ById, ID } from "@t/data/utility.types";
 import type { ChangeEvent, MouseEvent } from "react";
 import { useMemo, useState } from "react";
 

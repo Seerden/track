@@ -1,7 +1,7 @@
 import { sqlConnection } from "@/db/init";
-import type { Habit, HabitWithIds, NewHabit } from "types/data/habit.types";
-import type { HabitTagRelation } from "types/data/relational.types";
-import type { ID } from "types/data/utility.types";
+import type { Habit, HabitWithIds, NewHabit } from "@t/data/habit.types";
+import type { HabitTagRelation } from "@t/data/relational.types";
+import type { ID } from "@t/data/utility.types";
 import type { WithSQL } from "types/sql.types";
 
 async function insertHabit({ sql = sqlConnection, habit }: WithSQL<{ habit: NewHabit }>) {

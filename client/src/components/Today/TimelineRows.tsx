@@ -1,7 +1,7 @@
 import TimelineRow from "@/components/Today/TimelineRow";
 import { activityStartHour, assignIndentationLevelToActivities } from "@/lib/activity";
 import type { Datelike } from "@/types/date.types";
-import type { ActivityWithIds } from "@/types/server/activity.types";
+import type { ActivityWithIds } from "@t/data/activity.types";
 import S from "./style/Today.style";
 
 function useRows({

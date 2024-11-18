@@ -1,4 +1,4 @@
-import type { HabitWithIds } from "@/types/server/habit.types";
+import type { HabitWithIds } from "@t/data/habit.types";
 
 /**
  * Generates humanized string to display a habit's repetition settings, like "3

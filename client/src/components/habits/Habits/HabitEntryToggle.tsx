@@ -1,10 +1,6 @@
 import type { HabitEntryUpdateMutationFunction } from "@/lib/hooks/query/habits/useHabitEntryMutation";
-import { isSynthetic } from "@/types/server/habit-entry.guards";
-import type {
-	HabitEntry,
-	HabitWithIds,
-	SyntheticHabitEntry
-} from "@/types/server/habit.types";
+import { isSynthetic } from "@t/data/habit-entry.guards";
+import type { HabitEntry, HabitWithIds, SyntheticHabitEntry } from "@t/data/habit.types";
 import { useState } from "react";
 
 type HabitEntryToggleProps = {

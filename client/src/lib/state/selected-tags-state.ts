@@ -1,4 +1,4 @@
-import type { ById, ID } from "@type/server/utility.types";
+import type { ById, ID } from "@t/data/utility.types";
 import {
 	atom,
 	atomFamily,

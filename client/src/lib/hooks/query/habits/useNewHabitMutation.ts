@@ -1,7 +1,7 @@
 import { createRequestConfig } from "@/lib/fetch/create-request-config";
 import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
 import { mk } from "@/lib/query-keys";
-import type { HabitInput, HabitWithIds } from "@/types/server/habit.types";
+import type { HabitInput, HabitWithIds } from "@t/data/habit.types";
 import { useMutation } from "@tanstack/react-query";
 
 async function postNewHabit({ habit, tagIds }: HabitInput): Promise<HabitWithIds> {

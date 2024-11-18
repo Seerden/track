@@ -1,6 +1,6 @@
 import { useDetailedActivityModal } from "@/components/Today/hooks/useDetailedActivityModal.ts";
 import { activityDuration, activityStart, activityStartHour } from "@/lib/activity.ts";
-import type { ActivityWithIds } from "@type/server/activity.types.ts";
+import type { ActivityWithIds } from "@t/data/activity.types.ts";
 import T from "./style/Activity.style.ts";
 
 function useActivity(activity: ActivityWithIds) {

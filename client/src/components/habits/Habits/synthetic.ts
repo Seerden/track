@@ -1,5 +1,7 @@
 import { createDate } from "@/lib/datetime/make-date";
 import type { Datelike } from "@/types/date.types";
+import type { TimeWindow } from "@/types/time-window.types";
+import type { ById, ID } from "shared/types/data/utility.types";
 import type {
 	Habit,
 	HabitEntry,
@@ -7,9 +9,7 @@ import type {
 	HabitWithPossiblySyntheticEntries,
 	NewHabitEntry,
 	SyntheticHabitEntry
-} from "@/types/server/habit.types";
-import type { ById, ID } from "@/types/server/utility.types";
-import type { TimeWindow } from "@/types/time-window.types";
+} from "../../../../../shared/types/data/habit.types";
 
 export function daysInInterval(interval: TimeWindow["intervalUnit"]) {
 	switch (interval) {

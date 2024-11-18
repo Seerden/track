@@ -1,8 +1,8 @@
 import { createDate } from "@/lib/datetime/make-date";
-import { activityGuards } from "@/types/server/activity.guards";
-import type { AtLeast } from "@/types/server/utility.types";
+import { activityGuards } from "@t/data/activity.guards";
+import { type NewActivity } from "@t/data/activity.types";
+import type { AtLeast } from "@t/data/utility.types";
 import type { DateTimeField } from "@type/form.types";
-import { type NewActivity } from "@type/server/activity.types";
 
 /**
  * An activity either has date fields (start_date, end_date) or timestamp fields
