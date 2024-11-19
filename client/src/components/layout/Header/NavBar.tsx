@@ -5,7 +5,7 @@ import S from "./style/NavBar.style";
 export default function NavBar() {
 	return (
 		<S.NavBar>
-			<div>Hello, world</div>
+			<div>📅</div>
 			<S.Actions>
 				<input type="date" />
 				<input type="text" placeholder="search" />
