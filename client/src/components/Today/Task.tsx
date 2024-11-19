@@ -1,5 +1,6 @@
-import { useDetailedActivityModal } from "@/components/Today/hooks/useDetailedActivityModal";
+import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
+import modalIds from "@/lib/modal-ids";
 import { Checkbox } from "@/lib/theme/components/Checkbox";
 import { activityEnd, activityStart } from "@lib/activity";
 import type { ActivityWithIds } from "@t/data/activity.types";
@@ -12,11 +13,14 @@ import S from "./style/Today.style";
 function useTask(activity: ActivityWithIds) {
 	const checkboxRef = useRef<HTMLLabelElement>(null);
 	const putCompletion = usePutTaskCompletion(activity);
-	const { openDetailedActivityModal } = useDetailedActivityModal(activity);
+	const { openDetailedItemModal } = useDetailedItemModal(
+		"activity",
+		modalIds.detailedActivity
+	);
 
 	return {
 		checkboxRef,
-		openDetailedActivityModal,
+		openDetailedItemModal,
 		putCompletion
 	} as const;
 }
@@ -27,13 +31,13 @@ type TaskProps = {
 };
 
 export default function Task({ activity, tags = [] }: TaskProps) {
-	const { checkboxRef, openDetailedActivityModal, putCompletion } = useTask(activity);
+	const { checkboxRef, openDetailedItemModal, putCompletion } = useTask(activity);
 
 	return (
 		<T.Task
 			onClick={(e) => {
 				e.stopPropagation();
-				openDetailedActivityModal();
+				openDetailedItemModal(activity.activity_id);
 			}}
 		>
 			<S.CheckboxWrapper

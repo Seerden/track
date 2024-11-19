@@ -1,5 +1,6 @@
-import { useDetailedActivityModal } from "@/components/Today/hooks/useDetailedActivityModal";
+import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
+import modalIds from "@/lib/modal-ids";
 import { Checkbox } from "@/lib/theme/components/Checkbox";
 import type { ActivityWithIds } from "@t/data/activity.types";
 import { useRef } from "react";
@@ -8,13 +9,16 @@ import T from "./style/AllDayActivity.style";
 import S from "./style/Today.style";
 
 function useAllDayActivity(activity: ActivityWithIds) {
-	const { openDetailedActivityModal } = useDetailedActivityModal(activity);
+	const { openDetailedItemModal } = useDetailedItemModal(
+		"activity",
+		modalIds.detailedActivity
+	);
 	const checkboxRef = useRef<HTMLLabelElement>(null);
 	const putCompletion = usePutTaskCompletion(activity);
 
 	return {
 		checkboxRef,
-		openDetailedActivityModal,
+		openDetailedItemModal,
 		putCompletion
 	};
 }
@@ -24,7 +28,7 @@ type AllDayActivityProps = {
 };
 
 export default function AllDayActivity({ activity }: AllDayActivityProps) {
-	const { checkboxRef, openDetailedActivityModal, putCompletion } =
+	const { checkboxRef, openDetailedItemModal, putCompletion } =
 		useAllDayActivity(activity);
 
 	return (
@@ -34,7 +38,7 @@ export default function AllDayActivity({ activity }: AllDayActivityProps) {
 				if (checkboxRef.current?.contains(e.target as Node)) return;
 
 				e.stopPropagation();
-				openDetailedActivityModal();
+				openDetailedItemModal(activity.activity_id);
 			}}
 		>
 			<p title="This activity lasts all day">

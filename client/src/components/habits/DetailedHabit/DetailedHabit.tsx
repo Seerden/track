@@ -1,5 +1,9 @@
+import DetailedTag from "@/components/tags/DetailedTag/DetailedTag";
+import Modal from "@/components/utility/Modal/Modal";
 import { createDate } from "@/lib/datetime/make-date";
 import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
+import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
+import modalIds from "@/lib/modal-ids";
 import C from "@/lib/theme/components/Card.style";
 import type { HabitWithIds } from "@t/data/habit.types";
 import type { PropsWithChildren } from "react";
@@ -11,6 +15,10 @@ type DetailedHabitProps = {
 
 export default function DetailedHabit({ habit }: PropsWithChildren<DetailedHabitProps>) {
 	const { data: tagsData } = useTagsQuery();
+	const { activeItem, openDetailedItemModal } = useDetailedItemModal(
+		"tag",
+		modalIds.tags.detailed
+	);
 
 	const humanizedStart = createDate(habit.start_timestamp).fromNow();
 	const humanizedEnd = habit.end_timestamp
@@ -47,11 +55,26 @@ export default function DetailedHabit({ habit }: PropsWithChildren<DetailedHabit
 				{habit.end_timestamp && <span>Tracking ends {humanizedEnd}</span>}
 			</C.Datetime>
 			{tagsData?.byId && (
-				<C.Tags>
-					{habit.tag_ids.map((id) => (
-						<C.Tag key={id}>{tagsData.byId[id]?.name}</C.Tag>
-					))}
-				</C.Tags>
+				<>
+					<C.Tags>
+						{habit.tag_ids.map((id) => (
+							<C.Tag
+								key={id}
+								onClick={(e) => {
+									e.stopPropagation();
+									openDetailedItemModal(id);
+								}}
+							>
+								{tagsData.byId[id]?.name}
+							</C.Tag>
+						))}
+					</C.Tags>
+					{activeItem.tag.shouldShowModal && (
+						<Modal modalId={modalIds.tags.detailed} initialOpen={false}>
+							<DetailedTag tag={activeItem.tag.activeItem} />
+						</Modal>
+					)}
+				</>
 			)}
 		</S.DetailedHabitCard>
 	);

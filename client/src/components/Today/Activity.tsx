@@ -1,5 +1,6 @@
-import { useDetailedActivityModal } from "@/components/Today/hooks/useDetailedActivityModal";
 import { activityDurationOnDate, activityStartOnDate } from "@/lib/activity";
+import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
+import modalIds from "@/lib/modal-ids";
 import type { ActivityWithIds } from "@t/data/activity.types";
 import type { Datelike } from "@t/data/utility.types";
 import T from "./style/Activity.style";
@@ -7,7 +8,10 @@ import T from "./style/Activity.style";
 function useActivity(activity: ActivityWithIds, date: Datelike) {
 	const start = activityStartOnDate(activity, date);
 	const offset = !start ? 0 : start.minute() / 60;
-	const { openDetailedActivityModal } = useDetailedActivityModal(activity);
+	const { openDetailedItemModal } = useDetailedItemModal(
+		"activity",
+		modalIds.detailedActivity
+	);
 
 	/** This is the _displayed_ duration on the Today timeline. A multiday
 	 * activity still "ends" at midnight on this view. */
@@ -16,7 +20,7 @@ function useActivity(activity: ActivityWithIds, date: Datelike) {
 	return {
 		durationHoursOnDate,
 		offset,
-		openDetailedActivityModal
+		openDetailedItemModal
 	} as const;
 }
 
@@ -27,7 +31,7 @@ export type ActivityProps = {
 };
 
 export default function Activity({ activity, level, date }: ActivityProps) {
-	const { offset, openDetailedActivityModal, durationHoursOnDate } = useActivity(
+	const { offset, openDetailedItemModal, durationHoursOnDate } = useActivity(
 		activity,
 		date
 	);
@@ -39,7 +43,7 @@ export default function Activity({ activity, level, date }: ActivityProps) {
 			$offset={offset}
 			onClick={(e) => {
 				e.stopPropagation();
-				openDetailedActivityModal();
+				openDetailedItemModal(activity.activity_id);
 			}}
 		>
 			{/* TODO: on mouseover, display a short humanized time string */}

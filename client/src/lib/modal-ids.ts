@@ -18,5 +18,8 @@ export default {
 		newTask: "new-task"
 	},
 	detailedActivity: "detailed-activity", // TODO: do we want this to be dependent on activity_id?
-	tagTree: { tree: "tag-tree", tagSelector: "tag-tree-tag-selector" }
+	tagTree: { tree: "tag-tree", tagSelector: "tag-tree-tag-selector" },
+	tags: {
+		detailed: "detailed-tag"
+	}
 } as const;

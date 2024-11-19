@@ -26,7 +26,7 @@ import Tasks from "./Tasks";
 function useToday() {
 	const { data: activitiesData } = useActivitiesQuery();
 	const { getHabitsForTimeWindow } = useHabitsData();
-
+	const activeItem = useRecoilValue(activeItemState);
 	const [currentDate, setCurrentDate] = useState<Dayjs>(() => today());
 	const [timeWindow, setTimeWindow] = useRecoilState(selectedTimeWindowState);
 
@@ -57,13 +57,6 @@ function useToday() {
 		(activity) => !isAllDayActivityOnDate(activity, currentDate)
 	);
 
-	const { modalIds: openModalIds } = useModalState();
-
-	const shouldShowDetailedActivity = !!openModalIds.includes(modalIds.detailedActivity);
-
-	const activeItemId = useRecoilValue(activeItemState);
-	const selectedActivity = activities.find((a) => a.activity_id === activeItemId);
-
 	const currentYear = today().year(); // TODO: edge case: make this reactive so it updates on New Year's
 	const title = currentDate.format(
 		`dddd (D MMMM${currentDate.year() !== currentYear ? " YYYY" : ""})`
@@ -76,8 +69,7 @@ function useToday() {
 		timestampedActivities,
 		currentDate,
 		setCurrentDate,
-		shouldShowDetailedActivity,
-		selectedActivity,
+		activeItem,
 		title,
 		changeDay
 	} as const;
@@ -155,8 +147,8 @@ export default function Today() {
 
 				<Notes />
 			</S.Columns>
-			{t.shouldShowDetailedActivity && t.selectedActivity && (
-				<DetailedActivity activity={t.selectedActivity} />
+			{t.activeItem.activity.shouldShowModal && (
+				<DetailedActivity activity={t.activeItem.activity.activeItem} />
 			)}
 		</S.Wrapper>
 	);
