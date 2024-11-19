@@ -1,6 +1,7 @@
 import { isToday } from "@/lib/datetime/compare";
+import useCurrentTime from "@/lib/hooks/useCurrentTime";
 import { selectedTimeWindowState } from "@/lib/state/selected-time-window-state";
-import { createDate, now } from "@lib/datetime/make-date";
+import { createDate } from "@lib/datetime/make-date";
 import { parseTimeString } from "@lib/datetime/parse-string";
 import { useEffect, useMemo, useState } from "react";
 import { useRecoilValue } from "recoil";
@@ -39,7 +40,7 @@ export default function useDateTimePicker({ setState }: DateTimePickerProps) {
 		end: defaultStartDate
 	});
 
-	const currentTime = now();
+	const currentTime = useCurrentTime(); // the default interval on this might be too short, causing too many re-renders.
 
 	const [time, setTime] = useState({
 		start: currentTime.format("HHmm"),
