@@ -1,6 +1,4 @@
-import { sqlConnection } from "@/db/init";
 import { type NewUser, type UserLogin } from "@t/data/user.types";
-import { hash } from "bcryptjs";
 import { Router } from "express";
 import { destroySession } from "../lib/auth/destroy-session";
 import { login } from "../lib/auth/log-in";
@@ -39,22 +37,4 @@ authRouter.post("/register", async (req, res) => {
 
 	await login(newUser, req, res);
 	return res.status(200).json({ user: registeredUser });
-});
-
-authRouter.put("/update", async (req, res) => {
-	const { input } = req.body as { input: Partial<NewUser> };
-
-	if (input.password) {
-		const password = await hash(input.password, 11);
-
-		if (input.username) {
-			await sqlConnection`
-            update users
-            set password_hash = ${password}
-            where username = ${input.username}
-         `;
-		}
-	}
-
-	res.json({ message: "User updated." });
 });
