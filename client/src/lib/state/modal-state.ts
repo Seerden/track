@@ -1,5 +1,6 @@
 import { activeItemState } from "@/lib/state/active-item-state";
-import { atom, useRecoilState } from "recoil";
+import { useCallback } from "react";
+import { atom, useRecoilState, useSetRecoilState } from "recoil";
 
 export const modalIdsState = atom<string[]>({
 	key: "modalIdsState",
@@ -8,7 +9,7 @@ export const modalIdsState = atom<string[]>({
 
 export function useModalState() {
 	const [modalIds, setModalIds] = useRecoilState(modalIdsState);
-	const [activeItem, setActiveItem] = useRecoilState(activeItemState);
+	const setActiveItem = useSetRecoilState(activeItemState);
 
 	function maybeClearActiveItemState(modalId: string) {
 		if (!modalId.includes("detailed")) return;
@@ -41,15 +42,24 @@ export function useModalState() {
 		}
 	}
 
-	function toggleModal(modalId: string) {
-		setModalIds((current) =>
-			current.includes(modalId)
-				? current.filter((id) => id !== modalId)
-				: [...current, modalId]
-		);
+	const toggleModal = useCallback(
+		(modalId: string) => {
+			// maybe clear active item state.
+			const isOpen = modalIds.includes(modalId);
+			const newValue = !isOpen;
+			if (!newValue) {
+				maybeClearActiveItemState(modalId);
+			}
 
-		// TODO: if toggled off, possiblyResetActiveItemState(modalId);
-	}
+			// actually toggle the modal.
+			setModalIds((current) =>
+				current.includes(modalId)
+					? current.filter((id) => id !== modalId)
+					: [...current, modalId]
+			);
+		},
+		[modalIds]
+	);
 
 	return {
 		modalIds,

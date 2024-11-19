@@ -9,7 +9,7 @@ export default function useDetailedItemModal(
 	modalId: string
 ) {
 	const [activeItem, setActiveItem] = useRecoilState(activeItemState);
-	const { openModal, closeModal } = useModalState();
+	const { openModal } = useModalState();
 
 	function openDetailedItemModal(id: ID) {
 		setActiveItem((current) => ({
