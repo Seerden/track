@@ -106,9 +106,13 @@ export default function useDateTimePicker({ setState }: DateTimePickerProps) {
 	) {
 		if (e.target.value.length !== 4) return; // TODO: this is very temporary
 
+		const parsedValue = parseTimeString(e.target.value);
+
+		if (!parsedValue) return;
+
 		setTime((current) => ({
 			...current,
-			[field]: parseTimeString(e.target.value)
+			[field]: parsedValue
 		}));
 	}
 
