@@ -6,7 +6,6 @@ import { Suspense } from "react";
 import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "styled-components";
 import "./App.scss";
-import S from "./App.style";
 import { queryClient } from "./lib/query-client";
 import { theme } from "./lib/theme/theme";
 
@@ -18,9 +17,9 @@ function App() {
 				<RecoilRoot>
 					<ThemeProvider theme={theme}>
 						<Suspense fallback={<>Loading...</>}>
-							<S.Main>
+							<main>
 								<AnimatedRoutes />
-							</S.Main>
+							</main>
 						</Suspense>
 					</ThemeProvider>
 				</RecoilRoot>
