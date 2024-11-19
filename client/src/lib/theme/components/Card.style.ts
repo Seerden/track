@@ -57,6 +57,7 @@ const Tags = styled.ul`
 
 const Tag = styled.li`
 	user-select: none;
+	cursor: pointer;
 	list-style: none;
 	${spacing.padding.wide({ size: 0.3, ratio: 2 })};
 	border-radius: 3px;
@@ -67,6 +68,10 @@ const Tag = styled.li`
 	align-self: flex-end;
 	justify-self: flex-end;
 `;
+
+Tag.defaultProps = {
+	title: "Click to show tag details"
+};
 
 const InfoLine = styled.p`
 	margin-top: 0.4rem;
