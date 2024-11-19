@@ -10,11 +10,10 @@ export const pageStyle = css`
 	display: flex;
 	justify-content: center;
 	margin: 0 auto;
+
 	${spacing.padding.wide({ size: 1.2, ratio: 1.5 })};
 
-	margin-top: 6rem;
 	${pageShadow};
-
 	${pageBorder};
 `;
 
