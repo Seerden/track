@@ -1,8 +1,8 @@
 import S from "@/components/Today/style/DetailedActivity.style";
-import Modal from "@/components/utility/Modal/Modal";
 import { activityEnd, activityStart, hasNotEnded, startsInFuture } from "@/lib/activity";
 import { createDate } from "@/lib/datetime/make-date";
 import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
+import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
 import CardStyle from "@/lib/theme/components/Card.style";
@@ -25,67 +25,74 @@ export default function DetailedActivity({ activity }: DetailedActivityProps) {
 	const putCompletion = usePutTaskCompletion(activity);
 	const humanizedStart = `${startsInFuture(activity) ? "starts" : "started"} ${activityStart(activity).fromNow()}`;
 	const showHumanizedStart = hasNotEnded(activity);
+	const { openDetailedItemModal } = useDetailedItemModal("tag", modalIds.tags.detailed);
 
 	return (
-		<Modal modalId={modalIds.detailedActivity}>
-			<S.Wrapper>
-				<S.Title>
-					{activity.is_task && (
-						<S.CheckboxWrapper>
-							<input type="checkbox" onChange={putCompletion} />
-							<Checkbox checked={activity.completed} />
-						</S.CheckboxWrapper>
+		<S.Wrapper>
+			<S.Title>
+				{activity.is_task && (
+					<S.CheckboxWrapper>
+						<input type="checkbox" onChange={putCompletion} />
+						<Checkbox checked={activity.completed} />
+					</S.CheckboxWrapper>
+				)}
+				<span>{activity.name}</span>
+			</S.Title>
+
+			{!!activity.description.length && (
+				<S.Description>{activity.description}</S.Description>
+			)}
+
+			<S.Time>
+				{showHumanizedStart && (
+					<CardStyle.InfoLine>
+						<S.HumanizedStart>{humanizedStart}</S.HumanizedStart>
+					</CardStyle.InfoLine>
+				)}
+				<S.Datetime>
+					<span>
+						from <span>{format(activityStart(activity))}</span>
+					</span>
+					<span>
+						to <span>{format(activityEnd(activity))}</span>
+					</span>
+				</S.Datetime>
+			</S.Time>
+
+			{!!activity.is_task && (
+				<S.Task>
+					{activity.completed && (
+						<S.Datetime>
+							{activity.completion_start && (
+								<>from {format(activity.completion_start)}</>
+							)}
+							{activity.completion_end && (
+								<>to {format(activity.completion_end)}</>
+							)}
+						</S.Datetime>
 					)}
-					<span>{activity.name}</span>
-				</S.Title>
+				</S.Task>
+			)}
 
-				{!!activity.description.length && (
-					<S.Description>{activity.description}</S.Description>
-				)}
-
-				<S.Time>
-					{showHumanizedStart && (
-						<CardStyle.InfoLine>
-							<S.HumanizedStart>{humanizedStart}</S.HumanizedStart>
-						</CardStyle.InfoLine>
-					)}
-					<S.Datetime>
-						<span>
-							from <span>{format(activityStart(activity))}</span>
-						</span>
-						<span>
-							to <span>{format(activityEnd(activity))}</span>
-						</span>
-					</S.Datetime>
-				</S.Time>
-
-				{!!activity.is_task && (
-					<S.Task>
-						{activity.completed && (
-							<S.Datetime>
-								{activity.completion_start && (
-									<>from {format(activity.completion_start)}</>
-								)}
-								{activity.completion_end && (
-									<>to {format(activity.completion_end)}</>
-								)}
-							</S.Datetime>
-						)}
-					</S.Task>
-				)}
-
-				{tagsData?.byId && (
-					<S.Tags
-						style={{
-							gridArea: "tags"
-						}}
-					>
-						{activity.tag_ids.map((id) => (
-							<S.Tag key={id}>{tagsData.byId[id].name}</S.Tag>
-						))}
-					</S.Tags>
-				)}
-			</S.Wrapper>
-		</Modal>
+			{tagsData?.byId && (
+				<S.Tags
+					style={{
+						gridArea: "tags"
+					}}
+				>
+					{activity.tag_ids.map((id) => (
+						<S.Tag
+							onClick={(e) => {
+								e.stopPropagation();
+								openDetailedItemModal(tagsData.byId[id].tag_id);
+							}}
+							key={id}
+						>
+							{tagsData.byId[id].name}
+						</S.Tag>
+					))}
+				</S.Tags>
+			)}
+		</S.Wrapper>
 	);
 }

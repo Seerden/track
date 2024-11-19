@@ -34,13 +34,12 @@ export default function useModal(
 	}
 
 	function onClickOutside(e: MouseEvent) {
-		if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-			e.preventDefault();
-			e.stopPropagation();
-			const idToClose = modalRef.current.dataset.modalId;
-			if (!idToClose) return;
-			outsideClickHandler?.(e) ?? closeModal(idToClose);
-		}
+		const maybeWrapperId = (e.target as HTMLElement).dataset?.modalWrapperId;
+		if (!maybeWrapperId) return;
+
+		e.preventDefault();
+		e.stopPropagation();
+		outsideClickHandler?.(e) ?? closeModal(maybeWrapperId);
 	}
 
 	useEffect(() => {

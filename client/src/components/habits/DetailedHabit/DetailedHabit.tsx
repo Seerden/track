@@ -1,5 +1,3 @@
-import DetailedTag from "@/components/tags/DetailedTag/DetailedTag";
-import Modal from "@/components/utility/Modal/Modal";
 import { createDate } from "@/lib/datetime/make-date";
 import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
@@ -15,10 +13,7 @@ type DetailedHabitProps = {
 
 export default function DetailedHabit({ habit }: PropsWithChildren<DetailedHabitProps>) {
 	const { data: tagsData } = useTagsQuery();
-	const { activeItem, openDetailedItemModal } = useDetailedItemModal(
-		"tag",
-		modalIds.tags.detailed
-	);
+	const { openDetailedItemModal } = useDetailedItemModal("tag", modalIds.tags.detailed);
 
 	const humanizedStart = createDate(habit.start_timestamp).fromNow();
 	const humanizedEnd = habit.end_timestamp
@@ -69,11 +64,6 @@ export default function DetailedHabit({ habit }: PropsWithChildren<DetailedHabit
 							</C.Tag>
 						))}
 					</C.Tags>
-					{activeItem.tag.shouldShowModal && (
-						<Modal modalId={modalIds.tags.detailed} initialOpen={false}>
-							<DetailedTag tag={activeItem.tag.activeItem} />
-						</Modal>
-					)}
 				</>
 			)}
 		</S.DetailedHabitCard>

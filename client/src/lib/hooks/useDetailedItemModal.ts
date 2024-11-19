@@ -8,7 +8,7 @@ import type { ActivityWithIds } from "@t/data/activity.types";
 import type { HabitWithEntries } from "@t/data/habit.types";
 import type { TagWithIds } from "@t/data/tag.types";
 import type { ID } from "@t/data/utility.types";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useRecoilState } from "recoil";
 
 export default function useDetailedItemModal(
@@ -16,7 +16,7 @@ export default function useDetailedItemModal(
 	modalId: string
 ) {
 	const [activeItem, setActiveItem] = useRecoilState(activeItemState);
-	const { openModal } = useModalState();
+	const { openModal, closeModal } = useModalState();
 
 	const { data: tagsData } = useTagsQuery();
 	const { data: activitiesData } = useActivitiesQuery();
@@ -57,6 +57,21 @@ export default function useDetailedItemModal(
 
 		openModal(modalId);
 	}
+
+	useEffect(() => {
+		return () => {
+			setActiveItem((current) => ({
+				...current,
+				[type]: {
+					shouldShowModal: false,
+					activeId: null,
+					activeItem: null
+				}
+			}));
+
+			closeModal(modalId);
+		};
+	}, []);
 
 	return {
 		modalId,

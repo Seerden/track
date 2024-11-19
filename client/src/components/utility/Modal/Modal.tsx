@@ -24,7 +24,7 @@ export default function Modal({
 	}
 
 	return (
-		<S.ModalWrapper>
+		<S.ModalWrapper data-modal-wrapper-id={modalId}>
 			<S.Modal ref={modalRef} data-modal-id={modalId}>
 				<S.Close
 					onClick={(e) => {

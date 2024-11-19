@@ -3,7 +3,6 @@ import Habits from "@/components/habits/Habits/Habits";
 import NewHabit from "@/components/habits/NewHabit/NewHabit";
 import AllDayActivities from "@/components/Today/AllDayActivities";
 import ChangeDayButton from "@/components/Today/ChangeDayButton";
-import DetailedActivity from "@/components/Today/DetailedActivity";
 import TimelineRows from "@/components/Today/TimelineRows";
 import Calendar from "@/components/utility/Calendar/Calendar";
 import Modal from "@/components/utility/Modal/Modal";
@@ -11,13 +10,12 @@ import { today } from "@/lib/datetime/make-date";
 import useActivitiesQuery from "@/lib/hooks/query/activities/useActivitiesQuery";
 import useHabitsData from "@/lib/hooks/useHabitsData";
 import modalIds from "@/lib/modal-ids";
-import { activeItemState } from "@/lib/state/active-item-state";
 import { useModalState } from "@/lib/state/modal-state";
 import { selectedTimeWindowState } from "@/lib/state/selected-time-window-state";
 import { activityFallsOnDay, isAllDayActivityOnDate } from "@lib/activity";
 import type { Dayjs } from "dayjs";
 import { useEffect, useMemo, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import Notes from "./Notes";
 import S from "./style/Today.style";
 import Tasks from "./Tasks";
@@ -26,7 +24,6 @@ import Tasks from "./Tasks";
 function useToday() {
 	const { data: activitiesData } = useActivitiesQuery();
 	const { getHabitsForTimeWindow } = useHabitsData();
-	const activeItem = useRecoilValue(activeItemState);
 	const [currentDate, setCurrentDate] = useState<Dayjs>(() => today());
 	const [timeWindow, setTimeWindow] = useRecoilState(selectedTimeWindowState);
 
@@ -69,7 +66,6 @@ function useToday() {
 		timestampedActivities,
 		currentDate,
 		setCurrentDate,
-		activeItem,
 		title,
 		changeDay
 	} as const;
@@ -147,9 +143,6 @@ export default function Today() {
 
 				<Notes />
 			</S.Columns>
-			{t.activeItem.activity.shouldShowModal && (
-				<DetailedActivity activity={t.activeItem.activity.activeItem} />
-			)}
 		</S.Wrapper>
 	);
 }
