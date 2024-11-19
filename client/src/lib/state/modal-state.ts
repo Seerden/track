@@ -1,3 +1,4 @@
+import { activeItemState } from "@/lib/state/active-item-state";
 import { atom, useRecoilState } from "recoil";
 
 export const modalIdsState = atom<string[]>({
@@ -7,6 +8,18 @@ export const modalIdsState = atom<string[]>({
 
 export function useModalState() {
 	const [modalIds, setModalIds] = useRecoilState(modalIdsState);
+	const [activeItem, setActiveItem] = useRecoilState(activeItemState);
+
+	function maybeClearActiveItemState(modalId: string) {
+		if (!modalId.includes("detailed")) return;
+
+		setActiveItem((current) => ({
+			...current,
+			[modalId.split("-")[1]]: {
+				activeId: null
+			}
+		}));
+	}
 
 	function openModal(modalId: string) {
 		setModalIds((current) => {
@@ -17,12 +30,15 @@ export function useModalState() {
 
 	function closeModal(modalId: string) {
 		setModalIds((current) => current.filter((id) => id !== modalId));
+		maybeClearActiveItemState(modalId);
 	}
 
 	function setModalOpen({ modalId, value }: { modalId: string; value: boolean }) {
-		setModalIds((current) =>
-			value ? [...current, modalId] : current.filter((id) => id !== modalId)
-		);
+		if (!value) {
+			closeModal(modalId);
+		} else {
+			setModalIds((current) => [...current, modalId]);
+		}
 	}
 
 	function toggleModal(modalId: string) {

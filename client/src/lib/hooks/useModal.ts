@@ -1,17 +1,16 @@
 import { useModalState } from "@/lib/state/modal-state";
 import type { RefObject } from "react";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 type UseModalProps = {
 	keys?: string[];
-	outsideClickHandler?: (e: MouseEvent) => void;
 	modalId: string;
 	initialOpen?: boolean;
 };
 
 export default function useModal(
 	modalRef: RefObject<HTMLElement | null>,
-	{ keys, outsideClickHandler, modalId, initialOpen }: UseModalProps
+	{ keys, modalId, initialOpen }: UseModalProps
 ) {
 	const { setModalOpen, modalIds } = useModalState();
 
@@ -23,34 +22,35 @@ export default function useModal(
 
 	function closeModal(modalId: string) {
 		setModalOpen({ modalId, value: false });
-		window.removeEventListener("click", onClickOutside);
 		window.removeEventListener("keydown", onKeydown);
 	}
 
-	function onKeydown(e: KeyboardEvent) {
-		if (modalRef.current && ["Escape"].concat(keys ?? []).includes(e.code)) {
-			closeModal(modalId);
-		}
-	}
+	const isOpen = modalIds.includes(modalId);
 
-	function onClickOutside(e: MouseEvent) {
-		const maybeWrapperId = (e.target as HTMLElement).dataset?.modalWrapperId;
-		if (!maybeWrapperId) return;
-
-		e.preventDefault();
-		e.stopPropagation();
-		outsideClickHandler?.(e) ?? closeModal(maybeWrapperId);
-	}
+	const onKeydown = useCallback(
+		(e: KeyboardEvent) => {
+			if (
+				modalIds.length &&
+				modalRef.current &&
+				["Escape"].concat(keys ?? []).includes(e.code)
+			) {
+				// -- since we check for modalIds.length, modalIds.at(-1) will always be defined
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+				closeModal(modalIds.at(-1)!);
+			}
+		},
+		[modalIds]
+	);
 
 	useEffect(() => {
+		if (!isOpen) return;
+
 		window.addEventListener("keydown", onKeydown);
-		window.addEventListener("click", onClickOutside);
 
 		return () => {
 			window.removeEventListener("keydown", onKeydown);
-			window.removeEventListener("click", onClickOutside);
 		};
-	}, [modalRef.current]);
+	}, [isOpen]);
 
-	return { isOpen: modalIds.includes(modalId), closeModal };
+	return { isOpen, closeModal };
 }

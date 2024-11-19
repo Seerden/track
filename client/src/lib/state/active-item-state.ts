@@ -1,45 +1,20 @@
-import type { ActivityWithIds } from "@t/data/activity.types";
-import type { HabitWithEntries } from "@t/data/habit.types";
-import type { TagWithIds } from "@t/data/tag.types";
 import type { ID } from "@t/data/utility.types";
 import { atom } from "recoil";
 
-type WithActiveItem<T> = {
-	shouldShowModal: true;
-	activeId: ID;
-	activeItem: T;
+type PossiblyActiveItem = {
+	activeId: ID | null;
 };
 
-type WithoutActiveItem = {
-	shouldShowModal: false;
-	activeId: null;
-	activeItem: null;
-};
+type DetailTypes = "tag" | "habit" | "activity";
 
-type PossiblyActiveItem<T> = WithActiveItem<T> | WithoutActiveItem;
+const inactive: PossiblyActiveItem = { activeId: null };
 
-export type ActiveItemState = {
-	tag: PossiblyActiveItem<TagWithIds>;
-	habit: PossiblyActiveItem<HabitWithEntries>;
-	activity: PossiblyActiveItem<ActivityWithIds>;
-};
+export type ActiveItemState = Record<DetailTypes, PossiblyActiveItem>;
 
 const defaultActiveItemState: ActiveItemState = {
-	tag: {
-		shouldShowModal: false,
-		activeId: null,
-		activeItem: null
-	},
-	activity: {
-		shouldShowModal: false,
-		activeId: null,
-		activeItem: null
-	},
-	habit: {
-		shouldShowModal: false,
-		activeId: null,
-		activeItem: null
-	}
+	tag: inactive,
+	activity: inactive,
+	habit: inactive
 } as const;
 
 export const activeItemState = atom<ActiveItemState>({
