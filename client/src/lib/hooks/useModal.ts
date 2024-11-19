@@ -25,8 +25,6 @@ export default function useModal(
 		window.removeEventListener("keydown", onKeydown);
 	}
 
-	const isOpen = modalIds.includes(modalId);
-
 	const onKeydown = useCallback(
 		(e: KeyboardEvent) => {
 			if (
@@ -34,7 +32,6 @@ export default function useModal(
 				modalRef.current &&
 				["Escape"].concat(keys ?? []).includes(e.code)
 			) {
-				// -- since we check for modalIds.length, modalIds.at(-1) will always be defined
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				closeModal(modalIds.at(-1)!);
 			}
@@ -43,14 +40,14 @@ export default function useModal(
 	);
 
 	useEffect(() => {
-		if (!isOpen) return;
+		if (!modalIds.includes(modalId)) return;
 
 		window.addEventListener("keydown", onKeydown);
 
 		return () => {
 			window.removeEventListener("keydown", onKeydown);
 		};
-	}, [isOpen]);
+	}, [modalIds]);
 
-	return { isOpen, closeModal };
+	return { isOpen: modalIds.includes(modalId), closeModal };
 }
