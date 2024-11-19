@@ -26,7 +26,7 @@ export default function Habit({ habit }: HabitProps) {
 				// also need to do the same to the slider wrapper.. bit hacky, maybe
 				// just trigger modal open on button click instead of the whole item.
 				e.stopPropagation();
-				openDetailedItemModal(habit.habit_id);
+				// openDetailedItemModal(habit.habit_id);
 			}}
 		>
 			<L.ItemName>{habit.name}</L.ItemName>
