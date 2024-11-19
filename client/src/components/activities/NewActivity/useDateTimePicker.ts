@@ -1,57 +1,68 @@
-import { createDate, today } from "@lib/datetime/make-date";
+import { isToday } from "@/lib/datetime/compare";
+import useCurrentTime from "@/lib/hooks/useCurrentTime";
+import { selectedTimeWindowState } from "@/lib/state/selected-time-window-state";
+import { createDate } from "@lib/datetime/make-date";
 import { parseTimeString } from "@lib/datetime/parse-string";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useRecoilValue } from "recoil";
 import type { DateTimePickerProps } from "./datetime-picker.types";
 
 export default function useDateTimePicker({ setState }: DateTimePickerProps) {
+	const currentTime = useCurrentTime(); // the default interval on this might be too short, causing too many re-renders.
+	const timeWindow = useRecoilValue(selectedTimeWindowState);
+	const [manualEndDate, setManualEndDate] = useState(false);
 	const [allDay, setAllDay] = useState(false);
 
-	// When allDay changes, we have to clear out the values, because we don't
-	// want to end up with a situation where start_date AND started_at are
-	// both set to some value. Would rather only have one field present at a time
-	// to prevent issues.
-	useEffect(() => {
-		const unusedStartField = allDay ? "started_at" : "start_date";
-		const unusedEndField = allDay ? "ended_at" : "end_date";
-
-		setState({ name: unusedStartField, value: "" });
-		setState({ name: unusedEndField, value: "" });
+	const dateFields = useMemo(() => {
+		const start = allDay ? "start_date" : "started_at";
+		const end = allDay ? "end_date" : "ended_at";
+		const unusedStart = allDay ? "started_at" : "start_date";
+		const unusedEnd = allDay ? "ended_at" : "end_date";
+		return { start, end, unusedStart, unusedEnd } as const;
 	}, [allDay]);
 
-	const { startField, endField } = useMemo(() => {
-		return {
-			startField: allDay ? "start_date" : "started_at",
-			endField: allDay ? "end_date" : "ended_at"
-		} as const;
-	}, [allDay]);
-
-	const [manualEndDate, setManualEndDate] = useState(false);
-	const defaultStartDate = today().format("YYYY-MM-DD");
+	const defaultStartDate = useMemo(() => {
+		return timeWindow.startDate.format("YYYY-MM-DD");
+	}, [timeWindow.startDate]);
 
 	const [date, setDate] = useState({
 		start: defaultStartDate,
 		end: defaultStartDate
 	});
 
-	const currentTime = today();
 	const [time, setTime] = useState({
 		start: currentTime.format("HHmm"),
 		end: currentTime.add(1, "hour").format("HHmm")
 	});
 
-	const dateTime = useMemo(() => {
-		const [start, end] = [
-			createDate(allDay ? date.start : `${date.start}T${time.start}`),
-			createDate(allDay ? date.end : `${date.end}T${time.end}`)
-		];
+	const defaultTime = useMemo(
+		() => ({
+			start: isToday(timeWindow.startDate) ? currentTime.format("HHmm") : "",
+			end: isToday(timeWindow.startDate)
+				? currentTime.add(1, "hour").format("HHmm")
+				: ""
+		}),
+		[timeWindow.startDate, currentTime]
+	);
 
-		return { start, end };
-	}, [date, time, allDay]);
+	const dateTime = useMemo(
+		() => ({
+			start: createDate(allDay ? date.start : `${date.start}T${time.start}`),
+			end: createDate(allDay ? date.end : `${date.end}T${time.end}`)
+		}),
+		[date, time, allDay]
+	);
+
+	// Clear out unused fields when allDay is toggled
+	useEffect(() => {
+		setState({ name: dateFields.unusedStart, value: "" });
+		setState({ name: dateFields.unusedEnd, value: "" });
+	}, [allDay]);
 
 	useEffect(() => {
-		setState({ name: startField, value: dateTime.start });
-		setState({ name: endField, value: dateTime.end });
-	}, [startField, endField, dateTime]);
+		setState({ name: dateFields.start, value: dateTime.start });
+		setState({ name: dateFields.end, value: dateTime.end });
+	}, [dateFields, dateTime]);
 
 	function handleDateChange(value: string, field: "start" | "end") {
 		setDate((current) => ({
@@ -60,14 +71,14 @@ export default function useDateTimePicker({ setState }: DateTimePickerProps) {
 		}));
 	}
 
-	function onStartDateChange(e: React.ChangeEvent<HTMLInputElement>) {
+	function onStartDateFieldChange(e: React.ChangeEvent<HTMLInputElement>) {
 		handleDateChange(e.target.value, "start");
 		if (!manualEndDate) {
 			handleDateChange(e.target.value, "end");
 		}
 	}
 
-	function onEndDateChange(e: React.ChangeEvent<HTMLInputElement>) {
+	function onEndDateFieldChange(e: React.ChangeEvent<HTMLInputElement>) {
 		if (e.target.value) {
 			handleDateChange(e.target.value, "end");
 			setManualEndDate(true);
@@ -78,30 +89,41 @@ export default function useDateTimePicker({ setState }: DateTimePickerProps) {
 		}
 	}
 
-	function onAllDayChange(e: React.ChangeEvent<HTMLInputElement>) {
-		setAllDay(e.target.checked);
-	}
+	const onAllDayFieldChange = useCallback(
+		(e: React.ChangeEvent<HTMLInputElement>) => {
+			setAllDay(e.target.checked);
+			setState({ name: dateFields.start, value: dateTime.start });
+			setState({ name: dateFields.end, value: dateTime.end });
+			setState({ name: dateFields.unusedStart, value: "" });
+			setState({ name: dateFields.unusedEnd, value: "" });
+		},
+		[setState, dateTime, dateFields]
+	);
 
-	function onTimeChange(e: React.ChangeEvent<HTMLInputElement>, field: "start" | "end") {
+	function onTimeFieldChange(
+		e: React.ChangeEvent<HTMLInputElement>,
+		field: "start" | "end"
+	) {
 		if (e.target.value.length !== 4) return; // TODO: this is very temporary
 
-		setTime({
-			...time,
+		setTime((current) => ({
+			...current,
 			[field]: parseTimeString(e.target.value)
-		});
+		}));
 	}
 
 	return {
+		defaultStartDate,
+		defaultTime,
 		allDay,
 		setAllDay,
 		manualEndDate,
 		setManualEndDate,
 		date,
 		setDate,
-		defaultStartDate,
-		onStartDateChange,
-		onEndDateChange,
-		onAllDayChange,
-		onTimeChange
+		onStartDateFieldChange,
+		onEndDateFieldChange,
+		onAllDayFieldChange,
+		onTimeFieldChange
 	};
 }

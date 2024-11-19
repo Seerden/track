@@ -15,7 +15,6 @@
 		"baseUrl": "../",
 		"rootDir": "../",
 		"types": ["jest", "node"],
-		"typeRoots": ["./types", "./node_modules/@types"],
 		"noImplicitAny": true,
 		"paths": {
 			"@/*": ["server/src/*"],

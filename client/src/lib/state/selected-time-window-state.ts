@@ -1,4 +1,4 @@
-import { createDate } from "@/lib/datetime/make-date";
+import { now } from "@/lib/datetime/make-date";
 import type { TimeWindow } from "@/types/time-window.types";
 import { atom } from "recoil";
 
@@ -10,8 +10,8 @@ import { atom } from "recoil";
 export const selectedTimeWindowState = atom<TimeWindow>({
 	default: {
 		intervalUnit: "day",
-		startDate: createDate(new Date()).startOf("day"),
-		endDate: createDate(new Date()).endOf("day")
+		startDate: now().startOf("day"),
+		endDate: now().endOf("day")
 	},
 	key: "selectedTimeWindowState"
 });

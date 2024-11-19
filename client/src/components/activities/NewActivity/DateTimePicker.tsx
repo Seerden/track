@@ -11,10 +11,11 @@ export default function DateTimePicker({ setState }: DateTimePickerProps) {
 		manualEndDate,
 		defaultStartDate,
 		date,
-		onStartDateChange,
-		onEndDateChange,
-		onAllDayChange,
-		onTimeChange
+		defaultTime,
+		onAllDayFieldChange,
+		onStartDateFieldChange,
+		onEndDateFieldChange,
+		onTimeFieldChange
 	} = useDateTimePicker({
 		setState
 	});
@@ -28,13 +29,17 @@ export default function DateTimePicker({ setState }: DateTimePickerProps) {
 						<DefaultInput
 							type="date"
 							defaultValue={defaultStartDate}
-							onChange={onStartDateChange}
+							onChange={onStartDateFieldChange}
 						/>
 					</S.Label>
 
 					<S.Label $faded={!manualEndDate}>
 						<span>End date</span>
-						<DefaultInput type="date" value={date.end} onChange={onEndDateChange} />
+						<DefaultInput
+							type="date"
+							value={date.end}
+							onChange={onEndDateFieldChange}
+						/>
 					</S.Label>
 					<S.Info
 						title={
@@ -51,7 +56,8 @@ export default function DateTimePicker({ setState }: DateTimePickerProps) {
 						<span>Start time</span>
 						<DefaultInput
 							type="text"
-							onBlur={(e) => onTimeChange(e, "start")}
+							onBlur={(e) => onTimeFieldChange(e, "start")}
+							defaultValue={defaultTime.start}
 							// TODO: Need something in the UI to clarify the time
 							// format (also in the endTime field), just this
 							// placeholder is not enough -- do this after implementing
@@ -65,14 +71,19 @@ export default function DateTimePicker({ setState }: DateTimePickerProps) {
 						<DefaultInput
 							type="text"
 							placeholder={"HHmm"}
-							onBlur={(e) => onTimeChange(e, "end")}
+							onBlur={(e) => onTimeFieldChange(e, "end")}
+							defaultValue={defaultTime.end}
 							disabled={allDay}
 						/>
 					</S.Label>
 				</S.Fields>
 				<S.AllDay>
 					All day?
-					<S.Checkbox type="checkbox" checked={allDay} onChange={onAllDayChange} />
+					<S.Checkbox
+						type="checkbox"
+						checked={allDay}
+						onChange={onAllDayFieldChange}
+					/>
 					<S.Icon>
 						<Checkbox checked={allDay} />
 					</S.Icon>

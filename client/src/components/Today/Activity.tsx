@@ -1,7 +1,7 @@
 import { useDetailedActivityModal } from "@/components/Today/hooks/useDetailedActivityModal";
 import { activityDurationOnDate, activityStartOnDate } from "@/lib/activity";
 import type { ActivityWithIds } from "@t/data/activity.types";
-import { Datelike } from "@t/data/utility.types";
+import type { Datelike } from "@t/data/utility.types";
 import T from "./style/Activity.style";
 
 function useActivity(activity: ActivityWithIds, date: Datelike) {
