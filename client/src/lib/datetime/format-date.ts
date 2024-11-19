@@ -14,6 +14,8 @@ export function formatDate(date: Datelike, { short }: { short?: boolean } = {}):
 export function formatHour(
 	index: number // index 0 is 12am, 1 is 1am, 12 is 12pm, 23 is 11pm, etc
 ) {
+	if (index < 0 || index > 23) return "";
+
 	return `${index < 10 ? "0" : ""}${index}:00`;
 }
 
