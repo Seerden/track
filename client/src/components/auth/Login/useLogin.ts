@@ -1,9 +1,11 @@
 import useLoginMutation from "@/lib/hooks/query/user/useLoginMutation";
+import useRouteProps from "@/lib/hooks/useRouteProps";
 import { localUser } from "@lib/user-storage";
 import { type UserLogin } from "@t/data/user.types";
 import { useState } from "react";
 
 export default function useLogin() {
+	const { navigate } = useRouteProps();
 	const [passwordVisible, setPasswordVisible] = useState(false);
 	function togglePasswordVisible() {
 		setPasswordVisible((current) => !current);
@@ -35,6 +37,7 @@ export default function useLogin() {
 				// modal. probably we redirect to the user's home page, because I
 				// expect almost everyting will be behind a login wall.
 				localUser.set(user);
+				navigate("/");
 			}
 		});
 	}

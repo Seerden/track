@@ -15,6 +15,7 @@ const ActivityList = lazy(
 );
 const Today = lazy(() => import("@components/Today/Today"));
 const Notes = lazy(() => import("@/components/notes/Notes/Notes"));
+const Login = lazy(() => import("@/components/auth/Login/Login"));
 
 const topLevelRoutes: RouteObject[] = [
 	{
@@ -33,6 +34,14 @@ const topLevelRoutes: RouteObject[] = [
 		element: (
 			<Suspended>
 				<Register />
+			</Suspended>
+		)
+	},
+	{
+		path: "/login",
+		element: (
+			<Suspended>
+				<Login />
 			</Suspended>
 		)
 	},
