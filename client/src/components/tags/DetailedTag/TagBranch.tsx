@@ -3,10 +3,8 @@ import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
 import type { TagWithIds } from "@t/data/tag.types";
 import S from "./style/TagTreeBranch.style";
 
-type TagTreeBranchProps = {
-	tag: TagWithIds;
-};
-
+/** A single row to-be-displayed inside TagTreeBranch. The branch consists of
+ * any number of rows, where a row represents one level of the tree/branch. */
 function Row({ tags }: { tags: TagWithIds[] }) {
 	return (
 		<S.Row
@@ -22,13 +20,23 @@ function Row({ tags }: { tags: TagWithIds[] }) {
 	);
 }
 
+type TagTreeBranchProps = {
+	tag: TagWithIds;
+};
+
+/** A small visual display of a `tag`'s family tree.
+ * @todo currently this component shows direct ancestors (i.e. this tag's
+ * parent, its parent, and so on), the tag itself, and direct children. We could
+ * expand it to show all descendants, siblings, and siblings of ancestors (i.e.
+ * the whole family tree for this parent's branch traced back to the root).
+ */
 export default function TagTreeBranch({ tag }: TagTreeBranchProps) {
-	const { data } = useTagsQuery();
+	const { data: tagsData } = useTagsQuery();
 
-	if (!data) return null;
+	if (!tagsData) return null;
 
-	const children = findChildren({ tag, tagsById: data.byId });
-	const ancestors = findAncestors({ tag, tagsById: data.byId });
+	const children = findChildren({ tag, tagsById: tagsData.byId });
+	const ancestors = findAncestors({ tag, tagsById: tagsData.byId });
 
 	const branch = [...ancestors, tag, children] as const;
 
