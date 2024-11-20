@@ -1,4 +1,4 @@
-import TagTreeBranch from "@/components/tags/DetailedTag/TagBranch";
+import TagBranch from "@/components/tags/DetailedTag/TagBranch";
 import { formatDate } from "@/lib/datetime/format-date";
 import { createDate } from "@/lib/datetime/make-date";
 import C from "@/lib/theme/components/Card.style";
@@ -16,7 +16,7 @@ export default function DetailedTag({ tag }: DetailedTagProps) {
 		<S.Wrapper>
 			<C.Title>{tag.name}</C.Title>
 			<p>{tag.description}</p>
-			<TagTreeBranch tag={tag} />
+			<TagBranch tag={tag} />
 			<C.Datetime>
 				<span title={formatDate(tag.created_at)}>created {humanizedCreatedAt}</span>
 			</C.Datetime>

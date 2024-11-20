@@ -1,7 +1,7 @@
 import { findAncestors, findChildren } from "@/components/tags/DetailedTag/build-branch";
 import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
 import type { TagWithIds } from "@t/data/tag.types";
-import S from "./style/TagTreeBranch.style";
+import S from "./style/TagBranch.style";
 
 /** A single row to-be-displayed inside TagTreeBranch. The branch consists of
  * any number of rows, where a row represents one level of the tree/branch. */
@@ -20,7 +20,7 @@ function Row({ tags }: { tags: TagWithIds[] }) {
 	);
 }
 
-type TagTreeBranchProps = {
+type TagBranchProps = {
 	tag: TagWithIds;
 };
 
@@ -30,7 +30,7 @@ type TagTreeBranchProps = {
  * expand it to show all descendants, siblings, and siblings of ancestors (i.e.
  * the whole family tree for this parent's branch traced back to the root).
  */
-export default function TagTreeBranch({ tag }: TagTreeBranchProps) {
+export default function TagBranch({ tag }: TagBranchProps) {
 	const { data: tagsData } = useTagsQuery();
 
 	if (!tagsData) return null;
