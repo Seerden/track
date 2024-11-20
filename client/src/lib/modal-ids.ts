@@ -1,4 +1,6 @@
-export default {
+import type { DeepValue } from "@t/data/utility.types";
+
+const modalIds = {
 	tagSelector: {
 		newActivity: "new-activity-tag-selector",
 		newNote: "new-note-tag-selector",
@@ -23,3 +25,7 @@ export default {
 		detailed: "detailed-tag"
 	}
 } as const;
+
+export type ModalId = DeepValue<typeof modalIds>;
+
+export default modalIds;

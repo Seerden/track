@@ -30,3 +30,9 @@ export type Nullable<T> = T | null;
 export type Varchar = string; // TODO: make sure we parse this correctly
 
 export type Datelike = string | Date | Dayjs | number; // TODO: not decided on whether I like this
+
+export type DeepValue<T> = T extends (infer U)[]
+	? never
+	: T extends object
+		? DeepValue<T[keyof T]>
+		: T;
