@@ -17,7 +17,7 @@ export default {
 		new: "new-activity",
 		newTask: "new-task"
 	},
-	detailedActivity: "detailed-activity", // TODO: do we want this to be dependent on activity_id?
+	detailedActivity: "detailed-activity", // TODO: should be under activities.detailed like with habits and others
 	tagTree: { tree: "tag-tree", tagSelector: "tag-tree-tag-selector" },
 	tags: {
 		detailed: "detailed-tag"
