@@ -8,7 +8,7 @@ import type { ActivityWithIds } from "@t/data/activity.types";
 import { type NewActivity } from "@t/data/activity.types";
 import DateTimePicker from "./DateTimePicker";
 import S from "./style/NewActivity.style";
-import useActivityForm from "./useNewActivity";
+import useActivityForm from "./useActivityForm";
 
 type NewActivityProps = {
 	isTask?: boolean;
