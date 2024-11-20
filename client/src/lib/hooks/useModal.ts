@@ -40,6 +40,8 @@ export default function useModal(
 	);
 
 	useEffect(() => {
+		// I've been struggling to get these event handlers to act _exactly_ as
+		// intended in _every_ situation. See notes in https://github.com/Seerden/track/pull/133
 		if (!modalIds.includes(modalId)) return;
 
 		window.addEventListener("keydown", onKeydown);
