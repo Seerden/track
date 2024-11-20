@@ -7,7 +7,11 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRecoilValue } from "recoil";
 import type { DateTimePickerProps } from "./datetime-picker.types";
 
-export default function useDateTimePicker({ setState }: DateTimePickerProps) {
+// TODO: set defaults based on defaultValues if they're present.
+export default function useDateTimePicker({
+	setState,
+	defaultValues
+}: DateTimePickerProps) {
 	const currentTime = useCurrentTime(); // the default interval on this might be too short, causing too many re-renders.
 	const timeWindow = useRecoilValue(selectedTimeWindowState);
 	const [manualEndDate, setManualEndDate] = useState(false);

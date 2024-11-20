@@ -45,11 +45,21 @@ export function useTagSelection() {
 		});
 	}
 
+	function setTagSelectionFromList(ids: ID[]) {
+		const newSelection = ids.reduce((acc, id) => {
+			acc[id] = true;
+			return acc;
+		}, {} as ById<boolean>);
+
+		setTagSelection(newSelection);
+	}
+
 	return {
 		tagSelection,
 		toggleTagSelection,
 		selectedTagIds,
 		setTagSelection,
-		resetTagSelection
+		resetTagSelection,
+		setTagSelectionFromList
 	};
 }

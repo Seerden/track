@@ -6,8 +6,8 @@ const Wrapper = styled(CardStyle.Wrapper)`
 	display: grid;
 	// TODO: this is obsolete I think
 	grid-template-areas:
-		"title title"
-		"time task"
+		"title edit"
+		"time edit"
 		"time task"
 		"tags tags";
 `;

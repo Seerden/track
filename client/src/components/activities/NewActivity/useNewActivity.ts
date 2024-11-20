@@ -1,4 +1,7 @@
 import type { DateTimeStateSetter } from "@/components/activities/NewActivity/datetime-picker.types";
+import useActivityMutation, {
+	parseUpdatedActivity
+} from "@/lib/hooks/query/activities/useActivityMutation";
 import type { ModalId } from "@/lib/modal-ids";
 import { queryClient } from "@/lib/query-client";
 import { qk } from "@/lib/query-keys";
@@ -7,7 +10,7 @@ import { useNewActivityMutation } from "@lib/hooks/query/activities/useNewActivi
 import useAuthentication from "@lib/hooks/useAuthentication";
 import useRouteProps from "@lib/hooks/useRouteProps";
 import { useTagSelection } from "@lib/state/selected-tags-state";
-import type { NewActivity } from "@t/data/activity.types";
+import type { ActivityWithIds, NewActivity } from "@t/data/activity.types";
 import { hasValidUserId } from "@t/data/user-id.guards";
 import { useEffect, useState } from "react";
 import { parseNewActivity } from "./parse-new-activity";
@@ -42,35 +45,91 @@ function useSubmitNewActivity(newActivity: Partial<NewActivity>, modalId?: Modal
 	return { onSubmit };
 }
 
-export default function useNewActivity({
-	initialIsTask = false,
-	modalId
-}: {
+function useSubmitUpdatedActivity(activity: Partial<ActivityWithIds>, modalId?: ModalId) {
+	const { mutate: submit } = useActivityMutation();
+	const { navigate } = useRouteProps();
+	const { selectedTagIds } = useTagSelection();
+	const { closeModal } = useModalState();
+
+	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+		e.preventDefault();
+
+		const _activity = parseUpdatedActivity(activity);
+		if (!_activity) return; // TODO: actually throw an error or provide UI feedback
+
+		submit(
+			{
+				activity: _activity,
+				tag_ids: selectedTagIds
+			},
+			{
+				onSuccess: () => {
+					navigate("/today");
+
+					queryClient.invalidateQueries({
+						queryKey: qk.activities.all
+					});
+
+					if (modalId) {
+						closeModal(modalId);
+					}
+				}
+			}
+		);
+	}
+
+	return { onSubmit };
+}
+
+type UseActivityFormArgs = {
 	initialIsTask?: boolean;
 	modalId?: ModalId;
-}) {
-	const { currentUser } = useAuthentication();
-	const { resetTagSelection } = useTagSelection();
+	activity?: ActivityWithIds;
+};
 
-	const defaultActivity: Partial<NewActivity> = {
+type ActivityState = Partial<NewActivity> | Partial<ActivityWithIds>;
+
+export default function useActivityForm({
+	initialIsTask = false,
+	modalId,
+	activity: existingActivity
+}: UseActivityFormArgs) {
+	const { currentUser } = useAuthentication();
+	const { resetTagSelection, setTagSelectionFromList } = useTagSelection();
+
+	const isEditing = !!existingActivity;
+
+	const defaultNewActivity: Partial<NewActivity> = {
 		name: "",
 		description: "",
 		user_id: currentUser?.user_id,
 		is_task: initialIsTask
 	};
 
-	const [newActivity, setNewActivity] = useState<Partial<NewActivity>>(defaultActivity);
+	const [activity, setActivity] = useState<ActivityState>(
+		existingActivity ?? defaultNewActivity
+	);
 
-	const { onSubmit } = useSubmitNewActivity(newActivity, modalId);
+	const { onSubmit: onNewSubmit } = useSubmitNewActivity(activity, modalId);
+	const { onSubmit: onUpdateSubmit } = useSubmitUpdatedActivity(activity, modalId);
+
+	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+		return isEditing ? onUpdateSubmit(e) : onNewSubmit(e);
+	}
 
 	useEffect(() => {
-		resetTagSelection();
+		if (!isEditing) {
+			resetTagSelection();
+		} else {
+			// set tag selection to activity.tag_ids
+			setTagSelectionFromList((activity as ActivityWithIds).tag_ids);
+		}
 	}, []);
 
 	function onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const { type, name, value } = e.target;
 
-		setNewActivity((current) => ({
+		setActivity((current) => ({
 			...current,
 			[name]: type === "checkbox" ? !current.is_task : value
 		}));
@@ -79,7 +138,7 @@ export default function useNewActivity({
 	// TODO: this is functionally the same as onInputChange, except the typing is
 	// different. Do we need a type for onDateTimeChange from DateTimePicker?
 	const onDateTimeChange: DateTimeStateSetter = ({ name, value }) => {
-		setNewActivity((current) => ({
+		setActivity((current) => ({
 			...current,
 			[name]: value
 		}));
@@ -89,6 +148,6 @@ export default function useNewActivity({
 		onSubmit,
 		onInputChange,
 		onDateTimeChange,
-		isTask: !!newActivity.is_task
+		isTask: !!activity.is_task
 	};
 }
