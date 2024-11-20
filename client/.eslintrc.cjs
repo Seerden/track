@@ -38,7 +38,19 @@ module.exports = {
 		"react/react-in-jsx-scope": "off",
 		"react-compiler/react-compiler": "error",
 		"@typescript-eslint/consistent-type-imports": "error",
-		"track/no-direct-styled-import": "error"
+		"track/no-direct-styled-import": "error",
+		"no-restricted-imports": [
+			"error",
+			{
+				paths: [
+					{
+						name: "dist",
+						message: "Please import from the root of the project."
+					}
+				],
+				patterns: ["shared/dist/*"]
+			}
+		]
 	},
 	overrides: [
 		{
