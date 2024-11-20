@@ -8,7 +8,9 @@ import { createBrowserRouter } from "react-router-dom";
 const Home = lazy(() => import("@/components/Home/Home"));
 const NewNote = lazy(() => import("@/components/notes/NewNote/NewNote"));
 const Register = lazy(() => import("@/components/auth/Register/Register"));
-const NewActivity = lazy(() => import("@components/activities/NewActivity/NewActivity"));
+const ActivityForm = lazy(
+	() => import("@/components/activities/ActivityForm/ActivityForm")
+);
 const NewHabit = lazy(() => import("@components/habits/NewHabit/NewHabit"));
 const ActivityList = lazy(
 	() => import("@/components/activities/ActivityList/ActivityList")
@@ -69,7 +71,7 @@ const topLevelRoutes: RouteObject[] = [
 				element: (
 					<Protected>
 						<Page>
-							<NewActivity />
+							<ActivityForm />
 						</Page>
 					</Protected>
 				)

@@ -2,7 +2,7 @@ import type { DeepValue } from "@t/data/utility.types";
 
 const modalIds = {
 	tagSelector: {
-		newActivity: "new-activity-tag-selector",
+		activityForm: "activity-form-tag-selector",
 		newNote: "new-note-tag-selector",
 		newTag: "new-tag-tag-selector",
 		newHabit: "new-habit-tag-selector"

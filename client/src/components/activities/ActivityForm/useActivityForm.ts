@@ -1,4 +1,4 @@
-import type { DateTimeStateSetter } from "@/components/activities/NewActivity/datetime-picker.types";
+import type { DateTimeStateSetter } from "@/components/activities/ActivityForm/datetime-picker.types";
 import useActivityMutation, {
 	parseUpdatedActivity
 } from "@/lib/hooks/query/activities/useActivityMutation";

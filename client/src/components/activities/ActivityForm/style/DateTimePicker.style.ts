@@ -81,7 +81,7 @@ const Fields = styled.fieldset`
 	}
 `;
 
-// TODO: these match the styling from Task in NewActivity, so they should be
+// TODO: these match the styling from Task in ActivityForm, so they should be
 // extracted to a shared snippet.
 const AllDay = styled.label`
 	${flex.row};

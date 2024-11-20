@@ -1,4 +1,4 @@
-import NewActivity from "@/components/activities/NewActivity/NewActivity";
+import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
 import S from "@/components/Today/style/DetailedActivity.style";
 import Modal from "@/components/utility/Modal/Modal";
 import { activityEnd, activityStart, hasNotEnded, startsInFuture } from "@/lib/activity";
@@ -126,7 +126,7 @@ export default function DetailedActivity({ activity }: DetailedActivityProps) {
 			)}
 
 			<Modal modalId={modalIds.activities.new}>
-				<NewActivity activity={activity} />
+				<ActivityForm activity={activity} />
 			</Modal>
 		</S.Wrapper>
 	);

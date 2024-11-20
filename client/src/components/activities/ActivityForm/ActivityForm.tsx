@@ -5,18 +5,21 @@ import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
 import TagSelector from "@components/tags/TagSelector/TagSelector";
 import { Checkbox } from "@lib/theme/components/Checkbox";
 import type { ActivityWithIds } from "@t/data/activity.types";
-import { type NewActivity } from "@t/data/activity.types";
 import DateTimePicker from "./DateTimePicker";
-import S from "./style/NewActivity.style";
+import S from "./style/ActivityForm.style";
 import useActivityForm from "./useActivityForm";
 
-type NewActivityProps = {
+type ActivityFormProps = {
 	isTask?: boolean;
 	modalId?: ModalId;
 	activity?: ActivityWithIds;
 };
 
-function NewActivity({ activity, isTask: initialIsTask, modalId }: NewActivityProps) {
+export default function ActivityForm({
+	activity,
+	isTask: initialIsTask,
+	modalId
+}: ActivityFormProps) {
 	const { onInputChange, onSubmit, onDateTimeChange, isTask } = useActivityForm({
 		initialIsTask,
 		modalId,
@@ -65,7 +68,7 @@ function NewActivity({ activity, isTask: initialIsTask, modalId }: NewActivityPr
 					fullSize
 					title="Tags"
 					showNewTagButton
-					modalId={modalIds.tagSelector.newActivity}
+					modalId={modalIds.tagSelector.activityForm}
 				/>
 
 				<N.Button>Create activity</N.Button>
@@ -73,5 +76,3 @@ function NewActivity({ activity, isTask: initialIsTask, modalId }: NewActivityPr
 		</N.Wrapper>
 	);
 }
-
-export default NewActivity;

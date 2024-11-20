@@ -1,5 +1,5 @@
 import Empty from "@/components/Today/Empty";
-import NewActivity from "@/components/activities/NewActivity/NewActivity";
+import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
 import Modal from "@/components/utility/Modal/Modal";
 import { filterTagsById } from "@/lib/filter-tags";
 import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
@@ -46,7 +46,7 @@ export default function Tasks({ activities }: TasksProps) {
 			</button>
 
 			<Modal initialOpen={false} modalId={modalId}>
-				<NewActivity isTask modalId={modalId} />
+				<ActivityForm isTask modalId={modalId} />
 			</Modal>
 		</T.TasksWrapper>
 	);

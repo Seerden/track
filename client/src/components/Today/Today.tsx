@@ -1,4 +1,4 @@
-import NewActivity from "@/components/activities/NewActivity/NewActivity";
+import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
 import Habits from "@/components/habits/Habits/Habits";
 import NewHabit from "@/components/habits/NewHabit/NewHabit";
 import AllDayActivities from "@/components/Today/AllDayActivities";
@@ -135,7 +135,7 @@ export default function Today() {
 						</button>
 					</div>
 					<Modal initialOpen={false} modalId={modalIds.activities.new}>
-						<NewActivity modalId={modalIds.activities.new} />
+						<ActivityForm modalId={modalIds.activities.new} />
 					</Modal>
 				</S.TimelineWrapper>
 
