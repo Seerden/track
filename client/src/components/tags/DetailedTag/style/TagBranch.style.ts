@@ -5,15 +5,16 @@ import styled, { css } from "styled-components";
 
 const Branch = styled.ol`
 	position: relative;
+
 	${flex.column};
 
 	gap: 0.5rem;
-
 	margin-top: 0.4rem;
-
-	width: max-content;
 	${spacing.padding.wide({ size: 1, ratio: 1.5 })}
 	padding-top: 2rem;
+
+	width: max-content;
+
 	background-color: #f2f2f2;
 	border-radius: 5px;
 	box-shadow: 0 0.2rem 0.3rem 0 #ccc;
@@ -21,13 +22,15 @@ const Branch = styled.ol`
 `;
 
 const Node = styled.li<{ $active?: boolean }>`
-	user-select: none;
-	font-size: ${font.size["0.8"]};
-	width: max-content;
 	list-style: none;
-	${spacing.padding.wide({ size: 0.2, ratio: 2.5 })}
+	user-select: none;
 
+	width: max-content;
+
+	font-size: ${font.size["0.8"]};
+	${spacing.padding.wide({ size: 0.2, ratio: 2.5 })}
 	border-radius: 3px;
+
 	box-shadow:
 		0 0.3rem 0.3rem 0 #ddd,
 		0 0 0.3rem 0 #aaa;
@@ -41,42 +44,48 @@ const Node = styled.li<{ $active?: boolean }>`
 `;
 
 const Row = styled.ul`
-	${flex.row};
-	position: relative;
-	justify-content: center;
-	width: 100%;
-	border-radius: 3px;
-	padding: 0.5rem;
-	gap: 0.5rem;
-	align-self: center;
-	width: max-content;
+	--row-gap: 0.5rem;
 
-	// check if only child
+	position: relative;
+	width: 100%;
+
+	${flex.row};
+	justify-content: center;
+	padding: 0.5rem;
+	gap: var(--row-gap);
+	align-self: center;
+
+	border-radius: 3px;
+
 	&:not(:only-child):not(:nth-last-of-type(1))::after {
-		content: "";
-		display: block;
-		clear: both;
-		width: 3px;
-		height: 0.5rem;
 		position: absolute;
-		bottom: -0.5rem;
+		display: block;
+
+		content: "";
+
+		width: 3px;
+		height: var(--row-gap);
+		bottom: calc(-1 * var(--row-gap));
 		left: 50%;
 		background-color: #ccc;
 	}
 `;
 
 const Title = styled.h2`
-	${flex.row};
-	gap: 0.5rem;
-
-	align-items: center;
 	position: absolute;
-	border-radius: 3px;
 	top: -0.7rem;
 	left: -1rem;
-	font-size: ${font.size["0.9"]};
+
 	width: max-content;
+	font-size: ${font.size["0.9"]};
+
+	${flex.row};
+	gap: 0.5rem;
+	align-items: center;
+
+	border-radius: 3px;
 	${spacing.padding.wide({ size: 0.3, ratio: 4 })}
+
 	background-color: #e1e1e1;
 	outline: 1px solid white;
 	box-shadow: 0 0.2rem 0.3rem 0 #ccc;
