@@ -4,6 +4,11 @@ import { useModalState } from "@/lib/state/modal-state";
 import type { ID } from "@t/data/utility.types";
 import { useRecoilState } from "recoil";
 
+/**
+ * This hook provides an abstraction for Detail modals that currently supports
+ * `Detailed[Activity, Tag, Habit]`. This hook provides a consistent way to tie
+ * `activeItemState` to the modal state for these components.
+ */
 export default function useDetailedItemModal(
 	type: keyof ActiveItemState,
 	modalId: string
