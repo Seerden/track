@@ -52,12 +52,14 @@ export default function useNewActivity({
 	const { currentUser } = useAuthentication();
 	const { resetTagSelection } = useTagSelection();
 
-	const [newActivity, setNewActivity] = useState<Partial<NewActivity>>(() => ({
+	const defaultActivity: Partial<NewActivity> = {
 		name: "",
 		description: "",
 		user_id: currentUser?.user_id,
 		is_task: initialIsTask
-	}));
+	};
+
+	const [newActivity, setNewActivity] = useState<Partial<NewActivity>>(defaultActivity);
 
 	const { onSubmit } = useSubmitNewActivity(newActivity, modalId);
 
