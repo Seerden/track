@@ -1,10 +1,11 @@
+import type { ModalId } from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import type { RefObject } from "react";
 import { useCallback, useEffect } from "react";
 
 type UseModalProps = {
 	keys?: string[];
-	modalId: string;
+	modalId: ModalId;
 	initialOpen?: boolean;
 };
 
@@ -20,7 +21,7 @@ export default function useModal(
 		}
 	}, []);
 
-	function closeModal(modalId: string) {
+	function closeModal(modalId: ModalId) {
 		setModalOpen({ modalId, value: false });
 		window.removeEventListener("keydown", onKeydown);
 	}

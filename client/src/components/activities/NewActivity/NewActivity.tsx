@@ -1,3 +1,4 @@
+import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
 import N from "@/lib/theme/components/form.style";
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
@@ -10,7 +11,7 @@ import useNewActivity from "./useNewActivity";
 
 type NewActivityProps = {
 	isTask?: boolean;
-	modalId?: string;
+	modalId?: ModalId;
 };
 
 function NewActivity({ isTask: initialIsTask, modalId }: NewActivityProps) {

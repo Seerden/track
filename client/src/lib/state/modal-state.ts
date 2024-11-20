@@ -1,8 +1,9 @@
+import type { ModalId } from "@/lib/modal-ids";
 import { activeItemState } from "@/lib/state/active-item-state";
 import { useCallback } from "react";
 import { atom, useRecoilState, useSetRecoilState } from "recoil";
 
-export const modalIdsState = atom<string[]>({
+export const modalIdsState = atom<ModalId[]>({
 	key: "modalIdsState",
 	default: []
 });
@@ -11,7 +12,7 @@ export function useModalState() {
 	const [modalIds, setModalIds] = useRecoilState(modalIdsState);
 	const setActiveItem = useSetRecoilState(activeItemState);
 
-	function maybeClearActiveItemState(modalId: string) {
+	function maybeClearActiveItemState(modalId: ModalId) {
 		if (!modalId.includes("detailed")) return;
 
 		setActiveItem((current) => ({
@@ -22,19 +23,19 @@ export function useModalState() {
 		}));
 	}
 
-	function openModal(modalId: string) {
+	function openModal(modalId: ModalId) {
 		setModalIds((current) => {
 			if (current.includes(modalId)) return current;
 			return [...current, modalId];
 		});
 	}
 
-	function closeModal(modalId: string) {
+	function closeModal(modalId: ModalId) {
 		setModalIds((current) => current.filter((id) => id !== modalId));
 		maybeClearActiveItemState(modalId);
 	}
 
-	function setModalOpen({ modalId, value }: { modalId: string; value: boolean }) {
+	function setModalOpen({ modalId, value }: { modalId: ModalId; value: boolean }) {
 		if (!value) {
 			closeModal(modalId);
 		} else {
@@ -43,7 +44,7 @@ export function useModalState() {
 	}
 
 	const toggleModal = useCallback(
-		(modalId: string) => {
+		(modalId: ModalId) => {
 			// maybe clear active item state.
 			const isOpen = modalIds.includes(modalId);
 			const newValue = !isOpen;

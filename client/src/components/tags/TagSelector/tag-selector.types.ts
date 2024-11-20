@@ -1,3 +1,4 @@
+import type { ModalId } from "@/lib/modal-ids";
 import type { TagWithIds } from "@t/data/tag.types";
 import type { ById } from "@t/data/utility.types";
 import type { FocusEvent, MouseEvent } from "react";
@@ -14,7 +15,7 @@ export type TagSelectorItemProps = SubcomponentProps & {
 
 export type TagSelectorItemsProps = SubcomponentProps & {
 	tags: TagWithIds[];
-	modalId: string;
+	modalId: ModalId;
 };
 
 export type FilterProps = {
@@ -38,5 +39,5 @@ export type TagSelectorProps = {
 	maximum?: number;
 	showNewTagButton?: boolean;
 	/** The modalId that gets passed to `NewTagButton` */
-	modalId: string;
+	modalId: ModalId;
 };
