@@ -23,6 +23,8 @@ export default function useNewActivity({
 	const { navigate } = useRouteProps();
 	const { currentUser } = useAuthentication();
 	const { selectedTagIds, resetTagSelection } = useTagSelection();
+	const { closeModal } = useModalState();
+
 	const [newActivity, setNewActivity] = useState<Partial<NewActivity>>(() => ({
 		name: "",
 		description: "",
@@ -36,8 +38,6 @@ export default function useNewActivity({
 
 	const isTask = useMemo(() => !!newActivity.is_task, [newActivity.is_task]);
 
-	const { closeModal } = useModalState();
-
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 
@@ -47,13 +47,11 @@ export default function useNewActivity({
 			{ activity: parseNewActivity(newActivity), tagIds: selectedTagIds },
 			{
 				onSuccess: () => {
-					// TODO: only navigate if not already on the today page
-					navigate("/today"); // TODO: put routes in a variable
+					// TODO: put routes in a variable
+					navigate("/today");
 					queryClient.invalidateQueries({
 						queryKey: qk.activities.all
 					});
-					// only close modal if it's open, but that is the behavior by
-					// design anyway
 					if (modalId) closeModal(modalId);
 				}
 			}
@@ -69,6 +67,8 @@ export default function useNewActivity({
 		}));
 	}
 
+	// TODO: this is functionally the same as onInputChange, except the typing is
+	// different. Do we need a type for onDateTimeChange from DateTimePicker?
 	function onDateTimeChange({ name, value }: { name: DateTimeField; value: Datelike }) {
 		setNewActivity((current) => ({
 			...current,

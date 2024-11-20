@@ -33,11 +33,6 @@ function NewActivity({ isTask: initialIsTask, modalId }: NewActivityProps) {
 							required
 						/>
 					</N.Label>
-					{/* TODO: for now I'm removing the description field from here -- want to implement Notes for this */}
-					{/* <N.Label>
-						<span>Description (optional)</span>
-						<input name="description" type="text" onChange={onInputChange} />
-					</N.Label> */}
 					<S.Task>
 						<span>Task?</span>
 						<input name="is_task" type="checkbox" onChange={onInputChange} />
