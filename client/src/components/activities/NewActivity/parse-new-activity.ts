@@ -50,16 +50,3 @@ export function parseNewActivity(
 
 	return newActivity as NewActivity;
 }
-
-/** TODO: currently unused -- have a careful look at what a valid new activity
- * is, then use this both client-side and server-side. */
-export function isValidNewActivity(
-	newActivity: AtLeast<Partial<NewActivity>, "user_id">
-): newActivity is NewActivity {
-	return (
-		newActivity.user_id !== undefined &&
-		!!newActivity.name?.length &&
-		(activityGuards.withDates(newActivity) ||
-			activityGuards.withTimestamps(newActivity))
-	);
-}
