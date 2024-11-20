@@ -19,19 +19,25 @@ export default function Modal({
 		initialOpen
 	});
 
+	function handleModalClose(e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>) {
+		e.stopPropagation();
+		closeModal(modalId);
+	}
+
 	if (!isOpen) {
 		return null;
 	}
 
 	return (
-		<S.ModalWrapper>
+		<S.ModalWrapper
+			onClick={(e) => {
+				if (e.target === e.currentTarget) {
+					handleModalClose(e);
+				}
+			}}
+		>
 			<S.Modal ref={modalRef} data-modal-id={modalId}>
-				<S.Close
-					onClick={(e) => {
-						e.stopPropagation();
-						closeModal(modalId);
-					}}
-				/>
+				<S.Close onClick={handleModalClose} />
 				{children}
 			</S.Modal>
 		</S.ModalWrapper>

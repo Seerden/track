@@ -1,5 +1,7 @@
 import Completion from "@/components/habits/Habits/Completion";
 import { frequencyString } from "@/components/habits/Habits/frequency-string";
+import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
+import modalIds from "@/lib/modal-ids";
 import L from "@/lib/theme/components/List.style";
 import type { HabitWithPossiblySyntheticEntries } from "@t/data/habit.types";
 import S from "./style/Habit.style";
@@ -10,7 +12,10 @@ type HabitProps = {
 
 export default function Habit({ habit }: HabitProps) {
 	// const { mutate } = useHabitDeleteMutation();
-	// const { openDetailedHabitModal } = useDetailedHabitModal();
+	const { openDetailedItemModal } = useDetailedItemModal(
+		"habit",
+		modalIds.habits.detailed
+	);
 
 	return (
 		<S.Wrapper
@@ -21,7 +26,7 @@ export default function Habit({ habit }: HabitProps) {
 				// also need to do the same to the slider wrapper.. bit hacky, maybe
 				// just trigger modal open on button click instead of the whole item.
 				e.stopPropagation();
-				// openDetailedHabitModal(habit.habit_id);
+				// openDetailedItemModal(habit.habit_id);
 			}}
 		>
 			<L.ItemName>{habit.name}</L.ItemName>

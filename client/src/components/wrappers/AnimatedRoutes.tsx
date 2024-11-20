@@ -1,4 +1,5 @@
 import Header from "@/components/layout/Header/Header";
+import DetailModals from "@/components/utility/Modal/DetailModals";
 import PageWrapper from "@/lib/theme/snippets/page";
 import { AnimatePresence } from "framer-motion";
 import { Fragment, useState } from "react";
@@ -11,7 +12,12 @@ function AnimatedOutlet() {
 	const outlet = useOutlet();
 	const [outletState] = useState(outlet);
 
-	return <>{outletState}</>;
+	return (
+		<>
+			{outletState}
+			<DetailModals />
+		</>
+	);
 }
 
 export default function AnimatedRoutes() {

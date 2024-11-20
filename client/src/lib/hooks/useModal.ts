@@ -1,17 +1,16 @@
 import { useModalState } from "@/lib/state/modal-state";
 import type { RefObject } from "react";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 type UseModalProps = {
 	keys?: string[];
-	outsideClickHandler?: (e: MouseEvent) => void;
 	modalId: string;
 	initialOpen?: boolean;
 };
 
 export default function useModal(
 	modalRef: RefObject<HTMLElement | null>,
-	{ keys, outsideClickHandler, modalId, initialOpen }: UseModalProps
+	{ keys, modalId, initialOpen }: UseModalProps
 ) {
 	const { setModalOpen, modalIds } = useModalState();
 
@@ -23,35 +22,34 @@ export default function useModal(
 
 	function closeModal(modalId: string) {
 		setModalOpen({ modalId, value: false });
-		window.removeEventListener("click", onClickOutside);
 		window.removeEventListener("keydown", onKeydown);
 	}
 
-	function onKeydown(e: KeyboardEvent) {
-		if (modalRef.current && ["Escape"].concat(keys ?? []).includes(e.code)) {
-			closeModal(modalId);
-		}
-	}
-
-	function onClickOutside(e: MouseEvent) {
-		if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-			e.preventDefault();
-			e.stopPropagation();
-			const idToClose = modalRef.current.dataset.modalId;
-			if (!idToClose) return;
-			outsideClickHandler?.(e) ?? closeModal(idToClose);
-		}
-	}
+	const onKeydown = useCallback(
+		(e: KeyboardEvent) => {
+			if (
+				modalIds.length &&
+				modalRef.current &&
+				["Escape"].concat(keys ?? []).includes(e.code)
+			) {
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+				closeModal(modalIds.at(-1)!);
+			}
+		},
+		[modalIds]
+	);
 
 	useEffect(() => {
+		// I've been struggling to get these event handlers to act _exactly_ as
+		// intended in _every_ situation. See notes in https://github.com/Seerden/track/pull/133
+		if (!modalIds.includes(modalId)) return;
+
 		window.addEventListener("keydown", onKeydown);
-		window.addEventListener("click", onClickOutside);
 
 		return () => {
 			window.removeEventListener("keydown", onKeydown);
-			window.removeEventListener("click", onClickOutside);
 		};
-	}, [modalRef.current]);
+	}, [modalIds]);
 
 	return { isOpen: modalIds.includes(modalId), closeModal };
 }

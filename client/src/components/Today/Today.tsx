@@ -3,8 +3,6 @@ import Habits from "@/components/habits/Habits/Habits";
 import NewHabit from "@/components/habits/NewHabit/NewHabit";
 import AllDayActivities from "@/components/Today/AllDayActivities";
 import ChangeDayButton from "@/components/Today/ChangeDayButton";
-import DetailedActivity from "@/components/Today/DetailedActivity";
-import { activeItemState } from "@/components/Today/hooks/useDetailedActivityModal";
 import TimelineRows from "@/components/Today/TimelineRows";
 import Calendar from "@/components/utility/Calendar/Calendar";
 import Modal from "@/components/utility/Modal/Modal";
@@ -17,7 +15,7 @@ import { selectedTimeWindowState } from "@/lib/state/selected-time-window-state"
 import { activityFallsOnDay, isAllDayActivityOnDate } from "@lib/activity";
 import type { Dayjs } from "dayjs";
 import { useEffect, useMemo, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import Notes from "./Notes";
 import S from "./style/Today.style";
 import Tasks from "./Tasks";
@@ -26,7 +24,6 @@ import Tasks from "./Tasks";
 function useToday() {
 	const { data: activitiesData } = useActivitiesQuery();
 	const { getHabitsForTimeWindow } = useHabitsData();
-
 	const [currentDate, setCurrentDate] = useState<Dayjs>(() => today());
 	const [timeWindow, setTimeWindow] = useRecoilState(selectedTimeWindowState);
 
@@ -57,13 +54,6 @@ function useToday() {
 		(activity) => !isAllDayActivityOnDate(activity, currentDate)
 	);
 
-	const { modalIds: openModalIds } = useModalState();
-
-	const shouldShowDetailedActivity = !!openModalIds.includes(modalIds.detailedActivity);
-
-	const activeItemId = useRecoilValue(activeItemState);
-	const selectedActivity = activities.find((a) => a.activity_id === activeItemId);
-
 	const currentYear = today().year(); // TODO: edge case: make this reactive so it updates on New Year's
 	const title = currentDate.format(
 		`dddd (D MMMM${currentDate.year() !== currentYear ? " YYYY" : ""})`
@@ -76,8 +66,6 @@ function useToday() {
 		timestampedActivities,
 		currentDate,
 		setCurrentDate,
-		shouldShowDetailedActivity,
-		selectedActivity,
 		title,
 		changeDay
 	} as const;
@@ -155,9 +143,6 @@ export default function Today() {
 
 				<Notes />
 			</S.Columns>
-			{t.shouldShowDetailedActivity && t.selectedActivity && (
-				<DetailedActivity activity={t.selectedActivity} />
-			)}
 		</S.Wrapper>
 	);
 }
