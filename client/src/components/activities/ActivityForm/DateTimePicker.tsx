@@ -10,7 +10,7 @@ export default function DateTimePicker({ setState, defaultValues }: DateTimePick
 		allDay,
 		manualEndDate,
 		defaultStartDate,
-		date,
+		defaultEndDate,
 		defaultTime,
 		onAllDayFieldChange,
 		onStartDateFieldChange,
@@ -38,7 +38,7 @@ export default function DateTimePicker({ setState, defaultValues }: DateTimePick
 						<span>End date</span>
 						<DefaultInput
 							type="date"
-							value={date.end}
+							defaultValue={defaultEndDate}
 							onChange={onEndDateFieldChange}
 						/>
 					</S.Label>

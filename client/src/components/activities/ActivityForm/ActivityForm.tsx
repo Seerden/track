@@ -4,7 +4,7 @@ import N from "@/lib/theme/components/form.style";
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
 import TagSelector from "@components/tags/TagSelector/TagSelector";
 import { Checkbox } from "@lib/theme/components/Checkbox";
-import type { ActivityWithIds } from "@t/data/activity.types";
+import type { ActivityWithIds, WithDates, WithTimestamps } from "@t/data/activity.types";
 import DateTimePicker from "./DateTimePicker";
 import S from "./style/ActivityForm.style";
 import useActivityForm from "./useActivityForm";
@@ -55,16 +55,18 @@ export default function ActivityForm({
 				</N.Row>
 
 				<N.Row>
-					TODO: need to be able to reverse-engineer DateTimePicker state from
-					activity datetime values
 					<DateTimePicker
 						setState={onDateTimeChange}
-						defaultValues={{
-							started_at: activity?.started_at,
-							ended_at: activity?.ended_at,
-							start_date: activity?.start_date,
-							end_date: activity?.end_date
-						}}
+						defaultValues={
+							activity
+								? ({
+										started_at: activity.started_at,
+										ended_at: activity.ended_at,
+										start_date: activity.start_date,
+										end_date: activity.end_date
+									} as WithDates | WithTimestamps)
+								: undefined
+						}
 					/>
 				</N.Row>
 
