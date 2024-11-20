@@ -1,9 +1,11 @@
+import day from "@/lib/dayjs";
+
 function currentHour() {
-	return dayjs().hour();
+	return day().hour();
 }
 
 function currentMinutes() {
-	return dayjs().minute();
+	return day().minute();
 }
 
 export function currentFractionOfDay() {
