@@ -15,6 +15,10 @@ type ActivityFormProps = {
 	activity?: ActivityWithIds;
 };
 
+/** This component functions as a form to create a new activity, or to update an
+ * existing one. As such, when you pass `activity` as a prop, this indicates you
+ * want to edit an existing one, in which case you don't need to pass any other
+ * props. */
 export default function ActivityForm({
 	activity,
 	isTask: initialIsTask,
