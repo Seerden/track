@@ -28,6 +28,7 @@ export type ActivityWithDates = NewActivityBase & WithDates;
 export type NewActivity = NewActivityBase &
 	(ActivityWithTimestamps | ActivityWithDates);
 
+// TODO: rename this to TaskUpdate
 export type ActivityUpdate = {
 	completion_start?: Timestamp;
 	completion_end?: Timestamp;
