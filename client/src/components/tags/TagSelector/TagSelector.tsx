@@ -4,6 +4,7 @@ import type { TagSelectorProps } from "@/components/tags/TagSelector/tag-selecto
 import TagSelectorItems from "@/components/tags/TagSelector/TagSelectorItems";
 import useTagSelectorFilter from "@/components/tags/TagSelector/useTagSelectorFilter";
 import TagTree from "@/components/tags/TagTree/TagTree";
+import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import type { MouseEvent } from "react";
@@ -19,7 +20,7 @@ export default function TagSelector(p: TagSelectorProps) {
 
 	// NOTE: tagTreeModalId has to depend on `modalId` because we can have
 	// multiple TagSelectors on the same page.
-	const tagTreeModalId = `${modalIds.tagTree.tagSelector}-${p.modalId}`;
+	const tagTreeModalId = `${modalIds.tagTree.tagSelector}-${p.modalId}` as ModalId;
 	const { openModal } = useModalState();
 
 	function onModalOpen(e: MouseEvent) {

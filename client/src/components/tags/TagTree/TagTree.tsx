@@ -1,6 +1,7 @@
 import Modal from "@/components/utility/Modal/Modal";
 import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
 import useTagsTreeQuery from "@/lib/hooks/query/tags/useTagsTreeQuery";
+import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
 import Badge from "@/lib/theme/components/Badge";
 import type { TagWithIds } from "@t/data/tag.types";
@@ -11,7 +12,7 @@ import S from "./style/TagTree.style";
 
 type TagTreeProps = {
 	orientation?: "vertical" | "horizontal";
-	modalId?: string;
+	modalId?: ModalId;
 	initialOpen?: boolean;
 };
 
