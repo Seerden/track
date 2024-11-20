@@ -49,22 +49,21 @@ export default function DetailedHabit({ habit }: PropsWithChildren<DetailedHabit
 				<span>Tracking started {humanizedStart}</span>
 				{habit.end_timestamp && <span>Tracking ends {humanizedEnd}</span>}
 			</C.Datetime>
+
 			{tagsData?.byId && (
-				<>
-					<C.Tags>
-						{habit.tag_ids.map((id) => (
-							<C.Tag
-								key={id}
-								onClick={(e) => {
-									e.stopPropagation();
-									openDetailedItemModal(id);
-								}}
-							>
-								{tagsData.byId[id]?.name}
-							</C.Tag>
-						))}
-					</C.Tags>
-				</>
+				<C.Tags>
+					{habit.tag_ids.map((id) => (
+						<C.Tag
+							key={id}
+							onClick={(e) => {
+								e.stopPropagation();
+								openDetailedItemModal(id);
+							}}
+						>
+							{tagsData.byId[id]?.name}
+						</C.Tag>
+					))}
+				</C.Tags>
 			)}
 		</S.DetailedHabitCard>
 	);
