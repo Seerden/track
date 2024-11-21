@@ -10,6 +10,7 @@ import postHabit from "@/lib/data/request-handlers/post/post-habit";
 import postHabitEntry from "@/lib/data/request-handlers/post/post-habit-entry";
 import postNote from "@/lib/data/request-handlers/post/post-note";
 import postTag from "@/lib/data/request-handlers/post/post-tag";
+import putActivity from "@/lib/data/request-handlers/put/put-activity";
 import putHabitEntry from "@/lib/data/request-handlers/put/put-habit-entry";
 import putTaskCompletion from "@/lib/data/request-handlers/put/put-task";
 import { Router } from "express";
@@ -24,6 +25,7 @@ export const dataRouter = Router({ mergeParams: true });
 /* Activities */
 dataRouter.get("/activities", isAuthorized, getActivities);
 dataRouter.post("/activity", isAuthorized, postActivity);
+dataRouter.put("/activity/:activity_id", isAuthorized, putActivity);
 dataRouter.put("/task/completion", isAuthorized, putTaskCompletion);
 
 /* Tags */

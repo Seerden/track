@@ -59,7 +59,7 @@ function useSubmitUpdatedActivity(activity: Partial<ActivityWithIds>, modalId?: 
 
 		submit(
 			{
-				activity: _activity,
+				activity: _activity as ActivityWithIds, /// TODO: this typecast may be problematic
 				tag_ids: selectedTagIds
 			},
 			{

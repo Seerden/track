@@ -2,21 +2,13 @@ import { createRequestConfig } from "@/lib/fetch/create-request-config";
 import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
 import { mk } from "@/lib/query-keys";
 import { activityGuards } from "@t/data/activity.guards";
-import type { ActivityWithIds } from "@t/data/activity.types";
+import type { ActivityUpdateInput, ActivityWithIds } from "@t/data/activity.types";
 import { hasValidUserId } from "@t/data/user-id.guards";
-import type { ID } from "@t/data/utility.types";
 import { useMutation } from "@tanstack/react-query";
-
-type ActivityUpdateInput = {
-	activity: Partial<ActivityWithIds>;
-	tag_ids: ID[];
-};
 
 async function putActivity(input: ActivityUpdateInput): Promise<ActivityWithIds> {
 	const url = makeAuthorizedUrl(`/data/activity/${input.activity.activity_id}`); // TODO: actually create this endpoint
-	const updatedActivity: Promise<ActivityWithIds> = (
-		await fetch(url, createRequestConfig.put(input))
-	).json();
+	const updatedActivity = (await fetch(url, createRequestConfig.put({ input }))).json();
 
 	return updatedActivity;
 }

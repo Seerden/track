@@ -16,14 +16,14 @@ async function insertActivity({
 	return insertedActivity;
 }
 
-async function linkTagsToActivity({
+export async function linkTagsToActivity({
 	sql = sqlConnection,
 	user_id,
 	activity_id,
 	tag_ids,
 }: WithSQL<{ activity_id: ID; user_id: ID; tag_ids: ID[] }>) {
 	const tagRelations = tag_ids.map((tag_id) => ({ user_id, activity_id, tag_id }));
-
+	if (!tagRelations.length) return [];
 	return sql<ActivityTagRelation[]>`
       insert into activities_tags ${sql(tagRelations)}
       returning *

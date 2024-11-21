@@ -3,11 +3,11 @@ import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
 import { queryClient } from "@/lib/query-client";
 import { mk, qk } from "@/lib/query-keys";
 import type { ActivitiesData } from "@/types/data.types";
-import type { ActivityUpdateInput, ActivityWithIds } from "@t/data/activity.types";
+import type { ActivityWithIds, TaskUpdateInput } from "@t/data/activity.types";
 import type { ById } from "@t/data/utility.types";
 import { useMutation } from "@tanstack/react-query";
 
-async function putTaskCompletion(input: ActivityUpdateInput): Promise<ActivityWithIds> {
+async function putTaskCompletion(input: TaskUpdateInput): Promise<ActivityWithIds> {
 	const url = makeAuthorizedUrl(`/data/task/completion`);
 	return (await fetch(url, createRequestConfig.put({ input }))).json();
 }
@@ -39,7 +39,7 @@ function updateActivitiesCache(updatedActivity: ActivityWithIds) {
 }
 
 export default function useTaskCompletionMutation() {
-	return useMutation<ActivityWithIds, unknown, ActivityUpdateInput>({
+	return useMutation<ActivityWithIds, unknown, TaskUpdateInput>({
 		async mutationFn(activity) {
 			return putTaskCompletion(activity);
 		},
