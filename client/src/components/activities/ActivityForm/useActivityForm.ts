@@ -1,7 +1,5 @@
 import type { DateTimeStateSetter } from "@/components/activities/ActivityForm/datetime-picker.types";
-import useActivityMutation, {
-	parseUpdatedActivity
-} from "@/lib/hooks/query/activities/useActivityMutation";
+import useActivityMutation from "@/lib/hooks/query/activities/useActivityMutation";
 import type { ModalId } from "@/lib/modal-ids";
 import { queryClient } from "@/lib/query-client";
 import { qk } from "@/lib/query-keys";
@@ -13,7 +11,7 @@ import { useTagSelection } from "@lib/state/selected-tags-state";
 import type { ActivityWithIds, NewActivity } from "@t/data/activity.types";
 import { hasValidUserId } from "@t/data/user-id.guards";
 import { useEffect, useState } from "react";
-import { parseNewActivity } from "./parse-new-activity";
+import { parseNewActivity, parseUpdatedActivity } from "./parse-activity";
 
 function useSubmitNewActivity(newActivity: Partial<NewActivity>, modalId?: ModalId) {
 	const { mutate: submit } = useNewActivityMutation();

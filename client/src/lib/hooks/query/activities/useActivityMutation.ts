@@ -1,10 +1,7 @@
-import { createDate } from "@/lib/datetime/make-date";
 import { createRequestConfig } from "@/lib/fetch/create-request-config";
 import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
 import { mk } from "@/lib/query-keys";
-import { activityGuards } from "@t/data/activity.guards";
 import type { ActivityUpdateInput, ActivityWithIds } from "@t/data/activity.types";
-import { hasValidUserId } from "@t/data/user-id.guards";
 import { useMutation } from "@tanstack/react-query";
 
 async function putActivity(input: ActivityUpdateInput): Promise<ActivityWithIds> {
@@ -21,29 +18,4 @@ export default function useActivityMutation() {
 		},
 		mutationKey: mk.activities.update.activity
 	});
-}
-
-export function parseUpdatedActivity(activity: Partial<ActivityWithIds>) {
-	// check if user_id is actually present, same for activity_id because we
-	// can't update an activity without an id
-	if (!hasValidUserId(activity) || !activity.activity_id || isNaN(activity.activity_id))
-		throw new Error("Activity must have a valid user id and activity id");
-
-	// extract the functionality from parseNewActivity that is also used here
-	// into a separate function and call it here
-	// TODO: this should just be guarded by properly testing DateTimePicker.
-	if (!activityGuards.withDates(activity) && !activityGuards.withTimestamps(activity)) {
-		throw new Error("Activity must have either date fields or timestamp fields");
-	}
-
-	// TODO: this is copied directly from parseNewActivity. Need to extract it to
-	// a (PURE!) function..
-
-	// Make sure the `end` field is set to end of day. TODO: this should
-	// generically be handled in DateTimePicker, but currently only newActivity
-	// uses that, so doing it here works fine for now.
-	if (activityGuards.withDates(activity)) {
-		activity.end_date = createDate(activity.end_date).endOf("day");
-	}
-	return activity;
 }
