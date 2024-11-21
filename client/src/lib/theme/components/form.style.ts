@@ -25,7 +25,7 @@ const FormTitle = styled.h1`
 	${spacing.padding.wide({ size: 0.5, ratio: 3 })};
 	box-shadow:
 		-0.2rem 0.2rem 0 0 #ccc,
-		-0.6rem -0.4rem 0 0 deepskyblue,
+		-0.6rem -0.4rem 0 0 ${(p) => p.theme.colors.blue.main},
 		0 0 0.2rem 0 #333,
 		-0.2rem -0.3rem 0 0 white;
 `;
@@ -42,7 +42,7 @@ const Row = styled.fieldset`
 	box-shadow: 0.6rem 0.6rem 0 -0.5rem #555;
 
 	&:focus-within {
-		border-left-color: deepskyblue;
+		border-left-color: ${(p) => p.theme.colors.blue.main};
 	}
 `;
 
@@ -65,6 +65,7 @@ const Form = styled.form`
 `;
 
 const Button = styled.button`
+	cursor: pointer;
 	${spacing.padding.wide({ size: 0.6, ratio: 2.5 })};
 	margin-bottom: -1.5rem;
 	margin-top: 0.3rem;
@@ -73,17 +74,18 @@ const Button = styled.button`
 	font-size: ${(p) => getFontSize(p, 0.9)};
 	background-color: #ddd;
 	border-radius: 5px;
-	border: 2px solid transparent;
+	border: 2px solid #ccc;
 	box-shadow:
 		0.1rem 0.1rem 0 0 white,
-		0.5rem 0.5rem 0 0 deepskyblue;
+		0.5rem 0.5rem 0 0 ${(p) => p.theme.colors.blue.main};
 
 	&:hover,
 	&:focus,
 	&:active {
-		background-color: #eee;
+		background-color: #fff;
 		transform: translateY(-2px);
-		border-color: deepskyblue;
+		border-color: ${(p) => p.theme.colors.blue.main};
+		box-shadow: 0.5rem 0.6rem 0 0 ${(p) => p.theme.colors.blue.main};
 	}
 `;
 
@@ -103,7 +105,7 @@ const Label = styled.label<{ $showWarning?: boolean }>`
 
 	&:active,
 	&:focus-within {
-		outline: 2px solid deepskyblue;
+		outline: 2px solid ${(p) => p.theme.colors.blue.main};
 		span {
 			outline: 2px solid white;
 		}

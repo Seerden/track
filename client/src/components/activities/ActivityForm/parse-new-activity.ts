@@ -1,5 +1,4 @@
 import { createDate } from "@/lib/datetime/make-date";
-import type { DateTimeField } from "@/types/form.types";
 import { activityGuards } from "@t/data/activity.guards";
 import { type NewActivity } from "@t/data/activity.types";
 import type { AtLeast } from "@t/data/utility.types";
@@ -17,20 +16,6 @@ export function parseNewActivity(
 	for (const field of requiredFields) {
 		if (newActivity[field] === undefined) {
 			throw new Error(`New activity is missing required field: ${field}`);
-		}
-	}
-
-	const dateFields: DateTimeField[] = [
-		"start_date",
-		"end_date",
-		"started_at",
-		"ended_at"
-	];
-
-	for (const field of dateFields) {
-		if (newActivity[field] === "") {
-			// eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-			delete newActivity[field];
 		}
 	}
 

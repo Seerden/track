@@ -31,6 +31,7 @@ export default function ActivityForm({
 	});
 
 	const title = activity ? "Edit activity" : "Create an activity";
+	const buttonTitle = activity ? "Update activity" : "Create activity";
 
 	return (
 		<N.Wrapper>
@@ -77,7 +78,7 @@ export default function ActivityForm({
 					modalId={modalIds.tagSelector.activityForm}
 				/>
 
-				<N.Button>Create activity</N.Button>
+				<N.Button>{buttonTitle}</N.Button>
 			</N.Form>
 		</N.Wrapper>
 	);

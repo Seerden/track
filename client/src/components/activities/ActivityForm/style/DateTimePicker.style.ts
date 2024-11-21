@@ -29,7 +29,7 @@ const Label = styled.label<{ $faded?: boolean }>`
 	&:focus-within,
 	&:active {
 		&:not(:has(*:disabled)) {
-			outline: 2px solid deepskyblue;
+			outline: 2px solid ${(p) => p.theme.colors.blue.main};
 			span {
 				outline: 2px solid white;
 			}
@@ -140,7 +140,7 @@ const Info = styled.div`
 	top: calc(50% -${size});
 	right: calc(-0.25 * ${size});
 
-	background-color: deepskyblue;
+	background-color: ${(p) => p.theme.colors.blue.main};
 	border-radius: 50%;
 	color: white;
 	outline: 2px solid white;

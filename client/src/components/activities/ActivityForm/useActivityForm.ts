@@ -114,6 +114,8 @@ export default function useActivityForm({
 	const { onSubmit: onUpdateSubmit } = useSubmitUpdatedActivity(activity, modalId);
 
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+		console.log({ modalId, bool: 1 });
+
 		return isEditing ? onUpdateSubmit(e) : onNewSubmit(e);
 	}
 

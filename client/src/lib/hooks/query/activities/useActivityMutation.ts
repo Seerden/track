@@ -1,3 +1,4 @@
+import { createDate } from "@/lib/datetime/make-date";
 import { createRequestConfig } from "@/lib/fetch/create-request-config";
 import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
 import { mk } from "@/lib/query-keys";
@@ -35,5 +36,14 @@ export function parseUpdatedActivity(activity: Partial<ActivityWithIds>) {
 		throw new Error("Activity must have either date fields or timestamp fields");
 	}
 
+	// TODO: this is copied directly from parseNewActivity. Need to extract it to
+	// a (PURE!) function..
+
+	// Make sure the `end` field is set to end of day. TODO: this should
+	// generically be handled in DateTimePicker, but currently only newActivity
+	// uses that, so doing it here works fine for now.
+	if (activityGuards.withDates(activity)) {
+		activity.end_date = createDate(activity.end_date).endOf("day");
+	}
 	return activity;
 }

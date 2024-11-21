@@ -10,7 +10,7 @@ import { createDate } from "@lib/datetime/make-date";
 import { parseTimeString } from "@lib/datetime/parse-string";
 import type { Maybe } from "@t/data/utility.types";
 import type { Dayjs } from "dayjs";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRecoilValue } from "recoil";
 import type { DateTimePickerProps } from "./datetime-picker.types";
 
@@ -86,6 +86,8 @@ export default function useDateTimePicker({
 	useEffect(() => {
 		setState({ name: dateFields.start, value: dateTime.start });
 		setState({ name: dateFields.end, value: dateTime.end });
+		setState({ name: dateFields.unusedStart, value: null });
+		setState({ name: dateFields.unusedEnd, value: null });
 	}, [dateFields, dateTime]);
 
 	function handleDateChange(value: string, field: "start" | "end") {
@@ -113,16 +115,9 @@ export default function useDateTimePicker({
 		}
 	}
 
-	const onAllDayFieldChange = useCallback(
-		(e: React.ChangeEvent<HTMLInputElement>) => {
-			setAllDay(e.target.checked);
-			setState({ name: dateFields.start, value: dateTime.start });
-			setState({ name: dateFields.end, value: dateTime.end });
-			setState({ name: dateFields.unusedStart, value: "" });
-			setState({ name: dateFields.unusedEnd, value: "" });
-		},
-		[setState, dateTime, dateFields]
-	);
+	function onAllDayFieldChange(e: React.ChangeEvent<HTMLInputElement>) {
+		setAllDay(e.target.checked);
+	}
 
 	function onTimeFieldChange(
 		e: React.ChangeEvent<HTMLInputElement>,

@@ -36,6 +36,11 @@ export default function TagTree({
 			<div>
 				<S.Container>
 					<h1>Tag tree</h1>
+					{/* TODO: style and finish this */}
+					<p>
+						This is an overview of all your tags and how they relate to each other.
+						Soon, you will be able to edit the hierarchy of your tags from here.
+					</p>
 					<S.Tree $orientation={orientation} $columnCount={rootTags.length}>
 						{rootTags.map((tag) => (
 							<Tag key={tag.tag_id} tag={tag} level={0} />
@@ -103,7 +108,7 @@ function Tag({ tag, level }: TagProps) {
 					initial="visible"
 					animate={collapsed ? "hidden" : "visible"}
 					transition={{
-						duration: 0.1,
+						duration: 0.05,
 						ease: "easeIn"
 					}}
 				>

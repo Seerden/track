@@ -59,8 +59,8 @@ const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
 			!p.$isSelected &&
 			css`
 				background-color: #eee;
-				border-color: deepskyblue;
-				box-shadow: 0.3rem 0.3rem 0 -0.1rem deepskyblue;
+				border-color: ${(p) => p.theme.colors.blue.main};
+				box-shadow: 0.3rem 0.3rem 0 -0.1rem ${(p) => p.theme.colors.blue.main};
 			`}
 	}
 
@@ -118,7 +118,7 @@ const ClearFilter = styled.button`
 	height: var(--size);
 
 	&:hover {
-		background-color: deepskyblue;
+		background-color: ${(p) => p.theme.colors.blue.main};
 		color: white;
 		border-radius: 50%;
 	}

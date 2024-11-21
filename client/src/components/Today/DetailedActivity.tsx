@@ -8,12 +8,11 @@ import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
-import Button from "@/lib/theme/components/Button.style";
 import CardStyle from "@/lib/theme/components/Card.style";
 import { Checkbox } from "@/lib/theme/components/Checkbox";
 import type { ActivityWithIds } from "@t/data/activity.types";
 import type { Datelike } from "@t/data/utility.types";
-import { FiEdit2 } from "react-icons/fi";
+import { PenLine } from "lucide-react";
 
 type DetailedActivityProps = {
 	activity: ActivityWithIds;
@@ -45,30 +44,14 @@ export default function DetailedActivity({ activity }: DetailedActivityProps) {
 				<span>{activity.name}</span>
 			</S.Title>
 
-			<div
-				style={{
-					gridArea: "edit",
-					justifySelf: "flex-end",
-					marginRight: "0.8rem",
-					width: "35px",
-					height: "35px",
-					display: "flex",
-					alignItems: "center",
-					justifyContent: "center",
-					borderRadius: "50%",
-					outline: "2px solid red"
+			<S.EditButton
+				onClick={(e) => {
+					e.stopPropagation();
+					openModal(modalIds.activities.new);
 				}}
 			>
-				<Button.Unstyled
-					type="button"
-					onClick={(e) => {
-						e.stopPropagation();
-						openModal(modalIds.activities.new);
-					}}
-				>
-					<FiEdit2 size={20} fill="#333" />
-				</Button.Unstyled>
-			</div>
+				<PenLine size={20} />
+			</S.EditButton>
 
 			{!!activity.description.length && (
 				<S.Description>{activity.description}</S.Description>
@@ -125,8 +108,9 @@ export default function DetailedActivity({ activity }: DetailedActivityProps) {
 				</S.Tags>
 			)}
 
+			{/* TODO: rename to a different modalId because it's not strictly a "new" activity anymore */}
 			<Modal modalId={modalIds.activities.new}>
-				<ActivityForm activity={activity} />
+				<ActivityForm activity={activity} modalId={modalIds.activities.new} />
 			</Modal>
 		</S.Wrapper>
 	);

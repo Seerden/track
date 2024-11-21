@@ -1,3 +1,4 @@
+import Button from "@/lib/theme/components/Button.style";
 import CardStyle from "@/lib/theme/components/Card.style";
 import { flex } from "@/lib/theme/snippets/flex";
 import styled from "styled-components";
@@ -59,6 +60,43 @@ const CheckboxWrapper = styled.label`
 		}
 	}
 `;
+
+const EditButton = styled(Button.Unstyled)`
+	cursor: pointer;
+	position: absolute;
+	top: 3rem;
+	right: 1rem;
+	grid-area: edit;
+	justify-self: flex-end;
+	margin-right: 0.8rem;
+	width: 35px;
+	height: 35px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+
+	outline: 2px solid ${(p) => p.theme.colors.blue.main};
+	border: 2px solid #eee;
+	box-shadow: 0 0.2rem 0.5rem 0 #bbb;
+	background-color: ${(p) => p.theme.colors.blue.main};
+
+	svg {
+		color: white;
+	}
+
+	&:hover {
+		outline: 2px solid ${(p) => p.theme.colors.blue.secondary};
+		background-color: ${(p) => p.theme.colors.blue.secondary};
+		box-shadow: 0 0.4rem 0.5rem 0 #aaa;
+		transform: translateY(-2px);
+	}
+`;
+
+EditButton.defaultProps = {
+	title: "Edit this activity"
+};
+
 const StyledDetailedActivity = {
 	Wrapper,
 	Title,
@@ -69,7 +107,8 @@ const StyledDetailedActivity = {
 	Tags: CardStyle.Tags,
 	Tag: CardStyle.Tag,
 	Task,
-	CheckboxWrapper
+	CheckboxWrapper,
+	EditButton
 };
 
 export default StyledDetailedActivity;
