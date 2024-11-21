@@ -4,6 +4,8 @@ import styled from "styled-components";
 
 // TODO: rename to TaskField
 const Task = styled.label`
+	cursor: pointer;
+
 	${flex.row};
 	align-items: center;
 	padding: 0 1rem;

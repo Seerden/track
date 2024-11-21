@@ -11,8 +11,8 @@ const ChangeDayButton = styled(Button.Unstyled)<{
 	cursor: pointer;
 	border-radius: 50%;
 	--size: calc(${(p) => p.$size}px + 0.2rem);
-	width: var(--size);
-	height: var(--size);
+	min-width: var(--size);
+	min-height: var(--size);
 
 	background-color: ${(p) => p.theme.colors[color].secondary};
 	box-shadow: 0 0 0.2rem 0 ${(p) => p.theme.colors[color].secondary};

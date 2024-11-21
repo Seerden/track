@@ -110,6 +110,10 @@ export default function useActivityForm({
 		existingActivity ?? defaultNewActivity
 	);
 
+	useEffect(() => {
+		console.log({ activity });
+	}, [activity]);
+
 	const { onSubmit: onNewSubmit } = useSubmitNewActivity(activity, modalId);
 	const { onSubmit: onUpdateSubmit } = useSubmitUpdatedActivity(activity, modalId);
 

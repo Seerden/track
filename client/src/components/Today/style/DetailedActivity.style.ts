@@ -64,8 +64,8 @@ const CheckboxWrapper = styled.label`
 const EditButton = styled(Button.Unstyled)`
 	cursor: pointer;
 	position: absolute;
-	top: 3rem;
-	right: 1rem;
+	top: -1rem;
+	right: 5rem;
 	grid-area: edit;
 	justify-self: flex-end;
 	margin-right: 0.8rem;
@@ -88,9 +88,10 @@ const EditButton = styled(Button.Unstyled)`
 	&:hover {
 		outline: 2px solid ${(p) => p.theme.colors.blue.secondary};
 		background-color: ${(p) => p.theme.colors.blue.secondary};
-		box-shadow: 0 0.4rem 0.5rem 0 #aaa;
-		transform: translateY(-2px);
+		border-radius: 5px;
 	}
+
+	transition: all linear 50ms;
 `;
 
 EditButton.defaultProps = {

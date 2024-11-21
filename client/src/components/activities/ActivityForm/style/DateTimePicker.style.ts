@@ -84,6 +84,7 @@ const Fields = styled.fieldset`
 // TODO: these match the styling from Task in ActivityForm, so they should be
 // extracted to a shared snippet.
 const AllDay = styled.label`
+	cursor: pointer;
 	${flex.row};
 	align-items: center;
 	justify-content: center;
