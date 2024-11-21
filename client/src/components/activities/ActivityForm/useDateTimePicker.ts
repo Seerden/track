@@ -2,6 +2,7 @@ import {
 	extractActiveDateTimeValues,
 	isAllDay
 } from "@/components/activities/ActivityForm/datetime-picker-extract-defaults";
+import { designateDateFields } from "@/components/activities/ActivityForm/used-and-unused-date-fields";
 import { isToday, sameDay } from "@/lib/datetime/compare";
 import useCurrentTime from "@/lib/hooks/useCurrentTime";
 import { selectedTimeWindowState } from "@/lib/state/selected-time-window-state";
@@ -37,13 +38,21 @@ function useDateTimePickerDefaults({ activeDateTimeValues }: UseDateTimePickerDe
 
 	const defaultNewActivityDate = timeWindow.startDate.format("YYYY-MM-DD");
 
+	const defaultDate = useMemo(
+		() => ({
+			start: defaultNewActivityDate,
+			end: defaultNewActivityDate
+		}),
+		[defaultNewActivityDate]
+	);
+
 	const defaultManualEndDate = !activeDateTimeValues
 		? false
 		: !sameDay(activeDateTimeValues.start, activeDateTimeValues.end);
 
 	return {
 		defaultTime,
-		defaultNewActivityDate,
+		defaultDate,
 		defaultManualEndDate
 	};
 }
@@ -55,26 +64,15 @@ export default function useDateTimePicker({
 	const activeDateTimeValues = extractActiveDateTimeValues(defaultValues);
 	const [allDay, setAllDay] = useState(isAllDay(defaultValues));
 
-	const { defaultTime, defaultNewActivityDate, defaultManualEndDate } =
-		useDateTimePickerDefaults({
-			activeDateTimeValues
-		});
+	const { defaultTime, defaultDate, defaultManualEndDate } = useDateTimePickerDefaults({
+		activeDateTimeValues
+	});
 
 	const [manualEndDate, setManualEndDate] = useState(defaultManualEndDate);
 
-	const dateFields = useMemo(() => {
-		const start = allDay ? "start_date" : "started_at";
-		const end = allDay ? "end_date" : "ended_at";
-		const unusedStart = allDay ? "started_at" : "start_date";
-		const unusedEnd = allDay ? "ended_at" : "end_date";
-		return { start, end, unusedStart, unusedEnd } as const;
-	}, [allDay]);
+	const dateFields = useMemo(() => designateDateFields(allDay), [allDay]);
 
-	const [date, setDate] = useState({
-		start: defaultNewActivityDate,
-		end: defaultNewActivityDate
-	});
-
+	const [date, setDate] = useState(defaultDate);
 	const [time, setTime] = useState(defaultTime);
 
 	const dateTime = useMemo(
