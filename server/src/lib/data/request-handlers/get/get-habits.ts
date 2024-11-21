@@ -1,4 +1,4 @@
-import { queryHabitsAndRelations } from "@/lib/data/query-habits";
+import { queryHabitsAndRelations } from "@/lib/data/models/habits/query-habits";
 import type { RequestHandler } from "express";
 
 const getHabits: RequestHandler = async (req, res) => {

@@ -1,8 +1,8 @@
+import { sqlConnection } from "@/db/init";
 import type { ActivityTagRelation, TagTagRelation } from "@t/data/relational.types";
 import type { TagWithId } from "@t/data/tag.types";
 import type { ID } from "@t/data/utility.types";
-import type { WithSQL } from "../../../types/sql.types";
-import { sqlConnection } from "../../db/init";
+import type { WithSQL } from "types/sql.types";
 
 /** Get all of a user's tags. */
 export async function queryTagsByUser({

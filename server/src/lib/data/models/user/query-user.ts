@@ -1,7 +1,7 @@
+import { sqlConnection } from "@/db/init";
 import { type User } from "@t/data/user.types";
 import { type ID } from "@t/data/utility.types";
-import { type WithSQL } from "../../../types/sql.types";
-import { sqlConnection } from "../../db/init";
+import type { WithSQL } from "types/sql.types";
 
 export async function userExists({
 	sql = sqlConnection,

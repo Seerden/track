@@ -1,8 +1,8 @@
+import { sqlConnection } from "@/db/init";
 import type { Note } from "@t/data/note.types";
 import type { NoteTagRelation } from "@t/data/relational.types";
 import type { ID } from "@t/data/utility.types";
-import type { WithSQL } from "../../../types/sql.types";
-import { sqlConnection } from "../../db/init";
+import type { WithSQL } from "types/sql.types";
 import { mergeNotesAndRelations } from "./merge-notes-and-relations";
 
 /** Get all of a user's notes. */

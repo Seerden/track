@@ -1,4 +1,4 @@
-import { queryNotesAndRelations } from "@/lib/data/query-notes";
+import { queryNotesAndRelations } from "@/lib/data/models/notes/query-notes";
 import type { RequestHandler } from "express";
 
 const getNotes: RequestHandler = async (req, res) => {

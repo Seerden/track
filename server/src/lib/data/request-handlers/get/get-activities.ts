@@ -1,4 +1,4 @@
-import { queryActivitiesAndRelations } from "@/lib/data/query-activities";
+import { queryActivitiesAndRelations } from "@/lib/data/models/activities/query-activities";
 import type { RequestHandler } from "express";
 
 const getActivities: RequestHandler = async (req, res) => {

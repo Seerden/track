@@ -1,5 +1,5 @@
 import { sqlConnection } from "@/db/init";
-import { linkTagsToActivity } from "@/lib/data/insert-activity";
+import { linkTagsToActivity } from "@/lib/data/models/activities/insert-activity";
 import type {
 	Activity,
 	ActivityUpdateInput,

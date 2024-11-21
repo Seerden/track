@@ -1,8 +1,8 @@
+import { sqlConnection } from "@/db/init";
 import type { NewNote, Note, NoteWithIds } from "@t/data/note.types";
 import type { NoteTagRelation } from "@t/data/relational.types";
 import type { ID } from "@t/data/utility.types";
-import type { WithSQL } from "../../../types/sql.types";
-import { sqlConnection } from "../../db/init";
+import type { WithSQL } from "types/sql.types";
 
 async function insertNote({ sql = sqlConnection, note }: WithSQL<{ note: NewNote }>) {
 	const [insertedNote] = await sql<[Note]>`

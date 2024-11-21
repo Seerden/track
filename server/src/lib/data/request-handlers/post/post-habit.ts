@@ -1,4 +1,4 @@
-import { insertHabitWithTags } from "@/lib/data/insert-habit";
+import { insertHabitWithTags } from "@/lib/data/models/habits/insert-habit";
 import type { HabitInput } from "@t/data/habit.types";
 import type { RequestHandler } from "express";
 
