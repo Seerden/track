@@ -14,7 +14,6 @@ import type {
 	WithDates,
 	WithTimestamps
 } from "@t/data/activity.types";
-import { hasValidUserId } from "@t/data/user-id.guards";
 import { useEffect, useState } from "react";
 import { parseNewActivity, parseUpdatedActivity } from "./parse-activity";
 
@@ -26,8 +25,6 @@ function useSubmitNewActivity(newActivity: Partial<NewActivity>, modalId?: Modal
 
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-
-		if (!hasValidUserId(newActivity)) return;
 
 		submit(
 			{ activity: parseNewActivity(newActivity), tagIds: selectedTagIds },
