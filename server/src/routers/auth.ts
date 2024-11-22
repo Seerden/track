@@ -1,9 +1,9 @@
 import { createUser } from "@/lib/data/models/user/insert-user";
 import { getUserById } from "@/lib/data/models/user/query-user";
+import { destroySession } from "@lib/auth/destroy-session";
+import { login } from "@lib/auth/log-in";
 import { type NewUser, type UserLogin } from "@t/data/user.types";
 import { Router } from "express";
-import { destroySession } from "../lib/auth/destroy-session";
-import { login } from "../lib/auth/log-in";
 
 export const authRouter = Router({ mergeParams: true });
 
