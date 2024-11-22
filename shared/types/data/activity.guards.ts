@@ -2,7 +2,6 @@ import type {
 	ActivityWithDates,
 	ActivityWithTimestamps,
 } from "./activity.types";
-import { missing } from "./utility.guards";
 
 function isActivityWithTimestamps(
 	activity: Partial<ActivityWithTimestamps | ActivityWithDates>,
@@ -10,8 +9,8 @@ function isActivityWithTimestamps(
 	return (
 		activity.started_at !== null &&
 		activity.ended_at !== null &&
-		missing(activity.start_date) &&
-		missing(activity.end_date)
+		activity.start_date === null &&
+		activity.end_date === null
 	);
 }
 
@@ -19,8 +18,8 @@ function isActivityWithDates(
 	activity: Partial<ActivityWithTimestamps | ActivityWithDates>,
 ): activity is ActivityWithDates {
 	return (
-		missing(activity.started_at) &&
-		missing(activity.ended_at) &&
+		activity.started_at === null &&
+		activity.ended_at === null &&
 		activity.start_date !== null &&
 		activity.end_date !== null
 	);

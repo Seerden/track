@@ -40,7 +40,8 @@ const mk = {
 		update: {
 			task: {
 				completion: ["task-completion"]
-			}
+			},
+			activity: ["activity"]
 		}
 	},
 

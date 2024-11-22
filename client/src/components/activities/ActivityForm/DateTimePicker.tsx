@@ -5,19 +5,20 @@ import type { DateTimePickerProps } from "./datetime-picker.types";
 import S from "./style/DateTimePicker.style";
 import useDateTimePicker from "./useDateTimePicker";
 
-export default function DateTimePicker({ setState }: DateTimePickerProps) {
+export default function DateTimePicker({ onChange, defaultValues }: DateTimePickerProps) {
 	const {
 		allDay,
 		manualEndDate,
 		defaultStartDate,
-		date,
+		defaultEndDate,
 		defaultTime,
 		onAllDayFieldChange,
 		onStartDateFieldChange,
 		onEndDateFieldChange,
 		onTimeFieldChange
 	} = useDateTimePicker({
-		setState
+		onChange,
+		defaultValues
 	});
 
 	return (
@@ -37,7 +38,7 @@ export default function DateTimePicker({ setState }: DateTimePickerProps) {
 						<span>End date</span>
 						<DefaultInput
 							type="date"
-							value={date.end}
+							defaultValue={defaultEndDate}
 							onChange={onEndDateFieldChange}
 						/>
 					</S.Label>

@@ -1,6 +1,13 @@
-export default {
+import type { DeepValue } from "@t/data/utility.types";
+
+/**
+ * This is a list of known modal ids. If you're using a modal somewhere, aim to
+ * always have it use an id from here. Sometimes an exception may be warranted,
+ * in which case you may alias your manually constructed modal id `as ModalId`.
+ */
+const modalIds = {
 	tagSelector: {
-		newActivity: "new-activity-tag-selector",
+		activityForm: "activity-form-tag-selector",
 		newNote: "new-note-tag-selector",
 		newTag: "new-tag-tag-selector",
 		newHabit: "new-habit-tag-selector"
@@ -14,7 +21,7 @@ export default {
 		new: "new-note"
 	},
 	activities: {
-		new: "new-activity",
+		form: "activity-form",
 		newTask: "new-task"
 	},
 	detailedActivity: "detailed-activity", // TODO: should be under activities.detailed like with habits and others
@@ -23,3 +30,7 @@ export default {
 		detailed: "detailed-tag"
 	}
 } as const;
+
+export type ModalId = DeepValue<typeof modalIds>;
+
+export default modalIds;

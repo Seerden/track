@@ -86,7 +86,7 @@ const Header = styled.header`
 		font-size: var(--font-size);
 		line-height: var(--font-size);
 
-		max-width: 40%;
+		max-width: 70%;
 
 		@media (min-width: 1280px) {
 			// this needs to be the same breakpoint as the one in columns

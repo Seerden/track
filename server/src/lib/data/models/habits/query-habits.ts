@@ -1,6 +1,6 @@
 import { sqlConnection } from "@/db/init";
-import { mergeHabitsAndRelations } from "@/lib/data/merge-habits-and-relations";
-import { queryHabitEntriesByUser } from "@/lib/data/query-habit-entries";
+import { mergeHabitsAndRelations } from "@/lib/data/models/habits/merge-habits-and-relations";
+import { queryHabitEntriesByUser } from "@/lib/data/models/habits/query-habit-entries";
 import type { Habit } from "@t/data/habit.types";
 import type { HabitTagRelation } from "@t/data/relational.types";
 import type { ID } from "@t/data/utility.types";

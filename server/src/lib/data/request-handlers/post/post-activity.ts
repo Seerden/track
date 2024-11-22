@@ -1,4 +1,4 @@
-import { insertActivityWithTags } from "@/lib/data/insert-activity";
+import { insertActivityWithTags } from "@/lib/data/models/activities/insert-activity";
 import type { ActivityInput } from "@t/data/activity.types";
 import type { RequestHandler } from "express";
 

@@ -1,4 +1,7 @@
-import { groupById, queryHabitEntriesByUser } from "@/lib/data/query-habit-entries";
+import {
+	groupById,
+	queryHabitEntriesByUser,
+} from "@/lib/data/models/habits/query-habit-entries";
 import type { RequestHandler } from "express";
 
 const getHabitEntries: RequestHandler = async (req, res) => {

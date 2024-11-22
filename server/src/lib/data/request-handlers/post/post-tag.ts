@@ -1,4 +1,4 @@
-import { insertTagWithRelation } from "@/lib/data/insert-tags";
+import { insertTagWithRelation } from "@/lib/data/models/tags/insert-tags";
 import type { TagInput } from "@t/data/tag.types";
 import type { RequestHandler } from "express";
 

@@ -1,14 +1,18 @@
+import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
 import S from "@/components/Today/style/DetailedActivity.style";
+import Modal from "@/components/utility/Modal/Modal";
 import { activityEnd, activityStart, hasNotEnded, startsInFuture } from "@/lib/activity";
 import { createDate } from "@/lib/datetime/make-date";
 import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
+import { useModalState } from "@/lib/state/modal-state";
 import CardStyle from "@/lib/theme/components/Card.style";
 import { Checkbox } from "@/lib/theme/components/Checkbox";
 import type { ActivityWithIds } from "@t/data/activity.types";
 import type { Datelike } from "@t/data/utility.types";
+import { PenLine } from "lucide-react";
 
 type DetailedActivityProps = {
 	activity: ActivityWithIds;
@@ -26,6 +30,7 @@ export default function DetailedActivity({ activity }: DetailedActivityProps) {
 	const humanizedStart = `${startsInFuture(activity) ? "starts" : "started"} ${activityStart(activity).fromNow()}`;
 	const showHumanizedStart = hasNotEnded(activity);
 	const { openDetailedItemModal } = useDetailedItemModal("tag", modalIds.tags.detailed);
+	const { openModal } = useModalState();
 
 	return (
 		<S.Wrapper>
@@ -38,6 +43,15 @@ export default function DetailedActivity({ activity }: DetailedActivityProps) {
 				)}
 				<span>{activity.name}</span>
 			</S.Title>
+
+			<S.EditButton
+				onClick={(e) => {
+					e.stopPropagation();
+					openModal(modalIds.activities.form);
+				}}
+			>
+				<PenLine size={20} />
+			</S.EditButton>
 
 			{!!activity.description.length && (
 				<S.Description>{activity.description}</S.Description>
@@ -93,6 +107,11 @@ export default function DetailedActivity({ activity }: DetailedActivityProps) {
 					))}
 				</S.Tags>
 			)}
+
+			{/* TODO: rename to a different modalId because it's not strictly a "new" activity anymore */}
+			<Modal modalId={modalIds.activities.form}>
+				<ActivityForm activity={activity} modalId={modalIds.activities.form} />
+			</Modal>
 		</S.Wrapper>
 	);
 }

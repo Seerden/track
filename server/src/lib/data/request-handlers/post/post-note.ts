@@ -1,4 +1,4 @@
-import { insertNoteWithTags } from "@/lib/data/insert-note";
+import { insertNoteWithTags } from "@/lib/data/models/notes/insert-note";
 import type { NoteInput } from "@t/data/note.types";
 import type { RequestHandler } from "express";
 

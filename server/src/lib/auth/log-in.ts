@@ -1,7 +1,7 @@
+import { getUserByName } from "@/lib/data/models/user/query-user";
 import type { UserLogin } from "@t/data/user.types";
 import { compare } from "bcryptjs";
 import type { Request, Response } from "express";
-import { getUserByName } from "../data/query-user";
 import { destroySession } from "./destroy-session";
 
 /** Request handler. If login info is valid, (re-)set the session. */

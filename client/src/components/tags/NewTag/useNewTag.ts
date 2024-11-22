@@ -45,7 +45,7 @@ export default function useNewTag() {
 			{
 				onSuccess: () => {
 					queryClient.invalidateQueries({ queryKey: qk.tags.all });
-					closeModal(modalIds.tagSelector.newActivity);
+					closeModal(modalIds.tagSelector.activityForm);
 				}
 			}
 		);

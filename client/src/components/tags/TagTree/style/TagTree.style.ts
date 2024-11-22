@@ -5,7 +5,7 @@ import { spacing } from "@/lib/theme/snippets/spacing";
 import { motion } from "framer-motion";
 import styled, { css } from "styled-components";
 
-const colors = ["deepskyblue", "blueviolet", "darkorchid", "darkviolet", "indigo"];
+const colors = ["dodgerblue", "blueviolet", "darkorchid", "darkviolet", "indigo"];
 
 const TagName = styled.label<{ $level: number }>`
 	font-size: ${(p) => getFontSize(p, 0.9)};
@@ -36,7 +36,7 @@ const TagName = styled.label<{ $level: number }>`
 	box-shadow: 0.6rem 0.6rem 0 -0.3rem #ddd;
 
 	background-color: ${(p) =>
-		p.$level === 0 ? "deepskyblue" : colors[p.$level % colors.length]};
+		p.$level === 0 ? "dodgerblue" : colors[p.$level % colors.length]};
 	color: white;
 	max-height: max-content;
 	/* width: max-content; */
@@ -88,8 +88,7 @@ const Tree = styled.ul<{
 	$columnCount: number;
 }>`
 	max-height: 900px;
-	padding-right: 1rem;
-	padding-top: 0.5rem;
+	padding: 1rem;
 	margin-right: -1rem;
 	width: max-content;
 	min-width: 350px;
@@ -103,15 +102,16 @@ const Tree = styled.ul<{
 		height: 98%;
 		justify-content: flex-start;
 		width: max-content;
+		border-radius: 4px;
 		> ${TagName} {
 			justify-self: center;
 			width: 100%;
 			margin: 0;
 			box-shadow: none;
 		}
-		box-shadow: 0 0 0 0.1rem #ddd;
+		box-shadow: 0 0 1rem 0rem #ccc;
 		outline: 2px solid white;
-		background-color: #ddd;
+		background-color: #eaeaea;
 
 		> ${Children} {
 			min-height: 2rem;
@@ -139,7 +139,7 @@ const Container = styled.div`
 	max-width: 90vw;
 	${flex.column};
 	box-shadow:
-		0.5rem 0.5rem 0 -0.3rem deepskyblue,
+		0.5rem 0.5rem 0 -0.3rem ${(p) => p.theme.colors.blue.main},
 		0 0 0.8rem 0 #ccc;
 	${spacing.padding.wide({ size: 1, ratio: 2 })}
 	border-radius: 3px;

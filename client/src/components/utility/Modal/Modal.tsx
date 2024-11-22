@@ -1,10 +1,11 @@
 import useModal from "@/lib/hooks/useModal";
+import type { ModalId } from "@/lib/modal-ids";
 import type { PropsWithChildren } from "react";
 import { useRef } from "react";
 import S from "./style/Modal.style";
 
 type ModalProps = {
-	modalId: string;
+	modalId: ModalId;
 	initialOpen?: boolean;
 };
 

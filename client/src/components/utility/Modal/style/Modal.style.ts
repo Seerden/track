@@ -53,8 +53,8 @@ const Modal = styled.div`
 	border: 1px solid #444;
 	border-radius: 5px;
 	box-shadow:
-		0.8rem 0.8rem 0.1rem -0.2rem #aaa,
-		1.1rem -0.5rem 0.1rem -0.2rem deepskyblue;
+		0.8rem 0.8rem 0.1rem -0.2rem #ddd,
+		1.1rem -0.5rem 0.1rem -0.2rem ${(p) => p.theme.colors.blue.main};
 `;
 
 export default { ModalWrapper, Close, Modal };

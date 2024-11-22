@@ -1,3 +1,4 @@
+import { formatToHHmm } from "@/lib/datetime/format-date";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
@@ -57,8 +58,8 @@ export default function Task({ activity, tags = [] }: TaskProps) {
 				<Checkbox checked={activity.completed} />
 			</S.CheckboxWrapper>
 			<T.Times>
-				<span>from {activityStart(activity).format("HH:mm")}</span>
-				<span>to {activityEnd(activity).format("HH:mm")}</span>
+				<span>from {formatToHHmm(activityStart(activity))}</span>
+				<span>to {formatToHHmm(activityEnd(activity))}</span>
 			</T.Times>
 			<T.TaskName>{activity.name}</T.TaskName>
 			{!!tags.length && ( // TODO: make sure the styling of the component doesn't do anything weird when Tags isn't rendered

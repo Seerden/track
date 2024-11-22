@@ -1,4 +1,4 @@
-import { deleteHabitById } from "@/lib/data/delete-habit";
+import { deleteHabitById } from "@/lib/data/models/habits/delete-habit";
 import type { RequestHandler } from "express";
 
 const deleteHabit: RequestHandler = async (req, res) => {

@@ -1,4 +1,5 @@
 import TagSelector from "@/components/tags/TagSelector/TagSelector";
+import { formatToYearMonthDay } from "@/lib/datetime/format-date";
 import { createDate } from "@/lib/datetime/make-date";
 import modalIds from "@/lib/modal-ids";
 import { CheckboxIcon } from "@/lib/theme/components/Checkbox";
@@ -171,7 +172,7 @@ export default function NewHabit() {
 							<DefaultInput
 								name="start_timestamp"
 								type="date"
-								value={createDate(habit.start_timestamp).format("YYYY-MM-DD")}
+								value={formatToYearMonthDay(createDate(habit.start_timestamp))}
 								onChange={onInputChange}
 								required
 							/>

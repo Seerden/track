@@ -1,7 +1,7 @@
 import {
 	createTagTreeMap,
 	getTagsWithRelations,
-} from "@/lib/data/merge-tags-and-relations";
+} from "@/lib/data/models/tags/merge-tags-and-relations";
 import type { RequestHandler } from "express";
 
 const getTagsTree: RequestHandler = async (req, res) => {

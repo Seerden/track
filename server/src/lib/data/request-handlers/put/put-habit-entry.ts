@@ -1,4 +1,4 @@
-import { updateHabitEntry } from "@/lib/data/update-habit-entry";
+import { updateHabitEntry } from "@/lib/data/models/habits/update-habit-entry";
 import type { HabitEntryUpdateInput } from "@t/data/habit.types";
 import type { RequestHandler } from "express";
 

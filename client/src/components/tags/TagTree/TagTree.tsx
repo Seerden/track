@@ -1,6 +1,7 @@
 import Modal from "@/components/utility/Modal/Modal";
 import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
 import useTagsTreeQuery from "@/lib/hooks/query/tags/useTagsTreeQuery";
+import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
 import Badge from "@/lib/theme/components/Badge";
 import type { TagWithIds } from "@t/data/tag.types";
@@ -11,7 +12,7 @@ import S from "./style/TagTree.style";
 
 type TagTreeProps = {
 	orientation?: "vertical" | "horizontal";
-	modalId?: string;
+	modalId?: ModalId;
 	initialOpen?: boolean;
 };
 
@@ -35,6 +36,11 @@ export default function TagTree({
 			<div>
 				<S.Container>
 					<h1>Tag tree</h1>
+					{/* TODO: style and finish this */}
+					<p>
+						This is an overview of all your tags and how they relate to each other.
+						Soon, you will be able to edit the hierarchy of your tags from here.
+					</p>
 					<S.Tree $orientation={orientation} $columnCount={rootTags.length}>
 						{rootTags.map((tag) => (
 							<Tag key={tag.tag_id} tag={tag} level={0} />
@@ -102,7 +108,7 @@ function Tag({ tag, level }: TagProps) {
 					initial="visible"
 					animate={collapsed ? "hidden" : "visible"}
 					transition={{
-						duration: 0.1,
+						duration: 0.05,
 						ease: "easeIn"
 					}}
 				>

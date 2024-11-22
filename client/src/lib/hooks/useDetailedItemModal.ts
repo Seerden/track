@@ -1,3 +1,4 @@
+import type { ModalId } from "@/lib/modal-ids";
 import type { ActiveItemState } from "@/lib/state/active-item-state";
 import { activeItemState } from "@/lib/state/active-item-state";
 import { useModalState } from "@/lib/state/modal-state";
@@ -11,7 +12,7 @@ import { useRecoilState } from "recoil";
  */
 export default function useDetailedItemModal(
 	type: keyof ActiveItemState,
-	modalId: string
+	modalId: ModalId
 ) {
 	const [activeItem, setActiveItem] = useRecoilState(activeItemState);
 	const { openModal } = useModalState();

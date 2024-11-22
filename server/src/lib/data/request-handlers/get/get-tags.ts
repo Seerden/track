@@ -1,4 +1,4 @@
-import { getTagsWithRelations } from "@/lib/data/merge-tags-and-relations";
+import { getTagsWithRelations } from "@/lib/data/models/tags/merge-tags-and-relations";
 import type { RequestHandler } from "express";
 
 const getTags: RequestHandler = async (req, res) => {

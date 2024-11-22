@@ -1,11 +1,12 @@
 import Modal from "@/components/utility/Modal/Modal";
+import type { ModalId } from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import NewTag from "@components/tags/NewTag/NewTag";
 import { AiFillTags } from "react-icons/ai";
 import S from "./style/NewTagButton.style";
 
 type NewTagButtonProps = {
-	modalId: string;
+	modalId: ModalId;
 	size?: number;
 };
 
@@ -31,7 +32,7 @@ export default function NewTagButton({ modalId, size = 15 }: NewTagButtonProps) 
 				// unlikely though, because we usually don't put `showNewTagButton` on
 				// the TagSelector inside the NewTagButton (because that makes no sense).
 				<Modal modalId={modalId}>
-					<NewTag modalId={`${modalId}-nested`} />
+					<NewTag modalId={`${modalId}-nested` as ModalId} />
 				</Modal>
 			)}
 		</>

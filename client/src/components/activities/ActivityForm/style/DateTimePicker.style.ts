@@ -29,7 +29,7 @@ const Label = styled.label<{ $faded?: boolean }>`
 	&:focus-within,
 	&:active {
 		&:not(:has(*:disabled)) {
-			outline: 2px solid deepskyblue;
+			outline: 2px solid ${(p) => p.theme.colors.blue.main};
 			span {
 				outline: 2px solid white;
 			}
@@ -81,9 +81,10 @@ const Fields = styled.fieldset`
 	}
 `;
 
-// TODO: these match the styling from Task in NewActivity, so they should be
+// TODO: these match the styling from Task in ActivityForm, so they should be
 // extracted to a shared snippet.
 const AllDay = styled.label`
+	cursor: pointer;
 	${flex.row};
 	align-items: center;
 	justify-content: center;
@@ -140,7 +141,7 @@ const Info = styled.div`
 	top: calc(50% -${size});
 	right: calc(-0.25 * ${size});
 
-	background-color: deepskyblue;
+	background-color: ${(p) => p.theme.colors.blue.main};
 	border-radius: 50%;
 	color: white;
 	outline: 2px solid white;
