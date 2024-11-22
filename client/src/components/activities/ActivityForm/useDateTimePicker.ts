@@ -4,6 +4,7 @@ import {
 } from "@/components/activities/ActivityForm/datetime-picker-extract-defaults";
 import { designateDateFields } from "@/components/activities/ActivityForm/used-and-unused-date-fields";
 import { isToday, sameDay } from "@/lib/datetime/compare";
+import { formatToHHmm } from "@/lib/datetime/format-date";
 import useCurrentTime from "@/lib/hooks/useCurrentTime";
 import { selectedTimeWindowState } from "@/lib/state/selected-time-window-state";
 import { createDate } from "@lib/datetime/make-date";
@@ -24,13 +25,13 @@ function useDateTimePickerDefaults({ defaultStartAndEnd }: UseDateTimePickerDefa
 	const defaultTime = useMemo(() => {
 		return defaultStartAndEnd
 			? {
-					start: defaultStartAndEnd.start.format("HHmm"),
-					end: defaultStartAndEnd.end.format("HHmm")
+					start: formatToHHmm(defaultStartAndEnd.start),
+					end: formatToHHmm(defaultStartAndEnd.end)
 				}
 			: {
-					start: isToday(timeWindow.startDate) ? currentTime.format("HHmm") : "",
+					start: isToday(timeWindow.startDate) ? formatToHHmm(currentTime) : "",
 					end: isToday(timeWindow.startDate)
-						? currentTime.add(1, "hour").format("HHmm")
+						? formatToHHmm(currentTime.add(1, "hour"))
 						: ""
 				};
 	}, [defaultStartAndEnd, timeWindow.startDate, currentTime]);
