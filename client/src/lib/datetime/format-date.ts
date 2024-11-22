@@ -28,3 +28,7 @@ export function formatToMonthAndYear(date: Datelike): string {
 export function formatToHHmm(date: Dayjs): string {
 	return date.format("HH:mm");
 }
+
+export function formatToYearMonthDay(date: Dayjs): string {
+	return date.format("YYYY-MM-DD");
+}

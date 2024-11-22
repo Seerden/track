@@ -2,7 +2,8 @@ import {
 	formatDate,
 	formatHour,
 	formatToHHmm,
-	formatToMonthAndYear
+	formatToMonthAndYear,
+	formatToYearMonthDay
 } from "@/lib/datetime/format-date";
 import { createDate } from "@/lib/datetime/make-date";
 
@@ -55,6 +56,13 @@ describe("compare/format-date", () => {
 		it("should format a dayjs object to HH:mm", () => {
 			const date = createDate("2024-11-19T12:00:00");
 			expect(formatToHHmm(date)).toEqual("12:00");
+		});
+	});
+
+	describe("formatToYearMonthDay", () => {
+		it("should format a dayjs object to YYYY-MM-DD", () => {
+			const date = createDate("2024-11-19T12:00:00");
+			expect(formatToYearMonthDay(date)).toEqual("2024-11-19");
 		});
 	});
 });
