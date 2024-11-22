@@ -41,7 +41,7 @@ export function parseUpdatedActivity(activity: Partial<ActivityWithIds>) {
 	maybeThrowOnInvalidActivity(activity);
 	maybeShiftEndDateToEndOfDay(activity);
 
-	return activity;
+	return activity as ActivityWithIds;
 }
 
 /**
