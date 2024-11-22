@@ -1,4 +1,5 @@
 import type { Datelike } from "@t/data/utility.types";
+import type { Dayjs } from "dayjs";
 import { createDate } from "./make-date";
 
 // Format a date to year-month-date hh:mm (and optionally :ss)
@@ -22,4 +23,8 @@ export function formatHour(
 export function formatToMonthAndYear(date: Datelike): string {
 	const d = createDate(date);
 	return d.format("MMMM YYYY");
+}
+
+export function formatToHHmm(date: Dayjs): string {
+	return date.format("HH:mm");
 }

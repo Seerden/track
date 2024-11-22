@@ -1,4 +1,9 @@
-import { formatDate, formatHour, formatToMonthAndYear } from "@/lib/datetime/format-date";
+import {
+	formatDate,
+	formatHour,
+	formatToHHmm,
+	formatToMonthAndYear
+} from "@/lib/datetime/format-date";
 import { createDate } from "@/lib/datetime/make-date";
 
 describe("compare/format-date", () => {
@@ -43,6 +48,13 @@ describe("compare/format-date", () => {
 			it("should format unix timestamp", () => {
 				expect(formatToMonthAndYear(createDate(0))).toEqual("January 1970");
 			});
+		});
+	});
+
+	describe("formatToHHmm", () => {
+		it("should format a dayjs object to HH:mm", () => {
+			const date = createDate("2024-11-19T12:00:00");
+			expect(formatToHHmm(date)).toEqual("12:00");
 		});
 	});
 });
