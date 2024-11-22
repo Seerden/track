@@ -46,9 +46,9 @@ function useDateTimePickerDefaults({ defaultStartAndEnd }: UseDateTimePickerDefa
 		[defaultNewActivityDate]
 	);
 
-	const defaultManualEndDate = !defaultStartAndEnd
-		? false
-		: !sameDay(defaultStartAndEnd.start, defaultStartAndEnd.end);
+	const defaultManualEndDate = defaultStartAndEnd
+		? !sameDay(defaultStartAndEnd.start, defaultStartAndEnd.end)
+		: false;
 
 	return {
 		defaultTime,
