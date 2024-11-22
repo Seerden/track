@@ -62,7 +62,7 @@ export default function ActivityForm({
 
 				<N.Row>
 					<DateTimePicker
-						setState={onDateTimeChange}
+						onChange={onDateTimeChange}
 						defaultValues={defaultDateTimeValues}
 					/>
 				</N.Row>

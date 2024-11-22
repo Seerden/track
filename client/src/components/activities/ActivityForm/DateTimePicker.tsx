@@ -5,7 +5,7 @@ import type { DateTimePickerProps } from "./datetime-picker.types";
 import S from "./style/DateTimePicker.style";
 import useDateTimePicker from "./useDateTimePicker";
 
-export default function DateTimePicker({ setState, defaultValues }: DateTimePickerProps) {
+export default function DateTimePicker({ onChange, defaultValues }: DateTimePickerProps) {
 	const {
 		allDay,
 		manualEndDate,
@@ -17,7 +17,7 @@ export default function DateTimePicker({ setState, defaultValues }: DateTimePick
 		onEndDateFieldChange,
 		onTimeFieldChange
 	} = useDateTimePicker({
-		setState,
+		onChange,
 		defaultValues
 	});
 

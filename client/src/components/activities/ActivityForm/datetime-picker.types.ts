@@ -10,6 +10,6 @@ export type DateTimeStateSetter = (args: {
 type DateTimePickerDefaultValues = WithDates | WithTimestamps;
 
 export type DateTimePickerProps = {
-	setState: DateTimeStateSetter;
+	onChange: DateTimeStateSetter;
 	defaultValues?: DateTimePickerDefaultValues;
 };

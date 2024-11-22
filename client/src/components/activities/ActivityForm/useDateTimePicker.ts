@@ -58,23 +58,18 @@ function useDateTimePickerDefaults({ defaultStartAndEnd }: UseDateTimePickerDefa
 }
 
 export default function useDateTimePicker({
-	setState,
+	onChange,
 	defaultValues
 }: DateTimePickerProps) {
 	const defaultStartAndEnd = maybeGetDefaultStartAndEnd(defaultValues);
-	const [allDay, setAllDay] = useState(isAllDay(defaultValues));
-
 	const { defaultTime, defaultDate, defaultManualEndDate } = useDateTimePickerDefaults({
 		defaultStartAndEnd
 	});
-
-	const [manualEndDate, setManualEndDate] = useState(defaultManualEndDate);
-
+	const [allDay, setAllDay] = useState(isAllDay(defaultValues));
 	const dateFields = useMemo(() => designateDateFields(allDay), [allDay]);
-
+	const [manualEndDate, setManualEndDate] = useState(defaultManualEndDate);
 	const [date, setDate] = useState(defaultDate);
 	const [time, setTime] = useState(defaultTime);
-
 	const dateTime = useMemo(
 		() => ({
 			start: createDate(allDay ? date.start : `${date.start}T${time.start}`),
@@ -84,10 +79,10 @@ export default function useDateTimePicker({
 	);
 
 	useEffect(() => {
-		setState({ name: dateFields.start, value: dateTime.start });
-		setState({ name: dateFields.end, value: dateTime.end });
-		setState({ name: dateFields.unusedStart, value: null });
-		setState({ name: dateFields.unusedEnd, value: null });
+		onChange({ name: dateFields.start, value: dateTime.start });
+		onChange({ name: dateFields.end, value: dateTime.end });
+		onChange({ name: dateFields.unusedStart, value: null });
+		onChange({ name: dateFields.unusedEnd, value: null });
 	}, [dateFields, dateTime]);
 
 	function handleDateChange(value: string, field: "start" | "end") {
