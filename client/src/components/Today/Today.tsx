@@ -128,14 +128,14 @@ export default function Today() {
 							type="button"
 							onClick={(e) => {
 								e.stopPropagation();
-								openModal(modalIds.activities.new);
+								openModal(modalIds.activities.form);
 							}}
 						>
 							New activity
 						</button>
 					</div>
-					<Modal initialOpen={false} modalId={modalIds.activities.new}>
-						<ActivityForm modalId={modalIds.activities.new} />
+					<Modal initialOpen={false} modalId={modalIds.activities.form}>
+						<ActivityForm modalId={modalIds.activities.form} />
 					</Modal>
 				</S.TimelineWrapper>
 

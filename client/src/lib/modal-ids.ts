@@ -16,7 +16,7 @@ const modalIds = {
 		new: "new-note"
 	},
 	activities: {
-		new: "new-activity",
+		form: "activity-form",
 		newTask: "new-task"
 	},
 	detailedActivity: "detailed-activity", // TODO: should be under activities.detailed like with habits and others

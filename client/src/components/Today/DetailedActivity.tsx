@@ -47,7 +47,7 @@ export default function DetailedActivity({ activity }: DetailedActivityProps) {
 			<S.EditButton
 				onClick={(e) => {
 					e.stopPropagation();
-					openModal(modalIds.activities.new);
+					openModal(modalIds.activities.form);
 				}}
 			>
 				<PenLine size={20} />
@@ -109,8 +109,8 @@ export default function DetailedActivity({ activity }: DetailedActivityProps) {
 			)}
 
 			{/* TODO: rename to a different modalId because it's not strictly a "new" activity anymore */}
-			<Modal modalId={modalIds.activities.new}>
-				<ActivityForm activity={activity} modalId={modalIds.activities.new} />
+			<Modal modalId={modalIds.activities.form}>
+				<ActivityForm activity={activity} modalId={modalIds.activities.form} />
 			</Modal>
 		</S.Wrapper>
 	);
