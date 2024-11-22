@@ -5,7 +5,7 @@ import type { ActivityUpdateInput, ActivityWithIds } from "@t/data/activity.type
 import { useMutation } from "@tanstack/react-query";
 
 async function putActivity(input: ActivityUpdateInput): Promise<ActivityWithIds> {
-	const url = makeAuthorizedUrl(`/data/activity/${input.activity.activity_id}`); // TODO: actually create this endpoint
+	const url = makeAuthorizedUrl(`/data/activity/${input.activity.activity_id}`);
 	const updatedActivity = (await fetch(url, createRequestConfig.put({ input }))).json();
 
 	return updatedActivity;
