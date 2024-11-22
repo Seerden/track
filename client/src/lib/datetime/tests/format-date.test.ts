@@ -57,6 +57,11 @@ describe("compare/format-date", () => {
 			const date = createDate("2024-11-19T12:00:00");
 			expect(formatToHHmm(date)).toEqual("12:00");
 		});
+
+		it("should format a dayjs object to HH:mm without separator", () => {
+			const date = createDate("2024-11-19T12:00:00");
+			expect(formatToHHmm(date, false)).toEqual("1200");
+		});
 	});
 
 	describe("formatToYearMonthDay", () => {

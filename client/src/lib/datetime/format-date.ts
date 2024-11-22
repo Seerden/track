@@ -25,8 +25,9 @@ export function formatToMonthAndYear(date: Datelike): string {
 	return d.format("MMMM YYYY");
 }
 
-export function formatToHHmm(date: Dayjs): string {
-	return date.format("HH:mm");
+/** Parse a dayjs object to HH:mm or HHmm depending on the value of `separator`. */
+export function formatToHHmm(date: Dayjs, separator = true): string {
+	return date.format(`HH${separator ? ":" : ""}mm`);
 }
 
 export function formatToYearMonthDay(date: Dayjs): string {

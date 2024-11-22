@@ -25,13 +25,15 @@ function useDateTimePickerDefaults({ defaultStartAndEnd }: UseDateTimePickerDefa
 	const defaultTime = useMemo(() => {
 		return defaultStartAndEnd
 			? {
-					start: formatToHHmm(defaultStartAndEnd.start),
-					end: formatToHHmm(defaultStartAndEnd.end)
+					start: formatToHHmm(defaultStartAndEnd.start, false),
+					end: formatToHHmm(defaultStartAndEnd.end, false)
 				}
 			: {
-					start: isToday(timeWindow.startDate) ? formatToHHmm(currentTime) : "",
+					start: isToday(timeWindow.startDate)
+						? formatToHHmm(currentTime, false)
+						: "",
 					end: isToday(timeWindow.startDate)
-						? formatToHHmm(currentTime.add(1, "hour"))
+						? formatToHHmm(currentTime.add(1, "hour"), false)
 						: ""
 				};
 	}, [defaultStartAndEnd, timeWindow.startDate, currentTime]);
