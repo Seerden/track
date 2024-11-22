@@ -1,16 +1,17 @@
 import type { DateTimePickerProps } from "@/components/activities/ActivityForm/datetime-picker.types";
 import { createDate } from "@/lib/datetime/make-date";
-import type { Maybe } from "@t/data/utility.types";
-import type { Dayjs } from "dayjs";
+import type { Maybe, StartAndEnd } from "@t/data/utility.types";
 
 /** If `defaultValues` is given, this function returns a StartAndEnd object that
  * extracts the relevant datetime fields from it.
  * @usage to be used as initial state for default values for date-time picker. */
 export function maybeGetDefaultStartAndEnd(
 	defaultValues: DateTimePickerProps["defaultValues"]
-): Maybe<{ start: Dayjs; end: Dayjs }> {
+): Maybe<StartAndEnd> {
 	if (!defaultValues) return null;
 
+	// TODO: I would like to use the withDates/withTimestamps typeguards here,
+	// but those expect a full activity object, not just the default values.
 	if (defaultValues.start_date && defaultValues.end_date) {
 		return {
 			start: createDate(defaultValues.start_date),

@@ -8,14 +8,13 @@ import useCurrentTime from "@/lib/hooks/useCurrentTime";
 import { selectedTimeWindowState } from "@/lib/state/selected-time-window-state";
 import { createDate } from "@lib/datetime/make-date";
 import { parseTimeString } from "@lib/datetime/parse-string";
-import type { Maybe } from "@t/data/utility.types";
-import type { Dayjs } from "dayjs";
+import type { Maybe, StartAndEnd } from "@t/data/utility.types";
 import { useEffect, useMemo, useState } from "react";
 import { useRecoilValue } from "recoil";
 import type { DateTimePickerProps } from "./datetime-picker.types";
 
 type UseDateTimePickerDefaults = {
-	defaultStartAndEnd: Maybe<{ start: Dayjs; end: Dayjs }>;
+	defaultStartAndEnd: Maybe<StartAndEnd>;
 };
 
 function useDateTimePickerDefaults({ defaultStartAndEnd }: UseDateTimePickerDefaults) {

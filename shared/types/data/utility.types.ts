@@ -36,3 +36,8 @@ export type DeepValue<T> = T extends unknown[]
 	: T extends object
 		? DeepValue<T[keyof T]>
 		: T;
+
+export type StartAndEnd = {
+	start: Dayjs;
+	end: Dayjs;
+};
