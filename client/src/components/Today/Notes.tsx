@@ -29,16 +29,11 @@ export default function Notes() {
 			{notes.map((n) => (
 				<Note key={n.note_id} note={n} tags={filterTagsById(n.tag_ids, tags?.byId)} />
 			))}
-			<button
-				type="button"
-				onClick={(e) => {
-					e.stopPropagation();
-					openModal(modalIds.notes.new);
-				}}
-			>
-				New note
-			</button>
 
+			{/* TODO: now that we trigger NewNote from the SpeedDial in Today.tsx, 
+         does this modal also have to move to there? Otherwise we can end up with 
+         a state where the modal doesn't open because it's not on the page. Same 
+         goes for the other speed dial actions.*/}
 			<Modal initialOpen={false} modalId={modalIds.notes.new}>
 				<NewNote />
 			</Modal>

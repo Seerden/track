@@ -6,6 +6,7 @@ import ChangeDayButton from "@/components/Today/ChangeDayButton";
 import TimelineRows from "@/components/Today/TimelineRows";
 import Calendar from "@/components/utility/Calendar/Calendar";
 import Modal from "@/components/utility/Modal/Modal";
+import SpeedDial from "@/components/utility/SpeedDial/SpeedDial";
 import { today } from "@/lib/datetime/make-date";
 import useActivitiesQuery from "@/lib/hooks/query/activities/useActivitiesQuery";
 import useHabitsData from "@/lib/hooks/useHabitsData";
@@ -75,24 +76,72 @@ export default function Today() {
 	const t = useToday();
 	const { openModal } = useModalState();
 
+	const [open, setOpen] = useState(false);
+
 	return (
 		<S.Wrapper>
 			{/* TODO: we want the header to be aligned above the Timeline */}
 			<S.Columns>
 				<div>
 					<Calendar initialDate={t.currentDate} onChange={t.setCurrentDate} />
-					<button
+
+					<div
 						style={{
-							marginTop: "1rem"
-						}}
-						type="button"
-						onClick={(e) => {
-							e.stopPropagation();
-							openModal(modalIds.habits.new);
+							position: "fixed",
+							bottom: "10rem",
+							right: "10rem",
+							zIndex: 100
 						}}
 					>
-						New habit
-					</button>
+						<SpeedDial open={open} setOpen={setOpen}>
+							<div
+								style={{
+									display: "flex",
+									flexDirection: "column",
+									gap: "0.5rem",
+									justifyContent: "center",
+									padding: "0 1rem",
+									borderRadius: "3px",
+									alignItems: "center",
+									boxShadow: "0 0.2rem 1.5rem 0 #bbb",
+									fontSize: "0.8rem"
+								}}
+							>
+								<S.SpeedDialButton
+									onClick={(e) => {
+										e.stopPropagation();
+										openModal(modalIds.activities.form);
+									}}
+								>
+									activity
+								</S.SpeedDialButton>
+								<S.SpeedDialButton
+									onClick={(e) => {
+										e.stopPropagation();
+										openModal(modalIds.activities.newTask);
+									}}
+								>
+									task
+								</S.SpeedDialButton>
+								<S.SpeedDialButton
+									onClick={(e) => {
+										e.stopPropagation();
+										openModal(modalIds.habits.new);
+									}}
+								>
+									habit
+								</S.SpeedDialButton>
+								<S.SpeedDialButton
+									onClick={(e) => {
+										e.stopPropagation();
+										openModal(modalIds.notes.new);
+									}}
+								>
+									note
+								</S.SpeedDialButton>
+							</div>
+						</SpeedDial>
+					</div>
 					<Modal initialOpen={false} modalId={modalIds.habits.new}>
 						<NewHabit />
 					</Modal>
@@ -123,17 +172,7 @@ export default function Today() {
 						activities={t.timestampedActivities}
 						currentDate={t.currentDate}
 					/>
-					<div>
-						<button
-							type="button"
-							onClick={(e) => {
-								e.stopPropagation();
-								openModal(modalIds.activities.form);
-							}}
-						>
-							New activity
-						</button>
-					</div>
+					<div></div>
 					<Modal initialOpen={false} modalId={modalIds.activities.form}>
 						<ActivityForm modalId={modalIds.activities.form} />
 					</Modal>

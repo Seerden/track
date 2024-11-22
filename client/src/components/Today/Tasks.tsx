@@ -4,7 +4,6 @@ import Modal from "@/components/utility/Modal/Modal";
 import { filterTagsById } from "@/lib/filter-tags";
 import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
 import modalIds from "@/lib/modal-ids";
-import { useModalState } from "@/lib/state/modal-state";
 import type { ActivityWithIds } from "@t/data/activity.types";
 import Task from "./Task";
 import T from "./style/Tasks.style";
@@ -16,7 +15,6 @@ type TasksProps = {
 
 export default function Tasks({ activities }: TasksProps) {
 	const { data: tags } = useTagsQuery();
-	const { openModal } = useModalState();
 	const modalId = modalIds.activities.newTask;
 
 	return (
@@ -35,16 +33,8 @@ export default function Tasks({ activities }: TasksProps) {
 			) : (
 				<Empty>No tasks found for today.</Empty>
 			)}
-			<button
-				type="button"
-				onClick={(e) => {
-					e.stopPropagation();
-					openModal(modalId);
-				}}
-			>
-				New task
-			</button>
 
+			{/* TODO: see note from Notes.tsx on whether this modal should still be here. */}
 			<Modal initialOpen={false} modalId={modalId}>
 				<ActivityForm isTask modalId={modalId} />
 			</Modal>
