@@ -29,5 +29,3 @@ global.afterAll(() => {
 afterEach(() => {
 	cleanup();
 });
-
-// TODO: check if we need to import day
