@@ -124,7 +124,6 @@ export default function useActivityForm({
 		if (!isEditing) {
 			resetTagSelection();
 		} else {
-			// set tag selection to activity.tag_ids
 			setTagSelectionFromList((activity as ActivityWithIds).tag_ids);
 		}
 	}, []);
