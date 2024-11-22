@@ -7,6 +7,11 @@ enum DateFields {
 	ENDED_AT = "ended_at"
 }
 
+/**
+ * Specifies used and unused datetime fields depending on the value of allDay.
+ * Remember, we consider an all-day activity one that has `*_date` fields, and a
+ * non-all-day one that has `*_at` fields.
+ */
 export function designateDateFields(allDay?: boolean): Record<string, DateTimeField> {
 	const start = allDay ? DateFields.START_DATE : DateFields.STARTED_AT;
 	const end = allDay ? DateFields.END_DATE : DateFields.ENDED_AT;
