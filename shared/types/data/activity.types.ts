@@ -15,7 +15,7 @@ export type NewActivityBase = {
 	user_id: ID;
 	name: string;
 	description: string;
-	duration_milliseconds?: number; // in milliseconds
+	duration_milliseconds?: number;
 	is_task?: boolean;
 };
 
@@ -28,7 +28,6 @@ export type ActivityWithDates = NewActivityBase & WithDates;
 export type NewActivity = NewActivityBase &
 	(ActivityWithTimestamps | ActivityWithDates);
 
-// TODO: rename this to TaskUpdate
 export type TaskUpdate = {
 	completion_start?: Timestamp;
 	completion_end?: Timestamp;
