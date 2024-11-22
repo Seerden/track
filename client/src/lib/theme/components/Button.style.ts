@@ -15,6 +15,7 @@ const Edit = styled(Unstyled)<{ $size?: CSS.Properties["width"] }>`
 	align-items: center;
 	justify-content: center;
 	border-radius: 50%;
+	color: white;
 
 	outline: 2px solid ${(p) => p.theme.colors.blue.main};
 	border: 2px solid #eee;
@@ -38,7 +39,16 @@ const Edit = styled(Unstyled)<{ $size?: CSS.Properties["width"] }>`
 	height: ${(p) => p.$size ?? "var(--default-edit-button-size)"};
 `;
 
+/** TODO: I'm calling this Create right now, but it's really just an Action button, so
+ * it'll be renamed soon enough. */
+const Create = styled(Edit)`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`;
+
 export default {
 	Unstyled,
-	Edit
+	Edit,
+	Create
 };
