@@ -1,5 +1,10 @@
 import type { DeepValue } from "@t/data/utility.types";
 
+/**
+ * This is a list of known modal ids. If you're using a modal somewhere, aim to
+ * always have it use an id from here. Sometimes an exception may be warranted,
+ * in which case you may alias your manually constructed modal id `as ModalId`.
+ */
 const modalIds = {
 	tagSelector: {
 		activityForm: "activity-form-tag-selector",
