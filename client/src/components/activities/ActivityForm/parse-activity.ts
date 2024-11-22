@@ -44,11 +44,8 @@ export function parseUpdatedActivity(activity: Partial<ActivityWithIds>) {
 	return activity as ActivityWithIds;
 }
 
-/**
- * An activity either has date fields (start_date, end_date) or timestamp fields
- * (started_at, ended_at). This function makes sure that the incoming activity
- * actually satisfies this requirement.
- */
+/** Parses an incoming newActivity (from the ActivityForm component) into
+ * something we can actually put in a request body. */
 export function parseNewActivity(newActivity: Partial<NewActivity>): NewActivity {
 	const requiredFields: (keyof NewActivity)[] = ["user_id", "name"];
 	for (const field of requiredFields) {
