@@ -30,13 +30,15 @@ function useSubmitNewActivity(newActivity: Partial<NewActivity>, modalId?: Modal
 			{ activity: parseNewActivity(newActivity), tagIds: selectedTagIds },
 			{
 				onSuccess: () => {
-					navigate("/today"); // TODO: put routes in a variable
-
 					queryClient.invalidateQueries({
 						queryKey: qk.activities.all
 					});
 
-					if (modalId) closeModal(modalId);
+					if (modalId) {
+						closeModal(modalId);
+					} else {
+						navigate("/today");
+					}
 				}
 			}
 		);
@@ -64,14 +66,14 @@ function useSubmitUpdatedActivity(activity: Partial<ActivityWithIds>, modalId?: 
 			},
 			{
 				onSuccess: () => {
-					navigate("/today");
-
 					queryClient.invalidateQueries({
 						queryKey: qk.activities.all
 					});
 
 					if (modalId) {
 						closeModal(modalId);
+					} else {
+						navigate("/today");
 					}
 				}
 			}
@@ -113,6 +115,8 @@ export default function useActivityForm({
 	const { onSubmit: onNewSubmit } = useSubmitNewActivity(activity, modalId);
 	const { onSubmit: onUpdateSubmit } = useSubmitUpdatedActivity(activity, modalId);
 
+	// TODO: the two useSubmit hooks have identical onSuccess callbacks. Maybe we
+	// should define it in here, and pass it to the hooks as an argument.
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		return isEditing ? onUpdateSubmit(e) : onNewSubmit(e);
 	}
