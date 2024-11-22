@@ -8,7 +8,12 @@ import { useNewActivityMutation } from "@lib/hooks/query/activities/useNewActivi
 import useAuthentication from "@lib/hooks/useAuthentication";
 import useRouteProps from "@lib/hooks/useRouteProps";
 import { useTagSelection } from "@lib/state/selected-tags-state";
-import type { ActivityWithIds, NewActivity } from "@t/data/activity.types";
+import type {
+	ActivityWithIds,
+	NewActivity,
+	WithDates,
+	WithTimestamps
+} from "@t/data/activity.types";
 import { hasValidUserId } from "@t/data/user-id.guards";
 import { useEffect, useState } from "react";
 import { parseNewActivity, parseUpdatedActivity } from "./parse-activity";
@@ -108,16 +113,10 @@ export default function useActivityForm({
 		existingActivity ?? defaultNewActivity
 	);
 
-	useEffect(() => {
-		console.log({ activity });
-	}, [activity]);
-
 	const { onSubmit: onNewSubmit } = useSubmitNewActivity(activity, modalId);
 	const { onSubmit: onUpdateSubmit } = useSubmitUpdatedActivity(activity, modalId);
 
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-		console.log({ modalId, bool: 1 });
-
 		return isEditing ? onUpdateSubmit(e) : onNewSubmit(e);
 	}
 
@@ -139,8 +138,6 @@ export default function useActivityForm({
 		}));
 	}
 
-	// TODO: this is functionally the same as onInputChange, except the typing is
-	// different. Do we need a type for onDateTimeChange from DateTimePicker?
 	const onDateTimeChange: DateTimeStateSetter = ({ name, value }) => {
 		setActivity((current) => ({
 			...current,
@@ -148,10 +145,25 @@ export default function useActivityForm({
 		}));
 	};
 
+	const title = activity ? "Edit activity" : "Create an activity";
+	const buttonTitle = activity ? "Update activity" : "Create activity";
+
+	const defaultDateTimeValues = activity
+		? ({
+				started_at: activity.started_at,
+				ended_at: activity.ended_at,
+				start_date: activity.start_date,
+				end_date: activity.end_date
+			} as WithDates | WithTimestamps)
+		: undefined;
+
 	return {
 		onSubmit,
 		onInputChange,
 		onDateTimeChange,
-		isTask: !!activity.is_task
+		isTask: !!activity.is_task,
+		title,
+		buttonTitle,
+		defaultDateTimeValues
 	};
 }

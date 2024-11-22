@@ -4,7 +4,7 @@ import N from "@/lib/theme/components/form.style";
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
 import TagSelector from "@components/tags/TagSelector/TagSelector";
 import { Checkbox } from "@lib/theme/components/Checkbox";
-import type { ActivityWithIds, WithDates, WithTimestamps } from "@t/data/activity.types";
+import type { ActivityWithIds } from "@t/data/activity.types";
 import DateTimePicker from "./DateTimePicker";
 import S from "./style/ActivityForm.style";
 import useActivityForm from "./useActivityForm";
@@ -24,14 +24,19 @@ export default function ActivityForm({
 	isTask: initialIsTask,
 	modalId
 }: ActivityFormProps) {
-	const { onInputChange, onSubmit, onDateTimeChange, isTask } = useActivityForm({
+	const {
+		onInputChange,
+		onSubmit,
+		onDateTimeChange,
+		isTask,
+		title,
+		buttonTitle,
+		defaultDateTimeValues
+	} = useActivityForm({
 		initialIsTask,
 		modalId,
 		activity
 	});
-
-	const title = activity ? "Edit activity" : "Create an activity";
-	const buttonTitle = activity ? "Update activity" : "Create activity";
 
 	return (
 		<N.Wrapper>
@@ -58,16 +63,7 @@ export default function ActivityForm({
 				<N.Row>
 					<DateTimePicker
 						setState={onDateTimeChange}
-						defaultValues={
-							activity
-								? ({
-										started_at: activity.started_at,
-										ended_at: activity.ended_at,
-										start_date: activity.start_date,
-										end_date: activity.end_date
-									} as WithDates | WithTimestamps)
-								: undefined
-						}
+						defaultValues={defaultDateTimeValues}
 					/>
 				</N.Row>
 
