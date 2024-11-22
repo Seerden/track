@@ -7,8 +7,8 @@ const Wrapper = styled(CardStyle.Wrapper)`
 	display: grid;
 	// TODO: this is obsolete I think
 	grid-template-areas:
-		"title edit"
-		"time edit"
+		"title title"
+		"time task"
 		"time task"
 		"tags tags";
 `;
@@ -61,37 +61,10 @@ const CheckboxWrapper = styled.label`
 	}
 `;
 
-const EditButton = styled(Button.Unstyled)`
-	cursor: pointer;
+const EditButton = styled(Button.Edit)`
 	position: absolute;
 	top: -1rem;
-	right: 5rem;
-	grid-area: edit;
-	justify-self: flex-end;
-	margin-right: 0.8rem;
-	width: 35px;
-	height: 35px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: 50%;
-
-	outline: 2px solid ${(p) => p.theme.colors.blue.main};
-	border: 2px solid #eee;
-	box-shadow: 0 0.2rem 0.5rem 0 #bbb;
-	background-color: ${(p) => p.theme.colors.blue.main};
-
-	svg {
-		color: white;
-	}
-
-	&:hover {
-		outline: 2px solid ${(p) => p.theme.colors.blue.secondary};
-		background-color: ${(p) => p.theme.colors.blue.secondary};
-		border-radius: 5px;
-	}
-
-	transition: all linear 50ms;
+	right: 6rem;
 `;
 
 EditButton.defaultProps = {
