@@ -4,7 +4,7 @@ import {
 } from "@/components/activities/ActivityForm/datetime-picker-extract-defaults";
 import { designateDateFields } from "@/components/activities/ActivityForm/used-and-unused-date-fields";
 import { isToday, sameDay } from "@/lib/datetime/compare";
-import { formatToHHmm } from "@/lib/datetime/format-date";
+import { formatToHHmm, formatToYearMonthDay } from "@/lib/datetime/format-date";
 import useCurrentTime from "@/lib/hooks/useCurrentTime";
 import { selectedTimeWindowState } from "@/lib/state/selected-time-window-state";
 import { createDate } from "@lib/datetime/make-date";
@@ -36,7 +36,7 @@ function useDateTimePickerDefaults({ defaultStartAndEnd }: UseDateTimePickerDefa
 				};
 	}, [defaultStartAndEnd, timeWindow.startDate, currentTime]);
 
-	const defaultNewActivityDate = timeWindow.startDate.format("YYYY-MM-DD");
+	const defaultNewActivityDate = formatToYearMonthDay(timeWindow.startDate);
 
 	const defaultDate = useMemo(
 		() => ({
@@ -135,11 +135,18 @@ export default function useDateTimePicker({
 		}));
 	}
 
+	const defaultStartDate = defaultStartAndEnd?.start
+		? formatToYearMonthDay(defaultStartAndEnd.start)
+		: date.start;
+	const defaultEndDate = defaultStartAndEnd?.end
+		? formatToYearMonthDay(defaultStartAndEnd.end)
+		: date.end;
+
 	return {
 		allDay,
 		manualEndDate,
-		defaultStartDate: defaultStartAndEnd?.start.format("YYYY-MM-DD") ?? date.start,
-		defaultEndDate: defaultStartAndEnd?.end.format("YYYY-MM-DD") ?? date.end,
+		defaultStartDate,
+		defaultEndDate,
 		defaultTime,
 		onAllDayFieldChange,
 		onStartDateFieldChange,
