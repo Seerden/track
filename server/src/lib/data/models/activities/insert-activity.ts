@@ -1,6 +1,6 @@
 import { sqlConnection } from "@/db/init";
+import { linkTagsToActivity } from "@/lib/data/models/activities/link-and-unlink-tags-and-activities";
 import type { Activity, NewActivity } from "@t/data/activity.types";
-import type { ActivityTagRelation } from "@t/data/relational.types";
 import type { ID } from "@t/data/utility.types";
 import type { WithSQL } from "types/sql.types";
 
@@ -14,20 +14,6 @@ async function insertActivity({
    `;
 
 	return insertedActivity;
-}
-
-export async function linkTagsToActivity({
-	sql = sqlConnection,
-	user_id,
-	activity_id,
-	tag_ids,
-}: WithSQL<{ activity_id: ID; user_id: ID; tag_ids: ID[] }>) {
-	const tagRelations = tag_ids.map((tag_id) => ({ user_id, activity_id, tag_id }));
-	if (!tagRelations.length) return [];
-	return sql<ActivityTagRelation[]>`
-      insert into activities_tags ${sql(tagRelations)}
-      returning *
-   `;
 }
 
 export async function insertActivityWithTags({

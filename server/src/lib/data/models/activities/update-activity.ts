@@ -1,5 +1,8 @@
 import { sqlConnection } from "@/db/init";
-import { linkTagsToActivity } from "@/lib/data/models/activities/insert-activity";
+import {
+	linkTagsToActivity,
+	unlinkTagsFromActivity,
+} from "@/lib/data/models/activities/link-and-unlink-tags-and-activities";
 import type {
 	Activity,
 	ActivityUpdateInput,
@@ -7,7 +10,6 @@ import type {
 	TaskUpdateInput,
 } from "@t/data/activity.types";
 import type { ActivityTagRelation } from "@t/data/relational.types";
-import type { Maybe } from "@t/data/utility.types";
 import dayjs from "dayjs";
 import type { DatabaseInteractionFunction, WithSQL } from "types/sql.types";
 
@@ -30,17 +32,6 @@ export async function updateActivityCompletion({
       returning *
    `;
 }
-
-// const possibleActivityUpdateFields: (keyof Activity)[] = [
-// 	"name",
-// 	"description",
-// 	"start_date",
-// 	"end_date",
-// 	"started_at",
-// 	"ended_at",
-// 	"is_task",
-// 	"completed",
-// ];
 
 export const updateActivity: DatabaseInteractionFunction<
 	{
@@ -76,17 +67,4 @@ export const updateActivity: DatabaseInteractionFunction<
 			tag_ids: relations.map((r) => r.tag_id),
 		}) as ActivityWithIds;
 	});
-};
-
-// TODO: this should be in the same file as linkTagsToActivity
-export const unlinkTagsFromActivity: DatabaseInteractionFunction<
-	Pick<ActivityWithIds, "user_id" | "activity_id" | "tag_ids">,
-	Promise<Maybe<ActivityTagRelation[]>>
-> = async ({ sql = sqlConnection, activity_id, user_id }) => {
-	return sql<ActivityTagRelation[]>`
-      DELETE FROM activities_tags
-      WHERE activity_id = ${activity_id}
-      AND user_id = ${user_id}
-      RETURNING *
-   `;
 };
