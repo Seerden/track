@@ -1,6 +1,6 @@
 import {
-	extractActiveDateTimeValues,
-	isAllDay
+	isAllDay,
+	maybeGetDefaultStartAndEnd
 } from "@/components/activities/ActivityForm/datetime-picker-extract-defaults";
 import { designateDateFields } from "@/components/activities/ActivityForm/used-and-unused-date-fields";
 import { isToday, sameDay } from "@/lib/datetime/compare";
@@ -15,18 +15,18 @@ import { useRecoilValue } from "recoil";
 import type { DateTimePickerProps } from "./datetime-picker.types";
 
 type UseDateTimePickerDefaults = {
-	activeDateTimeValues: Maybe<{ start: Dayjs; end: Dayjs }>;
+	defaultStartAndEnd: Maybe<{ start: Dayjs; end: Dayjs }>;
 };
 
-function useDateTimePickerDefaults({ activeDateTimeValues }: UseDateTimePickerDefaults) {
+function useDateTimePickerDefaults({ defaultStartAndEnd }: UseDateTimePickerDefaults) {
 	const timeWindow = useRecoilValue(selectedTimeWindowState);
 	const currentTime = useCurrentTime(); // the default interval on this might be too short, causing too many re-renders.
 
 	const defaultTime = useMemo(() => {
-		return activeDateTimeValues
+		return defaultStartAndEnd
 			? {
-					start: activeDateTimeValues.start.format("HHmm"),
-					end: activeDateTimeValues.end.format("HHmm")
+					start: defaultStartAndEnd.start.format("HHmm"),
+					end: defaultStartAndEnd.end.format("HHmm")
 				}
 			: {
 					start: isToday(timeWindow.startDate) ? currentTime.format("HHmm") : "",
@@ -34,7 +34,7 @@ function useDateTimePickerDefaults({ activeDateTimeValues }: UseDateTimePickerDe
 						? currentTime.add(1, "hour").format("HHmm")
 						: ""
 				};
-	}, [activeDateTimeValues, timeWindow.startDate, currentTime]);
+	}, [defaultStartAndEnd, timeWindow.startDate, currentTime]);
 
 	const defaultNewActivityDate = timeWindow.startDate.format("YYYY-MM-DD");
 
@@ -46,9 +46,9 @@ function useDateTimePickerDefaults({ activeDateTimeValues }: UseDateTimePickerDe
 		[defaultNewActivityDate]
 	);
 
-	const defaultManualEndDate = !activeDateTimeValues
+	const defaultManualEndDate = !defaultStartAndEnd
 		? false
-		: !sameDay(activeDateTimeValues.start, activeDateTimeValues.end);
+		: !sameDay(defaultStartAndEnd.start, defaultStartAndEnd.end);
 
 	return {
 		defaultTime,
@@ -61,11 +61,11 @@ export default function useDateTimePicker({
 	setState,
 	defaultValues
 }: DateTimePickerProps) {
-	const activeDateTimeValues = extractActiveDateTimeValues(defaultValues);
+	const defaultStartAndEnd = maybeGetDefaultStartAndEnd(defaultValues);
 	const [allDay, setAllDay] = useState(isAllDay(defaultValues));
 
 	const { defaultTime, defaultDate, defaultManualEndDate } = useDateTimePickerDefaults({
-		activeDateTimeValues
+		defaultStartAndEnd
 	});
 
 	const [manualEndDate, setManualEndDate] = useState(defaultManualEndDate);
@@ -138,8 +138,8 @@ export default function useDateTimePicker({
 	return {
 		allDay,
 		manualEndDate,
-		defaultStartDate: activeDateTimeValues?.start.format("YYYY-MM-DD") ?? date.start,
-		defaultEndDate: activeDateTimeValues?.end.format("YYYY-MM-DD") ?? date.end,
+		defaultStartDate: defaultStartAndEnd?.start.format("YYYY-MM-DD") ?? date.start,
+		defaultEndDate: defaultStartAndEnd?.end.format("YYYY-MM-DD") ?? date.end,
 		defaultTime,
 		onAllDayFieldChange,
 		onStartDateFieldChange,
