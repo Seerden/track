@@ -10,6 +10,7 @@ import SpeedDial from "@/components/utility/SpeedDial/SpeedDial";
 import { today } from "@/lib/datetime/make-date";
 import useActivitiesQuery from "@/lib/hooks/query/activities/useActivitiesQuery";
 import useHabitsData from "@/lib/hooks/useHabitsData";
+import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import { selectedTimeWindowState } from "@/lib/state/selected-time-window-state";
@@ -78,6 +79,11 @@ export default function Today() {
 
 	const [open, setOpen] = useState(false);
 
+	function handleModalOpen(e: React.MouseEvent<HTMLButtonElement>, modalId: ModalId) {
+		e.stopPropagation();
+		openModal(modalId);
+	}
+
 	return (
 		<S.Wrapper>
 			{/* TODO: we want the header to be aligned above the Timeline */}
@@ -85,63 +91,34 @@ export default function Today() {
 				<div>
 					<Calendar initialDate={t.currentDate} onChange={t.setCurrentDate} />
 
-					<div
-						style={{
-							position: "fixed",
-							bottom: "10rem",
-							right: "10rem",
-							zIndex: 100
-						}}
-					>
+					<S.Create>
 						<SpeedDial open={open} setOpen={setOpen}>
-							<div
-								style={{
-									display: "flex",
-									flexDirection: "column",
-									gap: "0.5rem",
-									justifyContent: "center",
-									padding: "0 1rem",
-									borderRadius: "3px",
-									alignItems: "center",
-									boxShadow: "0 0.2rem 1.5rem 0 #bbb",
-									fontSize: "0.8rem"
-								}}
-							>
+							<S.SpeedDialActions>
 								<S.SpeedDialButton
-									onClick={(e) => {
-										e.stopPropagation();
-										openModal(modalIds.activities.form);
-									}}
+									onClick={(e) => handleModalOpen(e, modalIds.activities.form)}
 								>
 									activity
 								</S.SpeedDialButton>
 								<S.SpeedDialButton
-									onClick={(e) => {
-										e.stopPropagation();
-										openModal(modalIds.activities.newTask);
-									}}
+									onClick={(e) =>
+										handleModalOpen(e, modalIds.activities.newTask)
+									}
 								>
 									task
 								</S.SpeedDialButton>
 								<S.SpeedDialButton
-									onClick={(e) => {
-										e.stopPropagation();
-										openModal(modalIds.habits.new);
-									}}
+									onClick={(e) => handleModalOpen(e, modalIds.habits.new)}
 								>
 									habit
 								</S.SpeedDialButton>
 								<S.SpeedDialButton
-									onClick={(e) => {
-										e.stopPropagation();
-										openModal(modalIds.notes.new);
-									}}
+									onClick={(e) => handleModalOpen(e, modalIds.notes.new)}
 								>
 									note
 								</S.SpeedDialButton>
-							</div>
+							</S.SpeedDialActions>
 						</SpeedDial>
-					</div>
+					</S.Create>
 					<Modal initialOpen={false} modalId={modalIds.habits.new}>
 						<NewHabit />
 					</Modal>

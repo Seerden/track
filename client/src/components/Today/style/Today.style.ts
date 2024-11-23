@@ -191,6 +191,24 @@ const Habits = styled.div`
 	}
 `;
 
+const Create = styled.div`
+	position: fixed;
+	bottom: 10rem;
+	right: 10rem;
+	z-index: 100;
+`;
+
+const SpeedDialActions = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	justify-content: center;
+	padding: 0 1rem;
+	border-radius: 3px;
+	align-items: center;
+	font-size: 0.8rem;
+`;
+
 const SpeedDialButton = styled(ButtonStyle.Create)`
 	width: calc(100% + 2rem);
 	border-radius: 5px;
@@ -209,5 +227,7 @@ export default {
 	Tags,
 	AllDayActivityList,
 	Habits,
+	Create,
+	SpeedDialActions,
 	SpeedDialButton
 };
