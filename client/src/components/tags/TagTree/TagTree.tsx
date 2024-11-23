@@ -89,7 +89,10 @@ function Tag({ tag, level }: TagProps) {
 					<>
 						<S.DropdownCheckbox
 							type="checkbox"
-							onChange={(e) => setCollapsed(e.target.checked)}
+							onChange={(e) => {
+								e.stopPropagation();
+								setCollapsed(e.target.checked);
+							}}
 						/>
 						{collapsed ? (
 							<MdOutlineExpandMore size={18} />
