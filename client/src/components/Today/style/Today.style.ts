@@ -26,7 +26,10 @@ const TimelineWrapper = styled.section`
 	box-shadow: 0 0.2rem 1rem -0.3rem #ccc;
 	outline: 2px solid #eee;
 
-	max-height: max-content;
+	height: max-content;
+	max-height: 80vh;
+	overflow-y: auto;
+	overflow-x: hidden;
 `;
 
 const Column = styled.section`

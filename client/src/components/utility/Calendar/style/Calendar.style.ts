@@ -105,7 +105,7 @@ const Cell = styled.button<StyledCellProps>`
 		// an EmptyCell, keeps the JSX cleaner.
 		p.children
 			? css`
-					background-color: #ddd;
+					background-color: #eaeaea;
 					border-radius: 50%;
 					box-shadow: 0 0 0.2rem 0 #ccc;
 					cursor: pointer;
