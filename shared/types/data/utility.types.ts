@@ -21,6 +21,10 @@ export type NullUnused<TUsed, TUnused> = TUsed & {
 	[k in keyof TUnused]: null;
 };
 
+export type NullableOptional<T> = {
+	[P in keyof T]-?: T[P] | null;
+};
+
 /** Type is identical to T except T[K] cannot be optional, if it even was before. */
 export type AtLeast<T, K extends keyof T> = T & Required<Pick<T, K>>;
 
