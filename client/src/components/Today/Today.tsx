@@ -1,14 +1,17 @@
 import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
 import Habits from "@/components/habits/Habits/Habits";
 import NewHabit from "@/components/habits/NewHabit/NewHabit";
+import NewNote from "@/components/notes/NewNote/NewNote";
 import AllDayActivities from "@/components/Today/AllDayActivities";
 import ChangeDayButton from "@/components/Today/ChangeDayButton";
 import TimelineRows from "@/components/Today/TimelineRows";
 import Calendar from "@/components/utility/Calendar/Calendar";
 import Modal from "@/components/utility/Modal/Modal";
+import SpeedDial from "@/components/utility/SpeedDial/SpeedDial";
 import { today } from "@/lib/datetime/make-date";
 import useActivitiesQuery from "@/lib/hooks/query/activities/useActivitiesQuery";
 import useHabitsData from "@/lib/hooks/useHabitsData";
+import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import { selectedTimeWindowState } from "@/lib/state/selected-time-window-state";
@@ -59,6 +62,8 @@ function useToday() {
 		`dddd (D MMMM${currentDate.year() !== currentYear ? " YYYY" : ""})`
 	);
 
+	const [speedDialOpen, setSpeedDialOpen] = useState(false);
+
 	return {
 		habits: getHabitsForTimeWindow(timeWindow),
 		activities: todayActivities,
@@ -67,13 +72,20 @@ function useToday() {
 		currentDate,
 		setCurrentDate,
 		title,
-		changeDay
+		changeDay,
+		speedDialOpen,
+		setSpeedDialOpen
 	} as const;
 }
 
 export default function Today() {
 	const t = useToday();
+
 	const { openModal } = useModalState();
+	function handleModalOpen(e: React.MouseEvent<HTMLButtonElement>, modalId: ModalId) {
+		e.stopPropagation();
+		openModal(modalId);
+	}
 
 	return (
 		<S.Wrapper>
@@ -81,21 +93,35 @@ export default function Today() {
 			<S.Columns>
 				<div>
 					<Calendar initialDate={t.currentDate} onChange={t.setCurrentDate} />
-					<button
-						style={{
-							marginTop: "1rem"
-						}}
-						type="button"
-						onClick={(e) => {
-							e.stopPropagation();
-							openModal(modalIds.habits.new);
-						}}
-					>
-						New habit
-					</button>
-					<Modal initialOpen={false} modalId={modalIds.habits.new}>
-						<NewHabit />
-					</Modal>
+
+					<S.Create>
+						<SpeedDial open={t.speedDialOpen} setOpen={t.setSpeedDialOpen}>
+							<S.SpeedDialActions>
+								<S.SpeedDialButton
+									onClick={(e) => handleModalOpen(e, modalIds.activities.form)}
+								>
+									activity
+								</S.SpeedDialButton>
+								<S.SpeedDialButton
+									onClick={(e) =>
+										handleModalOpen(e, modalIds.activities.newTask)
+									}
+								>
+									task
+								</S.SpeedDialButton>
+								<S.SpeedDialButton
+									onClick={(e) => handleModalOpen(e, modalIds.habits.new)}
+								>
+									habit
+								</S.SpeedDialButton>
+								<S.SpeedDialButton
+									onClick={(e) => handleModalOpen(e, modalIds.notes.new)}
+								>
+									note
+								</S.SpeedDialButton>
+							</S.SpeedDialActions>
+						</SpeedDial>
+					</S.Create>
 				</div>
 				<S.TimelineWrapper>
 					<S.Header>
@@ -123,26 +149,28 @@ export default function Today() {
 						activities={t.timestampedActivities}
 						currentDate={t.currentDate}
 					/>
-					<div>
-						<button
-							type="button"
-							onClick={(e) => {
-								e.stopPropagation();
-								openModal(modalIds.activities.form);
-							}}
-						>
-							New activity
-						</button>
-					</div>
-					<Modal initialOpen={false} modalId={modalIds.activities.form}>
-						<ActivityForm modalId={modalIds.activities.form} />
-					</Modal>
 				</S.TimelineWrapper>
 
 				<Tasks activities={t.activities.filter((a) => a.is_task)} />
 
 				<Notes />
 			</S.Columns>
+
+			<Modal initialOpen={false} modalId={modalIds.activities.form}>
+				<ActivityForm modalId={modalIds.activities.form} />
+			</Modal>
+
+			<Modal initialOpen={false} modalId={modalIds.activities.newTask}>
+				<ActivityForm isTask modalId={modalIds.activities.newTask} />
+			</Modal>
+
+			<Modal initialOpen={false} modalId={modalIds.habits.new}>
+				<NewHabit />
+			</Modal>
+
+			<Modal initialOpen={false} modalId={modalIds.notes.new}>
+				<NewNote />
+			</Modal>
 		</S.Wrapper>
 	);
 }

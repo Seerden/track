@@ -145,15 +145,15 @@ export default function useActivityForm({
 		}));
 	};
 
-	const title = activity ? "Edit activity" : "Create an activity";
-	const buttonTitle = activity ? "Update activity" : "Create activity";
+	const title = existingActivity ? "Edit activity" : "Create an activity";
+	const buttonTitle = existingActivity ? "Update activity" : "Create activity";
 
-	const defaultDateTimeValues = activity
+	const defaultDateTimeValues = existingActivity
 		? ({
-				started_at: activity.started_at,
-				ended_at: activity.ended_at,
-				start_date: activity.start_date,
-				end_date: activity.end_date
+				started_at: existingActivity.started_at,
+				ended_at: existingActivity.ended_at,
+				start_date: existingActivity.start_date,
+				end_date: existingActivity.end_date
 			} as WithDates | WithTimestamps)
 		: undefined;
 

@@ -1,5 +1,6 @@
 import HabitStyle from "@/components/habits/Habits/style/Habit.style";
 import TagCardStyle from "@/components/tags/TagCard/style/TagCard.style";
+import ButtonStyle from "@/lib/theme/components/Button.style";
 import ListStyle from "@/lib/theme/components/List.style";
 import { font, getFontSize } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
@@ -190,6 +191,29 @@ const Habits = styled.div`
 	}
 `;
 
+const Create = styled.div`
+	position: fixed;
+	bottom: 10rem;
+	right: 10rem;
+	z-index: 100;
+`;
+
+const SpeedDialActions = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	justify-content: center;
+	padding: 0 1rem;
+	border-radius: 3px;
+	align-items: center;
+	font-size: 0.8rem;
+`;
+
+const SpeedDialButton = styled(ButtonStyle.Create)`
+	width: calc(100% + 2rem);
+	border-radius: 5px;
+`;
+
 export default {
 	Wrapper,
 	TimelineWrapper,
@@ -202,5 +226,8 @@ export default {
 	Header,
 	Tags,
 	AllDayActivityList,
-	Habits
+	Habits,
+	Create,
+	SpeedDialActions,
+	SpeedDialButton
 };
