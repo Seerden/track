@@ -1,4 +1,5 @@
 import Button from "@/lib/theme/components/Button.style";
+import type { UseFloatingOptions } from "@floating-ui/react";
 import {
 	flip,
 	FloatingFocusManager,
@@ -10,26 +11,29 @@ import {
 	useInteractions,
 	useRole
 } from "@floating-ui/react";
-import { Plus } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 import type { PropsWithChildren } from "react";
+import S from "./style/SpeedDial.style";
 
 type SpeedDialProps = {
 	open: boolean;
 	setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-};
+} & UseFloatingOptions;
 
 /** A speed dial is a button that triggers a floating action list, like a list
  * of action buttons, or a list of shortcuts. */
 export default function SpeedDial({
 	children,
 	open,
-	setOpen
+	setOpen,
+	...floatingOptions
 }: PropsWithChildren<SpeedDialProps>) {
 	const { refs, context, floatingStyles } = useFloating({
 		placement: "top",
 		middleware: [offset(10), flip(), shift()], // I just took this from an example in the docs
 		open,
-		onOpenChange: setOpen
+		onOpenChange: setOpen,
+		...floatingOptions
 	});
 
 	const click = useClick(context);
@@ -43,16 +47,9 @@ export default function SpeedDial({
 	]);
 
 	return (
-		<div
-			ref={refs.setReference}
-			{...getReferenceProps()}
-			style={{
-				position: "relative",
-				width: "max-content"
-			}}
-		>
+		<S.SpeedDialWrapper ref={refs.setReference} {...getReferenceProps()}>
 			<Button.Create $size={"50px"}>
-				<Plus strokeWidth={3} />
+				{open ? <Minus strokeWidth={3} /> : <Plus strokeWidth={3} />}
 			</Button.Create>
 			{open && (
 				<div>
@@ -67,6 +64,6 @@ export default function SpeedDial({
 					</FloatingFocusManager>
 				</div>
 			)}
-		</div>
+		</S.SpeedDialWrapper>
 	);
 }
