@@ -62,6 +62,8 @@ function useToday() {
 		`dddd (D MMMM${currentDate.year() !== currentYear ? " YYYY" : ""})`
 	);
 
+	const [speedDialOpen, setSpeedDialOpen] = useState(false);
+
 	return {
 		habits: getHabitsForTimeWindow(timeWindow),
 		activities: todayActivities,
@@ -70,16 +72,16 @@ function useToday() {
 		currentDate,
 		setCurrentDate,
 		title,
-		changeDay
+		changeDay,
+		speedDialOpen,
+		setSpeedDialOpen
 	} as const;
 }
 
 export default function Today() {
 	const t = useToday();
+
 	const { openModal } = useModalState();
-
-	const [open, setOpen] = useState(false);
-
 	function handleModalOpen(e: React.MouseEvent<HTMLButtonElement>, modalId: ModalId) {
 		e.stopPropagation();
 		openModal(modalId);
@@ -93,7 +95,7 @@ export default function Today() {
 					<Calendar initialDate={t.currentDate} onChange={t.setCurrentDate} />
 
 					<S.Create>
-						<SpeedDial open={open} setOpen={setOpen}>
+						<SpeedDial open={t.speedDialOpen} setOpen={t.setSpeedDialOpen}>
 							<S.SpeedDialActions>
 								<S.SpeedDialButton
 									onClick={(e) => handleModalOpen(e, modalIds.activities.form)}
