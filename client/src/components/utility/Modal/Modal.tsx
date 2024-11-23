@@ -36,6 +36,7 @@ export default function Modal({
 					handleModalClose(e);
 				}
 			}}
+			data-modal-id={modalId}
 		>
 			<S.Modal ref={modalRef} data-modal-id={modalId}>
 				<S.Close onClick={handleModalClose} />
