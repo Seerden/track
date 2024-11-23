@@ -1,3 +1,4 @@
+import { findNearestParentModal } from "@/lib/nearest-modal";
 import type { RefObject } from "react";
 import { useEffect, useState } from "react";
 
@@ -19,15 +20,23 @@ export default function useClickOutside<T extends HTMLElement>(
 				return;
 			}
 
+			// If the click is inside a modal, but not inside the modal that this
+			// hook is attached to, don't trigger the handler.
+			const nearestModalId = findNearestParentModal(e.target as Node);
+			const parentModalId = findNearestParentModal(ref.current as Node);
+			if (nearestModalId !== parentModalId) {
+				return;
+			}
+
 			e.preventDefault();
 			e.stopPropagation();
 			handler?.(e);
 			setIsOpen(false);
 		}
 
-		window.addEventListener("click", onClick);
+		document.addEventListener("mousedown", onClick);
 
-		return () => window.removeEventListener("click", onClick);
+		return () => document.removeEventListener("mousedown", onClick);
 	}, [ref, handler, setIsOpen]);
 
 	return { isOpen, setIsOpen };
