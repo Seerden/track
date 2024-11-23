@@ -5,7 +5,7 @@ import styled, { css } from "styled-components";
 
 const gap = "0.1rem";
 const defaultCellWidth = 30;
-const defaultCellHeight = 20;
+const defaultCellHeight = 30;
 const highlightColor: CSSProperties["color"] = "dodgerblue";
 
 const Calendar = styled.div`
@@ -13,21 +13,20 @@ const Calendar = styled.div`
 
 	${flex.column};
 
+	background-color: #f9f9f9;
 	user-select: none;
 	width: max-content;
 	height: max-content;
 	margin-left: 1rem;
-	margin-top: 1rem;
+	margin-top: 0.5rem;
 	--font-size: ${(p) => getFontSize(p, 0.8)};
 	font-size: var(--font-size);
 	line-height: var(--font-size);
 	font-family: "Roboto";
 	padding: 1rem;
-	border: 2px solid #ddd;
+	border: 1px solid #eee;
 	border-radius: 5px;
-	box-shadow:
-		1.5rem 1.5rem 0 -1.3rem ${highlightColor},
-		0 0 0.5rem 0 #ddd;
+	box-shadow: 0 0 0.5rem 0 #ddd;
 `;
 
 const TitleWrapper = styled.div`
@@ -106,9 +105,9 @@ const Cell = styled.button<StyledCellProps>`
 		// an EmptyCell, keeps the JSX cleaner.
 		p.children
 			? css`
-					background-color: #eaeaea;
-					border-radius: 3px;
-					box-shadow: 0 0.5rem 0 -0.35rem #ddd;
+					background-color: #ddd;
+					border-radius: 50%;
+					box-shadow: 0 0 0.2rem 0 #ccc;
 					cursor: pointer;
 
 					&:hover {

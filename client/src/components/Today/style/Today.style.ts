@@ -3,28 +3,30 @@ import TagCardStyle from "@/components/tags/TagCard/style/TagCard.style";
 import ButtonStyle from "@/lib/theme/components/Button.style";
 import ListStyle from "@/lib/theme/components/List.style";
 import { font, getFontSize } from "@/lib/theme/font";
+import { column } from "@/lib/theme/snippets/column";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import styled, { css } from "styled-components";
-
-const Wrapper = styled.div``;
+import styled from "styled-components";
 
 const TimelineWrapper = styled.section`
 	${flex.column};
-	gap: 1rem;
 	${spacing.padding.wide({ size: 1, ratio: 3 })};
+	gap: 1rem;
 
 	max-width: 100%;
 	min-width: 500px;
-	@media (min-width: 1280px) {
-		width: 700px;
-	}
-`;
 
-export const column = css`
 	@media (min-width: 1280px) {
-		min-width: 350px;
+		max-width: 1000px;
 	}
+
+	border-radius: 10px;
+	background-color: #f9f9f9;
+	${spacing.margin.wide({ size: 0.5, ratio: 2 })};
+	box-shadow: 0 0.2rem 1rem -0.3rem #ccc;
+	outline: 2px solid #eee;
+
+	max-height: max-content;
 `;
 
 const Column = styled.section`
@@ -66,40 +68,29 @@ const Checkbox = styled.input`
 	width: max-content;
 `;
 
-const Columns = styled.div`
-	display: grid;
-
-	@media (min-width: 1280px) {
-		grid-template-columns: max-content auto max-content auto; // TODO: this is still temporary because the whole layout is temporary
-	}
-
-	grid-template-columns: 1fr;
-
-	gap: 0.5rem;
-`;
-
 const Header = styled.header`
 	padding: 1rem 0;
+	max-width: 500px;
 
 	// this is the element that displays the date
 	h1 {
-		--font-size: ${(p) => getFontSize(p, 1.2)};
+		--font-size: ${(p) => getFontSize(p, 1.1)};
 		font-size: var(--font-size);
 		line-height: var(--font-size);
 
-		max-width: 70%;
+		gap: 1rem;
 
-		@media (min-width: 1280px) {
+		@media (min-width: 1440px) {
 			// this needs to be the same breakpoint as the one in columns
-			padding: 0 3rem;
-			max-width: 100%;
+			padding: 0 2rem;
 		}
 
 		@media (min-width: 1440px) {
-			--font-size: ${(p) => getFontSize(p, 2)};
+			--font-size: ${(p) => getFontSize(p, 1.5)};
 			font-size: var(--font-size);
 			line-height: var(--font-size);
 		}
+
 		font-weight: 400;
 		margin: 0;
 		padding: 0;
@@ -111,6 +102,27 @@ const Header = styled.header`
 		align-items: center;
 	}
 `; // is a header the right tag, semantically?
+
+const Columns = styled.div`
+	display: grid;
+
+	grid-template-areas:
+		"calendar timeline timeline"
+		". timeline timeline"
+		"things things things";
+
+	@media (min-width: 1280px) {
+		grid-template-areas:
+			"calendar timeline things"
+			". timeline things"
+			". timeline things"
+			". timeline things";
+	}
+
+	grid-template-columns: auto 1fr 1fr;
+
+	gap: 0.5rem;
+`;
 
 const Tags = styled.div`
 	display: flex;
@@ -142,11 +154,11 @@ const AllDayActivityList = styled.ul`
 `;
 
 const Habits = styled.div`
+	grid-area: habits;
 	/* the Habits component is an ItemList, and each Habit is an Item, so we can
    tweak the styles if we target those styled components. */
 	${ListStyle.ItemList} {
 		gap: 0.2rem;
-		padding-inline: 3rem;
 
 		* {
 			font-size: ${font.size["0.8"]};
@@ -214,8 +226,19 @@ const SpeedDialButton = styled(ButtonStyle.Create)`
 	border-radius: 5px;
 `;
 
+// TODO: rename this
+const Things = styled.div`
+	grid-area: things;
+	display: flex;
+
+	flex-direction: row;
+
+	@media (min-width: 1280px) {
+		flex-direction: column;
+	}
+`;
+
 export default {
-	Wrapper,
 	TimelineWrapper,
 	NotesWrapper,
 	BlockTitle,
@@ -229,5 +252,6 @@ export default {
 	Habits,
 	Create,
 	SpeedDialActions,
-	SpeedDialButton
+	SpeedDialButton,
+	Things
 };

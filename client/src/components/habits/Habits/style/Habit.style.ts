@@ -13,6 +13,7 @@ const CompletionWrapper = styled.div`
 	gap: 1rem;
 
 	width: 100%;
+	min-width: 150px;
 `;
 
 export default {
