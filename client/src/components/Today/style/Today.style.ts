@@ -28,16 +28,13 @@ const TimelineWrapper = styled.section`
 
 	height: max-content;
 	max-height: 80vh;
+	overflow: hidden;
 	overflow-y: auto;
-	overflow-x: hidden;
 `;
 
-const Column = styled.section`
+const NotesWrapper = styled.section`
 	${column};
-	padding: 0 1rem;
 `;
-
-const NotesWrapper = styled(Column)``;
 
 const BlockTitle = styled.h2`
 	width: max-content;
