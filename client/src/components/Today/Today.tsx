@@ -1,6 +1,7 @@
 import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
 import Habits from "@/components/habits/Habits/Habits";
 import NewHabit from "@/components/habits/NewHabit/NewHabit";
+import NewNote from "@/components/notes/NewNote/NewNote";
 import AllDayActivities from "@/components/Today/AllDayActivities";
 import ChangeDayButton from "@/components/Today/ChangeDayButton";
 import TimelineRows from "@/components/Today/TimelineRows";
@@ -119,9 +120,6 @@ export default function Today() {
 							</S.SpeedDialActions>
 						</SpeedDial>
 					</S.Create>
-					<Modal initialOpen={false} modalId={modalIds.habits.new}>
-						<NewHabit />
-					</Modal>
 				</div>
 				<S.TimelineWrapper>
 					<S.Header>
@@ -149,16 +147,28 @@ export default function Today() {
 						activities={t.timestampedActivities}
 						currentDate={t.currentDate}
 					/>
-					<div></div>
-					<Modal initialOpen={false} modalId={modalIds.activities.form}>
-						<ActivityForm modalId={modalIds.activities.form} />
-					</Modal>
 				</S.TimelineWrapper>
 
 				<Tasks activities={t.activities.filter((a) => a.is_task)} />
 
 				<Notes />
 			</S.Columns>
+
+			<Modal initialOpen={false} modalId={modalIds.activities.form}>
+				<ActivityForm modalId={modalIds.activities.form} />
+			</Modal>
+
+			<Modal initialOpen={false} modalId={modalIds.activities.newTask}>
+				<ActivityForm isTask modalId={modalIds.activities.newTask} />
+			</Modal>
+
+			<Modal initialOpen={false} modalId={modalIds.habits.new}>
+				<NewHabit />
+			</Modal>
+
+			<Modal initialOpen={false} modalId={modalIds.notes.new}>
+				<NewNote />
+			</Modal>
 		</S.Wrapper>
 	);
 }
