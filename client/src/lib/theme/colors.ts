@@ -19,9 +19,7 @@ const baseColors = {
 	green: {
 		main: "forestgreen",
 		secondary: "limegreen"
-	},
-	black: "black",
-	white: "white"
+	}
 };
 
 const tintColors = {
