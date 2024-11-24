@@ -87,11 +87,11 @@ export default function TagSelector(p: TagSelectorProps) {
 									</ActionButtons.Alternative>
 								)}
 
-								{p.showNewTagButton && <NewTagButton modalId={p.modalId} />}
-
 								<ActionButtons.Alternative onClick={onModalOpen}>
 									<FaExpand size={15} color={"dodgerblue"} />
 								</ActionButtons.Alternative>
+
+								{p.showNewTagButton && <NewTagButton modalId={p.modalId} />}
 
 								<ActionButtons.Alternative onClick={f.minimizeFilter}>
 									<FaChevronUp size={15} color={"forestgreen"} />
