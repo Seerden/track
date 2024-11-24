@@ -1,4 +1,4 @@
-import StyledButtons from "@/lib/theme/components/buttons/Button.style";
+import UnstyledButton from "@/lib/theme/components/buttons/Unstyled";
 import F from "@/lib/theme/components/form.style";
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
 import { font } from "@/lib/theme/font";
@@ -13,7 +13,7 @@ const ClearEndDateButtonWrapper = styled.div`
 	right: var(--offset);
 `;
 
-const ClearEndDateButton = styled(StyledButtons.Unstyled)`
+const ClearEndDateButton = styled(UnstyledButton)`
 	cursor: pointer;
 	background-color: ${(p) => p.theme.colors.red.secondary};
 	box-shadow: 0 0 0.4rem 0 #aaa;
@@ -38,7 +38,7 @@ const ClearEndDateButton = styled(StyledButtons.Unstyled)`
 	}
 `;
 
-const SetEndDateButton = styled(StyledButtons.Unstyled)`
+const SetEndDateButton = styled(UnstyledButton)`
 	${flex.row};
 	align-items: center;
 	gap: 1rem;

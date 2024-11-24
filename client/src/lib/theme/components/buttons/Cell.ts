@@ -1,4 +1,4 @@
-import ButtonStyle from "@/lib/theme/components/buttons/Button.style";
+import UnstyledButton from "@/lib/theme/components/buttons/Unstyled";
 import type { CSSProperties } from "styled-components";
 import styled, { css } from "styled-components";
 
@@ -6,7 +6,7 @@ const highlightColor: CSSProperties["color"] = "dodgerblue";
 export const defaultCellWidth = 25;
 export const defaultCellHeight = 25;
 
-const Default = styled(ButtonStyle.Unstyled)<{
+const Default = styled(UnstyledButton)<{
 	$selected?: boolean;
 	width?: number;
 	height?: number;

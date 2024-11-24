@@ -2,16 +2,17 @@ import type { ColorKey } from "@/lib/theme/colors";
 import ActionButtons from "@/lib/theme/components/buttons/Action";
 import ButtonStyle from "@/lib/theme/components/buttons/Button.style";
 import CellButtons from "@/lib/theme/components/buttons/Cell";
+import UnstyledButton from "@/lib/theme/components/buttons/Unstyled";
 import type { Meta, StoryFn, StoryObj } from "@storybook/react";
 import { Power, RollerCoaster } from "lucide-react";
 
 //👇 This default export determines where your story goes in the story list
-const meta: Meta<typeof ButtonStyle.Unstyled> = {
-	component: ButtonStyle.Unstyled
+const meta: Meta<typeof UnstyledButton> = {
+	component: UnstyledButton
 };
 
 export default meta;
-type Story = StoryObj<typeof ButtonStyle.Unstyled>;
+type Story = StoryObj<typeof UnstyledButton>;
 
 export const Unstyled: Story = {
 	args: {

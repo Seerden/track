@@ -1,17 +1,9 @@
 import { getMainColor, getSecondaryColor, type ColorKey } from "@/lib/theme/colors";
-import { unstyledButton } from "@/lib/theme/snippets/button";
+import UnstyledButton from "@/lib/theme/components/buttons/Unstyled";
 import styled from "styled-components";
 import type { CSS } from "styled-components/dist/types";
 
-const Unstyled = styled.button`
-	${unstyledButton};
-
-	cursor: pointer;
-`;
-
-Unstyled.defaultProps = { type: "button" };
-
-const StylizedAction = styled(Unstyled)<{
+const StylizedAction = styled(UnstyledButton)<{
 	$size?: CSS.Properties["width"];
 	$color: ColorKey;
 }>`
@@ -50,6 +42,5 @@ StylizedAction.defaultProps = {
 };
 
 export default {
-	Unstyled,
 	StylizedAction
 };
