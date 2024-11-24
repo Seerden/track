@@ -59,7 +59,8 @@ Default.defaultProps = {
 	height: defaultCellHeight
 };
 
-// move this to Calendar.style when done
-export default {
+const CellButtons = {
 	Default
 };
+
+export default CellButtons;
