@@ -5,11 +5,12 @@ module.exports = {
 		node: true
 	},
 	extends: [
-		"eslint:recommended",
-		"plugin:react/recommended",
-		"plugin:@typescript-eslint/strict",
-		"prettier"
-	],
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/strict",
+        "prettier",
+        "plugin:storybook/recommended"
+    ],
 	parser: "@typescript-eslint/parser",
 	parserOptions: {
 		ecmaFeatures: {
