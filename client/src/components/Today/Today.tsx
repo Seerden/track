@@ -88,43 +88,53 @@ export default function Today() {
 	}
 
 	return (
-		<S.Wrapper>
+		<>
 			{/* TODO: we want the header to be aligned above the Timeline */}
 			<S.Columns>
-				<div>
+				<div
+					style={{
+						gridArea: "calendar"
+					}}
+				>
 					<Calendar initialDate={t.currentDate} onChange={t.setCurrentDate} />
-
-					<S.Create>
-						<SpeedDial open={t.speedDialOpen} setOpen={t.setSpeedDialOpen}>
-							<S.SpeedDialActions>
-								<S.SpeedDialButton
-									onClick={(e) => handleModalOpen(e, modalIds.activities.form)}
-								>
-									activity
-								</S.SpeedDialButton>
-								<S.SpeedDialButton
-									onClick={(e) =>
-										handleModalOpen(e, modalIds.activities.newTask)
-									}
-								>
-									task
-								</S.SpeedDialButton>
-								<S.SpeedDialButton
-									onClick={(e) => handleModalOpen(e, modalIds.habits.new)}
-								>
-									habit
-								</S.SpeedDialButton>
-								<S.SpeedDialButton
-									onClick={(e) => handleModalOpen(e, modalIds.notes.new)}
-								>
-									note
-								</S.SpeedDialButton>
-							</S.SpeedDialActions>
-						</SpeedDial>
-					</S.Create>
 				</div>
-				<S.TimelineWrapper>
-					<S.Header>
+
+				<S.Create>
+					<SpeedDial open={t.speedDialOpen} setOpen={t.setSpeedDialOpen}>
+						<S.SpeedDialActions>
+							<S.SpeedDialButton
+								onClick={(e) => handleModalOpen(e, modalIds.activities.form)}
+							>
+								activity
+							</S.SpeedDialButton>
+							<S.SpeedDialButton
+								onClick={(e) => handleModalOpen(e, modalIds.activities.newTask)}
+							>
+								task
+							</S.SpeedDialButton>
+							<S.SpeedDialButton
+								onClick={(e) => handleModalOpen(e, modalIds.habits.new)}
+							>
+								habit
+							</S.SpeedDialButton>
+							<S.SpeedDialButton
+								onClick={(e) => handleModalOpen(e, modalIds.notes.new)}
+							>
+								note
+							</S.SpeedDialButton>
+						</S.SpeedDialActions>
+					</SpeedDial>
+				</S.Create>
+				<S.TimelineWrapper
+					style={{
+						gridArea: "timeline"
+					}}
+				>
+					<S.Header
+						style={{
+							gridArea: "header"
+						}}
+					>
 						<h1>
 							<ChangeDayButton
 								type="previous"
@@ -134,26 +144,40 @@ export default function Today() {
 							<ChangeDayButton type="next" onClick={() => t.changeDay("next")} />
 						</h1>
 					</S.Header>
-
-					{!!t.habits && (
-						<S.Habits>
-							<Habits habits={t.habits} />
-						</S.Habits>
-					)}
-
 					{!!t.allDayActivities.length && (
 						<AllDayActivities activities={t.allDayActivities} />
 					)}
 
-					<TimelineRows
-						activities={t.timestampedActivities}
-						currentDate={t.currentDate}
-					/>
+					<div style={{ gridArea: "timeline" }}>
+						<TimelineRows
+							activities={t.timestampedActivities}
+							currentDate={t.currentDate}
+						/>
+					</div>
 				</S.TimelineWrapper>
 
-				<Tasks activities={t.activities.filter((a) => a.is_task)} />
-
-				<Notes />
+				<S.Things>
+					{!!t.habits && (
+						<S.Habits style={{ gridArea: "habits" }}>
+							<S.BlockTitle>Habits</S.BlockTitle>
+							<Habits habits={t.habits} />
+						</S.Habits>
+					)}
+					<div
+						style={{
+							gridArea: "tasks"
+						}}
+					>
+						<Tasks activities={t.activities.filter((a) => a.is_task)} />
+					</div>
+					<div
+						style={{
+							gridArea: "notes"
+						}}
+					>
+						<Notes />
+					</div>
+				</S.Things>
 			</S.Columns>
 
 			<Modal initialOpen={false} modalId={modalIds.activities.form}>
@@ -171,6 +195,6 @@ export default function Today() {
 			<Modal initialOpen={false} modalId={modalIds.notes.new}>
 				<NewNote />
 			</Modal>
-		</S.Wrapper>
+		</>
 	);
 }
