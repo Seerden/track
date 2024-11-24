@@ -31,7 +31,6 @@ function CalendarRow({ month, year, row, selectDate, selectedDate }: CalendarRow
 			{row.map((day, index) => (
 				<Cell.Default
 					disabled={day === null}
-					width={30}
 					key={index}
 					onClick={() => selectDate(day)}
 					$selected={isSelected(day)}
