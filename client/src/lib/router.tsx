@@ -12,9 +12,6 @@ const ActivityForm = lazy(
 	() => import("@/components/activities/ActivityForm/ActivityForm")
 );
 const NewHabit = lazy(() => import("@components/habits/NewHabit/NewHabit"));
-const ActivityList = lazy(
-	() => import("@/components/activities/ActivityList/ActivityList")
-);
 const Today = lazy(() => import("@components/Today/Today"));
 const Notes = lazy(() => import("@/components/notes/Notes/Notes"));
 const Login = lazy(() => import("@/components/auth/Login/Login"));
@@ -58,14 +55,6 @@ const topLevelRoutes: RouteObject[] = [
 	{
 		path: "/activities",
 		children: [
-			{
-				element: (
-					<Protected>
-						<ActivityList />
-					</Protected>
-				),
-				index: true
-			},
 			{
 				path: "new",
 				element: (
