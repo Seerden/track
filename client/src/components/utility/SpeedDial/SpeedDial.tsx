@@ -1,4 +1,4 @@
-import ActionButtons from "@/lib/theme/components/buttons/Action";
+import { Action } from "@/lib/theme/components/buttons";
 import type { UseFloatingOptions } from "@floating-ui/react";
 import {
 	flip,
@@ -48,9 +48,9 @@ export default function SpeedDial({
 
 	return (
 		<S.SpeedDialWrapper ref={refs.setReference} {...getReferenceProps()}>
-			<ActionButtons.Default color="darkBlue" style={{ width: 50, height: 50 }}>
+			<Action.Default color="darkBlue" style={{ width: 50, height: 50 }}>
 				{open ? <Minus strokeWidth={3} /> : <Plus strokeWidth={3} />}
-			</ActionButtons.Default>
+			</Action.Default>
 			{open && (
 				<div>
 					<FloatingFocusManager context={context} modal={false} disabled>

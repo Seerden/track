@@ -1,7 +1,7 @@
-import ActionButtons from "@/lib/theme/components/buttons/Action";
+import { Action } from "@/lib/theme/components/buttons";
 import { styled } from "styled-components";
 
-const ChangeDayButton = styled(ActionButtons.Default)<{
+const ChangeDayButton = styled(Action.Default)<{
 	$size: number;
 	$direction: "left" | "right";
 }>`

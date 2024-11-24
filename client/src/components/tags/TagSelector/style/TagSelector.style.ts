@@ -1,4 +1,4 @@
-import ActionButtons from "@/lib/theme/components/buttons/Action";
+import { Action } from "@/lib/theme/components/buttons";
 import FilterInput from "@/lib/theme/components/input/FilterInput.style";
 import { getFontSize } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
@@ -97,7 +97,7 @@ const Title = styled.h3`
 	border: 2px solid #777;
 `;
 
-const ClearFilter = styled(ActionButtons.Default)`
+const ClearFilter = styled(Action.Default)`
 	position: absolute;
 	right: 0.3rem;
 

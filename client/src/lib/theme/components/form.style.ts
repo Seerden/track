@@ -1,4 +1,4 @@
-import SubmitButtons from "@/lib/theme/components/buttons/Submit";
+import { Submit } from "@/lib/theme/components/buttons";
 import { getFontSize } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacing } from "@/lib/theme/snippets/spacing";
@@ -117,7 +117,7 @@ const formStyle = {
 	Row,
 	CompactRow,
 	Form,
-	Button: SubmitButtons.Default,
+	Button: Submit.Default,
 	Label
 };
 

@@ -4,8 +4,8 @@ import SubmitButtons from "@/lib/theme/components/buttons/Submit";
 import UnstyledButton from "@/lib/theme/components/buttons/Unstyled";
 
 export {
-	UnstyledButton as Unstyled,
-	ActionButtons as action,
-	CellButtons as cell,
-	SubmitButtons as submit
+	ActionButtons as Action,
+	CellButtons as Cell,
+	SubmitButtons as Submit,
+	UnstyledButton as Unstyled
 };

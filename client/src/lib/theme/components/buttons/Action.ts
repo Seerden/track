@@ -1,10 +1,10 @@
 import { getMainColor, getSecondaryColor, type ColorKey } from "@/lib/theme/colors";
-import UnstyledButton from "@/lib/theme/components/buttons/Unstyled";
+import { Unstyled } from "@/lib/theme/components/buttons";
 import styled from "styled-components";
 import type { CSS } from "styled-components/dist/types";
 
 // Adapted from ChangeDayButton
-const Default = styled(UnstyledButton)<{ color?: ColorKey }>`
+const Default = styled(Unstyled)<{ color?: ColorKey }>`
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -37,7 +37,7 @@ Default.defaultProps = {
 };
 
 // Adapted from DropdownTrigger in TagSelector
-const Alternative = styled(UnstyledButton)<{ color?: ColorKey }>`
+const Alternative = styled(Unstyled)<{ color?: ColorKey }>`
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -68,7 +68,7 @@ const Alternative = styled(UnstyledButton)<{ color?: ColorKey }>`
 	}
 `;
 
-const Stylized = styled(UnstyledButton)<{
+const Stylized = styled(Unstyled)<{
 	$size?: CSS.Properties["width"];
 	$color: ColorKey;
 }>`

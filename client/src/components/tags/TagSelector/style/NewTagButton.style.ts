@@ -1,8 +1,8 @@
-import ActionButtons from "@/lib/theme/components/buttons/Action";
+import { Action } from "@/lib/theme/components/buttons";
 import styled, { css } from "styled-components";
 import type { CSS } from "styled-components/dist/types";
 
-const Button = styled(ActionButtons.Default)<{
+const Button = styled(Action.Default)<{
 	$absolute?: boolean;
 	$size?: CSS.Properties["width"];
 }>`

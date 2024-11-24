@@ -7,7 +7,7 @@ import TagTree from "@/components/tags/TagTree/TagTree";
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
-import ActionButtons from "@/lib/theme/components/buttons/Action";
+import { Action } from "@/lib/theme/components/buttons";
 import type { MouseEvent } from "react";
 import { FaChevronDown, FaChevronUp, FaExpand } from "react-icons/fa";
 import { MdOutlineFilterListOff } from "react-icons/md";
@@ -52,15 +52,15 @@ export default function TagSelector(p: TagSelectorProps) {
 									onFocus={f.expandFilter}
 								/>
 								{!!t.selectedTagIds.length && (
-									<ActionButtons.Alternative onClick={t.onSelectionReset}>
+									<Action.Alternative onClick={t.onSelectionReset}>
 										<MdOutlineFilterListOff color="orangered" />
-									</ActionButtons.Alternative>
+									</Action.Alternative>
 								)}
 								{p.showNewTagButton && <NewTagButton modalId={p.modalId} />}
 
-								<ActionButtons.Alternative onClick={f.expandFilter}>
+								<Action.Alternative onClick={f.expandFilter}>
 									<FaChevronDown size={15} color={"darkorchid"} />
-								</ActionButtons.Alternative>
+								</Action.Alternative>
 							</>
 						)}
 					</S.Actions>
@@ -82,20 +82,20 @@ export default function TagSelector(p: TagSelectorProps) {
 								/>
 
 								{!!t.selectedTagIds.length && (
-									<ActionButtons.Alternative onClick={t.onSelectionReset}>
+									<Action.Alternative onClick={t.onSelectionReset}>
 										<MdOutlineFilterListOff color="orangered" />
-									</ActionButtons.Alternative>
+									</Action.Alternative>
 								)}
 
-								<ActionButtons.Alternative onClick={onModalOpen}>
+								<Action.Alternative onClick={onModalOpen}>
 									<FaExpand size={15} color={"dodgerblue"} />
-								</ActionButtons.Alternative>
+								</Action.Alternative>
 
 								{p.showNewTagButton && <NewTagButton modalId={p.modalId} />}
 
-								<ActionButtons.Alternative onClick={f.minimizeFilter}>
+								<Action.Alternative onClick={f.minimizeFilter}>
 									<FaChevronUp size={15} color={"forestgreen"} />
-								</ActionButtons.Alternative>
+								</Action.Alternative>
 							</S.DropdownActions>
 
 							<S.List>

@@ -2,7 +2,7 @@ import type { CalendarProps, Row } from "@/components/utility/Calendar/calendar.
 import { useCalendar } from "@/components/utility/Calendar/hooks/useCalendar";
 import useMonthPicker from "@/components/utility/Calendar/hooks/useMonthPicker";
 import { daysOfWeekShort } from "@/lib/datetime/weekdays";
-import Cell from "@/lib/theme/components/buttons/Cell";
+import { Cell } from "@/lib/theme/components/buttons";
 import { MonthPicker } from "@mantine/dates";
 import type { Maybe } from "@t/data/utility.types";
 import type { Dayjs } from "dayjs";
@@ -31,6 +31,7 @@ function CalendarRow({ month, year, row, selectDate, selectedDate }: CalendarRow
 			{row.map((day, index) => (
 				<Cell.Default
 					disabled={day === null}
+					width={30}
 					key={index}
 					onClick={() => selectDate(day)}
 					$selected={isSelected(day)}
