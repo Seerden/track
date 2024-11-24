@@ -29,18 +29,3 @@ export const unlinkTagsFromActivity: QueryFunction<
       RETURNING *
    `;
 };
-
-// TODO: I want to make db query functions a little more generic. How about this?
-// function query<T extends object[]>(query: string, sql = sqlConnection): Promise<T> {
-// 	return sql<T>`${query}`;
-// }
-
-// const deleteTagsByActivity: QueryFunction<{ activity_id: ID }, ActivityTagRelation[]> = ({
-// 	activity_id,
-// }) => {
-// 	return query<ActivityTagRelation[]>(`
-//       DELETE FROM activities_tags
-//       WHERE activity_id = ${activity_id}
-//       RETURNING *
-//    `);
-// };
