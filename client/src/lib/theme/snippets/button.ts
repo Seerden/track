@@ -3,6 +3,7 @@ import { css } from "styled-components";
 
 export const unstyledButton = css`
 	${noBorders};
+	background-color: transparent;
 	margin: 0;
 	padding: 0;
 
