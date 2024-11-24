@@ -2,7 +2,7 @@ import { sqlConnection } from "@/db/init";
 import type { ActivityWithIds } from "@t/data/activity.types";
 import type { ActivityTagRelation } from "@t/data/relational.types";
 import type { ID, Maybe } from "@t/data/utility.types";
-import type { DatabaseInteractionFunction, WithSQL } from "types/sql.types";
+import type { QueryFunction, WithSQL } from "types/sql.types";
 
 export async function linkTagsToActivity({
 	sql = sqlConnection,
@@ -18,9 +18,9 @@ export async function linkTagsToActivity({
    `;
 }
 
-export const unlinkTagsFromActivity: DatabaseInteractionFunction<
-	Pick<ActivityWithIds, "user_id" | "activity_id" | "tag_ids">,
-	Promise<Maybe<ActivityTagRelation[]>>
+export const unlinkTagsFromActivity: QueryFunction<
+	Pick<ActivityWithIds, "user_id" | "activity_id">,
+	Maybe<ActivityTagRelation[]>
 > = async ({ sql = sqlConnection, activity_id, user_id }) => {
 	return sql<ActivityTagRelation[]>`
       DELETE FROM activities_tags
@@ -29,3 +29,18 @@ export const unlinkTagsFromActivity: DatabaseInteractionFunction<
       RETURNING *
    `;
 };
+
+// TODO: I want to make db query functions a little more generic. How about this?
+// function query<T extends object[]>(query: string, sql = sqlConnection): Promise<T> {
+// 	return sql<T>`${query}`;
+// }
+
+// const deleteTagsByActivity: QueryFunction<{ activity_id: ID }, ActivityTagRelation[]> = ({
+// 	activity_id,
+// }) => {
+// 	return query<ActivityTagRelation[]>(`
+//       DELETE FROM activities_tags
+//       WHERE activity_id = ${activity_id}
+//       RETURNING *
+//    `);
+// };
