@@ -1,4 +1,4 @@
-import Button from "@/lib/theme/components/Button.style";
+import Button from "@/lib/theme/components/buttons/Button.style";
 import CardStyle from "@/lib/theme/components/Card.style";
 import { flex } from "@/lib/theme/snippets/flex";
 import styled from "styled-components";

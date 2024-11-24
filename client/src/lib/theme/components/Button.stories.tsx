@@ -1,6 +1,6 @@
 import type { ColorKey } from "@/lib/theme/colors";
-import ButtonStyle from "@/lib/theme/components/Button.style";
 import ActionButtons from "@/lib/theme/components/buttons/Action";
+import ButtonStyle from "@/lib/theme/components/buttons/Button.style";
 import CellButtons from "@/lib/theme/components/buttons/Cell";
 import type { Meta, StoryFn, StoryObj } from "@storybook/react";
 import { Power, RollerCoaster } from "lucide-react";

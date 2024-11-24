@@ -1,5 +1,5 @@
 import type { ColorKey } from "@/lib/theme/colors";
-import ButtonStyle from "@/lib/theme/components/Button.style";
+import ButtonStyle from "@/lib/theme/components/buttons/Button.style";
 import styled from "styled-components";
 
 // Adapted from ChangeDayButton

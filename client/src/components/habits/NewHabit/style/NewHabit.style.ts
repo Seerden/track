@@ -1,4 +1,4 @@
-import StyledButtons from "@/lib/theme/components/Button.style";
+import StyledButtons from "@/lib/theme/components/buttons/Button.style";
 import F from "@/lib/theme/components/form.style";
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
 import { font } from "@/lib/theme/font";

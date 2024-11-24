@@ -1,4 +1,4 @@
-import ButtonStyle from "@/lib/theme/components/Button.style";
+import ButtonStyle from "@/lib/theme/components/buttons/Button.style";
 import type { CSSProperties } from "styled-components";
 import styled, { css } from "styled-components";
 

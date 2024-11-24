@@ -1,6 +1,6 @@
 import HabitStyle from "@/components/habits/Habits/style/Habit.style";
 import TagCardStyle from "@/components/tags/TagCard/style/TagCard.style";
-import ButtonStyle from "@/lib/theme/components/Button.style";
+import ButtonStyle from "@/lib/theme/components/buttons/Button.style";
 import ListStyle from "@/lib/theme/components/List.style";
 import { font, getFontSize } from "@/lib/theme/font";
 import { column } from "@/lib/theme/snippets/column";

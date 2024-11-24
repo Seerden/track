@@ -1,4 +1,4 @@
-import ButtonStyle from "@/lib/theme/components/Button.style";
+import ButtonStyle from "@/lib/theme/components/buttons/Button.style";
 import { getFontSize } from "@/lib/theme/font";
 import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
