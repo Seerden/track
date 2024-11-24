@@ -1,4 +1,4 @@
-import { Unstyled } from "@/lib/theme/components/buttons";
+import Unstyled from "@/lib/theme/components/buttons/Unstyled";
 import type { CSSProperties } from "styled-components";
 import styled, { css } from "styled-components";
 
