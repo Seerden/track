@@ -23,7 +23,9 @@ export default function TimelineRow({ date, index, activities, indentation }: Ro
 	const offset = currentTime.minute() / 60;
 
 	return (
-		<R.Row>
+		<R.Row
+			$collapsed={activities.length === 0} // this shouldn't check if activities.length is 0, but if there are no activities that occur at this hour
+		>
 			<HourMark index={index % 24} highlighted={isCurrentHour} />
 
 			{isCurrentHour && <CurrentTimeMark offset={offset} />}

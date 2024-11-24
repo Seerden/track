@@ -1,13 +1,12 @@
-import { column } from "@/components/Today/style/Today.style";
 import ListStyle from "@/lib/theme/components/List.style";
 import { getFontSize } from "@/lib/theme/font";
+import { column } from "@/lib/theme/snippets/column";
 import { flex } from "@/lib/theme/snippets/flex";
 import styled from "styled-components";
 
 // TODO: make this shared with Notes for now since they are currently the same
 const TasksWrapper = styled.section`
 	${column};
-	padding: 0 1rem;
 `;
 
 const TaskName = styled(ListStyle.ItemName)``;
