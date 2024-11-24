@@ -4,15 +4,23 @@ import { spacing } from "@/lib/theme/snippets/spacing";
 import { css, styled } from "styled-components";
 import S from "./Today.style";
 
-const cardWidth = 175;
-const cardGap = 5;
+const cardWidth = "8vw";
+const cardGap = "5px";
 
 const ActivityCard = styled.div<{ $level: number; $offset: number }>`
 	position: absolute;
 	cursor: pointer;
 	user-select: none;
 	top: calc(${(p) => p.$offset * 100}%);
-	left: calc(3rem + ${(p) => p.$level * (cardGap + cardWidth)}px);
+
+	--card-gap: 3px;
+	--card-width: 100px;
+
+	@media (min-width: 1440px) {
+		--card-gap: ${cardGap};
+		--card-width: ${cardWidth};
+	}
+	left: calc(3rem + ${(p) => p.$level} * (var(--card-gap) + var(--card-width)));
 	font-size: ${(p) => getFontSize(p, 0.85)};
 	display: flex;
 	width: 100%;
@@ -44,7 +52,7 @@ const Activity = styled.div<{
 	color: ${(p) => (p.$isTask ? "azure" : "black")};
 
 	outline: 2px solid #eee;
-	width: ${cardWidth}px;
+	width: var(--card-width);
 	border-radius: 3px;
 
 	transition: all 35ms ease-in;
