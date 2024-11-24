@@ -3,6 +3,7 @@ import type { Preview } from "@storybook/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import React from "react";
+import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "styled-components";
 import { theme } from "../src/lib/theme/theme";
 
@@ -31,6 +32,11 @@ const decorators = [
 		<MantineProvider theme={createTheme(DEFAULT_THEME)}>
 			<Story />
 		</MantineProvider>
+	),
+	(Story) => (
+		<RecoilRoot>
+			<Story />
+		</RecoilRoot>
 	)
 ];
 
