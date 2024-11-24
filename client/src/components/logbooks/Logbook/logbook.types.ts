@@ -18,7 +18,7 @@ export type FieldTemplate = {
 	/** @example "the weight in kilograms" */
 	description: Nullable<string>;
 	/** Indicates the position of the field in the item */
-	order: number;
+	position: number;
 	/** Not all fields are required, think of type "warmup" vs "working weight"
 	 * in a lift. if not required, that means the value is nullable. */
 	required: boolean;
@@ -81,8 +81,8 @@ export type ItemRow = {
 	item_id: Item["item_id"];
 	log_id: Log["log_id"];
 	/** The order of the row in the log -- I would usually call this "index" but
-	 * maybe "order" is more descriptive */
-	order: number;
+	 * maybe "position" is more descriptive */
+	position: number;
 
 	created_at: Timestamp;
 };
