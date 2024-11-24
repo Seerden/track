@@ -1,3 +1,5 @@
+import type { ExecutionContext } from "styled-components";
+
 const baseColors = {
 	purple: {
 		main: "indigo",
@@ -61,3 +63,11 @@ export const colors = {
 };
 
 export type ColorKey = keyof typeof baseColors | keyof typeof mainAndSecondary;
+
+export function getMainColor(theme: ExecutionContext["theme"], color: ColorKey) {
+	return theme.colors[color].main;
+}
+
+export function getSecondaryColor(theme: ExecutionContext["theme"], color: ColorKey) {
+	return theme.colors[color].secondary;
+}
