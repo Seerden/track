@@ -2,11 +2,13 @@ import TagSelector from "@/components/tags/TagSelector/TagSelector";
 import { formatToYearMonthDay } from "@/lib/datetime/format-date";
 import { createDate } from "@/lib/datetime/make-date";
 import modalIds from "@/lib/modal-ids";
+import { Action } from "@/lib/theme/components/buttons";
 import { CheckboxIcon } from "@/lib/theme/components/Checkbox";
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
 import F from "@lib/theme/components/form.style";
+import { CalendarOff } from "lucide-react";
 import { useState } from "react";
-import { LuCalendarOff, LuCalendarPlus } from "react-icons/lu";
+import { LuCalendarPlus } from "react-icons/lu";
 import S from "./style/NewHabit.style";
 import useNewHabit from "./useNewHabit";
 
@@ -150,8 +152,8 @@ export default function NewHabit() {
 				>
 					{hasEndDate && (
 						<S.ClearEndDateButtonWrapper>
-							<S.ClearEndDateButton
-								type="button"
+							<Action.Default
+								color="red"
 								onClick={(e) => {
 									e.stopPropagation();
 									setHasEndDate(false);
@@ -161,8 +163,8 @@ export default function NewHabit() {
 									}));
 								}}
 							>
-								<LuCalendarOff size={15} fill={"orangered"} color="white" />
-							</S.ClearEndDateButton>
+								<CalendarOff size={16} color="white" />
+							</Action.Default>
 						</S.ClearEndDateButtonWrapper>
 					)}
 
@@ -190,6 +192,7 @@ export default function NewHabit() {
 							</F.Label>
 						) : (
 							<S.SetEndDateButton
+								$color="theme"
 								onClick={(e) => {
 									e.stopPropagation();
 									setHasEndDate(true);
