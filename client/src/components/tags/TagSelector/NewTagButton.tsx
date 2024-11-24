@@ -2,7 +2,7 @@ import Modal from "@/components/utility/Modal/Modal";
 import type { ModalId } from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import NewTag from "@components/tags/NewTag/NewTag";
-import { AiFillTags } from "react-icons/ai";
+import { Tags } from "lucide-react";
 import S from "./style/NewTagButton.style";
 
 type NewTagButtonProps = {
@@ -10,7 +10,7 @@ type NewTagButtonProps = {
 	size?: number;
 };
 
-export default function NewTagButton({ modalId, size = 15 }: NewTagButtonProps) {
+export default function NewTagButton({ modalId, size = 16 }: NewTagButtonProps) {
 	const { toggleModal, modalIds } = useModalState();
 
 	function handleOpen(e: React.MouseEvent<HTMLButtonElement>) {
@@ -20,8 +20,8 @@ export default function NewTagButton({ modalId, size = 15 }: NewTagButtonProps) 
 
 	return (
 		<>
-			<S.Button title="Make a new tag" onClick={(e) => handleOpen(e)}>
-				<AiFillTags size={size} />
+			<S.Button title="Make a new tag" onClick={(e) => handleOpen(e)} color="yellow">
+				<Tags size={size} />
 			</S.Button>
 
 			{modalIds.includes(modalId) && (
