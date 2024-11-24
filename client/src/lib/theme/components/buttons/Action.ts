@@ -10,16 +10,14 @@ const Default = styled(ButtonStyle.Unstyled)<{ color?: ColorKey }>`
 
 	border-radius: 50%;
 
-	background-color: ${(p) =>
-		p.color ? p.theme.colors[p.color].secondary : "transparent"};
-	box-shadow: 0 0 0.2rem 0
-		${(p) => (p.color ? p.theme.colors[p.color].secondary : "none")};
+	background-color: ${(p) => (p.color ? p.theme.colors[p.color].main : "transparent")};
+	box-shadow: 0 0 0.2rem 0 ${(p) => (p.color ? p.theme.colors[p.color].main : "none")};
 
 	&:hover,
 	&:focus,
 	&:active {
 		background-color: ${(p) =>
-			p.color ? p.theme.colors[p.color].main : "transparent"};
+			p.color ? p.theme.colors[p.color].secondary : "transparent"};
 		outline: 2px solid white;
 		box-shadow: 0 0 0.3rem 0 #333;
 	}
@@ -28,8 +26,8 @@ const Default = styled(ButtonStyle.Unstyled)<{ color?: ColorKey }>`
 
 	// Generic defaults
 	color: white;
-	width: 50px;
-	height: 50px;
+	width: 30px;
+	height: 30px;
 `;
 
 Default.defaultProps = {

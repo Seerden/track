@@ -8,6 +8,10 @@ const baseColors = {
 		main: "dodgerblue",
 		secondary: "deepskyblue"
 	},
+	darkBlue: {
+		main: "royalblue",
+		secondary: "dodgerblue"
+	},
 	yellow: {
 		main: "gold",
 		secondary: "orange"
@@ -19,6 +23,17 @@ const baseColors = {
 	green: {
 		main: "forestgreen",
 		secondary: "limegreen"
+	}
+};
+
+const mainAndSecondary = {
+	theme: {
+		main: "#e8e8e8",
+		secondary: "#ddd"
+	},
+	themeInverted: {
+		main: "#666",
+		secondary: "#999"
 	}
 };
 
@@ -38,6 +53,11 @@ const highlightColors = {
 	dark: "#333"
 };
 
-export const colors = { ...baseColors, highlight: highlightColors, tint: tintColors };
+export const colors = {
+	...baseColors,
+	...mainAndSecondary,
+	highlight: highlightColors,
+	tint: tintColors
+};
 
-export type ColorKey = keyof typeof baseColors;
+export type ColorKey = keyof typeof baseColors | keyof typeof mainAndSecondary;

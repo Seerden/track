@@ -14,6 +14,7 @@ export default function ChangeDayButton({
 
 	return (
 		<S.ChangeDayButton
+			color={"darkBlue"}
 			$size={size}
 			$direction={type === "next" ? "right" : "left"}
 			onClick={(e) => {

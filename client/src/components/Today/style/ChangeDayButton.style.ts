@@ -6,6 +6,8 @@ const ChangeDayButton = styled(ActionButtons.Default)<{
 	$direction: "left" | "right";
 }>`
 	--size: calc(${(p) => p.$size}px + 0.2rem);
+	max-width: var(--size);
+	max-height: var(--size);
 	min-width: var(--size);
 	min-height: var(--size);
 
