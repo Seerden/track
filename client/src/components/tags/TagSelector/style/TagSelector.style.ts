@@ -1,7 +1,6 @@
 import ActionButtons from "@/lib/theme/components/buttons/Action";
 import FilterInput from "@/lib/theme/components/input/FilterInput.style";
 import { getFontSize } from "@/lib/theme/font";
-import { noBorders } from "@/lib/theme/snippets/border";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacing } from "@/lib/theme/snippets/spacing";
 import styled, { css } from "styled-components";
@@ -137,39 +136,6 @@ const Dropdown = styled.div`
 	position: relative;
 `;
 
-const DropdownTrigger = styled.button`
-	border-radius: 50%;
-	width: 30px;
-	height: 30px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 0px;
-	${noBorders};
-
-	&:active {
-		transform: scale(1.1);
-		background-color: white;
-		& > svg {
-			fill: black;
-		}
-	}
-
-	&:focus:not(:active) {
-		outline: 2px solid ${(p) => p.theme.colors.blue.main};
-		background-color: #fff;
-	}
-
-	&:hover {
-		background-color: #fafafa;
-		box-shadow: 0 0.2rem 0.5rem 0 #999;
-	}
-`;
-
-DropdownTrigger.defaultProps = {
-	type: "button"
-};
-
 const DropdownActions = styled.div`
 	${flex.row};
 	align-items: flex-end;
@@ -271,7 +237,6 @@ export default {
 	FilterWrapper,
 	Actions,
 	Dropdown,
-	DropdownTrigger,
 	DropdownActions,
 	DropdownContent,
 	SelectionList,
