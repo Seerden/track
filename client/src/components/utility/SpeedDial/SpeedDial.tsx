@@ -48,9 +48,9 @@ export default function SpeedDial({
 
 	return (
 		<S.SpeedDialWrapper ref={refs.setReference} {...getReferenceProps()}>
-			<Button.Edit $size={"50px"} $color="darkBlue">
+			<Button.StylizedAction $size={"50px"} $color="darkBlue">
 				{open ? <Minus strokeWidth={3} /> : <Plus strokeWidth={3} />}
-			</Button.Edit>
+			</Button.StylizedAction>
 			{open && (
 				<div>
 					<FloatingFocusManager context={context} modal={false} disabled>

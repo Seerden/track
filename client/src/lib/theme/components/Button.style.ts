@@ -11,7 +11,10 @@ const Unstyled = styled.button`
 
 Unstyled.defaultProps = { type: "button" };
 
-const Edit = styled(Unstyled)<{ $size?: CSS.Properties["width"]; $color: ColorKey }>`
+const StylizedAction = styled(Unstyled)<{
+	$size?: CSS.Properties["width"];
+	$color: ColorKey;
+}>`
 	--color: ${(p) => p.$color ?? "themeInverted"};
 
 	display: flex;
@@ -42,11 +45,11 @@ const Edit = styled(Unstyled)<{ $size?: CSS.Properties["width"]; $color: ColorKe
 	height: ${(p) => p.$size ?? "var(--default-edit-button-size)"};
 `;
 
-Edit.defaultProps = {
+StylizedAction.defaultProps = {
 	$color: "themeInverted"
 };
 
 export default {
 	Unstyled,
-	Edit
+	StylizedAction
 };

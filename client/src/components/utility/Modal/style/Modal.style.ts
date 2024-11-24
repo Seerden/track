@@ -16,7 +16,7 @@ const ModalWrapper = styled.div`
 	justify-content: center;
 `;
 
-const Close = styled(ButtonStyle.Edit)`
+const Close = styled(ButtonStyle.StylizedAction)`
 	position: absolute;
 	top: -0.9rem;
 	right: 1.8rem;

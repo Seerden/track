@@ -61,7 +61,7 @@ const CheckboxWrapper = styled.label`
 	}
 `;
 
-const EditButton = styled(Button.Edit)`
+const EditButton = styled(Button.StylizedAction)`
 	position: absolute;
 	top: -1rem;
 	right: 6rem;
