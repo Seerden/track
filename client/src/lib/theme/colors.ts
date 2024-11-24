@@ -1,3 +1,5 @@
+import type { ExecutionContext } from "styled-components";
+
 const baseColors = {
 	purple: {
 		main: "indigo",
@@ -7,6 +9,10 @@ const baseColors = {
 	blue: {
 		main: "dodgerblue",
 		secondary: "deepskyblue"
+	},
+	darkBlue: {
+		main: "royalblue",
+		secondary: "dodgerblue"
 	},
 	yellow: {
 		main: "gold",
@@ -19,9 +25,18 @@ const baseColors = {
 	green: {
 		main: "forestgreen",
 		secondary: "limegreen"
+	}
+};
+
+const mainAndSecondary = {
+	theme: {
+		main: "#e8e8e8",
+		secondary: "#ddd"
 	},
-	black: "black",
-	white: "white"
+	themeInverted: {
+		main: "#666",
+		secondary: "#999"
+	}
 };
 
 const tintColors = {
@@ -40,6 +55,19 @@ const highlightColors = {
 	dark: "#333"
 };
 
-export const colors = { ...baseColors, highlight: highlightColors, tint: tintColors };
+export const colors = {
+	...baseColors,
+	...mainAndSecondary,
+	highlight: highlightColors,
+	tint: tintColors
+};
 
-export type ColorKey = keyof typeof baseColors;
+export type ColorKey = keyof typeof baseColors | keyof typeof mainAndSecondary;
+
+export function getMainColor(theme: ExecutionContext["theme"], color: ColorKey) {
+	return theme.colors[color].main;
+}
+
+export function getSecondaryColor(theme: ExecutionContext["theme"], color: ColorKey) {
+	return theme.colors[color].secondary;
+}

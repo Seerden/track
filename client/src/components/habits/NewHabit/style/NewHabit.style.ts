@@ -1,4 +1,4 @@
-import StyledButtons from "@/lib/theme/components/Button.style";
+import { Action } from "@/lib/theme/components/buttons";
 import F from "@/lib/theme/components/form.style";
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
 import { font } from "@/lib/theme/font";
@@ -13,49 +13,15 @@ const ClearEndDateButtonWrapper = styled.div`
 	right: var(--offset);
 `;
 
-const ClearEndDateButton = styled(StyledButtons.Unstyled)`
-	cursor: pointer;
-	background-color: ${(p) => p.theme.colors.red.secondary};
-	box-shadow: 0 0 0.4rem 0 #aaa;
-	padding: 0.4rem;
-	border-radius: 50%;
-
-	display: flex;
-	align-items: center;
-	height: max-content;
-	width: max-content;
-
-	outline: 2px solid azure;
-	&:hover,
-	&:focus,
-	&:active {
-		outline: 2px solid azure;
-		box-shadow:
-			0 0.2rem 0 0 ${(p) => p.theme.colors.red.main},
-			0 0 0.2rem 0 #555;
-		transform: translateY(2px);
-		background-color: ${(p) => p.theme.colors.red.main};
-	}
-`;
-
-const SetEndDateButton = styled(StyledButtons.Unstyled)`
+const SetEndDateButton = styled(Action.Stylized)`
 	${flex.row};
-	align-items: center;
 	gap: 1rem;
-
-	font-size: 0.85rem;
-	align-self: flex-start;
-	padding: 0.5rem;
+	width: max-content;
 	border-radius: 3px;
-	background-color: #fff;
-	outline: 2px solid #ddd;
-	box-shadow: 0 0.1rem 0.3rem 0 #aaa;
-	cursor: pointer;
-
-	&:hover {
-		background-color: #eee;
-		outline: 2px solid #aaa;
-		transform: translateY(2px);
+	padding: 0.5rem;
+	color: black;
+	svg {
+		color: black;
 	}
 `;
 
@@ -186,7 +152,6 @@ const DateFields = styled.div`
 
 export default {
 	ClearEndDateButtonWrapper,
-	ClearEndDateButton,
 	SetEndDateButton,
 	RadioField,
 	RadioButton,

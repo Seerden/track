@@ -1,23 +1,15 @@
+import { Action } from "@/lib/theme/components/buttons";
 import styled, { css } from "styled-components";
 import type { CSS } from "styled-components/dist/types";
 
-const Button = styled.button<{
+const Button = styled(Action.Default)<{
 	$absolute?: boolean;
 	$size?: CSS.Properties["width"];
 }>`
 	--new-tag-button-size: ${(p) => p.$size ?? "30px"};
 	min-width: var(--new-tag-button-size);
 	min-height: var(--new-tag-button-size);
-	border-radius: 50%;
-	justify-content: center;
-	align-self: center;
-	display: flex;
 
-	align-items: center;
-	outline: 1px solid white;
-	border: 4px solid transparent;
-	box-shadow: 0 0.4rem 0 -0.1rem #ddd;
-	/* margin-top: 0.5rem; */
 	color: white;
 
 	${(p) =>
@@ -27,16 +19,6 @@ const Button = styled.button<{
 			top: 50%;
 			right: -7px;
 		`}
-	background-color: limegreen;
-
-	transition: all 25ms linear;
-
-	&:hover {
-		background-color: ${(p) => p.theme.colors.green.main};
-		box-shadow: 0 0.8rem 0 -0.6rem #ddd;
-		/* transform: translateX(5px); */
-		border-bottom-color: ${(p) => p.theme.colors.green.secondary};
-	}
 `;
 
 Button.defaultProps = {

@@ -1,6 +1,6 @@
 import type { FilterProps } from "@/components/tags/TagSelector/tag-selector.types";
 import FilterInput from "@/lib/theme/components/input/FilterInput.style";
-import { MdOutlineClear } from "react-icons/md";
+import { X } from "lucide-react";
 import S from "./style/TagSelector.style";
 
 function Filter(p: FilterProps) {
@@ -14,8 +14,8 @@ function Filter(p: FilterProps) {
 				value={p.filter}
 				onChange={p.updateFilter}
 			/>
-			<S.ClearFilter onClick={p.clearFilter}>
-				<MdOutlineClear size={15} />
+			<S.ClearFilter onClick={p.clearFilter} $color="themeInverted">
+				<X size={15} />
 			</S.ClearFilter>
 		</S.FilterWrapper>
 	);

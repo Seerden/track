@@ -1,3 +1,4 @@
+import { Action } from "@/lib/theme/components/buttons";
 import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
 
@@ -15,33 +16,10 @@ const ModalWrapper = styled.div`
 	justify-content: center;
 `;
 
-const Close = styled.button`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	--size: 35px;
-	width: var(--size);
-	height: var(--size);
+const Close = styled(Action.Stylized)`
 	position: absolute;
 	top: -0.9rem;
 	right: 1.8rem;
-	background-color: orangered;
-	color: orangered;
-	border-radius: 50%;
-
-	outline: 2px solid white;
-	border: 5px solid orangered;
-	box-shadow: none;
-
-	transition: all 35ms linear;
-
-	&:hover,
-	&:active,
-	&:focus {
-		border-radius: 5px;
-		background-color: red;
-		border-color: red;
-	}
 `;
 
 const Modal = styled.div`

@@ -45,6 +45,7 @@ export default function DetailedActivity({ activity }: DetailedActivityProps) {
 			</S.Title>
 
 			<S.EditButton
+				$color="blue"
 				onClick={(e) => {
 					e.stopPropagation();
 					openModal(modalIds.activities.form);

@@ -11,7 +11,7 @@ import type {
 } from "@t/data/activity.types";
 import type { ActivityTagRelation } from "@t/data/relational.types";
 import dayjs from "dayjs";
-import type { DatabaseInteractionFunction, WithSQL } from "types/sql.types";
+import type { QueryFunction, WithSQL } from "types/sql.types";
 
 export async function updateActivityCompletion({
 	sql = sqlConnection,
@@ -33,11 +33,11 @@ export async function updateActivityCompletion({
    `;
 }
 
-export const updateActivity: DatabaseInteractionFunction<
+export const updateActivity: QueryFunction<
 	{
 		input: ActivityUpdateInput;
 	},
-	Promise<ActivityWithIds>
+	ActivityWithIds
 > = async ({ sql = sqlConnection, input }) => {
 	return await sql.begin(async (q) => {
 		const { tag_ids, ...activityUpdate } = input.activity;

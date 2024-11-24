@@ -1,4 +1,4 @@
-import Button from "@/lib/theme/components/Button.style";
+import ActionButtons from "@/lib/theme/components/buttons/Action";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
@@ -28,14 +28,19 @@ const Actions = styled.ul`
 	gap: 1rem;
 `;
 
-const Action = styled(Button.Unstyled)`
-	cursor: pointer;
-	list-style: none;
+const Action = styled(ActionButtons.Default)`
 	border-radius: 5px;
+
 	${spacing.padding.wide({ size: 0.5, ratio: 3 })};
-	background-color: ${(p) => p.theme.colors.blue.main};
-	color: white;
+
+	// Override defaults from the generic default Action button
+	width: max-content;
+	height: max-content;
 `;
+
+Action.defaultProps = {
+	color: "darkBlue"
+};
 
 export default {
 	NavBar,

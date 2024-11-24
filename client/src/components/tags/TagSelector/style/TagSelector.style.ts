@@ -1,6 +1,6 @@
+import { Action } from "@/lib/theme/components/buttons";
 import FilterInput from "@/lib/theme/components/input/FilterInput.style";
 import { getFontSize } from "@/lib/theme/font";
-import { noBorders } from "@/lib/theme/snippets/border";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacing } from "@/lib/theme/snippets/spacing";
 import styled, { css } from "styled-components";
@@ -97,36 +97,17 @@ const Title = styled.h3`
 	border: 2px solid #777;
 `;
 
-const ClearFilter = styled.button`
+const ClearFilter = styled(Action.Default)`
 	position: absolute;
-	right: 0.1rem;
+	right: 0.3rem;
 
-	${noBorders};
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	align-self: center;
-
-	background-color: #aaa;
-	border-radius: 40%;
 	padding: 0.2rem;
-	cursor: pointer;
-	color: white;
+	margin-top: 0.05rem;
 
 	--size: 20px;
 	width: var(--size);
 	height: var(--size);
-
-	&:hover {
-		background-color: ${(p) => p.theme.colors.blue.main};
-		color: white;
-		border-radius: 50%;
-	}
 `;
-
-ClearFilter.defaultProps = {
-	type: "button"
-};
 
 const FilterWrapper = styled.div`
 	position: relative;
@@ -154,39 +135,6 @@ const Actions = styled.div`
 const Dropdown = styled.div`
 	position: relative;
 `;
-
-const DropdownTrigger = styled.button`
-	border-radius: 50%;
-	width: 30px;
-	height: 30px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 0px;
-	${noBorders};
-
-	&:active {
-		transform: scale(1.1);
-		background-color: white;
-		& > svg {
-			fill: black;
-		}
-	}
-
-	&:focus:not(:active) {
-		outline: 2px solid ${(p) => p.theme.colors.blue.main};
-		background-color: #fff;
-	}
-
-	&:hover {
-		background-color: #fafafa;
-		box-shadow: 0 0.2rem 0.5rem 0 #999;
-	}
-`;
-
-DropdownTrigger.defaultProps = {
-	type: "button"
-};
 
 const DropdownActions = styled.div`
 	${flex.row};
@@ -289,7 +237,6 @@ export default {
 	FilterWrapper,
 	Actions,
 	Dropdown,
-	DropdownTrigger,
 	DropdownActions,
 	DropdownContent,
 	SelectionList,
