@@ -153,7 +153,7 @@ export default function NewHabit() {
 					{hasEndDate && (
 						<S.ClearEndDateButtonWrapper>
 							<Action.Default
-								color="red"
+								$color="red"
 								onClick={(e) => {
 									e.stopPropagation();
 									setHasEndDate(false);

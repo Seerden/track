@@ -14,7 +14,7 @@ function Filter(p: FilterProps) {
 				value={p.filter}
 				onChange={p.updateFilter}
 			/>
-			<S.ClearFilter onClick={p.clearFilter} color="themeInverted">
+			<S.ClearFilter onClick={p.clearFilter} $color="themeInverted">
 				<X size={15} />
 			</S.ClearFilter>
 		</S.FilterWrapper>

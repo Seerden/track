@@ -3,21 +3,21 @@ import { Unstyled } from "@/lib/theme/components/buttons";
 import styled from "styled-components";
 import type { CSS } from "styled-components/dist/types";
 
-const Default = styled(Unstyled)<{ color?: ColorKey }>`
+const Default = styled(Unstyled)<{ $color?: ColorKey }>`
 	display: flex;
 	align-items: center;
 	justify-content: center;
 
 	border-radius: 50%;
 
-	background-color: ${(p) => (p.color ? p.theme.colors[p.color].main : "transparent")};
-	box-shadow: 0 0 0.2rem 0 ${(p) => (p.color ? p.theme.colors[p.color].main : "none")};
+	background-color: ${(p) => (p.$color ? p.theme.colors[p.$color].main : "transparent")};
+	box-shadow: 0 0 0.2rem 0 ${(p) => (p.$color ? p.theme.colors[p.$color].main : "none")};
 
 	&:hover,
 	&:focus,
 	&:active {
 		background-color: ${(p) =>
-			p.color ? p.theme.colors[p.color].secondary : "transparent"};
+			p.$color ? p.theme.colors[p.$color].secondary : "transparent"};
 		outline: 2px solid white;
 		box-shadow: 0 0 0.3rem 0 #333;
 	}
@@ -32,10 +32,10 @@ const Default = styled(Unstyled)<{ color?: ColorKey }>`
 
 Default.defaultProps = {
 	type: "button",
-	color: "purple"
+	$color: "purple"
 };
 
-const Alternative = styled(Unstyled)<{ color?: ColorKey }>`
+const Alternative = styled(Unstyled)`
 	display: flex;
 	justify-content: center;
 	align-items: center;

@@ -4,7 +4,6 @@ import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
 
 const Default = styled(Unstyled)`
-	cursor: pointer;
 	${spacing.padding.wide({ size: 0.6, ratio: 2.5 })};
 	margin-bottom: -1.5rem;
 	margin-top: 0.3rem;

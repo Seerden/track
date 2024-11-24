@@ -48,7 +48,7 @@ export default function SpeedDial({
 
 	return (
 		<S.SpeedDialWrapper ref={refs.setReference} {...getReferenceProps()}>
-			<Action.Default color="darkBlue" style={{ width: 50, height: 50 }}>
+			<Action.Default $color="darkBlue" style={{ width: 50, height: 50 }}>
 				{open ? <Minus strokeWidth={3} /> : <Plus strokeWidth={3} />}
 			</Action.Default>
 			{open && (
