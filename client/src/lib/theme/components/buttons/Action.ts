@@ -3,7 +3,6 @@ import { Unstyled } from "@/lib/theme/components/buttons";
 import styled from "styled-components";
 import type { CSS } from "styled-components/dist/types";
 
-// Adapted from ChangeDayButton
 const Default = styled(Unstyled)<{ color?: ColorKey }>`
 	display: flex;
 	align-items: center;
@@ -36,7 +35,6 @@ Default.defaultProps = {
 	color: "purple"
 };
 
-// Adapted from DropdownTrigger in TagSelector
 const Alternative = styled(Unstyled)<{ color?: ColorKey }>`
 	display: flex;
 	justify-content: center;
