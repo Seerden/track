@@ -1,6 +1,5 @@
 import type { ColorKey } from "@/lib/theme/colors";
 import ActionButtons from "@/lib/theme/components/buttons/Action";
-import ButtonStyle from "@/lib/theme/components/buttons/Button.style";
 import CellButtons from "@/lib/theme/components/buttons/Cell";
 import UnstyledButton from "@/lib/theme/components/buttons/Unstyled";
 import type { Meta, StoryFn, StoryObj } from "@storybook/react";
@@ -23,9 +22,9 @@ export const Unstyled: Story = {
 
 export const Edit: StoryFn = (args) => {
 	return (
-		<ButtonStyle.StylizedAction {...args} $color="themeInverted">
+		<ActionButtons.Stylized {...args} $color="themeInverted">
 			<RollerCoaster strokeWidth={1} />
-		</ButtonStyle.StylizedAction>
+		</ActionButtons.Stylized>
 	);
 };
 

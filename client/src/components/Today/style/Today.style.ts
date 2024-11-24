@@ -1,6 +1,6 @@
 import HabitStyle from "@/components/habits/Habits/style/Habit.style";
 import TagCardStyle from "@/components/tags/TagCard/style/TagCard.style";
-import ButtonStyle from "@/lib/theme/components/buttons/Button.style";
+import ActionButtons from "@/lib/theme/components/buttons/Action";
 import ListStyle from "@/lib/theme/components/List.style";
 import { font, getFontSize } from "@/lib/theme/font";
 import { column } from "@/lib/theme/snippets/column";
@@ -221,7 +221,7 @@ const SpeedDialActions = styled.div`
 	font-size: 0.8rem;
 `;
 
-const SpeedDialButton = styled(ButtonStyle.StylizedAction)`
+const SpeedDialButton = styled(ActionButtons.Stylized)`
 	width: calc(100% + 2rem);
 	border-radius: 5px;
 `;

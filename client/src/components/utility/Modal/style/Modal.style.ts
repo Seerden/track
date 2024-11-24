@@ -1,4 +1,4 @@
-import ButtonStyle from "@/lib/theme/components/buttons/Button.style";
+import ActionButtons from "@/lib/theme/components/buttons/Action";
 import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
 
@@ -16,7 +16,7 @@ const ModalWrapper = styled.div`
 	justify-content: center;
 `;
 
-const Close = styled(ButtonStyle.StylizedAction)`
+const Close = styled(ActionButtons.Stylized)`
 	position: absolute;
 	top: -0.9rem;
 	right: 1.8rem;
