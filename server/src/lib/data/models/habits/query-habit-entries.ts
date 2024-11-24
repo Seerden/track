@@ -1,11 +1,11 @@
 import { sqlConnection } from "@/db/init";
 import type { HabitEntry } from "@t/data/habit.types";
 import type { ID } from "@t/data/utility.types";
-import type { WithSQL } from "types/sql.types";
+import type { QueryFunction } from "types/sql.types";
 
-export async function queryHabitEntriesByUser({
-	sql = sqlConnection,
-	user_id,
-}: WithSQL<{ user_id: ID }>) {
+export const queryHabitEntriesByUser: QueryFunction<
+	{ user_id: ID },
+	Promise<HabitEntry[]>
+> = ({ sql = sqlConnection, user_id }) => {
 	return sql<HabitEntry[]>`select * from habit_entries where user_id = ${user_id}`;
-}
+};
