@@ -15,3 +15,5 @@ docker/test-database-backup
 **/dist/
 
 **/**/*.tsbuildinfo
+
+/docs
