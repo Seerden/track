@@ -13,6 +13,11 @@ import type { ActivityTagRelation } from "@t/data/relational.types";
 import dayjs from "dayjs";
 import type { QueryFunction } from "types/sql.types";
 
+/**
+ * Updates the completion fields of an activity.
+ * @todo Since we consider activities that have completion fields to be "tasks",
+ * should we name this `updateTaskCompletion`?
+ */
 export const updateActivityCompletion: QueryFunction<
 	{ input: TaskUpdateInput },
 	Promise<Activity[]>
@@ -33,20 +38,22 @@ export const updateActivityCompletion: QueryFunction<
    `;
 };
 
+/**
+ * Update the meta values of an activity (currently, that means everything
+ * exception the completion-related fields of a task).
+ */
 export const updateActivity: QueryFunction<
 	{
 		input: ActivityUpdateInput;
 	},
 	Promise<ActivityWithIds>
 > = async ({ sql = sqlConnection, input }) => {
-	return await sql.begin(async (q) => {
+	return sql.begin(async (q) => {
 		const { tag_ids, ...activityUpdate } = input.activity;
-
-		const vals = sql(activityUpdate);
 
 		const [activity] = await sql<[Activity]>`
          UPDATE activities
-            SET ${vals}
+            SET ${sql(activityUpdate)}
             WHERE activity_id = ${input.activity.activity_id}
             RETURNING *
       `;
@@ -65,6 +72,6 @@ export const updateActivity: QueryFunction<
 		}
 		return Object.assign(activity, {
 			tag_ids: relations.map((r) => r.tag_id),
-		}) as ActivityWithIds;
+		});
 	});
 };
