@@ -1,4 +1,5 @@
 import ButtonStyle from "@/lib/theme/components/Button.style";
+import CellButtons from "@/lib/theme/components/buttons/Cell";
 import type { Meta, StoryFn, StoryObj } from "@storybook/react";
 import { RollerCoaster } from "lucide-react";
 
@@ -30,5 +31,21 @@ export const Create: StoryFn = (args) => {
 		<ButtonStyle.Create {...args}>
 			<RollerCoaster strokeWidth={1} />
 		</ButtonStyle.Create>
+	);
+};
+
+export const Cell: StoryFn = (args) => {
+	return (
+		<>
+			Selected
+			<CellButtons.Default {...args} $selected={true}>
+				31
+			</CellButtons.Default>
+			<br />
+			Not selected
+			<CellButtons.Default {...args} $selected={false}>
+				31
+			</CellButtons.Default>
+		</>
 	);
 };
