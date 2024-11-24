@@ -17,6 +17,7 @@ import { useModalState } from "@/lib/state/modal-state";
 import { selectedTimeWindowState } from "@/lib/state/selected-time-window-state";
 import { activityFallsOnDay, isAllDayActivityOnDate } from "@lib/activity";
 import type { Dayjs } from "dayjs";
+import type { PropsWithChildren } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { useRecoilState } from "recoil";
 import Notes from "./Notes";
@@ -78,6 +79,11 @@ function useToday() {
 	} as const;
 }
 
+type SpeedDialActionProps = {
+	$color?: React.ComponentProps<typeof S.SpeedDialButton>["$color"];
+	modalId: ModalId;
+};
+
 export default function Today() {
 	const t = useToday();
 
@@ -85,6 +91,18 @@ export default function Today() {
 	function handleModalOpen(e: React.MouseEvent<HTMLButtonElement>, modalId: ModalId) {
 		e.stopPropagation();
 		openModal(modalId);
+	}
+
+	function SpeedDialAction({
+		children,
+		$color = "blue",
+		modalId
+	}: PropsWithChildren<SpeedDialActionProps>) {
+		return (
+			<S.SpeedDialButton $color={$color} onClick={(e) => handleModalOpen(e, modalId)}>
+				{children}
+			</S.SpeedDialButton>
+		);
 	}
 
 	return (
@@ -102,26 +120,16 @@ export default function Today() {
 				<S.Create>
 					<SpeedDial open={t.speedDialOpen} setOpen={t.setSpeedDialOpen}>
 						<S.SpeedDialActions>
-							<S.SpeedDialButton
-								onClick={(e) => handleModalOpen(e, modalIds.activities.form)}
-							>
+							<SpeedDialAction modalId={modalIds.activities.form}>
 								activity
-							</S.SpeedDialButton>
-							<S.SpeedDialButton
-								onClick={(e) => handleModalOpen(e, modalIds.activities.newTask)}
-							>
+							</SpeedDialAction>
+							<SpeedDialAction modalId={modalIds.activities.newTask}>
 								task
-							</S.SpeedDialButton>
-							<S.SpeedDialButton
-								onClick={(e) => handleModalOpen(e, modalIds.habits.new)}
-							>
+							</SpeedDialAction>
+							<SpeedDialAction modalId={modalIds.habits.new}>
 								habit
-							</S.SpeedDialButton>
-							<S.SpeedDialButton
-								onClick={(e) => handleModalOpen(e, modalIds.notes.new)}
-							>
-								note
-							</S.SpeedDialButton>
+							</SpeedDialAction>
+							<SpeedDialAction modalId={modalIds.notes.new}>note</SpeedDialAction>
 						</S.SpeedDialActions>
 					</SpeedDial>
 				</S.Create>

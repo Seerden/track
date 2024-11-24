@@ -221,7 +221,7 @@ const SpeedDialActions = styled.div`
 	font-size: 0.8rem;
 `;
 
-const SpeedDialButton = styled(ButtonStyle.Create)`
+const SpeedDialButton = styled(ButtonStyle.Edit)`
 	width: calc(100% + 2rem);
 	border-radius: 5px;
 `;

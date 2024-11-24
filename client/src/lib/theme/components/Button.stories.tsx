@@ -22,17 +22,9 @@ export const Unstyled: Story = {
 
 export const Edit: StoryFn = (args) => {
 	return (
-		<ButtonStyle.Edit {...args}>
+		<ButtonStyle.Edit {...args} $color="themeInverted">
 			<RollerCoaster strokeWidth={1} />
 		</ButtonStyle.Edit>
-	);
-};
-
-export const Create: StoryFn = (args) => {
-	return (
-		<ButtonStyle.Create {...args}>
-			<RollerCoaster strokeWidth={1} />
-		</ButtonStyle.Create>
 	);
 };
 

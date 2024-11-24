@@ -12,6 +12,8 @@ const Unstyled = styled.button`
 Unstyled.defaultProps = { type: "button" };
 
 const Edit = styled(Unstyled)<{ $size?: CSS.Properties["width"]; $color: ColorKey }>`
+	--color: ${(p) => p.$color ?? "themeInverted"};
+
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -44,16 +46,7 @@ Edit.defaultProps = {
 	$color: "themeInverted"
 };
 
-/** TODO: I'm calling this Create right now, but it's really just an Action button, so
- * it'll be renamed soon enough. */
-const Create = styled(Edit)`
-	display: flex;
-	align-items: center;
-	justify-content: center;
-`;
-
 export default {
 	Unstyled,
-	Edit,
-	Create
+	Edit
 };
