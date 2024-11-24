@@ -1,3 +1,4 @@
+import ActionButtons from "@/lib/theme/components/buttons/Action";
 import FilterInput from "@/lib/theme/components/input/FilterInput.style";
 import { getFontSize } from "@/lib/theme/font";
 import { noBorders } from "@/lib/theme/snippets/border";
@@ -97,36 +98,17 @@ const Title = styled.h3`
 	border: 2px solid #777;
 `;
 
-const ClearFilter = styled.button`
+const ClearFilter = styled(ActionButtons.Default)`
 	position: absolute;
-	right: 0.1rem;
+	right: 0.3rem;
 
-	${noBorders};
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	align-self: center;
-
-	background-color: #aaa;
-	border-radius: 40%;
 	padding: 0.2rem;
-	cursor: pointer;
-	color: white;
+	margin-top: 0.05rem;
 
 	--size: 20px;
 	width: var(--size);
 	height: var(--size);
-
-	&:hover {
-		background-color: ${(p) => p.theme.colors.blue.main};
-		color: white;
-		border-radius: 50%;
-	}
 `;
-
-ClearFilter.defaultProps = {
-	type: "button"
-};
 
 const FilterWrapper = styled.div`
 	position: relative;
