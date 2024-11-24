@@ -3,8 +3,8 @@ import type { CSSProperties } from "styled-components";
 import styled, { css } from "styled-components";
 
 const highlightColor: CSSProperties["color"] = "dodgerblue";
-export const defaultCellWidth = 30;
-export const defaultCellHeight = 30;
+export const defaultCellWidth = 25;
+export const defaultCellHeight = 25;
 
 const Default = styled(ButtonStyle.Unstyled)<{
 	$selected?: boolean;

@@ -4,7 +4,7 @@ import { flex } from "@/lib/theme/snippets/flex";
 import type { CSSProperties } from "styled-components";
 import styled from "styled-components";
 
-const gap = "0.1rem";
+const gap = "0.3rem";
 const highlightColor: CSSProperties["color"] = "dodgerblue";
 
 const Calendar = styled.div`
@@ -56,13 +56,16 @@ const Days = styled.div`
 	gap: ${gap};
 
 	width: max-content;
-	margin-bottom: calc(4 * ${gap});
+	margin-bottom: calc(2 * ${gap});
 	border-radius: 5px;
 	background-color: #eee;
 	border-bottom: 2px solid ${highlightColor};
 
 	font-size: ${(p) => getFontSize(p, 0.8)};
 	font-weight: 500;
+
+	margin-inline: -0.5rem;
+	padding-inline: 0.5rem;
 `;
 
 type StyledCellProps = {
@@ -81,7 +84,7 @@ const Day = styled.div<StyledCellProps>`
 
 const Rows = styled.div`
 	${flex.column};
-	gap: calc(3 * ${gap});
+	gap: calc(1.5 * ${gap});
 `;
 
 const Row = styled.div`
