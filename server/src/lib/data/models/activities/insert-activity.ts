@@ -1,26 +1,28 @@
 import { sqlConnection } from "@/db/init";
 import { linkTagsToActivity } from "@/lib/data/models/activities/link-and-unlink-tags-and-activities";
-import type { Activity, NewActivity } from "@t/data/activity.types";
+import type { Activity, ActivityWithIds, NewActivity } from "@t/data/activity.types";
 import type { ID } from "@t/data/utility.types";
-import type { WithSQL } from "types/sql.types";
+import type { QueryFunction } from "types/sql.types";
 
-async function insertActivity({
-	sql = sqlConnection,
-	activity,
-}: WithSQL<{ activity: NewActivity }>) {
+const insertActivity: QueryFunction<
+	{ activity: NewActivity },
+	Promise<Activity>
+> = async ({ sql = sqlConnection, activity }) => {
 	const [insertedActivity] = await sql<[Activity]>`
       insert into activities ${sql(activity)}
       returning *
    `;
 
 	return insertedActivity;
-}
+};
 
-export async function insertActivityWithTags({
-	sql = sqlConnection,
-	activity,
-	tag_ids,
-}: WithSQL<{ activity: NewActivity; tag_ids?: ID[] }>) {
+export const insertActivityWithTags: QueryFunction<
+	{
+		activity: NewActivity;
+		tag_ids?: ID[];
+	},
+	Promise<ActivityWithIds>
+> = async ({ sql = sqlConnection, activity, tag_ids }) => {
 	return await sql.begin(async (q) => {
 		const insertedActivity = await insertActivity({ sql: q, activity });
 		let linkedTagIds: ID[] = [];
@@ -37,4 +39,4 @@ export async function insertActivityWithTags({
 
 		return Object.assign(insertedActivity, { tag_ids: linkedTagIds });
 	});
-}
+};

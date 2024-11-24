@@ -11,12 +11,12 @@ import type {
 } from "@t/data/activity.types";
 import type { ActivityTagRelation } from "@t/data/relational.types";
 import dayjs from "dayjs";
-import type { QueryFunction, WithSQL } from "types/sql.types";
+import type { QueryFunction } from "types/sql.types";
 
-export async function updateActivityCompletion({
-	sql = sqlConnection,
-	input,
-}: WithSQL<{ input: TaskUpdateInput }>) {
+export const updateActivityCompletion: QueryFunction<
+	{ input: TaskUpdateInput },
+	Promise<Activity[]>
+> = async ({ sql = sqlConnection, input }) => {
 	const start = input.completion_start
 		? dayjs(input.completion_start).toISOString()
 		: null;
@@ -31,13 +31,13 @@ export async function updateActivityCompletion({
       where activity_id = ${input.activity_id}
       returning *
    `;
-}
+};
 
 export const updateActivity: QueryFunction<
 	{
 		input: ActivityUpdateInput;
 	},
-	ActivityWithIds
+	Promise<ActivityWithIds>
 > = async ({ sql = sqlConnection, input }) => {
 	return await sql.begin(async (q) => {
 		const { tag_ids, ...activityUpdate } = input.activity;
