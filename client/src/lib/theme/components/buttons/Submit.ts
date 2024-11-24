@@ -28,6 +28,10 @@ const Default = styled(Unstyled)`
 	}
 `;
 
+Default.defaultProps = {
+	type: "submit"
+};
+
 const SubmitButtons = {
 	Default
 };
