@@ -2,21 +2,23 @@ import { sqlConnection } from "@/db/init";
 import type { ActivityTagRelation, TagTagRelation } from "@t/data/relational.types";
 import type { TagWithId } from "@t/data/tag.types";
 import type { ID } from "@t/data/utility.types";
-import type { WithSQL } from "types/sql.types";
+import type { QueryFunction } from "types/sql.types";
 
 /** Get all of a user's tags. */
-export async function queryTagsByUser({
-	sql = sqlConnection,
-	user_id,
-}: WithSQL<{ user_id: ID; withChildren?: boolean }>) {
-	return sql<TagWithId[]>`select * from tags where user_id = ${user_id}`;
-}
+export const queryTagsByUser: QueryFunction<
+	{ user_id: ID },
+	Promise<TagWithId[]>
+> = async ({ sql = sqlConnection, user_id }) => {
+	return sql<TagWithId[]>`
+      select * from tags where user_id = ${user_id}
+   `;
+};
 
 /** Get all child tags for a given parent tag. */
-export async function queryTagsByParent({
-	sql = sqlConnection,
-	parent_id,
-}: WithSQL<{ parent_id: ID }>) {
+export const queryTagsByParent: QueryFunction<
+	{ parent_id: ID },
+	Promise<TagWithId[]>
+> = async ({ sql = sqlConnection, parent_id }) => {
 	const relations = await sql<
 		TagTagRelation[]
 	>`select * from tags_tags where parent_id = ${parent_id}`;
@@ -25,44 +27,48 @@ export async function queryTagsByParent({
 
 	const childIds = relations.map((r) => r.child_id);
 	return sql<TagWithId[]>`select * from tags where tag_id = any(${childIds})`;
-}
+};
 
 /** Get all the tags for a given activity. */
-export async function queryTagsByActivity({
-	sql = sqlConnection,
-	activity_id,
-}: WithSQL<{ activity_id: ID }>) {
-	const activityTags = await sql<
-		ActivityTagRelation[]
-	>`select * from activities_tags where activity_id = ${activity_id}`;
+export const queryTagsByActivity: QueryFunction<
+	{ activity_id: ID },
+	Promise<TagWithId[]>
+> = async ({ sql = sqlConnection, activity_id }) => {
+	const activityTags = await sql<ActivityTagRelation[]>`
+      select * from activities_tags where activity_id = ${activity_id}
+   `;
 
 	if (!activityTags?.length) return [];
 
 	const tagIds = activityTags.map((at) => at.tag_id);
 
-	return sql<TagWithId[]>`select * from tags where tag_id = any(${tagIds})`;
-}
+	return sql<TagWithId[]>`
+      select * from tags where tag_id = any(${tagIds})
+   `;
+};
 
-export async function queryTagRelations({
-	sql = sqlConnection,
-	user_id,
-}: WithSQL<{ user_id: ID }>) {
-	return sql`select * from tags_tags where user_id = ${user_id}`;
-}
+export const queryTagRelations: QueryFunction<
+	{ user_id: ID },
+	Promise<TagTagRelation[]>
+> = async ({ sql = sqlConnection, user_id }) => {
+	return sql<[TagTagRelation]>`
+      select * from tags_tags where user_id = ${user_id}
+   `;
+};
 
-export async function queryTagsAndRelations({
-	sql = sqlConnection,
-	user_id,
-}: WithSQL<{ user_id: ID }>) {
+export const queryTagsAndRelations: QueryFunction<
+	{ user_id: ID },
+	Promise<{ tags: TagWithId[]; relations: TagTagRelation[] }>
+> = async ({ sql = sqlConnection, user_id }) => {
 	const tags = await queryTagsByUser({ sql, user_id });
 
 	if (!tags?.length) return { tags: [], relations: [] };
 
 	const tagIds = tags.map((t) => t.tag_id);
 
-	const relations = await sql<
-		TagTagRelation[]
-	>`select * from tags_tags where parent_id = any(${tagIds}) or child_id = any(${tagIds})`;
+	const relations = await sql<TagTagRelation[]>`
+      select * from tags_tags where parent_id = any(${tagIds}) or child_id = any(${tagIds})
+   `;
 
 	return { tags, relations };
-}
+};

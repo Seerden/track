@@ -2,41 +2,38 @@ import { sqlConnection } from "@/db/init";
 import type { TagTagRelation } from "@t/data/relational.types";
 import type { NewTag, TagInput, TagWithId, TagWithIds } from "@t/data/tag.types";
 import type { ID } from "@t/data/utility.types";
-import type { WithSQL } from "types/sql.types";
+import type { QueryFunction } from "types/sql.types";
 
 /** Inserts one or multiple tags into the database. Does not handle tag-tag relationships. */
-export async function insertTags({
-	sql = sqlConnection,
-	newTags,
-}: WithSQL<{ newTags: Array<NewTag> }>) {
+export const insertTags: QueryFunction<
+	{ newTags: NewTag[] },
+	Promise<TagWithId[]>
+> = async ({ sql = sqlConnection, newTags }) => {
 	const insertedTags = sql<[TagWithId]>`
         insert into tags 
         ${sql(newTags)}
         returning *
     `;
 	return insertedTags;
-}
+};
 
 /** Creates a single parent-child relationship between two tags. */
-export async function insertTagRelation({
-	sql = sqlConnection,
-	user_id,
-	parent_id,
-	child_id,
-}: WithSQL<{ user_id: ID; parent_id: ID; child_id: ID }>) {
+export const insertTagRelation: QueryFunction<
+	{ user_id: ID; parent_id: ID; child_id: ID },
+	Promise<TagTagRelation>
+> = async ({ sql = sqlConnection, user_id, parent_id, child_id }) => {
 	const [relation] = await sql<[TagTagRelation]>`
         insert into tags_tags
         ${sql({ user_id, parent_id, child_id })}
         returning *
     `;
 	return relation;
-}
+};
 
-export async function insertTagWithRelation({
-	sql = sqlConnection,
-	newTag,
-	parent_id,
-}: WithSQL<TagInput>): Promise<TagWithIds> {
+export const insertTagWithRelation: QueryFunction<
+	TagInput,
+	Promise<TagWithIds>
+> = async ({ sql = sqlConnection, newTag, parent_id }) => {
 	return await sql.begin(async (q) => {
 		const [tag] = await insertTags({ sql: q, newTags: [newTag] });
 
@@ -55,4 +52,4 @@ export async function insertTagWithRelation({
 
 		return Object.assign(tag, { child_ids: [], parent_id: relation.parent_id });
 	});
-}
+};
