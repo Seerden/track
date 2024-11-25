@@ -2,9 +2,12 @@ import { sqlConnection } from "@/db/init";
 import type { NewNote, Note, NoteWithIds } from "@t/data/note.types";
 import type { NoteTagRelation } from "@t/data/relational.types";
 import type { ID } from "@t/data/utility.types";
-import type { WithSQL } from "types/sql.types";
+import type { QueryFunction } from "types/sql.types";
 
-async function insertNote({ sql = sqlConnection, note }: WithSQL<{ note: NewNote }>) {
+const insertNote: QueryFunction<{ note: NewNote }, Promise<Note>> = async ({
+	sql = sqlConnection,
+	note,
+}) => {
 	const [insertedNote] = await sql<[Note]>`
       insert into notes 
       ${sql(note)}
@@ -12,16 +15,18 @@ async function insertNote({ sql = sqlConnection, note }: WithSQL<{ note: NewNote
    `;
 
 	return insertedNote;
-}
+};
 
 // TODO: I like the name of this more than how I named createTagRelation for
 // tag<->tag relations
-async function linkTagsToNote({
-	sql = sqlConnection,
-	user_id,
-	note_id,
-	tag_ids,
-}: WithSQL<{ user_id: ID; note_id: ID; tag_ids: ID[] }>) {
+const linkTagsToNote: QueryFunction<
+	{
+		user_id: ID;
+		note_id: ID;
+		tag_ids: ID[];
+	},
+	Promise<NoteTagRelation[]>
+> = async ({ sql = sqlConnection, user_id, note_id, tag_ids }) => {
 	const tagRelations = tag_ids.map((tag_id) => ({ user_id, note_id, tag_id }));
 
 	return sql<[NoteTagRelation]>`
@@ -29,13 +34,15 @@ async function linkTagsToNote({
       ${sql(tagRelations)}
       returning *
    `;
-}
+};
 
-export async function insertNoteWithTags({
-	sql = sqlConnection,
-	note,
-	tag_ids,
-}: WithSQL<{ note: NewNote; tag_ids?: ID[] }>): Promise<NoteWithIds> {
+export const insertNoteWithTags: QueryFunction<
+	{
+		note: NewNote;
+		tag_ids?: ID[];
+	},
+	Promise<NoteWithIds>
+> = async ({ sql = sqlConnection, note, tag_ids }) => {
 	return await sql.begin(async (q) => {
 		const insertedNote = await insertNote({ sql: q, note });
 		let linkedTagIds: ID[] = [];
@@ -52,4 +59,4 @@ export async function insertNoteWithTags({
 
 		return Object.assign(insertedNote, { tag_ids: linkedTagIds });
 	});
-}
+};
