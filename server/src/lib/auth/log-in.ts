@@ -1,4 +1,4 @@
-import { getUserByName } from "@/lib/data/models/user/query-user";
+import { queryUserByName } from "@/lib/data/models/user/query-user";
 import type { UserLogin } from "@t/data/user.types";
 import { compare } from "bcryptjs";
 import type { Request, Response } from "express";
@@ -6,7 +6,7 @@ import { destroySession } from "./destroy-session";
 
 /** Request handler. If login info is valid, (re-)set the session. */
 export async function login(user: UserLogin, req: Request, res: Response) {
-	const foundUser = await getUserByName({ username: user.username });
+	const foundUser = await queryUserByName({ username: user.username });
 
 	if (!foundUser) {
 		return res.status(404).json({ message: "No user found for given credentials." });

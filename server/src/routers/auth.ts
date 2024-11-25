@@ -1,5 +1,5 @@
 import { createUser } from "@/lib/data/models/user/insert-user";
-import { getUserById } from "@/lib/data/models/user/query-user";
+import { queryUserbyId } from "@/lib/data/models/user/query-user";
 import { destroySession } from "@lib/auth/destroy-session";
 import { login } from "@lib/auth/log-in";
 import { type NewUser, type UserLogin } from "@t/data/user.types";
@@ -14,7 +14,7 @@ authRouter.get("/me", async (req, res) => {
 
 	return res
 		.status(200)
-		.json({ user: await getUserById({ user_id: req.session.user.user_id }) });
+		.json({ user: await queryUserbyId({ user_id: req.session.user.user_id }) });
 });
 
 authRouter.post("/logout", async (req, res) => {

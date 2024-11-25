@@ -4,21 +4,21 @@ import { queryHabitEntriesByUser } from "@/lib/data/models/habits/query-habit-en
 import type { Habit } from "@t/data/habit.types";
 import type { HabitTagRelation } from "@t/data/relational.types";
 import type { ID } from "@t/data/utility.types";
-import type { WithSQL } from "types/sql.types";
+import type { QueryFunction } from "types/sql.types";
 
-async function queryHabitsByUser({
+const queryHabitsByUser: QueryFunction<{ user_id: ID }, Promise<Habit[]>> = async ({
 	sql = sqlConnection,
 	user_id,
-}: WithSQL<{ user_id: ID }>) {
+}) => {
 	return sql<Habit[]>`select * from habits where user_id = ${user_id}`;
-}
+};
 
-async function queryHabitTagsByUser({
-	sql = sqlConnection,
-	user_id,
-}: WithSQL<{ user_id: ID }>) {
+const queryHabitTagsByUser: QueryFunction<
+	{ user_id: ID },
+	Promise<HabitTagRelation[]>
+> = async ({ sql = sqlConnection, user_id }) => {
 	return sql<HabitTagRelation[]>`select * from habits_tags where user_id = ${user_id}`;
-}
+};
 
 export async function queryHabitsAndRelations({ user_id }: { user_id: ID }) {
 	const habits = await queryHabitsByUser({ user_id });

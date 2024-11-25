@@ -11,12 +11,17 @@ import type {
 } from "@t/data/activity.types";
 import type { ActivityTagRelation } from "@t/data/relational.types";
 import dayjs from "dayjs";
-import type { QueryFunction, WithSQL } from "types/sql.types";
+import type { QueryFunction } from "types/sql.types";
 
-export async function updateActivityCompletion({
-	sql = sqlConnection,
-	input,
-}: WithSQL<{ input: TaskUpdateInput }>) {
+/**
+ * Updates the completion fields of an activity.
+ * @todo Since we consider activities that have completion fields to be "tasks",
+ * should we name this `updateTaskCompletion`?
+ */
+export const updateActivityCompletion: QueryFunction<
+	{ input: TaskUpdateInput },
+	Promise<Activity[]>
+> = async ({ sql = sqlConnection, input }) => {
 	const start = input.completion_start
 		? dayjs(input.completion_start).toISOString()
 		: null;
@@ -31,22 +36,24 @@ export async function updateActivityCompletion({
       where activity_id = ${input.activity_id}
       returning *
    `;
-}
+};
 
+/**
+ * Update the meta values of an activity (currently, that means everything
+ * exception the completion-related fields of a task).
+ */
 export const updateActivity: QueryFunction<
 	{
 		input: ActivityUpdateInput;
 	},
-	ActivityWithIds
+	Promise<ActivityWithIds>
 > = async ({ sql = sqlConnection, input }) => {
-	return await sql.begin(async (q) => {
+	return sql.begin(async (q) => {
 		const { tag_ids, ...activityUpdate } = input.activity;
-
-		const vals = sql(activityUpdate);
 
 		const [activity] = await sql<[Activity]>`
          UPDATE activities
-            SET ${vals}
+            SET ${sql(activityUpdate)}
             WHERE activity_id = ${input.activity.activity_id}
             RETURNING *
       `;
@@ -65,6 +72,6 @@ export const updateActivity: QueryFunction<
 		}
 		return Object.assign(activity, {
 			tag_ids: relations.map((r) => r.tag_id),
-		}) as ActivityWithIds;
+		});
 	});
 };
