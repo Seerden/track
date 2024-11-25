@@ -51,6 +51,7 @@ export type LogTemplate = {
 	log_template_id: ID;
 	logbook_id: Logbook["logbook_id"];
 	name: Nullable<string>; // for example "PPL routine", which would be in the lifting logbook
+	layout: Nullable<unknown[]>; // we should probably enforce a subtype here, but I don't know how to enforce it inside the database
 
 	created_at: Timestamp;
 };
