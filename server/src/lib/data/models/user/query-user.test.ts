@@ -2,7 +2,7 @@ import { sqlConnection } from "@/db/init";
 import type { NewUser } from "@t/data/user.types";
 import { compare } from "bcryptjs";
 import { createUser } from "./insert-user";
-import { getUserByName, userExists } from "./query-user";
+import { getUserByName } from "./query-user";
 
 describe("getUser", () => {
 	it("returns a just-inserted user", async () => {
@@ -16,9 +16,11 @@ describe("getUser", () => {
 
 			const foundUser = await getUserByName({ sql: q, username: newUser.username });
 
-			expect(foundUser?.username).toBeDefined();
-			expect(foundUser?.username).toEqual(newUser.username);
-			expect(await compare(newUser.password, foundUser?.password_hash!)).toEqual(true);
+			if (!foundUser) throw new Error("User not found");
+			expect(foundUser).toBeDefined();
+			expect(foundUser.username).toBeDefined();
+			expect(foundUser.username).toEqual(newUser.username);
+			expect(await compare(newUser.password, foundUser.password_hash)).toEqual(true);
 
 			q`rollback`;
 		});
@@ -32,23 +34,6 @@ describe("getUser", () => {
 			});
 
 			expect(shouldBeUndefined).toBeUndefined();
-
-			sql`rollback`;
-		});
-	});
-});
-
-describe("userExists", () => {
-	it("returns true for existing user, false for nonexistent user", async () => {
-		const user: NewUser = {
-			username: `${Math.random()}`,
-			password: "1",
-		};
-		sqlConnection.begin(async (sql) => {
-			await createUser({ sql, newUser: user });
-
-			expect(await userExists({ sql, username: user.username })).toBeTruthy();
-			expect(await userExists({ sql, username: `${Math.random()}` })).toBeFalsy();
 
 			sql`rollback`;
 		});
