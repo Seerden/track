@@ -18,7 +18,7 @@ export const insertTags: QueryFunction<
 };
 
 /** Creates a single parent-child relationship between two tags. */
-export const insertTagRelation: QueryFunction<
+export const linkTagToParent: QueryFunction<
 	{ user_id: ID; parent_id: ID; child_id: ID },
 	Promise<TagTagRelation>
 > = async ({ sql = sqlConnection, user_id, parent_id, child_id }) => {
@@ -30,7 +30,7 @@ export const insertTagRelation: QueryFunction<
 	return relation;
 };
 
-export const insertTagWithRelation: QueryFunction<
+export const insertTagWithRelations: QueryFunction<
 	TagInput,
 	Promise<TagWithIds>
 > = async ({ sql = sqlConnection, newTag, parent_id }) => {
@@ -43,7 +43,7 @@ export const insertTagWithRelation: QueryFunction<
 
 		// TODO: check if parent_id exists and belongs to the user
 
-		const relation = await insertTagRelation({
+		const relation = await linkTagToParent({
 			sql: q,
 			user_id: tag.user_id,
 			parent_id,

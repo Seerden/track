@@ -2,7 +2,7 @@ import { sqlConnection } from "@/db/init";
 import type { NewUser, User, UserInput } from "@t/data/user.types";
 import { hash } from "bcryptjs";
 import type { WithSQL } from "types/sql.types";
-import { getUserByName } from "./query-user";
+import { queryUserByName } from "./query-user";
 
 async function generatePasswordHash(password: string) {
 	return hash(password, 11);
@@ -14,7 +14,7 @@ export async function createUser({
 	sql = sqlConnection,
 	newUser,
 }: WithSQL<{ newUser: NewUser }>) {
-	if (await getUserByName({ sql, username: newUser.username })) return;
+	if (await queryUserByName({ sql, username: newUser.username })) return;
 
 	const passwordHash = await generatePasswordHash(newUser.password);
 	const userInput: UserInput = {

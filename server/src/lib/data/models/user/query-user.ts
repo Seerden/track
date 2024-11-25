@@ -4,7 +4,7 @@ import type { Maybe } from "@t/data/utility.types";
 import { type ID } from "@t/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
-export const getUserByName: QueryFunction<
+export const queryUserByName: QueryFunction<
 	{ username: string },
 	Promise<Maybe<User>>
 > = async ({ sql = sqlConnection, username }) => {
@@ -14,7 +14,7 @@ export const getUserByName: QueryFunction<
 	return user;
 };
 
-export const getUserById: QueryFunction<{ user_id: ID }, Promise<User>> = async ({
+export const queryUserbyId: QueryFunction<{ user_id: ID }, Promise<User>> = async ({
 	sql = sqlConnection,
 	user_id,
 }) => {

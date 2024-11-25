@@ -2,10 +2,10 @@ import { sqlConnection } from "@/db/init";
 import type { NewUser } from "@t/data/user.types";
 import { compare } from "bcryptjs";
 import { createUser } from "./insert-user";
-import { getUserByName } from "./query-user";
+import { queryUserByName } from "./query-user";
 
-describe("getUser", () => {
-	it("returns a just-inserted user", async () => {
+describe("queryUserByName", () => {
+	it("should return a just-inserted user", async () => {
 		sqlConnection.begin(async (q) => {
 			const newUser: NewUser = {
 				username: "Billy",
@@ -14,7 +14,7 @@ describe("getUser", () => {
 
 			await createUser({ sql: q, newUser });
 
-			const foundUser = await getUserByName({ sql: q, username: newUser.username });
+			const foundUser = await queryUserByName({ sql: q, username: newUser.username });
 
 			if (!foundUser) throw new Error("User not found");
 			expect(foundUser).toBeDefined();
@@ -26,9 +26,9 @@ describe("getUser", () => {
 		});
 	});
 
-	it("does not return a user that doesn't exist", async () => {
+	it("should not return a user that doesn't exist", async () => {
 		await sqlConnection.begin(async (sql) => {
-			const shouldBeUndefined = await getUserByName({
+			const shouldBeUndefined = await queryUserByName({
 				sql,
 				username: `${Math.random()}`,
 			});
