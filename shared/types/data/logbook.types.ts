@@ -105,7 +105,7 @@ export type Item = {
 export type Log = {
 	log_id: ID;
 	logbook_id: Logbook["logbook_id"];
-	log_template_id: LogTemplate["log_template_id"];
+	log_template_id: LogTemplate["log_template_id"]; // TODO: maybe we only need this for the UI, not in the database
 
 	/** the difference between `name` and log_template.name is that this is the
 	 * actual log title. if log_template.name is "PPL routine", this could be
