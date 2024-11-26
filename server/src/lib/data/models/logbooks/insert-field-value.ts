@@ -1,9 +1,9 @@
 import { sqlConnection } from "@/db/init";
-import type { FieldValue, NewFieldValue } from "@t/data/logbook.types";
+import type { FieldValue, NewFieldValueWithId } from "@t/data/logbook.types";
 import type { QueryFunction } from "types/sql.types";
 
 export const insertFieldValue: QueryFunction<
-	{ newFieldValue: NewFieldValue },
+	{ newFieldValue: NewFieldValueWithId },
 	Promise<FieldValue>
 > = async ({ sql = sqlConnection, newFieldValue }) => {
 	const [insertedFieldValue] = await sql<[FieldValue]>`

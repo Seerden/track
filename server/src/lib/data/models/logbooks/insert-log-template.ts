@@ -7,7 +7,15 @@ export const insertLogTemplate: QueryFunction<
 	Promise<LogTemplate>
 > = async ({ sql = sqlConnection, newLogTemplate }) => {
 	const [insertedLogTemplate] = await sql<[LogTemplate]>`
-      INSERT INTO log_templates ${sql(newLogTemplate)}
+      INSERT INTO log_templates (
+         logbook_id,
+         name,
+         layout
+      ) values (
+         ${newLogTemplate.logbook_id},
+         ${newLogTemplate.name},
+         ${sql.json(newLogTemplate.layout)}
+      )
       RETURNING *
    `;
 
