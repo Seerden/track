@@ -1,5 +1,4 @@
-import { User } from "types/data/user.types";
-import { Datelike, ID, Nullable, Timestamp } from "types/data/utility.types";
+import { Datelike, ID, Nullable, Timestamp } from "./utility.types";
 
 export type ValueType = string | number | null;
 
@@ -7,7 +6,9 @@ export type ValueType = string | number | null;
 export type FieldTemplate = {
 	field_template_id: ID;
 	logbook_id: ID;
-	item_template_id: ItemTemplate["item_template_id"];
+	created_at: Timestamp;
+
+	item_template_id: ID;
 
 	/** @example "weight" which belongs to an item_template named "lift" */
 	name: string; //
@@ -22,7 +23,6 @@ export type FieldTemplate = {
 	/** Not all fields are required, think of type "warmup" vs "working weight"
 	 * in a lift. if not required, that means the value is nullable. */
 	required: boolean;
-	created_at: Timestamp;
 };
 
 /** ItemTemplate describes how a single generic item could look,
@@ -30,12 +30,16 @@ export type FieldTemplate = {
  */
 export type ItemTemplate = {
 	item_template_id: ID;
-	logbook_id: Logbook["logbook_id"];
+	logbook_id: ID;
+	created_at: Timestamp;
+
 	name: string; // e.g. "lift"
 	description: Nullable<string>; // e.g. "various types of lifts"
 	standalone: boolean; // false for lifts, but probably true for meta items like dates etc.
+};
 
-	created_at: Timestamp;
+type NestedPrimitiveObject = {
+	[k: string]: string | number | NestedPrimitiveObject;
 };
 
 /** A LogbookEntryTemplate describes what a logbook entry should look like.
@@ -49,9 +53,9 @@ export type ItemTemplate = {
  */
 export type LogTemplate = {
 	log_template_id: ID;
-	logbook_id: Logbook["logbook_id"];
+	logbook_id: ID;
 	name: Nullable<string>; // for example "PPL routine", which would be in the lifting logbook
-	layout: Nullable<unknown[]>; // we should probably enforce a subtype here, but I don't know how to enforce it inside the database
+	layout: Nullable<NestedPrimitiveObject[]>; // we should probably enforce a subtype here, but I don't know how to enforce it inside the database
 
 	created_at: Timestamp;
 };
@@ -61,9 +65,9 @@ export type LogTemplate = {
  */
 export type FieldValue = {
 	field_value_id: ID;
-	field_template_id: FieldTemplate["field_template_id"];
-	log_id: Log["log_id"];
-	item_row_id: ItemRow["item_row_id"];
+	field_template_id: ID;
+	log_id: ID;
+	item_row_id: ID;
 
 	/**the actual value for the given value type, this has to match the
 	 * value_type in the FieldTemplate. this could be 5 if the field represents
@@ -79,8 +83,8 @@ export type FieldValue = {
  */
 export type ItemRow = {
 	item_row_id: ID;
-	item_id: Item["item_id"];
-	log_id: Log["log_id"];
+	item_id: ID;
+	log_id: ID;
 	/** The order of the row in the log -- I would usually call this "index" but
 	 * maybe "position" is more descriptive */
 	position: number;
@@ -94,8 +98,8 @@ export type ItemRow = {
  */
 export type Item = {
 	item_id: ID;
-	log_id: Log["log_id"];
-	item_template_id: ItemTemplate["item_template_id"]; // template could have a template_name like "lift"
+	log_id: ID;
+	item_template_id: ID; // template could have a template_name like "lift"
 	name: string; // if the template's name is "lift", this could be "squat"
 
 	created_at: Timestamp;
@@ -104,8 +108,8 @@ export type Item = {
 /** A Log represents a filled-in session for a Logbook. */
 export type Log = {
 	log_id: ID;
-	logbook_id: Logbook["logbook_id"];
-	log_template_id: LogTemplate["log_template_id"]; // TODO: maybe we only need this for the UI, not in the database
+	logbook_id: ID;
+	log_template_id: ID; // TODO: maybe we only need this for the UI, not in the database
 
 	/** the difference between `name` and log_template.name is that this is the
 	 * actual log title. if log_template.name is "PPL routine", this could be
@@ -130,7 +134,7 @@ export type Logbook = {
 	description: Nullable<string>;
 
 	created_at: Timestamp;
-	user_id: User["user_id"];
+	user_id: ID;
 };
 
 export * from "./logbook.new.types";
