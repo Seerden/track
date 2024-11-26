@@ -7,7 +7,7 @@ import { pingDatabase } from "./src/db/init";
 import { logRequests } from "./src/lib/log-requests";
 import { initializeRedisConnection, redisSession } from "./src/lib/redis/redis-client";
 import { routers } from "./src/routers/routers";
-import { runAtStartup } from "./start";
+import { runAtStartup } from "./src/start";
 
 async function start() {
 	const app = express();
