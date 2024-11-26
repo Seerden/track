@@ -20,7 +20,7 @@ create table if not exists log_templates (
 create table if not exists logs (
    log_id bigint generated always as identity primary key,
    logbook_id bigint not null references logbooks on delete cascade,
-   log_template_id bigint not null references log_templates on delete cascade,
+   log_template_id bigint references log_templates on delete set null,
 
    name varchar(64),
    start_time timestamptz,
@@ -41,7 +41,7 @@ create table if not exists item_templates (
 
 create table if not exists items (
    item_id bigint generated always as identity primary key,
-   log_id bigint not null references logs on delete cascade,
+   logbook_id bigint not null references logbooks on delete cascade,
    item_template_id bigint not null references item_templates on delete cascade,
    name varchar(64) not null,
 

@@ -98,7 +98,7 @@ export type ItemRow = {
  */
 export type Item = {
 	item_id: ID;
-	log_id: ID;
+	logbook_id: ID;
 	item_template_id: ID; // template could have a template_name like "lift"
 	name: string; // if the template's name is "lift", this could be "squat"
 
@@ -109,7 +109,7 @@ export type Item = {
 export type Log = {
 	log_id: ID;
 	logbook_id: ID;
-	log_template_id: ID; // TODO: maybe we only need this for the UI, not in the database
+	log_template_id: Nullable<ID>; // TODO: maybe we only need this for the UI, not in the database
 
 	/** the difference between `name` and log_template.name is that this is the
 	 * actual log title. if log_template.name is "PPL routine", this could be
