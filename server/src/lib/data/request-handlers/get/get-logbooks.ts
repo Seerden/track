@@ -1,3 +1,4 @@
+import { groupById } from "@/lib/data/models/group-by-id";
 import {
 	queryLogbookById,
 	queryLogbooksByUser,
@@ -11,10 +12,13 @@ export const getLogbooks: RequestHandler = async (req, res) => {
 		return res.status(401).send("Unauthorized");
 	} // TODO: should never happen because of middleware
 
-	res.json(await queryLogbooksByUser({ user_id }));
+	const logbooks = await queryLogbooksByUser({ user_id });
+	const byId = groupById(logbooks, "logbook_id");
+
+	res.json({ byId });
 };
 
 /** Queries a single logbook by id. */
 export const getLogbook: RequestHandler = async (req, res) => {
-	res.json(queryLogbookById({ logbook_id: +req.params.logbook_id }));
+	res.json(await queryLogbookById({ logbook_id: +req.params.logbook_id }));
 };

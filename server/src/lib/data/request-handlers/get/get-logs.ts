@@ -1,3 +1,4 @@
+import { groupById } from "@/lib/data/models/group-by-id";
 import {
 	queryLogsByLogbook,
 	queryLogsByUser,
@@ -11,12 +12,17 @@ export const getLogs: RequestHandler = async (req, res) => {
 		return res.status(401).send("Unauthorized");
 	} // TODO: same as everywhere else...
 
-	res.json(await queryLogsByUser({ user_id }));
+	const logs = await queryLogsByUser({ user_id });
+	const byId = groupById(logs, "log_id");
+
+	res.json({ byId });
 };
 
 /** Queries all logs for a given logbook. */
 export const getLogsByLogbook: RequestHandler = async (req, res) => {
 	const logbook_id = +req.params.logbook_id;
+	const logs = await queryLogsByLogbook({ logbook_id });
+	const byId = groupById(logs, "log_id");
 
-	res.json(await queryLogsByLogbook({ logbook_id }));
+	res.json({ byId });
 };
