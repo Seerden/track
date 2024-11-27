@@ -4,7 +4,7 @@ import type { ID } from "@t/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
 /** Deletes an item from the database by id.
- * Because of cascading, this may also deleted related records:
+ * Because of cascading, this may also delete related records:
  * - item_rows
  */
 export const removeItemById: QueryFunction<
