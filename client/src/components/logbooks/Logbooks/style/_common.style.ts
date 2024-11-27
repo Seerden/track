@@ -47,7 +47,9 @@ const radius = {
 };
 
 const padding = {
-	small: css``,
+	small: css`
+		padding: 0.5rem;
+	`,
 	medium: css`
 		padding: 1rem;
 	`
