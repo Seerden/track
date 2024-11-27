@@ -1,6 +1,6 @@
 import { sqlConnection } from "@/db/init";
 import type { Logbook } from "@t/data/logbook.types";
-import type { ID } from "@t/data/utility.types";
+import type { ID, Nullable } from "@t/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
 export const queryLogbooksByUser: QueryFunction<{ user_id: ID }, Promise<[Logbook]>> = ({
@@ -15,7 +15,7 @@ export const queryLogbooksByUser: QueryFunction<{ user_id: ID }, Promise<[Logboo
 
 export const queryLogbookById: QueryFunction<
 	{ logbook_id: ID },
-	Promise<Logbook>
+	Promise<Nullable<Logbook>>
 > = async ({ sql = sqlConnection, logbook_id }) => {
 	const [logbook] = await sql<[Logbook]>`
       SELECT * FROM logbooks
