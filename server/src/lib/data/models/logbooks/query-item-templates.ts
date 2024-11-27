@@ -14,3 +14,15 @@ export const queryItemTemplatesByLogbook: QueryFunction<
 
 	return itemTemplates;
 };
+
+export const queryItemTemplateById: QueryFunction<
+	{ item_template_id: ID },
+	Promise<ItemTemplate>
+> = async ({ sql = sqlConnection, item_template_id }) => {
+	const [itemTemplate] = await sql<[ItemTemplate]>`
+      SELECT * FROM item_templates
+      WHERE item_template_id = ${item_template_id}
+   `;
+
+	return itemTemplate;
+};

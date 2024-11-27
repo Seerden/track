@@ -26,3 +26,15 @@ export const queryLogsByLogbook: QueryFunction<
 
 	return logs;
 };
+
+export const queryLogById: QueryFunction<{ log_id: ID }, Promise<Log>> = async ({
+	sql = sqlConnection,
+	log_id,
+}) => {
+	const [log] = await sql<[Log]>`
+      SELECT * FROM logs
+      WHERE log_id = ${log_id}
+   `;
+
+	return log;
+};

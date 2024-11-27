@@ -1,9 +1,10 @@
 import { sqlConnection } from "@/db/init";
 import type { Item } from "@t/data/logbook.types";
+import type { ID } from "@t/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
 export const queryItemsByLogbook: QueryFunction<
-	{ logbook_id: number },
+	{ logbook_id: ID },
 	Promise<Item[]>
 > = async ({ sql = sqlConnection, logbook_id }) => {
 	const items = await sql<[Item]>`
@@ -12,4 +13,16 @@ export const queryItemsByLogbook: QueryFunction<
    `;
 
 	return items;
+};
+
+export const queryItemById: QueryFunction<{ item_id: ID }, Promise<Item>> = async ({
+	sql = sqlConnection,
+	item_id,
+}) => {
+	const [item] = await sql<[Item]>`
+      SELECT * FROM items
+      WHERE item_id = ${item_id}
+   `;
+
+	return item;
 };
