@@ -1,25 +1,47 @@
+import type { ID } from "@t/data/utility.types";
+
 /** query keys */
 const qk = {
 	user: {
-		me: ["me"] as const
+		me: ["me"]
 	},
 
 	activities: {
-		all: ["activities"] as const
+		all: ["activities"]
 	},
 
 	habits: {
-		all: ["habits"] as const,
-		entries: ["habit-entries"] as const
+		all: ["habits"],
+		entries: ["habit-entries"]
 	},
 
 	notes: {
-		all: ["notes"] as const
+		all: ["notes"]
 	},
 
 	tags: {
-		all: ["tags"] as const,
-		tree: ["tags", "tree"] as const
+		all: ["tags"],
+		tree: ["tags", "tree"]
+	},
+
+	logbooks: {
+		all: ["logbooks"],
+		byId: (logbook_id: ID) => ["logbooks", logbook_id] as const
+	},
+	logs: {
+		all: ["logbooks", "logs"],
+		byLogbook: (logbook_id: ID) => ["logbooks", logbook_id, "logs"] as const
+	},
+	items: {
+		byLogbook: (logbook_id: ID) => ["logbooks", logbook_id, "items"] as const
+	},
+	itemTemplates: {
+		byLogbook: (logbook_id: ID) =>
+			["logbooks", logbook_id, "items", "templates"] as const
+	},
+	logTemplates: {
+		all: ["logbooks", "templates"],
+		byLogbook: (logbook_id: ID) => ["logbooks", logbook_id, "templates"] as const
 	}
 } as const;
 
