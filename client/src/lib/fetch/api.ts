@@ -3,14 +3,12 @@ import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
 
 async function apiGet<T>({ url }: { url: string }): Promise<T> {
 	const _url = makeAuthorizedUrl(url);
-	const response: Promise<T> = (
+	return (
 		await fetch(_url, {
 			credentials: "include",
 			method: "GET"
 		})
-	).json();
-
-	return response;
+	).json() as T;
 }
 
 function apiUpdate(method: "put" | "post") {
@@ -24,25 +22,19 @@ function apiUpdate(method: "put" | "post") {
 		body: TInput;
 	}): Promise<TResponse> => {
 		const _url = makeAuthorizedUrl(url);
-		const response: Promise<TResponse> = (
-			await fetch(_url, configFunction(body))
-		).json();
-		return response;
+		return (await fetch(_url, configFunction(body))).json() as TResponse;
 	};
 }
 
-const apiPost = apiUpdate("post");
-const apiPut = apiUpdate("put");
-
-function apiDelete<T>({ url }: { url: string }): Promise<T> {
+async function apiDelete<T>({ url }: { url: string }): Promise<T> {
 	const _url = makeAuthorizedUrl(url);
-	return (async () => (await fetch(_url, createRequestConfig.delete())).json())();
+	return (await fetch(_url, createRequestConfig.delete())).json() as T;
 }
 
 const api = {
 	get: apiGet,
-	post: apiPost,
-	put: apiPut,
+	post: apiUpdate("post"),
+	put: apiUpdate("put"),
 	delete: apiDelete
 };
 
