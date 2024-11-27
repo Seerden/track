@@ -16,10 +16,8 @@ export const createItemTemplate: QueryFunction<
 	}>
 > = async ({ sql = sqlConnection, newItemTemplate, newFieldTemplates }) => {
 	const result = await sql.begin(async (q) => {
-		// first, insert the item template
 		const itemTemplate = await insertItemTemplate({ sql: q, newItemTemplate });
 
-		// then, insert fieldTemplates using the newly created item template's id
 		const fieldTemplates = await Promise.all(
 			newFieldTemplates.map(async (fieldTemplate) => {
 				return await insertFieldTemplate({

@@ -13,10 +13,8 @@ export const createItemRow: QueryFunction<
 	}>
 > = async ({ sql = sqlConnection, newItemRow, newFieldValues }) => {
 	const result = await sql.begin(async (q) => {
-		// first, insert the item row
 		const itemRow = await insertItemRow({ sql: q, newItemRow });
 
-		// then, insert the field values with the newly created item row's id
 		const fieldValues = await Promise.all(
 			newFieldValues.map(async (fieldValue) => {
 				return await insertFieldValue({
