@@ -1,5 +1,4 @@
-import { createRequestConfig } from "@/lib/fetch/create-request-config";
-import { baseUrl } from "@/lib/fetch/fetch-constants";
+import api from "@/lib/fetch/api";
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import { queryClient } from "@/lib/query-client";
 import { mk, qk } from "@/lib/query-keys";
@@ -7,7 +6,7 @@ import { localUser } from "@/lib/user-storage";
 import { useMutation } from "@tanstack/react-query";
 
 async function postLogout() {
-	return (await fetch(`${baseUrl}/auth/logout`, createRequestConfig.post())).json();
+	return api.post<unknown, unknown>({ url: "/auth/logout", body: {} });
 }
 
 export default function useLogoutMutation() {

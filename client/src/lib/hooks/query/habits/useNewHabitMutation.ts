@@ -1,16 +1,10 @@
-import { createRequestConfig } from "@/lib/fetch/create-request-config";
-import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
+import api from "@/lib/fetch/api";
 import { mk } from "@/lib/query-keys";
 import type { HabitInput, HabitWithIds } from "@t/data/habit.types";
 import { useMutation } from "@tanstack/react-query";
 
-async function postNewHabit({ habit, tagIds }: HabitInput): Promise<HabitWithIds> {
-	const url = makeAuthorizedUrl("/data/habit");
-	const insertedHabit: Promise<HabitWithIds> = (
-		await fetch(url, createRequestConfig.post({ habit, tagIds }))
-	).json();
-
-	return insertedHabit;
+async function postNewHabit(input: HabitInput): Promise<HabitWithIds> {
+	return api.post<HabitInput, HabitWithIds>({ url: "/data/habit", body: input });
 }
 
 export function useNewHabitMutation() {
