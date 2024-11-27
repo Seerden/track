@@ -25,7 +25,7 @@ function apiUpdate(method: "put" | "post") {
 	}): Promise<TResponse> => {
 		const _url = makeAuthorizedUrl(url);
 		const response: Promise<TResponse> = (
-			await fetch(_url, configFunction({ body }))
+			await fetch(_url, configFunction(body))
 		).json();
 		return response;
 	};
