@@ -36,5 +36,4 @@ authRouter.post("/register", async (req, res) => {
 	}
 
 	await login(newUser, req, res);
-	return res.status(200).json({ user: registeredUser });
 });

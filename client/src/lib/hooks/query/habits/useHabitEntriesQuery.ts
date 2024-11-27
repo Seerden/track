@@ -1,16 +1,11 @@
-import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
+import api from "@/lib/fetch/api";
 import { defaultQueryConfig } from "@/lib/query-client";
 import { qk } from "@/lib/query-keys";
 import type { HabitEntriesData } from "@/types/data.types";
 import { useQuery } from "@tanstack/react-query";
 
 async function getHabitEntries() {
-	const url = makeAuthorizedUrl("/data/habit/entries");
-	const response = await fetch(url, {
-		credentials: "include",
-		method: "GET"
-	});
-	return response.json();
+	return api.get<HabitEntriesData>({ url: "/data/habit/entries" });
 }
 
 export default function useHabitEntriesQuery() {

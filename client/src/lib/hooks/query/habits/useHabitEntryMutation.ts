@@ -1,5 +1,4 @@
-import { createRequestConfig } from "@/lib/fetch/create-request-config";
-import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
+import api from "@/lib/fetch/api";
 import { mk } from "@/lib/query-keys";
 import type {
 	HabitEntry,
@@ -18,8 +17,10 @@ export type HabitEntryUpdateMutationFunction = (
 ) => void;
 
 async function putHabitEntry(input: HabitEntryUpdateInput) {
-	const url = makeAuthorizedUrl("/data/habit/entry");
-	return (await fetch(url, createRequestConfig.put({ input }))).json();
+	return api.put<HabitEntryUpdateInput, HabitEntry>({
+		url: "/data/habit/entry",
+		body: input
+	});
 }
 
 export default function useHabitEntryMutation() {

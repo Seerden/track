@@ -1,5 +1,4 @@
-import { createRequestConfig } from "@/lib/fetch/create-request-config";
-import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
+import api from "@/lib/fetch/api";
 import { queryClient } from "@/lib/query-client";
 import { mk, qk } from "@/lib/query-keys";
 import type { ActivitiesData } from "@/types/data.types";
@@ -7,9 +6,11 @@ import type { ActivityWithIds, TaskUpdateInput } from "@t/data/activity.types";
 import type { ById } from "@t/data/utility.types";
 import { useMutation } from "@tanstack/react-query";
 
-async function putTaskCompletion(input: TaskUpdateInput): Promise<ActivityWithIds> {
-	const url = makeAuthorizedUrl(`/data/task/completion`);
-	return (await fetch(url, createRequestConfig.put({ input }))).json();
+async function putTaskCompletion(input: TaskUpdateInput) {
+	return api.put<TaskUpdateInput, ActivityWithIds>({
+		url: `/data/task/completion`,
+		body: input
+	});
 }
 
 /** Patches the activities cache with a single just-updated activity.

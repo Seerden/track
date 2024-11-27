@@ -1,21 +1,25 @@
-import { createRequestConfig } from "@/lib/fetch/create-request-config";
-import { baseUrl } from "@/lib/fetch/fetch-constants";
+import api from "@/lib/fetch/api";
+import useRouteProps from "@/lib/hooks/useRouteProps";
 import { mk } from "@/lib/query-keys";
-import type { Data } from "@/types/query.types";
-import type { NewUser, User } from "@t/data/user.types";
+import type { UserData } from "@/types/data.types";
+import type { NewUser } from "@t/data/user.types";
 import { useMutation } from "@tanstack/react-query";
 
 async function postRegister(newUser: NewUser) {
-	return (
-		await fetch(`${baseUrl}/auth/register`, createRequestConfig.post({ newUser }))
-	).json();
+	return api.post<{ newUser: NewUser }, UserData>({
+		url: "/auth/register",
+		body: { newUser }
+	});
 }
 
 export default function useRegisterMutation() {
-	return useMutation<Data<"user", User>, unknown, NewUser>({
+	const { navigate } = useRouteProps();
+
+	return useMutation<UserData, unknown, NewUser>({
 		async mutationFn(newUser) {
 			return postRegister(newUser);
 		},
-		mutationKey: mk.user.register
+		mutationKey: mk.user.register,
+		onSuccess: () => navigate("/")
 	});
 }

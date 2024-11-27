@@ -1,13 +1,11 @@
-import { createRequestConfig } from "@/lib/fetch/create-request-config";
-import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
+import api from "@/lib/fetch/api";
 import { queryClient } from "@/lib/query-client";
 import { mk, qk } from "@/lib/query-keys";
 import type { Habit } from "@t/data/habit.types";
 import { useMutation } from "@tanstack/react-query";
 
 async function deleteHabit({ habit_id }: Pick<Habit, "habit_id">) {
-	const url = makeAuthorizedUrl(`/data/habit/${habit_id}`);
-	return (await fetch(url, createRequestConfig.delete())).json();
+	return api.delete<Pick<Habit, "habit_id">>({ url: `/data/habit/${habit_id}` });
 }
 
 export default function useHabitDeleteMutation() {

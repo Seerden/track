@@ -1,14 +1,13 @@
-import { createRequestConfig } from "@/lib/fetch/create-request-config";
-import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
+import api from "@/lib/fetch/api";
 import { mk } from "@/lib/query-keys";
 import type { ActivityUpdateInput, ActivityWithIds } from "@t/data/activity.types";
 import { useMutation } from "@tanstack/react-query";
 
 async function putActivity(input: ActivityUpdateInput): Promise<ActivityWithIds> {
-	const url = makeAuthorizedUrl(`/data/activity/${input.activity.activity_id}`);
-	const updatedActivity = (await fetch(url, createRequestConfig.put({ input }))).json();
-
-	return updatedActivity;
+	return api.put<ActivityUpdateInput, ActivityWithIds>({
+		url: `/data/activity/${input.activity.activity_id}`,
+		body: input
+	});
 }
 
 export default function useActivityMutation() {
