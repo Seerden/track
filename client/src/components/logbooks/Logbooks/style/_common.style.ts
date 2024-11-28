@@ -1,4 +1,5 @@
-import { css } from "styled-components";
+import { spacing } from "@/lib/theme/snippets/spacing";
+import styled, { css } from "styled-components";
 
 const outline = {
 	primary: css`
@@ -74,3 +75,12 @@ export default {
 	padding,
 	margin
 };
+
+// eslint-disable-next-line track/no-direct-styled-import
+export const FieldWrapper = styled.div<{ small?: boolean }>`
+	${(p) => spacing.padding.wide({ size: p.small ? 0.2 : 0.5, ratio: 2 })}
+
+	border-radius: 5px;
+	outline: 2px solid #ddd;
+	margin: 0.3rem;
+`;
