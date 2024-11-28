@@ -26,3 +26,15 @@ export const queryItemById: QueryFunction<{ item_id: ID }, Promise<Item>> = asyn
 
 	return item;
 };
+
+export const queryItemsById: QueryFunction<{ ids: ID[] }, Promise<Item[]>> = async ({
+	sql = sqlConnection,
+	ids,
+}) => {
+	const items = await sql<[Item]>`
+      SELECT * FROM items
+      WHERE item_id IN (${ids})
+   `;
+
+	return items;
+};

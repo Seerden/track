@@ -26,3 +26,15 @@ export const queryItemTemplateById: QueryFunction<
 
 	return itemTemplate;
 };
+
+export const queryItemTemplatesById: QueryFunction<
+	{ ids: ID[] },
+	Promise<ItemTemplate[]>
+> = async ({ sql = sqlConnection, ids }) => {
+	const itemTemplates = await sql<[ItemTemplate]>`
+      SELECT * FROM item_templates
+      WHERE item_template_id in ${ids}
+   `;
+
+	return itemTemplates;
+};

@@ -2,8 +2,8 @@ import { groupById } from "@/lib/data/models/group-by-id";
 import { queryFieldTemplatesByItemTemplate } from "@/lib/data/models/logbooks/query-field-templates";
 import { queryFieldValuesByLog } from "@/lib/data/models/logbooks/query-field-values";
 import { queryItemRowsByLog } from "@/lib/data/models/logbooks/query-item-rows";
-import { queryItemTemplateById } from "@/lib/data/models/logbooks/query-item-templates";
-import { queryItemById } from "@/lib/data/models/logbooks/query-items";
+import { queryItemTemplatesById } from "@/lib/data/models/logbooks/query-item-templates";
+import { queryItemsById } from "@/lib/data/models/logbooks/query-items";
 import {
 	queryLogById,
 	queryLogsByLogbook,
@@ -51,24 +51,15 @@ export const getLogCardById: RequestHandler = async (req, res) => {
 	const log = await queryLogById({ log_id });
 	const itemRows = await queryItemRowsByLog({ log_id });
 	const fieldValues = await queryFieldValuesByLog({ log_id });
-	const uniqueItemIds = Array.from(new Set(itemRows.map((row) => row.item_id)));
-	const items = await Promise.all(
-		uniqueItemIds.map(async (item_id) => queryItemById({ item_id })),
-	);
-	const uniqueItemTemplateIds = Array.from(
-		new Set(items.map((item) => item.item_template_id)),
-	);
-	const itemTemplates = await Promise.all(
-		uniqueItemTemplateIds.map(async (item_template_id) =>
-			queryItemTemplateById({ item_template_id }),
-		),
-	);
-	const uniqueItemTemplates = Array.from(new Set(itemTemplates));
+	const items = await queryItemsById({ ids: itemRows.map((row) => row.item_id) });
+	const itemTemplates = await queryItemTemplatesById({
+		ids: items.map((item) => item.item_template_id),
+	});
 
 	// Each section corresponds to an item template and all of the items that
 	// descend from it along with their filled-out fields.
 	const sections = await Promise.all(
-		uniqueItemTemplates.map(async ({ item_template_id }) => {
+		itemTemplates.map(async ({ item_template_id }) => {
 			const _items = items.filter((i) => i.item_template_id === item_template_id);
 			const fieldTemplates = await queryFieldTemplatesByItemTemplate({
 				item_template_id,
