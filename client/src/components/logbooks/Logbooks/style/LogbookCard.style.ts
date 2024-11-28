@@ -1,4 +1,4 @@
-import _commonStyle from "@/components/logbooks/Logbooks/style/_common.style";
+import _commonStyle from "@/components/logbooks/LogDetail/style/_common.style";
 import { colors } from "@/lib/theme/colors";
 import CardStyle from "@/lib/theme/components/Card.style";
 import { font } from "@/lib/theme/font";

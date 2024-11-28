@@ -1,5 +1,5 @@
-import type { ItemSectionProps } from "@/components/logbooks/Logbooks/ItemSection";
-import ItemSection from "@/components/logbooks/Logbooks/ItemSection";
+import type { ItemSectionProps } from "@/components/logbooks/LogDetail/ItemSection";
+import ItemSection from "@/components/logbooks/LogDetail/ItemSection";
 import { rowsMock } from "@/components/logbooks/Logbooks/stories/mock";
 import type { Meta, StoryFn } from "@storybook/react";
 

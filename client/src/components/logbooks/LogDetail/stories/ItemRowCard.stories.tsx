@@ -1,5 +1,5 @@
-import type { ItemRowCardProps } from "@/components/logbooks/Logbooks/ItemRowCard";
-import ItemRowCard from "@/components/logbooks/Logbooks/ItemRowCard";
+import type { ItemRowCardProps } from "@/components/logbooks/LogDetail/ItemRowCard";
+import ItemRowCard from "@/components/logbooks/LogDetail/ItemRowCard";
 import type { Meta, StoryFn } from "@storybook/react";
 
 //👇 This default export determines where your story goes in the story list

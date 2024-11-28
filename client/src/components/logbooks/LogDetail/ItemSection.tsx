@@ -1,5 +1,5 @@
-import type { ItemRowsProps } from "@/components/logbooks/Logbooks/ItemRows";
-import ItemRows from "@/components/logbooks/Logbooks/ItemRows";
+import type { ItemRowsProps } from "@/components/logbooks/LogDetail/ItemRows";
+import ItemRows from "@/components/logbooks/LogDetail/ItemRows";
 import { Action } from "@/lib/theme/components/buttons";
 import { LucidePencilLine } from "lucide-react";
 import S from "./style/ItemSection.style";

@@ -1,4 +1,4 @@
-import type { ItemRowsProps } from "@/components/logbooks/Logbooks/ItemRows";
+import type { ItemRowsProps } from "@/components/logbooks/LogDetail/ItemRows";
 
 export const rowsMock: ItemRowsProps = {
 	item: {

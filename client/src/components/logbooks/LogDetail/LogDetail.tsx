@@ -1,5 +1,5 @@
-import type { ItemSectionProps } from "@/components/logbooks/Logbooks/ItemSection";
-import ItemSection from "@/components/logbooks/Logbooks/ItemSection";
+import type { ItemSectionProps } from "@/components/logbooks/LogDetail/ItemSection";
+import ItemSection from "@/components/logbooks/LogDetail/ItemSection";
 import S from "./style/LogDetail.style";
 
 export type LogDetailProps = {

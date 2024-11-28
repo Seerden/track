@@ -1,5 +1,5 @@
-import type { Field } from "@/components/logbooks/Logbooks/ItemRowCard";
-import { FieldWrapper } from "@/components/logbooks/Logbooks/style/_common.style";
+import type { Field } from "@/components/logbooks/LogDetail/ItemRowCard";
+import { FieldWrapper } from "@/components/logbooks/LogDetail/style/_common.style";
 import S from "./style/ItemHeader.style";
 
 export default function ItemHeader({ fields }: { fields: Field[] }) {

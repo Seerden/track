@@ -1,6 +1,6 @@
-import type { ItemSectionProps } from "@/components/logbooks/Logbooks/ItemSection";
-import type { LogDetailProps } from "@/components/logbooks/Logbooks/LogDetail";
-import LogDetail from "@/components/logbooks/Logbooks/LogDetail";
+import type { ItemSectionProps } from "@/components/logbooks/LogDetail/ItemSection";
+import type { LogDetailProps } from "@/components/logbooks/LogDetail/LogDetail";
+import LogDetail from "@/components/logbooks/LogDetail/LogDetail";
 import { rowsMock } from "@/components/logbooks/Logbooks/stories/mock";
 import type { Meta, StoryFn } from "@storybook/react";
 

@@ -1,6 +1,6 @@
-import ItemHeader from "@/components/logbooks/Logbooks/ItemHeader";
-import type { ItemRowCardProps } from "@/components/logbooks/Logbooks/ItemRowCard";
-import ItemRowCard from "@/components/logbooks/Logbooks/ItemRowCard";
+import ItemHeader from "@/components/logbooks/LogDetail/ItemHeader";
+import type { ItemRowCardProps } from "@/components/logbooks/LogDetail/ItemRowCard";
+import ItemRowCard from "@/components/logbooks/LogDetail/ItemRowCard";
 import { Action } from "@/lib/theme/components/buttons";
 import { LucidePencil } from "lucide-react";
 import S from "./style/ItemRows.style";

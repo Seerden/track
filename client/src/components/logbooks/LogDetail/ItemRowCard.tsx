@@ -1,4 +1,4 @@
-import { FieldWrapper } from "@/components/logbooks/Logbooks/style/_common.style";
+import { FieldWrapper } from "@/components/logbooks/LogDetail/style/_common.style";
 import type { Nullable } from "@t/data/utility.types";
 import S from "./style/ItemRowCard.style";
 

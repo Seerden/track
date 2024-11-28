@@ -1,4 +1,4 @@
-import ItemRows from "@/components/logbooks/Logbooks/ItemRows";
+import ItemRows from "@/components/logbooks/LogDetail/ItemRows";
 import { rowsMock } from "@/components/logbooks/Logbooks/stories/mock";
 import type { Meta, StoryFn } from "@storybook/react";
 
