@@ -15,7 +15,7 @@ const Header = styled.h1`
 	padding-inline: 1rem;
 	margin: 0;
 	box-shadow: 0 0.5rem 1.5rem -0.6rem #ccc;
-	border-bottom: 2px solid #fff;
+	border-bottom: 3px solid #fff;
 `;
 
 export default { Wrapper, Header };
