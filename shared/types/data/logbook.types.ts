@@ -137,4 +137,8 @@ export type Logbook = {
 	user_id: ID;
 };
 
+export type LogbookInput = {
+	logbook: Logbook;
+};
+
 export * from "./logbook.new.types";
