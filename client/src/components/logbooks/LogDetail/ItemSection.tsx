@@ -1,6 +1,6 @@
 import type { ItemRowsProps } from "@/components/logbooks/LogDetail/ItemRows";
 import ItemRows from "@/components/logbooks/LogDetail/ItemRows";
-import { Action } from "@/lib/theme/components/buttons";
+import { Button } from "@/components/logbooks/LogDetail/style/_common.style";
 import { LucidePencilLine } from "lucide-react";
 import S from "./style/ItemSection.style";
 
@@ -19,22 +19,10 @@ export default function ItemSection({ itemTemplate, itemRows }: ItemSectionProps
 			{itemRows.map(({ item, rows }) => (
 				<ItemRows key={item.name} item={item} rows={rows} />
 			))}
-			<Action.Default
-				$color={"darkBlue"}
-				style={{
-					width: "max-content",
-					borderRadius: "10px",
-					marginLeft: "1rem",
-					padding: "1.5rem 2.5rem",
-					paddingLeft: "1rem",
-					color: "white",
-					display: "flex",
-					gap: "1rem"
-				}}
-			>
+			<Button $iconPosition={"left"} $color={"darkBlue"}>
 				<LucidePencilLine />
 				<span style={{ fontWeight: 600 }}>Add {itemTemplate.name}</span>{" "}
-			</Action.Default>
+			</Button>
 		</S.Wrapper>
 	);
 }
