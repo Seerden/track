@@ -78,6 +78,11 @@ const mk = {
 			new: ["new-habit-entry"],
 			update: ["habit-entry"]
 		}
+	},
+
+	logbooks: {
+		new: ["new-logbook"],
+		update: ["logbook"]
 	}
 } as const;
 
