@@ -1,3 +1,5 @@
+import { Action } from "@/lib/theme/components/buttons";
+import { font } from "@/lib/theme/font";
 import { spacing } from "@/lib/theme/snippets/spacing";
 import styled, { css } from "styled-components";
 
@@ -83,4 +85,32 @@ export const FieldWrapper = styled.div<{ small?: boolean }>`
 	border-radius: 5px;
 	outline: 2px solid #ddd;
 	margin: 0.3rem;
+`;
+
+export const Button = styled(Action.Default)<{ $iconPosition: "left" | "right" }>`
+	width: max-content;
+	border-radius: 10px;
+	margin-left: 1rem;
+	padding: 1.5rem 2.5rem;
+	${(p) =>
+		p.$iconPosition === "left"
+			? css`
+					padding-left: 1.5rem;
+				`
+			: css`
+					padding-right: 1.5rem;
+				`}
+	color: white;
+	display: flex;
+	gap: 1rem;
+`;
+
+// eslint-disable-next-line track/no-direct-styled-import
+export const Title = styled.h1`
+	font-size: ${font.size["2"]};
+	border-radius: 6px;
+	padding-inline: 1rem;
+	margin: 0;
+	box-shadow: 0 0.5rem 1.5rem -0.6rem #ccc;
+	border-bottom: 3px solid #fff;
 `;
