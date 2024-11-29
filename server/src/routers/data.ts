@@ -31,6 +31,7 @@ import postNote from "@/lib/data/request-handlers/post/post-note";
 import postTag from "@/lib/data/request-handlers/post/post-tag";
 import putActivity from "@/lib/data/request-handlers/put/put-activity";
 import putHabitEntry from "@/lib/data/request-handlers/put/put-habit-entry";
+import { putLogbook } from "@/lib/data/request-handlers/put/put-logbook";
 import putTaskCompletion from "@/lib/data/request-handlers/put/put-task";
 import { Router } from "express";
 import { isAuthorized } from "../lib/auth/is-authorized";
@@ -71,12 +72,15 @@ dataRouter.put("/habit/entry", putHabitEntry);
 // TODO: put these in logbookRouter
 // TODO: I'm using more specific names for the handlers. Go over previous
 // handlers and do the same for them, too.
+/* --- POST --- */
 dataRouter.post("/logbook", postLogbook);
 dataRouter.post("/logbook/template", postLogTemplate);
 dataRouter.post("/logbook/log", postLog);
 dataRouter.post("/logbook/item/template", postItemTemplate);
 dataRouter.post("/logbook/item/row", postItemRow);
 dataRouter.post("/logbook/item", postItem);
+
+/* --- DELETE --- */
 dataRouter.delete(
 	"/logbook/log/template/:log_template_id",
 	isAuthorized,
@@ -91,6 +95,7 @@ dataRouter.delete(
 dataRouter.delete("/logbook/item/:item_id", deleteItem);
 dataRouter.delete("/logbook/:logbook_id", deleteLogbook);
 
+/* --- GET --- */
 dataRouter.get("/logbooks", getLogbooks);
 dataRouter.get("/logbook/:logbook_id", getLogbook);
 dataRouter.get("/logbooks/logs", getLogs);
@@ -103,3 +108,6 @@ dataRouter.get(
 );
 dataRouter.get("/logbook/templates", getLogTemplates);
 dataRouter.get("/logbook/:logbook_id/templates", getLogTemplatesByLogbook);
+
+/* --- PUT --- */
+dataRouter.put("/logbook/:logbook_id", putLogbook);
