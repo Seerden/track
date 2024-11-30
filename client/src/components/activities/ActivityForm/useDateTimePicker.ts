@@ -135,15 +135,12 @@ export default function useDateTimePicker({
 	const defaultStartDate = defaultStartAndEnd?.start
 		? formatToYearMonthDay(defaultStartAndEnd.start)
 		: date.start;
-	const defaultEndDate = defaultStartAndEnd?.end
-		? formatToYearMonthDay(defaultStartAndEnd.end)
-		: date.end;
 
 	return {
 		allDay,
+		date,
 		manualEndDate,
 		defaultStartDate,
-		defaultEndDate,
 		defaultTime,
 		onAllDayFieldChange,
 		onStartDateFieldChange,
