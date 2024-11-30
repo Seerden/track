@@ -1,6 +1,7 @@
 import useMutateLogbook from "@/lib/hooks/query/logbooks/useMutateLogbook";
 import useMutateNewLogbook from "@/lib/hooks/query/logbooks/useMutateNewLogbook";
 import useAuthentication from "@/lib/hooks/useAuthentication";
+import useRouteProps from "@/lib/hooks/useRouteProps";
 import type { NewLogbook } from "@t/data/logbook.new.types";
 import type { Logbook } from "@t/data/logbook.types";
 import { useState } from "react";
@@ -21,6 +22,7 @@ export default function useLogbookForm({
 }: {
 	logbook?: Logbook;
 }) {
+	const { navigate } = useRouteProps();
 	const { currentUser } = useAuthentication();
 
 	const { mutate: submitNewLogbook } = useMutateNewLogbook();
@@ -38,6 +40,10 @@ export default function useLogbookForm({
 		}));
 	}
 
+	function handleSuccess() {
+		navigate("/logbooks");
+	}
+
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 
@@ -48,9 +54,14 @@ export default function useLogbookForm({
 				...logbook,
 				user_id: currentUser.user_id
 			};
-			submitNewLogbook({ newLogbook: logbookWithUserId });
+			submitNewLogbook(
+				{ newLogbook: logbookWithUserId },
+				{
+					onSuccess: handleSuccess
+				}
+			);
 		} else {
-			submitUpdatedLogbook({ logbook });
+			submitUpdatedLogbook({ logbook }); // TODO: what do we do on success? Navigating to /logbooks doesn't make sense. Maybe just go back to wherever we were.
 		}
 	}
 
