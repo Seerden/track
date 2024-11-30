@@ -44,7 +44,7 @@ const AllDayActivity = styled.li`
 
 	/* TODO: really should extract all of these checkbox styles */
 	${S.CheckboxWrapper} {
-		margin-left: 1rem;
+		margin-left: auto;
 		background-color: white;
 		border-radius: 50%;
 	}
