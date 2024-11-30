@@ -19,17 +19,22 @@ export const Default: StoryFn = () => {
 	const [selection2, setSelection2] = useState<(string | number)[]>([]);
 
 	return (
-		<>
+		<div
+			style={{
+				display: "flex",
+				flexDirection: "column",
+				gap: "1rem"
+			}}
+		>
 			<div>Selection: {selection.join(",")}</div>
 			<h2>Multiple:</h2>
 			<SelectionList items={mockItems} onChange={setSelection} multiple={true} />
 
-			<br />
 			<hr />
-			<br />
+
 			<div>Selection: {selection2.join(",")}</div>
 			<h2>Single:</h2>
 			<SelectionList items={mockItems} onChange={setSelection2} multiple={false} />
-		</>
+		</div>
 	);
 };
