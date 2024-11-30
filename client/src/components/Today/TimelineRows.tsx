@@ -4,7 +4,7 @@ import {
 	assignIndentationLevelToActivities
 } from "@/lib/activity";
 import type { ActivityWithIds } from "@t/data/activity.types";
-import type { Datelike } from "@t/data/utility.types";
+import type { Dayjs } from "dayjs";
 import S from "./style/Today.style";
 
 function useRows({
@@ -14,7 +14,7 @@ function useRows({
 	activities: ActivityWithIds[];
 	/** `currentDate` will change to `date` once we make Today take a date as a
 	 * prop. */
-	currentDate: Datelike;
+	currentDate: Dayjs;
 }) {
 	const indentation = assignIndentationLevelToActivities(activities, currentDate);
 
@@ -25,7 +25,7 @@ function useRows({
 
 type RowsProps = {
 	activities: ActivityWithIds[];
-	currentDate: Datelike;
+	currentDate: Dayjs;
 };
 
 export default function TimelineRows({ activities, currentDate }: RowsProps) {
