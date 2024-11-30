@@ -1,11 +1,11 @@
 import Badge from "@/lib/theme/components/Badge";
-import { useReducer } from "react";
+import { useState } from "react";
 import type { CSS } from "styled-components/dist/types";
 import S from "./SelectionList.style";
 
-type ItemValue = string | number;
+export type ItemValue = string | number;
 
-type Item = {
+export type Item = {
 	label: string;
 	value: ItemValue;
 };
@@ -14,48 +14,50 @@ type SelectionListProps = {
 	multiple?: boolean;
 	items: Item[];
 	highlightColor?: CSS.Properties["color"];
-	onChange: (values: (string | number)[]) => void;
+	onChange: (values: ItemValue[]) => void;
 };
 
 // TODO: because we're using Sets, the order of selection isn't preserved. We
 // probably do want that, though.
 export default function SelectionList({
-	multiple,
+	multiple = false,
 	items,
 	onChange,
 	highlightColor = "limegreen"
 }: SelectionListProps) {
-	function selectionReducer(selection: ItemValue[], action: { value: ItemValue }) {
-		const valuesSet = new Set(selection);
+	const [selection, setSelection] = useState<ItemValue[]>([]);
+
+	function handleSelection({ value }: { value: ItemValue }) {
+		let newValue: ItemValue[];
 
 		if (multiple) {
-			if (valuesSet.has(action.value)) {
-				valuesSet.delete(action.value);
+			if (selection.includes(value)) {
+				newValue = selection.filter((v) => v !== value);
+				setSelection(newValue);
 			} else {
-				valuesSet.add(action.value);
+				newValue = [...selection, value];
+				setSelection(newValue);
 			}
 		} else {
-			if (valuesSet.has(action.value)) {
-				valuesSet.clear();
+			if (selection.includes(value)) {
+				newValue = [] as ItemValue[];
+				setSelection(newValue);
 			} else {
-				valuesSet.clear();
-				valuesSet.add(action.value);
+				newValue = [value];
+				setSelection([value]);
 			}
 		}
 
-		const newSelection = Array.from(valuesSet);
-		onChange(newSelection);
-		return newSelection;
+		onChange(newValue);
 	}
-
-	const [selection, dispatch] = useReducer(selectionReducer, []);
-
 	return (
 		<S.List>
 			{items.map((item) => (
 				<div
 					key={item.label}
-					onClick={() => dispatch({ value: item.value })}
+					onClick={() => {
+						handleSelection({ value: item.value });
+					}}
 					style={{
 						cursor: "pointer"
 					}}
