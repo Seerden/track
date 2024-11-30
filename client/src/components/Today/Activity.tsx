@@ -2,10 +2,10 @@ import { activityDurationOnDate, activityStartOnDate } from "@/lib/activity";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import modalIds from "@/lib/modal-ids";
 import type { ActivityWithIds } from "@t/data/activity.types";
-import type { Datelike } from "@t/data/utility.types";
+import type { Dayjs } from "dayjs";
 import T from "./style/Activity.style";
 
-function useActivity(activity: ActivityWithIds, date: Datelike) {
+function useActivity(activity: ActivityWithIds, date: Dayjs) {
 	const start = activityStartOnDate(activity, date);
 	const offset = !start ? 0 : start.minute() / 60;
 	const { openDetailedItemModal } = useDetailedItemModal(
@@ -27,7 +27,7 @@ function useActivity(activity: ActivityWithIds, date: Datelike) {
 export type ActivityProps = {
 	activity: ActivityWithIds;
 	level: number;
-	date: Datelike;
+	date: Dayjs;
 };
 
 export default function Activity({ activity, level, date }: ActivityProps) {

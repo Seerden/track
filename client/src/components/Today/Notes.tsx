@@ -1,4 +1,5 @@
 import Empty from "@/components/Today/Empty";
+import { createDate } from "@/lib/datetime/make-date";
 import { filterTagsById } from "@/lib/filter-tags";
 import useNotesQuery from "@/lib/hooks/query/notes/useNotesQuery";
 import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
@@ -14,7 +15,7 @@ export default function Notes() {
 		// TODO: note.date is not a field in the client when creating a new note,
 		// so it will always be undefined currently, so using created_at is a
 		// temporary solution.
-		isToday(note.date ?? note.created_at)
+		isToday(note.date ? createDate(note.date) : createDate(note.created_at))
 	);
 	return (
 		<S.NotesWrapper>

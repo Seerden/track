@@ -1,7 +1,8 @@
 import { getLocalHour } from "@/lib/datetime/local";
 import { createDate, now } from "@/lib/datetime/make-date";
 import type { ActivityWithIds } from "@t/data/activity.types";
-import type { Datelike, ID } from "@t/data/utility.types";
+import type { ID } from "@t/data/utility.types";
+import type { Dayjs } from "dayjs";
 import { sameDay } from "./datetime/compare";
 
 /** Gets the `start` of an activity, which is either a timestamp or
@@ -21,31 +22,30 @@ export function activityEnd(activity: ActivityWithIds) {
  * but if the activity only takes place on `date`, this returns the actual start
  * of the activity. If the activity doesn't fall on `date` at all, this returns
  * null. */
-export function activityStartOnDate(activity: ActivityWithIds, date: Datelike) {
+export function activityStartOnDate(activity: ActivityWithIds, date: Dayjs) {
 	if (!activityFallsOnDay(activity, date)) return null;
 
-	const _date = createDate(date).startOf("day");
+	const _date = date.startOf("day");
 	const start = activityStart(activity);
 	return start.isBefore(_date) ? _date : start;
 }
 
 /** Analogous to `activityStartOnDate`. */
-export function activityEndOnDate(activity: ActivityWithIds, date: Datelike) {
+export function activityEndOnDate(activity: ActivityWithIds, date: Dayjs) {
 	if (!activityFallsOnDay(activity, date)) return null;
-	const _date = createDate(date).endOf("day");
+	const _date = date.endOf("day");
 	const end = activityEnd(activity);
 	return end.isAfter(_date) ? _date : end;
 }
 
 /** Checks if any part of `activity` falls on `date`. */
-export function activityFallsOnDay(activity: ActivityWithIds, date: Datelike) {
+export function activityFallsOnDay(activity: ActivityWithIds, date: Dayjs) {
 	const [start, end] = [activityStart(activity), activityEnd(activity)];
-	const day = createDate(date);
 
 	return (
-		sameDay(start, day) ||
-		sameDay(end, day) ||
-		(start.isBefore(day) && end.isAfter(day))
+		sameDay(start, date) ||
+		sameDay(end, date) ||
+		(start.isBefore(date) && end.isAfter(date))
 	);
 }
 
@@ -53,7 +53,7 @@ export function activityFallsOnDay(activity: ActivityWithIds, date: Datelike) {
  * Note that for e.g. Today, we limit the activity visually to end at 23:59.
  * This is done in the Today component though, so we don't have to worry about
  * it here. */
-export function activityDurationOnDate(activity: ActivityWithIds, date: Datelike) {
+export function activityDurationOnDate(activity: ActivityWithIds, date: Dayjs) {
 	const [start, end] = [
 		activityStartOnDate(activity, date),
 		activityEndOnDate(activity, date)
@@ -69,7 +69,7 @@ export function activityDurationOnDate(activity: ActivityWithIds, date: Datelike
  * `date`.
  *
  * @usage this  allows us to render activities in the correct hour row in the UI. */
-export function activityStartHourOnDate(activity: ActivityWithIds, date: Datelike) {
+export function activityStartHourOnDate(activity: ActivityWithIds, date: Dayjs) {
 	if (!activityFallsOnDay(activity, date)) {
 		return -1;
 	}
@@ -105,11 +105,8 @@ export function isAllDaySingleDayActivity(activity: ActivityWithIds) {
 /** Checks if an an `activity` lasts all day on the given `date`.
  * TODO: `isAllDaySingleDayActivity()` is not necessary if we use this one properly
  * instead. */
-export function isAllDayActivityOnDate(activity: ActivityWithIds, date: Datelike) {
-	const [startOfDay, endOfDay] = [
-		createDate(date).startOf("day"),
-		createDate(date).endOf("day")
-	];
+export function isAllDayActivityOnDate(activity: ActivityWithIds, date: Dayjs) {
+	const [startOfDay, endOfDay] = [date.startOf("day"), date.endOf("day")];
 	const [startActivity, endActivity] = [activityStart(activity), activityEnd(activity)];
 	return !startOfDay.isBefore(startActivity) && !endOfDay.isAfter(endActivity);
 }
@@ -117,15 +114,11 @@ export function isAllDayActivityOnDate(activity: ActivityWithIds, date: Datelike
 /** Given a list of `activities` and a `date`, this finds all the unique
  * (unix) timestamps at which at least one activity starts, or at least one
  * activity ends. */
-export function getAllStartAndEndTimesOnDate(
-	activities: ActivityWithIds[],
-	date: Datelike
-) {
+export function getAllStartAndEndTimesOnDate(activities: ActivityWithIds[], date: Dayjs) {
 	const times = new Set<number>();
 
-	const _date = createDate(date);
-	const startOfDay = _date.startOf("day");
-	const endOfDay = _date.endOf("day");
+	const startOfDay = date.startOf("day");
+	const endOfDay = date.endOf("day");
 
 	for (const activity of activities) {
 		const [start, end] = [activityStart(activity), activityEnd(activity)];
@@ -179,7 +172,7 @@ function activityOccursOnTimestamp(activity: ActivityWithIds, timestamp: number)
  * */
 export function assignIndentationLevelToActivities(
 	activities: ActivityWithIds[],
-	date: Datelike
+	date: Dayjs
 ) {
 	const timestamps = getAllStartAndEndTimesOnDate(activities, date);
 	const indentation = new Map<ID, number>();
