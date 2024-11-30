@@ -1,45 +1,13 @@
 import MiniLog from "@/components/logbooks/Logbooks/MiniLog";
+import { logs } from "@/components/logbooks/Logbooks/mock";
 import { Action } from "@/lib/theme/components/buttons";
-import type { Log, Logbook } from "@t/data/logbook.types";
+import type { Logbook } from "@t/data/logbook.types";
 import { SquarePen } from "lucide-react";
 import S from "./style/LogbookCard.style";
 
 type LogbookCardProps = {
 	logbook: Logbook;
 };
-
-const logs: Log[] = [
-	{
-		created_at: new Date(),
-		date: new Date(),
-		end_time: null,
-		start_time: null,
-		log_id: 1,
-		log_template_id: 1,
-		logbook_id: 1,
-		name: "Groceries 27/11"
-	},
-	{
-		created_at: new Date(),
-		date: new Date(),
-		end_time: null,
-		start_time: null,
-		log_id: 2,
-		log_template_id: 2,
-		logbook_id: 1,
-		name: "Purchases November"
-	},
-	{
-		created_at: new Date(),
-		date: new Date(),
-		end_time: null,
-		start_time: null,
-		log_id: 3,
-		log_template_id: 3,
-		logbook_id: 1,
-		name: "Driving lessons"
-	}
-];
 
 export default function LogbookCard({ logbook }: LogbookCardProps) {
 	return (
@@ -48,7 +16,7 @@ export default function LogbookCard({ logbook }: LogbookCardProps) {
 			{logbook.description && <S.Description>{logbook.description}</S.Description>}
 
 			<S.Logs>
-				{logs.length && (
+				{logs.length > 0 && (
 					<S.LogList>
 						{logs.map((log) => (
 							<MiniLog key={log.log_id} log={log} />
