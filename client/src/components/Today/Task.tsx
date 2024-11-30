@@ -36,6 +36,7 @@ export default function Task({ activity, tags = [] }: TaskProps) {
 
 	return (
 		<T.Task
+			$completed={activity.completed}
 			onClick={(e) => {
 				e.stopPropagation();
 				openDetailedItemModal(activity.activity_id);
