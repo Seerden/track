@@ -17,6 +17,8 @@ type SelectionListProps = {
 	onChange: (values: (string | number)[]) => void;
 };
 
+// TODO: because we're using Sets, the order of selection isn't preserved. We
+// probably do want that, though.
 export default function SelectionList({
 	multiple,
 	items,
