@@ -2,7 +2,7 @@ import ListStyle from "@/lib/theme/components/List.style";
 import { getFontSize } from "@/lib/theme/font";
 import { column } from "@/lib/theme/snippets/column";
 import { flex } from "@/lib/theme/snippets/flex";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 // TODO: make this shared with Notes for now since they are currently the same
 const TasksWrapper = styled.section`
@@ -25,7 +25,15 @@ const Tasks = styled(ListStyle.ItemList)`
 	grid-template-columns: max-content max-content auto 1fr;
 `;
 
-const Task = styled(ListStyle.Item)``;
+const Task = styled(ListStyle.Item)<{ $completed?: boolean }>`
+	${(p) =>
+		p.$completed &&
+		css`
+			opacity: 0.6;
+			background-color: #eee;
+			outline: 2px solid #e9e9e9;
+		`}// TODO: this opacity is the same for completed tasks in all their implementations, so generalize it.
+`;
 
 export default {
 	TasksWrapper,

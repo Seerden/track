@@ -33,6 +33,7 @@ export default function AllDayActivity({ activity }: AllDayActivityProps) {
 
 	return (
 		<T.AllDayActivity
+			$completed={activity.completed}
 			key={activity.activity_id}
 			onClick={(e) => {
 				if (checkboxRef.current?.contains(e.target as Node)) return;
