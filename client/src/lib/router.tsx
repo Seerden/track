@@ -1,5 +1,6 @@
 import App from "@/App";
 import LogbookForm from "@/components/logbooks/LogbookForm/LogbookForm";
+import Logbooks from "@/components/logbooks/Logbooks/Logbooks";
 import { Protected, Suspended } from "@/components/wrappers";
 import Page from "@/lib/framer/components/Page";
 import { lazy } from "react";
@@ -101,7 +102,13 @@ const topLevelRoutes: RouteObject[] = [
 			{
 				path: "",
 				index: true,
-				element: <></>
+				element: (
+					<Protected>
+						<Page>
+							<Logbooks />
+						</Page>
+					</Protected>
+				)
 			},
 			{
 				path: "new",

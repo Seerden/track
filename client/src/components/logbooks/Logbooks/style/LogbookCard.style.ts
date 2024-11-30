@@ -6,7 +6,7 @@ import { flex } from "@/lib/theme/snippets/flex";
 import styled from "styled-components";
 
 const Card = styled(CardStyle.Wrapper)`
-	min-width: max-content;
+	min-width: 400px;
 	max-width: max-content;
 
 	${_commonStyle.cardShadow};
