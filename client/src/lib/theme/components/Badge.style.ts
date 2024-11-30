@@ -4,6 +4,7 @@ import styled from "styled-components";
 import type { CSS } from "styled-components/dist/types";
 
 const Badge = styled.div<{ height?: CSS.Properties["height"] }>`
+	user-select: none;
 	display: flex;
 	place-items: center;
 	border-radius: 8px;
