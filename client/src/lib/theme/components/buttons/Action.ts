@@ -28,6 +28,11 @@ const Default = styled(Unstyled)<{ $color?: ColorKey }>`
 	color: white;
 	width: 30px;
 	height: 30px;
+
+	&:disabled {
+		cursor: not-allowed;
+		opacity: 0.5;
+	}
 `;
 
 Default.defaultProps = {
