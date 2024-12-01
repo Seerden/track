@@ -1,4 +1,4 @@
-import S from "./NewFieldTemplate.style";
+import S from "./style/NewFieldTemplate.style";
 export default function NewFieldTemplate() {
 	return (
 		// name, description, unit, value_type, required

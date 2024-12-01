@@ -1,4 +1,4 @@
-import F from "@/components/logbooks/LogbookForm/LogbookForm.style";
+import F from "@/components/logbooks/LogbookForm/style/LogbookForm.style";
 import { Button } from "@/components/logbooks/LogDetail/style/_common.style";
 import useLogTemplateForm from "@/components/logbooks/LogForm/useLogTemplateForm";
 import { Action } from "@/lib/theme/components/buttons";
