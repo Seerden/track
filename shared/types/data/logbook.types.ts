@@ -38,9 +38,12 @@ export type ItemTemplate = {
 	standalone: boolean; // false for lifts, but probably true for meta items like dates etc.
 };
 
-type NestedPrimitiveObject = {
-	[k: string]: string | number | NestedPrimitiveObject;
-};
+type NestedPrimitiveObject =
+	| {
+			[k: string]: string | number | NestedPrimitiveObject;
+	  }
+	| string
+	| number;
 
 /** A LogbookEntryTemplate describes what a logbook entry should look like.
  *  For example, a "lifting" logbook entry template could contain a number of
