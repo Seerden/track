@@ -11,8 +11,8 @@ export function groupById<T extends object>(
 	idField: IdFieldUnion<T>,
 ): ById<T> {
 	return data.reduce((acc, cur) => {
-		const a = cur[idField] as number;
-		acc[a] = cur;
+		const id = cur[idField] as number;
+		acc[id] = cur;
 		return acc;
 	}, {} as ById<T>);
 }

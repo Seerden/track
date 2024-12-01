@@ -1,10 +1,10 @@
-import type { Datelike } from "@t/data/utility.types";
-import { createDate, today } from "./make-date";
+import type { Dayjs } from "dayjs";
+import { today } from "./make-date";
 
-export function sameDay(one: Datelike, two: Datelike) {
-	return createDate(one).isSame(createDate(two), "day");
+export function sameDay(one: Dayjs, two: Dayjs) {
+	return one.isSame(two, "day");
 }
 
-export function isToday(date: Datelike) {
-	return createDate(date).isSame(today(), "day");
+export function isToday(date: Dayjs) {
+	return date.isSame(today(), "day");
 }

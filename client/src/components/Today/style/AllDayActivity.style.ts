@@ -1,10 +1,10 @@
 import { getFontSize } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import S from "./Today.style";
 
-const AllDayActivity = styled.li`
+const AllDayActivity = styled.li<{ $completed?: boolean }>`
 	user-select: none;
 	cursor: pointer;
 	position: relative;
@@ -21,6 +21,12 @@ const AllDayActivity = styled.li`
 	align-items: center;
 	gap: 1rem;
 	padding-left: 0.3rem;
+
+	${(p) =>
+		p.$completed &&
+		css`
+			opacity: 0.6;
+		`}
 
 	// TODO: this targets the icon, but should be something other than a p tag
 	p {
@@ -44,7 +50,7 @@ const AllDayActivity = styled.li`
 
 	/* TODO: really should extract all of these checkbox styles */
 	${S.CheckboxWrapper} {
-		margin-left: 1rem;
+		margin-left: auto;
 		background-color: white;
 		border-radius: 50%;
 	}

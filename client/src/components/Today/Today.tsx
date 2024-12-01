@@ -18,7 +18,7 @@ import { selectedTimeWindowState } from "@/lib/state/selected-time-window-state"
 import { activityFallsOnDay, isAllDayActivityOnDate } from "@lib/activity";
 import type { Dayjs } from "dayjs";
 import type { PropsWithChildren } from "react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import Notes from "./Notes";
 import S from "./style/Today.style";
@@ -30,6 +30,15 @@ function useToday() {
 	const { getHabitsForTimeWindow } = useHabitsData();
 	const [currentDate, setCurrentDate] = useState<Dayjs>(() => today());
 	const [timeWindow, setTimeWindow] = useRecoilState(selectedTimeWindowState);
+	const changeDayTimeout = useRef<NodeJS.Timeout | null>(null);
+
+	useEffect(() => {
+		return () => {
+			if (changeDayTimeout.current) {
+				clearTimeout(changeDayTimeout.current);
+			}
+		};
+	}, []);
 
 	useEffect(() => {
 		if (currentDate) {
@@ -42,7 +51,9 @@ function useToday() {
 	}, [currentDate]);
 
 	function changeDay(direction: "next" | "previous") {
-		setCurrentDate((current) => current.add(direction === "next" ? 1 : -1, "day"));
+		changeDayTimeout.current = setTimeout(() => {
+			setCurrentDate((current) => current.add(direction === "next" ? 1 : -1, "day"));
+		}, 25);
 	}
 
 	const activities = useMemo(() => {
@@ -65,6 +76,7 @@ function useToday() {
 
 	const [speedDialOpen, setSpeedDialOpen] = useState(false);
 
+	// eslint-disable-next-line react-compiler/react-compiler
 	return {
 		habits: getHabitsForTimeWindow(timeWindow),
 		activities: todayActivities,

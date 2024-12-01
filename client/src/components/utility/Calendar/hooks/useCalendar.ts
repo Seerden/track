@@ -18,6 +18,7 @@ export function useCalendar({ initialDate, onChange }: UseCalendarProps) {
 	useEffect(() => {
 		// This effect is necessary because it's possible to change the date in
 		// other parts of the page, and we want to keep the selected date in sync.
+		// TODO: only update if the day of year changes
 		if (initialDate) setSelectedDate(initialDate);
 	}, [initialDate]);
 

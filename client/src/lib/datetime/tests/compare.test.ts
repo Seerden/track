@@ -6,12 +6,12 @@ describe("datetime/compare", () => {
 		it("should return true if two dates are the same day", () => {
 			const one = new Date(2024, 11, 19);
 			const two = new Date(2024, 11, 19);
-			expect(sameDay(one, two)).toBe(true);
+			expect(sameDay(createDate(one), createDate(two))).toBe(true);
 		});
 		it("should return false if two dates are not the same day", () => {
 			const one = new Date(2024, 11, 19);
 			const two = new Date(2024, 11, 20);
-			expect(sameDay(one, two)).toBe(false);
+			expect(sameDay(createDate(one), createDate(two))).toBe(false);
 
 			const midnight = createDate(one).endOf("day");
 			const minuteAfterMidnight = midnight.add(1, "millisecond");
@@ -22,10 +22,8 @@ describe("datetime/compare", () => {
 	describe("isToday", () => {
 		it("should return true if the date is today", () => {
 			const currentTimeAndDate = now();
-			const currentTimeAndDateAsDate = currentTimeAndDate.toDate();
 
 			expect(isToday(currentTimeAndDate)).toBe(true);
-			expect(isToday(currentTimeAndDateAsDate)).toBe(true);
 
 			expect(isToday(currentTimeAndDate.startOf("day"))).toBe(true);
 		});
