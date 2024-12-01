@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 /**
  * Returns stateful current time that updates every `pollInterval` milliseconds.
  */
-export default function useCurrentTime(pollInterval = 1000) {
+export default function useCurrentTime(pollInterval = 5000) {
 	const [currentTime, setCurrentTime] = useState(createDate(new Date()));
 
 	useEffect(() => {
