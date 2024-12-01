@@ -1,77 +1,115 @@
+import F from "@/components/logbooks/LogbookForm/LogbookForm.style";
 import { Button } from "@/components/logbooks/LogDetail/style/_common.style";
-import type { ItemValue } from "@/components/utility/selection/SelectionList/SelectionList";
-import SelectionList from "@/components/utility/selection/SelectionList/SelectionList";
-import { LucideText } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import useLogTemplateForm from "@/components/logbooks/LogForm/useLogTemplateForm";
+import { Action } from "@/lib/theme/components/buttons";
+import { font } from "@/lib/theme/font";
+import type { ID } from "@t/data/utility.types";
+import {
+	LucideArrowRight,
+	LucideFolderPlus,
+	LucideText,
+	LucideUndoDot,
+	NotepadText
+} from "lucide-react";
 import S from "./LogTemplateForm.style";
 
-export default function LogTemplateForm() {
-	const [sections, setSections] = useState<ItemValue[][]>([]);
-	const sectionCount = sections.length;
-	const itemTemplates = ["test", "lifts"] as string[];
-	// const itemTemplates = [] as string[];
+type LogTemplateFormProps = {
+	logbook_id: ID;
+};
 
-	useEffect(() => {
-		console.log({ sections });
-	}, [sections]);
-
-	const selectionListItems = itemTemplates.map((item) => ({ label: item, value: item }));
-
-	function handleChange(index: number, value: ItemValue[]) {
-		return setSections((prev) => {
-			const newSections = [...prev];
-			newSections[index] = value;
-
-			return newSections;
-		});
-	}
-
-	const listElements = useMemo(() => {
-		return Array.from({ length: sectionCount + 1 }).map((_, index) => (
-			<SelectionList
-				key={index}
-				items={selectionListItems}
-				onChange={(value) => handleChange(index, value)}
-			/>
-		));
-	}, [sectionCount, setSections]);
+// TODO: use same styling as LogbookForm
+export default function LogTemplateForm({ logbook_id }: LogTemplateFormProps) {
+	const {
+		templateSections,
+		sections,
+		itemTemplates,
+		listElements,
+		isSubmittable,
+		handleInputChange,
+		handleSubmit
+	} = useLogTemplateForm({ logbook_id });
 
 	return (
-		<>
-			<h1>Create a log template</h1>
+		<F.Form onSubmit={handleSubmit}>
+			<F.FormTitle>
+				<LucideFolderPlus size={40} fill={"white"} color="dodgerblue" /> New log
+				template
+			</F.FormTitle>
 
-			<div
-				style={{
-					margin: "1rem",
-					padding: "1rem 2rem",
-					outline: "2px solid #fff",
-					color: "#333",
-
-					boxShadow: "0 0.3rem 0.5rem 0 #ccc"
-				}}
-			>
-				The sections you select decide which templates are part of the log, and they
-				will be shown in the order you choose here: the first item becomes the first
-				section, etc.
-			</div>
-
-			<S.SelectionList>
-				{itemTemplates.length > 0 && !sections.length && (
-					<p>You don't have any sections yet. Add a section to get started.</p>
-				)}
-
-				{itemTemplates.length > 0 ? (
-					<>{listElements}</>
-				) : (
-					<p>
-						You don't have any item templates yet. You need at least one item
-						template to get started.
-						<Button $iconPosition="right" $color="blue">
-							New item template <LucideText size={20} />
-						</Button>
+			<fieldset>
+				<F.Label>
+					<span>Name</span>
+					<input type="text" name="name" required onChange={handleInputChange} />
+				</F.Label>
+			</fieldset>
+			<fieldset>
+				<S.SelectionList>
+					<p
+						style={{
+							maxWidth: "500px",
+							fontSize: font.size["0.9"],
+							padding: "1rem 1.5rem",
+							backgroundColor: "#fff",
+							borderRadius: 3
+						}}
+					>
+						Select the sections that you want to include in this log template.
 					</p>
-				)}
-			</S.SelectionList>
-		</>
+
+					{itemTemplates.length > 0 && !sections.length && (
+						<p>
+							This template does not have any sections yet. Add a section to get
+							started.
+						</p>
+					)}
+
+					{itemTemplates.length > 0 ? (
+						<>
+							<S.ActionBar>
+								{templateSections.length > 0 && (
+									<Action.Default
+										disabled // TODO: enable when functionality is implemented
+										title="Clear all sections"
+										$color="red"
+										style={{ width: 30, height: 30 }}
+									>
+										<LucideUndoDot size={20} color="black" />
+									</Action.Default>
+								)}
+
+								<Action.Default
+									disabled // TODO: enable when functionality is implemented
+									title="New item template"
+									$color="yellow"
+									style={{ width: 30, height: 30 }}
+								>
+									<NotepadText size={20} color="black" />
+								</Action.Default>
+							</S.ActionBar>
+
+							<>{listElements}</>
+						</>
+					) : (
+						<p>
+							You don't have any item templates yet. You need at least one item
+							template to get started.
+							<Button $iconPosition="right" $color="blue">
+								New item template <LucideText size={20} />
+							</Button>
+						</p>
+					)}
+				</S.SelectionList>
+			</fieldset>
+
+			<F.Submit
+				type="submit"
+				$color={!templateSections.length ? "red" : "blue"}
+				$iconPosition="right"
+				disabled={!isSubmittable}
+			>
+				{" "}
+				create <LucideArrowRight size={20} />{" "}
+			</F.Submit>
+		</F.Form>
 	);
 }
