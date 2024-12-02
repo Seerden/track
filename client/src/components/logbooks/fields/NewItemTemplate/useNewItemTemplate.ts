@@ -45,9 +45,11 @@ export default function useNewItemTemplate({ logbook_id }: { logbook_id: ID }) {
 
 		// check if there is at least 1 field and if the itemTemplate fields are
 		// filled out.
-		if (false) {
-			submit({ newItemTemplate: itemTemplate, newFieldTemplates });
+		if (newFieldTemplates.length === 0 || !itemTemplate.name) {
+			return;
 		}
+
+		submit({ newItemTemplate: itemTemplate, newFieldTemplates });
 	}
 
 	return {
