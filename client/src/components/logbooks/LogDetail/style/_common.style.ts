@@ -15,6 +15,9 @@ const outline = {
 const border = {
 	primary: css`
 		border: 1px solid #ccc;
+	`,
+	light: css`
+		border: 1px solid #fff;
 	`
 };
 
@@ -33,6 +36,14 @@ const cardShadow = css`
 	box-shadow: 0 0 1rem 0 #bbb;
 `;
 
+const cardOffsetShadow = css`
+	box-shadow: 0 0.2rem 0.4rem 0 #ddd;
+`;
+
+const sectionShadow = css`
+	box-shadow: 0 0.3rem 0.3rem 0 #ddd;
+`;
+
 const listShadow = css`
 	box-shadow: 0 0 0.5rem 0 #ccc;
 `;
@@ -49,21 +60,30 @@ const radius = {
 	`
 };
 
+const spacingValue = {
+	small: "0.5rem",
+	medium: "1rem",
+	large: "2rem"
+};
+
 const padding = {
 	small: css`
-		padding: 0.5rem;
+		padding: ${spacingValue.small};
 	`,
 	medium: css`
-		padding: 1rem;
+		padding: ${spacingValue.medium};
 	`
 };
 
 const margin = {
 	small: css`
-		margin: 0.5rem;
+		margin: ${spacingValue.small};
 	`,
 	medium: css`
-		margin: 1rem;
+		margin: ${spacingValue.medium};
+	`,
+	large: css`
+		margin: ${spacingValue.large};
 	`
 };
 
@@ -72,6 +92,9 @@ export default {
 	border,
 	tints,
 	cardShadow,
+	cardOffsetShadow,
+	sectionShadow,
+	spacingValue,
 	listShadow,
 	radius,
 	padding,
