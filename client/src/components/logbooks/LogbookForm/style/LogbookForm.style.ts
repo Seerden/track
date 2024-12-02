@@ -33,12 +33,17 @@ const Label = styled.label`
 	}
 
 	input,
-	textarea {
+	textarea,
+	select {
 		resize: none;
 		margin: 0.3rem;
 		font-size: ${font.size["0.93"]};
 		border: none;
 		line-height: 1.5rem;
+
+		&:not(&[type="checkbox"]) {
+			height: 1.5rem;
+		}
 		background-color: #fff;
 		padding: 0.3rem 0.6rem;
 		border: 1px solid #ddd;
@@ -51,5 +56,9 @@ const Submit = styled(Button)`
 	margin-top: 1rem;
 	padding: 1rem;
 `;
+
+Submit.defaultProps = {
+	type: "submit"
+};
 
 export default { Form, FormTitle, Label, Submit };

@@ -56,11 +56,13 @@ const Label = styled(F.Label)`
 	margin: 0;
 
 	span,
-	input {
+	input,
+	select {
 		font-size: ${font.size["0.8"]};
 	}
 
-	input {
+	input,
+	select {
 		margin: 0.1rem;
 		padding: 0.1rem 0.2rem;
 	}

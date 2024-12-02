@@ -48,7 +48,11 @@ export default function NewFieldTemplate({
 				<S.Column>
 					<S.Label>
 						<span>value type</span>
-						<input name="value_type" type="text" onChange={handleInputChange} />
+						<select name="value_type" onChange={handleInputChange}>
+							<option value="number">number</option>
+							<option value="text">text</option>
+							<option value="richtext">rich text</option>
+						</select>
 					</S.Label>
 
 					<S.Label>

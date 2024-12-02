@@ -19,13 +19,14 @@ export default function useNewFieldTemplate({
 		required: true
 	});
 
-	function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-		const { name, type, value, checked } = e.target;
-
+	function handleInputChange(
+		e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
+	) {
 		setFieldTemplate((current) => {
 			return {
 				...current,
-				[name]: type === "checkbox" ? checked : value
+				[e.target.name]:
+					e.target.type === "checkbox" ? e.target.checked : e.target.value
 			};
 		});
 	}
