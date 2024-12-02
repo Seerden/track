@@ -20,8 +20,8 @@ type LogTemplateFormProps = {
 // TODO: use same styling as LogbookForm
 export default function LogTemplateForm({ logbook_id }: LogTemplateFormProps) {
 	const {
-		templateSections,
-		sections,
+		showClearSectionsButton,
+		sectionCount,
 		itemTemplates,
 		listElements,
 		isSubmittable,
@@ -56,7 +56,7 @@ export default function LogTemplateForm({ logbook_id }: LogTemplateFormProps) {
 						Select the sections that you want to include in this log template.
 					</p>
 
-					{itemTemplates.length > 0 && !sections.length && (
+					{itemTemplates.length > 0 && !(sectionCount > 0) && (
 						<p>
 							This template does not have any sections yet. Add a section to get
 							started.
@@ -66,7 +66,7 @@ export default function LogTemplateForm({ logbook_id }: LogTemplateFormProps) {
 					{itemTemplates.length > 0 ? (
 						<>
 							<S.ActionBar>
-								{templateSections.length > 0 && (
+								{showClearSectionsButton && (
 									<Action.Default
 										disabled // TODO: enable when functionality is implemented
 										title="Clear all sections"
@@ -103,11 +103,10 @@ export default function LogTemplateForm({ logbook_id }: LogTemplateFormProps) {
 
 			<F.Submit
 				type="submit"
-				$color={!templateSections.length ? "red" : "blue"}
+				$color={!isSubmittable ? "red" : "blue"}
 				$iconPosition="right"
 				disabled={!isSubmittable}
 			>
-				{" "}
 				create <LucideArrowRight size={20} />{" "}
 			</F.Submit>
 		</F.Form>

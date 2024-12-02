@@ -2,36 +2,39 @@ import PositionIndicator from "@/components/logbooks/LogForm/PositionIndicator";
 import type { ItemValue } from "@/components/utility/selection/SelectionList/SelectionList";
 import SelectionList from "@/components/utility/selection/SelectionList/SelectionList";
 import useMutateNewLogTemplate from "@/lib/hooks/query/logbooks/useMutateNewLogTemplate";
+import { useQueryItemTemplatesByLogbook } from "@/lib/hooks/query/logbooks/useQueryItemTemplates";
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import type { NewLogTemplate } from "@t/data/logbook.new.types";
 import type { ID } from "@t/data/utility.types";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 export default function useLogTemplateForm({ logbook_id }: { logbook_id: ID }) {
 	const { mutate: submit } = useMutateNewLogTemplate();
 	const { navigate } = useRouteProps();
 	const [sections, setSections] = useState<ItemValue[][]>([]);
 	const sectionCount = sections.length;
-	const itemTemplates = ["test", "lifts"] as string[];
 	const templateSections = sections.filter((section) => section.length > 0);
+
+	const { data: itemTemplatesData } = useQueryItemTemplatesByLogbook(logbook_id);
+	const itemTemplates = itemTemplatesData ? Object.values(itemTemplatesData.byId) : [];
+	const selectionListItems = itemTemplates.map((item) => ({
+		label: item.name,
+		value: item.item_template_id
+	}));
+
 	const [logTemplate, setLogTemplate] = useState<NewLogTemplate>({
 		logbook_id,
 		name: "",
 		layout: []
 	});
 
-	useEffect(() => {
-		console.log({ sections });
-	}, [sections]);
-
-	const selectionListItems = itemTemplates.map((item) => ({ label: item, value: item }));
-
 	// TODO: the type defines name as nullable, but it shouldn't be.
 	const isSubmittable = templateSections.length && logTemplate.name?.length;
+	const showClearSectionsButton = templateSections.length > 0;
 
 	function handleChange(index: number, value: ItemValue[]) {
-		return setSections((prev) => {
-			const newSections = [...prev];
+		return setSections((current) => {
+			const newSections = [...current];
 			newSections[index] = value;
 
 			return newSections;
@@ -52,6 +55,9 @@ export default function useLogTemplateForm({ logbook_id }: { logbook_id: ID }) {
 		e.preventDefault();
 
 		const newLogTemplate = { ...logTemplate, layout: getLayoutFromSections() };
+
+		// TODO: probably want to do some validation on newLogTemplate before
+		// submitting.
 
 		submit(
 			{
@@ -83,11 +89,11 @@ export default function useLogTemplateForm({ logbook_id }: { logbook_id: ID }) {
 				/>
 			</div>
 		));
-	}, [sections, sectionCount]);
+	}, [sections, sectionCount, selectionListItems]);
 
 	return {
-		templateSections,
-		sections,
+		showClearSectionsButton,
+		sectionCount,
 		itemTemplates,
 		listElements,
 		isSubmittable,
