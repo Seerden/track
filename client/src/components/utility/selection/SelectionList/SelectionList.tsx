@@ -63,7 +63,7 @@ export default function SelectionList({
 					}}
 				>
 					<Badge color={selection.includes(item.value) ? highlightColor : "#ccc"}>
-						{item.value}
+						{item.label}
 					</Badge>
 				</div>
 			))}
