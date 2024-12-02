@@ -11,7 +11,12 @@ export default meta;
 export const Default: StoryFn = (args) => {
 	return (
 		<div style={{ margin: "3rem" }}>
-			<NewFieldTemplate {...args} />
+			<NewFieldTemplate
+				{...args}
+				onFieldTemplateAdd={() => {}}
+				logbook_id={1}
+				position={0}
+			/>
 		</div>
 	);
 };

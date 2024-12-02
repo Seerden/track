@@ -1,44 +1,92 @@
+import useNewFieldTemplate from "@/components/logbooks/fields/NewFieldTemplate/useNewFieldTemplate";
+import F from "@/components/logbooks/LogbookForm/style/LogbookForm.style";
+import { font } from "@/lib/theme/font";
+import type { NewFieldTemplate as TNewFieldTemplate } from "@t/data/logbook.new.types";
+import type { ID } from "@t/data/utility.types";
+import { LucideListPlus } from "lucide-react";
 import S from "./style/NewFieldTemplate.style";
-export default function NewFieldTemplate() {
+
+type NewFieldTemplateProps = {
+	position: number;
+	logbook_id: ID;
+	onFieldTemplateAdd: (value: TNewFieldTemplate) => void;
+};
+
+export default function NewFieldTemplate({
+	position,
+	logbook_id,
+	onFieldTemplateAdd
+}: NewFieldTemplateProps) {
+	const { fieldTemplate, handleInputChange } = useNewFieldTemplate({
+		position,
+		logbook_id
+	});
+
 	return (
 		// name, description, unit, value_type, required
-		<S.Form
+		<S.Wrapper
 			style={{
-				display: "flex"
+				display: "flex",
+				flexDirection: "column"
 			}}
 		>
-			<S.Title>new field</S.Title>
+			<S.Fields>
+				<S.Title>New Field</S.Title>
 
-			<S.Column>
-				<S.Label>
-					<span>required?</span>
-					<input type="checkbox" />
-				</S.Label>
-			</S.Column>
+				<S.Column>
+					<S.Label>
+						<span>name</span>
+						<input name="name" type="text" onChange={handleInputChange} />
+					</S.Label>
 
-			<S.Column>
-				<S.Label>
-					<span>name</span>
-					<input type="text" />
-				</S.Label>
+					<S.Label>
+						<span>description</span>
+						<input name="description" type="text" onChange={handleInputChange} />
+					</S.Label>
+				</S.Column>
 
-				<S.Label>
-					<span>description</span>
-					<input type="text" />
-				</S.Label>
-			</S.Column>
+				<S.Column>
+					<S.Label>
+						<span>value type</span>
+						<input name="value_type" type="text" onChange={handleInputChange} />
+					</S.Label>
 
-			<S.Column>
-				<S.Label>
-					<span>value type</span>
-					<input type="text" />
-				</S.Label>
+					<S.Label>
+						<span>unit (optional)</span>
+						<input name="unit" type="text" onChange={handleInputChange} />
+					</S.Label>
+				</S.Column>
 
-				<S.Label>
-					<span>unit (optional)</span>
-					<input type="text" />
-				</S.Label>
-			</S.Column>
-		</S.Form>
+				<S.Column style={{ alignSelf: "flex-end" }}>
+					<S.Label>
+						<span>required?</span>
+						<input
+							name="required"
+							type="checkbox"
+							checked={fieldTemplate.required}
+							onChange={handleInputChange}
+						/>
+					</S.Label>
+				</S.Column>
+			</S.Fields>
+
+			<F.Submit
+				$iconPosition="right"
+				$color="themeInverted"
+				type="button"
+				style={{
+					fontSize: font.size["0.86"],
+					margin: 0,
+					marginTop: "1rem",
+					alignSelf: "flex-end"
+				}}
+				onClick={(e) => {
+					e.preventDefault();
+					onFieldTemplateAdd(fieldTemplate);
+				}}
+			>
+				add field <LucideListPlus size={20} />
+			</F.Submit>
+		</S.Wrapper>
 	);
 }
