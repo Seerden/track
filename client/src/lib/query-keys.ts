@@ -85,6 +85,9 @@ const mk = {
 		update: ["logbook"],
 		template: {
 			new: ["new-log-template"]
+		},
+		itemTemplate: {
+			new: ["new-item-template"]
 		}
 	}
 } as const;

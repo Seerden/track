@@ -145,3 +145,10 @@ export type LogbookInput = {
 };
 
 export * from "./logbook.new.types";
+
+// TODO: this should be somewhere else, I would like to keep the regular model
+// types file pure.
+export type ItemTemplateAndFieldTemplates = {
+	itemTemplate: ItemTemplate;
+	fieldTemplates: FieldTemplate[];
+};

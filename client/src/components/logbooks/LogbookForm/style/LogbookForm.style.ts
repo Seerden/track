@@ -2,7 +2,6 @@ import { Button, Title } from "@/components/logbooks/LogDetail/style/_common.sty
 import containers from "@/lib/theme/components/container.style";
 import { font } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
-import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
 
 const Form = styled.form`
@@ -50,7 +49,7 @@ const Label = styled.label`
 const Submit = styled(Button)`
 	color: #eee;
 	margin-top: 1rem;
-	${spacing.padding.wide({ size: 1, ratio: 1.5 })}
+	padding: 1rem;
 `;
 
 export default { Form, FormTitle, Label, Submit };

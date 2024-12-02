@@ -1,30 +1,27 @@
 import NewFieldTemplate from "@/components/logbooks/fields/NewFieldTemplate/NewFieldTemplate";
 import MiniField from "@/components/logbooks/fields/NewItemTemplate/MiniField";
+import useNewItemTemplate from "@/components/logbooks/fields/NewItemTemplate/useNewItemTemplate";
 import F from "@/components/logbooks/LogbookForm/style/LogbookForm.style";
 import { font } from "@/lib/theme/font";
-import type { NewFieldTemplate as TNewFieldTemplate } from "@t/data/logbook.new.types";
 import type { ID } from "@t/data/utility.types";
 import { LucideBookCopy } from "lucide-react";
-import { useState } from "react";
 import S from "./style/NewItemTemplate.style";
+
 type NewItemTemplateProps = {
 	logbook_id: ID;
 };
 
+/** Builds a new item template, along with new item templates.
+ * @todo implement functionality to select existing field templates (this
+ * requires backend work, too)
+ * @todo enforce input names
+ */
 export default function NewItemTemplate({ logbook_id }: NewItemTemplateProps) {
-	const [newFieldTemplates, setNewFieldTemplates] = useState<TNewFieldTemplate[]>([]);
-
-	function getFieldTemplateHandler(position: number) {
-		return (value: TNewFieldTemplate) =>
-			setNewFieldTemplates((current) => {
-				const newTemplates = [...current];
-				newTemplates[position] = value;
-				return newTemplates;
-			});
-	}
+	const { getFieldTemplateHandler, handleInputChange, newFieldTemplates, handleSubmit } =
+		useNewItemTemplate({ logbook_id });
 
 	return (
-		<F.Form style={{ maxWidth: "max-content" }}>
+		<F.Form style={{ maxWidth: "max-content" }} onSubmit={handleSubmit}>
 			<F.FormTitle>
 				<LucideBookCopy size={40} color="royalblue" /> New Item Template
 			</F.FormTitle>
@@ -33,11 +30,11 @@ export default function NewItemTemplate({ logbook_id }: NewItemTemplateProps) {
 				<S.Row>
 					<F.Label>
 						<span>name</span>
-						<input name="name" type="text" />
+						<input name="name" type="text" onChange={handleInputChange} />
 					</F.Label>
 					<F.Label>
 						<span>description</span>
-						<input name="description" type="text" />
+						<input name="description" type="text" onChange={handleInputChange} />
 					</F.Label>
 				</S.Row>
 
@@ -45,7 +42,7 @@ export default function NewItemTemplate({ logbook_id }: NewItemTemplateProps) {
 					<F.Label>
 						{/* TODO: this needs an explanation */}
 						<span style={{ padding: 0 }}>singular?</span>
-						<input name="standalone" type="checkbox" />
+						<input name="standalone" type="checkbox" onChange={handleInputChange} />
 					</F.Label>
 				</S.Row>
 			</S.Fields>
@@ -70,7 +67,9 @@ export default function NewItemTemplate({ logbook_id }: NewItemTemplateProps) {
 				/>
 			</S.FieldTemplatesWrapper>
 
-			<F.Submit $iconPosition="right">save item template</F.Submit>
+			<F.Submit $iconPosition="right" $color="darkBlue">
+				save item template
+			</F.Submit>
 		</F.Form>
 	);
 }
