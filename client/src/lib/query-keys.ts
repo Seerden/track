@@ -95,6 +95,9 @@ const mk = {
 		},
 		itemTemplate: {
 			new: ["new-item-template"]
+		},
+		item: {
+			new: ["new-item"]
 		}
 	}
 } as const;
