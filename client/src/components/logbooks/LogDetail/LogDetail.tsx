@@ -7,13 +7,13 @@ export type LogDetailProps = {
 	sections: ItemSectionProps[];
 };
 
-export default function LogDetail(props: LogDetailProps) {
+export default function LogDetail({ log, sections }: LogDetailProps) {
 	return (
 		<S.Wrapper>
-			<S.LogHeader>{props.log.name}</S.LogHeader>
+			<S.LogHeader>{log.name}</S.LogHeader>
 
 			<S.Sections>
-				{props.sections.map((section, index) => (
+				{sections.map((section, index) => (
 					<ItemSection
 						key={index}
 						itemRows={section.itemRows}
