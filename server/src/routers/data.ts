@@ -5,10 +5,12 @@ import { deleteLog } from "@/lib/data/request-handlers/delete/delete-log";
 import { deleteLogTemplate } from "@/lib/data/request-handlers/delete/delete-log-template";
 import { deleteLogbook } from "@/lib/data/request-handlers/delete/delete-logbook";
 import getActivities from "@/lib/data/request-handlers/get/get-activities";
+import { getFields } from "@/lib/data/request-handlers/get/get-fields";
 import getHabitEntries from "@/lib/data/request-handlers/get/get-habit-entries";
 import getHabits from "@/lib/data/request-handlers/get/get-habits";
+import { getItemRows } from "@/lib/data/request-handlers/get/get-item-rows";
 import { getItemTemplatesByLogbook } from "@/lib/data/request-handlers/get/get-item-templates";
-import { getItemsByLogbook } from "@/lib/data/request-handlers/get/get-items";
+import { getItems, getItemsByLogbook } from "@/lib/data/request-handlers/get/get-items";
 import {
 	getLogTemplates,
 	getLogTemplatesByLogbook,
@@ -108,6 +110,10 @@ dataRouter.get(
 );
 dataRouter.get("/logbook/templates", getLogTemplates);
 dataRouter.get("/logbook/:logbook_id/templates", getLogTemplatesByLogbook);
+
+dataRouter.get("/logbooks/fields", getFields);
+dataRouter.get("/logbooks/items/rows", getItemRows);
+dataRouter.get("/logbooks/items", getItems);
 
 /* --- PUT --- */
 dataRouter.put("/logbook/:logbook_id", putLogbook);
