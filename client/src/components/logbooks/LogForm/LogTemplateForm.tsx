@@ -1,6 +1,10 @@
+import NewItemTemplate from "@/components/logbooks/fields/NewItemTemplate/NewItemTemplate";
 import F from "@/components/logbooks/LogbookForm/style/LogbookForm.style";
 import { Button } from "@/components/logbooks/LogDetail/style/_common.style";
 import useLogTemplateForm from "@/components/logbooks/LogForm/useLogTemplateForm";
+import Modal from "@/components/utility/Modal/Modal";
+import modalIds from "@/lib/modal-ids";
+import { useModalState } from "@/lib/state/modal-state";
 import { Action } from "@/lib/theme/components/buttons";
 import { font } from "@/lib/theme/font";
 import type { ID } from "@t/data/utility.types";
@@ -28,87 +32,100 @@ export default function LogTemplateForm({ logbook_id }: LogTemplateFormProps) {
 		handleInputChange,
 		handleSubmit
 	} = useLogTemplateForm({ logbook_id });
+	const { openModal } = useModalState();
 
 	return (
-		<F.Form onSubmit={handleSubmit}>
-			<F.FormTitle>
-				<LucideFolderPlus size={40} fill={"white"} color="dodgerblue" /> New log
-				template
-			</F.FormTitle>
+		<>
+			<F.Form onSubmit={handleSubmit}>
+				<F.FormTitle>
+					<LucideFolderPlus size={40} fill={"white"} color="dodgerblue" /> New log
+					template
+				</F.FormTitle>
 
-			<fieldset>
-				<F.Label>
-					<span>Name</span>
-					<input type="text" name="name" required onChange={handleInputChange} />
-				</F.Label>
-			</fieldset>
-			<fieldset>
-				<S.SelectionList>
-					<p
-						style={{
-							maxWidth: "500px",
-							fontSize: font.size["0.9"],
-							padding: "1rem 1.5rem",
-							backgroundColor: "#fff",
-							borderRadius: 3
-						}}
-					>
-						Select the sections that you want to include in this log template.
-					</p>
-
-					{itemTemplates.length > 0 && !(sectionCount > 0) && (
-						<p>
-							This template does not have any sections yet. Add a section to get
-							started.
+				<fieldset>
+					<F.Label>
+						<span>Name</span>
+						<input type="text" name="name" required onChange={handleInputChange} />
+					</F.Label>
+				</fieldset>
+				<fieldset>
+					<S.SelectionList>
+						<p
+							style={{
+								maxWidth: "500px",
+								fontSize: font.size["0.9"],
+								padding: "1rem 1.5rem",
+								backgroundColor: "#fff",
+								borderRadius: 3
+							}}
+						>
+							Select the sections that you want to include in this log template.
 						</p>
-					)}
 
-					{itemTemplates.length > 0 ? (
-						<>
-							<S.ActionBar>
-								{showClearSectionsButton && (
+						{itemTemplates.length > 0 && !(sectionCount > 0) && (
+							<p>
+								This template does not have any sections yet. Add a section to get
+								started.
+							</p>
+						)}
+
+						{itemTemplates.length > 0 ? (
+							<>
+								<S.ActionBar>
+									{showClearSectionsButton && (
+										<Action.Default
+											disabled // TODO: enable when functionality is implemented
+											title="Clear all sections"
+											$color="red"
+											style={{ width: 30, height: 30 }}
+										>
+											<LucideUndoDot size={20} color="black" />
+										</Action.Default>
+									)}
+
 									<Action.Default
 										disabled // TODO: enable when functionality is implemented
-										title="Clear all sections"
-										$color="red"
+										title="New item template"
+										$color="yellow"
 										style={{ width: 30, height: 30 }}
 									>
-										<LucideUndoDot size={20} color="black" />
+										<NotepadText size={20} color="black" />
 									</Action.Default>
-								)}
+								</S.ActionBar>
 
-								<Action.Default
-									disabled // TODO: enable when functionality is implemented
-									title="New item template"
-									$color="yellow"
-									style={{ width: 30, height: 30 }}
+								<>{listElements}</>
+							</>
+						) : (
+							<p>
+								You don't have any item templates yet. You need at least one item
+								template to get started.
+								<Button
+									$iconPosition="right"
+									$color="blue"
+									onClick={(e) => {
+										e.preventDefault();
+										openModal(modalIds.logbooks.itemTemplate.new);
+									}}
 								>
-									<NotepadText size={20} color="black" />
-								</Action.Default>
-							</S.ActionBar>
+									New item template <LucideText size={20} />
+								</Button>
+							</p>
+						)}
+					</S.SelectionList>
+				</fieldset>
 
-							<>{listElements}</>
-						</>
-					) : (
-						<p>
-							You don't have any item templates yet. You need at least one item
-							template to get started.
-							<Button $iconPosition="right" $color="blue">
-								New item template <LucideText size={20} />
-							</Button>
-						</p>
-					)}
-				</S.SelectionList>
-			</fieldset>
-
-			<F.Submit
-				type="submit"
-				$color={!isSubmittable ? "red" : "blue"}
-				$iconPosition="right"
-				disabled={!isSubmittable}
-			>
-				create <LucideArrowRight size={20} />{" "}
-			</F.Submit>
-		</F.Form>
+				<F.Submit
+					type="submit"
+					$color={!isSubmittable ? "red" : "blue"}
+					$iconPosition="right"
+					disabled={!isSubmittable}
+				>
+					create <LucideArrowRight size={20} />{" "}
+				</F.Submit>
+			</F.Form>
+			<Modal modalId={modalIds.logbooks.itemTemplate.new}>
+				<NewItemTemplate logbook_id={logbook_id} />
+			</Modal>
+		</>
 	);
 }

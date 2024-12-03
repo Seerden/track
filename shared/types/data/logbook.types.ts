@@ -120,7 +120,9 @@ export type Log = {
 	 **/
 	name: Nullable<string>;
 
+	/** @note not implemented in the UI */
 	start_time: Nullable<Timestamp>;
+	/** @note not implemented in the ui */
 	end_time: Nullable<Timestamp>;
 
 	created_at: Timestamp;

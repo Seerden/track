@@ -33,6 +33,9 @@ const modalIds = {
 	logbooks: {
 		itemTemplate: {
 			new: "new-item-template"
+		},
+		logTemplate: {
+			form: "log-template-form"
 		}
 	}
 } as const;

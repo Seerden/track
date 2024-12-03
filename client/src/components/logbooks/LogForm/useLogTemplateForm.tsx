@@ -4,6 +4,8 @@ import SelectionList from "@/components/utility/selection/SelectionList/Selectio
 import useMutateNewLogTemplate from "@/lib/hooks/query/logbooks/useMutateNewLogTemplate";
 import { useQueryItemTemplatesByLogbook } from "@/lib/hooks/query/logbooks/useQueryItemTemplates";
 import useRouteProps from "@/lib/hooks/useRouteProps";
+import modalIds from "@/lib/modal-ids";
+import { useModalState } from "@/lib/state/modal-state";
 import type { NewLogTemplate } from "@t/data/logbook.new.types";
 import type { ID } from "@t/data/utility.types";
 import { useCallback, useMemo, useState } from "react";
@@ -14,6 +16,7 @@ export default function useLogTemplateForm({ logbook_id }: { logbook_id: ID }) {
 	const [sections, setSections] = useState<ItemValue[][]>([]);
 	const sectionCount = sections.length;
 	const templateSections = sections.filter((section) => section.length > 0);
+	const { closeModal } = useModalState();
 
 	const { data: itemTemplatesData } = useQueryItemTemplatesByLogbook(logbook_id);
 	const itemTemplates = itemTemplatesData ? Object.values(itemTemplatesData.byId) : [];
@@ -21,7 +24,6 @@ export default function useLogTemplateForm({ logbook_id }: { logbook_id: ID }) {
 		label: item.name,
 		value: item.item_template_id
 	}));
-
 	const [logTemplate, setLogTemplate] = useState<NewLogTemplate>({
 		logbook_id,
 		name: "",
@@ -65,6 +67,7 @@ export default function useLogTemplateForm({ logbook_id }: { logbook_id: ID }) {
 			},
 			{
 				onSuccess: () => {
+					closeModal(modalIds.logbooks.itemTemplate.new);
 					navigate(`/logbooks/${logbook_id}`);
 				}
 			}
