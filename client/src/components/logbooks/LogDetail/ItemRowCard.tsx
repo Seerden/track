@@ -1,30 +1,20 @@
 import { FieldWrapper } from "@/components/logbooks/LogDetail/style/_common.style";
-import type { Nullable } from "@t/data/utility.types";
+import type { FieldTemplate, FieldValue } from "@t/data/logbook.types";
 import S from "./style/ItemRowCard.style";
 
-export type Field = {
-	fieldValueType: string;
-	fieldValue: Nullable<string | number>;
-	fieldName: string;
-	fieldUnit: Nullable<string>;
-};
-
 export type ItemRowCardProps = {
-	row: {
-		fields: Field[];
-	};
+	fields: (FieldTemplate & { value: FieldValue["value"] })[];
 };
 
 // rename to ItemTableRow and rename styled components too
-export default function ItemRowCard({ row }: ItemRowCardProps) {
-	const { fields } = row;
-
+export default function ItemRowCard({ fields }: ItemRowCardProps) {
+	console.log({ fields });
 	return (
 		<S.Card>
 			{fields.map((field) => (
-				<S.Field key={field.fieldName}>
-					<FieldWrapper small>
-						{field.fieldValue} {field.fieldUnit}
+				<S.Field key={field.name}>
+					<FieldWrapper $small>
+						{field.value} {field.unit}
 					</FieldWrapper>
 				</S.Field>
 			))}

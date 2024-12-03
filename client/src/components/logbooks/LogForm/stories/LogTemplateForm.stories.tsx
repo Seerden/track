@@ -9,5 +9,5 @@ const meta: Meta<typeof LogTemplateForm> = {
 export default meta;
 
 export const Default: StoryFn = (args) => {
-	return <LogTemplateForm {...args} logbook_id={5} />;
+	return <LogTemplateForm {...args} logbook_id={3} />;
 };

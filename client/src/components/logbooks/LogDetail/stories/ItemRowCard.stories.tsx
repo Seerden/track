@@ -1,4 +1,3 @@
-import type { ItemRowCardProps } from "@/components/logbooks/LogDetail/ItemRowCard";
 import ItemRowCard from "@/components/logbooks/LogDetail/ItemRowCard";
 import type { Meta, StoryFn } from "@storybook/react";
 
@@ -10,29 +9,24 @@ const meta: Meta<typeof ItemRowCard> = {
 export default meta;
 
 export const Default: StoryFn = (args) => {
-	const { row }: ItemRowCardProps = {
-		row: {
-			fields: [
+	return (
+		<ItemRowCard
+			{...args}
+			fields={[
 				{
-					fieldName: "weight",
-					fieldValue: 100,
-					fieldValueType: "number",
-					fieldUnit: "kg"
-				},
-				{
-					fieldName: "reps",
-					fieldUnit: null,
-					fieldValue: 10,
-					fieldValueType: "number"
-				},
-				{
-					fieldName: "type",
-					fieldValue: "warmup",
-					fieldUnit: null,
-					fieldValueType: "string"
+					created_at: "2021-09-01T00:00:00Z",
+					name: "Temperature",
+					unit: "°C",
+					value: 25,
+					description: null,
+					field_template_id: 1,
+					item_template_id: 1,
+					logbook_id: 3,
+					position: 0,
+					required: true,
+					value_type: "number"
 				}
-			]
-		}
-	};
-	return <ItemRowCard {...args} row={row} />;
+			]}
+		/>
+	);
 };

@@ -10,5 +10,17 @@ const meta: Meta<typeof ItemRows> = {
 export default meta;
 
 export const Default: StoryFn = (args) => {
-	return <ItemRows {...args} {...rowsMock} />;
+	return (
+		<ItemRows
+			{...args}
+			rows={rowsMock}
+			item={{
+				created_at: "2021-09-01T00:00:00Z",
+				name: "Temperature",
+				item_id: 1,
+				item_template_id: 1,
+				logbook_id: 3
+			}}
+		/>
+	);
 };
