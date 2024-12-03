@@ -11,7 +11,7 @@ export default meta;
 export const Default: StoryFn = (args) => {
 	return (
 		<div style={{ margin: "3rem" }}>
-			<NewItemTemplate {...args} logbook_id={3} />
+			<NewItemTemplate {...args} logbook_id={5} />
 		</div>
 	);
 };

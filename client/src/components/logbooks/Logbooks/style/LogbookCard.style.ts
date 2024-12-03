@@ -32,6 +32,8 @@ const Logs = styled.div`
 	${_commonStyle.margin.medium}
 	${_commonStyle.radius.large};
 
+	align-items: center;
+
 	gap: 1rem;
 `;
 

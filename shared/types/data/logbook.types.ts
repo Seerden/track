@@ -1,4 +1,4 @@
-import { Datelike, ID, Nullable, Timestamp } from "./utility.types";
+import { ID, Nullable, Timestamp } from "./utility.types";
 
 export type ValueType = string | number | null;
 
@@ -120,7 +120,6 @@ export type Log = {
 	 **/
 	name: Nullable<string>;
 
-	date: Datelike;
 	start_time: Nullable<Timestamp>;
 	end_time: Nullable<Timestamp>;
 

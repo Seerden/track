@@ -18,7 +18,8 @@ const Wrapper = styled.div`
 `;
 
 const LogHeader = styled.h1`
-	font-size: ${font.size["3"]};
+	font-size: ${font.size["2"]};
+	margin: 0;
 `;
 
 const Sections = styled.div`

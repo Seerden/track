@@ -14,12 +14,13 @@ export const Default: StoryFn = (args) => {
 		<ItemRows
 			{...args}
 			rows={rowsMock}
+			log_id={1}
 			item={{
 				created_at: "2021-09-01T00:00:00Z",
-				name: "Temperature",
+				name: "test1",
 				item_id: 1,
 				item_template_id: 1,
-				logbook_id: 3
+				logbook_id: 5
 			}}
 		/>
 	);

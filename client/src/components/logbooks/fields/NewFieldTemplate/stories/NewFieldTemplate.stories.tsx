@@ -14,7 +14,7 @@ export const Default: StoryFn = (args) => {
 			<NewFieldTemplate
 				{...args}
 				onFieldTemplateAdd={() => {}}
-				logbook_id={1}
+				logbook_id={5}
 				position={0}
 			/>
 		</div>

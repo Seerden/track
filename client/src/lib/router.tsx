@@ -1,6 +1,8 @@
 import App from "@/App";
 import LogbookForm from "@/components/logbooks/LogbookForm/LogbookForm";
+import LogbookCard from "@/components/logbooks/Logbooks/LogbookCard";
 import Logbooks from "@/components/logbooks/Logbooks/Logbooks";
+import LogDetail from "@/components/logbooks/LogDetail/LogDetail";
 import { Protected, Suspended } from "@/components/wrappers";
 import Page from "@/lib/framer/components/Page";
 import { lazy } from "react";
@@ -119,6 +121,32 @@ const topLevelRoutes: RouteObject[] = [
 						</Page>
 					</>
 				)
+			},
+			{
+				path: ":logbookId",
+				children: [
+					{
+						index: true,
+						element: (
+							<Protected>
+								<Page>
+									{/* TODO: this should not be logbookcard, but detailedlogbook, which doesn't exist yet */}
+									<LogbookCard />
+								</Page>
+							</Protected>
+						)
+					},
+					{
+						path: "log/:logId",
+						element: (
+							<Protected>
+								<Page>
+									<LogDetail />
+								</Page>
+							</Protected>
+						)
+					}
+				]
 			}
 		]
 	}

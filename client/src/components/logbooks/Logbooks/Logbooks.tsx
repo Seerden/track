@@ -27,7 +27,7 @@ export default function Logbooks() {
 			) : (
 				<ul>
 					{Object.values(data.byId).map((logbook) => (
-						<LogbookCard key={logbook.logbook_id} logbook={logbook} />
+						<LogbookCard key={logbook.logbook_id} logbook_id={logbook.logbook_id} />
 					))}
 				</ul>
 			)}
