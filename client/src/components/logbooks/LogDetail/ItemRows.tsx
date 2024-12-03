@@ -22,10 +22,8 @@ function getFieldsForRow(row: ItemRow, fields: Field[]) {
 /** Renders all the rows for the given item. */
 export default function ItemRows({ rows, item }: ItemRowsProps) {
 	const { data: fieldsData } = useQueryFields();
-
-	console.log({ fieldsData, rows, item });
-
 	if (!fieldsData) return null;
+
 	const fields = Object.values(fieldsData.byId);
 
 	return (
