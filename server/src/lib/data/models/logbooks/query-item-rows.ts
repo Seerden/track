@@ -14,3 +14,15 @@ export const queryItemRowsByLog: QueryFunction<
 
 	return itemRows;
 };
+
+export const queryItemRows: QueryFunction<{ user_id: ID }, Promise<ItemRow[]>> = async ({
+	sql = sqlConnection,
+	user_id,
+}) => {
+	const itemRows = await sql<[ItemRow]>`
+      SELECT * FROM item_rows
+      WHERE user_id = ${user_id}
+   `;
+
+	return itemRows;
+};

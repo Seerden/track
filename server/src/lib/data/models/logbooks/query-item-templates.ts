@@ -33,7 +33,7 @@ export const queryItemTemplatesById: QueryFunction<
 > = async ({ sql = sqlConnection, ids }) => {
 	const itemTemplates = await sql<[ItemTemplate]>`
       SELECT * FROM item_templates
-      WHERE item_template_id in ${ids}
+      WHERE item_template_id in ${sql(ids)}
    `;
 
 	return itemTemplates;
