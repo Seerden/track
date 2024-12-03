@@ -154,3 +154,8 @@ export type ItemTemplateAndFieldTemplates = {
 };
 
 export type Field = FieldTemplate & { values: FieldValue[] };
+
+export type ItemRowWithFieldValues = {
+	itemRow: ItemRow;
+	fieldValues: FieldValue[];
+};

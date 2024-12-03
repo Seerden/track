@@ -58,3 +58,8 @@ export type NewItemTemplateInput = {
 	newItemTemplate: NewItemTemplate;
 	newFieldTemplates: NewFieldTemplate[];
 };
+
+export type NewItemRowInput = {
+	newItemRow: NewItemRow;
+	newFieldValues: NewFieldValue[];
+};
