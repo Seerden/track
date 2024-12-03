@@ -65,6 +65,10 @@ export default function ItemRows({ rows, item }: ItemRowsProps) {
 					<LucidePencil /> add to {item.name}
 				</Action.Default>
 			</div>
+			WE ARE HERE
+			<Modal modalId={newItemRowModalId}>
+				<NewItemRow />
+			</Modal>
 		</S.Wrapper>
 	);
 }
