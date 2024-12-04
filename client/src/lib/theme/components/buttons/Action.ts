@@ -1,5 +1,5 @@
 import { getMainColor, getSecondaryColor, type ColorKey } from "@/lib/theme/colors";
-import { Unstyled } from "@/lib/theme/components/buttons";
+import Unstyled from "@/lib/theme/components/buttons/Unstyled";
 import styled from "styled-components";
 import type { CSS } from "styled-components/dist/types";
 
@@ -28,6 +28,11 @@ const Default = styled(Unstyled)<{ $color?: ColorKey }>`
 	color: white;
 	width: 30px;
 	height: 30px;
+
+	&:disabled {
+		cursor: not-allowed;
+		opacity: 0.5;
+	}
 `;
 
 Default.defaultProps = {
