@@ -2,6 +2,7 @@ import LogbookCard from "@/components/logbooks/Logbooks/LogbookCard";
 import { Button } from "@/components/logbooks/LogDetail/style/_common.style";
 import useQueryLogbooks from "@/lib/hooks/query/logbooks/useQueryLogbooks";
 import { Notebook } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function Logbooks() {
 	const { data } = useQueryLogbooks();
@@ -14,6 +15,7 @@ export default function Logbooks() {
 		// page wrapper
 		<div>
 			<h1>Logbooks</h1>
+			<Link to="/logbooks/new">new logbook</Link>
 
 			{/* maybe: you don't have any logbooks yet, create one now! -- text with action button */}
 			{!logbookCount ? (

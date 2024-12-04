@@ -5,6 +5,7 @@ import Modal from "@/components/utility/Modal/Modal";
 import useQueryItemRows from "@/lib/hooks/query/logbooks/useQueryItemRows";
 import useQueryItems from "@/lib/hooks/query/logbooks/useQueryItems";
 import type { ModalId } from "@/lib/modal-ids";
+import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import type { Item, ItemTemplate } from "@t/data/logbook.types";
 import type { ById, ID, Maybe } from "@t/data/utility.types";
@@ -34,7 +35,7 @@ export default function ItemSection({
 	const { openModal } = useModalState();
 	if (!itemsData || !itemRowsData) return null;
 	console.log({ itemRowsData });
-
+	const modalId = `${modalIds.logbooks.item.new}-${itemTemplate.name}` as ModalId;
 	return (
 		<>
 			<S.Wrapper>
@@ -51,7 +52,7 @@ export default function ItemSection({
 							item={item}
 							rows={Object.values(itemRowsData.byId).filter(
 								// TODO: see #175 -- don't want to have to parse the id
-								(row) => +row.item_id === +item_id
+								(row) => +row.item_id === +item_id && +row.log_id === +log_id
 							)}
 						/>
 					);
@@ -61,9 +62,7 @@ export default function ItemSection({
 					$color={"darkBlue"}
 					onClick={(e) => {
 						e.preventDefault();
-						openModal(
-							`modalIds.logbooks.itemTemplate.new-${itemTemplate.name}` as ModalId
-						); // TODO: this should open a NewItem, not NewItemTemplate
+						openModal(modalId);
 					}}
 				>
 					<LucidePencilLine />
@@ -71,9 +70,7 @@ export default function ItemSection({
 				</Button>
 			</S.Wrapper>
 
-			<Modal
-				modalId={`modalIds.logbooks.itemTemplate.new-${itemTemplate.name}` as ModalId}
-			>
+			<Modal modalId={modalId}>
 				<NewItem itemTemplate={itemTemplate} logbook_id={logbook_id} />
 			</Modal>
 		</>

@@ -90,6 +90,9 @@ const mk = {
 	logbooks: {
 		new: ["new-logbook"],
 		update: ["logbook"],
+		log: {
+			new: ["new-log"]
+		},
 		template: {
 			new: ["new-log-template"]
 		},

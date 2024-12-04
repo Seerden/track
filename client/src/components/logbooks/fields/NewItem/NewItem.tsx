@@ -2,6 +2,11 @@ import MiniField from "@/components/logbooks/fields/NewItemTemplate/MiniField";
 import F from "@/components/logbooks/LogbookForm/style/LogbookForm.style";
 import useMutateNewItem from "@/lib/hooks/query/logbooks/useMutateNewItem";
 import useQueryFields from "@/lib/hooks/query/logbooks/useQueryFields";
+import type { ModalId } from "@/lib/modal-ids";
+import modalIds from "@/lib/modal-ids";
+import { queryClient } from "@/lib/query-client";
+import { qk } from "@/lib/query-keys";
+import { useModalState } from "@/lib/state/modal-state";
 import type { ItemTemplate, NewItem } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
 import { LucideNotebookText, LucideNotepadTextDashed } from "lucide-react";
@@ -23,6 +28,8 @@ export default function NewItem({ itemTemplate, logbook_id }: NewItemProps) {
 	});
 
 	const { mutate: submit } = useMutateNewItem();
+	const { closeModal } = useModalState();
+	const modalId = `${modalIds.logbooks.item.new}-${itemTemplate.name}` as ModalId; // TODO: we use this in ItemSection, so it has to be in sync. We shouuld maek the template id part of hte value.
 
 	function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
 		setItem((cur) => ({ ...cur, [e.target.name]: e.target.value }));
@@ -31,7 +38,16 @@ export default function NewItem({ itemTemplate, logbook_id }: NewItemProps) {
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 
-		submit({ newItem: item });
+		submit(
+			{ newItem: item },
+			{
+				onSuccess: () => {
+					closeModal(modalId);
+					// TODO: use a more fine-grained query key to invalidate
+					queryClient.invalidateQueries({ queryKey: qk.logbooks.all, exact: false });
+				}
+			}
+		);
 	}
 
 	if (!fieldsData) return null;

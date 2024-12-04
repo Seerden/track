@@ -35,7 +35,7 @@ export default function NewItemRow({
 
 	// TODO: remove this log
 	useEffect(() => {
-		console.log({ entries });
+		console.log({ entries, name: item.name });
 	}, [entries]);
 
 	const { mutate: submit } = useMutateNewItemRow();

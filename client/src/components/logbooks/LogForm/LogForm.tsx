@@ -2,6 +2,7 @@ import F from "@/components/logbooks/LogbookForm/style/LogbookForm.style";
 import { Button } from "@/components/logbooks/LogDetail/style/_common.style";
 import LogTemplateForm from "@/components/logbooks/LogForm/LogTemplateForm";
 import Modal from "@/components/utility/Modal/Modal";
+import useMutateNewLog from "@/lib/hooks/query/logbooks/useMutateNewLog";
 import { useQueryLogTemplatesByLogbook } from "@/lib/hooks/query/logbooks/useQueryLogTemplates";
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import modalIds from "@/lib/modal-ids";
@@ -12,8 +13,9 @@ import { LucideArrowRight, LucideList } from "lucide-react";
 import { useState } from "react";
 
 export default function LogForm() {
-	const { params } = useRouteProps();
+	const { params, navigate } = useRouteProps();
 	const { mutate: submit } = useMutateNewLog();
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const logbookId = params.logbookId!; // TODO: do not force non-null assertion
 	const { data: logTemplatesData } = useQueryLogTemplatesByLogbook(+(logbookId ?? 0)); // TODO: do not use 0
 	const { openModal } = useModalState();
@@ -37,10 +39,16 @@ export default function LogForm() {
 
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-		submit({
-			newLog: log
-		});
-		navigate(wherever);
+		submit(
+			{
+				newLog: log
+			},
+			{
+				onSuccess: (log) => {
+					navigate(`/logbooks/${log.log_id}`);
+				}
+			}
+		);
 	}
 
 	return (
@@ -136,6 +144,22 @@ export default function LogForm() {
 						</>
 					)}
 				</div>
+
+				{/* TODO: this is a duplicate from above. Extract it, or improve the render logic to always show the button, and only sometimes show the "there are no templates" text */}
+				<Button
+					$iconPosition="right"
+					$color="blue"
+					style={{
+						marginLeft: 0
+					}}
+					type="button"
+					onClick={(e) => {
+						e.preventDefault();
+						openModal(modalIds.logbooks.logTemplate.form);
+					}}
+				>
+					create a template
+				</Button>
 
 				<F.Submit $iconPosition="right" $color="blue" type="submit">
 					create log <LucideArrowRight size={25} />

@@ -15,14 +15,13 @@ export type ItemRowsProps = {
 	log_id: ID;
 };
 
-function getFieldsForRow(row: ItemRow, fields: Field[]) {
-	console.log({ row });
-	const itemTemplateId = row.item_id;
-	const fieldsForRow = fields.filter(
-		// TODO: have to parse the id because of #175
-		(field) => +field.item_template_id === +itemTemplateId
+function getFieldsForItem({ item, fields }: { item: Item | undefined; fields: Field[] }) {
+	if (!item || !fields.length) return [];
+	const fieldsForItem = fields.filter(
+		// @see issue #175
+		(field) => +field.item_template_id === +item.item_template_id
 	);
-	return fieldsForRow;
+	return fieldsForItem;
 }
 
 /** Renders all the rows for the given item. */
@@ -36,8 +35,10 @@ export default function ItemRows({ rows, item, log_id }: ItemRowsProps) {
 	}
 
 	if (!fieldsData) return null;
-
-	const fields = Object.values(fieldsData.byId);
+	const fieldsForItem = getFieldsForItem({
+		item,
+		fields: Object.values(fieldsData.byId)
+	});
 
 	return (
 		<S.Wrapper>
@@ -45,12 +46,10 @@ export default function ItemRows({ rows, item, log_id }: ItemRowsProps) {
 			<div>
 				<S.Table>
 					{/* TODO: why do we call the itemHeader "fields" prop "fields" when it's actually "fieldTemplates" */}
-					<ItemHeader fields={getFieldsForRow(rows[0], fields)} />
+					<ItemHeader fields={fieldsForItem} />
 					{/* TODO: only show rows with values */}
 					{rows.map((row, index) => {
-						const _fields = getFieldsForRow(row, fields);
-
-						const mapped = _fields.map((field) => {
+						const mapped = fieldsForItem.map((field) => {
 							const { values, ..._field } = field;
 							const valueForRow = values.find(
 								(value) => +value.item_row_id === +row.item_row_id
@@ -67,10 +66,10 @@ export default function ItemRows({ rows, item, log_id }: ItemRowsProps) {
 					{Array.from({ length: newRowCount }).map((_, index) => (
 						<NewItemRow
 							log_id={log_id}
-							key={index}
+							key={rows.length + index}
 							position={rows.length + index}
 							item={item}
-							fieldTemplates={getFieldsForRow(rows[0], fields)}
+							fieldTemplates={fieldsForItem}
 						/>
 					))}
 				</S.Table>
