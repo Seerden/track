@@ -53,3 +53,13 @@ export type NewFieldValueWithId = OmitStrict<
 	FieldValue,
 	"created_at" | "field_value_id"
 >;
+
+export type NewItemTemplateInput = {
+	newItemTemplate: NewItemTemplate;
+	newFieldTemplates: NewFieldTemplate[];
+};
+
+export type NewItemRowInput = {
+	newItemRow: NewItemRow;
+	newFieldValues: NewFieldValue[];
+};

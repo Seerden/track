@@ -1,4 +1,4 @@
-import { Datelike, ID, Nullable, Timestamp } from "./utility.types";
+import { ID, Nullable, Timestamp } from "./utility.types";
 
 export type ValueType = string | number | null;
 
@@ -38,9 +38,12 @@ export type ItemTemplate = {
 	standalone: boolean; // false for lifts, but probably true for meta items like dates etc.
 };
 
-type NestedPrimitiveObject = {
-	[k: string]: string | number | NestedPrimitiveObject;
-};
+type NestedPrimitiveObject =
+	| {
+			[k: string]: string | number | NestedPrimitiveObject;
+	  }
+	| string
+	| number;
 
 /** A LogbookEntryTemplate describes what a logbook entry should look like.
  *  For example, a "lifting" logbook entry template could contain a number of
@@ -117,8 +120,9 @@ export type Log = {
 	 **/
 	name: Nullable<string>;
 
-	date: Datelike;
+	/** @todo this won't be implemented in the UI, remove it */
 	start_time: Nullable<Timestamp>;
+	/** @todo this won't be implemented in the UI, remove it */
 	end_time: Nullable<Timestamp>;
 
 	created_at: Timestamp;
@@ -137,4 +141,5 @@ export type Logbook = {
 	user_id: ID;
 };
 
+export * from "./logbook.api.types";
 export * from "./logbook.new.types";
