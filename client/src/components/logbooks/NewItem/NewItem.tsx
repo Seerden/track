@@ -1,5 +1,5 @@
-import MiniField from "@/components/logbooks/fields/NewItemTemplate/MiniField";
 import F from "@/components/logbooks/LogbookForm/style/LogbookForm.style";
+import MiniField from "@/components/logbooks/NewItemTemplate/MiniField";
 import useMutateNewItem from "@/lib/hooks/query/logbooks/useMutateNewItem";
 import useQueryFields from "@/lib/hooks/query/logbooks/useQueryFields";
 import type { ModalId } from "@/lib/modal-ids";

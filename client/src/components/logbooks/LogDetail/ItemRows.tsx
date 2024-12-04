@@ -1,6 +1,6 @@
-import NewItemRow from "@/components/logbooks/fields/NewItemRow/NewItemRow";
 import ItemHeader from "@/components/logbooks/LogDetail/ItemHeader";
 import ItemRowCard from "@/components/logbooks/LogDetail/ItemRowCard";
+import NewItemRow from "@/components/logbooks/NewItemRow/NewItemRow";
 import useQueryFields from "@/lib/hooks/query/logbooks/useQueryFields";
 import { Action } from "@/lib/theme/components/buttons";
 import type { Field, Item, ItemRow, ValueType } from "@t/data/logbook.types";

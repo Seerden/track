@@ -97,7 +97,7 @@ export default function NewItemRow({
 								width: "100px"
 							}}
 							onChange={(e) => handleInputChange(e, index)}
-							onBlur={(e) => {
+							onBlur={() => {
 								if (isValidRow) {
 									// TODO: submit or update the row, depending on if it
 									// exists already.

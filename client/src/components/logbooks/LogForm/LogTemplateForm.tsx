@@ -1,7 +1,7 @@
-import NewItemTemplate from "@/components/logbooks/fields/NewItemTemplate/NewItemTemplate";
 import F from "@/components/logbooks/LogbookForm/style/LogbookForm.style";
 import { Button } from "@/components/logbooks/LogDetail/style/_common.style";
 import useLogTemplateForm from "@/components/logbooks/LogForm/useLogTemplateForm";
+import NewItemTemplate from "@/components/logbooks/NewItemTemplate/NewItemTemplate";
 import Modal from "@/components/utility/Modal/Modal";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
