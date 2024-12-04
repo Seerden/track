@@ -1,5 +1,5 @@
 import { insertLogbook } from "@/lib/data/models/logbooks/insert-logbook";
-import type { NewLogbook } from "@t/data/logbook.types";
+import type { NewLogbookInput } from "@t/data/logbook.types";
 import type { RequestHandler } from "express";
 
 /** Request handler for `/data/logbook`. */
@@ -9,7 +9,7 @@ export const postLogbook: RequestHandler = async (req, res) => {
 		return res.status(401).send("Unauthorized");
 	}
 
-	const { newLogbook } = req.body as { newLogbook: NewLogbook };
+	const { newLogbook } = req.body as NewLogbookInput;
 
 	const logbook = await insertLogbook({ newLogbook });
 
