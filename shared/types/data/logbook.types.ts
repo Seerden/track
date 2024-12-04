@@ -1,4 +1,4 @@
-import { Datelike, ID, Nullable, Timestamp } from "./utility.types";
+import { ID, Nullable, Timestamp } from "./utility.types";
 
 export type ValueType = string | number | null;
 
@@ -38,9 +38,12 @@ export type ItemTemplate = {
 	standalone: boolean; // false for lifts, but probably true for meta items like dates etc.
 };
 
-type NestedPrimitiveObject = {
-	[k: string]: string | number | NestedPrimitiveObject;
-};
+type NestedPrimitiveObject =
+	| {
+			[k: string]: string | number | NestedPrimitiveObject;
+	  }
+	| string
+	| number;
 
 /** A LogbookEntryTemplate describes what a logbook entry should look like.
  *  For example, a "lifting" logbook entry template could contain a number of
@@ -117,8 +120,9 @@ export type Log = {
 	 **/
 	name: Nullable<string>;
 
-	date: Datelike;
+	/** @note not implemented in the UI */
 	start_time: Nullable<Timestamp>;
+	/** @note not implemented in the ui */
 	end_time: Nullable<Timestamp>;
 
 	created_at: Timestamp;
@@ -137,4 +141,22 @@ export type Logbook = {
 	user_id: ID;
 };
 
+export type LogbookInput = {
+	logbook: Logbook;
+};
+
 export * from "./logbook.new.types";
+
+// TODO: this should be somewhere else, I would like to keep the regular model
+// types file pure.
+export type ItemTemplateAndFieldTemplates = {
+	itemTemplate: ItemTemplate;
+	fieldTemplates: FieldTemplate[];
+};
+
+export type Field = FieldTemplate & { values: FieldValue[] };
+
+export type ItemRowWithFieldValues = {
+	itemRow: ItemRow;
+	fieldValues: FieldValue[];
+};
