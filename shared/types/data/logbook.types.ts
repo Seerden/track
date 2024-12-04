@@ -120,9 +120,9 @@ export type Log = {
 	 **/
 	name: Nullable<string>;
 
-	/** @note not implemented in the UI */
+	/** @todo this won't be implemented in the UI, remove it */
 	start_time: Nullable<Timestamp>;
-	/** @note not implemented in the ui */
+	/** @todo this won't be implemented in the UI, remove it */
 	end_time: Nullable<Timestamp>;
 
 	created_at: Timestamp;
@@ -141,22 +141,5 @@ export type Logbook = {
 	user_id: ID;
 };
 
-export type LogbookInput = {
-	logbook: Logbook;
-};
-
+export * from "./logbook.api.types";
 export * from "./logbook.new.types";
-
-// TODO: this should be somewhere else, I would like to keep the regular model
-// types file pure.
-export type ItemTemplateAndFieldTemplates = {
-	itemTemplate: ItemTemplate;
-	fieldTemplates: FieldTemplate[];
-};
-
-export type Field = FieldTemplate & { values: FieldValue[] };
-
-export type ItemRowWithFieldValues = {
-	itemRow: ItemRow;
-	fieldValues: FieldValue[];
-};

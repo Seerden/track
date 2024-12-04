@@ -3,6 +3,7 @@ import type { ItemTemplate } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
+/** Get all item_templates for the given logbook. */
 export const queryItemTemplatesByLogbook: QueryFunction<
 	{ logbook_id: ID },
 	Promise<ItemTemplate[]>
@@ -15,6 +16,8 @@ export const queryItemTemplatesByLogbook: QueryFunction<
 	return itemTemplates;
 };
 
+/** Query a single item template by its ID.
+ * @todo see below. */
 export const queryItemTemplateById: QueryFunction<
 	{ item_template_id: ID },
 	Promise<ItemTemplate>
@@ -27,6 +30,11 @@ export const queryItemTemplateById: QueryFunction<
 	return itemTemplate;
 };
 
+/** Query multiple item_templates by their ID.
+ * @todo combine queryItemTemplateById with this function.
+ * @todo do we need to use sql.array(ids) here? Or is that only when we do
+ * `where item_template_id = ANY(...)`?
+ */
 export const queryItemTemplatesById: QueryFunction<
 	{ ids: ID[] },
 	Promise<ItemTemplate[]>

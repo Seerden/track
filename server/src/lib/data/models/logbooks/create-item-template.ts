@@ -1,8 +1,12 @@
 import { sqlConnection } from "@/db/init";
 import { insertFieldTemplate } from "@/lib/data/models/logbooks/insert-field-template";
 import { insertItemTemplate } from "@/lib/data/models/logbooks/insert-item-template";
-import type { NewFieldTemplate, NewItemTemplate } from "@t/data/logbook.new.types";
-import type { FieldTemplate, ItemTemplate } from "@t/data/logbook.types";
+import type {
+	FieldTemplate,
+	ItemTemplate,
+	NewFieldTemplate,
+	NewItemTemplate,
+} from "@t/data/logbook.types";
 import type { QueryFunction } from "types/sql.types";
 
 export const createItemTemplate: QueryFunction<

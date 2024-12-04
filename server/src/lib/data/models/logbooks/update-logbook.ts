@@ -2,6 +2,7 @@ import { sqlConnection } from "@/db/init";
 import { Logbook } from "@t/data/logbook.types";
 import { QueryFunction } from "types/sql.types";
 
+/** Set a single logbook's values to those in `logbook`. */
 export const updateLogbook: QueryFunction<
 	{ logbook: Logbook },
 	Promise<Logbook>
