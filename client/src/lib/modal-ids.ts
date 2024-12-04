@@ -28,18 +28,6 @@ const modalIds = {
 	tagTree: { tree: "tag-tree", tagSelector: "tag-tree-tag-selector" },
 	tags: {
 		detailed: "detailed-tag"
-	},
-
-	logbooks: {
-		itemTemplate: {
-			new: "new-item-template"
-		},
-		item: {
-			new: "new-item"
-		},
-		logTemplate: {
-			form: "log-template-form"
-		}
 	}
 } as const;
 

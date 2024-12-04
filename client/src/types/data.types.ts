@@ -1,9 +1,7 @@
 import type { ActivityWithIds } from "@t/data/activity.types";
 import type { HabitEntry, HabitWithIds } from "@t/data/habit.types";
 import type {
-	Field,
 	Item,
-	ItemRow,
 	ItemTemplate,
 	Log,
 	Logbook,
@@ -32,5 +30,3 @@ export type LogsData = DataById<Log>;
 export type ItemsData = DataById<Item>;
 export type ItemTemplatesData = DataById<ItemTemplate>;
 export type LogTemplatesData = DataById<LogTemplate>;
-export type ItemRowsData = DataById<ItemRow>;
-export type FieldsData = DataById<Field>;
