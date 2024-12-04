@@ -1,4 +1,4 @@
-import NewItem from "@/components/logbooks/fields/NewItem/NewItem";
+import NewItem from "@/components/logbooks/NewItem/NewItem";
 import type { Meta, StoryFn } from "@storybook/react";
 
 //👇 This default export determines where your story goes in the story list

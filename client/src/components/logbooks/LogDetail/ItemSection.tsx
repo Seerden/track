@@ -1,6 +1,6 @@
-import NewItem from "@/components/logbooks/fields/NewItem/NewItem";
 import ItemRows from "@/components/logbooks/LogDetail/ItemRows";
 import { Button } from "@/components/logbooks/LogDetail/style/_common.style";
+import NewItem from "@/components/logbooks/NewItem/NewItem";
 import Modal from "@/components/utility/Modal/Modal";
 import useQueryItemRows from "@/lib/hooks/query/logbooks/useQueryItemRows";
 import useQueryItems from "@/lib/hooks/query/logbooks/useQueryItems";
