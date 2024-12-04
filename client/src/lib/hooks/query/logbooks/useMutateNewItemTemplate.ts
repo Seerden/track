@@ -3,14 +3,9 @@ import modalIds from "@/lib/modal-ids";
 import { queryClient } from "@/lib/query-client";
 import { mk, qk } from "@/lib/query-keys";
 import { useModalState } from "@/lib/state/modal-state";
-import type { NewFieldTemplate, NewItemTemplate } from "@t/data/logbook.new.types";
+import type { NewItemTemplateInput } from "@t/data/logbook.new.types";
 import type { ItemTemplateAndFieldTemplates } from "@t/data/logbook.types";
 import { useMutation } from "@tanstack/react-query";
-
-type NewItemTemplateInput = {
-	newItemTemplate: NewItemTemplate;
-	newFieldTemplates: NewFieldTemplate[];
-};
 
 async function postNewItemTemplate(input: NewItemTemplateInput) {
 	return api.post<NewItemTemplateInput, ItemTemplateAndFieldTemplates>({
