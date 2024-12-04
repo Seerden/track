@@ -63,3 +63,19 @@ export type NewItemRowInput = {
 	newItemRow: NewItemRow;
 	newFieldValues: NewFieldValue[];
 };
+
+export type NewItemInput = {
+	newItem: NewItem;
+};
+
+export type NewLogInput = {
+	newLog: NewLog;
+};
+
+export type NewLogTemplateInput = {
+	newLogTemplate: NewLogTemplate;
+};
+
+export type NewLogbookInput = {
+	newLogbook: NewLogbook;
+};

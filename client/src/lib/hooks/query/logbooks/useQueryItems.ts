@@ -16,3 +16,15 @@ export function useQueryItemsByLogbook(logbook_id: ID) {
 		...defaultQueryConfig
 	});
 }
+
+async function getItems() {
+	return api.get<ItemsData>({ url: "/data/logbooks/items" });
+}
+
+export default function useQueryItems() {
+	return useQuery<ItemsData>({
+		queryKey: qk.items.all,
+		queryFn: getItems,
+		...defaultQueryConfig
+	});
+}

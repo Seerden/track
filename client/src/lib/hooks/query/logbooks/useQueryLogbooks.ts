@@ -19,7 +19,7 @@ export default function useQueryLogbooks() {
 }
 
 async function getLogbookById(logbook_id: ID) {
-	return api.get<Nullable<Logbook>>({ url: `/data/logbooks/${logbook_id}` });
+	return api.get<Nullable<Logbook>>({ url: `/data/logbook/${logbook_id}` });
 }
 
 export function useQueryLogbookById(logbook_id: ID) {
