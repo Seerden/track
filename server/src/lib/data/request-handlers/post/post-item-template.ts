@@ -1,5 +1,5 @@
 import { createItemTemplate } from "@/lib/data/models/logbooks/create-item-template";
-import type { NewItemTemplateInput } from "@t/data/logbook.new.types";
+import type { NewItemTemplateInput } from "@t/data/logbook.types";
 import type { RequestHandler } from "express";
 
 export const postItemTemplate: RequestHandler = async (req, res) => {

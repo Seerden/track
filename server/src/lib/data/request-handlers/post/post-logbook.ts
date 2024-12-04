@@ -1,5 +1,5 @@
 import { insertLogbook } from "@/lib/data/models/logbooks/insert-logbook";
-import type { NewLogbook } from "@t/data/logbook.new.types";
+import type { NewLogbook } from "@t/data/logbook.types";
 import type { RequestHandler } from "express";
 
 // TODO: I'm exporting this as const, but elsewhere I'm exporting it as default. I should be consistent.

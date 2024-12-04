@@ -1,8 +1,11 @@
 import { sqlConnection } from "@/db/init";
 import { insertFieldValue } from "@/lib/data/models/logbooks/insert-field-value";
 import { insertItemRow } from "@/lib/data/models/logbooks/insert-item-row";
-import type { NewFieldValue, NewItemRow } from "@t/data/logbook.new.types";
-import type { ItemRowWithFieldValues } from "@t/data/logbook.types";
+import type {
+	ItemRowWithFieldValues,
+	NewFieldValue,
+	NewItemRow,
+} from "@t/data/logbook.types";
 import type { QueryFunction } from "types/sql.types";
 
 export const createItemRow: QueryFunction<
