@@ -1,3 +1,5 @@
+// TODO: some handlers are default exports in their files, others aren't. Make
+// none of them default exports.
 import deleteHabit from "@/lib/data/request-handlers/delete/delete-habit";
 import { deleteItem } from "@/lib/data/request-handlers/delete/delete-item";
 import { deleteItemTemplate } from "@/lib/data/request-handlers/delete/delete-item-template";
@@ -83,17 +85,9 @@ dataRouter.post("/logbook/item/row", postItemRow);
 dataRouter.post("/logbook/item", postItem);
 
 /* --- DELETE --- */
-dataRouter.delete(
-	"/logbook/log/template/:log_template_id",
-	isAuthorized,
-	deleteLogTemplate,
-);
+dataRouter.delete("/logbook/log/template/:log_template_id", deleteLogTemplate);
 dataRouter.delete("/logbook/log/:log_id", deleteLog);
-dataRouter.delete(
-	"/logbook/item/template/:item_template_id",
-	isAuthorized,
-	deleteItemTemplate,
-);
+dataRouter.delete("/logbook/item/template/:item_template_id", deleteItemTemplate);
 dataRouter.delete("/logbook/item/:item_id", deleteItem);
 dataRouter.delete("/logbook/:logbook_id", deleteLogbook);
 
@@ -103,11 +97,7 @@ dataRouter.get("/logbook/:logbook_id", getLogbook);
 dataRouter.get("/logbooks/logs", getLogs);
 dataRouter.get("/logbook/:logbook_id/logs", getLogsByLogbook);
 dataRouter.get("/logbook/:logbook_id/items", getItemsByLogbook);
-dataRouter.get(
-	"/logbook/:logbook_id/item/templates",
-	isAuthorized,
-	getItemTemplatesByLogbook,
-);
+dataRouter.get("/logbook/:logbook_id/item/templates", getItemTemplatesByLogbook);
 dataRouter.get("/logbook/templates", getLogTemplates);
 dataRouter.get("/logbook/:logbook_id/templates", getLogTemplatesByLogbook);
 

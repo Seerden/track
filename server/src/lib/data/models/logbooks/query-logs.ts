@@ -4,6 +4,8 @@ import type { Log } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
+/** Get all of a single user's logs.
+ * @todo @see https://github.com/Seerden/track/issues/177 */
 export const queryLogsByUser: QueryFunction<{ user_id: ID }, Promise<Log[]>> = async ({
 	sql = sqlConnection,
 	user_id,
@@ -19,6 +21,7 @@ export const queryLogsByUser: QueryFunction<{ user_id: ID }, Promise<Log[]>> = a
 	return logs;
 };
 
+/** Get all logs belonging to the given logbook. */
 export const queryLogsByLogbook: QueryFunction<
 	{ logbook_id: ID },
 	Promise<Log[]>
@@ -31,6 +34,7 @@ export const queryLogsByLogbook: QueryFunction<
 	return logs;
 };
 
+/** Get a single log by its ID. */
 export const queryLogById: QueryFunction<{ log_id: ID }, Promise<Log>> = async ({
 	sql = sqlConnection,
 	log_id,

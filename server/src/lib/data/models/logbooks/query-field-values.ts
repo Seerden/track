@@ -3,6 +3,7 @@ import type { FieldValue } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
+/** Get all field values that belong to the given log. */
 export const queryFieldValuesByLog: QueryFunction<
 	{ log_id: ID },
 	Promise<FieldValue[]>

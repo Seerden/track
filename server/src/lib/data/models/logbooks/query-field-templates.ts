@@ -3,6 +3,7 @@ import type { FieldTemplate } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
+/** Get all field templates that belong to the given item template. */
 export const queryFieldTemplatesByItemTemplate: QueryFunction<
 	{ item_template_id: ID },
 	Promise<FieldTemplate[]>
