@@ -36,7 +36,8 @@ export default function useNewItemRow({
 		// TODO: value is now always a string, we should parse it to match
 		// value_type.
 		const { value } = e.target;
-		// TODO: make the following logic more immutable.
+		// TODO: make the following logic more immutable -- good time to try immer
+		// for the first time!
 		setEntries((current) => {
 			const copy = [...current];
 			const entry = copy[index];
