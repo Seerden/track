@@ -1,20 +1,13 @@
+import { getRowsForItem } from "@/components/logbooks/LogDetail/get-rows";
 import ItemRowsTable from "@/components/logbooks/LogDetail/ItemRowsTable";
 import { Button } from "@/components/logbooks/LogDetail/style/_common.style";
+import useItemSection from "@/components/logbooks/LogDetail/useItemSection";
 import NewItem from "@/components/logbooks/NewItem/NewItem";
 import Modal from "@/components/utility/Modal/Modal";
-import useQueryItemRows from "@/lib/hooks/query/logbooks/useQueryItemRows";
-import useQueryItems from "@/lib/hooks/query/logbooks/useQueryItems";
-import type { ModalId } from "@/lib/modal-ids";
-import modalIds from "@/lib/modal-ids";
-import { useModalState } from "@/lib/state/modal-state";
 import type { Item, ItemTemplate } from "@t/data/logbook.types";
-import type { ById, ID, Maybe } from "@t/data/utility.types";
+import type { ID } from "@t/data/utility.types";
 import { LucidePencilLine } from "lucide-react";
 import S from "./style/ItemSection.style";
-
-function getItemById(id: ID, items: ById<Item>): Maybe<Item> {
-	return items[id];
-}
 
 export type ItemSectionProps = {
 	itemTemplate: ItemTemplate;
@@ -29,46 +22,30 @@ export default function ItemSection({
 	log_id,
 	logbook_id
 }: ItemSectionProps) {
-	const { data: itemsData } = useQueryItems();
-	const { data: itemRowsData } = useQueryItemRows();
+	const { isProbablySuspended, modalId, handleModalOpen, itemRows } = useItemSection({
+		itemTemplate
+	});
 
-	const { openModal } = useModalState();
-
-	if (!itemsData || !itemRowsData) return null;
-
-	console.log({ itemRowsData });
-
-	const modalId = `${modalIds.logbooks.item.new}-${itemTemplate.name}` as ModalId;
+	if (isProbablySuspended) return null;
 
 	return (
 		<>
 			<S.Wrapper>
 				<S.Header>{itemTemplate.name}</S.Header>
 
-				{items.map(({ item_id }) => {
-					const item = getItemById(item_id, itemsData.byId);
-					if (!item) return null;
-
-					return (
-						<ItemRowsTable
-							log_id={log_id}
-							key={item_id}
-							item={item}
-							rows={Object.values(itemRowsData.byId).filter(
-								// TODO: see #175 -- don't want to have to parse the id
-								(row) => +row.item_id === +item_id && +row.log_id === +log_id
-							)}
-						/>
-					);
-				})}
-				<Button
-					$iconPosition={"left"}
-					$color={"darkBlue"}
-					onClick={(e) => {
-						e.preventDefault();
-						openModal(modalId);
-					}}
-				>
+				{items.map((item) => (
+					<ItemRowsTable
+						log_id={log_id}
+						key={item.item_id}
+						item={item}
+						rows={getRowsForItem({
+							itemRows,
+							item_id: item.item_id,
+							log_id
+						})}
+					/>
+				))}
+				<Button $iconPosition={"left"} $color={"darkBlue"} onClick={handleModalOpen}>
 					<LucidePencilLine />
 					<span style={{ fontWeight: 600 }}>Add {itemTemplate.name}</span>
 				</Button>

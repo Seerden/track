@@ -9,7 +9,7 @@ import type {
 	NewFieldValue
 } from "@t/data/logbook.types";
 import type { ID, Maybe } from "@t/data/utility.types";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface NewItemRowProps {
 	position: number;
@@ -32,11 +32,6 @@ export default function NewItemRow({
 	const [entries, setEntries] = useState<FieldTemplateWithValue[]>(
 		fieldTemplates.map((template) => ({ ...template, value: undefined }))
 	);
-
-	// TODO: remove this log
-	useEffect(() => {
-		console.log({ entries, name: item.name });
-	}, [entries]);
 
 	const { mutate: submit } = useMutateNewItemRow();
 
@@ -77,7 +72,7 @@ export default function NewItemRow({
 	}
 
 	return (
-		<S.Card>
+		<tr>
 			{fieldTemplates.map((template, index) => (
 				<S.Field key={template.field_template_id} style={{ position: "relative" }}>
 					<FieldWrapper
@@ -118,6 +113,6 @@ export default function NewItemRow({
 					</FieldWrapper>
 				</S.Field>
 			))}
-		</S.Card>
+		</tr>
 	);
 }
