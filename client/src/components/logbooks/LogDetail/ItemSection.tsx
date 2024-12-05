@@ -1,4 +1,4 @@
-import ItemRows from "@/components/logbooks/LogDetail/ItemRows";
+import ItemRowsTable from "@/components/logbooks/LogDetail/ItemRowsTable";
 import { Button } from "@/components/logbooks/LogDetail/style/_common.style";
 import NewItem from "@/components/logbooks/NewItem/NewItem";
 import Modal from "@/components/utility/Modal/Modal";
@@ -12,16 +12,16 @@ import type { ById, ID, Maybe } from "@t/data/utility.types";
 import { LucidePencilLine } from "lucide-react";
 import S from "./style/ItemSection.style";
 
+function getItemById(id: ID, items: ById<Item>): Maybe<Item> {
+	return items[id];
+}
+
 export type ItemSectionProps = {
 	itemTemplate: ItemTemplate;
 	items: Item[];
 	log_id: ID;
 	logbook_id: ID;
 };
-
-function getItemById(id: ID, items: ById<Item>): Maybe<Item> {
-	return items[id];
-}
 
 export default function ItemSection({
 	itemTemplate,
@@ -33,9 +33,13 @@ export default function ItemSection({
 	const { data: itemRowsData } = useQueryItemRows();
 
 	const { openModal } = useModalState();
+
 	if (!itemsData || !itemRowsData) return null;
+
 	console.log({ itemRowsData });
+
 	const modalId = `${modalIds.logbooks.item.new}-${itemTemplate.name}` as ModalId;
+
 	return (
 		<>
 			<S.Wrapper>
@@ -46,7 +50,7 @@ export default function ItemSection({
 					if (!item) return null;
 
 					return (
-						<ItemRows
+						<ItemRowsTable
 							log_id={log_id}
 							key={item_id}
 							item={item}
@@ -66,7 +70,7 @@ export default function ItemSection({
 					}}
 				>
 					<LucidePencilLine />
-					<span style={{ fontWeight: 600 }}>Add {itemTemplate.name}</span>{" "}
+					<span style={{ fontWeight: 600 }}>Add {itemTemplate.name}</span>
 				</Button>
 			</S.Wrapper>
 

@@ -1,8 +1,6 @@
 import { font } from "@/lib/theme/font";
 import styled from "styled-components";
 
-const Card = styled.tr``;
-
 const FieldName = styled.span`
 	font-size: ${font.size["1"]};
 	color: #111;
@@ -18,7 +16,6 @@ const Field = styled.td`
 `;
 
 export default {
-	Card,
 	Field,
 	FieldName,
 	FieldValue

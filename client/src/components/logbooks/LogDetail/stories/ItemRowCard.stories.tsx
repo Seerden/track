@@ -1,16 +1,16 @@
-import ItemRowCard from "@/components/logbooks/LogDetail/ItemRowCard";
+import ItemTableRow from "@/components/logbooks/LogDetail/ItemTableRow";
 import type { Meta, StoryFn } from "@storybook/react";
 
 //👇 This default export determines where your story goes in the story list
-const meta: Meta<typeof ItemRowCard> = {
-	component: ItemRowCard
+const meta: Meta<typeof ItemTableRow> = {
+	component: ItemTableRow
 };
 
 export default meta;
 
 export const Default: StoryFn = (args) => {
 	return (
-		<ItemRowCard
+		<ItemTableRow
 			{...args}
 			fields={[
 				{

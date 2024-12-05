@@ -1,5 +1,5 @@
 import { FieldWrapper } from "@/components/logbooks/LogDetail/style/_common.style";
-import S from "@/components/logbooks/LogDetail/style/ItemRowCard.style";
+import S from "@/components/logbooks/LogDetail/style/ItemTableRow";
 import useMutateNewItemRow from "@/lib/hooks/query/logbooks/useMutateNewItemRow";
 import UnstyledInput from "@/lib/theme/components/input/UnstyledInput.style";
 import type {

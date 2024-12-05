@@ -1,3 +1,4 @@
+import { Action } from "@/lib/theme/components/buttons";
 import { font } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import styled from "styled-components";
@@ -35,8 +36,25 @@ const ItemName = styled.h2`
 	color: white;
 `;
 
+const Button = styled(Action.Default)`
+	display: flex;
+
+	color: black;
+
+	border-radius: 5px;
+
+	width: max-content;
+
+	padding: 0.5rem 1rem;
+	padding-left: 0.5rem;
+	margin-top: 0.5rem;
+	margin-left: 1rem;
+	gap: 1rem;
+`;
+
 export default {
 	Wrapper,
 	Table,
-	ItemName
+	ItemName,
+	Button
 };
