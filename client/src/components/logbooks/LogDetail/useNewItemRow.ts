@@ -1,5 +1,5 @@
-import { buildNewFieldValuesFromEntries } from "@/components/logbooks/LogDetail/build-new-field-values";
-import { isValidEntry, isValidRow } from "@/components/logbooks/LogDetail/is-valid";
+import { buildNewFieldValuesFromEntries } from "@/components/logbooks/LogDetail/lib/build-new-field-values";
+import { isValidEntry, isValidRow } from "@/components/logbooks/LogDetail/lib/is-valid";
 import useMutateNewItemRow from "@/lib/hooks/query/logbooks/useMutateNewItemRow";
 import type { FieldTemplate, Item, ValueType } from "@t/data/logbook.types";
 import type { ID, Maybe } from "@t/data/utility.types";

@@ -1,4 +1,4 @@
-import { getFieldsForItem } from "@/components/logbooks/LogDetail/get-fields";
+import { getFieldsForItem } from "@/components/logbooks/LogDetail/lib/get-fields";
 import useQueryFields from "@/lib/hooks/query/logbooks/useQueryFields";
 import type { Item } from "@t/data/logbook.types";
 import { useState } from "react";

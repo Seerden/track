@@ -1,5 +1,5 @@
 import ItemSection from "@/components/logbooks/LogDetail/ItemSection";
-import { getSectionsForLog } from "@/components/logbooks/LogDetail/get-sections";
+import { getSectionsForLog } from "@/components/logbooks/LogDetail/lib/get-sections";
 import useLogDetail from "@/components/logbooks/LogDetail/useLogDetail";
 import type { ID } from "@t/data/utility.types";
 import S from "./style/LogDetail.style";

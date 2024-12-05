@@ -1,5 +1,5 @@
-import { hasValues } from "@/components/logbooks/LogDetail/has-values";
 import ItemTableRow from "@/components/logbooks/LogDetail/ItemTableRow";
+import { hasValues } from "@/components/logbooks/LogDetail/lib/has-values";
 import type { Field } from "@t/data/logbook.api.types";
 import type { ID } from "@t/data/utility.types";
 

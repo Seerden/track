@@ -1,5 +1,5 @@
-import { getRowsForItem } from "@/components/logbooks/LogDetail/get-rows";
 import ItemRowsTable from "@/components/logbooks/LogDetail/ItemRowsTable";
+import { getRowsForItem } from "@/components/logbooks/LogDetail/lib/get-rows";
 import { Button } from "@/components/logbooks/LogDetail/style/_common.style";
 import useItemSection from "@/components/logbooks/LogDetail/useItemSection";
 import NewItem from "@/components/logbooks/NewItem/NewItem";

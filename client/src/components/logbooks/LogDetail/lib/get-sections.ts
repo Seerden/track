@@ -1,5 +1,5 @@
-import { getItemsForTemplate } from "@/components/logbooks/LogDetail/get-items";
 import type { ItemSectionProps } from "@/components/logbooks/LogDetail/ItemSection";
+import { getItemsForTemplate } from "@/components/logbooks/LogDetail/lib/get-items";
 import type { Item, ItemTemplate } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
 

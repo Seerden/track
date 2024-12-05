@@ -1,5 +1,5 @@
 import { FieldWrapper } from "@/components/logbooks/LogDetail/style/_common.style";
-import type { FieldTemplateWithValue } from "./has-values";
+import type { FieldTemplateWithValue } from "./lib/has-values";
 import S from "./style/ItemTableRow";
 
 export type ItemRowCardProps = {
