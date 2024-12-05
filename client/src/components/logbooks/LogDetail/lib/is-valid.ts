@@ -10,8 +10,8 @@ export function isValidEntry(entry: FieldTemplateWithValue | undefined) {
 	return true;
 }
 
-/** Similar to `isValidEntry`, except applies the logic to every input in the row.
- * */
+/** Similar to `isValidEntry`, except applies the logic to every input in the
+ * row. */
 export function isValidRow(entries: FieldTemplateWithValue[]) {
 	return entries.every((entry) => isValidEntry(entry));
 }
