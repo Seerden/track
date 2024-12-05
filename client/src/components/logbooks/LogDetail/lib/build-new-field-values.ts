@@ -1,4 +1,4 @@
-import type { FieldTemplateWithValue } from "@/components/logbooks/LogDetail/useNewItemRow";
+import type { FieldTemplateWithValue } from "@/components/logbooks/LogDetail/hooks/useNewItemRow";
 import type { NewFieldValue } from "@t/data/logbook.new.types";
 import type { ID } from "@t/data/utility.types";
 

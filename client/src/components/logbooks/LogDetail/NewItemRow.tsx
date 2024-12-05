@@ -1,6 +1,6 @@
+import useNewItemRow from "@/components/logbooks/LogDetail/hooks/useNewItemRow";
 import { FieldWrapper } from "@/components/logbooks/LogDetail/style/_common.style";
 import S from "@/components/logbooks/LogDetail/style/ItemTableRow";
-import useNewItemRow from "@/components/logbooks/LogDetail/useNewItemRow";
 import UnstyledInput from "@/lib/theme/components/input/UnstyledInput.style";
 import type { FieldTemplate, Item } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";

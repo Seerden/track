@@ -1,7 +1,7 @@
 import ItemRowsTableHeader from "@/components/logbooks/LogDetail/ItemRowsTableHeader";
 import MaybeTableRow from "@/components/logbooks/LogDetail/MaybeTableRow";
 import NewItemRow from "@/components/logbooks/LogDetail/NewItemRow";
-import useItemRowsTable from "@/components/logbooks/LogDetail/useItemRowsTable";
+import useItemRowsTable from "@/components/logbooks/LogDetail/hooks/useItemRowsTable";
 import type { Item, ItemRow } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
 import { LucidePencil } from "lucide-react";

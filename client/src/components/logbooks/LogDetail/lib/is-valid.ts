@@ -1,4 +1,4 @@
-import type { FieldTemplateWithValue } from "@/components/logbooks/LogDetail/useNewItemRow";
+import type { FieldTemplateWithValue } from "@/components/logbooks/LogDetail/hooks/useNewItemRow";
 
 /** Helper for useNewItemRow that determines whether an input is valid according
  * to the settings specified by its `FieldTemplateWithValue`. */
