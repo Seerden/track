@@ -9,7 +9,7 @@ export default function LogbookForm({ logbook }: LogbookFormProps) {
 	const { handleInputChange, handleSubmit } = useLogbookForm({ logbook });
 
 	return (
-		<S.Form onSubmit={(e) => handleSubmit(e)}>
+		<S.Form onSubmit={handleSubmit}>
 			<S.FormTitle>
 				<NotebookPen size={40} fill="white" color="dodgerblue" strokeWidth={2} /> New
 				Logbook
@@ -23,7 +23,12 @@ export default function LogbookForm({ logbook }: LogbookFormProps) {
 
 				<S.Label>
 					<span>Description (optional)</span>
-					<textarea rows={3} name="description" onChange={handleInputChange} />
+					<textarea
+						rows={3}
+						name="description"
+						onChange={handleInputChange}
+						style={{ height: "100px" }}
+					/>
 				</S.Label>
 			</fieldset>
 
