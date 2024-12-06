@@ -109,10 +109,21 @@ Stylized.defaultProps = {
 	$color: "themeInverted"
 };
 
+const WithIcon = styled(Default)`
+	width: max-content;
+	border-radius: 10px;
+	margin-left: 1rem;
+	padding: 1.5rem 2.5rem;
+	color: white;
+	display: flex;
+	gap: 1rem;
+`;
+
 const ActionButtons = {
 	Default,
 	Alternative,
-	Stylized
+	Stylized,
+	WithIcon
 };
 
 export default ActionButtons;

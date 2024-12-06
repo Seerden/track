@@ -27,14 +27,35 @@ function getSpacing(rule: SpacingRule, type: SpacingType, { size, ratio }: Spaci
 	}
 }
 
+export const spacingValue = {
+	small: "0.5rem",
+	medium: "1rem",
+	large: "2rem"
+};
+
 const margin = {
 	wide: ({ size, ratio }: SpacingArgs) => getSpacing("margin", "wide", { size, ratio }),
-	tall: ({ size, ratio }: SpacingArgs) => getSpacing("margin", "tall", { size, ratio })
+	tall: ({ size, ratio }: SpacingArgs) => getSpacing("margin", "tall", { size, ratio }),
+	small: css`
+		margin: ${spacingValue.small};
+	`,
+	medium: css`
+		margin: ${spacingValue.medium};
+	`,
+	large: css`
+		margin: ${spacingValue.large};
+	`
 } as const;
 
 const padding = {
 	wide: ({ size, ratio }: SpacingArgs) => getSpacing("padding", "wide", { size, ratio }),
-	tall: ({ size, ratio }: SpacingArgs) => getSpacing("padding", "wide", { size, ratio })
+	tall: ({ size, ratio }: SpacingArgs) => getSpacing("padding", "wide", { size, ratio }),
+	small: css`
+		padding: ${spacingValue.small};
+	`,
+	medium: css`
+		padding: ${spacingValue.medium};
+	`
 } as const;
 
 export const spacing = {

@@ -1,17 +1,19 @@
-import _commonStyle from "@/components/logbooks/LogDetail/style/_common.style";
+import { border, outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
+import { radius } from "@/lib/theme/snippets/radius";
 import scrollbar from "@/lib/theme/snippets/scroll";
-import { spacing } from "@/lib/theme/snippets/spacing";
+import shadows from "@/lib/theme/snippets/shadow";
+import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 import styled, { css } from "styled-components";
 
 const sectionShade = css`
-	${_commonStyle.outline.primary};
-	${_commonStyle.sectionShadow};
-	${_commonStyle.border.light};
+	${outline.primary};
+	${border.light};
+	${shadows.section};
 `;
 
 const Row = styled.fieldset`
-	${_commonStyle.margin.small};
+	${spacing.margin.small};
 	${flex.row};
 
 	padding: 0;
@@ -21,19 +23,20 @@ const Row = styled.fieldset`
 // TODO: rename this to FormFields to prevent confusion with the concept of
 // FieldTemplates, which happen to be part of this form.
 const Fields = styled.div`
-	${flex.column};
-	${_commonStyle.radius.medium}
 	${sectionShade};
 
-	padding: ${_commonStyle.spacingValue.small};
-	margin-bottom: ${_commonStyle.spacingValue.medium};
+	${flex.column};
+	${radius.medium};
+
+	${spacing.padding.small};
+	margin-bottom: ${spacingValue.medium};
 	background-color: #eee;
 `;
 
 const FieldTemplatesWrapper = styled.div`
 	${flex.column};
 	${spacing.padding.wide({ size: 0.5, ratio: 2 })};
-	${_commonStyle.radius.small}
+	${radius.small};
 	${sectionShade};
 `;
 
@@ -44,7 +47,7 @@ const FieldTemplatesWrapper = styled.div`
    } */
 const FieldTemplates = styled.div`
 	${flex.row};
-	padding: ${_commonStyle.spacingValue.small};
+	${spacing.padding.small};
 	${scrollbar.hidden};
 
 	max-width: 440px;

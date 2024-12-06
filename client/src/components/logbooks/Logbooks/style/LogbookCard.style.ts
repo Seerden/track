@@ -1,18 +1,21 @@
-import _commonStyle from "@/components/logbooks/LogDetail/style/_common.style";
 import { colors } from "@/lib/theme/colors";
 import CardStyle from "@/lib/theme/components/Card.style";
 import { font } from "@/lib/theme/font";
+import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
+import { radius } from "@/lib/theme/snippets/radius";
+import shadows from "@/lib/theme/snippets/shadow";
+import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
 
 const Card = styled(CardStyle.Wrapper)`
 	min-width: 400px;
 	max-width: max-content;
 
-	${_commonStyle.cardShadow};
-	${_commonStyle.outline.primary};
-	${_commonStyle.radius.medium};
-	${_commonStyle.padding.medium};
+	${shadows.card}
+	${outline.primary};
+	${radius.medium};
+	${spacing.padding.medium};
 `;
 
 const Title = styled(CardStyle.Title)`
@@ -20,17 +23,17 @@ const Title = styled(CardStyle.Title)`
 `;
 
 const Description = styled.p`
-	${_commonStyle.margin.medium}
+	${spacing.margin.medium};
 	font-size: ${font.size["0.93"]};
 `;
 
 const Logs = styled.div`
 	${flex.row}
-	${_commonStyle.outline.primary};
-	${_commonStyle.listShadow};
-	${_commonStyle.padding.medium}
-	${_commonStyle.margin.medium}
-	${_commonStyle.radius.large};
+	${shadows.list}
+	${outline.primary};
+	${spacing.padding.medium};
+	${spacing.margin.medium};
+	${radius.large};
 
 	align-items: center;
 

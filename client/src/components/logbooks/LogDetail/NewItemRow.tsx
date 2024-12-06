@@ -1,6 +1,6 @@
 import useNewItemRow from "@/components/logbooks/LogDetail/hooks/useNewItemRow";
-import { FieldWrapper } from "@/components/logbooks/LogDetail/style/_common.style";
 import S from "@/components/logbooks/LogDetail/style/ItemTableRow";
+import Containers from "@/lib/theme/components/container.style";
 import UnstyledInput from "@/lib/theme/components/input/UnstyledInput.style";
 import type { FieldTemplate, Item } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
@@ -29,7 +29,7 @@ export default function NewItemRow({
 		<tr>
 			{fieldTemplates.map((template, index) => (
 				<S.Field key={template.field_template_id} style={{ position: "relative" }}>
-					<FieldWrapper
+					<Containers.Field
 						$small
 						style={{
 							// TODO: if we end up combining ItemRowCard and NewItemRow,
@@ -52,7 +52,7 @@ export default function NewItemRow({
 							onBlur={handleRowBlur}
 						/>
 						{!!template.unit && <span>{template.unit}</span>}
-					</FieldWrapper>
+					</Containers.Field>
 				</S.Field>
 			))}
 		</tr>

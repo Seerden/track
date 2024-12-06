@@ -1,6 +1,6 @@
 import LogbookCard from "@/components/logbooks/Logbooks/LogbookCard";
-import { Button } from "@/components/logbooks/LogDetail/style/_common.style";
 import useQueryLogbooks from "@/lib/hooks/query/logbooks/useQueryLogbooks";
+import { Action } from "@/lib/theme/components/buttons";
 import { Notebook } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -21,10 +21,10 @@ export default function Logbooks() {
 			{!logbookCount ? (
 				<div>
 					<p>You don't have any logbooks yet, create one now!</p>
-					<Button $color="blue">
+					<Action.WithIcon $color="blue">
 						<Notebook />
 						Create Logbook
-					</Button>
+					</Action.WithIcon>
 				</div>
 			) : (
 				<ul>

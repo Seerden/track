@@ -1,9 +1,9 @@
 import useItemSection from "@/components/logbooks/LogDetail/hooks/useItemSection";
 import ItemRowsTable from "@/components/logbooks/LogDetail/ItemRowsTable";
 import { getRowsForItem } from "@/components/logbooks/LogDetail/lib/get-rows";
-import { Button } from "@/components/logbooks/LogDetail/style/_common.style";
 import NewItem from "@/components/logbooks/NewItem/NewItem";
 import Modal from "@/components/utility/Modal/Modal";
+import { Action } from "@/lib/theme/components/buttons";
 import type { Item, ItemTemplate } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
 import { LucidePencilLine } from "lucide-react";
@@ -45,10 +45,10 @@ export default function ItemSection({
 						})}
 					/>
 				))}
-				<Button $color={"darkBlue"} onClick={handleModalOpen}>
+				<Action.WithIcon $color={"darkBlue"} onClick={handleModalOpen}>
 					<LucidePencilLine />
 					<span style={{ fontWeight: 600 }}>Add {itemTemplate.name}</span>
-				</Button>
+				</Action.WithIcon>
 			</S.Wrapper>
 
 			<Modal modalId={modalId}>

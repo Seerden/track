@@ -1,4 +1,4 @@
-import { FieldWrapper } from "@/components/logbooks/LogDetail/style/_common.style";
+import Containers from "@/lib/theme/components/container.style";
 import S from "./style/ItemRowsTableHeader.style";
 
 /** Header for the ItemRows table that displays the name of every field
@@ -8,7 +8,7 @@ export default function ItemRowsTableHeader({ labels }: { labels: string[] }) {
 		<thead>
 			{labels.map((label) => (
 				<S.HeaderField key={label}>
-					<FieldWrapper $small>{label}</FieldWrapper>
+					<Containers.Field $small>{label}</Containers.Field>
 				</S.HeaderField>
 			))}
 		</thead>

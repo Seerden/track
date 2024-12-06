@@ -1,7 +1,9 @@
-import { Button, Title } from "@/components/logbooks/LogDetail/style/_common.style";
-import containers from "@/lib/theme/components/container.style";
+import { Action } from "@/lib/theme/components/buttons";
+import { containers } from "@/lib/theme/components/container.style";
 import { font } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
+import { radius } from "@/lib/theme/snippets/radius";
+import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
 
 /** TODO: I implemented these styles for LogbookForm initially, but I like them
@@ -16,20 +18,31 @@ const Form = styled.form`
 	width: max-content;
 `;
 
-const FormTitle = styled(Title)`
+const FormTitle = styled.h1`
+	${radius.medium};
+	gap: ${spacingValue.medium};
+
+	font-size: ${font.size["2"]};
+	box-shadow: 0 0.5rem 1.5rem -0.6rem #ccc;
+
+	border-bottom: 3px solid #fff;
+
 	display: flex;
 	align-items: center;
-	gap: 1rem;
-	padding: 1rem 2rem;
+
+	${spacing.padding.wide({ size: 1, ratio: 2 })}
+	padding-inline: ${spacingValue.medium};
 	padding-bottom: 0.2rem;
-	margin-bottom: 1rem;
+
+	margin: 0;
+	margin-bottom: ${spacingValue.medium};
 `;
 
 const Label = styled.label`
 	${flex.column};
 	background-color: #fff;
-	padding: 0.4rem;
-	border-radius: 6px;
+	${spacing.padding.small};
+	${radius.medium}
 	box-shadow: 0 0.2rem 0.3rem 0 #aaa;
 
 	span {
@@ -58,7 +71,7 @@ const Label = styled.label`
 `;
 
 /** @todo extract this Button to theme buttons lib? -- make note of the default margin, which I dislike */
-const Submit = styled(Button)`
+const Submit = styled(Action.WithIcon)`
 	color: #eee;
 	margin-top: 1rem;
 	padding: 1rem;

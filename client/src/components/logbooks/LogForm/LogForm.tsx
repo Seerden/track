@@ -1,4 +1,3 @@
-import { Button } from "@/components/logbooks/LogDetail/style/_common.style";
 import LogTemplateForm from "@/components/logbooks/LogForm/LogTemplateForm";
 import Modal from "@/components/utility/Modal/Modal";
 import useMutateNewLog from "@/lib/hooks/query/logbooks/useMutateNewLog";
@@ -6,6 +5,7 @@ import { useQueryLogTemplatesByLogbook } from "@/lib/hooks/query/logbooks/useQue
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
+import { Action } from "@/lib/theme/components/buttons";
 import F from "@/lib/theme/components/form/form.alternate.style";
 import { font } from "@/lib/theme/font";
 import type { NewLog } from "@t/data/logbook.new.types";
@@ -127,7 +127,7 @@ export default function LogForm() {
 						<>
 							There are no templates yet for this logbook. Create one to get
 							started.
-							<Button
+							<Action.WithIcon
 								$color="blue"
 								style={{
 									marginLeft: 0
@@ -139,13 +139,13 @@ export default function LogForm() {
 								}}
 							>
 								create a template
-							</Button>
+							</Action.WithIcon>
 						</>
 					)}
 				</div>
 
 				{/* TODO: this is a duplicate from above. Extract it, or improve the render logic to always show the button, and only sometimes show the "there are no templates" text */}
-				<Button
+				<Action.WithIcon
 					$color="blue"
 					style={{
 						marginLeft: 0
@@ -157,7 +157,7 @@ export default function LogForm() {
 					}}
 				>
 					create a template
-				</Button>
+				</Action.WithIcon>
 
 				<F.Submit $color="blue" type="submit">
 					create log <LucideArrowRight size={25} />

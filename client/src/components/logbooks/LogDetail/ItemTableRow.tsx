@@ -1,4 +1,4 @@
-import { FieldWrapper } from "@/components/logbooks/LogDetail/style/_common.style";
+import Containers from "@/lib/theme/components/container.style";
 import type { FieldTemplateWithValue } from "./lib/has-values";
 import S from "./style/ItemTableRow";
 
@@ -13,9 +13,9 @@ export default function ItemTableRow({ fields }: ItemRowCardProps) {
 		<tr>
 			{fields.map((field) => (
 				<S.Field key={field.name}>
-					<FieldWrapper $small>
+					<Containers.Field $small>
 						{field.value} {field.unit}
-					</FieldWrapper>
+					</Containers.Field>
 				</S.Field>
 			))}
 		</tr>

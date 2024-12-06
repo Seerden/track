@@ -1,4 +1,3 @@
-import { Button } from "@/components/logbooks/LogDetail/style/_common.style";
 import useLogTemplateForm from "@/components/logbooks/LogForm/useLogTemplateForm";
 import NewItemTemplate from "@/components/logbooks/NewItemTemplate/NewItemTemplate";
 import Modal from "@/components/utility/Modal/Modal";
@@ -99,7 +98,7 @@ export default function LogTemplateForm({ logbook_id }: LogTemplateFormProps) {
 							<p>
 								You don't have any item templates yet. You need at least one item
 								template to get started.
-								<Button
+								<Action.WithIcon
 									$color="blue"
 									onClick={(e) => {
 										e.preventDefault();
@@ -107,7 +106,7 @@ export default function LogTemplateForm({ logbook_id }: LogTemplateFormProps) {
 									}}
 								>
 									New item template <LucideText size={20} />
-								</Button>
+								</Action.WithIcon>
 							</p>
 						)}
 					</S.SelectionList>

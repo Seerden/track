@@ -1,4 +1,4 @@
-import containers from "@/lib/theme/components/container.style";
+import { containers } from "@/lib/theme/components/container.style";
 import { font } from "@/lib/theme/font";
 import styled from "styled-components";
 
