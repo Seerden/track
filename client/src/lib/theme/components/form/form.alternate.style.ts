@@ -4,6 +4,12 @@ import { font } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import styled from "styled-components";
 
+/** TODO: I implemented these styles for LogbookForm initially, but I like them
+ * enough that I want to implement them as app-wide alternate form styles (in
+ * addition to those we use elsewhere. Since they'll be shared, we should
+ * extract as many parts to generic snippets as possible for re-use outside of
+ * forms, for the consistency of the visual design. */
+
 const Form = styled.form`
 	${containers.minimal};
 
@@ -51,6 +57,7 @@ const Label = styled.label`
 	}
 `;
 
+/** @todo extract this Button to theme buttons lib? -- make note of the default margin, which I dislike */
 const Submit = styled(Button)`
 	color: #eee;
 	margin-top: 1rem;

@@ -32,7 +32,7 @@ export default function LogbookForm({ logbook }: LogbookFormProps) {
 				</S.Label>
 			</fieldset>
 
-			<S.Submit type="submit" $color="blue" $iconPosition="right">
+			<S.Submit type="submit" $color="blue">
 				create
 				<LucideArrowRight size={20} />
 			</S.Submit>

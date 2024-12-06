@@ -56,7 +56,6 @@ export default function NewItem({ itemTemplate, logbook_id }: NewItemProps) {
 				<input type="text" name="name" onChange={handleInputChange} />
 			</F.Label>
 			<F.Submit
-				$iconPosition="right"
 				$color="blue"
 				disabled={!item.name.length}
 				style={{

@@ -110,19 +110,11 @@ export const FieldWrapper = styled.div<{ $small?: boolean }>`
 	margin: 0.3rem;
 `;
 
-export const Button = styled(Action.Default)<{ $iconPosition: "left" | "right" }>`
+export const Button = styled(Action.Default)`
 	width: max-content;
 	border-radius: 10px;
 	margin-left: 1rem;
 	padding: 1.5rem 2.5rem;
-	${(p) =>
-		p.$iconPosition === "left"
-			? css`
-					padding-left: 1.5rem;
-				`
-			: css`
-					padding-right: 1.5rem;
-				`}
 	color: white;
 	display: flex;
 	gap: 1rem;

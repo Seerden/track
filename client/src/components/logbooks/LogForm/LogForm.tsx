@@ -128,7 +128,6 @@ export default function LogForm() {
 							There are no templates yet for this logbook. Create one to get
 							started.
 							<Button
-								$iconPosition="right"
 								$color="blue"
 								style={{
 									marginLeft: 0
@@ -147,7 +146,6 @@ export default function LogForm() {
 
 				{/* TODO: this is a duplicate from above. Extract it, or improve the render logic to always show the button, and only sometimes show the "there are no templates" text */}
 				<Button
-					$iconPosition="right"
 					$color="blue"
 					style={{
 						marginLeft: 0
@@ -161,7 +159,7 @@ export default function LogForm() {
 					create a template
 				</Button>
 
-				<F.Submit $iconPosition="right" $color="blue" type="submit">
+				<F.Submit $color="blue" type="submit">
 					create log <LucideArrowRight size={25} />
 				</F.Submit>
 			</F.Form>

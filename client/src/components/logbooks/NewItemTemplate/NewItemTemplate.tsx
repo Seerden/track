@@ -67,9 +67,7 @@ export default function NewItemTemplate({ logbook_id }: NewItemTemplateProps) {
 				/>
 			</S.FieldTemplatesWrapper>
 
-			<F.Submit $iconPosition="right" $color="darkBlue">
-				save item template
-			</F.Submit>
+			<F.Submit $color="darkBlue">save item template</F.Submit>
 		</F.Form>
 	);
 }

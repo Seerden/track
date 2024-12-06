@@ -76,7 +76,6 @@ export default function NewFieldTemplate({
 
 			{/* TODO: I'm not happy with the default styles applied to this button -- need to at least remove the default margin */}
 			<F.Submit
-				$iconPosition="right"
 				$color="themeInverted"
 				type="button"
 				style={{

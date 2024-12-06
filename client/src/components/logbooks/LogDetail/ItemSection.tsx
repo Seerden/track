@@ -45,7 +45,7 @@ export default function ItemSection({
 						})}
 					/>
 				))}
-				<Button $iconPosition={"left"} $color={"darkBlue"} onClick={handleModalOpen}>
+				<Button $color={"darkBlue"} onClick={handleModalOpen}>
 					<LucidePencilLine />
 					<span style={{ fontWeight: 600 }}>Add {itemTemplate.name}</span>
 				</Button>

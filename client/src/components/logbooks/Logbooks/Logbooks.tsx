@@ -21,7 +21,7 @@ export default function Logbooks() {
 			{!logbookCount ? (
 				<div>
 					<p>You don't have any logbooks yet, create one now!</p>
-					<Button $iconPosition="left" $color="blue">
+					<Button $color="blue">
 						<Notebook />
 						Create Logbook
 					</Button>

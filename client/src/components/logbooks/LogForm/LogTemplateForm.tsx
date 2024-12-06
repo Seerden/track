@@ -100,7 +100,6 @@ export default function LogTemplateForm({ logbook_id }: LogTemplateFormProps) {
 								You don't have any item templates yet. You need at least one item
 								template to get started.
 								<Button
-									$iconPosition="right"
 									$color="blue"
 									onClick={(e) => {
 										e.preventDefault();
@@ -117,7 +116,6 @@ export default function LogTemplateForm({ logbook_id }: LogTemplateFormProps) {
 				<F.Submit
 					type="submit"
 					$color={!isSubmittable ? "red" : "blue"}
-					$iconPosition="right"
 					disabled={!isSubmittable}
 				>
 					create <LucideArrowRight size={20} />{" "}
