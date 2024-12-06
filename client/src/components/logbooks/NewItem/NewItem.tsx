@@ -31,7 +31,7 @@ export default function NewItem({ itemTemplate, logbook_id }: NewItemProps) {
 				<S.TextHighlight>{itemTemplate.name}</S.TextHighlight>
 			</F.FormTitle>
 			<p>
-				The <span style={{ color: "blue " }}>{itemTemplate.name}</span> template
+				The <span style={{ color: "blue" }}>{itemTemplate.name}</span> template
 				contains the following fields:
 			</p>
 			<ul
