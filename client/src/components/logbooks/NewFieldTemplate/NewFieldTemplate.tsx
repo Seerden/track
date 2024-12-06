@@ -23,7 +23,6 @@ export default function NewFieldTemplate({
 	});
 
 	return (
-		// name, description, unit, value_type, required
 		<S.Wrapper
 			style={{
 				display: "flex",
@@ -51,6 +50,7 @@ export default function NewFieldTemplate({
 						<select name="value_type" onChange={handleInputChange}>
 							<option value="number">number</option>
 							<option value="text">text</option>
+							{/* TODO: these things aren't really functional yet -- rename it to markdown when we start implementing this */}
 							<option value="richtext">rich text</option>
 						</select>
 					</S.Label>
@@ -74,6 +74,7 @@ export default function NewFieldTemplate({
 				</S.Column>
 			</S.Fields>
 
+			{/* TODO: I'm not happy with the default styles applied to this button -- need to at least remove the default margin */}
 			<F.Submit
 				$iconPosition="right"
 				$color="themeInverted"
