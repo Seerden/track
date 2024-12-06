@@ -4,9 +4,10 @@ import { qk } from "@/lib/query-keys";
 import type { NewFieldTemplate, NewItemTemplate } from "@t/data/logbook.new.types";
 import type { ID } from "@t/data/utility.types";
 import type React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function useNewItemTemplate({ logbook_id }: { logbook_id: ID }) {
+	// TODO: extract this default value to a variable
 	const [itemTemplate, setItemTemplate] = useState<NewItemTemplate>({
 		name: "",
 		description: null,
@@ -15,14 +16,6 @@ export default function useNewItemTemplate({ logbook_id }: { logbook_id: ID }) {
 	});
 	const [newFieldTemplates, setNewFieldTemplates] = useState<NewFieldTemplate[]>([]);
 	const { mutate: submit } = useMutateNewItemTemplate();
-
-	useEffect(() => {
-		console.log({ itemTemplate });
-	}, [itemTemplate]);
-
-	useEffect(() => {
-		console.log({ newFieldTemplates });
-	}, [newFieldTemplates]);
 
 	function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const { name, value, type, checked } = e.target;
@@ -47,6 +40,7 @@ export default function useNewItemTemplate({ logbook_id }: { logbook_id: ID }) {
 
 		// check if there is at least 1 field and if the itemTemplate fields are
 		// filled out.
+		// TODO: need actual validation
 		if (newFieldTemplates.length === 0 || !itemTemplate.name) {
 			return;
 		}
@@ -55,6 +49,7 @@ export default function useNewItemTemplate({ logbook_id }: { logbook_id: ID }) {
 			{ newItemTemplate: itemTemplate, newFieldTemplates },
 			{
 				onSuccess: () => {
+					// TODO: use a more specific query key
 					queryClient.invalidateQueries({ queryKey: qk.logbooks.all, exact: false });
 				}
 			}
