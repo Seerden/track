@@ -1,5 +1,5 @@
-import F from "@/components/logbooks/LogbookForm/style/LogbookForm.style";
 import useNewFieldTemplate from "@/components/logbooks/NewFieldTemplate/useNewFieldTemplate";
+import F from "@/lib/theme/components/form/form.alternate.style";
 import { font } from "@/lib/theme/font";
 import type { NewFieldTemplate as TNewFieldTemplate } from "@t/data/logbook.new.types";
 import type { ID } from "@t/data/utility.types";

@@ -1,4 +1,3 @@
-import F from "@/components/logbooks/LogbookForm/style/LogbookForm.style";
 import { Button } from "@/components/logbooks/LogDetail/style/_common.style";
 import useLogTemplateForm from "@/components/logbooks/LogForm/useLogTemplateForm";
 import NewItemTemplate from "@/components/logbooks/NewItemTemplate/NewItemTemplate";
@@ -6,6 +5,7 @@ import Modal from "@/components/utility/Modal/Modal";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import { Action } from "@/lib/theme/components/buttons";
+import F from "@/lib/theme/components/form/form.alternate.style";
 import { font } from "@/lib/theme/font";
 import type { ID } from "@t/data/utility.types";
 import {

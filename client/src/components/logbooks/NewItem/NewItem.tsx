@@ -1,6 +1,6 @@
-import F from "@/components/logbooks/LogbookForm/style/LogbookForm.style";
 import useNewItem from "@/components/logbooks/NewItem/useNewItem";
 import MiniField from "@/components/logbooks/NewItemTemplate/MiniField";
+import F from "@/lib/theme/components/form/form.alternate.style";
 import type { ItemTemplate } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
 import { LucideNotebookText, LucideNotepadTextDashed } from "lucide-react";

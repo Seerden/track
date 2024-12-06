@@ -1,4 +1,3 @@
-import F from "@/components/logbooks/LogbookForm/style/LogbookForm.style";
 import { Button } from "@/components/logbooks/LogDetail/style/_common.style";
 import LogTemplateForm from "@/components/logbooks/LogForm/LogTemplateForm";
 import Modal from "@/components/utility/Modal/Modal";
@@ -7,6 +6,7 @@ import { useQueryLogTemplatesByLogbook } from "@/lib/hooks/query/logbooks/useQue
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
+import F from "@/lib/theme/components/form/form.alternate.style";
 import { font } from "@/lib/theme/font";
 import type { NewLog } from "@t/data/logbook.new.types";
 import { LucideArrowRight, LucideList } from "lucide-react";

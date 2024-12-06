@@ -1,4 +1,4 @@
-import F from "@/components/logbooks/LogbookForm/style/LogbookForm.style";
+import F from "@/lib/theme/components/form/form.alternate.style";
 import { font } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import styled from "styled-components";

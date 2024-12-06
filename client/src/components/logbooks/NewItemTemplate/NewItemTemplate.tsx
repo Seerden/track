@@ -1,7 +1,7 @@
-import F from "@/components/logbooks/LogbookForm/style/LogbookForm.style";
 import NewFieldTemplate from "@/components/logbooks/NewFieldTemplate/NewFieldTemplate";
 import MiniField from "@/components/logbooks/NewItemTemplate/MiniField";
 import useNewItemTemplate from "@/components/logbooks/NewItemTemplate/useNewItemTemplate";
+import F from "@/lib/theme/components/form/form.alternate.style";
 import { font } from "@/lib/theme/font";
 import type { ID } from "@t/data/utility.types";
 import { LucideBookCopy } from "lucide-react";
