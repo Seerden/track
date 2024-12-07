@@ -1,15 +1,10 @@
+import type { FieldTemplateWithMaybeValue } from "@/components/logbooks/logbook.types";
 import { buildNewFieldValuesFromEntries } from "@/components/logbooks/LogDetail/lib/build-new-field-values";
 import { isValidEntry, isValidRow } from "@/components/logbooks/LogDetail/lib/is-valid";
 import useMutateNewItemRow from "@/lib/hooks/query/logbooks/useMutateNewItemRow";
-import type { FieldTemplate, Item, ValueType } from "@t/data/logbook.types";
-import type { ID, Maybe } from "@t/data/utility.types";
+import type { FieldTemplate, Item } from "@t/data/logbook.types";
+import type { ID } from "@t/data/utility.types";
 import { useState } from "react";
-
-// TODO: we have FieldTemplateWithValue defined elsewhere, but it's not exactly
-// the same. Not good! If we merge the two (or rename this one or the other,
-// depending on which one does what it says), don't forget to update the helper
-// functions that we use in here, too.
-export type FieldTemplateWithValue = FieldTemplate & { value: Maybe<ValueType> };
 
 export default function useNewItemRow({
 	item,
@@ -26,7 +21,7 @@ export default function useNewItemRow({
 	// TODO: right now I'm using an array here. Ideally, I think it would be more
 	// like a ById object, but that would require more logic for the "position"
 	// of each new item etc.
-	const [entries, setEntries] = useState<FieldTemplateWithValue[]>(
+	const [entries, setEntries] = useState<FieldTemplateWithMaybeValue[]>(
 		fieldTemplates.map((template) => Object.assign({}, template, { value: undefined }))
 	);
 
