@@ -1,4 +1,4 @@
-import type { HabitEntryUpdateMutationFunction } from "@/lib/hooks/query/habits/useHabitEntryMutation";
+import type { HabitEntryUpdateMutationFunction } from "@/lib/hooks/query/habits/useMutateHabitEntry";
 import type { SliderProps } from "@mantine/core";
 import { Slider } from "@mantine/core";
 import { isSynthetic } from "@t/data/habit-entry.guards";

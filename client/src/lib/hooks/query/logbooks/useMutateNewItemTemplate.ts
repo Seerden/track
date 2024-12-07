@@ -1,4 +1,4 @@
-import api from "@/lib/fetch/api";
+import { postNewItemTemplate } from "@/lib/fetch/logbook-service";
 import modalIds from "@/lib/modal-ids";
 import { queryClient } from "@/lib/query-client";
 import { mk, qk } from "@/lib/query-keys";
@@ -6,13 +6,6 @@ import { useModalState } from "@/lib/state/modal-state";
 import type { NewItemTemplateInput } from "@t/data/logbook.new.types";
 import type { ItemTemplateAndFieldTemplates } from "@t/data/logbook.types";
 import { useMutation } from "@tanstack/react-query";
-
-async function postNewItemTemplate(input: NewItemTemplateInput) {
-	return api.post<NewItemTemplateInput, ItemTemplateAndFieldTemplates>({
-		url: "/data/logbook/item/template",
-		body: input
-	});
-}
 
 export default function useMutateNewItemTemplate() {
 	const { closeModal } = useModalState();

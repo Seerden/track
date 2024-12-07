@@ -8,7 +8,21 @@ import type {
 	LogsData,
 	LogTemplatesData
 } from "@/types/data.types";
-import type { Logbook } from "@t/data/logbook.types";
+import type {
+	Item,
+	ItemRowWithFieldValues,
+	ItemTemplateAndFieldTemplates,
+	Log,
+	Logbook,
+	LogbookInput,
+	LogTemplate,
+	NewItemInput,
+	NewItemRowInput,
+	NewItemTemplateInput,
+	NewLogbookInput,
+	NewLogInput,
+	NewLogTemplateInput
+} from "@t/data/logbook.types";
 import type { ID, Nullable } from "@t/data/utility.types";
 
 export async function getLogbooks() {
@@ -55,4 +69,55 @@ export async function getItemRows() {
 
 export async function getFields() {
 	return api.get<FieldsData>({ url: "/data/logbooks/fields" });
+}
+
+export async function postNewLogbook(input: NewLogbookInput) {
+	return api.post<NewLogbookInput, Logbook>({
+		url: "/data/logbook",
+		body: input
+	});
+}
+
+export async function postNewLog(input: NewLogInput) {
+	return api.post<NewLogInput, Log>({
+		url: "/data/logbook/log",
+		body: input
+	});
+}
+
+export async function postNewItemTemplate(input: NewItemTemplateInput) {
+	return api.post<NewItemTemplateInput, ItemTemplateAndFieldTemplates>({
+		url: "/data/logbook/item/template",
+		body: input
+	});
+}
+
+export async function postNewItemRow(input: NewItemRowInput) {
+	return api.post<NewItemRowInput, ItemRowWithFieldValues>({
+		url: "/data/logbook/item/row",
+		body: input
+	});
+}
+
+export async function postNewItem(input: NewItemInput) {
+	return api.post<NewItemInput, Item>({
+		url: "/data/logbook/item",
+		body: input
+	});
+}
+
+export async function putLogbook(input: LogbookInput) {
+	return api.put<LogbookInput, Logbook>({
+		url: `/data/logbook/${input.logbook.logbook_id}`,
+		body: input
+	});
+}
+
+export async function postNewLogTemplate(
+	input: NewLogTemplateInput
+): Promise<LogTemplate> {
+	return api.post<NewLogTemplateInput, LogTemplate>({
+		url: "/data/logbook/template",
+		body: input
+	});
 }

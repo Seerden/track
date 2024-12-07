@@ -1,4 +1,4 @@
-import type { HabitEntryUpdateMutationFunction } from "@/lib/hooks/query/habits/useHabitEntryMutation";
+import type { HabitEntryUpdateMutationFunction } from "@/lib/hooks/query/habits/useMutateHabitEntry";
 import { isSynthetic } from "@t/data/habit-entry.guards";
 import type { HabitEntry, HabitWithIds, SyntheticHabitEntry } from "@t/data/habit.types";
 import { useState } from "react";

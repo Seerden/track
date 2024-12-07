@@ -1,14 +1,10 @@
-import api from "@/lib/fetch/api";
+import { deleteHabit } from "@/lib/fetch/habit-service";
 import { queryClient } from "@/lib/query-client";
 import { mk, qk } from "@/lib/query-keys";
 import type { Habit } from "@t/data/habit.types";
 import { useMutation } from "@tanstack/react-query";
 
-async function deleteHabit({ habit_id }: Pick<Habit, "habit_id">) {
-	return api.delete<Pick<Habit, "habit_id">>({ url: `/data/habit/${habit_id}` });
-}
-
-export default function useHabitDeleteMutation() {
+export default function useMutateDeleteHabit() {
 	return useMutation<Pick<Habit, "habit_id">, unknown, Pick<Habit, "habit_id">>({
 		async mutationFn(habit) {
 			return deleteHabit(habit);

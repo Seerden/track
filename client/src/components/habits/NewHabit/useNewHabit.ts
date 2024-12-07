@@ -1,5 +1,5 @@
 import { createDate } from "@/lib/datetime/make-date";
-import { useNewHabitMutation } from "@/lib/hooks/query/habits/useNewHabitMutation";
+import { useMutateNewHabit } from "@/lib/hooks/query/habits/useMutateNewHabit";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import modalIds from "@/lib/modal-ids";
@@ -13,7 +13,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 export default function useNewHabit() {
 	const { currentUser } = useAuthentication();
-	const { mutate: submit } = useNewHabitMutation();
+	const { mutate: submit } = useMutateNewHabit();
 	const { selectedTagIds, resetTagSelection } = useTagSelection();
 	const { navigate } = useRouteProps();
 	const { closeModal } = useModalState();

@@ -1,6 +1,6 @@
 import { syntheticToReal } from "@/components/habits/Habits/synthetic";
-import useHabitEntryMutation from "@/lib/hooks/query/habits/useHabitEntryMutation";
-import useNewHabitEntryMutation from "@/lib/hooks/query/habits/useNewHabitEntryMutation";
+import useMutateHabitEntry from "@/lib/hooks/query/habits/useMutateHabitEntry";
+import useMutateNewHabitEntry from "@/lib/hooks/query/habits/useMutateNewHabitEntry";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import { queryClient } from "@/lib/query-client";
 import { qk } from "@/lib/query-keys";
@@ -8,8 +8,8 @@ import { isSynthetic } from "@t/data/habit-entry.guards";
 import type { HabitEntry, SyntheticHabitEntry } from "@t/data/habit.types";
 
 export default function useCompletionInstance() {
-	const { mutate: submitNewEntry } = useNewHabitEntryMutation();
-	const { mutate: putEntry } = useHabitEntryMutation();
+	const { mutate: submitNewEntry } = useMutateNewHabitEntry();
+	const { mutate: putEntry } = useMutateHabitEntry();
 	const { currentUser } = useAuthentication();
 
 	const user_id = currentUser?.user_id;
