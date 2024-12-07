@@ -10,7 +10,6 @@ const Wrapper = styled.div`
 	&:not(&:nth-of-type(1)) {
 		margin-top: 0.5rem;
 		padding-top: 0.5rem;
-		border-top: 3px solid #e5e5e5;
 	}
 
 	border-radius: 5px;
