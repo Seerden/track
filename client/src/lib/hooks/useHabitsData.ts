@@ -1,14 +1,14 @@
 import { withSyntheticHabitEntries } from "@/components/habits/Habits/synthetic";
-import useHabitEntriesQuery from "@/lib/hooks/query/habits/useHabitEntriesQuery";
-import useHabitsQuery from "@/lib/hooks/query/habits/useHabitsQuery";
+import useQueryHabitEntries from "@/lib/hooks/query/habits/useQueryHabitEntries";
+import useQueryHabits from "@/lib/hooks/query/habits/useQueryHabits";
 import type { TimeWindow } from "@/types/time-window.types";
 import type { Habit, HabitWithEntries } from "@t/data/habit.types";
 import type { ById } from "@t/data/utility.types";
 import { useCallback, useMemo } from "react";
 
 export default function useHabitsData() {
-	const { data: habitsData } = useHabitsQuery();
-	const { data: habitEntriesData } = useHabitEntriesQuery();
+	const { data: habitsData } = useQueryHabits();
+	const { data: habitEntriesData } = useQueryHabitEntries();
 
 	const habitsWithEntriesById = useMemo(() => {
 		if (!habitsData || !habitEntriesData) return {};
