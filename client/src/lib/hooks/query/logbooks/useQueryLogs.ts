@@ -1,13 +1,9 @@
-import api from "@/lib/fetch/api";
+import { getLogs, getLogsByLogbook } from "@/lib/fetch/logbook-service";
 import { defaultQueryConfig } from "@/lib/query-client";
 import { qk } from "@/lib/query-keys";
 import type { LogsData } from "@/types/data.types";
 import type { ID } from "@t/data/utility.types";
 import { useQuery } from "@tanstack/react-query";
-
-async function getLogs() {
-	return api.get<LogsData>({ url: "/data/logbooks/logs" });
-}
 
 export default function useQueryLogs() {
 	return useQuery<LogsData>({
@@ -15,10 +11,6 @@ export default function useQueryLogs() {
 		queryFn: getLogs,
 		...defaultQueryConfig
 	});
-}
-
-async function getLogsByLogbook(logbook_id: ID) {
-	return api.get<LogsData>({ url: `/data/logbook/${logbook_id}/logs` });
 }
 
 export function useQueryLogsByLogbook(logbook_id: ID) {
