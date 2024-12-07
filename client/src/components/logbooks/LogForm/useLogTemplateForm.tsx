@@ -19,6 +19,8 @@ export default function useLogTemplateForm({ logbook_id }: { logbook_id: ID }) {
 	const { closeModal } = useModalState();
 
 	const { data: itemTemplatesData } = useQueryItemTemplatesByLogbook(logbook_id);
+	// TODO: use the isProbablySuspended pattern I've been introducing lately, so
+	// we can move to suspended skeleton states more easily later on.
 	const itemTemplates = itemTemplatesData ? Object.values(itemTemplatesData.byId) : [];
 	const selectionListItems = itemTemplates.map((item) => ({
 		label: item.name,
