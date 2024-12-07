@@ -16,7 +16,7 @@ export default function useLogTemplateForm({ logbook_id }: { logbook_id: ID }) {
 	const [sections, setSections] = useState<ItemValue[][]>([]);
 	const sectionCount = sections.length;
 	const templateSections = sections.filter((section) => section.length > 0);
-	const { closeModal } = useModalState();
+	const { closeModal, openModal } = useModalState();
 
 	const { data: itemTemplatesData } = useQueryItemTemplatesByLogbook(logbook_id);
 	// TODO: use the isProbablySuspended pattern I've been introducing lately, so
@@ -99,6 +99,11 @@ export default function useLogTemplateForm({ logbook_id }: { logbook_id: ID }) {
 		));
 	}, [sections, sectionCount, selectionListItems]);
 
+	function handleModalOpen(e: React.MouseEvent<HTMLButtonElement>) {
+		e.preventDefault();
+		openModal(modalIds.logbooks.itemTemplate.new);
+	}
+
 	return {
 		showClearSectionsButton,
 		sectionCount,
@@ -106,6 +111,7 @@ export default function useLogTemplateForm({ logbook_id }: { logbook_id: ID }) {
 		listElements,
 		isSubmittable,
 		handleInputChange,
-		handleSubmit
+		handleSubmit,
+		handleModalOpen
 	};
 }

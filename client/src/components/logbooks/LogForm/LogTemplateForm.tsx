@@ -2,10 +2,8 @@ import useLogTemplateForm from "@/components/logbooks/LogForm/useLogTemplateForm
 import NewItemTemplate from "@/components/logbooks/NewItemTemplate/NewItemTemplate";
 import Modal from "@/components/utility/Modal/Modal";
 import modalIds from "@/lib/modal-ids";
-import { useModalState } from "@/lib/state/modal-state";
 import { Action } from "@/lib/theme/components/buttons";
 import F from "@/lib/theme/components/form/form.alternate.style";
-import { font } from "@/lib/theme/font";
 import type { ID } from "@t/data/utility.types";
 import {
 	LucideArrowRight,
@@ -29,9 +27,9 @@ export default function LogTemplateForm({ logbook_id }: LogTemplateFormProps) {
 		listElements,
 		isSubmittable,
 		handleInputChange,
-		handleSubmit
+		handleSubmit,
+		handleModalOpen
 	} = useLogTemplateForm({ logbook_id });
-	const { openModal } = useModalState();
 
 	return (
 		<>
@@ -49,17 +47,9 @@ export default function LogTemplateForm({ logbook_id }: LogTemplateFormProps) {
 				</fieldset>
 				<fieldset>
 					<S.SelectionList>
-						<p
-							style={{
-								maxWidth: "500px",
-								fontSize: font.size["0.9"],
-								padding: "1rem 1.5rem",
-								backgroundColor: "#fff",
-								borderRadius: 3
-							}}
-						>
+						<S.ListDescription>
 							Select the sections that you want to include in this log template.
-						</p>
+						</S.ListDescription>
 
 						{itemTemplates.length > 0 && !(sectionCount > 0) && (
 							<p>
@@ -98,13 +88,7 @@ export default function LogTemplateForm({ logbook_id }: LogTemplateFormProps) {
 							<p>
 								You don't have any item templates yet. You need at least one item
 								template to get started.
-								<Action.WithIcon
-									$color="blue"
-									onClick={(e) => {
-										e.preventDefault();
-										openModal(modalIds.logbooks.itemTemplate.new);
-									}}
-								>
+								<Action.WithIcon $color="blue" onClick={handleModalOpen}>
 									New item template <LucideText size={20} />
 								</Action.WithIcon>
 							</p>

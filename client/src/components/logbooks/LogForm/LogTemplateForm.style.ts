@@ -1,3 +1,4 @@
+import { font } from "@/lib/theme/font";
 import styled from "styled-components";
 
 const itemOffset = "0.5rem";
@@ -55,4 +56,12 @@ const Badge = styled.div`
 	outline: 2px solid limegreen;
 `;
 
-export default { SelectionList, ActionBar, Badge };
+const ListDescription = styled.p`
+	max-width: 500px;
+	font-size: ${font.size["0.9"]};
+	padding: 1rem 1.5rem;
+	background-color: #fff;
+	border-radius: 3px;
+`;
+
+export default { SelectionList, ActionBar, Badge, ListDescription };
