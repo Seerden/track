@@ -113,6 +113,7 @@ export default function LogTemplateForm({ logbook_id }: LogTemplateFormProps) {
 				</fieldset>
 
 				<F.Submit
+					// TODO: Submit should have type "submit" by default, so this should be unnecessary
 					type="submit"
 					$color={!isSubmittable ? "red" : "blue"}
 					disabled={!isSubmittable}

@@ -11,7 +11,7 @@ type LogbookCardProps = {
 };
 
 export default function LogbookCard({ logbook_id }: LogbookCardProps) {
-	const { isProbablySuspended, logbook, logs, navigate } = useLogbookCard({
+	const { isProbablySuspended, logbook, logs } = useLogbookCard({
 		logbook_id
 	});
 
