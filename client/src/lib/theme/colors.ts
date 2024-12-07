@@ -41,7 +41,15 @@ const mainAndSecondary = {
 
 const tintColors = {
 	black: "black",
-	white: "white"
+	white: "white",
+	light: "#fff",
+	secondary: "#eee",
+	tertiary: "#e1e1e1",
+	shade: {
+		primary: "#ccc",
+		secondary: "#bbb",
+		tertiary: "#aaa"
+	}
 };
 
 const highlightColors = {

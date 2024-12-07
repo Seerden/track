@@ -1,5 +1,5 @@
 import { getMainColor, getSecondaryColor, type ColorKey } from "@/lib/theme/colors";
-import { Unstyled } from "@/lib/theme/components/buttons";
+import Unstyled from "@/lib/theme/components/buttons/Unstyled";
 import styled from "styled-components";
 import type { CSS } from "styled-components/dist/types";
 
@@ -28,6 +28,11 @@ const Default = styled(Unstyled)<{ $color?: ColorKey }>`
 	color: white;
 	width: 30px;
 	height: 30px;
+
+	&:disabled {
+		cursor: not-allowed;
+		opacity: 0.5;
+	}
 `;
 
 Default.defaultProps = {
@@ -104,10 +109,21 @@ Stylized.defaultProps = {
 	$color: "themeInverted"
 };
 
+const WithIcon = styled(Default)`
+	width: max-content;
+	border-radius: 10px;
+	margin-left: 1rem;
+	padding: 1.5rem 2.5rem;
+	color: white;
+	display: flex;
+	gap: 1rem;
+`;
+
 const ActionButtons = {
 	Default,
 	Alternative,
-	Stylized
+	Stylized,
+	WithIcon
 };
 
 export default ActionButtons;
