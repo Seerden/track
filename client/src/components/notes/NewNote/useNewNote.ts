@@ -1,5 +1,5 @@
-import { useNewNoteMutation } from "@/lib/hooks/query/notes/useNewNoteMutation";
-import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
+import { useMutateNewNote } from "@/lib/hooks/query/notes/useMutateNewNote";
+import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
 import { qk } from "@/lib/query-keys";
 import useAuthentication from "@lib/hooks/useAuthentication";
 import useRouteProps from "@lib/hooks/useRouteProps";
@@ -9,10 +9,10 @@ import type { NewNote } from "@t/data/note.types";
 import { useEffect, useState } from "react";
 
 export default function useNewNote() {
-	const { data: tagsData } = useTagsQuery();
+	const { data: tagsData } = useQueryTags();
 	const { navigate } = useRouteProps();
 	const { currentUser } = useAuthentication();
-	const { mutate } = useNewNoteMutation();
+	const { mutate } = useMutateNewNote();
 	const { selectedTagIds, resetTagSelection } = useTagSelection();
 	const [note, setNote] = useState<Partial<NewNote>>({
 		content: "",

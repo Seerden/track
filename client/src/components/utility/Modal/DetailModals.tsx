@@ -2,16 +2,16 @@ import DetailedHabit from "@/components/habits/DetailedHabit/DetailedHabit";
 import DetailedTag from "@/components/tags/DetailedTag/DetailedTag";
 import DetailedActivity from "@/components/Today/DetailedActivity";
 import Modal from "@/components/utility/Modal/Modal";
-import useActivitiesQuery from "@/lib/hooks/query/activities/useActivitiesQuery";
+import useQueryActivities from "@/lib/hooks/query/activities/useQueryActivities";
 import useQueryHabits from "@/lib/hooks/query/habits/useQueryHabits";
-import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
+import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
 import modalIds from "@/lib/modal-ids";
 import { activeItemState } from "@/lib/state/active-item-state";
 import { useRecoilValue } from "recoil";
 
 export default function DetailModals() {
-	const { data: tags } = useTagsQuery();
-	const { data: activities } = useActivitiesQuery();
+	const { data: tags } = useQueryTags();
+	const { data: activities } = useQueryActivities();
 	const { data: habits } = useQueryHabits();
 
 	const { tag, habit, activity } = useRecoilValue(activeItemState);

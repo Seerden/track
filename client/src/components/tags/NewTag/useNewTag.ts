@@ -1,4 +1,4 @@
-import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
+import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
 import modalIds from "@/lib/modal-ids";
 import { qk } from "@/lib/query-keys";
 import { useModalState } from "@/lib/state/modal-state";
@@ -11,7 +11,7 @@ import { useNewTagMutation } from "./useNewTagMutation";
 
 export default function useNewTag() {
 	const { currentUser } = useAuthentication();
-	const { data: tags } = useTagsQuery();
+	const { data: tags } = useQueryTags();
 	const { mutate: submit } = useNewTagMutation();
 
 	const [newTag, setNewTag] = useState<NewTag>({

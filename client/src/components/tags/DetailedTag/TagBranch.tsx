@@ -1,5 +1,5 @@
 import { findAncestors, findChildren } from "@/components/tags/DetailedTag/build-branch";
-import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
+import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
 import type { TagWithIds } from "@t/data/tag.types";
 import S from "./style/TagBranch.style";
 
@@ -31,7 +31,7 @@ type TagBranchProps = {
  * the whole family tree for this parent's branch traced back to the root).
  */
 export default function TagBranch({ tag }: TagBranchProps) {
-	const { data: tagsData } = useTagsQuery();
+	const { data: tagsData } = useQueryTags();
 
 	if (!tagsData) return null;
 

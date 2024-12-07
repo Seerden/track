@@ -3,7 +3,7 @@ import S from "@/components/Today/style/DetailedActivity.style";
 import Modal from "@/components/utility/Modal/Modal";
 import { activityEnd, activityStart, hasNotEnded, startsInFuture } from "@/lib/activity";
 import { createDate } from "@/lib/datetime/make-date";
-import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
+import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
@@ -25,7 +25,7 @@ function format(date: Datelike) {
 }
 
 export default function DetailedActivity({ activity }: DetailedActivityProps) {
-	const { data: tagsData } = useTagsQuery();
+	const { data: tagsData } = useQueryTags();
 	const putCompletion = usePutTaskCompletion(activity);
 	const humanizedStart = `${startsInFuture(activity) ? "starts" : "started"} ${activityStart(activity).fromNow()}`;
 	const showHumanizedStart = hasNotEnded(activity);

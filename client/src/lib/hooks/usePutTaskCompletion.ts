@@ -1,9 +1,9 @@
-import useTaskCompletionMutation from "@/lib/hooks/query/activities/useTaskMutation";
+import useMutateTaskCompletion from "@/lib/hooks/query/activities/useMutateTask";
 import type { ActivityWithIds } from "@t/data/activity.types";
 import { useCallback } from "react";
 
 export default function usePutTaskCompletion(task: ActivityWithIds) {
-	const { mutate } = useTaskCompletionMutation();
+	const { mutate } = useMutateTaskCompletion();
 
 	const putCompletion = useCallback(() => {
 		mutate({ ...task, completed: !task.completed });

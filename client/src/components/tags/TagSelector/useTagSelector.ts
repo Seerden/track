@@ -1,4 +1,4 @@
-import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
+import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import type { TagWithIds } from "@t/data/tag.types";
 import type { ById, ID } from "@t/data/utility.types";
@@ -12,7 +12,7 @@ type UseTagSelector = {
 
 // TODO: handle case where maximum > 1.
 export default function useTagSelector({ maximum, tagsById }: UseTagSelector = {}) {
-	const { data: tagsData } = useTagsQuery();
+	const { data: tagsData } = useQueryTags();
 
 	const {
 		tagSelection,
