@@ -1,6 +1,6 @@
 import Containers from "@/lib/theme/components/container.style";
 import type { FieldTemplateWithValue } from "./lib/has-values";
-import S from "./style/ItemTableRow";
+import S from "./style/ItemTableRow.style";
 
 export type ItemRowCardProps = {
 	fields: FieldTemplateWithValue[];

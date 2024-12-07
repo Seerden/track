@@ -1,7 +1,7 @@
 import useLogDetail from "@/components/logbooks/LogDetail/hooks/useLogDetail";
 import ItemSection from "@/components/logbooks/LogDetail/ItemSection";
-import { getSectionsForLog } from "@/components/logbooks/LogDetail/lib/get-sections";
 import type { ID } from "@t/data/utility.types";
+import { getSectionsForLog } from "./lib/get-sections";
 import S from "./style/LogDetail.style";
 
 export type LogDetailProps = {

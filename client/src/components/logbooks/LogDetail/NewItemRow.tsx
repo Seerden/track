@@ -1,5 +1,5 @@
 import useNewItemRow from "@/components/logbooks/LogDetail/hooks/useNewItemRow";
-import S from "@/components/logbooks/LogDetail/style/ItemTableRow";
+import S from "@/components/logbooks/LogDetail/style/ItemTableRow.style";
 import Containers from "@/lib/theme/components/container.style";
 import UnstyledInput from "@/lib/theme/components/input/UnstyledInput.style";
 import type { FieldTemplate, Item } from "@t/data/logbook.types";

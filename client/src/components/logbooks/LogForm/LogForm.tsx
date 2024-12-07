@@ -26,8 +26,8 @@ export default function LogForm() {
 		start_time: null,
 		end_time: null
 	});
-	if (!logbookId) return null;
-	if (!logTemplatesData) return null;
+
+	if (!logbookId || !logTemplatesData) return null;
 
 	const logTemplates = Object.values(logTemplatesData.byId);
 	const hasTemplates = !!logTemplates.length;

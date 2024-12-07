@@ -1,7 +1,8 @@
 import type { ItemRow } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
 
-/** Helper for ItemSection that gets only the relevant rows for a section */
+/** Helper for ItemSection that gets only the relevant rows for a section
+ * @todo see note from (among others) `./get-items.ts`. */
 export function getRowsForItem({
 	itemRows,
 	item_id,

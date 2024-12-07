@@ -75,6 +75,8 @@ export default function useLogTemplateForm({ logbook_id }: { logbook_id: ID }) {
 		);
 	}
 
+	// TODO: I don't like memoizing a list of elements. Extract the inner logic to a
+	// component, at the very least.
 	const listElements = useMemo(() => {
 		return Array.from({ length: sectionCount + 1 }).map((_, index) => (
 			<div

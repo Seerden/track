@@ -19,11 +19,8 @@ export default function useItemSection({ itemTemplate }: { itemTemplate: ItemTem
 
 	if (isProbablySuspended) {
 		return {
-			isProbablySuspended,
-			itemRowsData,
-			modalId,
-			handleModalOpen
-		} as const;
+			isProbablySuspended
+		};
 	}
 
 	return {
@@ -31,5 +28,5 @@ export default function useItemSection({ itemTemplate }: { itemTemplate: ItemTem
 		itemRows: Object.values(itemRowsData.byId),
 		modalId,
 		handleModalOpen
-	} as const;
+	};
 }

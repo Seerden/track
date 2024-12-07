@@ -14,6 +14,8 @@ export default function useLogDetail({ logbook_id }: { logbook_id?: ID }) {
 	const { data: itemTemplatesData } = useQueryItemTemplatesByLogbook(logbookId);
 	const { data: itemsData } = useQueryItemsByLogbook(logbookId);
 
+	// TODO: as mentioned elsewhere, if we use maps instead of hashmap-like
+	// objects, we can avoid most of this pattern
 	const log = logsData?.byId[logId] as Maybe<Log>;
 
 	const isProbablySuspended = !itemTemplatesData || !itemsData || !logsData || !log;
@@ -22,11 +24,8 @@ export default function useLogDetail({ logbook_id }: { logbook_id?: ID }) {
 	// ths hook from LogDetail.
 	if (isProbablySuspended)
 		return {
-			isProbablySuspended,
-			logId,
-			logbookId,
-			log
-		} as const;
+			isProbablySuspended
+		};
 
 	return {
 		isProbablySuspended,
@@ -35,5 +34,5 @@ export default function useLogDetail({ logbook_id }: { logbook_id?: ID }) {
 		logId,
 		logbookId,
 		log
-	} as const;
+	};
 }
