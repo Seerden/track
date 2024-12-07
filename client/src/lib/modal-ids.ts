@@ -35,7 +35,7 @@ const modalIds = {
 			new: "new-item-template"
 		},
 		item: {
-			new: "new-item"
+			new: (templateName: string) => `new-item-${templateName}` as const
 		},
 		logTemplate: {
 			form: "log-template-form"

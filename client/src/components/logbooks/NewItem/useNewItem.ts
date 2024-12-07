@@ -32,7 +32,7 @@ export default function useNewItem({
 	// TODO: this same modalId is used in ItemSection, so we need to ensure that
 	// the two always match. We should make the template id part of the modalId
 	// value.
-	const modalId = `${modalIds.logbooks.item.new}-${itemTemplate.name}` as ModalId;
+	const modalId = modalIds.logbooks.item.new(itemTemplate.name) as ModalId;
 
 	function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
 		setItem((cur) => ({ ...cur, [e.target.name]: e.target.value }));
