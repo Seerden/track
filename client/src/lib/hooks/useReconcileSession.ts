@@ -1,4 +1,4 @@
-import useMeQuery from "@lib/hooks/query/user/useMeQuery";
+import useQueryMe from "@/lib/hooks/query/user/useQueryMe";
 import { useEffect } from "react";
 import { localUser } from "../user-storage";
 import useAuthentication from "./useAuthentication";
@@ -6,7 +6,7 @@ import useAuthentication from "./useAuthentication";
 /** Reconcile client-side authentication state with server-side state. */
 export default function useReconcileSession() {
 	const { logout } = useAuthentication();
-	const { data } = useMeQuery();
+	const { data } = useQueryMe();
 
 	// This used to be in the onSuccess callback of the useMeQuery hook
 	useEffect(() => {

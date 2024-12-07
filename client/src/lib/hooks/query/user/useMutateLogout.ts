@@ -1,16 +1,13 @@
-import api from "@/lib/fetch/api";
+import { postLogout } from "@/lib/fetch/user-service";
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import { queryClient } from "@/lib/query-client";
 import { mk, qk } from "@/lib/query-keys";
 import { localUser } from "@/lib/user-storage";
 import { useMutation } from "@tanstack/react-query";
 
-async function postLogout() {
-	return api.post<unknown, unknown>({ url: "/auth/logout", body: {} });
-}
-
-export default function useLogoutMutation() {
+export default function useMutateLogout() {
 	const { navigate } = useRouteProps();
+
 	return useMutation({
 		mutationKey: mk.user.logout, // TODO: should we distinguish between login and logout?
 		async mutationFn() {
