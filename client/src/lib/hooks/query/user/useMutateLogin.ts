@@ -6,6 +6,8 @@ import type { User, UserLogin } from "@t/data/user.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export default function useMutateLogin() {
+	// TODO: I think this is the only place where we use useQueryClient instead
+	// of importing queryClient directly. What's the difference?
 	const client = useQueryClient();
 
 	return useMutation<Data<"user", User>, unknown, UserLogin>({
