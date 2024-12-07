@@ -6,7 +6,7 @@ import type { ItemTemplate } from "@t/data/logbook.types";
 
 export default function useItemSection({ itemTemplate }: { itemTemplate: ItemTemplate }) {
 	const { data: itemRowsData } = useQueryItemRows();
-	const modalId = `${modalIds.logbooks.item.new}-${itemTemplate.name}` as ModalId;
+	const modalId = modalIds.logbooks.item.new(itemTemplate.name) as ModalId;
 
 	const { openModal } = useModalState();
 

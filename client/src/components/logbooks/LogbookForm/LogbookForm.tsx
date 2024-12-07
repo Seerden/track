@@ -1,5 +1,5 @@
 import useLogbookForm from "@/components/logbooks/LogbookForm/useLogbookForm";
-import S from "@lib/theme/components/form/form.alternate.style";
+import F from "@lib/theme/components/form/form.alternate.style";
 import type { Logbook } from "@t/data/logbook.types";
 import { LucideArrowRight, NotebookPen } from "lucide-react";
 
@@ -9,19 +9,19 @@ export default function LogbookForm({ logbook }: LogbookFormProps) {
 	const { handleInputChange, handleSubmit } = useLogbookForm({ logbook });
 
 	return (
-		<S.Form onSubmit={handleSubmit}>
-			<S.FormTitle>
+		<F.Form onSubmit={handleSubmit}>
+			<F.FormTitle>
 				<NotebookPen size={40} fill="white" color="dodgerblue" strokeWidth={2} /> New
 				Logbook
-			</S.FormTitle>
+			</F.FormTitle>
 
 			<fieldset style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
-				<S.Label>
+				<F.Label>
 					<span>Name</span>
 					<input type="text" name="name" required onChange={handleInputChange} />
-				</S.Label>
+				</F.Label>
 
-				<S.Label>
+				<F.Label>
 					<span>Description (optional)</span>
 					<textarea
 						rows={3}
@@ -29,13 +29,13 @@ export default function LogbookForm({ logbook }: LogbookFormProps) {
 						onChange={handleInputChange}
 						style={{ height: "100px" }}
 					/>
-				</S.Label>
+				</F.Label>
 			</fieldset>
 
-			<S.Submit type="submit" $color="blue">
+			<F.Submit type="submit" $color="blue">
 				create
 				<LucideArrowRight size={20} />
-			</S.Submit>
-		</S.Form>
+			</F.Submit>
+		</F.Form>
 	);
 }

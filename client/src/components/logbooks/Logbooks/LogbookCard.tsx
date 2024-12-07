@@ -1,7 +1,5 @@
 import MiniLog from "@/components/logbooks/Logbooks/MiniLog";
-import { useQueryLogbookById } from "@/lib/hooks/query/logbooks/useQueryLogbooks";
-import { useQueryLogsByLogbook } from "@/lib/hooks/query/logbooks/useQueryLogs";
-import useRouteProps from "@/lib/hooks/useRouteProps";
+import useLogbookCard from "@/components/logbooks/Logbooks/useLogbookCard";
 import { Action } from "@/lib/theme/components/buttons";
 import type { ID } from "@t/data/utility.types";
 import { SquarePen } from "lucide-react";
@@ -13,27 +11,15 @@ type LogbookCardProps = {
 };
 
 export default function LogbookCard({ logbook_id }: LogbookCardProps) {
-	const { params, navigate } = useRouteProps();
-	const logbookId = +(logbook_id ?? (params.logbookId || 0));
-	const { data: logbook } = useQueryLogbookById(logbookId);
-	const { data } = useQueryLogsByLogbook(logbookId);
+	const { isProbablySuspended, logbook, logs } = useLogbookCard({
+		logbook_id
+	});
 
-	console.log({ params, data });
-
-	if (!data || !logbook) return null;
-
-	const logs = Object.values(data.byId);
+	if (isProbablySuspended) return null;
 
 	return (
 		<S.Card>
-			<button
-				type="button"
-				onClick={() => {
-					navigate(`/logbooks/${logbook.logbook_id}`);
-				}}
-			>
-				Open logbook
-			</button>
+			<Link to={`/logbooks/${logbook.logbook_id}`}>Open logbook</Link>
 			<S.Title>{logbook.name}</S.Title>
 			{logbook.description && <S.Description>{logbook.description}</S.Description>}
 

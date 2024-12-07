@@ -1,12 +1,7 @@
-import type { FieldTemplate, ValueType } from "@t/data/logbook.types";
-
-type FieldTemplateWithMaybeValue = FieldTemplate & {
-	value: ValueType | undefined;
-};
-
-export type FieldTemplateWithValue = FieldTemplate & {
-	value: ValueType;
-};
+import type {
+	FieldTemplateWithMaybeValue,
+	FieldTemplateWithValue
+} from "@/components/logbooks/logbook.types";
 
 function hasValue(field: FieldTemplateWithMaybeValue): field is FieldTemplateWithValue {
 	return field.value !== undefined;
