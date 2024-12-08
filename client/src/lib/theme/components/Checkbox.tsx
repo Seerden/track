@@ -5,21 +5,43 @@ import {
 	MdRadioButtonChecked,
 	MdRadioButtonUnchecked
 } from "react-icons/md";
+import S from "./Checkbox.style";
 
 function CheckboxOn() {
-	return <MdRadioButtonChecked className="on" size={27} />;
+	return (
+		<S.Checked>
+			<MdRadioButtonChecked className="on" size={27} />
+		</S.Checked>
+	);
 }
 
 function CheckboxOff() {
-	return <MdRadioButtonUnchecked className="off" size={27} />;
+	return (
+		<S.Unchecked>
+			<MdRadioButtonUnchecked className="off" size={27} />
+		</S.Unchecked>
+	);
 }
 
-type CheckboxProps = {
-	checked?: boolean;
-};
+type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement>;
 
-export function Checkbox({ checked }: CheckboxProps) {
-	return checked ? <CheckboxOn /> : <CheckboxOff />;
+export function Checkbox(props: CheckboxProps) {
+	const Icon = props.checked ? CheckboxOn : CheckboxOff;
+
+	return (
+		<S.Wrapper>
+			<input
+				type="checkbox"
+				{...props}
+				style={{
+					width: 0,
+					opacity: 0,
+					...props.style
+				}}
+			/>
+			<Icon />
+		</S.Wrapper>
+	);
 }
 
 export function CheckboxIcon({

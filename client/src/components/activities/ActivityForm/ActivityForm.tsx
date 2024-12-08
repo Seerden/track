@@ -55,8 +55,7 @@ export default function ActivityForm({
 					</N.Label>
 					<S.Task>
 						<span>Task?</span>
-						<input name="is_task" type="checkbox" onChange={onInputChange} />
-						<Checkbox checked={isTask} />
+						<Checkbox name="is_task" checked={isTask} onChange={onInputChange} />
 					</S.Task>
 				</N.Row>
 

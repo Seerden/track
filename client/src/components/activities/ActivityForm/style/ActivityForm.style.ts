@@ -28,7 +28,7 @@ const Task = styled.label`
 		justify-self: center;
 
 		&.on {
-			color: ${(p) => p.theme.colors.green.main};
+			color: ${(p) => p.theme.colors.yellow.main};
 		}
 
 		&.off {
