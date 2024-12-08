@@ -1,4 +1,4 @@
-import { postLogin } from "@/lib/fetch/user-service";
+import userService from "@/lib/fetch/user-service";
 import { queryClient } from "@/lib/query-client";
 import { mk, qk } from "@/lib/query-keys";
 import { localUser } from "@/lib/user-storage";
@@ -10,7 +10,7 @@ export default function useMutateLogin() {
 	return useMutation<Data<"user", User>, unknown, UserLogin>({
 		mutationKey: mk.user.login,
 		async mutationFn(user) {
-			return postLogin(user);
+			return userService.login(user);
 		},
 		onSuccess: ({ user }) => {
 			localUser.set(user);

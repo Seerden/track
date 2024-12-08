@@ -7,27 +7,36 @@ import type {
 	TaskUpdateInput
 } from "@t/data/activity.types";
 
-export async function getActivities() {
+async function getActivities() {
 	return api.get<ActivitiesData>({ url: "/data/activities" });
 }
 
-export async function putTaskCompletion(input: TaskUpdateInput) {
+async function putTaskCompletion(input: TaskUpdateInput) {
 	return api.put<TaskUpdateInput, ActivityWithIds>({
 		url: `/data/task/completion`,
 		body: input
 	});
 }
 
-export async function putActivity(input: ActivityUpdateInput): Promise<ActivityWithIds> {
+async function putActivity(input: ActivityUpdateInput) {
 	return api.put<ActivityUpdateInput, ActivityWithIds>({
 		url: `/data/activity/${input.activity.activity_id}`,
 		body: input
 	});
 }
 
-export async function postNewActivity(input: ActivityInput): Promise<ActivityWithIds> {
+async function postNewActivity(input: ActivityInput) {
 	return api.post<ActivityInput, ActivityWithIds>({
 		url: "/data/activity",
 		body: input
 	});
 }
+
+const activityService = {
+	getByUser: getActivities,
+	putCompletion: putTaskCompletion,
+	put: putActivity,
+	post: postNewActivity
+};
+
+export default activityService;

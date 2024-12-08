@@ -1,4 +1,4 @@
-import { postLogout } from "@/lib/fetch/user-service";
+import userService from "@/lib/fetch/user-service";
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import { queryClient } from "@/lib/query-client";
 import { mk, qk } from "@/lib/query-keys";
@@ -11,7 +11,7 @@ export default function useMutateLogout() {
 	return useMutation({
 		mutationKey: mk.user.logout, // TODO: should we distinguish between login and logout?
 		async mutationFn() {
-			return postLogout();
+			return userService.logout();
 		},
 		onSuccess: () => {
 			// unset local user on successful logout

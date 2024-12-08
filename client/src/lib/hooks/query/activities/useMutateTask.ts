@@ -1,4 +1,4 @@
-import { putTaskCompletion } from "@/lib/fetch/activity-service";
+import activityService from "@/lib/fetch/activity-service";
 import { queryClient } from "@/lib/query-client";
 import { mk, qk } from "@/lib/query-keys";
 import type { ActivitiesData } from "@/types/data.types";
@@ -35,7 +35,7 @@ function updateActivitiesCache(updatedActivity: ActivityWithIds) {
 export default function useMutateTaskCompletion() {
 	return useMutation<ActivityWithIds, unknown, TaskUpdateInput>({
 		async mutationFn(activity) {
-			return putTaskCompletion(activity);
+			return activityService.putCompletion(activity);
 		},
 		mutationKey: mk.activities.update.task.completion,
 		onSuccess: updateActivitiesCache

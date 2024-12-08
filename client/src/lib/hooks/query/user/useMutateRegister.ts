@@ -1,4 +1,4 @@
-import { postRegister } from "@/lib/fetch/user-service";
+import userService from "@/lib/fetch/user-service";
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import { mk } from "@/lib/query-keys";
 import type { UserData } from "@/types/data.types";
@@ -10,7 +10,7 @@ export default function useMutateRegister() {
 
 	return useMutation<UserData, unknown, NewUser>({
 		async mutationFn(newUser) {
-			return postRegister(newUser);
+			return userService.register(newUser);
 		},
 		mutationKey: mk.user.register,
 		onSuccess: () => navigate("/")

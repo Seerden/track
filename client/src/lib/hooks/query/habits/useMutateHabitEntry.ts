@@ -1,4 +1,4 @@
-import { putHabitEntry } from "@/lib/fetch/habit-service";
+import habitService from "@/lib/fetch/habit-service";
 import { mk } from "@/lib/query-keys";
 import type {
 	HabitEntry,
@@ -19,7 +19,7 @@ export type HabitEntryUpdateMutationFunction = (
 export default function useMutateHabitEntry() {
 	return useMutation<HabitEntry, unknown, HabitEntryUpdateInput>({
 		async mutationFn(habitEntry) {
-			return putHabitEntry(habitEntry);
+			return habitService.putEntry(habitEntry);
 		},
 		mutationKey: mk.habits.entries.update
 	});
