@@ -15,39 +15,6 @@ const Task = styled.label`
 	${spacing.margin.wide({ size: 0.2, ratio: 2.5 })}
 	border: 2px solid white;
 	border-radius: 3px;
-
-	input[type="checkbox"] {
-		width: 0;
-	}
-
-	svg {
-		max-height: 100%;
-		width: 27px;
-		display: flex;
-		align-self: center;
-		justify-self: center;
-
-		&.on {
-			color: ${(p) => p.theme.colors.yellow.main};
-		}
-
-		&.off {
-			color: #ccc;
-		}
-	}
-
-	&:active,
-	&:hover,
-	&:focus-within {
-		svg {
-			&.on {
-				color: limegreen;
-			}
-			&.off {
-				color: #bbb;
-			}
-		}
-	}
 `;
 
 export default {

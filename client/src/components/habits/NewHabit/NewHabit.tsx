@@ -95,7 +95,7 @@ export default function NewHabit() {
 								checked={habit.goal_type === "goal"}
 								value="goal"
 								onChange={onInputChange}
-							/>{" "}
+							/>
 							<S.RadioLabelText>
 								<CheckboxIcon checked={habit.goal_type === "goal"} />
 								with a detailed goal

@@ -80,14 +80,7 @@ export default function DateTimePicker({ onChange, defaultValues }: DateTimePick
 				</S.Fields>
 				<S.AllDay>
 					All day?
-					<S.Checkbox
-						type="checkbox"
-						checked={allDay}
-						onChange={onAllDayFieldChange}
-					/>
-					<S.Icon>
-						<Checkbox checked={allDay} />
-					</S.Icon>
+					<Checkbox checked={allDay} onChange={onAllDayFieldChange} />
 				</S.AllDay>
 			</S.Row>
 		</S.Form>

@@ -1,5 +1,4 @@
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
-import { noBorders } from "@/lib/theme/snippets/border";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacing } from "@/lib/theme/snippets/spacing";
 import styled, { css } from "styled-components";
@@ -99,40 +98,6 @@ const AllDay = styled.label`
 	border-radius: 3px;
 
 	background-color: #eaeaea;
-
-	&:hover,
-	&:focus-within,
-	&:active {
-		.off {
-			color: #aaa;
-		}
-
-		.on {
-			color: limegreen;
-		}
-	}
-`;
-
-const Checkbox = styled.input`
-	${noBorders};
-	width: 0px;
-	height: 0px;
-	display: none;
-`;
-
-const Icon = styled.span`
-	${noBorders};
-	width: 30px;
-	display: flex;
-	justify-content: center;
-
-	.off {
-		color: #ccc;
-	}
-
-	.on {
-		color: ${(p) => p.theme.colors.green.main};
-	}
 `;
 
 const size = "25px";
@@ -160,7 +125,5 @@ export default {
 	Label,
 	Fields,
 	AllDay,
-	Checkbox,
-	Icon,
 	Info
 };

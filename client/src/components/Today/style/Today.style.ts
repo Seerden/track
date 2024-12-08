@@ -52,20 +52,6 @@ const CheckboxWrapper = styled.label`
 	justify-content: center;
 	width: 27px;
 	height: 27px;
-
-	.on {
-		fill: ${(p) => p.theme.colors.green.main};
-	}
-
-	.off {
-		fill: #aaa;
-	}
-`;
-
-const Checkbox = styled.input`
-	display: block;
-	margin-right: 0.5rem;
-	width: max-content;
 `;
 
 const Header = styled.header`
@@ -244,7 +230,6 @@ export default {
 	BlockTitle,
 	Rows,
 	CheckboxWrapper,
-	Checkbox,
 	Columns,
 	Header,
 	Tags,

@@ -50,13 +50,7 @@ export default function AllDayActivity({ activity }: AllDayActivityProps) {
 
 			{activity.is_task && (
 				<S.CheckboxWrapper ref={checkboxRef}>
-					<S.Checkbox
-						type="checkbox"
-						style={{ display: "none" }}
-						checked={activity.completed}
-						onChange={putCompletion}
-					/>
-					<Checkbox checked={activity.completed} />
+					<Checkbox checked={activity.completed} onChange={putCompletion} />
 				</S.CheckboxWrapper>
 			)}
 		</T.AllDayActivity>

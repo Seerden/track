@@ -43,12 +43,12 @@ export function Checkbox(props: CheckboxProps) {
 					...props.style
 				}}
 			/>
-			<Icon />
+			<Icon size={props.size ?? 27} />
 		</S.Wrapper>
 	);
 }
 
-// TODO: get rid of this
+// TODO: get rid of this? This is actually used in NewHabit, for example.
 export function CheckboxIcon({
 	checked,
 	size = 20

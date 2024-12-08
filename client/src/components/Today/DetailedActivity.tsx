@@ -37,8 +37,7 @@ export default function DetailedActivity({ activity }: DetailedActivityProps) {
 			<S.Title>
 				{activity.is_task && (
 					<S.CheckboxWrapper>
-						<input type="checkbox" onChange={putCompletion} />
-						<Checkbox checked={activity.completed} />
+						<Checkbox checked={activity.completed} onChange={putCompletion} />
 					</S.CheckboxWrapper>
 				)}
 				<span>{activity.name}</span>

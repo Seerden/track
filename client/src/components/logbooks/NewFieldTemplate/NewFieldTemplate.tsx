@@ -1,4 +1,5 @@
 import useNewFieldTemplate from "@/components/logbooks/NewFieldTemplate/useNewFieldTemplate";
+import { Checkbox } from "@/lib/theme/components/Checkbox";
 import F from "@/lib/theme/components/form/form.alternate.style";
 import { font } from "@/lib/theme/font";
 import type { NewFieldTemplate as TNewFieldTemplate } from "@t/data/logbook.new.types";
@@ -64,9 +65,8 @@ export default function NewFieldTemplate({
 				<S.Column style={{ alignSelf: "flex-end" }}>
 					<S.Label>
 						<span>required?</span>
-						<input
+						<Checkbox
 							name="required"
-							type="checkbox"
 							checked={fieldTemplate.required}
 							onChange={handleInputChange}
 						/>
