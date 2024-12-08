@@ -1,6 +1,6 @@
 import Modal from "@/components/utility/Modal/Modal";
-import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
-import useTagsTreeQuery from "@/lib/hooks/query/tags/useTagsTreeQuery";
+import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
+import useQueryTagsTree from "@/lib/hooks/query/tags/useQueryTagsTree";
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
 import Badge from "@/lib/theme/components/Badge";
@@ -21,8 +21,8 @@ export default function TagTree({
 	modalId = modalIds.tagTree.tree,
 	initialOpen = false
 }: TagTreeProps) {
-	const { data: tagTreeData } = useTagsTreeQuery();
-	const { data: tagsData } = useTagsQuery();
+	const { data: tagTreeData } = useQueryTagsTree();
+	const { data: tagsData } = useQueryTags();
 
 	if (!tagTreeData || !tagsData) return null;
 
@@ -62,7 +62,7 @@ function getTag(tag_id: ID, tagsById: ById<TagWithIds>) {
 }
 
 function Tag({ tag, level }: TagProps) {
-	const { data: tagsData } = useTagsQuery();
+	const { data: tagsData } = useQueryTags();
 	const [collapsed, setCollapsed] = useState(false);
 
 	if (!tagsData) {

@@ -1,6 +1,6 @@
 import Empty from "@/components/Today/Empty";
 import { filterTagsById } from "@/lib/filter-tags";
-import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
+import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
 import type { ActivityWithIds } from "@t/data/activity.types";
 import Task from "./Task";
 import T from "./style/Tasks.style";
@@ -11,7 +11,7 @@ type TasksProps = {
 };
 
 export default function Tasks({ activities }: TasksProps) {
-	const { data: tags } = useTagsQuery();
+	const { data: tags } = useQueryTags();
 
 	return (
 		<T.TasksWrapper>

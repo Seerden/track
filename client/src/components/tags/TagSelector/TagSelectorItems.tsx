@@ -2,7 +2,7 @@ import type {
 	TagSelectorItemProps,
 	TagSelectorItemsProps
 } from "@/components/tags/TagSelector/tag-selector.types";
-import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
+import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
 import { useModalState } from "@/lib/state/modal-state";
 import S from "./style/TagSelector.style";
 
@@ -24,7 +24,7 @@ function TagSelectorItem(p: TagSelectorItemProps) {
 
 function TagSelectorItems(p: TagSelectorItemsProps) {
 	const { openModal } = useModalState();
-	const { data } = useTagsQuery();
+	const { data } = useQueryTags();
 
 	if (data?.byId && Object.keys(data.byId).length > 0 && p.tags.length === 0) {
 		return <p>No tags found for selected filter.</p>;

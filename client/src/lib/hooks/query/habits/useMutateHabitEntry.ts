@@ -1,4 +1,4 @@
-import api from "@/lib/fetch/api";
+import habitService from "@/lib/fetch/habit-service";
 import { mk } from "@/lib/query-keys";
 import type {
 	HabitEntry,
@@ -16,17 +16,10 @@ export type HabitEntryUpdateMutationFunction = (
 	args: HabitEntryUpdateMutationArgs
 ) => void;
 
-async function putHabitEntry(input: HabitEntryUpdateInput) {
-	return api.put<HabitEntryUpdateInput, HabitEntry>({
-		url: "/data/habit/entry",
-		body: input
-	});
-}
-
-export default function useHabitEntryMutation() {
+export default function useMutateHabitEntry() {
 	return useMutation<HabitEntry, unknown, HabitEntryUpdateInput>({
 		async mutationFn(habitEntry) {
-			return putHabitEntry(habitEntry);
+			return habitService.putEntry(habitEntry);
 		},
 		mutationKey: mk.habits.entries.update
 	});

@@ -1,15 +1,15 @@
 import Empty from "@/components/Today/Empty";
 import { createDate } from "@/lib/datetime/make-date";
 import { filterTagsById } from "@/lib/filter-tags";
-import useNotesQuery from "@/lib/hooks/query/notes/useNotesQuery";
-import useTagsQuery from "@/lib/hooks/query/tags/useTagsQuery";
+import useQueryNotes from "@/lib/hooks/query/notes/useQueryNotes";
+import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
 import { isToday } from "@lib/datetime/compare";
 import { Note } from "./Note";
 import S from "./style/Today.style";
 
 export default function Notes() {
-	const { data: notesData } = useNotesQuery();
-	const { data: tags } = useTagsQuery();
+	const { data: notesData } = useQueryNotes();
+	const { data: tags } = useQueryTags();
 
 	const notes = Object.values(notesData?.byId ?? {}).filter((note) =>
 		// TODO: note.date is not a field in the client when creating a new note,

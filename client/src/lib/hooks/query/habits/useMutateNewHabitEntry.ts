@@ -1,19 +1,12 @@
-import api from "@/lib/fetch/api";
+import habitService from "@/lib/fetch/habit-service";
 import { mk } from "@/lib/query-keys";
 import type { HabitEntry, HabitEntryInput } from "@t/data/habit.types";
 import { useMutation } from "@tanstack/react-query";
 
-async function postHabitEntry(input: HabitEntryInput) {
-	return api.post<HabitEntryInput, HabitEntry>({
-		url: "/data/habit/entry",
-		body: input
-	});
-}
-
-export default function useNewHabitEntryMutation() {
+export default function useMutateNewHabitEntry() {
 	return useMutation<HabitEntry, unknown, HabitEntryInput>({
 		async mutationFn({ habitEntry }) {
-			return postHabitEntry({ habitEntry });
+			return habitService.postEntry({ habitEntry });
 		},
 		mutationKey: mk.habits.entries.new
 	});

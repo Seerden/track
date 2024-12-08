@@ -9,7 +9,7 @@ import Calendar from "@/components/utility/Calendar/Calendar";
 import Modal from "@/components/utility/Modal/Modal";
 import SpeedDial from "@/components/utility/SpeedDial/SpeedDial";
 import { today } from "@/lib/datetime/make-date";
-import useActivitiesQuery from "@/lib/hooks/query/activities/useActivitiesQuery";
+import useQueryActivities from "@/lib/hooks/query/activities/useQueryActivities";
 import useHabitsData from "@/lib/hooks/useHabitsData";
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
@@ -26,7 +26,7 @@ import Tasks from "./Tasks";
 
 /** Functionality hook for the Today component. */
 function useToday() {
-	const { data: activitiesData } = useActivitiesQuery();
+	const { data: activitiesData } = useQueryActivities();
 	const { getHabitsForTimeWindow } = useHabitsData();
 	const [currentDate, setCurrentDate] = useState<Dayjs>(() => today());
 	const [timeWindow, setTimeWindow] = useRecoilState(selectedTimeWindowState);
