@@ -7,18 +7,22 @@ import {
 } from "react-icons/md";
 import S from "./Checkbox.style";
 
-function CheckboxOn() {
+type CheckboxIconProps = {
+	size?: number;
+};
+
+function CheckboxOn({ size = 27 }: CheckboxIconProps) {
 	return (
 		<S.Checked>
-			<MdRadioButtonChecked className="on" size={27} />
+			<MdRadioButtonChecked className="on" size={size} />
 		</S.Checked>
 	);
 }
 
-function CheckboxOff() {
+function CheckboxOff({ size = 27 }: CheckboxIconProps) {
 	return (
 		<S.Unchecked>
-			<MdRadioButtonUnchecked className="off" size={27} />
+			<MdRadioButtonUnchecked className="off" size={size} />
 		</S.Unchecked>
 	);
 }
