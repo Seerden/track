@@ -88,11 +88,11 @@ export default function LogTemplateForm({ logbook_id }: LogTemplateFormProps) {
 							<p>
 								You don't have any item templates yet. You need at least one item
 								template to get started.
-								<Action.WithIcon $color="blue" onClick={handleModalOpen}>
-									New item template <LucideText size={20} />
-								</Action.WithIcon>
 							</p>
 						)}
+						<Action.WithIcon $color="blue" onClick={handleModalOpen}>
+							New item template <LucideText size={20} />
+						</Action.WithIcon>
 					</S.SelectionList>
 				</fieldset>
 
