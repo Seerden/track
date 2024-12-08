@@ -44,6 +44,7 @@ export function Checkbox(props: CheckboxProps) {
 	);
 }
 
+// TODO: get rid of this
 export function CheckboxIcon({
 	checked,
 	size = 20
