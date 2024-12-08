@@ -1,4 +1,4 @@
-import { postNewItemTemplate } from "@/lib/fetch/logbook-service";
+import logbookService from "@/lib/fetch/logbook-service";
 import modalIds from "@/lib/modal-ids";
 import { queryClient } from "@/lib/query-client";
 import { mk, qk } from "@/lib/query-keys";
@@ -12,7 +12,7 @@ export default function useMutateNewItemTemplate() {
 
 	return useMutation<ItemTemplateAndFieldTemplates, unknown, NewItemTemplateInput>({
 		async mutationFn(itemTemplateInput) {
-			return postNewItemTemplate(itemTemplateInput);
+			return logbookService.itemTemplates.post(itemTemplateInput);
 		},
 		mutationKey: mk.logbooks.itemTemplate.new,
 		onSuccess: (data) => {

@@ -1,4 +1,4 @@
-import { getLogTemplates, getLogTemplatesByLogbook } from "@/lib/fetch/logbook-service";
+import logbookService from "@/lib/fetch/logbook-service";
 import { defaultQueryConfig } from "@/lib/query-client";
 import { qk } from "@/lib/query-keys";
 import type { LogTemplatesData } from "@/types/data.types";
@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 export default function useQueryLogTemplates() {
 	return useQuery<LogTemplatesData>({
 		queryKey: qk.logTemplates.all,
-		queryFn: getLogTemplates,
+		queryFn: logbookService.logTemplates.getByUser,
 		...defaultQueryConfig
 	});
 }
@@ -18,7 +18,7 @@ export function useQueryLogTemplatesByLogbook(logbook_id: ID) {
 	// logbook_id in the response?
 	return useQuery<LogTemplatesData>({
 		queryKey: qk.logTemplates.byLogbook(logbook_id),
-		queryFn: () => getLogTemplatesByLogbook(logbook_id),
+		queryFn: () => logbookService.logTemplates.getByLogbook(logbook_id),
 		...defaultQueryConfig
 	});
 }

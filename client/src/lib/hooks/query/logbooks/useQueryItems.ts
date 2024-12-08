@@ -1,4 +1,4 @@
-import { getItems, getItemsByLogbook } from "@/lib/fetch/logbook-service";
+import logbookService from "@/lib/fetch/logbook-service";
 import { defaultQueryConfig } from "@/lib/query-client";
 import { qk } from "@/lib/query-keys";
 import type { ItemsData } from "@/types/data.types";
@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 export function useQueryItemsByLogbook(logbook_id: ID) {
 	return useQuery<ItemsData>({
 		queryKey: qk.items.byLogbook(logbook_id),
-		queryFn: () => getItemsByLogbook(logbook_id),
+		queryFn: () => logbookService.items.getByLogbook(logbook_id),
 		...defaultQueryConfig
 	});
 }
@@ -16,7 +16,7 @@ export function useQueryItemsByLogbook(logbook_id: ID) {
 export default function useQueryItems() {
 	return useQuery<ItemsData>({
 		queryKey: qk.items.all,
-		queryFn: getItems,
+		queryFn: logbookService.items.getByUser,
 		...defaultQueryConfig
 	});
 }
