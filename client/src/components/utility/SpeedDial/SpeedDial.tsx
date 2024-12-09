@@ -4,10 +4,12 @@ import {
 	flip,
 	FloatingFocusManager,
 	offset,
+	safePolygon,
 	shift,
 	useClick,
 	useDismiss,
 	useFloating,
+	useHover,
 	useInteractions,
 	useRole
 } from "@floating-ui/react";
@@ -39,11 +41,15 @@ export default function SpeedDial({
 	const click = useClick(context);
 	const dismiss = useDismiss(context);
 	const role = useRole(context);
+	const hover = useHover(context, {
+		handleClose: safePolygon()
+	});
 
 	const { getReferenceProps, getFloatingProps } = useInteractions([
 		click,
 		dismiss,
-		role
+		role,
+		hover
 	]);
 
 	return (
