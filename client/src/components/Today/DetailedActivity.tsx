@@ -1,5 +1,6 @@
 import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
 import S from "@/components/Today/style/DetailedActivity.style";
+import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import Modal from "@/components/utility/Modal/Modal";
 import { activityEnd, activityStart, hasNotEnded, startsInFuture } from "@/lib/activity";
 import { createDate } from "@/lib/datetime/make-date";
@@ -9,7 +10,6 @@ import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import CardStyle from "@/lib/theme/components/Card.style";
-import { Checkbox } from "@/lib/theme/components/Checkbox";
 import type { ActivityWithIds } from "@t/data/activity.types";
 import type { Datelike } from "@t/data/utility.types";
 import { PenLine } from "lucide-react";

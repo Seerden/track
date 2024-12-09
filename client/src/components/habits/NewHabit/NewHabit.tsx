@@ -1,9 +1,9 @@
 import TagSelector from "@/components/tags/TagSelector/TagSelector";
+import { CheckboxIcon } from "@/components/utility/Checkbox/Checkbox";
 import { formatToYearMonthDay } from "@/lib/datetime/format-date";
 import { createDate } from "@/lib/datetime/make-date";
 import modalIds from "@/lib/modal-ids";
 import { Action } from "@/lib/theme/components/buttons";
-import { CheckboxIcon } from "@/lib/theme/components/Checkbox";
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
 import F from "@lib/theme/components/form.style";
 import { CalendarOff } from "lucide-react";

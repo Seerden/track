@@ -1,7 +1,7 @@
+import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
-import { Checkbox } from "@/lib/theme/components/Checkbox";
 import type { ActivityWithIds } from "@t/data/activity.types";
 import { useRef } from "react";
 import { Ri24HoursLine } from "react-icons/ri";

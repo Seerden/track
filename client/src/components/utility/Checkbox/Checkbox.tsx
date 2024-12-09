@@ -5,7 +5,7 @@ import {
 	MdRadioButtonChecked,
 	MdRadioButtonUnchecked
 } from "react-icons/md";
-import S from "./Checkbox.style";
+import S from "./style/Checkbox.style";
 
 type CheckboxIconProps = {
 	size?: number;

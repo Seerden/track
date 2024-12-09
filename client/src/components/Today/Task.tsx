@@ -1,8 +1,8 @@
+import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import { formatToHHmm } from "@/lib/datetime/format-date";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
-import { Checkbox } from "@/lib/theme/components/Checkbox";
 import { activityEnd, activityStart } from "@lib/activity";
 import type { ActivityWithIds } from "@t/data/activity.types";
 import type { TagWithIds } from "@t/data/tag.types";

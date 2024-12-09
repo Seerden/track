@@ -1,5 +1,5 @@
 import useNewFieldTemplate from "@/components/logbooks/NewFieldTemplate/useNewFieldTemplate";
-import { Checkbox } from "@/lib/theme/components/Checkbox";
+import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import F from "@/lib/theme/components/form/form.alternate.style";
 import { font } from "@/lib/theme/font";
 import type { NewFieldTemplate as TNewFieldTemplate } from "@t/data/logbook.new.types";
