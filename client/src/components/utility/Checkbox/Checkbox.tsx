@@ -1,10 +1,10 @@
 import { colors } from "@/lib/theme/colors";
 import {
-	MdCheckBox,
-	MdCheckBoxOutlineBlank,
-	MdRadioButtonChecked,
-	MdRadioButtonUnchecked
-} from "react-icons/md";
+	LucideCheckSquare,
+	LucideCircle,
+	LucideCircleCheckBig,
+	LucideSquare
+} from "lucide-react";
 import S from "./style/Checkbox.style";
 
 type CheckboxIconProps = {
@@ -14,7 +14,7 @@ type CheckboxIconProps = {
 function CheckboxOn({ size = 27 }: CheckboxIconProps) {
 	return (
 		<S.Checked>
-			<MdRadioButtonChecked className="on" size={size} />
+			<LucideCircleCheckBig className="on" size={size} />
 		</S.Checked>
 	);
 }
@@ -22,7 +22,7 @@ function CheckboxOn({ size = 27 }: CheckboxIconProps) {
 function CheckboxOff({ size = 27 }: CheckboxIconProps) {
 	return (
 		<S.Unchecked>
-			<MdRadioButtonUnchecked className="off" size={size} />
+			<LucideCircle className="off" size={size} />
 		</S.Unchecked>
 	);
 }
@@ -57,8 +57,8 @@ export function CheckboxIcon({
 	size?: number;
 }) {
 	return checked ? (
-		<MdCheckBox size={size} color={colors.green.main} />
+		<LucideCheckSquare size={size} color={colors.green.main} />
 	) : (
-		<MdCheckBoxOutlineBlank size={size} color={colors.yellow.secondary} />
+		<LucideSquare size={size} color={colors.yellow.secondary} />
 	);
 }
