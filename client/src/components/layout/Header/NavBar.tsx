@@ -1,3 +1,4 @@
+import LogbookMenu from "@/components/layout/Header/LogbookMenu";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import S from "./style/NavBar.style";
@@ -11,6 +12,7 @@ export default function NavBar() {
 				<input type="text" placeholder="search" />
 				<input type="button" value="create" />
 			</S.Actions>
+			<LogbookMenu />
 
 			<ProfileAction />
 		</S.NavBar>
