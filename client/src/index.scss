@@ -6,6 +6,11 @@ html {
 	color: var(--text-light);
 	height: 100%;
 	overflow-y: scroll;
+
+	// Disables overflow when there is at least one open modal.
+	&:has([data-modal-id]) {
+		overflow: hidden;
+	}
 }
 
 body {

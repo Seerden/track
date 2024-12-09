@@ -40,7 +40,7 @@ export default function Modal({
 		>
 			<S.Modal ref={modalRef} data-modal-id={modalId}>
 				<S.Close onClick={handleModalClose} $color="red" />
-				{children}
+				<S.ModalChildWrapper>{children}</S.ModalChildWrapper>
 			</S.Modal>
 		</S.ModalWrapper>
 	);
