@@ -45,13 +45,10 @@ export default function Task({ activity, tags = [] }: TaskProps) {
 			<S.CheckboxWrapper
 				ref={checkboxRef}
 				onClick={(e) => {
-					// TODO: can we put this in the Checkbox's onChange?
-					e.preventDefault();
-					e.stopPropagation();
-					putCompletion();
+					e.stopPropagation(); // This prevents the task from being opened when the checkbox is clicked.
 				}}
 			>
-				<Checkbox checked={activity.completed} onChange={() => {}} />
+				<Checkbox checked={activity.completed} onChange={putCompletion} />
 			</S.CheckboxWrapper>
 			<T.Times>
 				<span>from {formatToHHmm(activityStart(activity))}</span>
