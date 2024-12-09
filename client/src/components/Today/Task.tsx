@@ -1,8 +1,8 @@
+import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import { formatToHHmm } from "@/lib/datetime/format-date";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
-import { Checkbox } from "@/lib/theme/components/Checkbox";
 import { activityEnd, activityStart } from "@lib/activity";
 import type { ActivityWithIds } from "@t/data/activity.types";
 import type { TagWithIds } from "@t/data/tag.types";
@@ -45,18 +45,10 @@ export default function Task({ activity, tags = [] }: TaskProps) {
 			<S.CheckboxWrapper
 				ref={checkboxRef}
 				onClick={(e) => {
-					e.preventDefault();
-					e.stopPropagation();
-					putCompletion();
+					e.stopPropagation(); // This prevents the task from being opened when the checkbox is clicked.
 				}}
 			>
-				<S.Checkbox
-					type="checkbox"
-					style={{ display: "none" }}
-					checked={activity.completed}
-					onChange={() => undefined} // TODO: this is just to prevent a warning
-				/>
-				<Checkbox checked={activity.completed} />
+				<Checkbox checked={activity.completed} onChange={putCompletion} />
 			</S.CheckboxWrapper>
 			<T.Times>
 				<span>from {formatToHHmm(activityStart(activity))}</span>

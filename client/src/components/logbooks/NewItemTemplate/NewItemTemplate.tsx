@@ -1,6 +1,7 @@
 import NewFieldTemplate from "@/components/logbooks/NewFieldTemplate/NewFieldTemplate";
 import MiniField from "@/components/logbooks/NewItemTemplate/MiniField";
 import useNewItemTemplate from "@/components/logbooks/NewItemTemplate/useNewItemTemplate";
+import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import F from "@/lib/theme/components/form/form.alternate.style";
 import { font } from "@/lib/theme/font";
 import type { ID } from "@t/data/utility.types";
@@ -17,8 +18,13 @@ type NewItemTemplateProps = {
  * @todo enforce input names
  */
 export default function NewItemTemplate({ logbook_id }: NewItemTemplateProps) {
-	const { getFieldTemplateHandler, handleInputChange, newFieldTemplates, handleSubmit } =
-		useNewItemTemplate({ logbook_id });
+	const {
+		getFieldTemplateHandler,
+		handleInputChange,
+		newFieldTemplates,
+		handleSubmit,
+		itemTemplate
+	} = useNewItemTemplate({ logbook_id });
 
 	return (
 		<F.Form style={{ maxWidth: "max-content" }} onSubmit={handleSubmit}>
@@ -42,7 +48,11 @@ export default function NewItemTemplate({ logbook_id }: NewItemTemplateProps) {
 					<F.Label>
 						{/* TODO: this needs an explanation */}
 						<span style={{ padding: 0 }}>singular?</span>
-						<input name="standalone" type="checkbox" onChange={handleInputChange} />
+						<Checkbox
+							name="standalone"
+							onChange={handleInputChange}
+							checked={itemTemplate.standalone}
+						/>
 					</F.Label>
 				</S.Row>
 			</S.Fields>

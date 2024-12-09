@@ -60,6 +60,7 @@ export default function useNewItemTemplate({ logbook_id }: { logbook_id: ID }) {
 		handleInputChange,
 		newFieldTemplates,
 		getFieldTemplateHandler,
-		handleSubmit
+		handleSubmit,
+		itemTemplate
 	};
 }

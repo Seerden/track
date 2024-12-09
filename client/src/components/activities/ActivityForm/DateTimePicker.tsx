@@ -1,5 +1,5 @@
+import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
-import { Checkbox } from "@lib/theme/components/Checkbox";
 import { FaInfo } from "react-icons/fa";
 import type { DateTimePickerProps } from "./datetime-picker.types";
 import S from "./style/DateTimePicker.style";
@@ -80,14 +80,7 @@ export default function DateTimePicker({ onChange, defaultValues }: DateTimePick
 				</S.Fields>
 				<S.AllDay>
 					All day?
-					<S.Checkbox
-						type="checkbox"
-						checked={allDay}
-						onChange={onAllDayFieldChange}
-					/>
-					<S.Icon>
-						<Checkbox checked={allDay} />
-					</S.Icon>
+					<Checkbox checked={allDay} onChange={onAllDayFieldChange} />
 				</S.AllDay>
 			</S.Row>
 		</S.Form>

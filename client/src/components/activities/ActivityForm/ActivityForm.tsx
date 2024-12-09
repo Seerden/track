@@ -1,9 +1,9 @@
+import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
 import N from "@/lib/theme/components/form.style";
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
 import TagSelector from "@components/tags/TagSelector/TagSelector";
-import { Checkbox } from "@lib/theme/components/Checkbox";
 import type { ActivityWithIds } from "@t/data/activity.types";
 import DateTimePicker from "./DateTimePicker";
 import S from "./style/ActivityForm.style";
@@ -55,8 +55,7 @@ export default function ActivityForm({
 					</N.Label>
 					<S.Task>
 						<span>Task?</span>
-						<input name="is_task" type="checkbox" onChange={onInputChange} />
-						<Checkbox checked={isTask} />
+						<Checkbox name="is_task" checked={isTask} onChange={onInputChange} />
 					</S.Task>
 				</N.Row>
 

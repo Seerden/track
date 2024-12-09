@@ -1,7 +1,7 @@
+import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
-import { Checkbox } from "@/lib/theme/components/Checkbox";
 import type { ActivityWithIds } from "@t/data/activity.types";
 import { useRef } from "react";
 import { Ri24HoursLine } from "react-icons/ri";
@@ -50,13 +50,7 @@ export default function AllDayActivity({ activity }: AllDayActivityProps) {
 
 			{activity.is_task && (
 				<S.CheckboxWrapper ref={checkboxRef}>
-					<S.Checkbox
-						type="checkbox"
-						style={{ display: "none" }}
-						checked={activity.completed}
-						onChange={putCompletion}
-					/>
-					<Checkbox checked={activity.completed} />
+					<Checkbox checked={activity.completed} onChange={putCompletion} />
 				</S.CheckboxWrapper>
 			)}
 		</T.AllDayActivity>

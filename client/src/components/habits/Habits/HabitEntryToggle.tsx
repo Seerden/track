@@ -1,3 +1,4 @@
+import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import type { HabitEntryUpdateMutationFunction } from "@/lib/hooks/query/habits/useMutateHabitEntry";
 import { isSynthetic } from "@t/data/habit-entry.guards";
 import type { HabitEntry, HabitWithIds, SyntheticHabitEntry } from "@t/data/habit.types";
@@ -24,8 +25,9 @@ export default function HabitEntryToggle({
 	return (
 		// TODO: styling
 		<label style={{ width: "max-content" }}>
-			<input
-				type="checkbox"
+			<Checkbox
+				tabIndex={0}
+				size={20}
 				checked={value}
 				onChange={(e) => {
 					onChange({ input: entry, value: (!value).toString() });
