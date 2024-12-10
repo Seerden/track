@@ -1,4 +1,5 @@
 /* eslint-disable react-compiler/react-compiler */
+import useRouteProps from "@/lib/hooks/useRouteProps";
 import type { MiddlewareState } from "@floating-ui/react";
 import {
 	arrow,
@@ -13,7 +14,14 @@ import {
 	useInteractions,
 	useRole
 } from "@floating-ui/react";
-import { useRef, useState } from "react";
+import {
+	LucideActivity,
+	LucideNotebookPen,
+	LucideNotebookTabs,
+	LucidePin
+} from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import S from "./style/Menu.style";
 
 function offsetIfOverflowing() {
 	return {
@@ -34,6 +42,15 @@ function offsetIfOverflowing() {
 
 export default function LogbookMenu() {
 	const [open, setOpen] = useState(false);
+	const { location } = useRouteProps();
+
+	useEffect(() => {
+		// reset menu state after location change
+		// TODO: ideally we'd only close the menu state if the route actually
+		// changes, but that logic is a bit more complex and it's not a priority
+		// yet.
+		setOpen(false);
+	}, [location]);
 
 	const arrowRef = useRef(null);
 	const { refs, context, floatingStyles } = useFloating({
@@ -65,46 +82,56 @@ export default function LogbookMenu() {
 
 	return (
 		<>
-			<button
-				ref={refs.setReference}
-				{...getReferenceProps()}
-				style={{
-					position: "relative",
-					width: "max-content  "
-				}}
-			>
+			<S.TriggerButton ref={refs.setReference} {...getReferenceProps()}>
 				Logbooks
-			</button>
+			</S.TriggerButton>
 
 			{open && (
-				<div
-					ref={refs.setFloating}
-					style={{
-						width: "max-content",
-						display: "flex",
-						flexDirection: "column",
-						marginTop: "1rem",
-						marginRight: "0.5rem",
-						padding: "0.5rem",
-						outline: "2px solid #ccc",
-						borderRadius: "5px",
-						backgroundColor: "#eee",
-						boxShadow: "0 0.3rem 0.2rem 0 #bbb, 0 0 0.5rem 0 #ddd",
+				<>
+					<S.Menu
+						ref={refs.setFloating}
+						style={{
+							...floatingStyles
+						}}
+						{...getFloatingProps()}
+					>
+						<FloatingArrow
+							ref={arrowRef}
+							context={context}
+							fill="#fff"
+							width={20}
+						/>
+						<S.MenuSection>
+							<S.Link to={`/logbooks`}>
+								<LucideNotebookTabs /> logbooks
+							</S.Link>
+							<S.Link to={`/logbooks/new`}>
+								<LucideNotebookPen /> new logbook
+							</S.Link>
+						</S.MenuSection>
 
-						...floatingStyles
-					}}
-					{...getFloatingProps()}
-				>
-					<FloatingArrow
-						ref={arrowRef}
-						context={context}
-						fill="#bbb"
-						tipRadius={1}
-					/>
+						{/* These recent and pinned log(book)s are mocked because the 
+                  functionality doesn't exist yet. */}
+						<S.MenuSection>
+							<S.MenuSectionHeader>
+								<LucideActivity size={15} color="orange" /> Recent logs
+							</S.MenuSectionHeader>
+							<S.LinkCards style={{ listStyle: "none" }}>
+								<S.LinkCard to="">Groceries 10 december</S.LinkCard>
+								<S.LinkCard to="">PPL 9 december</S.LinkCard>
+							</S.LinkCards>
+						</S.MenuSection>
 
-					<span>logbooks</span>
-					<span>new logbook</span>
-				</div>
+						<S.MenuSection>
+							<S.MenuSectionHeader>
+								<LucidePin size={15} color="orange" /> Pinned
+							</S.MenuSectionHeader>
+							<S.LinkCards style={{ listStyle: "none" }}>
+								<S.LinkCard to="">Weightlifting</S.LinkCard>
+							</S.LinkCards>
+						</S.MenuSection>
+					</S.Menu>
+				</>
 			)}
 		</>
 	);
