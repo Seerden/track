@@ -9,8 +9,7 @@ import {
 	LucideArrowRight,
 	LucideFolderPlus,
 	LucideText,
-	LucideUndoDot,
-	NotepadText
+	LucideUndoDot
 } from "lucide-react";
 import S from "./LogTemplateForm.style";
 
@@ -40,7 +39,7 @@ export default function LogTemplateForm({ logbook_id }: LogTemplateFormProps) {
 				</F.FormTitle>
 
 				<fieldset>
-					<F.Label>
+					<F.Label style={{ maxWidth: 250 }}>
 						<span>Name</span>
 						<input type="text" name="name" required onChange={handleInputChange} />
 					</F.Label>
@@ -65,7 +64,7 @@ export default function LogTemplateForm({ logbook_id }: LogTemplateFormProps) {
 										<Action.Default
 											disabled // TODO: enable when functionality is implemented
 											title="Clear all sections"
-											$color="red"
+											$color="yellow"
 											style={{ width: 30, height: 30 }}
 										>
 											<LucideUndoDot size={20} color="black" />
@@ -73,16 +72,16 @@ export default function LogTemplateForm({ logbook_id }: LogTemplateFormProps) {
 									)}
 
 									<Action.Default
-										disabled // TODO: enable when functionality is implemented
+										onClick={handleModalOpen}
 										title="New item template"
-										$color="yellow"
+										$color="blue"
 										style={{ width: 30, height: 30 }}
 									>
-										<NotepadText size={20} color="black" />
+										<LucideText size={20} color="white" />
 									</Action.Default>
 								</S.ActionBar>
 
-								<>{listElements}</>
+								{listElements}
 							</>
 						) : (
 							<p>
@@ -90,9 +89,6 @@ export default function LogTemplateForm({ logbook_id }: LogTemplateFormProps) {
 								template to get started.
 							</p>
 						)}
-						<Action.WithIcon $color="blue" onClick={handleModalOpen}>
-							New item template <LucideText size={20} />
-						</Action.WithIcon>
 					</S.SelectionList>
 				</fieldset>
 
