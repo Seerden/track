@@ -27,7 +27,8 @@ export default function LogTemplateForm({ logbook_id }: LogTemplateFormProps) {
 		isSubmittable,
 		handleInputChange,
 		handleSubmit,
-		handleModalOpen
+		handleModalOpen,
+		maybeAddSectionRow
 	} = useLogTemplateForm({ logbook_id });
 
 	return (
@@ -82,6 +83,14 @@ export default function LogTemplateForm({ logbook_id }: LogTemplateFormProps) {
 								</S.ActionBar>
 
 								{listElements}
+								<button
+									type="button"
+									onClick={() => {
+										maybeAddSectionRow();
+									}}
+								>
+									add section
+								</button>
 							</>
 						) : (
 							<p>
