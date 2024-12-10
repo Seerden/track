@@ -1,15 +1,7 @@
 import type { UniqueIdentifier } from "@dnd-kit/core";
 import { useDroppable } from "@dnd-kit/core";
-import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
-
+import { rectSortingStrategy, SortableContext } from "@dnd-kit/sortable";
 import SortableItem from "./sortable_item";
-
-const containerStyle = {
-	background: "#dadada",
-	padding: 10,
-	margin: 10,
-	flex: 1
-};
 
 type ContainerProps = {
 	id: string;
@@ -22,8 +14,19 @@ export default function Container({ id, items }: ContainerProps) {
 	});
 
 	return (
-		<SortableContext id={id} items={items} strategy={verticalListSortingStrategy}>
-			<div ref={setNodeRef} style={containerStyle}>
+		<SortableContext id={id} items={items} strategy={rectSortingStrategy}>
+			<div
+				ref={setNodeRef}
+				style={{
+					backgroundColor: "#dadada",
+					padding: "1rem",
+					margin: "1rem",
+					display: "flex",
+					flexDirection: "row",
+					minHeight: "calc(50px + 4rem)",
+					gap: "1rem"
+				}}
+			>
 				{items.map((id) => (
 					<SortableItem key={id} id={id} />
 				))}

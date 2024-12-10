@@ -5,19 +5,22 @@ import type {
 	UniqueIdentifier
 } from "@dnd-kit/core";
 import {
-	closestCorners,
+	closestCenter,
 	DndContext,
 	DragOverlay,
+	getFirstCollision,
 	KeyboardSensor,
 	PointerSensor,
+	pointerWithin,
+	rectIntersection,
 	useSensor,
 	useSensors
 } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
+import { Item } from "@/components/logbooks/LogForm/drag/sortable_item";
 import Container from "./container";
-import { Item } from "./sortable_item";
 
 enum CONTAINER_IDS {
 	ROOT = "root",
@@ -40,23 +43,87 @@ export default function DragMultipleContainers() {
 		})
 	);
 
+	type Args = Parameters<typeof closestCenter>[0];
+
+	/**
+	 * Custom collision detection strategy optimized for multiple containers
+	 *
+	 * - First, find any droppable containers intersecting with the pointer.
+	 * - If there are none, find intersecting containers with the active draggable.
+	 * - If there are no intersecting containers, return the last matched intersection
+	 *
+	 */
+	const collisionDetectionStrategy = useCallback(
+		(args: Args) => {
+			if (activeId && activeId in items) {
+				return closestCenter({
+					...args,
+					droppableContainers: args.droppableContainers.filter(
+						(container) => container.id in items
+					)
+				});
+			}
+
+			// Start by finding any intersecting droppable
+			const pointerIntersections = pointerWithin(args);
+			const intersections =
+				pointerIntersections.length > 0
+					? // If there are droppables intersecting with the pointer, return those
+						pointerIntersections
+					: rectIntersection(args);
+			let overId = getFirstCollision(intersections, "id");
+
+			if (overId != null) {
+				if (overId in items) {
+					const containerItems = items[overId as keyof typeof items];
+
+					// If a container is matched and it contains items (columns 'A', 'B', 'C')
+					if (containerItems.length > 0) {
+						// Return the closest droppable within that container
+						overId = closestCenter({
+							...args,
+							droppableContainers: args.droppableContainers.filter(
+								(container) =>
+									container.id !== overId &&
+									containerItems.includes(container.id)
+							)
+						})[0]?.id;
+					}
+				}
+
+				return [{ id: overId }];
+			}
+			return [];
+		},
+		[activeId, items]
+	);
+
 	return (
 		<div
 			style={{
 				display: "flex",
-				flexDirection: "row"
+				flexDirection: "column"
 			}}
 		>
 			<DndContext
 				sensors={sensors}
-				collisionDetection={closestCorners}
+				collisionDetection={collisionDetectionStrategy}
 				onDragStart={handleDragStart}
 				onDragOver={handleDragOver}
 				onDragEnd={handleDragEnd}
 			>
 				<Container id={CONTAINER_IDS.ROOT} items={items.root as string[]} />
 				<Container id={CONTAINER_IDS.SECTIONS} items={items.sections as string[]} />
-				<DragOverlay>{activeId ? <Item id={activeId} /> : null}</DragOverlay>
+				<DragOverlay>
+					{activeId ? (
+						<Item
+							id={activeId}
+							transform={null}
+							isDragging={false}
+							isOverlay={true}
+						/>
+					) : null}
+				</DragOverlay>
 			</DndContext>
 		</div>
 	);
@@ -87,6 +154,7 @@ export default function DragMultipleContainers() {
 		// Find the containers
 		const activeContainer = findContainer(id) as keyof typeof items;
 		const overContainer = findContainer(overId) as keyof typeof items;
+		console.log({ activeContainer, overContainer });
 
 		if (!activeContainer || !overContainer || activeContainer === overContainer) {
 			return;
