@@ -3,6 +3,11 @@ import type { DateValue } from "@mantine/dates";
 import type { Dayjs } from "dayjs";
 import { useEffect, useState } from "react";
 
+// TODO: put this in a helper file
+function createMonthValue(date: Dayjs) {
+	return new Date(date.year(), date.month(), 1); // note: MonthPicker expects Date, so don't use our dayjs helpers
+}
+
 type UseMonthPickerProps = {
 	initialDate: Dayjs;
 	onChange?: React.Dispatch<React.SetStateAction<MonthAndYear>>;
@@ -11,8 +16,15 @@ type UseMonthPickerProps = {
 /** Functionality hook for Calendar.tsx */
 export default function useMonthPicker({ initialDate, onChange }: UseMonthPickerProps) {
 	const [showMonthPicker, setShowMonthPicker] = useState(false);
-	const initialValue = new Date(initialDate.year(), initialDate.month(), 1); // note: MonthPicker expects Date, so don't use our dayjs helpers
-	const [monthValue, setMonthValue] = useState(initialValue);
+
+	const defaultMonthValue = createMonthValue(initialDate);
+	const [monthValue, setMonthValue] = useState(defaultMonthValue);
+
+	useEffect(() => {
+		// Whenever the outside date changes, update state to reflect that. This
+		// pattern looks a bit messy, but that's what you get with 2-way binding.
+		setMonthValue(createMonthValue(initialDate));
+	}, [initialDate]);
 
 	function handleMonthChange(value: DateValue) {
 		if (!value) return;
