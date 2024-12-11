@@ -9,7 +9,7 @@ interface SortableItemProps {
 	index: number;
 	style: React.CSSProperties;
 	getIndex(id: UniqueIdentifier): number;
-	wrapperStyle({ index }: { index: number }): React.CSSProperties;
+	wrapperStyle: React.CSSProperties;
 }
 
 export default function SortableItem({ id, index, wrapperStyle }: SortableItemProps) {
@@ -27,8 +27,8 @@ export default function SortableItem({ id, index, wrapperStyle }: SortableItemPr
 			dragging={isDragging}
 			sorting={isSorting}
 			index={index}
-			wrapperStyle={wrapperStyle({ index })}
-			color={"orange"}
+			wrapperStyle={wrapperStyle}
+			color={"deepskyblue"}
 			transition={transition}
 			transform={transform}
 			fadeIn={mountedWhileDragging}

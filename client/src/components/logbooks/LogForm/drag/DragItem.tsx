@@ -65,9 +65,7 @@ export const Item = React.memo(
 					style={
 						{
 							...wrapperStyle,
-							transition: [transition, wrapperStyle?.transition]
-								.filter(Boolean)
-								.join(", "),
+							transition,
 							"--translate-x": transform
 								? `${Math.round(transform.x)}px`
 								: undefined,

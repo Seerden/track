@@ -1,7 +1,7 @@
-import { Container } from "@/components/logbooks/LogForm/drag/DragContainer";
 import { Item } from "@/components/logbooks/LogForm/drag/DragItem";
 import SortableItem from "@/components/logbooks/LogForm/drag/DragSortableItem";
 import { dropAnimation } from "@/components/logbooks/LogForm/drag/drop-animation";
+import DroppableContainer from "@/components/logbooks/LogForm/drag/DroppableContainer";
 import type { Items } from "@/components/logbooks/LogForm/drag/useMultipleContainers";
 import useMultipleContainers from "@/components/logbooks/LogForm/drag/useMultipleContainers";
 import type {
@@ -11,71 +11,15 @@ import type {
 	UniqueIdentifier
 } from "@dnd-kit/core";
 import { DndContext, DragOverlay, MeasuringStrategy } from "@dnd-kit/core";
-import type { AnimateLayoutChanges, SortingStrategy } from "@dnd-kit/sortable";
+import type { SortingStrategy } from "@dnd-kit/sortable";
 import {
 	arrayMove,
-	defaultAnimateLayoutChanges,
 	horizontalListSortingStrategy,
 	SortableContext,
-	useSortable,
 	verticalListSortingStrategy
 } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
 import React from "react";
 import { createPortal } from "react-dom";
-
-type ContainerProps = {
-	children: React.ReactNode;
-	columns?: number;
-	label?: string;
-	style?: React.CSSProperties;
-	horizontal?: boolean;
-	hover?: boolean;
-	shadow?: boolean;
-	onClick?(): void;
-};
-
-const animateLayoutChanges: AnimateLayoutChanges = (args) =>
-	defaultAnimateLayoutChanges({ ...args, wasDragging: true });
-
-function DroppableContainer({
-	children,
-	columns = 1,
-	id,
-	items,
-	style,
-	...props
-}: ContainerProps & {
-	id: UniqueIdentifier;
-	items: UniqueIdentifier[];
-	style?: React.CSSProperties;
-}) {
-	const { active, isDragging, over, setNodeRef, transition, transform } = useSortable({
-		id,
-		animateLayoutChanges
-	});
-	const isOverContainer = over
-		? (id === over.id && active?.data.current?.type !== "container") ||
-			items.includes(over.id)
-		: false;
-
-	return (
-		<Container
-			ref={setNodeRef}
-			style={{
-				...style,
-				transition,
-				transform: CSS.Translate.toString(transform),
-				opacity: isDragging ? 0.5 : undefined
-			}}
-			hover={isOverContainer}
-			columns={columns}
-			{...props}
-		>
-			{children}
-		</Container>
-	);
-}
 
 interface Props {
 	cancelDrop?: CancelDrop;
@@ -88,14 +32,15 @@ interface Props {
 	vertical?: boolean;
 }
 
+export const defaultWrapperStyle = {
+	width: "150px",
+	height: "max-content"
+} as const;
+
 export function MultipleContainers({
 	cancelDrop,
 	columns,
 	items: initialItems,
-	wrapperStyle = () => ({
-		width: "150px",
-		height: "max-content"
-	}),
 	modifiers,
 	strategy = verticalListSortingStrategy,
 	vertical = false
@@ -263,7 +208,7 @@ export function MultipleContainers({
 											id={value}
 											index={index}
 											style={{}}
-											wrapperStyle={wrapperStyle}
+											wrapperStyle={defaultWrapperStyle}
 											containerId={containerId}
 											getIndex={getIndex}
 										/>
@@ -285,12 +230,7 @@ export function MultipleContainers({
 
 	function renderSortableItemDragOverlay(id: UniqueIdentifier) {
 		return (
-			<Item
-				value={id}
-				color={"red"}
-				wrapperStyle={wrapperStyle({ index: 0 })}
-				dragOverlay
-			/>
+			<Item value={id} color={"red"} wrapperStyle={defaultWrapperStyle} dragOverlay />
 		);
 	}
 }
