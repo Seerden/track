@@ -1,4 +1,5 @@
 import { activityFallsOnDay, isAllDayActivityOnDate } from "@/lib/activity";
+import { formatDate } from "@/lib/datetime/format-date";
 import { today } from "@/lib/datetime/make-date";
 import useQueryActivities from "@/lib/hooks/query/activities/useQueryActivities";
 import useHabitsData from "@/lib/hooks/useHabitsData";
@@ -14,6 +15,9 @@ export default function useToday() {
 	const [currentDate, setCurrentDate] = useState<Dayjs>(() => today());
 	const [timeWindow, setTimeWindow] = useRecoilState(selectedTimeWindowState);
 	const changeDayTimeout = useRef<NodeJS.Timeout | null>(null);
+	const currentDateString = useMemo(() => {
+		return formatDate(currentDate);
+	}, [currentDate]);
 
 	useEffect(() => {
 		return () => {
@@ -42,15 +46,22 @@ export default function useToday() {
 	const activities = useMemo(() => {
 		return Object.values(activitiesData?.byId ?? {}); // TODO: should this not be in a useActivities hook or someting?
 	}, [activitiesData]);
-	const todayActivities = activities.filter((activity) => {
-		return activityFallsOnDay(activity, currentDate);
-	});
-	const allDayActivities = activities.filter((activity) =>
-		isAllDayActivityOnDate(activity, currentDate)
-	);
-	const timestampedActivities = activities.filter(
-		(activity) => !isAllDayActivityOnDate(activity, currentDate)
-	);
+	const todayActivities = useMemo(() => {
+		return activities.filter((activity) => {
+			return activityFallsOnDay(activity, currentDate);
+		});
+	}, [activities, currentDateString]);
+	const allDayActivities = useMemo(() => {
+		return activities.filter((activity) =>
+			isAllDayActivityOnDate(activity, currentDate)
+		);
+	}, [activities, currentDateString]);
+
+	const timestampedActivities = useMemo(() => {
+		return activities.filter(
+			(activity) => !isAllDayActivityOnDate(activity, currentDate)
+		);
+	}, [activities, currentDateString]);
 
 	const currentYear = today().year(); // TODO: edge case: make this reactive so it updates on New Year's
 	const title = currentDate.format(
