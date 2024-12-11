@@ -1,3 +1,4 @@
+import { Unstyled } from "@/lib/theme/components/buttons";
 import { defaultCellHeight, defaultCellWidth } from "@/lib/theme/components/buttons/Cell";
 import { getFontSize } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
@@ -32,13 +33,14 @@ const TitleWrapper = styled.div`
 	width: 100%;
 
 	${flex.row};
-	justify-content: flex-end;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 0.2rem;
 `;
 
 const Title = styled.h2`
 	font-size: ${(p) => getFontSize(p, 1.2)};
 	color: ${highlightColor};
-	margin-bottom: calc(4 * ${gap});
 `;
 
 const MonthPickerWrapper = styled.div`
@@ -92,6 +94,45 @@ const Row = styled.div`
 	gap: ${gap};
 `;
 
+const MonthPickerActionWrapper = styled.div`
+	${flex.row};
+	gap: 0.5rem;
+
+	svg {
+		cursor: pointer;
+		color: #333;
+	}
+`;
+
+const MonthPickerAction = styled(Unstyled)<{
+	$direction: "previous" | "next";
+}>`
+	transition: transform 50ms ease-out;
+
+	border-bottom: 2px solid transparent;
+	display: flex;
+	align-items: center;
+
+	&:hover,
+	&:active,
+	&:focus {
+		border-bottom-color: ${highlightColor};
+
+		transform: translateX(
+				${(p) => (p.$direction === "previous" ? "-0.1rem" : "0.1rem")}
+			)
+			scaleX(1.05);
+
+		svg {
+			color: ${highlightColor};
+		}
+	}
+`;
+
+MonthPickerAction.defaultProps = {
+	type: "button"
+};
+
 export default {
 	Calendar,
 	TitleWrapper,
@@ -100,5 +141,7 @@ export default {
 	Days,
 	Day,
 	Rows,
-	Row
+	Row,
+	MonthPickerActionWrapper,
+	MonthPickerAction
 };

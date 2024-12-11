@@ -1,7 +1,7 @@
 import type { MonthAndYear } from "@/components/utility/Calendar/calendar.types";
 import type { DateValue } from "@mantine/dates";
 import type { Dayjs } from "dayjs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type UseMonthPickerProps = {
 	initialDate: Dayjs;
@@ -18,11 +18,25 @@ export default function useMonthPicker({ initialDate, onChange }: UseMonthPicker
 		if (!value) return;
 
 		setMonthValue(value);
-		onChange?.({
-			month: value.getMonth(),
-			year: value.getFullYear()
-		});
 		setShowMonthPicker(false);
+	}
+
+	useEffect(() => {
+		if (!monthValue) return;
+
+		onChange?.({
+			month: monthValue.getMonth(),
+			year: monthValue.getFullYear()
+		});
+	}, [monthValue]);
+
+	function handleArrowClick(direction: "previous" | "next") {
+		setMonthValue((current) => {
+			const modifier = direction === "previous" ? -1 : 1;
+			const newDate = new Date(current);
+			newDate.setMonth(newDate.getMonth() + modifier);
+			return newDate;
+		});
 	}
 
 	return {
@@ -30,6 +44,7 @@ export default function useMonthPicker({ initialDate, onChange }: UseMonthPicker
 		setShowMonthPicker,
 		monthValue,
 		setMonthValue,
-		handleMonthChange
+		handleMonthChange,
+		handleArrowClick
 	};
 }
