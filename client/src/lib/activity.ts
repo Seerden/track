@@ -40,7 +40,8 @@ export function activityEndOnDate(activity: ActivityWithIds, date: Dayjs) {
 
 /** Checks if any part of `activity` falls on `date`. */
 export function activityFallsOnDay(activity: ActivityWithIds, date: Dayjs) {
-	const [start, end] = [activityStart(activity), activityEnd(activity)];
+	const start = activityStart(activity);
+	const end = activityEnd(activity);
 
 	return (
 		sameDay(start, date) ||
