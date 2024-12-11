@@ -1,4 +1,4 @@
-import { Item } from "@/components/logbooks/LogForm/drag/DragItem";
+import DragItem from "@/components/logbooks/LogForm/drag/DragItem";
 import SortableItem from "@/components/logbooks/LogForm/drag/DragSortableItem";
 import { dropAnimation } from "@/components/logbooks/LogForm/drag/drop-animation";
 import DroppableContainer from "@/components/logbooks/LogForm/drag/DroppableContainer";
@@ -47,18 +47,18 @@ export function MultipleContainers({
 }: Props) {
 	const {
 		sensors,
-		collisionDetectionStrategy,
-		setContainers,
-		items,
-		findContainer,
-		setActiveId,
-		setItems,
-		onDragCancel,
 		containers,
+		items,
 		activeId,
+		recentlyMovedToNewContainer,
 		setClonedItems,
-		getIndex,
-		recentlyMovedToNewContainer
+		setItems,
+		setActiveId,
+		setContainers,
+		findContainer,
+		collisionDetectionStrategy,
+		onDragCancel,
+		getIndex
 	} = useMultipleContainers({ initialItems });
 
 	return (
@@ -84,9 +84,7 @@ export function MultipleContainers({
 				const overContainer = findContainer(overId);
 				const activeContainer = findContainer(active.id);
 
-				if (!overContainer || !activeContainer) {
-					return;
-				}
+				if (!overContainer || !activeContainer) return;
 
 				if (activeContainer !== overContainer) {
 					setItems((items) => {
@@ -230,7 +228,12 @@ export function MultipleContainers({
 
 	function renderSortableItemDragOverlay(id: UniqueIdentifier) {
 		return (
-			<Item value={id} color={"red"} wrapperStyle={defaultWrapperStyle} dragOverlay />
+			<DragItem
+				value={id}
+				color={"red"}
+				wrapperStyle={defaultWrapperStyle}
+				dragOverlay
+			/>
 		);
 	}
 }

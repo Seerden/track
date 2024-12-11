@@ -51,7 +51,7 @@ export default function useCollisionDetectionStrategy({
 					const containerItems = items[overId];
 
 					// If a container is matched and it contains items (columns 'A', 'B', 'C')
-					if (containerItems.length > 0) {
+					if (containerItems.length) {
 						// Return the closest droppable within that container
 						overId = closestCenter({
 							...args,
