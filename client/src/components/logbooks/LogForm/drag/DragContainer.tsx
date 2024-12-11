@@ -9,9 +9,7 @@ export interface Props {
 	label?: string;
 	style?: React.CSSProperties;
 	horizontal?: boolean;
-	scrollable?: boolean;
 	shadow?: boolean;
-	unstyled?: boolean;
 	onClick?(): void;
 }
 
@@ -24,9 +22,7 @@ export const Container = forwardRef<HTMLDivElement, Props>(
 			onClick,
 			label,
 			style,
-			scrollable,
 			shadow,
-			unstyled,
 			...props
 		}: Props,
 		ref
@@ -37,9 +33,7 @@ export const Container = forwardRef<HTMLDivElement, Props>(
 			<Component
 				className={classnames(
 					styles.Container,
-					unstyled && styles.unstyled,
 					horizontal && styles.horizontal,
-					scrollable && styles.scrollable,
 					shadow && styles.shadow
 				)}
 				{...props}

@@ -1,29 +1,16 @@
 import { Container } from "@/components/logbooks/LogForm/drag/DragContainer";
 import { Item } from "@/components/logbooks/LogForm/drag/DragItem";
-import useMountStatus from "@/components/logbooks/LogForm/drag/useMountStatus";
+import SortableItem from "@/components/logbooks/LogForm/drag/DragSortableItem";
+import { dropAnimation } from "@/components/logbooks/LogForm/drag/drop-animation";
+import type { Items } from "@/components/logbooks/LogForm/drag/useMultipleContainers";
+import useMultipleContainers from "@/components/logbooks/LogForm/drag/useMultipleContainers";
 import type {
 	CancelDrop,
-	CollisionDetection,
-	DropAnimation,
 	KeyboardCoordinateGetter,
 	Modifiers,
 	UniqueIdentifier
 } from "@dnd-kit/core";
-import {
-	closestCenter,
-	defaultDropAnimationSideEffects,
-	DndContext,
-	DragOverlay,
-	getFirstCollision,
-	KeyboardSensor,
-	MeasuringStrategy,
-	MouseSensor,
-	pointerWithin,
-	rectIntersection,
-	TouchSensor,
-	useSensor,
-	useSensors
-} from "@dnd-kit/core";
+import { DndContext, DragOverlay, MeasuringStrategy } from "@dnd-kit/core";
 import type { AnimateLayoutChanges, SortingStrategy } from "@dnd-kit/sortable";
 import {
 	arrayMove,
@@ -34,7 +21,7 @@ import {
 	verticalListSortingStrategy
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React from "react";
 import { createPortal } from "react-dom";
 
 type ContainerProps = {
@@ -44,9 +31,7 @@ type ContainerProps = {
 	style?: React.CSSProperties;
 	horizontal?: boolean;
 	hover?: boolean;
-	scrollable?: boolean;
 	shadow?: boolean;
-	unstyled?: boolean;
 	onClick?(): void;
 };
 
@@ -92,36 +77,18 @@ function DroppableContainer({
 	);
 }
 
-const dropAnimation: DropAnimation = {
-	sideEffects: defaultDropAnimationSideEffects({
-		styles: {
-			active: {
-				opacity: "0.5"
-			}
-		}
-	})
-};
-
-type Items = Record<UniqueIdentifier, UniqueIdentifier[]>;
-
 interface Props {
-	adjustScale?: boolean;
 	cancelDrop?: CancelDrop;
 	columns?: number;
 	coordinateGetter?: KeyboardCoordinateGetter;
-
 	wrapperStyle?(args: { index: number }): React.CSSProperties;
-	itemCount?: number;
 	items?: Items;
 	strategy?: SortingStrategy;
 	modifiers?: Modifiers;
-	minimal?: boolean;
-	scrollable?: boolean;
 	vertical?: boolean;
 }
 
 export function MultipleContainers({
-	adjustScale = false,
 	cancelDrop,
 	columns,
 	items: initialItems,
@@ -129,130 +96,25 @@ export function MultipleContainers({
 		width: "150px",
 		height: "max-content"
 	}),
-	minimal = false,
 	modifiers,
 	strategy = verticalListSortingStrategy,
-	vertical = false,
-	scrollable
+	vertical = false
 }: Props) {
-	const [items, setItems] = useState<Items>(
-		() =>
-			initialItems ?? {
-				Templates: ["A1", "A2", "A3"],
-				Selection: []
-			}
-	);
-	const [containers, setContainers] = useState(Object.keys(items) as UniqueIdentifier[]);
-	const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-	const lastOverId = useRef<UniqueIdentifier | null>(null);
-	const recentlyMovedToNewContainer = useRef(false);
-
-	/**
-	 * Custom collision detection strategy optimized for multiple containers
-	 *
-	 * - First, find any droppable containers intersecting with the pointer.
-	 * - If there are none, find intersecting containers with the active draggable.
-	 * - If there are no intersecting containers, return the last matched intersection
-	 *
-	 */
-	const collisionDetectionStrategy: CollisionDetection = useCallback(
-		(args) => {
-			if (activeId && activeId in items) {
-				return closestCenter({
-					...args,
-					droppableContainers: args.droppableContainers.filter(
-						(container) => container.id in items
-					)
-				});
-			}
-
-			// Start by finding any intersecting droppable
-			const pointerIntersections = pointerWithin(args);
-			const intersections =
-				pointerIntersections.length > 0
-					? // If there are droppables intersecting with the pointer, return those
-						pointerIntersections
-					: rectIntersection(args);
-			let overId = getFirstCollision(intersections, "id");
-
-			if (overId != null) {
-				if (overId in items) {
-					const containerItems = items[overId];
-
-					// If a container is matched and it contains items (columns 'A', 'B', 'C')
-					if (containerItems.length > 0) {
-						// Return the closest droppable within that container
-						overId = closestCenter({
-							...args,
-							droppableContainers: args.droppableContainers.filter(
-								(container) =>
-									container.id !== overId &&
-									containerItems.includes(container.id)
-							)
-						})[0]?.id;
-					}
-				}
-
-				lastOverId.current = overId;
-
-				return [{ id: overId }];
-			}
-
-			// When a draggable item moves to a new container, the layout may shift
-			// and the `overId` may become `null`. We manually set the cached `lastOverId`
-			// to the id of the draggable item that was moved to the new container, otherwise
-			// the previous `overId` will be returned which can cause items to incorrectly shift positions
-			if (recentlyMovedToNewContainer.current) {
-				lastOverId.current = activeId;
-			}
-
-			// If no droppable is matched, return the last match
-			return lastOverId.current ? [{ id: lastOverId.current }] : [];
-		},
-		[activeId, items]
-	);
-	const [clonedItems, setClonedItems] = useState<Items | null>(null);
-	const sensors = useSensors(
-		useSensor(MouseSensor),
-		useSensor(TouchSensor),
-		useSensor(KeyboardSensor)
-	);
-	const findContainer = (id: UniqueIdentifier) => {
-		if (id in items) {
-			return id;
-		}
-
-		return Object.keys(items).find((key) => items[key].includes(id));
-	};
-
-	const getIndex = (id: UniqueIdentifier) => {
-		const container = findContainer(id);
-
-		if (!container) {
-			return -1;
-		}
-
-		const index = items[container].indexOf(id);
-
-		return index;
-	};
-
-	const onDragCancel = () => {
-		if (clonedItems) {
-			// Reset items to their original state in case items have been
-			// Dragged across containers
-			setItems(clonedItems);
-		}
-
-		setActiveId(null);
-		setClonedItems(null);
-	};
-
-	useEffect(() => {
-		requestAnimationFrame(() => {
-			recentlyMovedToNewContainer.current = false;
-		});
-	}, [items]);
+	const {
+		sensors,
+		collisionDetectionStrategy,
+		setContainers,
+		items,
+		findContainer,
+		setActiveId,
+		setItems,
+		onDragCancel,
+		containers,
+		activeId,
+		setClonedItems,
+		getIndex,
+		recentlyMovedToNewContainer
+	} = useMultipleContainers({ initialItems });
 
 	return (
 		<DndContext
@@ -289,7 +151,6 @@ export function MultipleContainers({
 						const activeIndex = activeItems.indexOf(active.id);
 
 						let newIndex: number;
-
 						if (overId in items) {
 							newIndex = overItems.length + 1;
 						} else {
@@ -393,8 +254,6 @@ export function MultipleContainers({
 							label={`Column ${containerId}`}
 							columns={columns}
 							items={items[containerId]}
-							scrollable={scrollable}
-							unstyled={minimal}
 						>
 							<SortableContext items={items[containerId]} strategy={strategy}>
 								{items[containerId].map((value, index) => {
@@ -416,12 +275,8 @@ export function MultipleContainers({
 				</SortableContext>
 			</div>
 			{createPortal(
-				<DragOverlay adjustScale={adjustScale} dropAnimation={dropAnimation}>
-					{activeId
-						? containers.includes(activeId)
-							? renderContainerDragOverlay(activeId)
-							: renderSortableItemDragOverlay(activeId)
-						: null}
+				<DragOverlay dropAnimation={dropAnimation}>
+					{activeId ? renderSortableItemDragOverlay(activeId) : null}
 				</DragOverlay>,
 				document.body
 			)}
@@ -438,60 +293,4 @@ export function MultipleContainers({
 			/>
 		);
 	}
-
-	function renderContainerDragOverlay(containerId: UniqueIdentifier) {
-		return (
-			<Container
-				label={`Column ${containerId}`}
-				columns={columns}
-				style={{
-					height: "100%"
-				}}
-				shadow
-			>
-				{items[containerId].map((item, index) => (
-					<Item
-						key={item}
-						value={item}
-						color={"red"}
-						wrapperStyle={wrapperStyle({ index })}
-					/>
-				))}
-			</Container>
-		);
-	}
-}
-
-interface SortableItemProps {
-	containerId: UniqueIdentifier;
-	id: UniqueIdentifier;
-	index: number;
-	style: React.CSSProperties;
-	getIndex(id: UniqueIdentifier): number;
-	wrapperStyle({ index }: { index: number }): React.CSSProperties;
-}
-
-function SortableItem({ id, index, wrapperStyle }: SortableItemProps) {
-	const { setNodeRef, listeners, isDragging, isSorting, transform, transition } =
-		useSortable({
-			id
-		});
-	const mounted = useMountStatus();
-	const mountedWhileDragging = isDragging && !mounted;
-
-	return (
-		<Item
-			ref={setNodeRef}
-			value={id}
-			dragging={isDragging}
-			sorting={isSorting}
-			index={index}
-			wrapperStyle={wrapperStyle({ index })}
-			color={"orange"}
-			transition={transition}
-			transform={transform}
-			fadeIn={mountedWhileDragging}
-			listeners={listeners}
-		/>
-	);
 }
