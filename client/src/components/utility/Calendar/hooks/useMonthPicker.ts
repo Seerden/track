@@ -1,12 +1,8 @@
 import type { MonthAndYear } from "@/components/utility/Calendar/calendar.types";
+import { createMonthValue } from "@/components/utility/Calendar/hooks/create-date";
 import type { DateValue } from "@mantine/dates";
 import type { Dayjs } from "dayjs";
 import { useEffect, useState } from "react";
-
-// TODO: put this in a helper file
-function createMonthValue(date: Dayjs) {
-	return new Date(date.year(), date.month(), 1); // note: MonthPicker expects Date, so don't use our dayjs helpers
-}
 
 type UseMonthPickerProps = {
 	initialDate: Dayjs;

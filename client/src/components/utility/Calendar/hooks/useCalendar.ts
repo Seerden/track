@@ -1,18 +1,11 @@
 import { buildCalendarRows } from "@/components/utility/Calendar/build-calendar-rows";
 import type { MonthAndYear } from "@/components/utility/Calendar/calendar.types";
+import { createMonthAndYear } from "@/components/utility/Calendar/hooks/create-date";
 import { formatToMonthAndYear } from "@/lib/datetime/format-date";
 import { createDate, createFirstOfTheMonth } from "@/lib/datetime/make-date";
 import type { Maybe } from "@t/data/utility.types";
 import type { Dayjs } from "dayjs";
 import { useCallback, useEffect, useMemo, useState } from "react";
-
-// TODO: put this in a helper file
-function getMonthAndYear(date: Dayjs) {
-	return {
-		month: date.month(),
-		year: date.year()
-	};
-}
 
 type UseCalendarProps = {
 	initialDate: Dayjs;
@@ -35,7 +28,7 @@ export function useCalendar({ initialDate, onChange }: UseCalendarProps) {
 			setSelectedDate(initialDate);
 			// Whenever the outside date changes, update state to reflect that. This
 			// pattern looks a bit messy, but that's what you get with 2-way binding.
-			setMonthAndYear(getMonthAndYear(initialDate));
+			setMonthAndYear(createMonthAndYear(initialDate));
 		}
 	}, [initialDate]);
 
@@ -44,7 +37,7 @@ export function useCalendar({ initialDate, onChange }: UseCalendarProps) {
 	}, [selectedDate]);
 
 	const [monthAndYear, setMonthAndYear] = useState<MonthAndYear>(() =>
-		getMonthAndYear(initialDate)
+		createMonthAndYear(initialDate)
 	);
 
 	const firstDayOfTheMonth = useMemo(
