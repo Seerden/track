@@ -8,7 +8,11 @@ import {
 } from "lucide-react";
 import S from "./style/LogbookMenu.style";
 
-export default function LogbookMenu() {
+type LogbookMenuProps = {
+	iconSize?: number;
+};
+
+export default function LogbookMenu({ iconSize = 15 }: LogbookMenuProps) {
 	const {
 		arrowRef,
 		context,
@@ -53,9 +57,9 @@ export default function LogbookMenu() {
                   functionality doesn't exist yet. */}
 						<S.MenuSection>
 							<S.MenuSectionHeader>
-								<LucideActivity size={15} color="orange" /> Recent logs
+								<LucideActivity size={iconSize} /> Recent logs
 							</S.MenuSectionHeader>
-							<S.LinkCards style={{ listStyle: "none" }}>
+							<S.LinkCards>
 								<S.LinkCard to="">Groceries 10 december</S.LinkCard>
 								<S.LinkCard to="">PPL 9 december</S.LinkCard>
 							</S.LinkCards>
@@ -63,9 +67,9 @@ export default function LogbookMenu() {
 
 						<S.MenuSection>
 							<S.MenuSectionHeader>
-								<LucidePin size={15} color="orange" /> Pinned
+								<LucidePin size={iconSize} /> Pinned
 							</S.MenuSectionHeader>
-							<S.LinkCards style={{ listStyle: "none" }}>
+							<S.LinkCards>
 								<S.LinkCard to="">Weightlifting</S.LinkCard>
 							</S.LinkCards>
 						</S.MenuSection>
