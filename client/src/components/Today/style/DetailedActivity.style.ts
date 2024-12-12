@@ -49,14 +49,15 @@ const CheckboxWrapper = styled.label`
 		border-radius: 50%;
 		background-color: azure;
 
+		/* TODO: use Checked and Unchecked instead of .on and .off */
 		&.on {
 			fill: ${(p) => p.theme.colors.green.main};
 			color: white;
 		}
 
 		&.off {
-			fill: red;
-			color: orangered;
+			fill: #fff;
+			color: royalblue;
 		}
 	}
 `;

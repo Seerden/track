@@ -29,7 +29,7 @@ function CheckboxOff({ size = 27 }: CheckboxIconProps) {
 
 type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement>;
 
-export function Checkbox(props: CheckboxProps) {
+export function Checkbox({ style, ...props }: CheckboxProps) {
 	const Icon = props.checked ? CheckboxOn : CheckboxOff;
 
 	return (
@@ -40,7 +40,7 @@ export function Checkbox(props: CheckboxProps) {
 				style={{
 					width: 0,
 					opacity: 0,
-					...props.style
+					...style
 				}}
 			/>
 			<Icon size={props.size ?? 27} />

@@ -1,3 +1,4 @@
+import { createDate, now } from "@/lib/datetime/make-date";
 import type { Dayjs } from "dayjs";
 import type { Row, Rows, WeekStartDay } from "./calendar.types";
 
@@ -45,5 +46,33 @@ export function buildCalendarRows(date: Dayjs) {
 		i += 7;
 	}
 
+	return rows;
+}
+
+/** This function takes all months from the current year, last year and next
+ * year and builds calendar rows for them. This way, if the user switches months
+ * a whole bunch of times, they don't have to keep computing the rows on every
+ * switch. This is probably something we should do and cache on the backend. */
+export function prebuildProbablyRelevantCalendarRows() {
+	const currentDate = now();
+
+	const months = Array.from({ length: 12 }, (_, i) => i);
+	const firstDayOfRelevantMonths = [
+		currentDate.add(-1, "year"),
+		currentDate,
+		currentDate.add(1, "year")
+	]
+		.map((date) => {
+			return months.map((month) => createDate(new Date(date.year(), month, 1)));
+		})
+		.flat();
+
+	const rows = firstDayOfRelevantMonths.map((date) => {
+		return {
+			year: date.year(),
+			month: date.month(),
+			rows: buildCalendarRows(date)
+		};
+	});
 	return rows;
 }
