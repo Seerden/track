@@ -46,7 +46,7 @@ export default function TableItem({ activity, tags }: TableItemProps) {
 function Column({ children }: PropsWithChildren) {
 	return (
 		<S.Column>
-			<span>{children}</span>
+			<S.ColumnContent>{children}</S.ColumnContent>
 		</S.Column>
 	);
 }

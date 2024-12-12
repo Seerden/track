@@ -10,6 +10,8 @@ export default function ActivityOverview() {
 
 	return (
 		<S.Wrapper>
+			{/* TODO: don't use a table. these things suck to style. 
+            just use a grid. much more customizable */}
 			<S.Table>
 				<S.TableHeader>
 					<tr>
@@ -24,7 +26,7 @@ export default function ActivityOverview() {
 						<S.TableHeaderField>Creation date</S.TableHeaderField>
 					</tr>
 				</S.TableHeader>
-				<tbody>
+				<tbody style={{ backgroundColor: "red" }}>
 					{activities.map((activity) => (
 						<TableItem
 							key={activity.activity_id}
