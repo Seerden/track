@@ -4,7 +4,8 @@ const baseColors = {
 	purple: {
 		main: "indigo",
 		secondary: "blueviolet",
-		tertiary: "darkorchid"
+		tertiary: "darkorchid",
+		dark: "darkviolet"
 	},
 	blue: {
 		main: "dodgerblue",
@@ -17,6 +18,11 @@ const baseColors = {
 	yellow: {
 		main: "gold",
 		secondary: "orange"
+	},
+	orange: {
+		// TODO: get rid of "orange" as the value for yellow.secondary.
+		main: "orange",
+		secondary: "darkorange"
 	},
 	red: {
 		main: "tomato",

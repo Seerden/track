@@ -1,21 +1,27 @@
 import { Unstyled } from "@/lib/theme/components/buttons";
 import { font } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
+import { radius } from "@/lib/theme/snippets/radius";
+import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 import { Link as RouterLink } from "react-router-dom";
 import styled from "styled-components";
 
 const Menu = styled.div`
-	color: #444;
 	${flex.column};
+	margin-top: ${spacingValue.medium};
+	margin-right: ${spacingValue.small};
+	padding: ${spacingValue.large};
+	${radius.large};
 	font-size: ${font.size["0.93"]};
+
+	color: #444;
 	width: max-content;
-	margin-top: 1rem;
-	margin-right: 0.5rem;
-	padding: 1.5rem;
+
 	border: 2px solid #fff;
 	outline: 2px solid #ccc;
-	border-radius: 10px;
+
 	background-color: #f3f3f3;
+
 	box-shadow:
 		0 0.2rem 0.1rem 0 #bbb,
 		0 0.3rem 1rem 0 #aaa;
@@ -29,12 +35,15 @@ const Menu = styled.div`
 
 const Link = styled(RouterLink)`
 	${flex.row};
-	gap: 0.5rem;
-	border-radius: 3px;
-	padding: 0.2rem 0.5rem;
-	border: 2px solid darkviolet;
+	gap: ${spacingValue.small};
+	${radius.small};
+	${spacing.padding.wide({ size: 0.2, ratio: 2.5 })}
+
+	--highlight-color: ${(p) => p.theme.colors.purple.dark};
+	border: 2px solid var(--highlight-color);
+	color: var(--highlight-color);
+
 	align-items: center;
-	color: darkviolet;
 	font-weight: 500;
 
 	&:visited {
@@ -42,7 +51,7 @@ const Link = styled(RouterLink)`
 	}
 
 	&:not(:nth-of-type(1)) {
-		margin-top: 0.5rem;
+		margin-top: ${spacingValue.small};
 	}
 `;
 
@@ -52,38 +61,42 @@ const MenuSection = styled.div`
 	gap: 0.4rem;
 
 	&:not(:nth-of-type(1)) {
-		margin-top: 1rem;
-		padding-top: 1rem;
+		margin-top: ${spacingValue.large};
+		padding-top: ${spacingValue.large};
 	}
 `;
 
 const MenuSectionHeader = styled.span`
-	font-size: ${font.size["1"]};
-	color: #222;
-	border-radius: 5px;
-	padding: 0.2rem 0.6rem;
-	background-color: white;
-	width: max-content;
 	${flex.row};
-	gap: 1rem;
+	${radius.medium};
+	${spacing.padding.wide({ size: 0.2, ratio: 3 })};
+	font-size: ${font.size["1"]};
+	gap: ${spacingValue.large};
+	margin-left: calc(-1 * ${spacingValue.small});
+
+	color: #222;
+	background-color: #fff;
+
+	width: max-content;
 	align-items: center;
-	margin-left: -0.5rem;
 `;
 
 const LinkCards = styled.div`
-	list-style: none;
 	${flex.row};
-	max-width: 220px;
+	gap: ${spacingValue.medium};
+
+	list-style: none;
+	max-width: 220px; // TODO: this is pretty arbitrary
 	overflow-x: auto;
-	gap: 0.5rem;
 	flex-wrap: nowrap;
 `;
 
 const LinkCard = styled(RouterLink)`
-	padding: 0.5rem;
-	border-radius: 3px;
-	background-color: orange;
-	color: black;
+	padding: ${spacingValue.small};
+	${radius.small};
+	background-color: ${(p) => p.theme.colors.orange.main};
+
+	color: #000;
 	max-width: 100px;
 	white-space: nowrap;
 	overflow: hidden;
@@ -93,8 +106,10 @@ const LinkCard = styled(RouterLink)`
 
 const TriggerButton = styled(Unstyled)`
 	font-size: ${font.size["0.93"]};
+	padding: ${spacingValue.small};
+
 	color: #333;
-	padding: 0.4rem 0.5rem;
+
 	position: relative;
 	width: max-content;
 	border: 2px solid transparent;
@@ -104,7 +119,7 @@ const TriggerButton = styled(Unstyled)`
 	&:hover,
 	&:active,
 	&:focus {
-		border-radius: 5px;
+		${radius.medium};
 		border-color: #ccc;
 		box-shadow: 0 0.4rem 0.6rem -0.2rem #ccc;
 		background-color: #e9e9e9;
