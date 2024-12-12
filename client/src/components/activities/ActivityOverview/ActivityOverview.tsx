@@ -13,6 +13,9 @@ export default function ActivityOverview() {
 			<S.Table>
 				<S.TableHeader>
 					<tr>
+						{/* TODO: these should come from a constant list. We should 
+                     also use that list (and a mapper) in TableItem, so that the 
+                     two are always in sync. */}
 						<th>Name</th>
 						<th>Start</th>
 						<th>End</th>
