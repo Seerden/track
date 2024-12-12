@@ -1,28 +1,31 @@
+import { flex } from "@/lib/theme/snippets/flex";
 import styled, { css } from "styled-components";
 
-export const columnStyle = css`
-	/* outline: 2px solid #ccc; */
-	padding: 0 0.4rem;
-	margin: 0.5rem;
+// shared styles between the items and the header
+export const itemAndHeaderStyle = css`
+	display: grid;
+	grid-template-columns: subgrid;
+	grid-column: 1 / -1;
 `;
 
-const TableItem = styled.tr<{ $isTask: boolean }>`
+export const itemAndHeaderFieldStyle = css`
+	padding: 0.5rem 1rem;
+`;
+
+const Item = styled.div<{ $isTask: boolean }>`
 	outline: 2px solid #f9f9f9;
 	border-radius: 5px;
 	/* box-shadow: 0 0.2rem 0.3rem 0 #bbb; */
 	background-color: #eee;
+
+	${itemAndHeaderStyle}
 `;
 
-const TableItemContent = styled.div``;
+const ItemContent = styled.div``;
 
-const ColumnContent = styled.span`
-	display: flex;
-	padding: 1rem 0;
-`;
-
-const Column = styled.td`
-	${columnStyle};
-	margin: 2rem;
+const Column = styled.div`
+	${itemAndHeaderFieldStyle}
+	${flex.row};
 
 	&:nth-of-type(1) {
 		padding-left: 1rem;
@@ -33,8 +36,7 @@ const Column = styled.td`
 `;
 
 export default {
-	TableItem,
-	TableItemContent,
-	Column,
-	ColumnContent
+	Item,
+	ItemContent,
+	Column
 };

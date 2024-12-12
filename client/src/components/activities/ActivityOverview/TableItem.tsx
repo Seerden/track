@@ -4,7 +4,6 @@ import { createDate } from "@/lib/datetime/make-date";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import type { ActivityWithIds } from "@t/data/activity.types";
 import type { TagWithIds } from "@t/data/tag.types";
-import type { PropsWithChildren } from "react";
 import S from "./style/TableItem.style";
 
 type TableItemProps = {
@@ -22,31 +21,27 @@ export default function TableItem({ activity, tags }: TableItemProps) {
 
 	return (
 		// TODO: $isTask doesn't do anything yet.
-		<S.TableItem $isTask={isTask}>
-			<Column>
+		<S.Item $isTask={isTask}>
+			<S.Column
+				style={{
+					justifyContent: "center"
+				}}
+			>
 				{isTask ? (
 					<label>
 						<Checkbox checked={activity.completed} onChange={putCompletion} />
 					</label>
 				) : null}
-			</Column>
-			<Column>{activity.name}</Column>
-			<Column>{start.fromNow()}</Column>
-			<Column>{end.fromNow()}</Column>
-			<Column>
+			</S.Column>
+			<S.Column>{activity.name}</S.Column>
+			<S.Column>{start.fromNow()}</S.Column>
+			<S.Column>{end.fromNow()}</S.Column>
+			<S.Column>
 				{tags.map((tag) => (
 					<span key={tag.tag_id}>{tag.name}</span>
 				))}
-			</Column>
-			<Column>{createdAt.fromNow()}</Column>
-		</S.TableItem>
-	);
-}
-
-function Column({ children }: PropsWithChildren) {
-	return (
-		<S.Column>
-			<S.ColumnContent>{children}</S.ColumnContent>
-		</S.Column>
+			</S.Column>
+			<S.Column>{createdAt.fromNow()}</S.Column>
+		</S.Item>
 	);
 }
