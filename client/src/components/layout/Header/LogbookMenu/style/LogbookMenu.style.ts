@@ -35,7 +35,7 @@ const Menu = styled.div`
 
 const Link = styled(RouterLink)`
 	${flex.row};
-	gap: ${spacingValue.small};
+	gap: ${spacingValue.medium};
 	${radius.small};
 	${spacing.padding.wide({ size: 0.2, ratio: 2.5 })}
 
@@ -71,7 +71,7 @@ const MenuSectionHeader = styled.span`
 	${radius.medium};
 	${spacing.padding.wide({ size: 0.2, ratio: 3 })};
 	font-size: ${font.size["1"]};
-	gap: ${spacingValue.large};
+	gap: ${spacingValue.medium};
 	margin-left: calc(-1 * ${spacingValue.small});
 
 	color: #222;
@@ -79,6 +79,10 @@ const MenuSectionHeader = styled.span`
 
 	width: max-content;
 	align-items: center;
+
+	svg {
+		color: ${(p) => p.theme.colors.orange.main};
+	}
 `;
 
 const LinkCards = styled.div`
