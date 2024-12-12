@@ -1,4 +1,4 @@
-import LogbookMenu from "@/components/layout/Header/LogbookMenu";
+import LogbookMenu from "@/components/layout/Header/LogbookMenu/LogbookMenu";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import S from "./style/NavBar.style";
