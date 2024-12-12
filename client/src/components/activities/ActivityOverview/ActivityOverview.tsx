@@ -16,9 +16,12 @@ export default function ActivityOverview() {
 						{/* TODO: these should come from a constant list. We should 
                      also use that list (and a mapper) in TableItem, so that the 
                      two are always in sync. */}
+						<th>Task completed?</th>
 						<th>Name</th>
 						<th>Start</th>
 						<th>End</th>
+						<th>Tags</th>
+						<th>Creation date</th>
 					</tr>
 				</S.TableHeader>
 				{activities.map((activity) => (
