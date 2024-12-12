@@ -11,7 +11,9 @@ export default function Habits({ habits }: HabitsProps) {
 	return (
 		<L.ItemList
 			style={{
-				gridTemplateColumns: "max-content max-content auto"
+				// these columns refer to: title, frequency, completion, expand
+				// button (which is hidden until hovered)
+				gridTemplateColumns: "max-content max-content auto 40px"
 			}}
 		>
 			{Object.values(habits).map((habit) => (
