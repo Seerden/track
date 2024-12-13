@@ -1,5 +1,4 @@
 import type { ActivityWithIds } from "@t/data/activity.types";
-import type { ID } from "@t/data/utility.types";
 
 type ValueAndElement<T> = { value: T; element: JSX.Element };
 
@@ -69,18 +68,3 @@ const activities: ActivityWithIds[] = [
 // })) as ValueAndElement<ActivityWithIds>[];
 // const a = makeTable(c);
 // const f = a.fields; // typed as keyof NewActivity! :)
-
-type ActivityFilter = {
-	name: {
-		type: "includes" | "equals" | "excludes" | "startsWith" | "endsWith";
-	};
-	datetime: {
-		modifier: "starts" | "ends" | "occurs";
-		selector: "before" | "between" | "after";
-	};
-	tags: {
-		type: "includes" | "excludes";
-		/** if `!exact`, it considers all ids from the tree that `id` is part of. */
-		tag_ids: { id: ID; exact?: boolean }[];
-	};
-};
