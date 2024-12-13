@@ -13,7 +13,6 @@ export default function ActivityOverview() {
 			{/* TODO: don't use a table. these things suck to style. 
             just use a grid. much more customizable */}
 			<div>
-				<div></div>
 				<div
 					style={{
 						display: "grid",
