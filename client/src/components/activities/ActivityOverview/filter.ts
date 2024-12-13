@@ -1,4 +1,5 @@
-import { activityStart } from "@/lib/activity";
+import { filterByDatetime } from "@/components/activities/ActivityOverview/filter-datetime-predicates";
+import { filterByTags } from "@/components/activities/ActivityOverview/filter-tags-predicates";
 import type { ActivityWithIds } from "@t/data/activity.types";
 import type { ID, Nullable } from "@t/data/utility.types";
 import type { Dayjs } from "dayjs";
@@ -14,7 +15,7 @@ type ActivityFilter = {
 	tags: {
 		type: "includes" | "excludes";
 		/** if `!exact`, it considers all ids from the tree that `id` is part of. */
-		exact?: boolean;
+		exact?: boolean; // TODO: this is not yet implemented (see filter-tags-predicates.ts)
 	};
 };
 
@@ -24,7 +25,7 @@ type FilterValueMap = {
 	tags: ID[];
 };
 
-type ActivityFilterWithState = {
+export type ActivityFilterWithState = {
 	[K in keyof ActivityFilter]: ActivityFilter[K] & {
 		value: Nullable<FilterValueMap[K]>;
 	};
@@ -38,34 +39,33 @@ const namePredicates = {
 	endsWith: (name: string, value: string) => name.endsWith(value)
 };
 
-const datetimePredicates = {
-	starts: (activity: ActivityWithIds, filter: ActivityFilterWithState["datetime"]) => {
-		switch (filter.selector) {
-			case "before":
-				return !filter.value
-					? true
-					: activityStart(activity).isBefore(filter.value[0]);
-			case "between":
-				return !filter.value?.[0] || !filter.value[1]
-					? true
-					: activityStart(activity).isSame(filter.value[0]) ||
-							activityStart(activity).isAfter(filter.value[0]) ||
-							activityStart(activity).isSame(filter.value[1]) ||
-							activityStart(activity).isBefore(filter.value[1]);
-			case "after":
-				return;
-		}
-	}
-};
-
-function filterActivities({
+export function filterActivities({
 	activities,
 	filter
 }: {
 	activities: ActivityWithIds[];
-	filter: ActivityFilter;
+	filter: ActivityFilterWithState;
 }): ActivityWithIds[] {
-	return activities;
+	const filteredByName = filterByName(activities, filter.name);
+
+	// TODO: consider also returning the list of applied filters, so that we can
+	// implement custom messages for when the list is empty.
+
+	if (!filteredByName.length) {
+		return [];
+	}
+
+	const filteredByTags = filterByTags(filteredByName, filter.tags);
+
+	if (!filteredByTags.length) {
+		return [];
+	}
+
+	const filteredByDatetime = filterByDatetime(filteredByTags, filter.datetime);
+
+	// TODO: also always return the list of applied filters
+
+	return filteredByDatetime;
 }
 
 function filterByName(
@@ -78,6 +78,6 @@ function filterByName(
 		return activities;
 	}
 
-	const predicate = namePredicates[filter.type];
-	return activities.filter((activity) => predicate(activity.name, value));
+	const namePredicate = namePredicates[filter.type];
+	return activities.filter((activity) => namePredicate(activity.name, value));
 }
