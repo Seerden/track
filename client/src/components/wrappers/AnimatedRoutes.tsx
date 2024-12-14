@@ -1,6 +1,7 @@
 import Header from "@/components/layout/Header/Header";
 import DetailModals from "@/components/utility/Modal/DetailModals";
 import PageWrapper from "@/lib/theme/snippets/page";
+import { ErrorBoundary } from "@sentry/react";
 import { AnimatePresence } from "framer-motion";
 import { Fragment, useState } from "react";
 import { useLocation, useOutlet } from "react-router";
@@ -13,10 +14,10 @@ function AnimatedOutlet() {
 	const [outletState] = useState(outlet);
 
 	return (
-		<>
+		<ErrorBoundary fallback={<p>An error occurred.</p>}>
 			{outletState}
 			<DetailModals />
-		</>
+		</ErrorBoundary>
 	);
 }
 
