@@ -1,7 +1,6 @@
 import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
 import useQueryTagsTree from "@/lib/hooks/query/tags/useQueryTagsTree";
-import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
 import type { TagWithIds } from "@t/data/tag.types";
 import type { ById, ID } from "@t/data/utility.types";
 import React, { useCallback, useEffect, useState } from "react";
@@ -85,6 +84,7 @@ export default function ActivityFilter() {
 		}));
 	}
 
+	// this basically already exists in build-branch.ts, so extract it from there
 	function getRootTagId(tag_id: ID, tagsById: ById<TagWithIds>) {
 		const tag = tagsById[tag_id];
 		if (!tag) return;
@@ -111,7 +111,7 @@ export default function ActivityFilter() {
 						<option value="startsWith">starts with</option>
 						<option value="endsWith">ends with</option>
 					</select>
-					<DefaultInput />
+					<input type="text" />
 				</div>
 			</div>
 
