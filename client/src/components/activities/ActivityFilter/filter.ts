@@ -1,35 +1,7 @@
-import { filterByDatetime } from "@/components/activities/ActivityOverview/filter-datetime-predicates";
-import { filterByTags } from "@/components/activities/ActivityOverview/filter-tags-predicates";
+import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
+import { filterByDatetime } from "@/components/activities/ActivityFilter/filter-datetime-predicates";
+import { filterByTags } from "@/components/activities/ActivityFilter/filter-tags-predicates";
 import type { ActivityWithIds } from "@t/data/activity.types";
-import type { ID, Nullable } from "@t/data/utility.types";
-import type { Dayjs } from "dayjs";
-
-type ActivityFilter = {
-	name: {
-		type: "includes" | "equals" | "excludes" | "startsWith" | "endsWith";
-	};
-	datetime: {
-		modifier: "starts" | "ends" | "occurs";
-		selector: "before" | "between" | "after";
-	};
-	tags: {
-		type: "includes" | "excludes";
-		/** if `!exact`, it considers all ids from the tree that `id` is part of. */
-		exact?: boolean; // TODO: this is not yet implemented (see filter-tags-predicates.ts)
-	};
-};
-
-type FilterValueMap = {
-	name: string;
-	datetime: Dayjs[];
-	tags: ID[];
-};
-
-export type ActivityFilterWithState = {
-	[K in keyof ActivityFilter]: ActivityFilter[K] & {
-		value: Nullable<FilterValueMap[K]>;
-	};
-};
 
 const namePredicates = {
 	includes: (name: string, value: string) => name.includes(value),
@@ -44,7 +16,7 @@ export function filterActivities({
 	filter
 }: {
 	activities: ActivityWithIds[];
-	filter: ActivityFilterWithState;
+	filter: ActivityFilterWithValues;
 }): ActivityWithIds[] {
 	const filteredByName = filterByName(activities, filter.name);
 
@@ -70,7 +42,7 @@ export function filterActivities({
 
 function filterByName(
 	activities: ActivityWithIds[],
-	filter: ActivityFilterWithState["name"]
+	filter: ActivityFilterWithValues["name"]
 ): ActivityWithIds[] {
 	const value = filter.value;
 

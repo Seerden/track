@@ -1,4 +1,4 @@
-import type { ActivityFilterWithState } from "@/components/activities/ActivityOverview/filter";
+import type { ActivityFilterWithState } from "@/components/activities/ActivityFilter/filter";
 import type { ActivityWithIds } from "@t/data/activity.types";
 import type { ID, Nullable } from "@t/data/utility.types";
 

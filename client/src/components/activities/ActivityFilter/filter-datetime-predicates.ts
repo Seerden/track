@@ -1,17 +1,17 @@
-import type { ActivityFilterWithState } from "@/components/activities/ActivityOverview/filter";
+import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import { activityEnd, activityStart } from "@/lib/activity";
 import type { ActivityWithIds } from "@t/data/activity.types";
 
 export const datetimePredicates = {
 	starts: datetimeStartsPredicate,
 	ends: datetimeEndsPredicate,
-	occurs: (activity: ActivityWithIds, filter: ActivityFilterWithState["datetime"]) =>
+	occurs: (activity: ActivityWithIds, filter: ActivityFilterWithValues["datetime"]) =>
 		true // TODO: this is not yet implemented
 };
 
 function datetimeStartsPredicate(
 	activity: ActivityWithIds,
-	filter: ActivityFilterWithState["datetime"]
+	filter: ActivityFilterWithValues["datetime"]
 ) {
 	if (!filter.value?.length) return true;
 
@@ -34,7 +34,7 @@ function datetimeStartsPredicate(
 
 function datetimeEndsPredicate(
 	activity: ActivityWithIds,
-	filter: ActivityFilterWithState["datetime"]
+	filter: ActivityFilterWithValues["datetime"]
 ) {
 	if (!filter.value?.length) return true;
 
@@ -44,12 +44,11 @@ function datetimeEndsPredicate(
 		case "before":
 			return activityEnd(activity).isBefore(first);
 		case "between":
-			return !first || !second
-				? true
-				: (activityEnd(activity).isSame(first) ||
-						activityEnd(activity).isAfter(first)) &&
-						(activityEnd(activity).isSame(second) || // TODO: instead of isSame || isAfter, use !isBefore (do the same in the startsPredicate function, too)
-							activityEnd(activity).isBefore(second));
+			if (!first || !second) return true;
+			return (
+				!activityEnd(activity).isBefore(first) &&
+				!activityEnd(activity).isAfter(second)
+			);
 		case "after":
 			return activityEnd(activity).isAfter(first);
 	}
@@ -57,7 +56,7 @@ function datetimeEndsPredicate(
 
 export function filterByDatetime(
 	activities: ActivityWithIds[],
-	filter: ActivityFilterWithState["datetime"]
+	filter: ActivityFilterWithValues["datetime"]
 ) {
 	const predicate = datetimePredicates[filter.modifier];
 	return activities.filter((activity) => predicate(activity, filter));
