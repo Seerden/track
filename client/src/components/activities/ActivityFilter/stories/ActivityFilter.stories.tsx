@@ -9,5 +9,8 @@ const meta: Meta<typeof ActivityFilter> = {
 export default meta;
 
 export const Default: StoryFn = (args) => {
-	return <ActivityFilter {...args} />;
+	function onChange(filter) {
+		console.log({ filter });
+	}
+	return <ActivityFilter {...args} onChange={onChange} />;
 };
