@@ -37,41 +37,24 @@ export default function ActivityFilter() {
 	const setFilterTags = useCallback(
 		(e: React.MouseEvent<HTMLButtonElement>) => {
 			const tag_id = +e.currentTarget.value;
+			const tagsById = tagsData?.byId ?? {};
+			const tagsTreeById = tagsTreeData?.byId ?? {};
 
-			// TODO: combine the if-else statements into a single statement
-			if (filter.tags.exact) {
-				// toggle tag_id in filter.tags.value
-				setFilter(
-					produce((draft) => {
-						if (!draft.tags.value) draft.tags.value = [];
-						if (draft.tags.value.includes(tag_id)) {
-							draft.tags.value = draft.tags.value.filter((id) => id !== tag_id);
-						} else {
-							draft.tags.value.push(tag_id);
-						}
-					})
-				);
-			} else {
-				const members = getTreeMembers(
-					tag_id,
-					tagsData?.byId ?? {},
-					tagsTreeData?.byId ?? {}
-				);
-				if (!members?.length) return;
-				// toggle all members in filter.tags.value
-				setFilter(
-					produce((draft) => {
-						if (!draft.tags.value) draft.tags.value = [];
-						if (draft.tags.value.includes(tag_id)) {
-							draft.tags.value = draft.tags.value.filter(
-								(id) => !members?.includes(id)
-							);
-						} else {
-							draft.tags.value.push(...members);
-						}
-					})
-				);
-			}
+			setFilter(
+				produce((draft) => {
+					if (!draft.tags.value) draft.tags.value = [];
+					const members = draft.tags.exact
+						? [tag_id]
+						: getTreeMembers(tag_id, tagsById, tagsTreeById);
+					if (draft.tags.value.includes(tag_id)) {
+						draft.tags.value = draft.tags.value.filter(
+							(id) => !members.includes(id)
+						);
+					} else {
+						draft.tags.value.push(...members);
+					}
+				})
+			);
 		},
 		[filter, tagsData, tagsTreeData]
 	);
@@ -131,9 +114,13 @@ export default function ActivityFilter() {
 		return;
 	}
 
-	function getTreeMembers(tag_id: ID, tagsById: ById<TagWithIds>, tagTree: typeof tree) {
+	function getTreeMembers(
+		tag_id: ID,
+		tagsById: ById<TagWithIds>,
+		tagTree: typeof tree
+	): ID[] {
 		const rootTagId = getRootTagId(tag_id, tagsById);
-		if (!rootTagId) return;
+		if (!rootTagId) return [];
 		return tagTree[rootTagId].members;
 	}
 
