@@ -2,30 +2,48 @@ import { Unstyled } from "@/lib/theme/components/buttons";
 import { font } from "@/lib/theme/font";
 import { noBorders } from "@/lib/theme/snippets/border";
 import { flex } from "@/lib/theme/snippets/flex";
+import { motion } from "framer-motion";
 import styled, { css } from "styled-components";
 
-const Wrapper = styled.div`
+const Wrapper = styled(motion.div)`
 	${flex.column};
 	font-size: ${font.size["0.9"]};
-	width: 400px;
+	/* width: max-content; */
+
+	// TEMP
 `;
 
-const SectionName = styled.h3``;
+const SectionName = styled(motion.h3)`
+	justify-self: flex-end;
+`;
+SectionName.defaultProps = {
+	layout: "position"
+};
 
-const Section = styled.div``;
+const Section = styled(motion.div)``;
 
-const TabsHeader = styled.div`
+Section.defaultProps = {
+	layout: "position",
+	initial: { opacity: 0 },
+	animate: { opacity: 1 },
+	transition: {
+		delay: 0.15
+	}
+};
+
+const TabsHeader = styled(motion.div)`
 	${flex.row};
 	gap: 0.5rem;
 	width: max-content;
 	height: max-content;
+	align-self: flex-end;
 	border-bottom: 2px solid #ccc;
 	margin: 0 1rem;
 	z-index: 2; // to get above the box-shadow of TabsPanel
 	font-size: ${font.size["1"]};
 `;
 
-const TabsPanel = styled.div`
+const TabsPanel = styled(motion.div)`
 	padding: 1rem 1.5rem;
 	background-color: #eee;
 	border-radius: 0.5rem;
@@ -33,8 +51,13 @@ const TabsPanel = styled.div`
 
 	outline: 2px solid #ddd;
 	border: 2px solid #fff;
-	box-shadow: 0 0 1rem 0 #ddd;
+	box-shadow: 0 0.6rem 1rem -0.5rem #999;
+	transform-origin: bottom center;
 `;
+
+TabsPanel.defaultProps = {
+	layout: true
+};
 
 const Tab = styled(Unstyled)<{
 	$active?: boolean;
@@ -64,6 +87,8 @@ const TabInner = styled.div<{ $active?: boolean }>`
 
 const Label = styled.label<{ $active?: boolean }>`
 	width: 100%;
+	padding: 0.2rem 0.5rem;
+	border-radius: 5px;
 
 	${(p) =>
 		p.$active &&
@@ -73,9 +98,13 @@ const Label = styled.label<{ $active?: boolean }>`
 		`}
 `;
 
-const SectionContent = styled.div`
+const SectionContent = styled(motion.div)`
 	${flex.column}
 `;
+
+SectionContent.defaultProps = {
+	layout: true
+};
 
 const SectionActionBar = styled.div`
 	${flex.row};
@@ -117,10 +146,27 @@ const InputWithSelect = styled.div`
 	gap: 0.5rem;
 	border: 2px solid #ddd;
 	box-shadow: 0 0.3rem 0.5rem -0.3rem #ccc;
+	border-radius: 5px;
 
 	select {
 		width: 10ch;
 	}
+`;
+
+// need to combine this with the regular section content, but the styling is
+// different for datetime and tags, because tags has an action bar
+const DatetimeSectionContent = styled(motion.div)`
+	${flex.row};
+	margin-top: 0.5rem;
+	gap: 0.5rem;
+`;
+
+DatetimeSectionContent.defaultProps = {
+	layout: "position"
+};
+
+const DatetimeSectionColumn = styled.div`
+	${flex.column};
 `;
 
 export default {
@@ -137,5 +183,7 @@ export default {
 	SectionActionBar,
 	Select,
 	Input,
-	InputWithSelect
+	InputWithSelect,
+	DatetimeSectionContent,
+	DatetimeSectionColumn
 };

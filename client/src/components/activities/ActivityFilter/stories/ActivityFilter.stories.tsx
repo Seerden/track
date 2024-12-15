@@ -3,7 +3,8 @@ import type { Meta, StoryFn } from "@storybook/react";
 
 //👇 This default export determines where your story goes in the story list
 const meta: Meta<typeof ActivityFilter> = {
-	component: ActivityFilter
+	component: ActivityFilter,
+	title: "components/activities/ActivityFilter"
 };
 
 export default meta;

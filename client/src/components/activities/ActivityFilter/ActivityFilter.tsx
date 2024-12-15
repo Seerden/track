@@ -1,5 +1,7 @@
 import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import useActivityFilter from "@/components/activities/ActivityFilter/useActivityFilter";
+import { DateTimePicker } from "@mantine/dates";
+import { AnimatePresence } from "framer-motion";
 import { produce } from "immer";
 import { LucideFilterX, LucideXCircle } from "lucide-react";
 import { useState } from "react";
@@ -46,32 +48,50 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 	if (isProbablySuspended) return null;
 
 	return (
-		<S.Wrapper>
-			<S.TabsHeader>{renderTabs}</S.TabsHeader>
+		<S.Wrapper
+			layout
+			initial={{
+				minWidth: "0px",
+				height: "max-content"
+			}}
+			animate={{
+				minWidth: "max-content",
+				height: "max-content"
+			}}
+		>
+			<S.TabsHeader layout>{renderTabs}</S.TabsHeader>
 
 			<S.TabsPanel role="tabpanel">
-				{activeTab === "name" && <NameFilterContent setFilterName={setFilterName} />}
+				{activeTab === "name" && (
+					<AnimatePresence mode="wait" presenceAffectsLayout>
+						<NameFilterContent setFilterName={setFilterName} />
+					</AnimatePresence>
+				)}
 				{activeTab === "tags" && (
-					<TagsFilterContent
-						resetFilterTags={resetFilterTags}
-						setFilter={setFilter}
-						tagSearch={tagSearch}
-						setTagSearch={setTagSearch}
-						noTagsFound={noTagsFound}
-						tags={tags}
-						getTagBackgroundColor={getTagBackgroundColor}
-						updateActiveTagIds={updateActiveTagIds}
-						setFilterTags={setFilterTags}
-						filter={filter}
-					/>
+					<AnimatePresence mode="wait" presenceAffectsLayout>
+						<TagsFilterContent
+							resetFilterTags={resetFilterTags}
+							setFilter={setFilter}
+							tagSearch={tagSearch}
+							setTagSearch={setTagSearch}
+							noTagsFound={noTagsFound}
+							tags={tags}
+							getTagBackgroundColor={getTagBackgroundColor}
+							updateActiveTagIds={updateActiveTagIds}
+							setFilterTags={setFilterTags}
+							filter={filter}
+						/>
+					</AnimatePresence>
 				)}
 				{activeTab === "datetime" && (
-					<DatetimeFilterContent
-						setDatetimeFilterModifier={setDatetimeFilterModifier}
-						setDatetimeFilterSelector={setDatetimeFilterSelector}
-						filter={filter}
-						setDatetimeFilterValue={setDatetimeFilterValue}
-					/>
+					<AnimatePresence mode="wait" key="c" presenceAffectsLayout>
+						<DatetimeFilterContent
+							setDatetimeFilterModifier={setDatetimeFilterModifier}
+							setDatetimeFilterSelector={setDatetimeFilterSelector}
+							filter={filter}
+							setDatetimeFilterValue={setDatetimeFilterValue}
+						/>
+					</AnimatePresence>
 				)}
 			</S.TabsPanel>
 		</S.Wrapper>
@@ -84,7 +104,7 @@ type NameFilterContentProps = {
 
 function NameFilterContent({ setFilterName }: NameFilterContentProps) {
 	return (
-		<S.Section>
+		<S.Section layout>
 			<S.SectionName>
 				name
 				<button type="reset">
@@ -143,7 +163,7 @@ function TagsFilterContent({
 	const exact = filter.tags.exact;
 
 	return (
-		<S.Section>
+		<S.Section layout>
 			<S.SectionName>
 				tags{" "}
 				<button type="reset" onClick={resetFilterTags}>
@@ -200,7 +220,8 @@ function TagsFilterContent({
 						display: "flex",
 						flexDirection: "row",
 						flexWrap: "wrap",
-						gap: "0.5rem"
+						gap: "0.5rem",
+						maxWidth: "400px"
 					}}
 				>
 					{tags.map((tag) => (
@@ -211,7 +232,8 @@ function TagsFilterContent({
 								border: "none",
 								padding: "0.3rem",
 								borderRadius: "3px",
-								cursor: "pointer"
+								cursor: "pointer",
+								flex: 1
 							}}
 							onMouseEnter={() => updateActiveTagIds(tag.tag_id, "on")}
 							onMouseLeave={() => updateActiveTagIds(tag.tag_id, "off")}
@@ -232,12 +254,9 @@ function TagsFilterContent({
 
 type DateTimeFilterContentProps = {
 	setDatetimeFilterModifier: (modifier: string) => void;
-	setDatetimeFilterSelector: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+	setDatetimeFilterSelector: (selector: string) => void;
 	filter: ActivityFilterWithValues;
-	setDatetimeFilterValue: (
-		e: React.ChangeEvent<HTMLInputElement>,
-		index: number
-	) => void;
+	setDatetimeFilterValue: (value: Date | null, index: number) => void;
 };
 
 function DatetimeFilterContent({
@@ -247,26 +266,16 @@ function DatetimeFilterContent({
 	setDatetimeFilterValue
 }: DateTimeFilterContentProps) {
 	return (
-		<S.Section>
+		<S.Section layout>
 			<S.SectionName>
 				datetime{" "}
 				<button type="reset">
 					<LucideFilterX size={15} />
 				</button>
 			</S.SectionName>
-			<div
-				style={{
-					display: "flex",
-					flexDirection: "row"
-				}}
-			>
+			<S.DatetimeSectionContent>
 				{/* Modifier radio inputs */}
-				<div
-					style={{
-						display: "flex",
-						flexDirection: "column"
-					}}
-				>
+				<S.DatetimeSectionColumn>
 					{["starts", "ends", "occurs"].map((modifier) => (
 						<S.Label key={modifier} $active={filter.datetime.modifier === modifier}>
 							{modifier}
@@ -278,37 +287,41 @@ function DatetimeFilterContent({
 							/>
 						</S.Label>
 					))}
-				</div>
-				<div>
-					<select onChange={setDatetimeFilterSelector}>
-						<option value="before">before</option>
-						<option value="after">after</option>
-						<option value="between">between</option>
-					</select>
-				</div>
-				<div
-					style={{
-						display: "flex",
-						flexDirection: "column"
-					}}
-				>
-					<input
-						type="datetime-local"
-						value={filter.datetime.value?.[0]?.format("YYYY-MM-DDTHH:mm")}
-						onChange={(e) => setDatetimeFilterValue(e, 0)}
+				</S.DatetimeSectionColumn>
+				<S.DatetimeSectionColumn>
+					{["before", "after", "between"].map((selector) => (
+						<S.Label key={selector} $active={filter.datetime.selector === selector}>
+							{selector}
+							<input
+								style={{ width: 0 }}
+								name="datetime.modifier"
+								type="radio"
+								onChange={() => setDatetimeFilterSelector(selector)}
+							/>
+						</S.Label>
+					))}
+				</S.DatetimeSectionColumn>
+				<S.DatetimeSectionColumn>
+					<DateTimePicker
+						size="sm"
+						label={filter.datetime.selector === "between" ? "start" : "datetime"}
+						value={filter.datetime.value?.[0]?.toDate()}
+						defaultValue={new Date()}
+						onChange={(value) => setDatetimeFilterValue(value, 0)}
 					/>
 					{filter.datetime.selector === "between" && (
 						<>
-							and{" "}
-							<input
-								value={filter.datetime.value?.[1]?.format("YYYY-MM-DDTHH:mm")}
-								type="datetime-local"
+							<DateTimePicker
+								label="end"
+								size="sm"
+								value={filter.datetime.value?.[1]?.toDate()}
+								defaultValue={new Date()}
 								onChange={(e) => setDatetimeFilterValue(e, 1)}
 							/>
 						</>
 					)}
-				</div>
-			</div>
+				</S.DatetimeSectionColumn>
+			</S.DatetimeSectionContent>
 		</S.Section>
 	);
 }

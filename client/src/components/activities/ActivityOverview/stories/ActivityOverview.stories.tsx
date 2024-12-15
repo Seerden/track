@@ -2,7 +2,8 @@ import ActivityOverview from "@/components/activities/ActivityOverview/ActivityO
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof ActivityOverview> = {
-	component: ActivityOverview
+	component: ActivityOverview,
+	title: "components/activities/ActivityOverview"
 };
 
 export default meta;

@@ -150,25 +150,21 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 		);
 	}
 
-	function setDatetimeFilterSelector(e: React.ChangeEvent<HTMLSelectElement>) {
+	function setDatetimeFilterSelector(selector: string) {
 		setFilter(
 			produce((draft) => {
-				const value = e.target.value;
 				draft.datetime.selector =
-					value as ActivityFilterWithValues["datetime"]["selector"];
+					selector as ActivityFilterWithValues["datetime"]["selector"];
 			})
 		);
 	}
 
-	function setDatetimeFilterValue(
-		e: React.ChangeEvent<HTMLInputElement>,
-		index: number
-	) {
+	function setDatetimeFilterValue(value: Date | null, index: number) {
+		if (!value) return;
 		setFilter(
 			produce((draft) => {
-				const value = createDate(e.target.value);
 				if (!draft.datetime.value) draft.datetime.value = [];
-				draft.datetime.value[index] = value;
+				draft.datetime.value[index] = createDate(value);
 			})
 		);
 	}
