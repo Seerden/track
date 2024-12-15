@@ -1,8 +1,10 @@
 import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
+import { createDate } from "@/lib/datetime/make-date";
 import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
 import useQueryTagsTree from "@/lib/hooks/query/tags/useQueryTagsTree";
 import type { TagWithIds } from "@t/data/tag.types";
 import type { ById, ID } from "@t/data/utility.types";
+import { produce } from "immer";
 import React, { useCallback, useEffect, useState } from "react";
 
 const defaultFilter: ActivityFilterWithValues = {
@@ -35,35 +37,40 @@ export default function ActivityFilter() {
 	const setFilterTags = useCallback(
 		(e: React.MouseEvent<HTMLButtonElement>) => {
 			const tag_id = +e.currentTarget.value;
-			const members = getTreeMembers(
-				tag_id,
-				tagsData?.byId ?? {},
-				tagsTreeData?.byId ?? {}
-			);
 
+			// TODO: combine the if-else statements into a single statement
 			if (filter.tags.exact) {
 				// toggle tag_id in filter.tags.value
-				setFilter((current) => ({
-					...current,
-					tags: {
-						...current.tags,
-						value: current.tags.value?.includes(tag_id)
-							? current.tags.value.filter((id) => id !== tag_id)
-							: [...(current.tags.value ?? []), tag_id]
-					}
-				}));
+				setFilter(
+					produce((draft) => {
+						if (!draft.tags.value) draft.tags.value = [];
+						if (draft.tags.value.includes(tag_id)) {
+							draft.tags.value = draft.tags.value.filter((id) => id !== tag_id);
+						} else {
+							draft.tags.value.push(tag_id);
+						}
+					})
+				);
 			} else {
+				const members = getTreeMembers(
+					tag_id,
+					tagsData?.byId ?? {},
+					tagsTreeData?.byId ?? {}
+				);
 				if (!members?.length) return;
 				// toggle all members in filter.tags.value
-				setFilter((current) => ({
-					...current,
-					tags: {
-						...current.tags,
-						value: current.tags.value?.includes(tag_id)
-							? current.tags.value.filter((id) => !members?.includes(id))
-							: [...(current.tags.value ?? []), ...members]
-					}
-				}));
+				setFilter(
+					produce((draft) => {
+						if (!draft.tags.value) draft.tags.value = [];
+						if (draft.tags.value.includes(tag_id)) {
+							draft.tags.value = draft.tags.value.filter(
+								(id) => !members?.includes(id)
+							);
+						} else {
+							draft.tags.value.push(...members);
+						}
+					})
+				);
 			}
 		},
 		[filter, tagsData, tagsTreeData]
@@ -75,13 +82,44 @@ export default function ActivityFilter() {
 	const tree = tagsTreeData.byId;
 
 	function setFilterName(e: React.ChangeEvent<HTMLSelectElement>) {
-		setFilter((current) => ({
-			...current,
-			name: {
-				...current.name,
-				type: e.target.value as ActivityFilterWithValues["name"]["type"]
-			}
-		}));
+		setFilter(
+			produce((draft) => {
+				draft.name.type = e.target.value as ActivityFilterWithValues["name"]["type"];
+			})
+		);
+	}
+
+	function setDatetimeFilterModifier(e: React.ChangeEvent<HTMLInputElement>) {
+		setFilter(
+			produce((draft) => {
+				const value = e.target.value;
+				draft.datetime.modifier =
+					value as ActivityFilterWithValues["datetime"]["modifier"];
+			})
+		);
+	}
+
+	function setDatetimeFilterSelector(e: React.ChangeEvent<HTMLSelectElement>) {
+		setFilter(
+			produce((draft) => {
+				const value = e.target.value;
+				draft.datetime.selector =
+					value as ActivityFilterWithValues["datetime"]["selector"];
+			})
+		);
+	}
+
+	function setDatetimeFilterValue(
+		e: React.ChangeEvent<HTMLInputElement>,
+		index: number
+	) {
+		setFilter(
+			produce((draft) => {
+				const value = createDate(e.target.value);
+				if (!draft.datetime.value) draft.datetime.value = [];
+				draft.datetime.value[index] = value;
+			})
+		);
 	}
 
 	// this basically already exists in build-branch.ts, so extract it from there
@@ -175,6 +213,82 @@ export default function ActivityFilter() {
 							{tag.name}
 						</button>
 					))}
+				</div>
+			</div>
+
+			<div>
+				<h3>datetime</h3>
+				<div
+					style={{
+						display: "flex",
+						flexDirection: "row"
+					}}
+				>
+					{/* Modifier radio inputs */}
+					<div
+						style={{
+							display: "flex",
+							flexDirection: "column",
+							border: "2px solid orange"
+						}}
+					>
+						<label>
+							starts
+							<input
+								type="radio"
+								name="datetime.modifier"
+								value="starts"
+								onChange={setDatetimeFilterModifier}
+							/>
+						</label>
+						<label>
+							ends
+							<input
+								type="radio"
+								name="datetime.modifier"
+								value="ends"
+								onChange={setDatetimeFilterModifier}
+							/>
+						</label>
+						<label>
+							occurs
+							<input
+								type="radio"
+								name="datetime.modifier"
+								value="occurs"
+								onChange={setDatetimeFilterModifier}
+							/>
+						</label>
+					</div>
+					<div>
+						<select onChange={setDatetimeFilterSelector}>
+							<option value="before">before</option>
+							<option value="after">after</option>
+							<option value="between">between</option>
+						</select>
+					</div>
+					<div
+						style={{
+							display: "flex",
+							flexDirection: "column"
+						}}
+					>
+						<input
+							type="datetime-local"
+							value={filter.datetime.value?.[0]?.format("YYYY-MM-DDTHH:mm")}
+							onChange={(e) => setDatetimeFilterValue(e, 0)}
+						/>
+						{filter.datetime.selector === "between" && (
+							<>
+								and{" "}
+								<input
+									value={filter.datetime.value?.[1]?.format("YYYY-MM-DDTHH:mm")}
+									type="datetime-local"
+									onChange={(e) => setDatetimeFilterValue(e, 1)}
+								/>
+							</>
+						)}
+					</div>
 				</div>
 			</div>
 		</div>
