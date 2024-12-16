@@ -2,10 +2,9 @@ import { Unstyled } from "@/lib/theme/components/buttons";
 import { font } from "@/lib/theme/font";
 import { noBorders } from "@/lib/theme/snippets/border";
 import { flex } from "@/lib/theme/snippets/flex";
-import { motion } from "framer-motion";
 import styled, { css } from "styled-components";
 
-const Wrapper = styled(motion.div)`
+const Wrapper = styled.div`
 	${flex.column};
 	font-size: ${font.size["0.9"]};
 	/* width: max-content; */
@@ -13,25 +12,9 @@ const Wrapper = styled(motion.div)`
 	// TEMP
 `;
 
-const SectionName = styled(motion.h3)`
-	justify-self: flex-end;
-`;
-SectionName.defaultProps = {
-	layout: "position"
-};
+const Section = styled.div``;
 
-const Section = styled(motion.div)``;
-
-Section.defaultProps = {
-	layout: "position",
-	initial: { opacity: 0 },
-	animate: { opacity: 1 },
-	transition: {
-		delay: 0.15
-	}
-};
-
-const TabsHeader = styled(motion.div)`
+const TabsHeader = styled.div`
 	${flex.row};
 	gap: 0.5rem;
 	width: max-content;
@@ -43,8 +26,8 @@ const TabsHeader = styled(motion.div)`
 	font-size: ${font.size["1"]};
 `;
 
-const TabsPanel = styled(motion.div)`
-	padding: 1rem 1.5rem;
+const TabsPanel = styled.div`
+	padding: 1rem;
 	background-color: #eee;
 	border-radius: 0.5rem;
 	background-color: #f5f5f5;
@@ -54,10 +37,6 @@ const TabsPanel = styled(motion.div)`
 	box-shadow: 0 0.6rem 1rem -0.5rem #999;
 	transform-origin: bottom center;
 `;
-
-TabsPanel.defaultProps = {
-	layout: true
-};
 
 const Tab = styled(Unstyled)<{
 	$active?: boolean;
@@ -98,13 +77,9 @@ const Label = styled.label<{ $active?: boolean }>`
 		`}
 `;
 
-const SectionContent = styled(motion.div)`
+const SectionContent = styled.div`
 	${flex.column}
 `;
-
-SectionContent.defaultProps = {
-	layout: true
-};
 
 const SectionActionBar = styled.div`
 	${flex.row};
@@ -155,23 +130,33 @@ const InputWithSelect = styled.div`
 
 // need to combine this with the regular section content, but the styling is
 // different for datetime and tags, because tags has an action bar
-const DatetimeSectionContent = styled(motion.div)`
+const DatetimeSectionContent = styled.div`
 	${flex.row};
 	margin-top: 0.5rem;
 	gap: 0.5rem;
 `;
 
-DatetimeSectionContent.defaultProps = {
-	layout: "position"
-};
-
 const DatetimeSectionColumn = styled.div`
 	${flex.column};
 `;
 
+const ResetButton = styled(Unstyled)`
+	display: flex;
+	margin-left: auto;
+	margin-bottom: 1rem;
+
+	&:hover {
+		svg {
+			color: orangered;
+		}
+	}
+`;
+ResetButton.defaultProps = {
+	type: "reset"
+};
+
 export default {
 	Wrapper,
-	SectionName,
 	Section,
 	TabsHeader,
 	TabsPanel,
@@ -185,5 +170,6 @@ export default {
 	Input,
 	InputWithSelect,
 	DatetimeSectionContent,
-	DatetimeSectionColumn
+	DatetimeSectionColumn,
+	ResetButton
 };

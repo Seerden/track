@@ -1,7 +1,6 @@
 import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import useActivityFilter from "@/components/activities/ActivityFilter/useActivityFilter";
 import { DateTimePicker } from "@mantine/dates";
-import { AnimatePresence } from "framer-motion";
 import { produce } from "immer";
 import { LucideFilterX, LucideXCircle } from "lucide-react";
 import { useState } from "react";
@@ -15,8 +14,10 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 	const {
 		isProbablySuspended,
 		filter,
-		setFilterName,
-		resetFilterTags,
+		setFilterNameType,
+		setFilterNameValue,
+		resetFilterName,
+		resetTagsFilter,
 		setFilter,
 		tagSearch,
 		setTagSearch,
@@ -27,7 +28,9 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 		setFilterTags,
 		setDatetimeFilterModifier,
 		setDatetimeFilterSelector,
-		setDatetimeFilterValue
+		setDatetimeFilterValue,
+		resetNameFilter,
+		resetDatetimeFilter
 	} = useActivityFilter({ onChange });
 
 	const [activeTab, setActiveTab] = useState("name");
@@ -48,50 +51,41 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 	if (isProbablySuspended) return null;
 
 	return (
-		<S.Wrapper
-			layout
-			initial={{
-				minWidth: "0px",
-				height: "max-content"
-			}}
-			animate={{
-				minWidth: "max-content",
-				height: "max-content"
-			}}
-		>
-			<S.TabsHeader layout>{renderTabs}</S.TabsHeader>
+		<S.Wrapper>
+			<S.TabsHeader>{renderTabs}</S.TabsHeader>
 
 			<S.TabsPanel role="tabpanel">
 				{activeTab === "name" && (
-					<AnimatePresence mode="wait" presenceAffectsLayout>
-						<NameFilterContent setFilterName={setFilterName} />
-					</AnimatePresence>
+					<NameFilterContent
+						filter={filter}
+						setFilterNameType={setFilterNameType}
+						setFilterNameValue={setFilterNameValue}
+						resetFilterName={resetFilterName}
+						resetNameFilter={resetNameFilter}
+					/>
 				)}
 				{activeTab === "tags" && (
-					<AnimatePresence mode="wait" presenceAffectsLayout>
-						<TagsFilterContent
-							resetFilterTags={resetFilterTags}
-							setFilter={setFilter}
-							tagSearch={tagSearch}
-							setTagSearch={setTagSearch}
-							noTagsFound={noTagsFound}
-							tags={tags}
-							getTagBackgroundColor={getTagBackgroundColor}
-							updateActiveTagIds={updateActiveTagIds}
-							setFilterTags={setFilterTags}
-							filter={filter}
-						/>
-					</AnimatePresence>
+					<TagsFilterContent
+						resetTagsFilter={resetTagsFilter}
+						setFilter={setFilter}
+						tagSearch={tagSearch}
+						setTagSearch={setTagSearch}
+						noTagsFound={noTagsFound}
+						tags={tags}
+						getTagBackgroundColor={getTagBackgroundColor}
+						updateActiveTagIds={updateActiveTagIds}
+						setFilterTags={setFilterTags}
+						filter={filter}
+					/>
 				)}
 				{activeTab === "datetime" && (
-					<AnimatePresence mode="wait" key="c" presenceAffectsLayout>
-						<DatetimeFilterContent
-							setDatetimeFilterModifier={setDatetimeFilterModifier}
-							setDatetimeFilterSelector={setDatetimeFilterSelector}
-							filter={filter}
-							setDatetimeFilterValue={setDatetimeFilterValue}
-						/>
-					</AnimatePresence>
+					<DatetimeFilterContent
+						setDatetimeFilterModifier={setDatetimeFilterModifier}
+						setDatetimeFilterSelector={setDatetimeFilterSelector}
+						filter={filter}
+						setDatetimeFilterValue={setDatetimeFilterValue}
+						resetDatetimeFilter={resetDatetimeFilter}
+					/>
 				)}
 			</S.TabsPanel>
 		</S.Wrapper>
@@ -99,34 +93,52 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 }
 
 type NameFilterContentProps = {
-	setFilterName: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+	setFilterNameType: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+	setFilterNameValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	resetFilterName: () => void;
+	filter: ActivityFilterWithValues;
+	resetNameFilter: () => void;
 };
 
-function NameFilterContent({ setFilterName }: NameFilterContentProps) {
+function NameFilterContent({
+	setFilterNameType,
+	setFilterNameValue,
+	resetFilterName,
+	filter,
+	resetNameFilter
+}: NameFilterContentProps) {
 	return (
-		<S.Section layout>
-			<S.SectionName>
-				name
-				<button type="reset">
-					<LucideFilterX size={15} />
-				</button>
-			</S.SectionName>
+		<S.Section>
+			<ResetButton onClick={resetNameFilter} />
 			<div style={{ display: "flex", flexDirection: "row" }}>
-				<select onChange={setFilterName}>
-					<option value="includes">includes</option>
-					<option value="equals">equals</option>
-					<option value="excludes">excludes</option>
-					<option value="startsWith">starts with</option>
-					<option value="endsWith">ends with</option>
-				</select>
-				<input type="text" />
+				<S.InputWithSelect style={{ position: "relative" }}>
+					<S.Select
+						onChange={
+							setFilterNameType /* TODO: this should be named setFilterType */
+						}
+					>
+						<option value="includes">includes</option>
+						<option value="equals">equals</option>
+						<option value="excludes">excludes</option>
+						<option value="startsWith">starts with</option>
+						<option value="endsWith">ends with</option>
+					</S.Select>
+					<S.Input
+						type="text"
+						onChange={setFilterNameValue}
+						value={filter.name.value ?? ""}
+					/>
+					{(filter.name.value?.length ?? 0) > 0 && (
+						<FilterClear onClick={resetFilterName} />
+					)}
+				</S.InputWithSelect>
 			</div>
 		</S.Section>
 	);
 }
 
 type TagsFilterContentProps = {
-	resetFilterTags: () => void;
+	resetTagsFilter: () => void;
 	setFilter: (
 		fn: (current: ActivityFilterWithValues) => ActivityFilterWithValues
 	) => void;
@@ -140,8 +152,34 @@ type TagsFilterContentProps = {
 	filter: ActivityFilterWithValues;
 };
 
+function ResetButton({ onClick }: { onClick: () => void }) {
+	return (
+		<S.ResetButton onClick={onClick}>
+			<LucideFilterX size={20} />
+		</S.ResetButton>
+	);
+}
+
+function FilterClear({ onClick }: { onClick: () => void }) {
+	return (
+		<LucideXCircle
+			size={20}
+			color="white"
+			fill="royalblue"
+			style={{
+				position: "absolute",
+				right: "0.2rem",
+				top: "50%",
+				transform: "translateY(-50%)",
+				cursor: "pointer"
+			}}
+			onClick={onClick}
+		/>
+	);
+}
+
 function TagsFilterContent({
-	resetFilterTags,
+	resetTagsFilter,
 	setFilter,
 	tagSearch,
 	setTagSearch,
@@ -163,13 +201,8 @@ function TagsFilterContent({
 	const exact = filter.tags.exact;
 
 	return (
-		<S.Section layout>
-			<S.SectionName>
-				tags{" "}
-				<button type="reset" onClick={resetFilterTags}>
-					<LucideFilterX size={15} />
-				</button>
-			</S.SectionName>
+		<S.Section>
+			<ResetButton onClick={resetTagsFilter} />
 			<S.SectionContent>
 				<S.SectionActionBar>
 					<S.Toggle role="button" onClick={toggleExact} $active={exact}>
@@ -189,8 +222,8 @@ function TagsFilterContent({
 								}));
 							}}
 						>
-							<option value="include">include</option>
-							<option value="exclude">exclude</option>
+							<option value="include">includes</option>
+							<option value="exclude">excludes</option>
 						</S.Select>
 						<S.Input
 							type="text"
@@ -198,19 +231,7 @@ function TagsFilterContent({
 							onChange={(e) => setTagSearch(e.target.value)}
 						/>
 						{tagSearch.length > 0 && (
-							<LucideXCircle
-								size={20}
-								color="white"
-								fill="royalblue"
-								style={{
-									position: "absolute",
-									right: "0.2rem",
-									top: "50%",
-									transform: "translateY(-50%)",
-									cursor: "pointer"
-								}}
-								onClick={() => setTagSearch("")}
-							/>
+							<FilterClear onClick={() => setTagSearch("")} />
 						)}
 					</S.InputWithSelect>
 				</S.SectionActionBar>
@@ -221,13 +242,19 @@ function TagsFilterContent({
 						flexDirection: "row",
 						flexWrap: "wrap",
 						gap: "0.5rem",
-						maxWidth: "400px"
+						maxWidth: "327px" // TODO: I just hardcoded this to match the 'action bar' for now, but this should be responsive
 					}}
 				>
 					{tags.map((tag) => (
 						<button
 							style={{
+								// TODO most of this is temporary
 								backgroundColor: getTagBackgroundColor(tag.tag_id),
+								color: ["orange", "darkorange"].includes(
+									getTagBackgroundColor(tag.tag_id)
+								)
+									? "white"
+									: "black",
 								outline: "1px solid #ccc",
 								border: "none",
 								padding: "0.3rem",
@@ -257,22 +284,19 @@ type DateTimeFilterContentProps = {
 	setDatetimeFilterSelector: (selector: string) => void;
 	filter: ActivityFilterWithValues;
 	setDatetimeFilterValue: (value: Date | null, index: number) => void;
+	resetDatetimeFilter: () => void;
 };
 
 function DatetimeFilterContent({
 	setDatetimeFilterModifier,
 	setDatetimeFilterSelector,
 	filter,
-	setDatetimeFilterValue
+	setDatetimeFilterValue,
+	resetDatetimeFilter
 }: DateTimeFilterContentProps) {
 	return (
-		<S.Section layout>
-			<S.SectionName>
-				datetime{" "}
-				<button type="reset">
-					<LucideFilterX size={15} />
-				</button>
-			</S.SectionName>
+		<S.Section>
+			<ResetButton onClick={resetDatetimeFilter} />
 			<S.DatetimeSectionContent>
 				{/* Modifier radio inputs */}
 				<S.DatetimeSectionColumn>

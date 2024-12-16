@@ -28,26 +28,26 @@ export default function ActivityOverview() {
 			>
 				<LucideFilter size={15} />
 			</Action.Alternative>
-			{float.open && (
-				<div
-					ref={float.refs.setFloating}
-					style={{
-						marginTop: "1rem",
-						zIndex: 2,
-						padding: "1rem",
-						borderRadius: "12px",
-						// outline: "2px solid white",
-						// border: "2px solid royalblue",
-						marginLeft: "0.5rem",
-						// boxShadow: "0 0 1rem -0.2rem royalblue",
-						// backgroundColor: "white",
-						...float.floatingStyles
-					}}
-					{...float.getFloatingProps()}
-				>
-					<ActivityFilter onChange={setFilter /* TODO: WIP! */} />
-				</div>
-			)}
+
+			<div
+				ref={float.refs.setFloating}
+				style={{
+					marginTop: "1rem",
+					zIndex: 2,
+					padding: "1rem",
+					borderRadius: "12px",
+					outline: "2px solid white",
+					border: "2px solid royalblue",
+					marginLeft: "0.5rem",
+					boxShadow: "0 0 1rem -0.2rem royalblue",
+					backgroundColor: "white",
+					...float.floatingStyles,
+					display: float.open ? "block" : "none"
+				}}
+				{...float.getFloatingProps()}
+			>
+				<ActivityFilter onChange={setFilter /* TODO: WIP! */} />
+			</div>
 			<S.Wrapper>
 				{/* TODO: don't use a table. these things suck to style. 
             just use a grid. much more customizable */}

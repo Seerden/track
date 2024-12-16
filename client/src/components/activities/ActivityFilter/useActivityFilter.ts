@@ -125,18 +125,34 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 
 	const tree = tagsTreeData?.byId || {};
 
-	function resetFilterTags() {
+	function resetTagsFilter() {
 		setFilter(
 			produce((draft) => {
-				draft.tags.value = [];
+				draft.tags = defaultFilter.tags;
 			})
 		);
 	}
 
-	function setFilterName(e: React.ChangeEvent<HTMLSelectElement>) {
+	function setFilterNameType(e: React.ChangeEvent<HTMLSelectElement>) {
 		setFilter(
 			produce((draft) => {
 				draft.name.type = e.target.value as ActivityFilterWithValues["name"]["type"];
+			})
+		);
+	}
+
+	function setFilterNameValue(e: React.ChangeEvent<HTMLInputElement>) {
+		setFilter(
+			produce((draft) => {
+				draft.name.value = e.target.value;
+			})
+		);
+	}
+
+	function resetFilterName() {
+		setFilter(
+			produce((draft) => {
+				draft.name.value = null;
 			})
 		);
 	}
@@ -169,6 +185,22 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 		);
 	}
 
+	function resetNameFilter() {
+		setFilter(
+			produce((draft) => {
+				draft.name = defaultFilter.name;
+			})
+		);
+	}
+
+	function resetDatetimeFilter() {
+		setFilter(
+			produce((draft) => {
+				draft.datetime = defaultFilter.datetime;
+			})
+		);
+	}
+
 	// this basically already exists in build-branch.ts, so extract it from there
 	function getRootTagId(tag_id: ID, tagsById: ById<TagWithIds>) {
 		const tag = tagsById[tag_id];
@@ -195,8 +227,7 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 	return {
 		isProbablySuspended,
 		filter,
-		setFilterName,
-		resetFilterTags,
+		setFilterNameType,
 		setFilter,
 		tagSearch,
 		setTagSearch,
@@ -207,6 +238,11 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 		setFilterTags,
 		setDatetimeFilterModifier,
 		setDatetimeFilterSelector,
-		setDatetimeFilterValue
+		setDatetimeFilterValue,
+		resetFilterName,
+		setFilterNameValue,
+		resetNameFilter,
+		resetDatetimeFilter,
+		resetTagsFilter
 	};
 }
