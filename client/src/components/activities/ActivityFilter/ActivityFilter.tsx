@@ -222,8 +222,8 @@ function TagsFilterContent({
 								}));
 							}}
 						>
-							<option value="include">includes</option>
-							<option value="exclude">excludes</option>
+							<option value="includes">includes</option>
+							<option value="excludes">excludes</option>
 						</S.Select>
 						<S.Input
 							type="text"
