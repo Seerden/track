@@ -51,5 +51,7 @@ function filterByName(
 	}
 
 	const namePredicate = namePredicates[filter.type];
-	return activities.filter((activity) => namePredicate(activity.name, value));
+	return activities.filter((activity) =>
+		namePredicate(activity.name.toLowerCase(), value.toLowerCase())
+	);
 }
