@@ -1,5 +1,3 @@
-import type { ActivityWithIds } from "@t/data/activity.types";
-
 type ValueAndElement<T> = { value: T; element: JSX.Element };
 
 export type Table<U extends object, T extends keyof U> = {
@@ -45,22 +43,22 @@ export function makeTable<U extends object, T extends keyof U>(
 // TODO: next step: implement a filter in such a way that it can work on the
 // result of makeTable, regardless of the type of the fields.
 
-const activities: ActivityWithIds[] = [
-	{
-		activity_id: 1,
-		created_at: new Date(),
-		description: "null",
-		end_date: new Date(),
-		ended_at: null,
-		is_task: true,
-		name: "Do the dishes",
-		start_date: new Date(),
-		started_at: null,
-		tag_ids: [],
-		user_id: 1,
-		completed: false
-	}
-];
+// const activities: ActivityWithIds[] = [
+// 	{
+// 		activity_id: 1,
+// 		created_at: new Date(),
+// 		description: "null",
+// 		end_date: new Date(),
+// 		ended_at: null,
+// 		is_task: true,
+// 		name: "Do the dishes",
+// 		start_date: new Date(),
+// 		started_at: null,
+// 		tag_ids: [],
+// 		user_id: 1,
+// 		completed: false
+// 	}
+// ];
 
 // const c = activities.map((activity) => ({
 // 	value: activity,

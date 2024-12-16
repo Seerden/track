@@ -1,4 +1,5 @@
 import ActivityFilter from "@/components/activities/ActivityFilter/ActivityFilter";
+import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import type { Meta, StoryFn } from "@storybook/react";
 
 //👇 This default export determines where your story goes in the story list
@@ -10,7 +11,7 @@ const meta: Meta<typeof ActivityFilter> = {
 export default meta;
 
 export const Default: StoryFn = (args) => {
-	function onChange(filter) {
+	function onChange(filter: ActivityFilterWithValues) {
 		console.log({ filter });
 	}
 	return <ActivityFilter {...args} onChange={onChange} />;

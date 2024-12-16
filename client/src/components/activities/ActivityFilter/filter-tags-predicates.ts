@@ -1,4 +1,4 @@
-import type { ActivityFilterWithState } from "@/components/activities/ActivityFilter/filter";
+import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import type { ActivityWithIds } from "@t/data/activity.types";
 import type { ID, Nullable } from "@t/data/utility.types";
 
@@ -21,7 +21,7 @@ export const tagPredicates = {
 
 export function filterByTags(
 	activities: ActivityWithIds[],
-	filter: ActivityFilterWithState["tags"]
+	filter: ActivityFilterWithValues["tags"]
 ) {
 	const predicate = tagPredicates[filter.type];
 	return activities.filter((activity) => predicate(activity, filter.value));

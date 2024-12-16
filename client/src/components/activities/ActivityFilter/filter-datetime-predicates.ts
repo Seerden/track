@@ -5,8 +5,7 @@ import type { ActivityWithIds } from "@t/data/activity.types";
 export const datetimePredicates = {
 	starts: datetimeStartsPredicate,
 	ends: datetimeEndsPredicate,
-	occurs: (activity: ActivityWithIds, filter: ActivityFilterWithValues["datetime"]) =>
-		true // TODO: this is not yet implemented
+	occurs: (_: ActivityWithIds, __: ActivityFilterWithValues["datetime"]) => true // TODO: this is not yet implemented
 };
 
 function datetimeStartsPredicate(

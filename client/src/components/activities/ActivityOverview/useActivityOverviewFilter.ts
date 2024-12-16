@@ -13,7 +13,7 @@ import {
 import { useState } from "react";
 
 export default function useActivityOverviewFilter() {
-	const [open, setOpen] = useState(true);
+	const [open, setOpen] = useState(false);
 	const { refs, context, floatingStyles } = useFloating({
 		whileElementsMounted: autoUpdate,
 		placement: "bottom",

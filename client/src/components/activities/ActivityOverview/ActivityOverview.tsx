@@ -1,17 +1,22 @@
 import ActivityFilter from "@/components/activities/ActivityFilter/ActivityFilter";
+import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import TableItem from "@/components/activities/ActivityOverview/TableItem";
 import useActivityOverview from "@/components/activities/ActivityOverview/useActivityOverview";
 import useActivityOverviewFilter from "@/components/activities/ActivityOverview/useActivityOverviewFilter";
 import { filterTagsById } from "@/lib/filter-tags";
 import { Action } from "@/lib/theme/components/buttons";
 import { LucideFilter } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import S from "./style/ActivityOverview.style";
 
 export default function ActivityOverview() {
 	const { isProbablySuspended, activities, tags } = useActivityOverview();
 	const float = useActivityOverviewFilter();
-	const [filter, setFilter] = useState({});
+	const [filter, setFilter] = useState<ActivityFilterWithValues>();
+
+	useEffect(() => {
+		console.log({ filter });
+	}, [filter]);
 
 	if (isProbablySuspended) return null;
 

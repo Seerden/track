@@ -82,10 +82,6 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 		[filter.tags.value, isActiveTag]
 	);
 
-	useEffect(() => {
-		console.log({ filter });
-	}, [filter]);
-
 	const setFilterTags = useCallback(
 		(e: React.MouseEvent<HTMLButtonElement>) => {
 			const tag_id = +e.currentTarget.value;
