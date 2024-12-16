@@ -1,18 +1,25 @@
 import ActivityFilter from "@/components/activities/ActivityFilter/ActivityFilter";
 import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
+import { filterActivities } from "@/components/activities/ActivityFilter/filter";
 import TableItem from "@/components/activities/ActivityOverview/TableItem";
 import useActivityOverview from "@/components/activities/ActivityOverview/useActivityOverview";
 import useActivityOverviewFilter from "@/components/activities/ActivityOverview/useActivityOverviewFilter";
 import { filterTagsById } from "@/lib/filter-tags";
 import { Action } from "@/lib/theme/components/buttons";
 import { LucideFilter } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import S from "./style/ActivityOverview.style";
 
 export default function ActivityOverview() {
 	const { isProbablySuspended, activities, tags } = useActivityOverview();
 	const float = useActivityOverviewFilter();
 	const [filter, setFilter] = useState<ActivityFilterWithValues>();
+
+	const filteredActivities = useMemo(() => {
+		if (!activities || !filter) return [];
+
+		return filterActivities({ activities, filter });
+	}, [activities, filter]);
 
 	useEffect(() => {
 		console.log({ filter });
@@ -74,7 +81,7 @@ export default function ActivityOverview() {
 							<S.HeaderField>Tags</S.HeaderField>
 							<S.HeaderField>Creation date</S.HeaderField>
 						</S.Header>
-						{activities.map((activity) => (
+						{filteredActivities.map((activity) => (
 							<TableItem
 								key={activity.activity_id}
 								activity={activity}
