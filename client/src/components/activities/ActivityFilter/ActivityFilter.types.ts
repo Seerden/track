@@ -12,7 +12,7 @@ export type ActivityFilterState = {
 	tags: {
 		type: "includes" | "excludes";
 		/** if `!exact`, it considers all ids from the tree that `id` is part of. */
-		exact?: boolean; // TODO: this is not yet implemented (see filter-tags-predicates.ts)
+		exact?: boolean; // TODO: this is not properly implemented yet
 	};
 };
 

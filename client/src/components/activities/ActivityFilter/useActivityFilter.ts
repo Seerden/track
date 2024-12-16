@@ -34,6 +34,8 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 	const [filter, setFilter] = useState<ActivityFilterWithValues>(defaultFilter);
 	const [tagSearch, setTagSearch] = useState<string>("");
 
+	const [wholeTree, setWholeTree] = useState(false);
+
 	useEffect(() => {
 		onChange(filter);
 	}, [filter, onChange]);
@@ -49,7 +51,7 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 		(tag_id: ID, type: "on" | "off") => {
 			setActiveTagIds(
 				produce((draft) => {
-					const members = filter.tags.exact
+					const members = !wholeTree
 						? [tag_id]
 						: getTreeMembers(
 								tag_id,
@@ -67,7 +69,7 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 				})
 			);
 		},
-		[setActiveTagIds, filter.tags.exact, tagsData, tagsTreeData]
+		[setActiveTagIds, filter.tags.exact, wholeTree, tagsData, tagsTreeData]
 	);
 
 	const getTagBackgroundColor = useCallback(
@@ -91,7 +93,7 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 			setFilter(
 				produce((draft) => {
 					if (!draft.tags.value) draft.tags.value = [];
-					const members = draft.tags.exact
+					const members = !wholeTree
 						? [tag_id]
 						: getTreeMembers(tag_id, tagsById, tagsTreeById);
 					if (draft.tags.value.includes(tag_id)) {
@@ -104,7 +106,7 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 				})
 			);
 		},
-		[filter, tagsData, tagsTreeData]
+		[filter, tagsData, tagsTreeData, wholeTree]
 	);
 
 	const _tags = Object.values(tagsData?.byId ?? {});
@@ -239,6 +241,8 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 		setFilterNameValue,
 		resetNameFilter,
 		resetDatetimeFilter,
-		resetTagsFilter
+		resetTagsFilter,
+		wholeTree,
+		setWholeTree
 	};
 }

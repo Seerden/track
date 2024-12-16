@@ -2,7 +2,8 @@ import type { ActivityFilterWithValues } from "@/components/activities/ActivityF
 import useActivityFilter from "@/components/activities/ActivityFilter/useActivityFilter";
 import { DateTimePicker } from "@mantine/dates";
 import { produce } from "immer";
-import { LucideFilterX, LucideXCircle } from "lucide-react";
+import { LucideBlend, LucideFilterX, LucideNetwork, LucideXCircle } from "lucide-react";
+import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
 import S from "./style/ActivityFilter.style";
 
@@ -30,7 +31,9 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 		setDatetimeFilterSelector,
 		setDatetimeFilterValue,
 		resetNameFilter,
-		resetDatetimeFilter
+		resetDatetimeFilter,
+		wholeTree,
+		setWholeTree
 	} = useActivityFilter({ onChange });
 
 	const [activeTab, setActiveTab] = useState("name");
@@ -76,6 +79,8 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 						updateActiveTagIds={updateActiveTagIds}
 						setFilterTags={setFilterTags}
 						filter={filter}
+						wholeTree={wholeTree}
+						setWholeTree={setWholeTree}
 					/>
 				)}
 				{activeTab === "datetime" && (
@@ -150,6 +155,8 @@ type TagsFilterContentProps = {
 	updateActiveTagIds: (tagId: number, action: "on" | "off") => void;
 	setFilterTags: (e: React.MouseEvent<HTMLButtonElement>) => void;
 	filter: ActivityFilterWithValues;
+	wholeTree: boolean;
+	setWholeTree: Dispatch<SetStateAction<boolean>>;
 };
 
 function ResetButton({ onClick }: { onClick: () => void }) {
@@ -188,7 +195,9 @@ function TagsFilterContent({
 	getTagBackgroundColor,
 	updateActiveTagIds,
 	setFilterTags,
-	filter
+	filter,
+	wholeTree,
+	setWholeTree
 }: TagsFilterContentProps) {
 	function toggleExact() {
 		setFilter(
@@ -198,6 +207,10 @@ function TagsFilterContent({
 		);
 	}
 
+	function toggleWholeTree() {
+		setWholeTree((current) => !current);
+	}
+
 	const exact = filter.tags.exact;
 
 	return (
@@ -205,10 +218,6 @@ function TagsFilterContent({
 			<ResetButton onClick={resetTagsFilter} />
 			<S.SectionContent>
 				<S.SectionActionBar>
-					<S.Toggle role="button" onClick={toggleExact} $active={exact}>
-						exact?
-					</S.Toggle>
-
 					<S.InputWithSelect style={{ position: "relative" }}>
 						<S.Select
 							onChange={(e) => {
@@ -234,6 +243,22 @@ function TagsFilterContent({
 							<FilterClear onClick={() => setTagSearch("")} />
 						)}
 					</S.InputWithSelect>
+					<S.Toggle
+						role="button"
+						onClick={toggleExact}
+						$active={exact}
+						title="Exact match?"
+					>
+						<LucideBlend size={15} />
+					</S.Toggle>
+					<S.Toggle
+						role="button"
+						onClick={toggleWholeTree}
+						$active={wholeTree}
+						title="Select tree?"
+					>
+						<LucideNetwork size={15} />
+					</S.Toggle>
 				</S.SectionActionBar>
 				<div
 					style={{
