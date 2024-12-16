@@ -1,15 +1,8 @@
 import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
-import { filterByDatetime } from "@/components/activities/ActivityFilter/filter-datetime-predicates";
-import { filterByTags } from "@/components/activities/ActivityFilter/filter-tags-predicates";
+import { filterByDatetime } from "@/components/activities/ActivityFilter/filter-datetime";
+import { filterByName } from "@/components/activities/ActivityFilter/filter-name";
+import { filterByTags } from "@/components/activities/ActivityFilter/filter-tags";
 import type { ActivityWithIds } from "@t/data/activity.types";
-
-const namePredicates = {
-	includes: (name: string, value: string) => name.includes(value),
-	equals: (name: string, value: string) => name === value,
-	excludes: (name: string, value: string) => !name.includes(value),
-	startsWith: (name: string, value: string) => name.startsWith(value),
-	endsWith: (name: string, value: string) => name.endsWith(value)
-};
 
 export function filterActivities({
 	activities,
@@ -38,20 +31,4 @@ export function filterActivities({
 	// TODO: also always return the list of applied filters
 
 	return filteredByDatetime;
-}
-
-function filterByName(
-	activities: ActivityWithIds[],
-	filter: ActivityFilterWithValues["name"]
-): ActivityWithIds[] {
-	const value = filter.value;
-
-	if (!value) {
-		return activities;
-	}
-
-	const namePredicate = namePredicates[filter.type];
-	return activities.filter((activity) =>
-		namePredicate(activity.name.toLowerCase(), value.toLowerCase())
-	);
 }
