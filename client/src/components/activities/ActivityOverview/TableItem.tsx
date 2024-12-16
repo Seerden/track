@@ -19,8 +19,10 @@ export default function TableItem({ activity, tags }: TableItemProps) {
 	const createdAt = createDate(activity.created_at);
 	const isTask = activity.is_task ?? false;
 
+	{
+		/* TODO: $isTask doesn't do anything yet. */
+	}
 	return (
-		// TODO: $isTask doesn't do anything yet.
 		<S.Item $isTask={isTask}>
 			<S.Column
 				style={{

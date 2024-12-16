@@ -32,4 +32,5 @@ const HeaderField = styled.div`
 
 	${itemAndHeaderFieldStyle};
 `;
+
 export default { Wrapper, Table, Header, HeaderField };

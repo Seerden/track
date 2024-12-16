@@ -21,8 +21,6 @@ const Item = styled.div<{ $isTask: boolean }>`
 	${itemAndHeaderStyle}
 `;
 
-const ItemContent = styled.div``;
-
 const Column = styled.div`
 	${itemAndHeaderFieldStyle}
 	${flex.row};
@@ -37,6 +35,5 @@ const Column = styled.div`
 
 export default {
 	Item,
-	ItemContent,
 	Column
 };

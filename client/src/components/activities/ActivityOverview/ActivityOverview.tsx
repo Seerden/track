@@ -60,6 +60,7 @@ export default function ActivityOverview() {
 			>
 				<ActivityFilter onChange={setFilter /* TODO: WIP! */} />
 			</div>
+
 			<S.Wrapper>
 				{/* TODO: don't use a table. these things suck to style. 
             just use a grid. much more customizable */}
