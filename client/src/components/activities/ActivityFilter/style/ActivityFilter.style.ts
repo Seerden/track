@@ -19,7 +19,7 @@ const TabsHeader = styled.div`
 	gap: 0.5rem;
 	width: max-content;
 	height: max-content;
-	align-self: flex-end;
+	align-self: flex-start;
 	border-bottom: 2px solid #ccc;
 	margin: 0 1rem;
 	z-index: 2; // to get above the box-shadow of TabsPanel
@@ -141,8 +141,6 @@ const DatetimeSectionColumn = styled.div`
 `;
 
 const ResetButton = styled(Unstyled)`
-	display: flex;
-	margin-left: auto;
 	margin-bottom: 1rem;
 
 	&:hover {

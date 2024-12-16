@@ -4,9 +4,12 @@ import {
 } from "@/components/activities/ActivityOverview/style/TableItem.style";
 import styled from "styled-components";
 
-const Wrapper = styled.div`
+const OverviewWrapper = styled.div`
+	width: max-content;
 	margin: 5rem;
 `;
+
+const Wrapper = styled.div``;
 
 const Table = styled.table`
 	border-collapse: separate;
@@ -33,4 +36,4 @@ const HeaderField = styled.div`
 	${itemAndHeaderFieldStyle};
 `;
 
-export default { Wrapper, Table, Header, HeaderField };
+export default { OverviewWrapper, Wrapper, Table, Header, HeaderField };
