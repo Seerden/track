@@ -14,14 +14,12 @@ type TableItemProps = {
 export default function TableItem({ activity, tags }: TableItemProps) {
 	const putCompletion = usePutTaskCompletion(activity);
 
-	const start = activityStart(activity);
-	const end = activityEnd(activity);
-	const createdAt = createDate(activity.created_at);
+	const start = activityStart(activity).fromNow();
+	const end = activityEnd(activity).fromNow();
+	const createdAt = createDate(activity.created_at).fromNow();
 	const isTask = activity.is_task ?? false;
 
-	{
-		/* TODO: $isTask doesn't do anything yet. */
-	}
+	// TODO: $isTask doesn't do anything yet.
 	return (
 		<S.Item $isTask={isTask}>
 			<S.Column
@@ -36,14 +34,14 @@ export default function TableItem({ activity, tags }: TableItemProps) {
 				) : null}
 			</S.Column>
 			<S.Column>{activity.name}</S.Column>
-			<S.Column>{start.fromNow()}</S.Column>
-			<S.Column>{end.fromNow()}</S.Column>
+			<S.Column>{start}</S.Column>
+			<S.Column>{end}</S.Column>
 			<S.Column>
 				{tags.map((tag) => (
 					<span key={tag.tag_id}>{tag.name}</span>
 				))}
 			</S.Column>
-			<S.Column>{createdAt.fromNow()}</S.Column>
+			<S.Column>{createdAt}</S.Column>
 		</S.Item>
 	);
 }
