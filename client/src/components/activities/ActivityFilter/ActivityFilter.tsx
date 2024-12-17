@@ -1,5 +1,6 @@
 import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import useActivityFilter from "@/components/activities/ActivityFilter/useActivityFilter";
+import type { ActivityFilterActions } from "@/components/activities/ActivityFilter/useActivityFilterActions";
 import { DateTimePicker } from "@mantine/dates";
 import { produce } from "immer";
 import { LucideBlend, LucideFilterX, LucideNetwork, LucideXCircle } from "lucide-react";
@@ -15,23 +16,14 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 	const {
 		isProbablySuspended,
 		filter,
-		setFilterNameType,
-		setFilterNameValue,
-		resetFilterName,
-		resetTagsFilter,
+		actions,
 		setFilter,
 		tagSearch,
 		setTagSearch,
 		noTagsFound,
 		tags,
 		getTagBackgroundColor,
-		updateActiveTagIds,
-		setFilterTags,
-		setDatetimeFilterModifier,
-		setDatetimeFilterSelector,
-		setDatetimeFilterValue,
-		resetNameFilter,
-		resetDatetimeFilter,
+
 		wholeTree,
 		setWholeTree
 	} = useActivityFilter({ onChange });
@@ -59,38 +51,24 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 
 			<S.TabsPanel role="tabpanel">
 				{activeTab === "name" && (
-					<NameFilterContent
-						filter={filter}
-						setFilterNameType={setFilterNameType}
-						setFilterNameValue={setFilterNameValue}
-						resetFilterName={resetFilterName}
-						resetNameFilter={resetNameFilter}
-					/>
+					<NameFilterContent filter={filter} actions={actions} />
 				)}
 				{activeTab === "tags" && (
 					<TagsFilterContent
-						resetTagsFilter={resetTagsFilter}
 						setFilter={setFilter}
 						tagSearch={tagSearch}
 						setTagSearch={setTagSearch}
 						noTagsFound={noTagsFound}
 						tags={tags}
 						getTagBackgroundColor={getTagBackgroundColor}
-						updateActiveTagIds={updateActiveTagIds}
-						setFilterTags={setFilterTags}
 						filter={filter}
 						wholeTree={wholeTree}
 						setWholeTree={setWholeTree}
+						actions={actions}
 					/>
 				)}
 				{activeTab === "datetime" && (
-					<DatetimeFilterContent
-						setDatetimeFilterModifier={setDatetimeFilterModifier}
-						setDatetimeFilterSelector={setDatetimeFilterSelector}
-						filter={filter}
-						setDatetimeFilterValue={setDatetimeFilterValue}
-						resetDatetimeFilter={resetDatetimeFilter}
-					/>
+					<DatetimeFilterContent filter={filter} actions={actions} />
 				)}
 			</S.TabsPanel>
 		</S.Wrapper>
@@ -98,30 +76,18 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 }
 
 type NameFilterContentProps = {
-	setFilterNameType: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-	setFilterNameValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
-	resetFilterName: () => void;
 	filter: ActivityFilterWithValues;
-	resetNameFilter: () => void;
+	actions: ActivityFilterActions;
 };
 
-function NameFilterContent({
-	setFilterNameType,
-	setFilterNameValue,
-	resetFilterName,
-	filter,
-	resetNameFilter
-}: NameFilterContentProps) {
+function NameFilterContent({ filter, actions }: NameFilterContentProps) {
 	return (
 		<S.Section>
-			<ResetButton onClick={resetNameFilter} />
+			<ResetButton onClick={actions.reset.name.all} />
 			<div style={{ display: "flex", flexDirection: "row" }}>
 				<S.InputWithSelect style={{ position: "relative" }}>
-					<S.Select
-						onChange={
-							setFilterNameType /* TODO: this should be named setFilterType */
-						}
-					>
+					<S.Select onChange={actions.set.name.type}>
+						{/* TODO: get these options from a constant and map over them */}
 						<option value="includes">includes</option>
 						<option value="equals">equals</option>
 						<option value="excludes">excludes</option>
@@ -130,34 +96,17 @@ function NameFilterContent({
 					</S.Select>
 					<S.Input
 						type="text"
-						onChange={setFilterNameValue}
+						onChange={actions.set.name.value}
 						value={filter.name.value ?? ""}
 					/>
 					{(filter.name.value?.length ?? 0) > 0 && (
-						<FilterClear onClick={resetFilterName} />
+						<FilterClear onClick={actions.reset.name.value} />
 					)}
 				</S.InputWithSelect>
 			</div>
 		</S.Section>
 	);
 }
-
-type TagsFilterContentProps = {
-	resetTagsFilter: () => void;
-	setFilter: (
-		fn: (current: ActivityFilterWithValues) => ActivityFilterWithValues
-	) => void;
-	tagSearch: string;
-	setTagSearch: (value: string) => void;
-	noTagsFound: boolean;
-	tags: { tag_id: number; name: string }[];
-	getTagBackgroundColor: (tagId: number) => string;
-	updateActiveTagIds: (tagId: number, action: "on" | "off") => void;
-	setFilterTags: (e: React.MouseEvent<HTMLButtonElement>) => void;
-	filter: ActivityFilterWithValues;
-	wholeTree: boolean;
-	setWholeTree: Dispatch<SetStateAction<boolean>>;
-};
 
 function ResetButton({ onClick }: { onClick: () => void }) {
 	return (
@@ -185,19 +134,32 @@ function FilterClear({ onClick }: { onClick: () => void }) {
 	);
 }
 
+type TagsFilterContentProps = {
+	setFilter: (
+		fn: (current: ActivityFilterWithValues) => ActivityFilterWithValues
+	) => void;
+	tagSearch: string;
+	setTagSearch: (value: string) => void;
+	noTagsFound: boolean;
+	tags: { tag_id: number; name: string }[];
+	getTagBackgroundColor: (tagId: number) => string;
+	filter: ActivityFilterWithValues;
+	wholeTree: boolean;
+	setWholeTree: Dispatch<SetStateAction<boolean>>;
+	actions: ActivityFilterActions;
+};
+
 function TagsFilterContent({
-	resetTagsFilter,
 	setFilter,
 	tagSearch,
 	setTagSearch,
 	noTagsFound,
 	tags,
 	getTagBackgroundColor,
-	updateActiveTagIds,
-	setFilterTags,
 	filter,
 	wholeTree,
-	setWholeTree
+	setWholeTree,
+	actions
 }: TagsFilterContentProps) {
 	function toggleExact() {
 		setFilter(
@@ -215,7 +177,7 @@ function TagsFilterContent({
 
 	return (
 		<S.Section>
-			<ResetButton onClick={resetTagsFilter} />
+			<ResetButton onClick={actions.reset.tags} />
 			<S.SectionContent>
 				<S.SectionActionBar>
 					<S.InputWithSelect style={{ position: "relative" }}>
@@ -287,11 +249,11 @@ function TagsFilterContent({
 								cursor: "pointer",
 								flex: 1
 							}}
-							onMouseEnter={() => updateActiveTagIds(tag.tag_id, "on")}
-							onMouseLeave={() => updateActiveTagIds(tag.tag_id, "off")}
+							onMouseEnter={() => actions.set.activeTagIds(tag.tag_id, "on")}
+							onMouseLeave={() => actions.set.activeTagIds(tag.tag_id, "off")}
 							key={tag.tag_id}
 							value={tag.tag_id}
-							onClick={setFilterTags}
+							onClick={actions.set.tags.value}
 						>
 							{tag.name}
 						</button>
@@ -305,23 +267,14 @@ function TagsFilterContent({
 }
 
 type DateTimeFilterContentProps = {
-	setDatetimeFilterModifier: (modifier: string) => void;
-	setDatetimeFilterSelector: (selector: string) => void;
 	filter: ActivityFilterWithValues;
-	setDatetimeFilterValue: (value: Date | null, index: number) => void;
-	resetDatetimeFilter: () => void;
+	actions: ActivityFilterActions;
 };
 
-function DatetimeFilterContent({
-	setDatetimeFilterModifier,
-	setDatetimeFilterSelector,
-	filter,
-	setDatetimeFilterValue,
-	resetDatetimeFilter
-}: DateTimeFilterContentProps) {
+function DatetimeFilterContent({ filter, actions }: DateTimeFilterContentProps) {
 	return (
 		<S.Section>
-			<ResetButton onClick={resetDatetimeFilter} />
+			<ResetButton onClick={actions.reset.datetime} />
 			<S.DatetimeSectionContent>
 				{/* Modifier radio inputs */}
 				<S.DatetimeSectionColumn>
@@ -332,7 +285,7 @@ function DatetimeFilterContent({
 								style={{ width: 0 }}
 								name="datetime.modifier"
 								type="radio"
-								onChange={() => setDatetimeFilterModifier(modifier)}
+								onChange={() => actions.set.datetime.modifier(modifier)}
 							/>
 						</S.Label>
 					))}
@@ -345,7 +298,7 @@ function DatetimeFilterContent({
 								style={{ width: 0 }}
 								name="datetime.modifier"
 								type="radio"
-								onChange={() => setDatetimeFilterSelector(selector)}
+								onChange={() => actions.set.datetime.selector(selector)}
 							/>
 						</S.Label>
 					))}
@@ -356,7 +309,7 @@ function DatetimeFilterContent({
 						label={filter.datetime.selector === "between" ? "start" : "datetime"}
 						value={filter.datetime.value?.[0]?.toDate()}
 						defaultValue={new Date()}
-						onChange={(value) => setDatetimeFilterValue(value, 0)}
+						onChange={(value) => actions.set.datetime.value(value, 0)}
 					/>
 					{filter.datetime.selector === "between" && (
 						<>
@@ -365,7 +318,7 @@ function DatetimeFilterContent({
 								size="sm"
 								value={filter.datetime.value?.[1]?.toDate()}
 								defaultValue={new Date()}
-								onChange={(e) => setDatetimeFilterValue(e, 1)}
+								onChange={(e) => actions.set.datetime.value(e, 1)}
 							/>
 						</>
 					)}
