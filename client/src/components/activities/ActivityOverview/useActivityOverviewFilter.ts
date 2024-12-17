@@ -24,15 +24,11 @@ export default function useActivityOverviewFilter() {
 	const click = useClick(context);
 	const dismiss = useDismiss(context);
 	const role = useRole(context);
-	// const hover = useHover(context, {
-	// 	handleClose: safePolygon()
-	// });
 
 	const { getReferenceProps, getFloatingProps } = useInteractions([
 		click,
 		dismiss,
 		role
-		// hover
 	]);
 
 	return {
