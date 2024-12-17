@@ -1,6 +1,6 @@
 import type { ActivityFilterProps } from "@/components/activities/ActivityFilter/ActivityFilter";
 import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
-import { defaultFilter } from "@/components/activities/ActivityFilter/constants";
+import { defaultFilter } from "@/components/activities/ActivityFilter/lib/constants";
 import useActivityFilterActions from "@/components/activities/ActivityFilter/useActivityFilterActions";
 import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
 import useQueryTagsTree from "@/lib/hooks/query/tags/useQueryTagsTree";

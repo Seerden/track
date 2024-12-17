@@ -1,6 +1,6 @@
 import ActivityFilter from "@/components/activities/ActivityFilter/ActivityFilter";
 import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
-import { filterActivities } from "@/components/activities/ActivityFilter/filter";
+import { filterActivities } from "@/components/activities/ActivityFilter/lib/filter";
 import TableItem from "@/components/activities/ActivityOverview/TableItem";
 import useActivityOverview from "@/components/activities/ActivityOverview/useActivityOverview";
 import useActivityOverviewFilter from "@/components/activities/ActivityOverview/useActivityOverviewFilter";

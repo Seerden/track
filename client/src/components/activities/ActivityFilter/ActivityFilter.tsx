@@ -1,5 +1,5 @@
 import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
-import { nameTypeOptions } from "@/components/activities/ActivityFilter/filter-name";
+import { nameTypeOptions } from "@/components/activities/ActivityFilter/lib/filter-name";
 import useActivityFilter from "@/components/activities/ActivityFilter/useActivityFilter";
 import { DateTimePicker } from "@mantine/dates";
 import { LucideBlend, LucideFilterX, LucideNetwork, LucideXCircle } from "lucide-react";

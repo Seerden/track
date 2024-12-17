@@ -13,6 +13,7 @@ export const defaultFilter: ActivityFilterWithValues = {
 	tags: {
 		type: "includes",
 		exact: true,
-		value: null
+		value: null,
+		search: ""
 	}
 };

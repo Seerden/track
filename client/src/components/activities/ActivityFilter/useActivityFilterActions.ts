@@ -3,8 +3,8 @@ import type {
 	FilterResetAction,
 	FilterUpdateAction
 } from "@/components/activities/ActivityFilter/ActivityFilter.types";
-import { defaultFilter } from "@/components/activities/ActivityFilter/constants";
-import { getTreeMembers } from "@/components/activities/ActivityFilter/tag-branch";
+import { defaultFilter } from "@/components/activities/ActivityFilter/lib/constants";
+import { getTreeMembers } from "@/components/activities/ActivityFilter/lib/tag-branch";
 import { createDate } from "@/lib/datetime/make-date";
 import type { TagsData, TagsTreeData } from "@/types/data.types";
 import type { ID } from "@t/data/utility.types";
