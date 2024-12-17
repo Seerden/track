@@ -84,16 +84,16 @@ export default function useActivityFilterActions({
 		setFilter(
 			produce((draft) => {
 				switch (action.type) {
-					case "datetime-filter":
+					case "datetime":
 						draft.datetime = defaultFilter.datetime;
 						break;
-					case "filter-name":
+					case "name-value":
 						draft.name.value = null;
 						break;
 					case "name-filter":
 						draft.name = defaultFilter.name;
 						break;
-					case "tags-filter":
+					case "tags":
 						draft.tags = defaultFilter.tags;
 						break;
 				}
@@ -107,24 +107,24 @@ export default function useActivityFilterActions({
 				switch (action.type) {
 					case "active-tag-ids":
 						break;
-					case "datetime-filter-modifier":
+					case "datetime-modifier":
 						draft.datetime.modifier =
 							action.value as ActivityFilterWithValues["datetime"]["modifier"];
 						break;
-					case "datetime-filter-selector":
+					case "datetime-selector":
 						draft.datetime.selector =
 							action.selector as ActivityFilterWithValues["datetime"]["selector"];
 						break;
-					case "datetime-filter-value":
+					case "datetime-value":
 						if (!action.value) break;
 						if (!draft.datetime.value) draft.datetime.value = [];
 						draft.datetime.value[action.index] = createDate(action.value);
 						break;
-					case "filter-name-type":
+					case "name-type":
 						draft.name.type = action.e.target
 							.value as ActivityFilterWithValues["name"]["type"];
 						break;
-					case "filter-name-value":
+					case "name-value":
 						draft.name.value = action.e.target.value;
 						break;
 					case "filter-tags-type":
@@ -141,10 +141,10 @@ export default function useActivityFilterActions({
 		reset: {
 			name: {
 				all: () => resetFilter({ type: "name-filter" }),
-				value: () => resetFilter({ type: "filter-name" })
+				value: () => resetFilter({ type: "name-value" })
 			},
-			datetime: () => resetFilter({ type: "datetime-filter" }),
-			tags: () => resetFilter({ type: "tags-filter" })
+			datetime: () => resetFilter({ type: "datetime" }),
+			tags: () => resetFilter({ type: "tags" })
 		},
 		set: {
 			tags: {
@@ -154,17 +154,17 @@ export default function useActivityFilterActions({
 			},
 			name: {
 				type: (e: React.ChangeEvent<HTMLSelectElement>) =>
-					updateFilter({ type: "filter-name-type", e }),
+					updateFilter({ type: "name-type", e }),
 				value: (e: React.ChangeEvent<HTMLInputElement>) =>
-					updateFilter({ type: "filter-name-value", e })
+					updateFilter({ type: "name-value", e })
 			},
 			datetime: {
 				modifier: (value: string) =>
-					updateFilter({ type: "datetime-filter-modifier", value }),
+					updateFilter({ type: "datetime-modifier", value }),
 				selector: (selector: string) =>
-					updateFilter({ type: "datetime-filter-selector", selector }),
+					updateFilter({ type: "datetime-selector", selector }),
 				value: (value: Date | null, index: number) =>
-					updateFilter({ type: "datetime-filter-value", value, index })
+					updateFilter({ type: "datetime-value", value, index })
 			},
 			activeTagIds: updateActiveTagIds
 		}

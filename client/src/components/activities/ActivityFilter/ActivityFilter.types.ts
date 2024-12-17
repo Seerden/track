@@ -6,13 +6,14 @@ export type ActivityFilterState = {
 		type: "includes" | "equals" | "excludes" | "startsWith" | "endsWith";
 	};
 	datetime: {
+		// TODO: "occurs" is not implemented yet -- it doesn't have any influence on the filtering
 		modifier: "starts" | "ends" | "occurs";
 		selector: "before" | "between" | "after";
 	};
 	tags: {
 		type: "includes" | "excludes";
 		/** if `!exact`, it considers all ids from the tree that `id` is part of. */
-		exact?: boolean; // TODO: this is not properly implemented yet
+		exact?: boolean;
 	};
 };
 
@@ -29,28 +30,28 @@ export type ActivityFilterWithValues = {
 };
 
 export type FilterResetAction = {
-	type: "filter-name" | "name-filter" | "datetime-filter" | "tags-filter";
+	type: "name-value" | "name-filter" | "datetime" | "tags";
 };
 
 export type FilterUpdateAction =
 	| {
-			type: "filter-name-type";
+			type: "name-type";
 			e: React.ChangeEvent<HTMLSelectElement>;
 	  }
 	| {
-			type: "filter-name-value";
+			type: "name-value";
 			e: React.ChangeEvent<HTMLInputElement>;
 	  }
 	| {
-			type: "datetime-filter-modifier";
+			type: "datetime-modifier";
 			value: string;
 	  }
 	| {
-			type: "datetime-filter-selector";
+			type: "datetime-selector";
 			selector: string;
 	  }
 	| {
-			type: "datetime-filter-value";
+			type: "datetime-value";
 			value: Date | null;
 			index: number;
 	  }
