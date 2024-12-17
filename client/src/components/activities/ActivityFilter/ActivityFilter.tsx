@@ -176,23 +176,28 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 							<S.DatetimeSectionColumn>
 								<DateTimePicker
 									size="sm"
+									placeholder={`pick a ${filter.datetime.selector === "between" ? "start" : ""} date`}
 									label={
 										filter.datetime.selector === "between"
 											? "start"
 											: "datetime"
 									}
 									value={filter.datetime.value?.[0]?.toDate()}
-									defaultValue={new Date()}
 									onChange={(value) => actions.set.datetime.value(value, 0)}
+									style={{
+										width: "150px"
+									}}
+									maxDate={filter.datetime.value?.[1]?.toDate()}
 								/>
 								{filter.datetime.selector === "between" && (
 									<>
 										<DateTimePicker
 											label="end"
+											placeholder="pick an end date"
 											size="sm"
 											value={filter.datetime.value?.[1]?.toDate()}
-											defaultValue={new Date()}
 											onChange={(e) => actions.set.datetime.value(e, 1)}
+											minDate={filter.datetime.value?.[0]?.toDate()}
 										/>
 									</>
 								)}
