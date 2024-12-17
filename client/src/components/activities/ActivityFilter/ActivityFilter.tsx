@@ -15,14 +15,12 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 		isProbablySuspended,
 		filter,
 		actions,
-		tagSearch,
-		setTagSearch,
 		noTagsFound,
 		tags,
-		getTagBackgroundColor,
+		isActiveTag,
+		isSelectedTag,
 		wholeTree,
-		toggleWholeTree,
-		toggleExact
+		toggleWholeTree
 	} = useActivityFilter({ onChange });
 
 	const [activeTab, setActiveTab] = useState("name");
@@ -67,7 +65,7 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 									value={filter.name.value ?? ""}
 								/>
 								{(filter.name.value || "").length > 0 && (
-									<FilterClear onClick={actions.reset.name.value} />
+									<ClearInputButton onClick={actions.reset.name.value} />
 								)}
 							</S.InputWithSelect>
 						</div>
@@ -75,7 +73,7 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 				)}
 				{activeTab === "tags" && (
 					<S.Section>
-						<ResetButton onClick={actions.reset.tags} />
+						<ResetButton onClick={actions.reset.tags.value} />
 						<S.SectionContent>
 							<S.SectionActionBar>
 								<S.InputWithSelect style={{ position: "relative" }}>
@@ -89,16 +87,16 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 									</S.Select>
 									<S.Input
 										type="text"
-										value={tagSearch}
-										onChange={(e) => setTagSearch(e.target.value)}
+										value={filter.tags.search}
+										onChange={actions.set.tags.search}
 									/>
-									{tagSearch.length > 0 && (
-										<FilterClear onClick={() => setTagSearch("")} />
+									{filter.tags.search.length > 0 && (
+										<ClearInputButton onClick={actions.reset.tags.search} />
 									)}
 								</S.InputWithSelect>
 								<S.Toggle
 									role="button"
-									onClick={toggleExact}
+									onClick={actions.set.tags.toggleExact}
 									$active={filter.tags.exact}
 									title="Exact match?"
 								>
@@ -114,34 +112,22 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 								</S.Toggle>
 							</S.SectionActionBar>
 							<S.TagSelectionList>
-								{tags.map((tag) => {
-									// TODO: instead of a function `getTagBackgroundColor`,
-									// passing the relevant state to this button and setting the
-									// styles in the styled component would be better.
-									const backgroundColor = getTagBackgroundColor(tag.tag_id);
-									const color = ["orange", "darkorange"].includes(
-										backgroundColor
-									)
-										? "white"
-										: "black";
-
+								{tags.map(({ tag_id, name }) => {
 									return (
 										<S.TagChip
-											style={{
-												backgroundColor,
-												color
-											}}
+											$selected={isSelectedTag(tag_id)}
+											$active={isActiveTag(tag_id)}
 											onMouseEnter={() =>
-												actions.set.activeTagIds(tag.tag_id, "on")
+												actions.set.activeTagIds(tag_id, "on")
 											}
 											onMouseLeave={() =>
-												actions.set.activeTagIds(tag.tag_id, "off")
+												actions.set.activeTagIds(tag_id, "off")
 											}
-											key={tag.tag_id}
-											value={tag.tag_id}
+											key={tag_id}
+											value={tag_id}
 											onClick={actions.set.tags.value}
 										>
-											{tag.name}
+											{name}
 										</S.TagChip>
 									);
 								})}
@@ -155,7 +141,6 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 					<S.Section>
 						<ResetButton onClick={actions.reset.datetime} />
 						<S.DatetimeSectionContent>
-							{/* Modifier radio inputs */}
 							<S.DatetimeSectionColumn>
 								{["starts", "ends", "occurs"].map((modifier) => (
 									<S.Label
@@ -228,7 +213,7 @@ function ResetButton({ onClick }: { onClick: () => void }) {
 	);
 }
 
-function FilterClear({ onClick }: { onClick: () => void }) {
+function ClearInputButton({ onClick }: { onClick: () => void }) {
 	return (
 		<LucideXCircle
 			size={20}

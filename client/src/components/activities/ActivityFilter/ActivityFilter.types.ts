@@ -14,6 +14,7 @@ export type ActivityFilterState = {
 		type: "includes" | "excludes";
 		/** if `!exact`, it considers all ids from the tree that `id` is part of. */
 		exact?: boolean;
+		search: string;
 	};
 };
 
@@ -30,7 +31,7 @@ export type ActivityFilterWithValues = {
 };
 
 export type FilterResetAction = {
-	type: "name-value" | "name-filter" | "datetime" | "tags";
+	type: "name-value" | "name-filter" | "datetime" | "tags-value" | "tags-search";
 };
 
 export type FilterUpdateAction =
@@ -63,4 +64,11 @@ export type FilterUpdateAction =
 	| {
 			type: "filter-tags-type";
 			e: React.ChangeEvent<HTMLSelectElement>;
+	  }
+	| {
+			type: "toggle-exact";
+	  }
+	| {
+			type: "tags-search";
+			e: React.ChangeEvent<HTMLInputElement>;
 	  };

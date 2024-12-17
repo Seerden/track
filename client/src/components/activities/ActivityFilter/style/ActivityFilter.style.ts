@@ -162,18 +162,30 @@ ResetButton.defaultProps = {
 	type: "reset"
 };
 
-const TagChip = styled(Unstyled)`
+function getTagBackgroundColor(selected?: boolean, active?: boolean) {
+	if (selected) {
+		if (active) {
+			return "darkorange";
+		}
+		return "orange";
+	}
+	if (active) return "#ddd";
+	return "#fff";
+}
+
+const TagChip = styled(Unstyled)<{
+	$selected?: boolean;
+	$active?: boolean;
+}>`
 	cursor: pointer;
 
 	outline: 1px solid #ccc;
 	padding: 0.3rem;
-	border-radius: 3px;
+	${radius.small};
 	flex: 1;
 
-	&:hover {
-		background-color: ${(p) => p.color};
-		color: white;
-	}
+	background-color: ${(p) => getTagBackgroundColor(p.$selected, p.$active)};
+	color: ${(p) => (p.$selected || p.$active ? "#fff" : "#000")};
 `;
 
 const TagSelectionList = styled.div`

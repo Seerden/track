@@ -93,9 +93,11 @@ export default function useActivityFilterActions({
 					case "name-filter":
 						draft.name = defaultFilter.name;
 						break;
-					case "tags":
+					case "tags-value":
 						draft.tags = defaultFilter.tags;
 						break;
+					case "tags-search":
+						draft.tags.search = "";
 				}
 			})
 		);
@@ -130,7 +132,9 @@ export default function useActivityFilterActions({
 					case "filter-tags-type":
 						draft.tags.type = action.e.target
 							.value as ActivityFilterWithValues["tags"]["type"];
-
+						break;
+					case "toggle-exact":
+						draft.tags.exact = !draft.tags.exact;
 						break;
 				}
 			})
@@ -144,13 +148,19 @@ export default function useActivityFilterActions({
 				value: () => resetFilter({ type: "name-value" })
 			},
 			datetime: () => resetFilter({ type: "datetime" }),
-			tags: () => resetFilter({ type: "tags" })
+			tags: {
+				value: () => resetFilter({ type: "tags-value" }),
+				search: () => resetFilter({ type: "tags-search" })
+			}
 		},
 		set: {
 			tags: {
 				value: setFilterTags,
 				type: (e: React.ChangeEvent<HTMLSelectElement>) =>
-					updateFilter({ type: "filter-tags-type", e })
+					updateFilter({ type: "filter-tags-type", e }),
+				toggleExact: () => updateFilter({ type: "toggle-exact" }),
+				search: (e: React.ChangeEvent<HTMLInputElement>) =>
+					updateFilter({ type: "tags-search", e })
 			},
 			name: {
 				type: (e: React.ChangeEvent<HTMLSelectElement>) =>
