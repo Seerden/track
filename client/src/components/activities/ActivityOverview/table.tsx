@@ -25,6 +25,8 @@ export type Table<U extends object, T extends keyof U> = {
       })) as ValueAndElement<ActivityWithIds>[];
       const table = makeTable(activitiesRows);
 
+   @todo next step: implement a filter in such a way that it can work on the
+   result of makeTable, regardless of the type of the fields. 
 */
 export function makeTable<U extends object, T extends keyof U>(
 	rows: ValueAndElement<U>[]
@@ -39,30 +41,3 @@ export function makeTable<U extends object, T extends keyof U>(
 		rows
 	} as Table<U, T>;
 }
-
-// TODO: next step: implement a filter in such a way that it can work on the
-// result of makeTable, regardless of the type of the fields.
-
-// const activities: ActivityWithIds[] = [
-// 	{
-// 		activity_id: 1,
-// 		created_at: new Date(),
-// 		description: "null",
-// 		end_date: new Date(),
-// 		ended_at: null,
-// 		is_task: true,
-// 		name: "Do the dishes",
-// 		start_date: new Date(),
-// 		started_at: null,
-// 		tag_ids: [],
-// 		user_id: 1,
-// 		completed: false
-// 	}
-// ];
-
-// const c = activities.map((activity) => ({
-// 	value: activity,
-// 	element: <div>{activity.name}</div>
-// })) as ValueAndElement<ActivityWithIds>[];
-// const a = makeTable(c);
-// const f = a.fields; // typed as keyof NewActivity! :)
