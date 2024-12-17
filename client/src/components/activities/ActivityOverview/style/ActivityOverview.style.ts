@@ -11,7 +11,10 @@ const OverviewWrapper = styled.div`
 	margin: 5rem;
 `;
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+	display: grid;
+	grid-template-columns: max-content 250px repeat(4, 150px);
+`;
 
 const FloatingWrapper = styled.div`
 	margin-top: 1rem;

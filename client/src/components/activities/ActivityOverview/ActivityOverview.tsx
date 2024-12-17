@@ -30,23 +30,23 @@ export default function ActivityOverview() {
 	return (
 		<S.OverviewWrapper>
 			<S.ActionBar>
-				{/* Filter */}
-				<S.ActionButton ref={float.refs.setReference} {...float.getReferenceProps()}>
+				<S.ActionButton
+					ref={float.refs.setReference}
+					{...float.getReferenceProps()}
+					title="Filter"
+				>
 					<LucideFilter size={15} />
 				</S.ActionButton>
 
-				{/* Sort */}
-				<S.ActionButton disabled>
+				<S.ActionButton disabled title="Sort (not yet implemented)">
 					<LucideArrowDownWideNarrow size={15} />
 				</S.ActionButton>
 
-				{/* Export */}
-				<S.ActionButton disabled>
+				<S.ActionButton disabled title="Export (not yet implemented)">
 					<LucideDownload size={15} />
 				</S.ActionButton>
 
-				{/* Toggle selection */}
-				<S.ActionButton disabled>
+				<S.ActionButton disabled title="Select (not yet implemented)">
 					<LucideSquareDot size={15} />
 				</S.ActionButton>
 			</S.ActionBar>
@@ -59,37 +59,28 @@ export default function ActivityOverview() {
 				}}
 				{...float.getFloatingProps()}
 			>
-				<ActivityFilter onChange={setFilter /* TODO: WIP! */} />
+				<ActivityFilter onChange={setFilter} />
 			</S.FloatingWrapper>
 
 			<S.Wrapper>
-				{/* TODO: don't use a table. these things suck to style. 
-            just use a grid. much more customizable */}
-				<div
-					style={{
-						display: "grid",
-						gridTemplateColumns: "max-content 250px repeat(4, 150px)"
-					}}
-				>
-					<S.Header>
-						{/* TODO: these should come from a constant list. We should 
+				<S.Header>
+					{/* TODO: these should come from a constant list. We should 
                      also use that list (and a mapper) in TableItem, so that the 
                      two are always in sync. */}
-						<S.HeaderField>Task completed?</S.HeaderField>
-						<S.HeaderField>Name</S.HeaderField>
-						<S.HeaderField>Start</S.HeaderField>
-						<S.HeaderField>End</S.HeaderField>
-						<S.HeaderField>Tags</S.HeaderField>
-						<S.HeaderField>Creation date</S.HeaderField>
-					</S.Header>
-					{filteredActivities.map((activity) => (
-						<TableItem
-							key={activity.activity_id}
-							activity={activity}
-							tags={filterTagsById(activity.tag_ids, tags)}
-						/>
-					))}
-				</div>
+					<S.HeaderField>Task completed?</S.HeaderField>
+					<S.HeaderField>Name</S.HeaderField>
+					<S.HeaderField>Start</S.HeaderField>
+					<S.HeaderField>End</S.HeaderField>
+					<S.HeaderField>Tags</S.HeaderField>
+					<S.HeaderField>Creation date</S.HeaderField>
+				</S.Header>
+				{filteredActivities.map((activity) => (
+					<TableItem
+						key={activity.activity_id}
+						activity={activity}
+						tags={filterTagsById(activity.tag_ids, tags)}
+					/>
+				))}
 			</S.Wrapper>
 		</S.OverviewWrapper>
 	);
