@@ -73,6 +73,14 @@ export default function useActivityFilterActions({
 		[tagsById, tagsTreeById, wholeTree]
 	);
 
+	function setFilterTagsType(e: React.ChangeEvent<HTMLSelectElement>) {
+		setFilter(
+			produce((draft) => {
+				draft.tags.type = e.target.value as ActivityFilterWithValues["tags"]["type"];
+			})
+		);
+	}
+
 	// TODO: instead of a billion functions, we could have a single function with
 	// a dispatch-like shape. Or just use a reducer.
 	// Also, maybe don't implement the functions as event handlers, just pass the
@@ -165,7 +173,8 @@ export default function useActivityFilterActions({
 		},
 		set: {
 			tags: {
-				value: setFilterTags
+				value: setFilterTags,
+				type: setFilterTagsType
 			},
 			name: {
 				type: setFilterNameType,

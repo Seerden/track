@@ -1,13 +1,20 @@
 import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import type { ActivityWithIds } from "@t/data/activity.types";
 
-export const namePredicates = {
-	includes: (name: string, value: string) => name.includes(value),
-	equals: (name: string, value: string) => name === value,
-	excludes: (name: string, value: string) => !name.includes(value),
-	startsWith: (name: string, value: string) => name.startsWith(value),
-	endsWith: (name: string, value: string) => name.endsWith(value)
+type ActivityFilterNameType = ActivityFilterWithValues["name"]["type"];
+
+export const namePredicates: Record<
+	ActivityFilterNameType,
+	(name: string, value: string) => boolean
+> = {
+	includes: (name, value) => name.includes(value),
+	equals: (name, value) => name === value,
+	excludes: (name, value) => !name.includes(value),
+	startsWith: (name, value) => name.startsWith(value),
+	endsWith: (name, value) => name.endsWith(value)
 };
+
+export const nameTypeOptions = Object.keys(namePredicates) as ActivityFilterNameType[];
 
 export function filterByName(
 	activities: ActivityWithIds[],

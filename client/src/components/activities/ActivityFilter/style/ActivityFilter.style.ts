@@ -7,9 +7,6 @@ import styled, { css } from "styled-components";
 const Wrapper = styled.div`
 	${flex.column};
 	font-size: ${font.size["0.9"]};
-	/* width: max-content; */
-
-	// TEMP
 `;
 
 const Section = styled.div``;
@@ -157,6 +154,28 @@ ResetButton.defaultProps = {
 	type: "reset"
 };
 
+const TagChip = styled(Unstyled)`
+	cursor: pointer;
+
+	outline: 1px solid #ccc;
+	padding: 0.3rem;
+	border-radius: 3px;
+	flex: 1;
+
+	&:hover {
+		background-color: ${(p) => p.color};
+		color: white;
+	}
+`;
+
+const TagSelectionList = styled.div`
+	${flex.row};
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-top: 0.5rem;
+	max-width: 327px; // TODO: I just hardcoded this to match the 'action bar' for now, but this should be responsive
+`;
+
 export default {
 	Wrapper,
 	Section,
@@ -173,5 +192,7 @@ export default {
 	InputWithSelect,
 	DatetimeSectionContent,
 	DatetimeSectionColumn,
-	ResetButton
+	ResetButton,
+	TagChip,
+	TagSelectionList
 };

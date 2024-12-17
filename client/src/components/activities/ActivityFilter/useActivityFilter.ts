@@ -5,17 +5,33 @@ import useActivityFilterActions from "@/components/activities/ActivityFilter/use
 import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
 import useQueryTagsTree from "@/lib/hooks/query/tags/useQueryTagsTree";
 import type { ID } from "@t/data/utility.types";
+import { produce } from "immer";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 	const { data: tagsData } = useQueryTags();
 	const { data: tagsTreeData } = useQueryTagsTree();
 	const [filter, setFilter] = useState<ActivityFilterWithValues>(defaultFilter);
+	// TODO: instead of tagSearch state, add this to the filter state -- for
+	// wholeTree and activeTagIds, I think we do keep it separate, because it's
+	// only UI state, not filter state.
 	const [tagSearch, setTagSearch] = useState<string>("");
 	const [wholeTree, setWholeTree] = useState(false);
 	const [activeTagIds, setActiveTagIds] = useState<ID[]>([]);
 
+	function toggleWholeTree() {
+		setWholeTree((current) => !current);
+	}
+
 	const isProbablySuspended = !tagsData || !tagsTreeData;
+
+	function toggleExact() {
+		setFilter(
+			produce((draft) => {
+				draft.tags.exact = !draft.tags.exact;
+			})
+		);
+	}
 
 	useEffect(() => {
 		onChange(filter);
@@ -65,7 +81,6 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 	return {
 		isProbablySuspended,
 		filter,
-		setFilter,
 		tagSearch,
 		setTagSearch,
 		noTagsFound,
@@ -73,6 +88,7 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 		getTagBackgroundColor,
 		actions,
 		wholeTree,
-		setWholeTree
+		toggleWholeTree,
+		toggleExact
 	};
 }
