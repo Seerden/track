@@ -1,8 +1,8 @@
 type ValueAndElement<T> = { value: T; element: JSX.Element };
 
-export type Table<U extends object, T extends keyof U> = {
-	fields: T[];
-	rows: Record<T, ValueAndElement<U>>[];
+export type Table<TData extends object, TDataKey extends keyof TData> = {
+	fields: TDataKey[];
+	rows: Record<TDataKey, ValueAndElement<TData>>[];
 };
 
 /**
