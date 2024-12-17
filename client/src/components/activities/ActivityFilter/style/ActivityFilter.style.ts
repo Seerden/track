@@ -2,6 +2,8 @@ import { Unstyled } from "@/lib/theme/components/buttons";
 import { font } from "@/lib/theme/font";
 import { noBorders } from "@/lib/theme/snippets/border";
 import { flex } from "@/lib/theme/snippets/flex";
+import { radius } from "@/lib/theme/snippets/radius";
+import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 import styled, { css } from "styled-components";
 
 const Wrapper = styled.div`
@@ -13,25 +15,29 @@ const Section = styled.div``;
 
 const TabsHeader = styled.div`
 	${flex.row};
-	gap: 0.5rem;
+	gap: ${spacingValue.small};
+	margin: 0 ${spacingValue.medium};
+	font-size: ${font.size["1"]};
+
 	width: max-content;
 	height: max-content;
 	align-self: flex-start;
-	border-bottom: 2px solid #ccc;
-	margin: 0 1rem;
+
 	z-index: 2; // to get above the box-shadow of TabsPanel
-	font-size: ${font.size["1"]};
+
+	border-bottom: 2px solid #ccc;
 `;
 
 const TabsPanel = styled.div`
-	padding: 1rem;
-	background-color: #eee;
-	border-radius: 0.5rem;
-	background-color: #f5f5f5;
+	${spacing.padding.medium};
+	${radius.medium};
 
+	background-color: #eee;
+	background-color: #f5f5f5;
 	outline: 2px solid #ddd;
 	border: 2px solid #fff;
 	box-shadow: 0 0.6rem 1rem -0.5rem #999;
+
 	transform-origin: bottom center;
 `;
 
@@ -41,21 +47,22 @@ const Tab = styled(Unstyled)<{
 	width: max-content;
 
 	margin-bottom: -2px;
-	border-bottom: 2px solid ${(p) => (p.$active ? "royalblue" : "transparent")};
+	border-bottom: 2px solid
+		${(p) => (p.$active ? p.theme.colors.darkBlue.main : "transparent")};
 
 	transition: all 50ms linear;
 `;
 
 const TabInner = styled.div<{ $active?: boolean }>`
 	border-radius: 5px 5px 0 0;
-	padding: 0.2rem 0.5rem;
-	margin: 0 0.5rem;
+	${spacing.padding.wide({ size: 0.2, ratio: 2.5 })};
+	margin: 0 ${spacingValue.small};
 
 	${(p) =>
 		p.$active &&
 		css`
-			background-color: royalblue;
-			color: white;
+			background-color: ${p.theme.colors.darkBlue.main};
+			color: #fff;
 		`}
 
 	transition: all 50ms linear;
@@ -63,14 +70,14 @@ const TabInner = styled.div<{ $active?: boolean }>`
 
 const Label = styled.label<{ $active?: boolean }>`
 	width: 100%;
-	padding: 0.2rem 0.5rem;
-	border-radius: 5px;
+	${spacing.padding.wide({ size: 0.2, ratio: 2.5 })};
+	${radius.medium};
 
 	${(p) =>
 		p.$active &&
 		css`
-			background-color: royalblue;
-			color: white;
+			background-color: ${(p) => p.theme.colors.darkBlue.main};
+			color: #fff;
 		`}
 `;
 
@@ -80,27 +87,26 @@ const SectionContent = styled.div`
 
 const SectionActionBar = styled.div`
 	${flex.row};
-	gap: 0.5rem;
+	gap: ${spacingValue.small};
 	align-items: center;
 	justify-content: center;
 `;
 
 const Toggle = styled(Unstyled)<{ $active?: boolean }>`
-	${noBorders};
 	display: flex;
+	${noBorders};
+	${radius.medium};
+	gap: ${spacingValue.small};
+	${spacing.padding.wide({ size: 0.2, ratio: 2.5 })};
+
 	width: max-content;
-	border-radius: 5px;
-	gap: 0.5rem;
-
-	padding: 0.2rem 0.5rem;
-
 	border: 2px solid transparent;
-	// select if has checked input
+
 	${(p) =>
 		p.$active &&
 		css`
-			background-color: royalblue;
-			color: white;
+			background-color: ${(p) => p.theme.colors.darkBlue.main};
+			color: #fff;
 		`}
 `;
 
@@ -118,11 +124,13 @@ const Input = styled.input`
 
 const InputWithSelect = styled.div`
 	${flex.row};
-	gap: 0.5rem;
+	gap: ${spacingValue.small};
+	${radius.medium}
+
 	height: max-content;
+
 	border: 2px solid #ddd;
 	box-shadow: 0 0.3rem 0.5rem -0.3rem #ccc;
-	border-radius: 5px;
 
 	select {
 		width: 10ch;
@@ -133,8 +141,8 @@ const InputWithSelect = styled.div`
 // different for datetime and tags, because tags has an action bar
 const DatetimeSectionContent = styled.div`
 	${flex.row};
-	margin-top: 0.5rem;
-	gap: 0.5rem;
+	margin-top: ${spacingValue.small};
+	gap: ${spacingValue.small};
 `;
 
 const DatetimeSectionColumn = styled.div`
@@ -142,7 +150,7 @@ const DatetimeSectionColumn = styled.div`
 `;
 
 const ResetButton = styled(Unstyled)`
-	margin-bottom: 1rem;
+	margin-bottom: ${spacingValue.medium};
 
 	&:hover {
 		svg {
@@ -171,8 +179,8 @@ const TagChip = styled(Unstyled)`
 const TagSelectionList = styled.div`
 	${flex.row};
 	flex-wrap: wrap;
-	gap: 0.5rem;
-	margin-top: 0.5rem;
+	gap: ${spacingValue.small};
+	margin-top: ${spacingValue.small};
 	max-width: 327px; // TODO: I just hardcoded this to match the 'action bar' for now, but this should be responsive
 `;
 

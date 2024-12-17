@@ -1,4 +1,6 @@
 import { flex } from "@/lib/theme/snippets/flex";
+import { radius } from "@/lib/theme/snippets/radius";
+import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 import styled, { css } from "styled-components";
 
 // shared styles between the items and the header
@@ -9,13 +11,13 @@ export const itemAndHeaderStyle = css`
 `;
 
 export const itemAndHeaderFieldStyle = css`
-	padding: 0.5rem 1rem;
+	${spacing.padding.wide({ size: 0.5, ratio: 2 })}
 `;
 
 const Item = styled.div<{ $isTask: boolean }>`
+	${radius.medium};
+
 	outline: 2px solid #f9f9f9;
-	border-radius: 5px;
-	/* box-shadow: 0 0.2rem 0.3rem 0 #bbb; */
 	background-color: #eee;
 
 	${itemAndHeaderStyle}
@@ -26,10 +28,10 @@ const Column = styled.div`
 	${flex.row};
 
 	&:nth-of-type(1) {
-		padding-left: 1rem;
+		padding-left: ${spacingValue.medium};
 	}
 	&:nth-last-of-type(1) {
-		padding-right: 1rem;
+		padding-right: ${spacingValue.medium};
 	}
 `;
 

@@ -4,11 +4,12 @@ import {
 } from "@/components/activities/ActivityOverview/style/TableItem.style";
 import { Action } from "@/lib/theme/components/buttons";
 import { flex } from "@/lib/theme/snippets/flex";
+import { radius } from "@/lib/theme/snippets/radius";
+import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
 
 const OverviewWrapper = styled.div`
 	width: max-content;
-	margin: 5rem;
 `;
 
 const Wrapper = styled.div`
@@ -17,32 +18,32 @@ const Wrapper = styled.div`
 `;
 
 const FloatingWrapper = styled.div`
-	margin-top: 1rem;
-	z-index: 2;
-	padding: 1rem;
-	border-radius: 12px;
-	outline: 2px solid white;
-	border: 2px solid royalblue;
-	margin-left: 0.5rem;
-	box-shadow: 0 0 1rem -0.2rem royalblue;
-	background-color: white;
-`;
+	margin-top: ${spacingValue.medium};
+	${spacing.padding.medium};
+	${radius.large};
+	margin-left: ${spacingValue.small};
 
-const Table = styled.table`
-	border-collapse: separate;
-	border-spacing: 1rem;
+	z-index: 2;
+
+	outline: 2px solid #fff;
+	background-color: #fff;
+	--highlight: ${(p) => p.theme.colors.darkBlue.main};
+	border: 2px solid var(--highlight);
+	box-shadow: 0 0 1rem -0.2rem var(--highlight);
 `;
 
 const Header = styled.div`
 	position: sticky;
 	top: 0;
-	margin: 0.5rem 0;
+
+	margin: ${spacingValue.small} 0;
+	padding: ${spacingValue.small} 0;
+	${radius.small}
+
 	background-color: #333;
-	border-radius: 3px;
 	outline: 2px solid #ccc;
 	box-shadow: 0 0 0.3rem 0 #ccc;
 	color: #eee;
-	padding: 0.5rem 0;
 
 	${itemAndHeaderStyle};
 `;
@@ -55,14 +56,16 @@ const HeaderField = styled.div`
 
 const ActionBar = styled.div`
 	${flex.row};
+	${spacing.padding.wide({ size: 0.5, ratio: 2 })}
+	${radius.small};
+	gap: ${spacingValue.small};
+	margin-bottom: ${spacingValue.medium};
+
 	width: max-content;
-	padding: 0.5rem 1rem;
-	border-radius: 3px;
+
 	outline: 3px solid #aaa;
 	background-color: #eee;
 	box-shadow: 0 0.3rem 0.5rem -0.1rem #333;
-	gap: 0.5rem;
-	margin-bottom: 1rem;
 
 	// Become floating 🎈
 	position: sticky;
@@ -71,14 +74,13 @@ const ActionBar = styled.div`
 `;
 
 const ActionButton = styled(Action.Alternative)`
-	background-color: white;
+	background-color: #fff;
 `;
 
 export default {
 	OverviewWrapper,
 	Wrapper,
 	FloatingWrapper,
-	Table,
 	Header,
 	HeaderField,
 	ActionBar,
