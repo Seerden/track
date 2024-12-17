@@ -27,3 +27,39 @@ export type ActivityFilterWithValues = {
 		value: Nullable<ActivityFilterValueMap[K]>;
 	};
 };
+
+export type FilterResetAction = {
+	type: "filter-name" | "name-filter" | "datetime-filter" | "tags-filter";
+};
+
+export type FilterUpdateAction =
+	| {
+			type: "filter-name-type";
+			e: React.ChangeEvent<HTMLSelectElement>;
+	  }
+	| {
+			type: "filter-name-value";
+			e: React.ChangeEvent<HTMLInputElement>;
+	  }
+	| {
+			type: "datetime-filter-modifier";
+			value: string;
+	  }
+	| {
+			type: "datetime-filter-selector";
+			selector: string;
+	  }
+	| {
+			type: "datetime-filter-value";
+			value: Date | null;
+			index: number;
+	  }
+	| {
+			type: "active-tag-ids";
+			tag_id: ID;
+			action: "on" | "off";
+	  }
+	| {
+			type: "filter-tags-type";
+			e: React.ChangeEvent<HTMLSelectElement>;
+	  };

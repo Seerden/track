@@ -1,4 +1,8 @@
-import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
+import type {
+	ActivityFilterWithValues,
+	FilterResetAction,
+	FilterUpdateAction
+} from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import { defaultFilter } from "@/components/activities/ActivityFilter/constants";
 import { getTreeMembers } from "@/components/activities/ActivityFilter/tag-branch";
 import { createDate } from "@/lib/datetime/make-date";
@@ -73,117 +77,94 @@ export default function useActivityFilterActions({
 		[tagsById, tagsTreeById, wholeTree]
 	);
 
-	function setFilterTagsType(e: React.ChangeEvent<HTMLSelectElement>) {
-		setFilter(
-			produce((draft) => {
-				draft.tags.type = e.target.value as ActivityFilterWithValues["tags"]["type"];
-			})
-		);
-	}
-
-	// TODO: instead of a billion functions, we could have a single function with
-	// a dispatch-like shape. Or just use a reducer.
-	// Also, maybe don't implement the functions as event handlers, just pass the
+	// TODO: maybe don't implement the functions as event handlers, just pass the
 	// values to the reducer.
 
-	function resetTagsFilter() {
+	function resetFilter(action: FilterResetAction) {
 		setFilter(
 			produce((draft) => {
-				draft.tags = defaultFilter.tags;
+				switch (action.type) {
+					case "datetime-filter":
+						draft.datetime = defaultFilter.datetime;
+						break;
+					case "filter-name":
+						draft.name.value = null;
+						break;
+					case "name-filter":
+						draft.name = defaultFilter.name;
+						break;
+					case "tags-filter":
+						draft.tags = defaultFilter.tags;
+						break;
+				}
 			})
 		);
 	}
 
-	function setFilterNameType(e: React.ChangeEvent<HTMLSelectElement>) {
+	function updateFilter(action: FilterUpdateAction) {
 		setFilter(
 			produce((draft) => {
-				draft.name.type = e.target.value as ActivityFilterWithValues["name"]["type"];
-			})
-		);
-	}
+				switch (action.type) {
+					case "active-tag-ids":
+						break;
+					case "datetime-filter-modifier":
+						draft.datetime.modifier =
+							action.value as ActivityFilterWithValues["datetime"]["modifier"];
+						break;
+					case "datetime-filter-selector":
+						draft.datetime.selector =
+							action.selector as ActivityFilterWithValues["datetime"]["selector"];
+						break;
+					case "datetime-filter-value":
+						if (!action.value) break;
+						if (!draft.datetime.value) draft.datetime.value = [];
+						draft.datetime.value[action.index] = createDate(action.value);
+						break;
+					case "filter-name-type":
+						draft.name.type = action.e.target
+							.value as ActivityFilterWithValues["name"]["type"];
+						break;
+					case "filter-name-value":
+						draft.name.value = action.e.target.value;
+						break;
+					case "filter-tags-type":
+						draft.tags.type = action.e.target
+							.value as ActivityFilterWithValues["tags"]["type"];
 
-	function setFilterNameValue(e: React.ChangeEvent<HTMLInputElement>) {
-		setFilter(
-			produce((draft) => {
-				draft.name.value = e.target.value;
-			})
-		);
-	}
-
-	function resetFilterName() {
-		setFilter(
-			produce((draft) => {
-				draft.name.value = null;
-			})
-		);
-	}
-
-	function setDatetimeFilterModifier(value: string) {
-		setFilter(
-			produce((draft) => {
-				draft.datetime.modifier =
-					value as ActivityFilterWithValues["datetime"]["modifier"];
-			})
-		);
-	}
-
-	function setDatetimeFilterSelector(selector: string) {
-		setFilter(
-			produce((draft) => {
-				draft.datetime.selector =
-					selector as ActivityFilterWithValues["datetime"]["selector"];
-			})
-		);
-	}
-
-	function setDatetimeFilterValue(value: Date | null, index: number) {
-		if (!value) return;
-		setFilter(
-			produce((draft) => {
-				if (!draft.datetime.value) draft.datetime.value = [];
-				draft.datetime.value[index] = createDate(value);
-			})
-		);
-	}
-
-	function resetNameFilter() {
-		setFilter(
-			produce((draft) => {
-				draft.name = defaultFilter.name;
-			})
-		);
-	}
-
-	function resetDatetimeFilter() {
-		setFilter(
-			produce((draft) => {
-				draft.datetime = defaultFilter.datetime;
+						break;
+				}
 			})
 		);
 	}
 
 	const actions = {
 		reset: {
-			tags: resetTagsFilter,
 			name: {
-				value: resetFilterName,
-				all: resetNameFilter
+				all: () => resetFilter({ type: "name-filter" }),
+				value: () => resetFilter({ type: "filter-name" })
 			},
-			datetime: resetDatetimeFilter
+			datetime: () => resetFilter({ type: "datetime-filter" }),
+			tags: () => resetFilter({ type: "tags-filter" })
 		},
 		set: {
 			tags: {
 				value: setFilterTags,
-				type: setFilterTagsType
+				type: (e: React.ChangeEvent<HTMLSelectElement>) =>
+					updateFilter({ type: "filter-tags-type", e })
 			},
 			name: {
-				type: setFilterNameType,
-				value: setFilterNameValue
+				type: (e: React.ChangeEvent<HTMLSelectElement>) =>
+					updateFilter({ type: "filter-name-type", e }),
+				value: (e: React.ChangeEvent<HTMLInputElement>) =>
+					updateFilter({ type: "filter-name-value", e })
 			},
 			datetime: {
-				modifier: setDatetimeFilterModifier,
-				selector: setDatetimeFilterSelector,
-				value: setDatetimeFilterValue
+				modifier: (value: string) =>
+					updateFilter({ type: "datetime-filter-modifier", value }),
+				selector: (selector: string) =>
+					updateFilter({ type: "datetime-filter-selector", selector }),
+				value: (value: Date | null, index: number) =>
+					updateFilter({ type: "datetime-filter-value", value, index })
 			},
 			activeTagIds: updateActiveTagIds
 		}
