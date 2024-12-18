@@ -22,8 +22,8 @@ function datetimeStartsPredicate(
 		case "between":
 			return !first || !second
 				? true
-				: !activityStart(activity).isBefore(filter.value[0]) &&
-						!activityStart(activity).isAfter(filter.value[1]);
+				: !activityStart(activity).isBefore(first) &&
+						!activityStart(activity).isAfter(second);
 		case "after":
 			return activityStart(activity).isAfter(first);
 	}

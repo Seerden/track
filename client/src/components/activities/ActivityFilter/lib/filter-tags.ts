@@ -2,31 +2,21 @@ import type { ActivityFilterWithValues } from "@/components/activities/ActivityF
 import type { ActivityWithIds } from "@t/data/activity.types";
 import type { ID, Nullable } from "@t/data/utility.types";
 
-// TODO: this doesn't handle the "exact" case yet. Since tags are stateful, I
-// think this should be handled outside the filter function itself. Maybe,
-// instead of passing activities.tag_ids as ID[], we pass it as Array<{tag_id: ID,
-// tag_tree_id: ID}}>, and then we can do the filtering in the filter/predicate
-// function.
-
 export const tagPredicates = {
 	includes: (activity: ActivityWithIds, tag_ids: Nullable<ID[]>, exact?: boolean) => {
 		if (!tag_ids?.length) return true;
 
-		if (exact) {
-			return tag_ids.every((tag_id) => activity.tag_ids.includes(tag_id));
-		}
-
-		return tag_ids.some((tag_id) => activity.tag_ids.includes(tag_id));
+		return exact
+			? tag_ids.every((tag_id) => activity.tag_ids.includes(tag_id))
+			: tag_ids.some((tag_id) => activity.tag_ids.includes(tag_id));
 	},
 
 	excludes: (activity: ActivityWithIds, tag_ids: Nullable<ID[]>, exact?: boolean) => {
 		if (!tag_ids?.length) return true;
 
-		if (exact) {
-			return !tag_ids.every((tag_id) => activity.tag_ids.includes(tag_id));
-		}
-
-		return !tag_ids.some((tag_id) => !activity.tag_ids.includes(tag_id));
+		return exact
+			? !tag_ids.every((tag_id) => activity.tag_ids.includes(tag_id))
+			: !tag_ids.some((tag_id) => !activity.tag_ids.includes(tag_id));
 	}
 };
 

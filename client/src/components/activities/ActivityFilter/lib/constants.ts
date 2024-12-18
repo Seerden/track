@@ -6,7 +6,7 @@ import type {
 	ActivityFilterWithValues
 } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 
-export const defaultFilter: ActivityFilterWithValues = {
+export const defaultFilter = {
 	datetime: {
 		modifier: "starts",
 		selector: "after",
@@ -22,7 +22,7 @@ export const defaultFilter: ActivityFilterWithValues = {
 		value: null,
 		search: ""
 	}
-};
+} satisfies ActivityFilterWithValues;
 
 export const activityFilterTabs: ActivityFilterTabs[] = ["name", "datetime", "tags"];
 export const activityFilterTagsTypes: ActivityFilterTagsType[] = ["includes", "excludes"];

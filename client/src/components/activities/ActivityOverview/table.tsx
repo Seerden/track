@@ -28,16 +28,16 @@ export type Table<TData extends object, TDataKey extends keyof TData> = {
    @todo next step: implement a filter in such a way that it can work on the
    result of makeTable, regardless of the type of the fields. 
 */
-export function makeTable<TData extends object, TField extends keyof TData>(
+export function makeTable<TData extends object, TDataKey extends keyof TData>(
 	rows: ValueAndElement<TData>[]
 ) {
 	// I prefer a flatMap to just mapping over the keys of rows[0]. It allows us
 	// to throw an error if the keys are not the same for all rows.
 	// TODO: throw an error if the keys are not the same for all rows. 🫠
-	const fields = Array.from(new Set(rows.flatMap(Object.keys) as TField[]));
+	const fields = Array.from(new Set(rows.flatMap(Object.keys) as TDataKey[]));
 
 	return {
 		fields,
 		rows
-	} as Table<TData, TField>;
+	} as Table<TData, TDataKey>;
 }

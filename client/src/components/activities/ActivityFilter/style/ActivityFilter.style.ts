@@ -163,12 +163,8 @@ ResetButton.defaultProps = {
 };
 
 function getTagBackgroundColor(selected?: boolean, active?: boolean) {
-	if (selected) {
-		if (active) {
-			return "darkorange";
-		}
-		return "orange";
-	}
+	if (selected && active) return "darkorange";
+	if (selected) return "orange";
 	if (active) return "#ddd";
 	return "#fff";
 }

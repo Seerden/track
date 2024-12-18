@@ -67,7 +67,6 @@ const ActionBar = styled.div`
 	background-color: #eee;
 	box-shadow: 0 0.3rem 0.5rem -0.1rem #333;
 
-	// Become floating 🎈
 	position: sticky;
 	z-index: 2;
 	top: 1.5rem;
