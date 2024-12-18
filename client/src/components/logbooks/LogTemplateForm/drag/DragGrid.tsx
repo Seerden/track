@@ -1,4 +1,4 @@
-import { MultipleContainers } from "@/components/logbooks/LogForm/drag/MultipleContainers";
+import { MultipleContainers } from "@/components/logbooks/LogTemplateForm/drag/MultipleContainers";
 import { rectSortingStrategy } from "@dnd-kit/sortable";
 
 export default function DragGrid() {

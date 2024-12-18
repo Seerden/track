@@ -1,4 +1,4 @@
-import useCollisionDetectionStrategy from "@/components/logbooks/LogForm/drag/useCollisionDetectionStrategy";
+import useCollisionDetectionStrategy from "@/components/logbooks/LogTemplateForm/drag/useCollisionDetectionStrategy";
 import type { UniqueIdentifier } from "@dnd-kit/core";
 import {
 	KeyboardSensor,
@@ -11,13 +11,12 @@ import { useEffect, useRef, useState } from "react";
 
 export type Items = Record<UniqueIdentifier, UniqueIdentifier[]>;
 
+// @note this is from the dnd-kit example
 export default function useMultipleContainers({
 	initialItems
 }: {
 	initialItems?: Items;
 }) {
-	// @note this is from the dnd-kit example
-
 	const [items, setItems] = useState<Items>(
 		() =>
 			initialItems ?? {

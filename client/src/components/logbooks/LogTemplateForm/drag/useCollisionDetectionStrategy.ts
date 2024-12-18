@@ -1,3 +1,4 @@
+import type { Items } from "@/components/logbooks/LogTemplateForm/drag/useMultipleContainers";
 import type { CollisionDetection, UniqueIdentifier } from "@dnd-kit/core";
 import {
 	closestCenter,
@@ -13,7 +14,7 @@ export default function useCollisionDetectionStrategy({
 	recentlyMovedToNewContainer
 }: {
 	activeId: UniqueIdentifier | null;
-	items: Record<UniqueIdentifier, UniqueIdentifier[]>;
+	items: Items;
 	recentlyMovedToNewContainer: React.MutableRefObject<boolean>;
 }) {
 	const lastOverId = useRef<UniqueIdentifier | null>(null);

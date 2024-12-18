@@ -1,4 +1,4 @@
-import DragGrid from "@/components/logbooks/LogForm/drag/DragGrid";
+import DragGrid from "@/components/logbooks/LogTemplateForm/drag/DragGrid";
 import type { Meta, StoryFn } from "@storybook/react";
 
 //👇 This default export determines where your story goes in the story list

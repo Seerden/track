@@ -1,5 +1,5 @@
-import DragItem from "@/components/logbooks/LogForm/drag/DragItem";
-import useMountStatus from "@/components/logbooks/LogForm/drag/useMountStatus";
+import DragItem from "@/components/logbooks/LogTemplateForm/drag/DragItem";
+import useMountStatus from "@/components/logbooks/LogTemplateForm/drag/useMountStatus";
 import type { UniqueIdentifier } from "@dnd-kit/core";
 import { useSortable } from "@dnd-kit/sortable";
 import type { PropsWithChildren } from "react";

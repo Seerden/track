@@ -1,9 +1,10 @@
-import DragItem from "@/components/logbooks/LogForm/drag/DragItem";
-import SortableItem from "@/components/logbooks/LogForm/drag/DragSortableItem";
-import { dropAnimation } from "@/components/logbooks/LogForm/drag/drop-animation";
-import DroppableContainer from "@/components/logbooks/LogForm/drag/DroppableContainer";
-import type { Items } from "@/components/logbooks/LogForm/drag/useMultipleContainers";
-import useMultipleContainers from "@/components/logbooks/LogForm/drag/useMultipleContainers";
+import DragItem from "@/components/logbooks/LogTemplateForm/drag/DragItem";
+import SortableItem from "@/components/logbooks/LogTemplateForm/drag/DragSortableItem";
+import { dropAnimation } from "@/components/logbooks/LogTemplateForm/drag/drop-animation";
+import DroppableContainer from "@/components/logbooks/LogTemplateForm/drag/DroppableContainer";
+import type { Items } from "@/components/logbooks/LogTemplateForm/drag/useMultipleContainers";
+import useMultipleContainers from "@/components/logbooks/LogTemplateForm/drag/useMultipleContainers";
+import ItemTemplateCard from "@/components/logbooks/LogTemplateForm/ItemTemplateCard";
 import type {
 	CancelDrop,
 	KeyboardCoordinateGetter,
@@ -18,8 +19,10 @@ import {
 	SortableContext,
 	verticalListSortingStrategy
 } from "@dnd-kit/sortable";
+import type { ID } from "@t/data/utility.types";
 import React from "react";
 import { createPortal } from "react-dom";
+import S from "./style/MultipleContainers.style";
 
 interface Props {
 	cancelDrop?: CancelDrop;
@@ -176,30 +179,23 @@ export function MultipleContainers({
 			onDragCancel={onDragCancel}
 			modifiers={modifiers}
 		>
-			<div
-				style={{
-					display: "inline-grid",
-					boxSizing: "border-box",
-					padding: 20,
-					gridAutoFlow: vertical ? "row" : "column"
-				}}
-			>
+			<S.ContainersWrapper $vertical={vertical}>
 				<SortableContext
 					items={[...containers]}
 					strategy={
 						vertical ? verticalListSortingStrategy : horizontalListSortingStrategy
 					}
 				>
-					{containers.map((containerId) => (
+					{containers.map((id) => (
 						<DroppableContainer
-							key={containerId}
-							id={containerId}
-							label={`Column ${containerId}`}
+							key={id}
+							id={id}
+							label={`${id}`}
 							columns={columns}
-							items={items[containerId]}
+							items={items[id]}
 						>
-							<SortableContext items={items[containerId]} strategy={strategy}>
-								{items[containerId].map((value, index) => {
+							<SortableContext items={items[id]} strategy={strategy}>
+								{items[id].map((value, index) => {
 									return (
 										<SortableItem
 											key={value}
@@ -207,16 +203,18 @@ export function MultipleContainers({
 											index={index}
 											style={{}}
 											wrapperStyle={defaultWrapperStyle}
-											containerId={containerId}
+											containerId={id}
 											getIndex={getIndex}
-										/>
+										>
+											<ItemTemplateCard item_template_id={value as ID} />
+										</SortableItem>
 									);
 								})}
 							</SortableContext>
 						</DroppableContainer>
 					))}
 				</SortableContext>
-			</div>
+			</S.ContainersWrapper>
 			{createPortal(
 				<DragOverlay dropAnimation={dropAnimation}>
 					{activeId ? renderSortableItemDragOverlay(activeId) : null}

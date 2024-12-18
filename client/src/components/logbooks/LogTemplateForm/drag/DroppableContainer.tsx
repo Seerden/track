@@ -1,4 +1,4 @@
-import { Container } from "@/components/logbooks/LogForm/drag/DragContainer";
+import { Container } from "@/components/logbooks/LogTemplateForm/drag/DragContainer";
 import type { UniqueIdentifier } from "@dnd-kit/core";
 import type { AnimateLayoutChanges } from "@dnd-kit/sortable";
 import { defaultAnimateLayoutChanges, useSortable } from "@dnd-kit/sortable";
