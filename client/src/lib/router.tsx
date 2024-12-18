@@ -19,6 +19,9 @@ const ActivityForm = lazy(
 const NewHabit = lazy(() => import("@components/habits/NewHabit/NewHabit"));
 const Today = lazy(() => import("@components/Today/Today"));
 const Login = lazy(() => import("@/components/auth/Login/Login"));
+const ActivityOverview = lazy(
+	() => import("@/components/activities/ActivityOverview/ActivityOverview")
+);
 
 const topLevelRoutes: RouteObject[] = [
 	{
@@ -59,6 +62,16 @@ const topLevelRoutes: RouteObject[] = [
 	{
 		path: "/activities",
 		children: [
+			{
+				index: true,
+				element: (
+					<Protected>
+						<Page>
+							<ActivityOverview />
+						</Page>
+					</Protected>
+				)
+			},
 			{
 				path: "new",
 				element: (

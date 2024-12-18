@@ -9,12 +9,17 @@ import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
 
 const OverviewWrapper = styled.div`
-	width: max-content;
+	width: 100%;
+	padding-top: 1rem;
 `;
 
 const Wrapper = styled.div`
 	display: grid;
-	grid-template-columns: max-content 250px repeat(4, 150px);
+	grid-template-columns: max-content 250px repeat(4, auto);
+
+	@media (max-width: 1080px) {
+		grid-template-columns: min-content auto repeat(4, auto);
+	}
 `;
 
 const FloatingWrapper = styled.div`
@@ -52,6 +57,13 @@ const HeaderField = styled.div`
 	text-align: start;
 
 	${itemAndHeaderFieldStyle};
+
+	@media (max-width: 768px) {
+		max-width: 50px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
 `;
 
 const ActionBar = styled.div`
