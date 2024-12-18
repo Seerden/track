@@ -34,7 +34,7 @@ export default function Logbooks() {
 						You don't have any logbooks yet. Create one to get started. This page
 						will look a lot less empty.
 					</p>
-					<S.CallToAction $color="yellow">
+					<S.CallToAction $color="yellow" as={Link} to="/logbooks/new">
 						<LucideFolderPen />
 						Create your first logbook
 					</S.CallToAction>
