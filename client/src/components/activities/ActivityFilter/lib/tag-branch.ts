@@ -2,7 +2,8 @@ import type { TagsTreeData } from "@/types/data.types";
 import type { TagWithIds } from "@t/data/tag.types";
 import type { ById, ID } from "@t/data/utility.types";
 
-// this basically already exists in build-branch.ts, so extract it from there
+// TODO: on the server, we have a findRootTag function. Put it in shared and use
+// it both here and there.
 export function getRootTagId(tag_id: ID, tagsById: ById<TagWithIds>) {
 	const tag = tagsById[tag_id];
 	if (!tag) return;
