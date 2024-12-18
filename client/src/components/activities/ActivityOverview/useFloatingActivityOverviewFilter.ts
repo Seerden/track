@@ -10,7 +10,7 @@ import {
 } from "@floating-ui/react";
 import { useState } from "react";
 
-export default function useActivityOverviewFilter() {
+export default function useFloatingActivityOverviewFilter() {
 	const [open, setOpen] = useState(false);
 	const { refs, context, floatingStyles } = useFloating({
 		whileElementsMounted: autoUpdate,
