@@ -1,8 +1,8 @@
 import MiniLog from "@/components/logbooks/Logbooks/MiniLog";
 import useLogbookCard from "@/components/logbooks/Logbooks/useLogbookCard";
-import { Action } from "@/lib/theme/components/buttons";
+import { Link as LinkButton } from "@/lib/theme/components/buttons";
 import type { ID } from "@t/data/utility.types";
-import { SquarePen } from "lucide-react";
+import { LucideMaximize, SquarePen } from "lucide-react";
 import { Link } from "react-router-dom";
 import S from "./style/LogbookCard.style";
 
@@ -19,35 +19,40 @@ export default function LogbookCard({ logbook_id }: LogbookCardProps) {
 
 	return (
 		<S.Card>
-			<Link to={`/logbooks/${logbook.logbook_id}`}>Open logbook</Link>
-			<S.Title>{logbook.name}</S.Title>
+			<S.Header>
+				<S.Title>{logbook.name}</S.Title>
+
+				<S.Actions>
+					<LinkButton.Icon
+						as={Link}
+						$size={"28px"}
+						$color="theme"
+						to={`/logbooks/${logbook.logbook_id}`}
+					>
+						<LucideMaximize size={20} strokeWidth={1.5} />
+					</LinkButton.Icon>
+					<LinkButton.Icon
+						as={Link}
+						$size={"28px"}
+						$color="theme"
+						to={`/logbooks/${logbook.logbook_id}/log`}
+					>
+						<SquarePen size={20} strokeWidth={1.5} />
+					</LinkButton.Icon>
+				</S.Actions>
+			</S.Header>
 			{logbook.description && <S.Description>{logbook.description}</S.Description>}
 
-			<S.Logs>
-				{logs.length > 0 ? (
-					<S.LogList>
-						{logs.map((log) => (
-							<MiniLog key={log.log_id} log={log} />
-						))}
-					</S.LogList>
-				) : (
-					<p>This logbook is empty. Create your first log.</p>
-				)}
-
-				<Link to={`/logbooks/${logbook.logbook_id}/log`}>
-					<Action.Default
-						style={{
-							alignSelf: "center",
-							borderRadius: "10px",
-							width: "65px",
-							height: "45px"
-						}}
-						$color="blue"
-					>
-						<SquarePen size={22} />
-					</Action.Default>
-				</Link>
-			</S.Logs>
+			{logs.length > 0 ? (
+				// TODO: drag to scroll if overflowing
+				<S.LogList>
+					{logs.map((log) => (
+						<MiniLog key={log.log_id} log={log} />
+					))}
+				</S.LogList>
+			) : (
+				<p>This logbook is empty. </p>
+			)}
 		</S.Card>
 	);
 }
