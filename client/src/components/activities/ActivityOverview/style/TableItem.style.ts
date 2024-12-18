@@ -12,6 +12,10 @@ export const itemAndHeaderStyle = css`
 
 export const itemAndHeaderFieldStyle = css`
 	${spacing.padding.wide({ size: 0.5, ratio: 2 })}
+
+	@media (max-width: 768px) {
+		${spacing.padding.wide({ size: 0.2, ratio: 1 })}
+	}
 `;
 
 const Item = styled.div<{ $isTask: boolean }>`
