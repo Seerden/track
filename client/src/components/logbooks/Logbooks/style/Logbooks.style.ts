@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 	border-right: 2px solid #666;
 
 	@media (max-width: 768px) {
-		max-width: 100vw;
+		width: 100vw;
 		border-left: none;
 		border-right: none;
 	}

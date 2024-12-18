@@ -15,9 +15,6 @@ const NavBar = styled.nav`
 	${spacing.padding.wide({ size: 1.5, ratio: 2 })};
 	z-index: 99;
 
-	/* box-shadow:
-		0 0.2rem 0 #ccc,
-		0 0 0.4rem 0 black; */
 	border-bottom: 2px solid #666;
 
 	display: flex;

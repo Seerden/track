@@ -1,12 +1,11 @@
 import { Action } from "@/lib/theme/components/buttons";
-import CardStyle from "@/lib/theme/components/Card.style";
 import { font } from "@/lib/theme/font";
 import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import shadows from "@/lib/theme/snippets/shadow";
-import { spacing } from "@/lib/theme/snippets/spacing";
-import styled from "styled-components";
+import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
+import styled, { css } from "styled-components";
 
 // TODO: copied from Logbooks.style.ts Actions
 const Actions = styled.div`
@@ -27,7 +26,6 @@ const Actions = styled.div`
 	border-radius: 3px;
 `;
 
-// shouldn't be from formAlternateStyle, but from a shared snippet
 const Title = styled.h3`
 	font-size: 1.5rem;
 	margin: 0;
@@ -38,19 +36,16 @@ const Title = styled.h3`
 const Description = styled.p`
 	${spacing.margin.small};
 	font-size: ${font.size["0.93"]};
+	${spacing.padding.wide({ size: 0.5, ratio: 4 })}
+	${radius.small};
+	${shadows.section}
+
 	background-color: #fff;
-	padding: 0.5rem 2rem;
 	width: max-content;
 	max-width: 100%;
-	border-radius: 3px;
-	${shadows.section}
 `;
 
-const LogList = styled.ul`
-	${flex.row};
-	gap: 0.5rem;
-	overflow-x: auto;
-
+const customScrollbar = css`
 	&::-webkit-scrollbar {
 		height: 12px;
 	}
@@ -76,7 +71,16 @@ const LogList = styled.ul`
 	}
 `;
 
-const Card = styled(CardStyle.Wrapper)`
+const LogList = styled.ul`
+	${flex.row};
+	gap: ${spacingValue.small};
+
+	overflow-x: auto;
+
+	${customScrollbar}
+`;
+
+const Card = styled.div`
 	box-shadow: 0 0 0.5rem 0 #bbb;
 	${outline.primary};
 	outline-width: 3px;
