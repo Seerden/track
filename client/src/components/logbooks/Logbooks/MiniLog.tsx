@@ -1,4 +1,5 @@
 import { createDate } from "@/lib/datetime/make-date";
+import { Link as LinkButton } from "@/lib/theme/components/buttons";
 import type { Log } from "@t/data/logbook.types";
 import { LucideMaximize } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -15,12 +16,12 @@ export default function MiniLog({ log }: MiniLogProps) {
 			<S.Header>
 				<S.Title>{log.name}</S.Title>
 				<S.Actions>
-					<S.LinkButton
+					<LinkButton.IconMinimal
 						as={Link}
 						to={`/logbooks/${log.logbook_id}/log/${log.log_id}`}
 					>
 						<LucideMaximize size={20} color="black" />
-					</S.LinkButton>
+					</LinkButton.IconMinimal>
 				</S.Actions>
 			</S.Header>
 			<S.LastUpdated>

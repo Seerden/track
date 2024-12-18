@@ -1,5 +1,6 @@
 import LogbookCard from "@/components/logbooks/Logbooks/LogbookCard";
 import useQueryLogbooks from "@/lib/hooks/query/logbooks/useQueryLogbooks";
+import { Link as LinkButton } from "@/lib/theme/components/buttons";
 import { LucideFilter, LucideFolderPen } from "lucide-react";
 import { Link } from "react-router-dom";
 import S from "./style/Logbooks.style";
@@ -16,14 +17,19 @@ export default function Logbooks() {
 			<S.Header>
 				<S.Title>Logbooks</S.Title>
 				<S.Actions>
-					<S.LinkButton as={Link} $color="theme" to="/logbooks/new">
+					<LinkButton.Icon
+						$size={"40px"}
+						as={Link}
+						$color="theme"
+						to="/logbooks/new"
+					>
 						<LucideFolderPen size={20} strokeWidth={1.5} />
-					</S.LinkButton>
+					</LinkButton.Icon>
 
 					{/* filter -- not functional yet */}
-					<S.LinkButton $color="theme" disabled>
+					<LinkButton.Icon $size={"40px"} $color="theme" disabled>
 						<LucideFilter size={20} strokeWidth={1.5} />
-					</S.LinkButton>
+					</LinkButton.Icon>
 				</S.Actions>
 			</S.Header>
 

@@ -1,4 +1,3 @@
-import { Action } from "@/lib/theme/components/buttons";
 import { font } from "@/lib/theme/font";
 import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
@@ -128,24 +127,4 @@ const Header = styled.div`
 	height: 4rem;
 `;
 
-// TODO: copied from Logbooks.style.ts LinkButton with slight tweaks
-const LinkButton = styled(Action.Default)`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-	--size: 35px;
-
-	@media (max-width: 768px) {
-		--size: 25px;
-	}
-	min-width: var(--size);
-	min-height: var(--size);
-	border: 2px solid white;
-
-	svg {
-		color: black;
-	}
-`;
-
-export default { Card, Title, Description, LogList, Header, Actions, LinkButton };
+export default { Card, Title, Description, LogList, Header, Actions };

@@ -59,27 +59,6 @@ const Actions = styled.div`
 	border-radius: 3px;
 `;
 
-const LinkButton = styled(Action.Default)`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-	--size: 40px;
-
-	@media (max-width: 768px) {
-		--size: 30px;
-	}
-
-	min-width: var(--size);
-	min-height: var(--size);
-
-	border: 2px solid white;
-
-	svg {
-		color: black;
-	}
-`;
-
 const LogbookCardList = styled.ul`
 	${flex.row};
 	flex-wrap: wrap;
@@ -128,7 +107,6 @@ export default {
 	Header,
 	Title,
 	Actions,
-	LinkButton,
 	LogbookCardList,
 	EmptyState,
 	CallToAction

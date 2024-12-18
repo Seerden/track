@@ -1,5 +1,4 @@
 import { colors } from "@/lib/theme/colors";
-import { Action } from "@/lib/theme/components/buttons";
 import CardStyle from "@/lib/theme/components/Card.style";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
@@ -59,18 +58,10 @@ const Header = styled.div`
 
 const LastUpdated = styled(CardStyle.Datetime)``;
 
-// TODO: adapted from logbooks.style.ts - extract that one to a shared component
-const LinkButton = styled(Action.Alternative)`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-`;
-
 export default {
 	Card,
 	Title,
 	LastUpdated,
 	Header,
-	LinkButton,
 	Actions
 };

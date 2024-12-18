@@ -1,5 +1,6 @@
 import MiniLog from "@/components/logbooks/Logbooks/MiniLog";
 import useLogbookCard from "@/components/logbooks/Logbooks/useLogbookCard";
+import { Link as LinkButton } from "@/lib/theme/components/buttons";
 import type { ID } from "@t/data/utility.types";
 import { LucideMaximize, SquarePen } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -22,20 +23,22 @@ export default function LogbookCard({ logbook_id }: LogbookCardProps) {
 				<S.Title>{logbook.name}</S.Title>
 
 				<S.Actions>
-					<S.LinkButton
+					<LinkButton.Icon
 						as={Link}
+						$size={"28px"}
 						$color="theme"
 						to={`/logbooks/${logbook.logbook_id}`}
 					>
 						<LucideMaximize size={20} strokeWidth={1.5} />
-					</S.LinkButton>
-					<S.LinkButton
+					</LinkButton.Icon>
+					<LinkButton.Icon
 						as={Link}
+						$size={"28px"}
 						$color="theme"
 						to={`/logbooks/${logbook.logbook_id}/log`}
 					>
 						<SquarePen size={20} strokeWidth={1.5} />
-					</S.LinkButton>
+					</LinkButton.Icon>
 				</S.Actions>
 			</S.Header>
 			{logbook.description && <S.Description>{logbook.description}</S.Description>}
