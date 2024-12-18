@@ -1,4 +1,4 @@
-import type { FieldTemplateWithValue } from "@/components/logbooks/LogDetail/hooks/useNewItemRow";
+import type { FieldTemplateWithMaybeValue } from "@/components/logbooks/logbook.types";
 import type { NewFieldValue } from "@t/data/logbook.new.types";
 import type { ID } from "@t/data/utility.types";
 
@@ -8,7 +8,7 @@ export function buildNewFieldValuesFromEntries({
 	entries,
 	log_id
 }: {
-	entries: FieldTemplateWithValue[];
+	entries: FieldTemplateWithMaybeValue[];
 	log_id: ID;
 }): NewFieldValue[] {
 	return entries.map((entry) => {

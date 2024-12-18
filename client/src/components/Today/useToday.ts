@@ -43,6 +43,8 @@ export default function useToday() {
 		}, 25);
 	}
 
+	// TODO: like in useActivityOverview, this is inferred as any[] for some
+	// reason, now -- maybe using a Map instead of object.values fixes it.
 	const activities = useMemo(() => {
 		return Object.values(activitiesData?.byId ?? {}); // TODO: should this not be in a useActivities hook or someting?
 	}, [activitiesData]);
