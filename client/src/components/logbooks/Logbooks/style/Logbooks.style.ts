@@ -84,7 +84,7 @@ const LogbookCardList = styled.ul`
 	${flex.row};
 	flex-wrap: wrap;
 	list-style: none;
-	gap: 1rem;
+	gap: 1.5rem;
 `;
 
 export default {

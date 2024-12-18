@@ -77,8 +77,9 @@ const LogList = styled.ul`
 `;
 
 const Card = styled(CardStyle.Wrapper)`
-	${shadows.card}
+	box-shadow: 0 0 0.5rem 0 #bbb;
 	${outline.primary};
+	outline-width: 3px;
 	${radius.medium};
 	${spacing.padding.medium};
 
