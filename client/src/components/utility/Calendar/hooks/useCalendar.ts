@@ -1,5 +1,7 @@
 import { buildCalendarRows } from "@/components/utility/Calendar/build-calendar-rows";
 import type { MonthAndYear } from "@/components/utility/Calendar/calendar.types";
+import { prebuiltCalendarRows } from "@/components/utility/Calendar/constants";
+import { createMonthAndYear } from "@/components/utility/Calendar/hooks/create-date";
 import { formatToMonthAndYear } from "@/lib/datetime/format-date";
 import { createDate, createFirstOfTheMonth } from "@/lib/datetime/make-date";
 import type { Maybe } from "@t/data/utility.types";
@@ -18,18 +20,26 @@ export function useCalendar({ initialDate, onChange }: UseCalendarProps) {
 	useEffect(() => {
 		// This effect is necessary because it's possible to change the date in
 		// other parts of the page, and we want to keep the selected date in sync.
-		// TODO: only update if the day of year changes
-		if (initialDate) setSelectedDate(initialDate);
+		if (initialDate) {
+			// TODO: only update selectedDate if the day of year changes.I guess
+			// this isn't strictly necessary since our day-change methods all set a
+			// _day_, not necessarily a time, but maybe the useCurrentTime hook
+			// messes with that, and we _should_ do the above for perfomrance
+			// reasons.
+			setSelectedDate(initialDate);
+			// Whenever the outside date changes, update state to reflect that. This
+			// pattern looks a bit messy, but that's what you get with 2-way binding.
+			setMonthAndYear(createMonthAndYear(initialDate));
+		}
 	}, [initialDate]);
 
 	useEffect(() => {
 		if (selectedDate) onChange?.(selectedDate);
 	}, [selectedDate]);
 
-	const [monthAndYear, setMonthAndYear] = useState<MonthAndYear>(() => ({
-		month: initialDate.month(),
-		year: initialDate.year()
-	}));
+	const [monthAndYear, setMonthAndYear] = useState<MonthAndYear>(() =>
+		createMonthAndYear(initialDate)
+	);
 
 	const firstDayOfTheMonth = useMemo(
 		() => createFirstOfTheMonth(monthAndYear),
@@ -47,7 +57,11 @@ export function useCalendar({ initialDate, onChange }: UseCalendarProps) {
 		[monthAndYear, setSelectedDate]
 	);
 
-	const rows = buildCalendarRows(firstDayOfTheMonth);
+	const existingRows = prebuiltCalendarRows.find(
+		({ month, year }) =>
+			month === firstDayOfTheMonth.month() && year === firstDayOfTheMonth.year()
+	);
+	const rows = existingRows?.rows || buildCalendarRows(firstDayOfTheMonth);
 
 	const title = useMemo(
 		() => formatToMonthAndYear(firstDayOfTheMonth),

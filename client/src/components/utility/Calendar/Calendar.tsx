@@ -6,6 +6,7 @@ import { Cell } from "@/lib/theme/components/buttons";
 import { MonthPicker } from "@mantine/dates";
 import type { Maybe } from "@t/data/utility.types";
 import type { Dayjs } from "dayjs";
+import { LucideChevronLeft, LucideChevronRight } from "lucide-react";
 import S from "./style/Calendar.style";
 
 type CalendarRowProps = {
@@ -42,6 +43,21 @@ function CalendarRow({ month, year, row, selectDate, selectedDate }: CalendarRow
 	);
 }
 
+type AdjacentMonthButtonProps = {
+	direction: "previous" | "next";
+	onClick: () => void;
+	size?: number;
+};
+
+function AdjacentMonthButton({ direction, onClick }: AdjacentMonthButtonProps) {
+	const Icon = direction === "next" ? LucideChevronRight : LucideChevronLeft;
+	return (
+		<S.MonthPickerAction $direction={direction} onClick={onClick}>
+			<Icon size={22} />
+		</S.MonthPickerAction>
+	);
+}
+
 export default function Calendar({
 	initialDate,
 	onChange: setExternalState
@@ -52,8 +68,13 @@ export default function Calendar({
 			onChange: setExternalState
 		});
 
-	const { handleMonthChange, showMonthPicker, setShowMonthPicker, monthValue } =
-		useMonthPicker({ initialDate, onChange: setMonthAndYear });
+	const {
+		handleMonthChange,
+		showMonthPicker,
+		setShowMonthPicker,
+		monthValue,
+		handleArrowClick
+	} = useMonthPicker({ initialDate, onChange: setMonthAndYear });
 
 	return (
 		<S.Calendar>
@@ -68,6 +89,16 @@ export default function Calendar({
 				</S.MonthPickerWrapper>
 			)}
 			<S.TitleWrapper>
+				<S.MonthPickerActionWrapper>
+					<AdjacentMonthButton
+						direction="previous"
+						onClick={() => handleArrowClick("previous")}
+					/>
+					<AdjacentMonthButton
+						direction="next"
+						onClick={() => handleArrowClick("next")}
+					/>
+				</S.MonthPickerActionWrapper>
 				<S.Title onClick={() => setShowMonthPicker(true)}>{title}</S.Title>
 			</S.TitleWrapper>
 			<S.Days>

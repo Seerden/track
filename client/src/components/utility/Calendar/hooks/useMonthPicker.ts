@@ -1,7 +1,8 @@
 import type { MonthAndYear } from "@/components/utility/Calendar/calendar.types";
+import { createMonthValue } from "@/components/utility/Calendar/hooks/create-date";
 import type { DateValue } from "@mantine/dates";
 import type { Dayjs } from "dayjs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type UseMonthPickerProps = {
 	initialDate: Dayjs;
@@ -11,18 +12,39 @@ type UseMonthPickerProps = {
 /** Functionality hook for Calendar.tsx */
 export default function useMonthPicker({ initialDate, onChange }: UseMonthPickerProps) {
 	const [showMonthPicker, setShowMonthPicker] = useState(false);
-	const initialValue = new Date(initialDate.year(), initialDate.month(), 1); // note: MonthPicker expects Date, so don't use our dayjs helpers
-	const [monthValue, setMonthValue] = useState(initialValue);
+
+	const defaultMonthValue = createMonthValue(initialDate);
+	const [monthValue, setMonthValue] = useState(defaultMonthValue);
+
+	useEffect(() => {
+		// Whenever the outside date changes, update state to reflect that. This
+		// pattern looks a bit messy, but that's what you get with 2-way binding.
+		setMonthValue(createMonthValue(initialDate));
+	}, [initialDate]);
 
 	function handleMonthChange(value: DateValue) {
 		if (!value) return;
 
 		setMonthValue(value);
-		onChange?.({
-			month: value.getMonth(),
-			year: value.getFullYear()
-		});
 		setShowMonthPicker(false);
+	}
+
+	useEffect(() => {
+		if (!monthValue) return;
+
+		onChange?.({
+			month: monthValue.getMonth(),
+			year: monthValue.getFullYear()
+		});
+	}, [monthValue]);
+
+	function handleArrowClick(direction: "previous" | "next") {
+		setMonthValue((current) => {
+			const modifier = direction === "previous" ? -1 : 1;
+			const newDate = new Date(current);
+			newDate.setMonth(newDate.getMonth() + modifier);
+			return newDate;
+		});
 	}
 
 	return {
@@ -30,6 +52,7 @@ export default function useMonthPicker({ initialDate, onChange }: UseMonthPicker
 		setShowMonthPicker,
 		monthValue,
 		setMonthValue,
-		handleMonthChange
+		handleMonthChange,
+		handleArrowClick
 	};
 }
