@@ -18,6 +18,8 @@ export type ActivityFilterState = {
 	};
 };
 
+export type ActivityFilterTabs = keyof ActivityFilterState;
+
 export type ActivityFilterValueMap = {
 	name: string;
 	datetime: Dayjs[];

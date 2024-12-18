@@ -1,9 +1,9 @@
 import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
+import { activityFilterTabs } from "@/components/activities/ActivityFilter/lib/constants";
 import { nameTypeOptions } from "@/components/activities/ActivityFilter/lib/filter-name";
 import useActivityFilter from "@/components/activities/ActivityFilter/useActivityFilter";
 import { DateTimePicker } from "@mantine/dates";
 import { LucideBlend, LucideFilterX, LucideNetwork, LucideXCircle } from "lucide-react";
-import { useState } from "react";
 import S from "./style/ActivityFilter.style";
 
 export type ActivityFilterProps = {
@@ -20,17 +20,17 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 		isActiveTag,
 		isSelectedTag,
 		wholeTree,
-		toggleWholeTree
+		toggleWholeTree,
+		activeTab,
+		setActiveTab
 	} = useActivityFilter({ onChange });
-
-	const [activeTab, setActiveTab] = useState("name");
 
 	if (isProbablySuspended) return null;
 
 	return (
 		<S.Wrapper>
 			<S.TabsHeader>
-				{["name", "tags", "datetime"].map((tab) => {
+				{activityFilterTabs.map((tab) => {
 					const isActive = activeTab === tab;
 
 					return (

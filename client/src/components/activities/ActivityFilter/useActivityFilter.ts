@@ -1,5 +1,8 @@
 import type { ActivityFilterProps } from "@/components/activities/ActivityFilter/ActivityFilter";
-import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
+import type {
+	ActivityFilterTabs,
+	ActivityFilterWithValues
+} from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import { defaultFilter } from "@/components/activities/ActivityFilter/lib/constants";
 import useActivityFilterActions from "@/components/activities/ActivityFilter/useActivityFilterActions";
 import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
@@ -13,7 +16,7 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 	const [filter, setFilter] = useState<ActivityFilterWithValues>(defaultFilter);
 	const [wholeTree, setWholeTree] = useState(false);
 	const [activeTagIds, setActiveTagIds] = useState<ID[]>([]);
-
+	const [activeTab, setActiveTab] = useState<`${ActivityFilterTabs}`>("name");
 	function toggleWholeTree() {
 		setWholeTree((current) => !current);
 	}
@@ -68,6 +71,8 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 		wholeTree,
 		toggleWholeTree,
 		isActiveTag,
-		isSelectedTag
+		isSelectedTag,
+		activeTab,
+		setActiveTab
 	};
 }
