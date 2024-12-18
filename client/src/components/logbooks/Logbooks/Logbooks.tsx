@@ -1,7 +1,6 @@
 import LogbookCard from "@/components/logbooks/Logbooks/LogbookCard";
 import useQueryLogbooks from "@/lib/hooks/query/logbooks/useQueryLogbooks";
-import { Action } from "@/lib/theme/components/buttons";
-import { LucideFilter, LucideFolderPlus, Notebook } from "lucide-react";
+import { LucideFilter, LucideFolderPen } from "lucide-react";
 import { Link } from "react-router-dom";
 import S from "./style/Logbooks.style";
 
@@ -18,7 +17,7 @@ export default function Logbooks() {
 				<S.Title>Logbooks</S.Title>
 				<S.Actions>
 					<S.LinkButton as={Link} $color="theme" to="/logbooks/new">
-						<LucideFolderPlus size={20} strokeWidth={1.5} />
+						<LucideFolderPen size={20} strokeWidth={1.5} />
 					</S.LinkButton>
 
 					{/* filter -- not functional yet */}
@@ -29,14 +28,17 @@ export default function Logbooks() {
 			</S.Header>
 
 			{/* maybe: you don't have any logbooks yet, create one now! -- text with action button */}
-			{!logbookCount ? (
-				<div>
-					<p>You don't have any logbooks yet, create one now!</p>
-					<Action.WithIcon $color="blue">
-						<Notebook />
-						Create Logbook
-					</Action.WithIcon>
-				</div>
+			{logbookCount === 0 ? (
+				<S.EmptyState>
+					<p>
+						You don't have any logbooks yet. Create one to get started. This page
+						will look a lot less empty.
+					</p>
+					<S.CallToAction $color="yellow">
+						<LucideFolderPen />
+						Create your first logbook
+					</S.CallToAction>
+				</S.EmptyState>
 			) : (
 				<S.LogbookCardList>
 					{Object.values(data.byId).map((logbook) => (

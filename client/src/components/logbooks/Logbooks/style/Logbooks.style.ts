@@ -5,7 +5,7 @@ import styled from "styled-components";
 const Wrapper = styled.div`
 	${flex.column}
 	justify-self: center;
-	max-width: 75vw;
+	width: 75vw;
 
 	border-left: 2px solid #666;
 	border-right: 2px solid #666;
@@ -87,11 +87,49 @@ const LogbookCardList = styled.ul`
 	gap: 1.5rem;
 `;
 
+const EmptyState = styled.div`
+	${flex.column};
+
+	outline: 1px solid #fff;
+	width: max-content;
+	max-width: 100%;
+	box-shadow:
+		0.5rem 0.5rem 0 -0.2rem #555,
+		0 0 0.6rem 0 #ddd;
+	padding: 2rem;
+
+	p {
+		background-color: #fff;
+		padding: 1rem;
+		font-size: 1rem;
+		max-width: 400px;
+	}
+`;
+
+const CallToAction = styled(Action.WithIcon)`
+	padding: 1.5rem 1rem;
+	border-radius: 3px;
+	color: black;
+
+	// Regular margin
+	margin-top: -0.5rem;
+	margin-left: auto;
+	margin-right: 4rem;
+
+	// Small-screen margin
+	@media (max-width: 768px) {
+		margin: 0;
+		margin-top: 1rem;
+	}
+`;
+
 export default {
 	Wrapper,
 	Header,
 	Title,
 	Actions,
 	LinkButton,
-	LogbookCardList
+	LogbookCardList,
+	EmptyState,
+	CallToAction
 };
