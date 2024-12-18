@@ -107,7 +107,9 @@ const topLevelRoutes: RouteObject[] = [
 				index: true,
 				element: (
 					<Protected>
-						<Logbooks />
+						<Page>
+							<Logbooks />
+						</Page>
 					</Protected>
 				)
 			},

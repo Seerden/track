@@ -13,7 +13,7 @@ export default function Logbooks() {
 	const logbookCount = Object.values(data.byId).length;
 
 	return (
-		<S.Wrapper>
+		<div>
 			<S.Header>
 				<S.Title>Logbooks</S.Title>
 				<S.Actions>
@@ -52,6 +52,6 @@ export default function Logbooks() {
 					))}
 				</S.LogbookCardList>
 			)}
-		</S.Wrapper>
+		</div>
 	);
 }
