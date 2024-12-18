@@ -1,20 +1,19 @@
 import LogbookMenu from "@/components/layout/Header/LogbookMenu/LogbookMenu";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import useRouteProps from "@/lib/hooks/useRouteProps";
+import { LucideCalendar } from "lucide-react";
 import S from "./style/NavBar.style";
 
 export default function NavBar() {
 	return (
 		<S.NavBar>
-			<div>📅</div>
+			<S.HomeLink to="/">
+				<LucideCalendar strokeWidth={2} size={20} />
+			</S.HomeLink>
 			<S.Actions>
-				<input type="date" />
-				<input type="text" placeholder="search" />
-				<input type="button" value="create" />
+				<LogbookMenu />
+				<ProfileAction />
 			</S.Actions>
-			<LogbookMenu />
-
-			<ProfileAction />
 		</S.NavBar>
 	);
 }
