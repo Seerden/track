@@ -137,8 +137,8 @@ const InputWithSelect = styled.div`
 	}
 `;
 
-// need to combine this with the regular section content, but the styling is
-// different for datetime and tags, because tags has an action bar
+// TODO: need to combine this with the regular section content, but the styling
+// is different for datetime and tags, because tags has an action bar.
 const DatetimeSectionContent = styled.div`
 	${flex.row};
 	margin-top: ${spacingValue.small};
