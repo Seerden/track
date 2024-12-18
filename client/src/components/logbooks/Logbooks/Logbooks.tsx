@@ -1,8 +1,9 @@
 import LogbookCard from "@/components/logbooks/Logbooks/LogbookCard";
 import useQueryLogbooks from "@/lib/hooks/query/logbooks/useQueryLogbooks";
 import { Action } from "@/lib/theme/components/buttons";
-import { Notebook } from "lucide-react";
+import { LucideFilter, LucideFolderPlus, Notebook } from "lucide-react";
 import { Link } from "react-router-dom";
+import S from "./style/Logbooks.style";
 
 export default function Logbooks() {
 	const { data } = useQueryLogbooks();
@@ -12,10 +13,20 @@ export default function Logbooks() {
 	const logbookCount = Object.values(data.byId).length;
 
 	return (
-		// page wrapper
-		<div>
-			<h1>Logbooks</h1>
-			<Link to="/logbooks/new">new logbook</Link>
+		<S.Wrapper>
+			<S.Header>
+				<S.Title>Logbooks</S.Title>
+				<S.Actions>
+					<S.LinkButton as={Link} $color="theme" to="/logbooks/new">
+						<LucideFolderPlus size={20} strokeWidth={1.5} />
+					</S.LinkButton>
+
+					{/* filter -- not functional yet */}
+					<S.LinkButton $color="theme" disabled>
+						<LucideFilter size={20} strokeWidth={1.5} />
+					</S.LinkButton>
+				</S.Actions>
+			</S.Header>
 
 			{/* maybe: you don't have any logbooks yet, create one now! -- text with action button */}
 			{!logbookCount ? (
@@ -27,16 +38,12 @@ export default function Logbooks() {
 					</Action.WithIcon>
 				</div>
 			) : (
-				<ul>
+				<S.LogbookCardList>
 					{Object.values(data.byId).map((logbook) => (
 						<LogbookCard key={logbook.logbook_id} logbook_id={logbook.logbook_id} />
 					))}
-				</ul>
+				</S.LogbookCardList>
 			)}
-
-			{/* maybe: list of logbooks */}
-			{/* logbooks.map(logbook => LogbookCard) */}
-			{/* single logbook card */}
-		</div>
+		</S.Wrapper>
 	);
 }

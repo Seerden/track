@@ -1,37 +1,76 @@
 import { colors } from "@/lib/theme/colors";
+import { Action } from "@/lib/theme/components/buttons";
 import CardStyle from "@/lib/theme/components/Card.style";
-import { border, outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
-import shadows from "@/lib/theme/snippets/shadow";
 import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
 
+const Actions = styled.div`
+	position: absolute;
+	right: 0;
+	top: 0;
+
+	background-color: #ddd;
+	border-radius: 50%;
+`;
+
 const Card = styled(CardStyle.Wrapper)`
 	${flex.column}
-	${outline.primary};
-	${border.primary};
-	${shadows.list};
 	${spacing.margin.small};
-	${radius.small};
+	${radius.medium};
 	${spacing.padding.medium};
 
 	background-color: ${colors.tint.tertiary};
 
 	min-width: max-content;
 	max-width: max-content;
+
+	border: 2px solid #ddd;
+	outline: 1px solid #eee;
+	box-shadow: 0.4rem 0.4rem 0.3rem -0.2rem #ccc;
+
+	${Actions} {
+		display: none;
+	}
+
+	&:hover,
+	&:focus-within {
+		${Actions} {
+			display: flex;
+		}
+	}
 `;
 
 const Title = styled(CardStyle.Title)`
 	background-color: ${colors.blue.main};
 	font-size: 0.9rem;
-	width: 100%;
+	padding: 0 0.5rem;
+	margin-bottom: 0;
+`;
+
+const Header = styled.div`
+	${flex.row};
+	position: relative;
+	align-items: center;
+	gap: 1rem;
+	justify-content: space-between;
 `;
 
 const LastUpdated = styled(CardStyle.Datetime)``;
 
+// TODO: adapted from logbooks.style.ts - extract that one to a shared component
+const LinkButton = styled(Action.Alternative)`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;
+
 export default {
 	Card,
 	Title,
-	LastUpdated
+	LastUpdated,
+	Header,
+	LinkButton,
+	Actions
 };

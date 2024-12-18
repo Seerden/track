@@ -18,7 +18,7 @@ export const pageStyle = css`
 `;
 
 const StyledPageWrapper = styled.div`
-	margin-top: 6rem;
+	margin-top: 5.4rem;
 `;
 
 export default function PageWrapper({ children }: PropsWithChildren) {
