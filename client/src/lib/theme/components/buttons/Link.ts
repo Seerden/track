@@ -10,7 +10,7 @@ const LinkIconButton = styled(Action.Default)<{ $size?: CSS.Properties["width"] 
 	--size: ${(p) => p.$size ?? "35px"};
 
 	@media (max-width: 768px) {
-		--size: calc(0.7 * ${(p) => p.$size ?? "25px"});
+		--size: calc(0.7 * ${(p) => p.$size ?? "35px"});
 	}
 
 	min-width: var(--size);
