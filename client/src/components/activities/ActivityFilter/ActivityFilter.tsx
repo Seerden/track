@@ -1,5 +1,10 @@
 import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
-import { activityFilterTabs } from "@/components/activities/ActivityFilter/lib/constants";
+import {
+	activityFilterDatetimeModifiers,
+	activityFilterDatetimeSelectors,
+	activityFilterTabs,
+	activityFilterTagsTypes
+} from "@/components/activities/ActivityFilter/lib/constants";
 import { nameTypeOptions } from "@/components/activities/ActivityFilter/lib/filter-name";
 import useActivityFilter from "@/components/activities/ActivityFilter/useActivityFilter";
 import { DateTimePicker } from "@mantine/dates";
@@ -78,8 +83,7 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 							<S.SectionActionBar>
 								<S.InputWithSelect style={{ position: "relative" }}>
 									<S.Select onChange={actions.set.tags.type}>
-										{/* TODO: get these values from a constant */}
-										{["includes", "excludes"].map((type) => (
+										{activityFilterTagsTypes.map((type) => (
 											<option key={type} value={type}>
 												{type}
 											</option>
@@ -142,7 +146,7 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 						<ResetButton onClick={actions.reset.datetime} />
 						<S.DatetimeSectionContent>
 							<S.DatetimeSectionColumn>
-								{["starts", "ends", "occurs"].map((modifier) => (
+								{activityFilterDatetimeModifiers.map((modifier) => (
 									<S.Label
 										key={modifier}
 										$active={filter.datetime.modifier === modifier}
@@ -158,7 +162,7 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 								))}
 							</S.DatetimeSectionColumn>
 							<S.DatetimeSectionColumn>
-								{["before", "after", "between"].map((selector) => (
+								{activityFilterDatetimeSelectors.map((selector) => (
 									<S.Label
 										key={selector}
 										$active={filter.datetime.selector === selector}

@@ -19,6 +19,9 @@ export type ActivityFilterState = {
 };
 
 export type ActivityFilterTabs = keyof ActivityFilterState;
+export type ActivityFilterTagsType = ActivityFilterState["tags"]["type"];
+export type ActivityFilterDatetimeModifier = ActivityFilterState["datetime"]["modifier"];
+export type ActivityFilterDatetimeSelector = ActivityFilterState["datetime"]["selector"];
 
 export type ActivityFilterValueMap = {
 	name: string;
