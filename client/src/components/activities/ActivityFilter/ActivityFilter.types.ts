@@ -23,7 +23,7 @@ export type ActivityFilterTagsType = ActivityFilterState["tags"]["type"];
 export type ActivityFilterDatetimeModifier = ActivityFilterState["datetime"]["modifier"];
 export type ActivityFilterDatetimeSelector = ActivityFilterState["datetime"]["selector"];
 
-export type ActivityFilterValueMap = {
+type ActivityFilterValueMap = {
 	name: string;
 	datetime: Dayjs[];
 	tags: ID[];
