@@ -1,6 +1,6 @@
 import { font } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const TemplateList = styled.ul`
 	list-style: none;
@@ -11,7 +11,7 @@ const TemplateList = styled.ul`
 	padding: 0.5rem;
 `;
 
-const TemplateListItem = styled.li`
+const TemplateListItem = styled.li<{ $selected: boolean }>`
 	cursor: pointer;
 	width: max-content;
 	flex: 1;
@@ -20,6 +20,12 @@ const TemplateListItem = styled.li`
 	padding: 0.5rem 1rem;
 	outline: 2px solid #ddd;
 	${flex.column};
+
+	${(p) =>
+		p.$selected &&
+		css`
+			background-color: limegreen;
+		`}
 `;
 
 export default {

@@ -44,17 +44,12 @@ export default function LogForm() {
 							<S.TemplateList>
 								{logTemplates.map((template) => (
 									<S.TemplateListItem
-										// TODO: this onClick should be a function, defined
-										// in the component hook
 										onClick={(e) => handleTemplateClick(e, template)}
 										key={+template.log_template_id}
-										style={{
-											backgroundColor:
-												log.log_template_id &&
-												+template.log_template_id === +log.log_template_id
-													? "limegreen"
-													: "transparent"
-										}}
+										$selected={
+											!!log.log_template_id &&
+											+template.log_template_id === +log.log_template_id
+										}
 									>
 										{template.name}
 									</S.TemplateListItem>
