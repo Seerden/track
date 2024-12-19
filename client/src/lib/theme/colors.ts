@@ -16,11 +16,10 @@ const baseColors = {
 		secondary: "dodgerblue"
 	},
 	yellow: {
-		main: "gold",
-		secondary: "orange"
+		main: "hsl(54, 100.00%, 50.00%)",
+		secondary: "gold"
 	},
 	orange: {
-		// TODO: get rid of "orange" as the value for yellow.secondary.
 		main: "orange",
 		secondary: "darkorange"
 	},

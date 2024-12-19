@@ -119,11 +119,29 @@ const WithIcon = styled(Default)`
 	gap: 1rem;
 `;
 
+const CallToAction = styled(WithIcon)`
+	padding: 1.5rem 1rem;
+	border-radius: 3px;
+	color: black;
+
+	// Regular margin
+	margin-top: -0.5rem;
+	margin-left: auto;
+	margin-right: 4rem;
+
+	// Small-screen margin
+	@media (max-width: 768px) {
+		margin: 0;
+		margin-top: 1rem;
+	}
+`;
+
 const ActionButtons = {
 	Default,
 	Alternative,
 	Stylized,
-	WithIcon
+	WithIcon,
+	CallToAction
 };
 
 export default ActionButtons;

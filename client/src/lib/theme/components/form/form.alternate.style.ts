@@ -49,6 +49,11 @@ const Label = styled.label`
 		font-size: ${font.size["0.9"]};
 		color: #333;
 		padding-left: 0.5rem;
+
+		// The following rules are here because of cases where we alias Label to
+		// something else (e.g. as="div")
+		user-select: none;
+		cursor: default;
 	}
 
 	input,
