@@ -1,5 +1,5 @@
-import LogTemplateForm from "@/components/logbooks/LogForm/LogTemplateForm";
 import useLogForm from "@/components/logbooks/LogForm/useLogForm";
+import LogTemplateForm from "@/components/logbooks/LogTemplateForm/LogTemplateForm";
 import Modal from "@/components/utility/Modal/Modal";
 import { Action } from "@/lib/theme/components/buttons";
 import F from "@/lib/theme/components/form/form.alternate.style";
