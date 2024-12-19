@@ -53,6 +53,8 @@ const TemplateListItem = styled.li<{ $selected: boolean }>`
 	text-overflow: ellipsis;
 	display: block;
 
+	border: 2px solid transparent;
+
 	${(p) =>
 		p.$selected &&
 		css`
@@ -60,7 +62,7 @@ const TemplateListItem = styled.li<{ $selected: boolean }>`
 			--background-color: ${(p) => p.theme.colors.blue.secondary};
 			background-color: var(--highlight-color);
 			color: white;
-			border: 2px solid var(--highlight-color);
+			border-color: var(--highlight-color);
 			box-shadow: 0 0.5rem 0.3rem -0.3rem var(--highlight-color);
 			transform: translateY(3px);
 			transition: transform 30ms ease-in;
