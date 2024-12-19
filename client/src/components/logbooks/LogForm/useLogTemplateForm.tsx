@@ -71,6 +71,7 @@ export default function useLogTemplateForm({ logbook_id }: { logbook_id: ID }) {
 				onSuccess: () => {
 					closeModal(modalIds.logbooks.itemTemplate.new);
 					closeModal(modalIds.logbooks.logTemplate.form);
+					// TODO: do not navigate to this when we're on the LogForm page!
 					navigate(`/logbooks/${logbook_id}`);
 				}
 			}

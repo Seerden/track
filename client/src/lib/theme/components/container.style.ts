@@ -1,3 +1,4 @@
+import { flex } from "@/lib/theme/snippets/flex";
 import { spacing } from "@/lib/theme/snippets/spacing";
 import styled, { css } from "styled-components";
 
@@ -21,8 +22,28 @@ const FieldWrapper = styled.div<{ $small?: boolean }>`
 	margin: 0.3rem;
 `;
 
+const EmptyState = styled.div`
+	${flex.column};
+
+	outline: 1px solid #fff;
+	width: max-content;
+	max-width: 100%;
+	box-shadow:
+		0.5rem 0.5rem 0 -0.2rem #555,
+		0 0 0.6rem 0 #ddd;
+	padding: 2rem;
+
+	p {
+		background-color: #fff;
+		padding: 1rem;
+		font-size: 1rem;
+		max-width: 400px;
+	}
+`;
+
 const Containers = {
-	Field: FieldWrapper
+	Field: FieldWrapper,
+	EmptyState
 };
 
 export default Containers;
