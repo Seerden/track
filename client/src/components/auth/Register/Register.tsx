@@ -4,18 +4,18 @@ import S from "../style/auth.style";
 import useRegister from "./useRegister";
 
 function Register() {
-	const { onInputChange, onSubmit, passwordVisible, togglePasswordVisible } =
+	const { handleInputChange, handleSubmit, passwordVisible, togglePasswordVisible } =
 		useRegister();
 	return (
 		// TODO: like in the login form, this probably becomes a modal that expands from the navigation/header
 		<S.Wrapper>
-			<F.Form onSubmit={onSubmit}>
+			<F.Form onSubmit={handleSubmit}>
 				<F.FormTitle>Register</F.FormTitle>
 				<S.Fields>
 					<F.Label>
 						<span>username</span>
 						<input
-							onChange={onInputChange}
+							onChange={handleInputChange}
 							type="text"
 							required
 							placeholder="Username"
@@ -24,7 +24,7 @@ function Register() {
 					</F.Label>
 					<F.Label>
 						<span>email</span>
-						<input onChange={onInputChange} type="email" name="email" />
+						<input onChange={handleInputChange} type="email" name="email" />
 					</F.Label>
 					{/* TODO: instead of using a label, use a fieldset, and try the 
                   styling from ItemTemplateForm  */}
@@ -40,7 +40,7 @@ function Register() {
 								<span>password</span>
 								<div style={{ position: "relative" }}>
 									<input
-										onChange={onInputChange}
+										onChange={handleInputChange}
 										type={passwordVisible ? "text" : "password"}
 										required
 										name="password"
@@ -63,7 +63,7 @@ function Register() {
 								<span>confirm password</span>
 								<div style={{ position: "relative" }}>
 									<input
-										onChange={onInputChange}
+										onChange={handleInputChange}
 										type={passwordVisible ? "text" : "password"}
 										required
 										name="passwordConfirm"

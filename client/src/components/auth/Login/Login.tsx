@@ -4,23 +4,29 @@ import S from "../style/auth.style";
 import useLogin from "./useLogin";
 
 function Login() {
-	const { onInputChange, onSubmit, passwordVisible, togglePasswordVisible } = useLogin();
+	const { handleInputChange, handleSubmit, passwordVisible, togglePasswordVisible } =
+		useLogin();
 
 	return (
 		// TODO: this probably becomes a modal that expands from the navigation/header
 		<S.Wrapper>
-			<F.Form onSubmit={onSubmit}>
+			<F.Form onSubmit={handleSubmit}>
 				<F.FormTitle>Login</F.FormTitle>
 				<S.Fields>
 					<F.Label>
 						<span>username</span>
-						<input onChange={onInputChange} type="text" required name="username" />
+						<input
+							onChange={handleInputChange}
+							type="text"
+							required
+							name="username"
+						/>
 					</F.Label>
 					<S.PasswordLabel>
 						<span>password</span>
 						<div style={{ position: "relative" }}>
 							<input
-								onChange={onInputChange}
+								onChange={handleInputChange}
 								type={passwordVisible ? "text" : "password"}
 								required
 								name="password"

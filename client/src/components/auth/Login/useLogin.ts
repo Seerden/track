@@ -24,15 +24,15 @@ export default function useLogin() {
 
 	const isValidLogin = userLogin.username.length > 0 && userLogin.password.length > 0;
 
-	function onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+	function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
 		setUserLogin((current) => ({
 			...current,
-			[event.target.name]: event.target.value
+			[e.target.name]: e.target.value
 		}));
 	}
 
-	function onSubmit(event: React.FormEvent<HTMLFormElement>) {
-		event.preventDefault();
+	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+		e.preventDefault();
 
 		if (!isValidLogin) {
 			// TODO: show error state
@@ -53,7 +53,7 @@ export default function useLogin() {
 	return {
 		passwordVisible,
 		togglePasswordVisible,
-		onInputChange,
-		onSubmit
+		handleInputChange,
+		handleSubmit
 	};
 }
