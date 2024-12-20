@@ -45,7 +45,6 @@ export default function useLogin() {
 	return {
 		passwordVisible,
 		togglePasswordVisible,
-		userLogin,
 		onInputChange,
 		onSubmit
 	};
