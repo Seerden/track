@@ -5,6 +5,7 @@ import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import type { NewLog } from "@t/data/logbook.new.types";
 import type { LogTemplate } from "@t/data/logbook.types";
+import { produce } from "immer";
 import { useState } from "react";
 
 export default function useLogForm() {
@@ -51,14 +52,19 @@ export default function useLogForm() {
 	}
 
 	function handleTemplateClick(
-		e: React.MouseEvent<HTMLLIElement>,
+		e: React.MouseEvent<HTMLButtonElement>,
 		template: LogTemplate
 	) {
 		e.preventDefault();
-		setLog((current) => ({
-			...current,
-			log_template_id: +template.log_template_id
-		}));
+		setLog(
+			produce((draft) => {
+				if (draft.log_template_id === +template.log_template_id) {
+					draft.log_template_id = null;
+				} else {
+					draft.log_template_id = +template.log_template_id;
+				}
+			})
+		);
 	}
 
 	const modalId = modalIds.logbooks.logTemplate.form;
@@ -67,6 +73,8 @@ export default function useLogForm() {
 		e.preventDefault();
 		openModal(modalId);
 	}
+
+	const isValid = !!log.name && log.name.length > 0;
 
 	return {
 		isProbablySuspended,
@@ -78,6 +86,7 @@ export default function useLogForm() {
 		logbookId,
 		handleModalOpen,
 		modalId,
-		handleTemplateClick
+		handleTemplateClick,
+		isValid
 	};
 }

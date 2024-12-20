@@ -10,6 +10,7 @@ html {
 	// Disables overflow when there is at least one open modal.
 	&:has([data-modal-id]) {
 		overflow: hidden;
+		margin-right: 1rem; // to prevent layout shift because of disappearing scrollbar
 	}
 }
 

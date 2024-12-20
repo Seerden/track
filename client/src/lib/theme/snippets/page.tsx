@@ -26,6 +26,12 @@ export const pageStyle = css`
 	}
 
 	padding: 0 1.5rem;
+
+	@media (max-width: 768px) {
+		padding: 0;
+	}
+
+	/* TODO: this needs to be responsive to the size of the navbar. */
 	min-height: calc(100vh - 5.4rem);
 `;
 
