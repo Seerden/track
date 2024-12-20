@@ -43,7 +43,7 @@ const Label = styled.label`
 	background-color: #fff;
 	${spacing.padding.small};
 	${radius.medium}
-	box-shadow: 0 0.2rem 0.3rem 0 #aaa;
+	box-shadow: 0 0.2rem 0.3rem 0 #ccc;
 
 	span {
 		font-size: ${font.size["0.9"]};
@@ -75,11 +75,18 @@ const Label = styled.label`
 	}
 `;
 
-/** @todo extract this Button to theme buttons lib? -- make note of the default margin, which I dislike */
-const Submit = styled(Action.WithIcon)`
-	color: #eee;
+/**
+ * @todo extract this Button to theme buttons lib? -- make note of the default margin, which I dislike
+ * */
+const Submit = styled(Action.CallToAction)`
+	color: black;
 	margin-top: 1rem;
-	padding: 1rem;
+	margin-left: 0;
+
+	svg {
+		color: royalblue;
+		stroke-width: 3;
+	}
 `;
 
 Submit.defaultProps = {

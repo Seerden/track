@@ -4,7 +4,7 @@ import Modal from "@/components/utility/Modal/Modal";
 import { Action } from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import F from "@/lib/theme/components/form/form.alternate.style";
-import { LucideArrowRight, LucideList, LucidePlus } from "lucide-react";
+import { LucideArrowRight, LucideHelpCircle, LucideList, LucidePlus } from "lucide-react";
 import S from "./style/LogForm.style";
 
 export default function LogForm() {
@@ -18,6 +18,7 @@ export default function LogForm() {
 		modalId,
 		handleModalOpen,
 		handleTemplateClick,
+		isValid,
 		logbookId
 	} = useLogForm();
 
@@ -38,12 +39,26 @@ export default function LogForm() {
 
 					{hasTemplates ? (
 						<F.Label as="div">
-							<span>template</span>
+							<span>layout (optional)</span>
+							<S.FieldDescription>
+								<S.FieldDescriptionIcon>
+									<LucideHelpCircle size={28} />
+								</S.FieldDescriptionIcon>
+								<S.FieldDescriptionContent>
+									Specify the log's layout. You can change this at any time, but
+									a template lets you get started quicker.
+								</S.FieldDescriptionContent>
+							</S.FieldDescription>
 							<S.TemplateList>
-								{/* TODO: just copying the templates a bit to see what the styling 
-                           does, reset to regular map after playing around */}
 								{logTemplates.map((template) => (
+									/**
+									 * @todo: show a template preview. On desktop, do
+									 * this on hover. On mobile, use a trigger button.
+									 * Make sure that clicking the trigger doesn't select
+									 * the template.
+									 * @see TRK-159 */
 									<S.TemplateListItem
+										tabIndex={0}
 										onClick={(e) => handleTemplateClick(e, template)}
 										key={+template.log_template_id}
 										$selected={
@@ -70,9 +85,30 @@ export default function LogForm() {
 					)}
 				</S.Fields>
 
-				<F.Submit $color="blue" type="submit">
-					create log <LucideArrowRight size={25} />
-				</F.Submit>
+				{isValid && (
+					<F.Submit $color="theme">
+						create this log{" "}
+						<div
+							style={{
+								position: "relative",
+								display: "flex",
+								alignItems: "center"
+							}}
+						>
+							<LucideList size={20} style={{ position: "relative" }} />
+							<LucideArrowRight
+								size={14}
+								style={{
+									position: "absolute",
+									bottom: 0,
+									right: -10,
+									backgroundColor: "#eee",
+									borderRadius: "50%"
+								}}
+							/>
+						</div>
+					</F.Submit>
+				)}
 			</F.Form>
 			<Modal modalId={modalId}>
 				<LogTemplateForm logbook_id={+logbookId} />
