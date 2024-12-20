@@ -90,7 +90,7 @@ export default function LogTemplateForm({ logbook_id }: LogTemplateFormProps) {
 								template to get started.
 							</p>
 						)}
-						{/* This Action.WithIcon is so ugly, and the idea doesn't work either 
+						{/* TODO: this Action.WithIcon is so ugly, and the idea doesn't work either
                   since we don't enforce the usage of an icon. Get rid of it. */}
 						<Action.WithIcon $color="blue" onClick={handleModalOpen}>
 							New item template <LucideText size={20} />

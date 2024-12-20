@@ -49,7 +49,6 @@ const TemplateListItem = styled(Unstyled)<{ $selected: boolean }>`
 	background-color: #f5f5f5;
 	${flex.column};
 
-	// text ellipsis
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -172,6 +171,20 @@ const FieldDescriptionIcon = styled.div`
 	}
 `;
 
+const IconStack = styled.div`
+	display: flex;
+	position: relative;
+	align-items: center;
+
+	.lucide:nth-of-type(2) {
+		position: absolute;
+		bottom: 0;
+		right: -10px;
+		background-color: #eee;
+		border-radius: 50%;
+	}
+`;
+
 export default {
 	TemplateList,
 	TemplateListItem,
@@ -180,5 +193,6 @@ export default {
 	Wrapper,
 	FieldDescription,
 	FieldDescriptionContent,
-	FieldDescriptionIcon
+	FieldDescriptionIcon,
+	IconStack
 };

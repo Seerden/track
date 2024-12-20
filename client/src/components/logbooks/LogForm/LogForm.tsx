@@ -87,26 +87,11 @@ export default function LogForm() {
 
 				{isValid && (
 					<F.Submit $color="theme">
-						create this log{" "}
-						<div
-							style={{
-								position: "relative",
-								display: "flex",
-								alignItems: "center"
-							}}
-						>
-							<LucideList size={20} style={{ position: "relative" }} />
-							<LucideArrowRight
-								size={14}
-								style={{
-									position: "absolute",
-									bottom: 0,
-									right: -10,
-									backgroundColor: "#eee",
-									borderRadius: "50%"
-								}}
-							/>
-						</div>
+						create this log
+						<S.IconStack>
+							<LucideList size={20} />
+							<LucideArrowRight size={14} />
+						</S.IconStack>
 					</F.Submit>
 				)}
 			</F.Form>
