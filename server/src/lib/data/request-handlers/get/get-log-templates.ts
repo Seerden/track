@@ -1,9 +1,18 @@
 import { groupById } from "@/lib/data/models/group-by-id";
 import {
+	queryLogTemplate,
 	queryLogTemplates,
 	queryLogTemplatesByLogbook,
 } from "@/lib/data/models/logbooks/query-log-templates";
 import type { RequestHandler } from "express";
+
+export const getLogTemplate: RequestHandler = async (req, res) => {
+	const log_template_id = +req.params.log_template_id;
+
+	const logTemplate = await queryLogTemplate({ log_template_id });
+
+	res.json(logTemplate);
+};
 
 export const getLogTemplates: RequestHandler = async (req, res) => {
 	const user_id = req.session.user?.user_id;
