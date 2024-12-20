@@ -8,6 +8,7 @@ export const defaultCellHeight = 25;
 
 const Default = styled(Unstyled)<{
 	$selected?: boolean;
+	$highlight?: boolean;
 	width?: number;
 	height?: number;
 }>`
@@ -56,6 +57,14 @@ const Default = styled(Unstyled)<{
 				box-shadow: 0 0 0.3rem 0 #ddd;
 			`}
 	}
+
+	${(p) =>
+		p.$highlight &&
+		css`
+			background-color: #eee;
+			color: #333;
+			font-weight: 600;
+		`}
 
 	${(p) =>
 		p.$selected &&
