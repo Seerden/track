@@ -70,16 +70,20 @@ export default function Calendar({
 
 	const {
 		handleMonthChange,
-		showMonthPicker,
-		setShowMonthPicker,
 		monthValue,
-		handleArrowClick
-	} = useMonthPicker({ initialDate, onChange: setMonthAndYear });
+		handleArrowClick,
+		monthPickerRef,
+		showMonthPicker,
+		setShowMonthPicker
+	} = useMonthPicker({
+		initialDate,
+		onChange: setMonthAndYear
+	});
 
 	return (
 		<S.Calendar>
 			{showMonthPicker && (
-				<S.MonthPickerWrapper>
+				<S.MonthPickerWrapper ref={monthPickerRef}>
 					<MonthPicker
 						flex="1"
 						value={monthValue}

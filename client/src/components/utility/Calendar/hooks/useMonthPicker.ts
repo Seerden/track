@@ -1,8 +1,9 @@
 import type { MonthAndYear } from "@/components/utility/Calendar/calendar.types";
 import { createMonthValue } from "@/components/utility/Calendar/hooks/create-date";
+import useClickOutside from "@/lib/hooks/useClickOutside";
 import type { DateValue } from "@mantine/dates";
 import type { Dayjs } from "dayjs";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type UseMonthPickerProps = {
 	initialDate: Dayjs;
@@ -11,7 +12,11 @@ type UseMonthPickerProps = {
 
 /** Functionality hook for Calendar.tsx */
 export default function useMonthPicker({ initialDate, onChange }: UseMonthPickerProps) {
-	const [showMonthPicker, setShowMonthPicker] = useState(false);
+	const monthPickerRef = useRef<HTMLDivElement>(null);
+	const { isOpen: showMonthPicker, setIsOpen: setShowMonthPicker } = useClickOutside(
+		monthPickerRef,
+		{ initialOpen: false }
+	);
 
 	const defaultMonthValue = createMonthValue(initialDate);
 	const [monthValue, setMonthValue] = useState(defaultMonthValue);
@@ -53,6 +58,7 @@ export default function useMonthPicker({ initialDate, onChange }: UseMonthPicker
 		monthValue,
 		setMonthValue,
 		handleMonthChange,
-		handleArrowClick
+		handleArrowClick,
+		monthPickerRef
 	};
 }
