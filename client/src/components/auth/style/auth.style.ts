@@ -5,6 +5,9 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
 	justify-self: center;
+	// TODO: this should be part of the page wrapper -- but first Register should
+	// be put inside a page wrapper :)
+	padding-top: 1rem;
 `;
 
 // TODO: why is there nothing like this in F?
@@ -40,10 +43,25 @@ const Submit = styled(F.Submit)`
 	padding: 0.5rem 1rem;
 `;
 
+// TODO -- this is adapted from NewFieldTemplate.style. Extract it.
+const Column = styled.fieldset`
+	${flex.column};
+
+	gap: 0.3rem;
+	margin: 0 0.2rem;
+	margin-top: 0.5rem;
+	background-color: #e9e9e9;
+	padding: 0.5rem;
+	outline: 2px solid #ddd;
+	border-radius: 5px;
+	height: max-content;
+`;
+
 export default {
 	Wrapper,
 	Fields,
 	ShowPassword,
 	PasswordLabel,
-	Submit
+	Submit,
+	Column
 };

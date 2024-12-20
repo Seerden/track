@@ -1,6 +1,6 @@
 import F from "@/lib/theme/components/form/form.alternate.style";
 import { LucideArrowRight, LucideEye, LucideEyeOff } from "lucide-react";
-import S from "./style/Login.style";
+import S from "../style/auth.style";
 import useLogin from "./useLogin";
 
 function Login() {
