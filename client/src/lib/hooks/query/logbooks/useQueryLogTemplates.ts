@@ -2,8 +2,17 @@ import logbookService from "@/lib/fetch/logbook-service";
 import { defaultQueryConfig } from "@/lib/query-client";
 import { qk } from "@/lib/query-keys";
 import type { LogTemplatesData } from "@/types/data.types";
-import type { ID } from "@t/data/utility.types";
+import type { LogTemplate } from "@t/data/logbook.types";
+import type { ID, Nullable } from "@t/data/utility.types";
 import { useQuery } from "@tanstack/react-query";
+
+export function useQueryLogTemplate(log_template_id: ID) {
+	return useQuery<Nullable<LogTemplate>>({
+		queryKey: qk.logTemplates.byId(log_template_id),
+		queryFn: () => logbookService.logTemplates.getById(log_template_id),
+		...defaultQueryConfig
+	});
+}
 
 export default function useQueryLogTemplates() {
 	return useQuery<LogTemplatesData>({

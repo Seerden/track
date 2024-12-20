@@ -45,6 +45,7 @@ const qk = {
 	},
 	logTemplates: {
 		all: ["logbooks", "templates"],
+		byId: (log_template_id: ID) => ["logbooks", "templates", log_template_id] as const,
 		byLogbook: (logbook_id: ID) => ["logbooks", logbook_id, "templates"] as const
 	},
 	fields: {

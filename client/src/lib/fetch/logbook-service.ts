@@ -52,6 +52,10 @@ const logbookService = {
 			})
 	},
 	logTemplates: {
+		getById: async (log_template_id: ID) =>
+			api.get<Nullable<LogTemplate>>({
+				url: `/data/logbook/template/${log_template_id}`
+			}),
 		getByUser: async () =>
 			api.get<LogTemplatesData>({ url: "/data/logbook/templates" }),
 		getByLogbook: async (logbook_id: ID) =>
