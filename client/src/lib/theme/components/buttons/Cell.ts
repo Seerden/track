@@ -59,22 +59,19 @@ const Default = styled(Unstyled)<{
 	}
 
 	${(p) =>
+		p.$highlight &&
+		css`
+			background-color: #eee;
+			color: #333;
+			font-weight: 600;
+		`}
+
+	${(p) =>
 		p.$selected &&
 		css`
 			background-color: ${highlightColor};
 			color: azure;
 			box-shadow: 0 0 0.2rem 0 #ccc;
-		`}
-
-	${(p) =>
-		p.$highlight &&
-		css`
-			${!p.$selected &&
-			css`
-				background-color: #eee;
-				color: #333;
-			`}
-			font-weight: 600;
 		`}
 `;
 
