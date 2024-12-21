@@ -1,4 +1,5 @@
 import { useQueryItemTemplatesByLogbook } from "@/lib/hooks/query/logbooks/useQueryItemTemplates";
+import { useQueryLogTemplate } from "@/lib/hooks/query/logbooks/useQueryLogTemplates";
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import type { ID } from "@t/data/utility.types";
 
@@ -11,7 +12,7 @@ export default function useMiniLogTemplate({
 }) {
 	const { params } = useRouteProps();
 
-	const { data: logTemplateData } = useQueryLogTemplateById(log_template_id);
+	const { data: logTemplateData } = useQueryLogTemplate(log_template_id);
 	// TODO: I'm casting as ID, but it's possible that it's undefined (if it's
 	// neiithern the URL nor in props). Solve this properly.
 	const logbookId = params.logbookId ? +params.logbookId : (logbook_id as ID);
