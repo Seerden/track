@@ -100,7 +100,7 @@ dataRouter.get("/logbook/:logbook_id/logs", getLogsByLogbook);
 dataRouter.get("/logbook/:logbook_id/items", getItemsByLogbook);
 dataRouter.get("/logbook/:logbook_id/item/templates", getItemTemplatesByLogbook);
 dataRouter.get("/logbook/templates", getLogTemplates);
-dataRouter.get("/logbook/template/:log_tempate_id", getLogTemplate);
+dataRouter.get("/logbook/template/:log_template_id", getLogTemplate);
 dataRouter.get("/logbook/:logbook_id/templates", getLogTemplatesByLogbook);
 
 dataRouter.get("/logbooks/fields", getFields);
