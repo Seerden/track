@@ -40,4 +40,11 @@ PG_TEST_PORT=
 ## Issue tracking
 
 I started out this project using just GitHub's issue feature, but I'm trying out
-linear right now, so issues will be synced between GitHub and https://linear.app/seerden
+linear right now, so issues will be synced between GitHub and
+https://linear.app/seerden
+
+## Error tracking
+
+The client catches errors and sends them to
+[Sentry](https://track-am.sentry.io/issues/?project=4508463529984080&referrer=sidebar&statsPeriod=1h).
+Server errors will follow, soon.
