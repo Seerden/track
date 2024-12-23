@@ -23,8 +23,13 @@ export default function ItemSection({
 	logbook_id
 }: ItemSectionProps) {
 	const { isProbablySuspended, modalId, handleModalOpen, itemRows } = useItemSection({
-		itemTemplate
+		itemTemplate,
+		log_id
 	});
+
+	// TODO: here, filter out any items that are neither in the log's
+	// log_template, nor have item rows associated with them for this log.
+	const filteredItems = items;
 
 	if (isProbablySuspended) return null;
 
@@ -33,7 +38,7 @@ export default function ItemSection({
 			<S.Wrapper>
 				<S.Header>{itemTemplate.name}</S.Header>
 
-				{items.map((item) => (
+				{filteredItems.map((item) => (
 					<ItemRowsTable
 						log_id={log_id}
 						key={item.item_id}
