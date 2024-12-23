@@ -1,13 +1,17 @@
+import { font } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-	max-width: 100%;
-	width: max-content;
+	user-select: none;
+	max-width: max-content;
+	border-radius: 8px;
+	border: 2px solid #ccc;
+	font-size: 0.9rem;
 
-	// dev styles
-	border: 2px solid deepskyblue;
-	padding: 1rem;
+	box-shadow:
+		0 0.7rem 0 -0.6rem #ccc,
+		0 0 0.4rem -0.2rem #777;
 `;
 
 const Header = styled.div`
@@ -15,16 +19,20 @@ const Header = styled.div`
 	width: 100%;
 	gap: 1rem;
 	align-items: center;
+	padding: 0.4rem 0.5rem;
+	margin-bottom: 0.5rem;
+	border-bottom: 2px solid #ccc;
+	font-size: ${font.size["0.85"]};
+	background-color: #ddd;
+	border-radius: 5px 5px 0 0;
 `;
 
 const MiniItemTemplateList = styled.ul`
 	list-style: none;
 
-	// dev styles
-	border: 2px solid red;
+	${flex.column};
 
-	${flex.row};
-	flex-wrap: wrap;
+	min-width: max-content;
 `;
 
 export default {

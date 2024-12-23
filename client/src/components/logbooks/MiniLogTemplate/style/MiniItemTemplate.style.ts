@@ -1,18 +1,22 @@
 import { flex } from "@/lib/theme/snippets/flex";
+import scrollbar from "@/lib/theme/snippets/scroll";
 import styled from "styled-components";
 
 const Wrapper = styled.li`
-	// dev styles
-	border: 2px solid blue;
-	margin: 0.5rem;
+	padding: 0.5rem 1rem;
 
-	width: max-content;
+	max-width: 300px;
+
+	&:not(:nth-of-type(1)) {
+		border-top: 2px solid #ccc;
+	}
 `;
 
 const Header = styled.div`
 	width: 100%;
 	${flex.row};
 	justify-content: space-between;
+	align-items: center;
 `;
 
 const Title = styled.h2`
@@ -21,39 +25,57 @@ const Title = styled.h2`
 `;
 
 const Description = styled.p`
-	height: 1.5rem;
-	line-height: 1.5rem;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+
+	margin-bottom: 0.5rem;
 `;
 
 const ChipList = styled.ul`
 	list-style: none;
 
 	${flex.row};
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
+	max-width: 100%;
+	overflow-x: auto;
+
+	padding-bottom: 0.3rem;
 
 	gap: 0.5rem;
+
+	${scrollbar.custom};
+
+	&::-webkit-scrollbar-button {
+		width: 0;
+	}
+
+	&::-webkit-scrollbar {
+		height: 8px;
+	}
 `;
 
 const Chip = styled.li`
-	width: max-content;
-
 	border-radius: 5px;
 	background-color: #ddd;
-	padding: 0.2rem 0.4rem;
+
+	min-width: max-content;
+	padding: 0.4rem;
+	overflow: hidden;
 
 	${flex.column};
 `;
 
 const FieldMeta = styled.div`
 	${flex.row};
-	gap: 0.2rem;
 
 	font-size: 0.9rem;
+	gap: 3px;
 
 	* {
-		background-color: white;
+		background-color: #eee;
+		outline: 1px solid #ddd;
 		padding: 0.15rem 0.3rem;
-		border-radius: 5px;
 	}
 `;
 
