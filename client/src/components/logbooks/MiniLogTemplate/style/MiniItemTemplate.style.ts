@@ -1,3 +1,4 @@
+import { border } from "@/components/logbooks/MiniLogTemplate/style/MiniLogTemplate.style";
 import { flex } from "@/lib/theme/snippets/flex";
 import scrollbar from "@/lib/theme/snippets/scroll";
 import styled from "styled-components";
@@ -8,7 +9,7 @@ const Wrapper = styled.li`
 	max-width: 300px;
 
 	&:not(:nth-of-type(1)) {
-		border-top: 2px solid #ccc;
+		border-top: ${border};
 	}
 `;
 

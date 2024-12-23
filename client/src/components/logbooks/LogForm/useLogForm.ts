@@ -5,14 +5,15 @@ import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import type { NewLog } from "@t/data/logbook.new.types";
 import type { LogTemplate } from "@t/data/logbook.types";
+import type { ID } from "@t/data/utility.types";
 import { produce } from "immer";
 import { useState } from "react";
 
-export default function useLogForm() {
+export default function useLogForm({ logbook_id }: { logbook_id?: ID }) {
 	const { params, navigate } = useRouteProps();
 	const { mutate: submit } = useMutateNewLog();
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-	const logbookId = params.logbookId!; // TODO: do not force non-null assertion
+	const logbookId = params.logbookId ?? (logbook_id as ID); // TODO: do not force non-null assertion
 	const { data: logTemplatesData } = useQueryLogTemplatesByLogbook(+(logbookId ?? 0)); // TODO: do not use 0
 	const { openModal } = useModalState();
 	const [log, setLog] = useState<NewLog>({
