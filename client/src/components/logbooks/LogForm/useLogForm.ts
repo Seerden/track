@@ -15,8 +15,7 @@ export default function useLogForm({ logbook_id }: { logbook_id?: ID }) {
 	const { mutate: submit } = useMutateNewLog();
 	const float = useFloatingProps({ hover: { restMs: 100 } });
 	const [activeId, setActiveId] = useState<ID | null>(null); // id for floating template
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-	const logbookId = params.logbookId ?? (logbook_id as ID); // TODO: do not force non-null assertion
+	const logbookId = params.logbookId ?? (logbook_id as ID); // TODO: do not cast as ID -- it can actually be undefined
 	const { data: logTemplatesData } = useQueryLogTemplatesByLogbook(+(logbookId ?? 0)); // TODO: do not use 0
 	const { openModal } = useModalState();
 	const [log, setLog] = useState<NewLog>({
