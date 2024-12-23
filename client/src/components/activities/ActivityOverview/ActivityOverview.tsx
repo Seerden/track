@@ -3,8 +3,8 @@ import type { ActivityFilterWithValues } from "@/components/activities/ActivityF
 import { filterActivities } from "@/components/activities/ActivityFilter/lib/filter";
 import TableItem from "@/components/activities/ActivityOverview/TableItem";
 import useActivityOverview from "@/components/activities/ActivityOverview/useActivityOverview";
-import useFloatingActivityOverviewFilter from "@/components/activities/ActivityOverview/useFloatingActivityOverviewFilter";
 import { filterTagsById } from "@/lib/filter-tags";
+import useFloatingProps from "@/lib/hooks/useFloatingProps";
 import {
 	LucideArrowDownWideNarrow,
 	LucideDownload,
@@ -16,7 +16,7 @@ import S from "./style/ActivityOverview.style";
 
 export default function ActivityOverview() {
 	const { isProbablySuspended, activities, tags } = useActivityOverview();
-	const float = useFloatingActivityOverviewFilter();
+	const float = useFloatingProps({ click: {} });
 	const [filter, setFilter] = useState<ActivityFilterWithValues>();
 
 	const filteredActivities = useMemo(() => {

@@ -1,7 +1,10 @@
 import { offsetIfOverflowing } from "@/components/layout/Header/LogbookMenu/floating-middleware";
+import type { UseClickProps, UseHoverProps } from "@floating-ui/react";
 import {
 	autoUpdate,
+	safePolygon,
 	shift,
+	useClick,
 	useDismiss,
 	useFloating,
 	useHover,
@@ -10,11 +13,12 @@ import {
 } from "@floating-ui/react";
 import { useState } from "react";
 
-/** TODO: this is basically the same as useFloatingActivityOverview, and
- * probably very similar to the hook for the create button as well. Create a
- * single floating hook that does basically what this thing does. Optionally
- * specify some parameters to pass to useFloating. */
-export default function useFloatingPreview() {
+type UseFloatingPreviewArgs = {
+	click?: UseClickProps;
+	hover?: UseHoverProps;
+};
+
+export default function useFloatingProps({ click, hover }: UseFloatingPreviewArgs) {
 	const [open, setOpen] = useState(false);
 	const { refs, context, floatingStyles } = useFloating({
 		whileElementsMounted: autoUpdate,
@@ -27,12 +31,14 @@ export default function useFloatingPreview() {
 
 	const dismiss = useDismiss(context);
 	const role = useRole(context);
-	const hover = useHover(context, { restMs: 100 });
+	const _hover = useHover(context, { handleClose: safePolygon(), ...hover });
+	const _click = useClick(context, click);
 
 	const { getReferenceProps, getFloatingProps } = useInteractions([
 		dismiss,
 		role,
-		hover
+		...[hover ? _hover : undefined],
+		...[click ? _click : undefined]
 	]);
 
 	return {
