@@ -10,7 +10,10 @@ import getActivities from "@/lib/data/request-handlers/get/get-activities";
 import { getFields } from "@/lib/data/request-handlers/get/get-fields";
 import getHabitEntries from "@/lib/data/request-handlers/get/get-habit-entries";
 import getHabits from "@/lib/data/request-handlers/get/get-habits";
-import { getItemRows } from "@/lib/data/request-handlers/get/get-item-rows";
+import {
+	getItemRows,
+	getItemRowsByLog,
+} from "@/lib/data/request-handlers/get/get-item-rows";
 import { getItemTemplatesByLogbook } from "@/lib/data/request-handlers/get/get-item-templates";
 import { getItems, getItemsByLogbook } from "@/lib/data/request-handlers/get/get-items";
 import {
@@ -94,8 +97,13 @@ dataRouter.delete("/logbook/:logbook_id", deleteLogbook);
 
 /* --- GET --- */
 dataRouter.get("/logbooks", getLogbooks);
-dataRouter.get("/logbook/:logbook_id", getLogbook);
 dataRouter.get("/logbooks/logs", getLogs);
+
+// This should probably take the logbook_id as a parameter, but it's simpler for
+// the frontend now to not worry about that
+dataRouter.get("/logbook/log/:log_id/items/rows", getItemRowsByLog);
+
+dataRouter.get("/logbook/:logbook_id", getLogbook);
 dataRouter.get("/logbook/:logbook_id/logs", getLogsByLogbook);
 dataRouter.get("/logbook/:logbook_id/items", getItemsByLogbook);
 dataRouter.get("/logbook/:logbook_id/item/templates", getItemTemplatesByLogbook);
