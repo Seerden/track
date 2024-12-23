@@ -15,7 +15,11 @@ import {
 	getItemRowsByLog,
 } from "@/lib/data/request-handlers/get/get-item-rows";
 import { getItemTemplatesByLogbook } from "@/lib/data/request-handlers/get/get-item-templates";
-import { getItems, getItemsByLogbook } from "@/lib/data/request-handlers/get/get-items";
+import {
+	getItems,
+	getItemsByLogbook,
+	getItemsByTemplate,
+} from "@/lib/data/request-handlers/get/get-items";
 import {
 	getLogTemplate,
 	getLogTemplates,
@@ -113,6 +117,7 @@ dataRouter.get("/logbook/:logbook_id/templates", getLogTemplatesByLogbook);
 
 dataRouter.get("/logbooks/fields", getFields);
 dataRouter.get("/logbooks/items/rows", getItemRows);
+dataRouter.get("/logbook/items/template/:item_template_id/items", getItemsByTemplate);
 dataRouter.get("/logbooks/items", getItems);
 
 /* --- PUT --- */
