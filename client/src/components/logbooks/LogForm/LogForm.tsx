@@ -2,13 +2,11 @@ import LogTemplateForm from "@/components/logbooks/LogForm/LogTemplateForm";
 import useLogForm from "@/components/logbooks/LogForm/useLogForm";
 import MiniLogTemplate from "@/components/logbooks/MiniLogTemplate/MiniLogTemplate";
 import Modal from "@/components/utility/Modal/Modal";
-import useFloatingProps from "@/lib/hooks/useFloatingProps";
 import { Action } from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import F from "@/lib/theme/components/form/form.alternate.style";
 import type { ID } from "@t/data/utility.types";
 import { LucideArrowRight, LucideHelpCircle, LucideList, LucidePlus } from "lucide-react";
-import { useState } from "react";
 import S from "./style/LogForm.style";
 
 type LogFormProps = {
@@ -27,11 +25,12 @@ export default function LogForm({ logbook_id }: LogFormProps) {
 		handleModalOpen,
 		handleTemplateClick,
 		isValid,
-		logbookId
+		logbookId,
+		float,
+		activeId,
+		setActiveId
 	} = useLogForm({ logbook_id });
-	const { floatingStyles, getFloatingProps, getReferenceProps, open, refs } =
-		useFloatingProps({ hover: { restMs: 100 } });
-	const [activeId, setActiveId] = useState<ID | null>(null);
+
 	if (isProbablySuspended) return null;
 
 	return (
@@ -77,23 +76,23 @@ export default function LogForm({ logbook_id }: LogFormProps) {
 										onMouseOver={() => setActiveId(+template.log_template_id)}
 										ref={(node) =>
 											activeId === +template.log_template_id
-												? refs.setReference(node)
+												? float.refs.setReference(node)
 												: null
 										}
-										{...getReferenceProps()}
+										{...float.getReferenceProps()}
 									>
 										{template.name}
 									</S.TemplateListItem>
 								))}
-								{activeId && open && (
+								{activeId && float.open && (
 									<div
-										ref={refs.setFloating}
+										ref={float.refs.setFloating}
 										style={{
-											...floatingStyles,
-											display: open ? "block" : "none",
+											...float.floatingStyles,
+											display: float.open ? "block" : "none",
 											marginTop: "0.5rem"
 										}}
-										{...getFloatingProps()}
+										{...float.getFloatingProps()}
 									>
 										<MiniLogTemplate
 											log_template_id={activeId}

@@ -1,5 +1,6 @@
 import useMutateNewLog from "@/lib/hooks/query/logbooks/useMutateNewLog";
 import { useQueryLogTemplatesByLogbook } from "@/lib/hooks/query/logbooks/useQueryLogTemplates";
+import useFloatingProps from "@/lib/hooks/useFloatingProps";
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
@@ -12,6 +13,8 @@ import { useState } from "react";
 export default function useLogForm({ logbook_id }: { logbook_id?: ID }) {
 	const { params, navigate } = useRouteProps();
 	const { mutate: submit } = useMutateNewLog();
+	const float = useFloatingProps({ hover: { restMs: 100 } });
+	const [activeId, setActiveId] = useState<ID | null>(null); // id for floating template
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const logbookId = params.logbookId ?? (logbook_id as ID); // TODO: do not force non-null assertion
 	const { data: logTemplatesData } = useQueryLogTemplatesByLogbook(+(logbookId ?? 0)); // TODO: do not use 0
@@ -88,6 +91,9 @@ export default function useLogForm({ logbook_id }: { logbook_id?: ID }) {
 		handleModalOpen,
 		modalId,
 		handleTemplateClick,
-		isValid
+		isValid,
+		float,
+		activeId,
+		setActiveId
 	};
 }
