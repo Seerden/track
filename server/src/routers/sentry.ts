@@ -2,6 +2,9 @@ import { Router } from "express";
 
 export const sentryRouter = Router({ mergeParams: true });
 
+/**
+ * @see https://stackoverflow.com/a/77308117
+ */
 sentryRouter.post("/", async (req, res) => {
 	try {
 		const envelope = req.body;
