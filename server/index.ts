@@ -29,12 +29,15 @@ async function start() {
 		}) as RequestHandler,
 	);
 
-	app.use(express.json() as RequestHandler);
-
 	await initializeRedisConnection();
 	await pingDatabase();
 	app.use(session(redisSession));
 
+	// Have to parse the body as text to forward to Sentry
+	app.use("/sentry", express.text({ limit: "5mb" }), routers.sentry);
+
+	// For the non-sentry routes, we can parse the body as JSON.
+	app.use(express.json() as RequestHandler);
 	app.use("/", routers.index);
 	app.use("/data", routers.data);
 	app.use("/auth", routers.auth);
