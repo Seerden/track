@@ -1,5 +1,5 @@
+import type { FieldTemplateWithValue } from "@/components/logbooks/logbook.types";
 import Containers from "@/lib/theme/components/container.style";
-import type { FieldTemplateWithValue } from "./lib/has-values";
 import S from "./style/ItemTableRow.style";
 
 export type ItemRowCardProps = {

@@ -1,8 +1,8 @@
-import type { FieldTemplateWithValue } from "@/components/logbooks/LogDetail/hooks/useNewItemRow";
+import type { FieldTemplateWithMaybeValue } from "@/components/logbooks/logbook.types";
 
 /** Helper for useNewItemRow that determines whether an input is valid according
  * to the settings specified by its `FieldTemplateWithValue`. */
-export function isValidEntry(entry: FieldTemplateWithValue | undefined) {
+export function isValidEntry(entry: FieldTemplateWithMaybeValue | undefined) {
 	if (!entry) return false;
 	if (entry.required || entry.value) {
 		return (entry.value ?? "").toString().length > 0;
@@ -12,6 +12,6 @@ export function isValidEntry(entry: FieldTemplateWithValue | undefined) {
 
 /** Similar to `isValidEntry`, except applies the logic to every input in the
  * row. */
-export function isValidRow(entries: FieldTemplateWithValue[]) {
+export function isValidRow(entries: FieldTemplateWithMaybeValue[]) {
 	return entries.every((entry) => isValidEntry(entry));
 }

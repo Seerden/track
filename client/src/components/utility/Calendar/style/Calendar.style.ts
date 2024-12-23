@@ -44,10 +44,13 @@ const Title = styled.h2`
 `;
 
 const MonthPickerWrapper = styled.div`
+	overflow: hidden;
 	position: absolute;
-	top: 1rem;
+	max-width: 90%;
+	left: 5%;
+	top: 5%;
 	background-color: #eee;
-	box-shadow: 0 0.5rem 1rem 0 #777;
+	box-shadow: 0 0.5rem 1rem 0 #aaa;
 	border-radius: 5px;
 	outline: 2px solid #ccc;
 	z-index: 3;

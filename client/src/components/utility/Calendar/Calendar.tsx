@@ -1,6 +1,7 @@
 import type { CalendarProps, Row } from "@/components/utility/Calendar/calendar.types";
 import { useCalendar } from "@/components/utility/Calendar/hooks/useCalendar";
 import useMonthPicker from "@/components/utility/Calendar/hooks/useMonthPicker";
+import { today } from "@/lib/datetime/make-date";
 import { daysOfWeekShort } from "@/lib/datetime/weekdays";
 import { Cell } from "@/lib/theme/components/buttons";
 import { MonthPicker } from "@mantine/dates";
@@ -18,13 +19,11 @@ type CalendarRowProps = {
 };
 
 function CalendarRow({ month, year, row, selectDate, selectedDate }: CalendarRowProps) {
-	function isSelected(day: number | null) {
-		if (!selectedDate || !day) return false;
-		return (
-			day === selectedDate.date() &&
-			month === selectedDate.month() &&
-			year === selectedDate.year()
-		);
+	function is(day: number | null, type: "today" | "selected") {
+		const date = type === "today" ? today() : selectedDate;
+
+		if (!date || !day) return false;
+		return day === date.date() && month === date.month() && year === date.year();
 	}
 
 	return (
@@ -34,7 +33,8 @@ function CalendarRow({ month, year, row, selectDate, selectedDate }: CalendarRow
 					disabled={day === null}
 					key={index}
 					onClick={() => selectDate(day)}
-					$selected={isSelected(day)}
+					$selected={is(day, "selected")}
+					$highlight={is(day, "today")}
 				>
 					{day}
 				</Cell.Default>
@@ -70,16 +70,20 @@ export default function Calendar({
 
 	const {
 		handleMonthChange,
-		showMonthPicker,
-		setShowMonthPicker,
 		monthValue,
-		handleArrowClick
-	} = useMonthPicker({ initialDate, onChange: setMonthAndYear });
+		handleArrowClick,
+		monthPickerRef,
+		showMonthPicker,
+		setShowMonthPicker
+	} = useMonthPicker({
+		initialDate,
+		onChange: setMonthAndYear
+	});
 
 	return (
 		<S.Calendar>
 			{showMonthPicker && (
-				<S.MonthPickerWrapper>
+				<S.MonthPickerWrapper ref={monthPickerRef}>
 					<MonthPicker
 						flex="1"
 						value={monthValue}

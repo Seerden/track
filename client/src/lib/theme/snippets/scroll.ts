@@ -11,8 +11,35 @@ const hiddenScrollbar = css`
 	-ms-overflow-style: none;
 `;
 
+const customScrollbar = css`
+	&::-webkit-scrollbar {
+		height: 12px;
+	}
+
+	&::-webkit-scrollbar-button {
+		background-color: #ccc;
+		width: 5px;
+	}
+
+	&::-webkit-scrollbar-track-piece {
+		background-color: #fff;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: dodgerblue;
+		outline: 2px solid #fff;
+		outline-offset: -2px;
+		border: 0.1px solid #b7b7b7;
+
+		&:hover {
+			background-color: royalblue;
+		}
+	}
+`;
+
 const scrollbar = {
-	hidden: hiddenScrollbar
+	hidden: hiddenScrollbar,
+	custom: customScrollbar
 };
 
 export default scrollbar;

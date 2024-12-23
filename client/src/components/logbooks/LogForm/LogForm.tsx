@@ -1,12 +1,19 @@
 import LogTemplateForm from "@/components/logbooks/LogForm/LogTemplateForm";
 import useLogForm from "@/components/logbooks/LogForm/useLogForm";
+import MiniLogTemplate from "@/components/logbooks/MiniLogTemplate/MiniLogTemplate";
 import Modal from "@/components/utility/Modal/Modal";
 import { Action } from "@/lib/theme/components/buttons";
+import Containers from "@/lib/theme/components/container.style";
 import F from "@/lib/theme/components/form/form.alternate.style";
-import { LucideArrowRight, LucideList } from "lucide-react";
+import type { ID } from "@t/data/utility.types";
+import { LucideArrowRight, LucideHelpCircle, LucideList, LucidePlus } from "lucide-react";
 import S from "./style/LogForm.style";
 
-export default function LogForm() {
+type LogFormProps = {
+	logbook_id?: ID;
+};
+
+export default function LogForm({ logbook_id }: LogFormProps) {
 	const {
 		isProbablySuspended,
 		handleInputChange,
@@ -17,68 +24,112 @@ export default function LogForm() {
 		modalId,
 		handleModalOpen,
 		handleTemplateClick,
-		logbookId
-	} = useLogForm();
+		isValid,
+		logbookId,
+		float,
+		activeId,
+		setActiveId
+	} = useLogForm({ logbook_id });
 
 	if (isProbablySuspended) return null;
 
 	return (
-		<>
+		<S.Wrapper>
 			<F.Form onSubmit={handleSubmit}>
 				<F.FormTitle>
 					<LucideList size={40} color="royalblue" /> New log
 				</F.FormTitle>
-				<F.Label>
-					<span>name</span>
-					<input type="text" name="name" onChange={handleInputChange} />
-				</F.Label>
 
-				<div
-					style={{
-						marginTop: "1rem"
-					}}
-				>
+				<S.Fields>
+					<F.Label>
+						<span>name</span>
+						<input type="text" name="name" onChange={handleInputChange} />
+					</F.Label>
+
 					{hasTemplates ? (
-						<F.Label>
-							<span>template</span>
+						<F.Label as="div">
+							<span>layout (optional)</span>
+							<S.FieldDescription>
+								<S.FieldDescriptionIcon>
+									<LucideHelpCircle size={28} />
+								</S.FieldDescriptionIcon>
+								<S.FieldDescriptionContent>
+									Specify the log's layout. You can change this at any time, but
+									a template lets you get started quicker.
+								</S.FieldDescriptionContent>
+							</S.FieldDescription>
 							<S.TemplateList>
 								{logTemplates.map((template) => (
+									/**
+									 * @todo: On mobile, use a trigger button to show the
+									 * preview. Make sure that clicking the trigger
+									 * doesn't select the template.
+									 * @see TRK-159 and follow-up issue. */
 									<S.TemplateListItem
-										// TODO: this onClick should be a function, defined
-										// in the component hook
+										tabIndex={0}
 										onClick={(e) => handleTemplateClick(e, template)}
 										key={+template.log_template_id}
-										style={{
-											backgroundColor:
-												log.log_template_id &&
-												+template.log_template_id === +log.log_template_id
-													? "limegreen"
-													: "transparent"
-										}}
+										$selected={
+											!!log.log_template_id &&
+											+template.log_template_id === +log.log_template_id
+										}
+										onMouseOver={() => setActiveId(+template.log_template_id)}
+										ref={(node) =>
+											activeId === +template.log_template_id
+												? float.refs.setReference(node)
+												: null
+										}
+										{...float.getReferenceProps()}
 									>
 										{template.name}
 									</S.TemplateListItem>
 								))}
+								{activeId && float.open && (
+									<div
+										ref={float.refs.setFloating}
+										style={{
+											...float.floatingStyles,
+											display: float.open ? "block" : "none",
+											marginTop: "0.5rem"
+										}}
+										{...float.getFloatingProps()}
+									>
+										<MiniLogTemplate
+											log_template_id={activeId}
+											logbook_id={+logbookId}
+										/>
+									</div>
+								)}
+								<NewTemplateButton onClick={handleModalOpen} />
 							</S.TemplateList>
 						</F.Label>
 					) : (
-						<p>
-							There are no templates yet for this logbook. Create one to get
-							started.
-						</p>
+						<Containers.EmptyState>
+							<p>
+								This logbook doesn't have any templates yet. It's easier to get
+								going if you start from a template.
+							</p>
+							<Action.CallToAction $color="yellow">
+								<LucidePlus /> Create a log template.
+							</Action.CallToAction>
+						</Containers.EmptyState>
 					)}
-				</div>
+				</S.Fields>
 
-				<NewTemplateButton onClick={handleModalOpen} />
-
-				<F.Submit $color="blue" type="submit">
-					create log <LucideArrowRight size={25} />
-				</F.Submit>
+				{isValid && (
+					<F.Submit $color="theme">
+						create this log
+						<S.IconStack>
+							<LucideList size={20} />
+							<LucideArrowRight size={14} />
+						</S.IconStack>
+					</F.Submit>
+				)}
 			</F.Form>
 			<Modal modalId={modalId}>
 				<LogTemplateForm logbook_id={+logbookId} />
 			</Modal>
-		</>
+		</S.Wrapper>
 	);
 }
 
@@ -88,14 +139,8 @@ type NewTemplateButtonProps = {
 
 function NewTemplateButton({ onClick }: NewTemplateButtonProps) {
 	return (
-		<Action.WithIcon
-			$color="blue"
-			style={{
-				marginLeft: 0
-			}}
-			onClick={onClick}
-		>
-			create a template
-		</Action.WithIcon>
+		<S.ActionButton onClick={onClick}>
+			<LucidePlus strokeWidth={2.5} size={20} />
+		</S.ActionButton>
 	);
 }
