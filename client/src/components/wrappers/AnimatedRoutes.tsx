@@ -14,7 +14,7 @@ function AnimatedOutlet() {
 	const [outletState] = useState(outlet);
 
 	return (
-		<ErrorBoundary fallback={<p>An error occurred.</p>}>
+		<ErrorBoundary fallback={<p>An error occurred.</p>} showDialog>
 			{outletState}
 			<DetailModals />
 		</ErrorBoundary>
