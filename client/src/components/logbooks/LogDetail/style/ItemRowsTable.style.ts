@@ -19,6 +19,9 @@ const Wrapper = styled.div`
 	padding: 0.5rem 1rem;
 	margin: 1rem;
 	max-width: 750px; // temporary
+
+	/* TODO: remove this dev-only style */
+	border: 3px solid orange;
 `;
 
 const Table = styled.table`
@@ -35,20 +38,14 @@ const ItemName = styled.h2`
 	color: white;
 `;
 
-const Button = styled(Action.Default)`
+const Button = styled(Action.Alternative)`
 	display: flex;
-
 	color: black;
-
-	border-radius: 5px;
-
-	width: max-content;
-
-	padding: 0.5rem 1rem;
-	padding-left: 0.5rem;
+	width: 30px;
+	height: 30px;
 	margin-top: 0.5rem;
-	margin-left: 1rem;
-	gap: 1rem;
+	margin-left: 0.5rem;
+	border-radius: 50%;
 `;
 
 export default {
