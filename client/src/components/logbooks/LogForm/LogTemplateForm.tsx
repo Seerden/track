@@ -86,8 +86,8 @@ export default function LogTemplateForm({ logbook_id }: LogTemplateFormProps) {
 							</>
 						) : (
 							<p>
-								You don't have any item templates yet. You need at least one item
-								template to get started.
+								This logbook does not have any item templates yet. You need at
+								least one item template to get started.
 							</p>
 						)}
 						{/* TODO: this Action.WithIcon is so ugly, and the idea doesn't work either
