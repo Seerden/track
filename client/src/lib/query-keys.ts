@@ -34,6 +34,8 @@ const qk = {
 	},
 	items: {
 		byLogbook: (logbook_id: ID) => ["logbooks", logbook_id, "items"] as const,
+		byTemplate: (item_template_id: ID) =>
+			["logbooks", "items", item_template_id] as const,
 		rows: {
 			all: ["logbooks", "items", "rows"],
 			byLog: (log_id: ID) => ["logbooks", "items", "rows", "log", log_id] as const

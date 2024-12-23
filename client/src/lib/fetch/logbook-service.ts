@@ -79,6 +79,10 @@ const logbookService = {
 	},
 	items: {
 		getByUser: async () => api.get<ItemsData>({ url: "/data/logbooks/items" }),
+		getByTemplate: async (item_template_id: ID) =>
+			api.get<ItemsData>({
+				url: `/data/logbook/items/template/${item_template_id}/items`
+			}),
 		getByLogbook: async (logbook_id: ID) =>
 			api.get<ItemsData>({ url: `/data/logbook/${logbook_id}/items` }),
 		post: async (input: NewItemInput) =>
