@@ -1,13 +1,19 @@
 import LogTemplateForm from "@/components/logbooks/LogForm/LogTemplateForm";
 import useLogForm from "@/components/logbooks/LogForm/useLogForm";
+import MiniLogTemplate from "@/components/logbooks/MiniLogTemplate/MiniLogTemplate";
 import Modal from "@/components/utility/Modal/Modal";
 import { Action } from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import F from "@/lib/theme/components/form/form.alternate.style";
+import type { ID } from "@t/data/utility.types";
 import { LucideArrowRight, LucideHelpCircle, LucideList, LucidePlus } from "lucide-react";
 import S from "./style/LogForm.style";
 
-export default function LogForm() {
+type LogFormProps = {
+	logbook_id?: ID;
+};
+
+export default function LogForm({ logbook_id }: LogFormProps) {
 	const {
 		isProbablySuspended,
 		handleInputChange,
@@ -19,8 +25,11 @@ export default function LogForm() {
 		handleModalOpen,
 		handleTemplateClick,
 		isValid,
-		logbookId
-	} = useLogForm();
+		logbookId,
+		float,
+		activeId,
+		setActiveId
+	} = useLogForm({ logbook_id });
 
 	if (isProbablySuspended) return null;
 
@@ -52,11 +61,10 @@ export default function LogForm() {
 							<S.TemplateList>
 								{logTemplates.map((template) => (
 									/**
-									 * @todo: show a template preview. On desktop, do
-									 * this on hover. On mobile, use a trigger button.
-									 * Make sure that clicking the trigger doesn't select
-									 * the template.
-									 * @see TRK-159 */
+									 * @todo: On mobile, use a trigger button to show the
+									 * preview. Make sure that clicking the trigger
+									 * doesn't select the template.
+									 * @see TRK-159 and follow-up issue. */
 									<S.TemplateListItem
 										tabIndex={0}
 										onClick={(e) => handleTemplateClick(e, template)}
@@ -65,10 +73,33 @@ export default function LogForm() {
 											!!log.log_template_id &&
 											+template.log_template_id === +log.log_template_id
 										}
+										onMouseOver={() => setActiveId(+template.log_template_id)}
+										ref={(node) =>
+											activeId === +template.log_template_id
+												? float.refs.setReference(node)
+												: null
+										}
+										{...float.getReferenceProps()}
 									>
 										{template.name}
 									</S.TemplateListItem>
 								))}
+								{activeId && float.open && (
+									<div
+										ref={float.refs.setFloating}
+										style={{
+											...float.floatingStyles,
+											display: float.open ? "block" : "none",
+											marginTop: "0.5rem"
+										}}
+										{...float.getFloatingProps()}
+									>
+										<MiniLogTemplate
+											log_template_id={activeId}
+											logbook_id={+logbookId}
+										/>
+									</div>
+								)}
 								<NewTemplateButton onClick={handleModalOpen} />
 							</S.TemplateList>
 						</F.Label>

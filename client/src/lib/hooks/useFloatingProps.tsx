@@ -1,16 +1,24 @@
 import { offsetIfOverflowing } from "@/components/layout/Header/LogbookMenu/floating-middleware";
+import type { UseClickProps, UseHoverProps } from "@floating-ui/react";
 import {
 	autoUpdate,
+	safePolygon,
 	shift,
 	useClick,
 	useDismiss,
 	useFloating,
+	useHover,
 	useInteractions,
 	useRole
 } from "@floating-ui/react";
 import { useState } from "react";
 
-export default function useFloatingActivityOverviewFilter() {
+type UseFloatingPreviewArgs = {
+	click?: UseClickProps;
+	hover?: UseHoverProps;
+};
+
+export default function useFloatingProps({ click, hover }: UseFloatingPreviewArgs) {
 	const [open, setOpen] = useState(false);
 	const { refs, context, floatingStyles } = useFloating({
 		whileElementsMounted: autoUpdate,
@@ -21,14 +29,19 @@ export default function useFloatingActivityOverviewFilter() {
 		onOpenChange: setOpen
 	});
 
-	const click = useClick(context);
 	const dismiss = useDismiss(context);
 	const role = useRole(context);
+	const _hover = useHover(context, {
+		handleClose: safePolygon(),
+		...hover
+	});
+	const _click = useClick(context, click);
 
 	const { getReferenceProps, getFloatingProps } = useInteractions([
-		click,
 		dismiss,
-		role
+		role,
+		...[hover ? _hover : undefined],
+		...[click ? _click : undefined]
 	]);
 
 	return {

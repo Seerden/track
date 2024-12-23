@@ -1,18 +1,21 @@
 import useMutateNewLog from "@/lib/hooks/query/logbooks/useMutateNewLog";
 import { useQueryLogTemplatesByLogbook } from "@/lib/hooks/query/logbooks/useQueryLogTemplates";
+import useFloatingProps from "@/lib/hooks/useFloatingProps";
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import type { NewLog } from "@t/data/logbook.new.types";
 import type { LogTemplate } from "@t/data/logbook.types";
+import type { ID } from "@t/data/utility.types";
 import { produce } from "immer";
 import { useState } from "react";
 
-export default function useLogForm() {
+export default function useLogForm({ logbook_id }: { logbook_id?: ID }) {
 	const { params, navigate } = useRouteProps();
 	const { mutate: submit } = useMutateNewLog();
-	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-	const logbookId = params.logbookId!; // TODO: do not force non-null assertion
+	const float = useFloatingProps({ hover: { restMs: 100 } });
+	const [activeId, setActiveId] = useState<ID | null>(null); // id for floating template
+	const logbookId = params.logbookId ?? (logbook_id as ID); // TODO: do not cast as ID -- it can actually be undefined
 	const { data: logTemplatesData } = useQueryLogTemplatesByLogbook(+(logbookId ?? 0)); // TODO: do not use 0
 	const { openModal } = useModalState();
 	const [log, setLog] = useState<NewLog>({
@@ -87,6 +90,9 @@ export default function useLogForm() {
 		handleModalOpen,
 		modalId,
 		handleTemplateClick,
-		isValid
+		isValid,
+		float,
+		activeId,
+		setActiveId
 	};
 }

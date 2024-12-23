@@ -2,9 +2,10 @@ import { font } from "@/lib/theme/font";
 import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
+import scrollbar from "@/lib/theme/snippets/scroll";
 import shadows from "@/lib/theme/snippets/shadow";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 // TODO: copied from Logbooks.style.ts Actions
 const Actions = styled.div`
@@ -44,39 +45,13 @@ const Description = styled.p`
 	max-width: 100%;
 `;
 
-const customScrollbar = css`
-	&::-webkit-scrollbar {
-		height: 12px;
-	}
-
-	&::-webkit-scrollbar-button {
-		background-color: #ccc;
-		width: 5px;
-	}
-
-	&::-webkit-scrollbar-track-piece {
-		background-color: #fff;
-	}
-
-	&::-webkit-scrollbar-thumb {
-		background-color: dodgerblue;
-		outline: 2px solid #fff;
-		outline-offset: -2px;
-		border: 0.1px solid #b7b7b7;
-
-		&:hover {
-			background-color: royalblue;
-		}
-	}
-`;
-
 const LogList = styled.ul`
 	${flex.row};
 	gap: ${spacingValue.small};
 
 	overflow-x: auto;
 
-	${customScrollbar}
+	${scrollbar.custom};
 `;
 
 const Card = styled.div`
