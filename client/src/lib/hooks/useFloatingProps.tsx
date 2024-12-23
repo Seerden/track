@@ -31,7 +31,10 @@ export default function useFloatingProps({ click, hover }: UseFloatingPreviewArg
 
 	const dismiss = useDismiss(context);
 	const role = useRole(context);
-	const _hover = useHover(context, { handleClose: safePolygon(), ...hover });
+	const _hover = useHover(context, {
+		handleClose: safePolygon(),
+		...hover
+	});
 	const _click = useClick(context, click);
 
 	const { getReferenceProps, getFloatingProps } = useInteractions([
