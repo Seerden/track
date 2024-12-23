@@ -4,7 +4,7 @@ import NewItemRow from "@/components/logbooks/LogDetail/NewItemRow";
 import useItemRowsTable from "@/components/logbooks/LogDetail/hooks/useItemRowsTable";
 import type { Item, ItemRow } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
-import { LucidePencil } from "lucide-react";
+import { LucidePlusSquare } from "lucide-react";
 import S from "./style/ItemRowsTable.style";
 
 export type ItemRowsProps = {
@@ -63,8 +63,8 @@ type AddNewItemRowButtonProps = {
 
 function AddNewItemRowButton({ name, onClick }: AddNewItemRowButtonProps) {
 	return (
-		<S.Button $color="yellow" type="button" onClick={onClick}>
-			<LucidePencil /> add to {name}
+		<S.Button type="button" onClick={onClick}>
+			<LucidePlusSquare />
 		</S.Button>
 	);
 }
