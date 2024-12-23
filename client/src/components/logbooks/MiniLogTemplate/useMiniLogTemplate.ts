@@ -15,7 +15,7 @@ export default function useMiniLogTemplate({
 
 	const { data: logTemplateData } = useQueryLogTemplate(log_template_id);
 	// TODO: I'm casting as ID, but it's possible that it's undefined (if it's
-	// neiithern the URL nor in props). Solve this properly.
+	// neither in the URL nor in props). Solve this properly.
 	const logbookId = params.logbookId ? +params.logbookId : (logbook_id as ID);
 
 	const { data: itemTemplatesData } = useQueryItemTemplatesByLogbook(logbookId);
