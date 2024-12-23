@@ -31,6 +31,9 @@ export default function MiniLogTemplate({
 		<S.Wrapper>
 			<S.Header>
 				<h2>{logTemplate.name}</h2>
+				{/* TODO: we call the button Link.IconMinimal, but in this 
+               case it's not a link, we just want to use the styling 
+               from that button -- it should be renamed. */}
 				<Link.IconMinimal onClick={() => setExpanded(!expanded)}>
 					{expanded ? (
 						<LucideChevronUp size={20} />
@@ -39,9 +42,6 @@ export default function MiniLogTemplate({
 					)}
 				</Link.IconMinimal>
 			</S.Header>
-			{/* TODO: we call the button Link.IconMinimal, but in this 
-            case it's not a link, we just want to use the styling 
-            from that button -- it should be renamed. */}
 
 			<S.MiniItemTemplateList>
 				{itemTemplatesWithFields.map((itemTemplate) => (
