@@ -2,6 +2,7 @@ import { font } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import styled from "styled-components";
 
+// TODO: this should be in border styles
 export const border = `1px solid #ccc`;
 
 const Wrapper = styled.div`
