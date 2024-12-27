@@ -15,6 +15,7 @@ import type {
 	Log,
 	Logbook,
 	LogbookInput,
+	LogInput,
 	LogTemplate,
 	NewItemInput,
 	NewItemRowInput,
@@ -48,6 +49,11 @@ const logbookService = {
 		post: async (input: NewLogInput) =>
 			api.post<NewLogInput, Log>({
 				url: "/data/logbook/log",
+				body: input
+			}),
+		put: async (input: LogInput) =>
+			api.put<LogInput, Log>({
+				url: `/data/logbook/log/${input.log.log_id}`,
 				body: input
 			})
 	},
