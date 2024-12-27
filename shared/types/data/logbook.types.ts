@@ -108,6 +108,13 @@ export type Item = {
 	created_at: Timestamp;
 };
 
+export type LayoutSection = {
+	item_template_id: ID;
+	item_ids: Nullable<ID[]>;
+};
+
+type Layout = LayoutSection[];
+
 /** A Log represents a filled-in session for a Logbook. */
 export type Log = {
 	log_id: ID;
@@ -126,6 +133,13 @@ export type Log = {
 	end_time: Nullable<Timestamp>;
 
 	created_at: Timestamp;
+
+	/** This describes the layout of the log. In the database, it's implemented
+	 * as a json array, which means that removing an item or item template
+	 * doesn't automatically remove the values from the layout.
+	 * @todo make sure that nonexistent items/item templates do not mess up the
+	 * UI. */
+	layout: Layout;
 };
 
 /** A logbook contains any number of entries that presumably each denote a day,
