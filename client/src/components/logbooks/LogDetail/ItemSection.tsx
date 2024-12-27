@@ -4,7 +4,6 @@ import NewItemRow from "@/components/logbooks/LogDetail/NewItemRow";
 import useItemSection from "@/components/logbooks/LogDetail/hooks/useItemSection";
 import type { Item, ItemRow } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
-import { LucidePlusSquare } from "lucide-react";
 import S from "./style/ItemSection.style";
 
 export type ItemSectionProps = {
@@ -17,7 +16,7 @@ export type ItemSectionProps = {
  * @todo ^ this description sucks, make it more descriptive
  */
 export default function ItemSection({ rows, item, log_id }: ItemSectionProps) {
-	const { addRow, fieldsData, fieldsForItem, newRowCount } = useItemSection({ item });
+	const { fieldsData, fieldsForItem } = useItemSection({ item });
 
 	if (!fieldsData) return null;
 
@@ -37,34 +36,15 @@ export default function ItemSection({ rows, item, log_id }: ItemSectionProps) {
 						/>
 					))}
 
-					{/* TODO: only allow 1 new row at a time? Then the AddNewItemRowButton 
-               becomes obsolete, because we'll always show the single new row */}
-					{Array.from({ length: newRowCount }).map((_, index) => (
-						<NewItemRow
-							log_id={log_id}
-							key={rows.length + index}
-							position={rows.length + index}
-							item={item}
-							fieldTemplates={fieldsForItem}
-						/>
-					))}
+					<NewItemRow
+						log_id={log_id}
+						key={rows.length + 1}
+						position={rows.length + 1}
+						item={item}
+						fieldTemplates={fieldsForItem}
+					/>
 				</S.Table>
-
-				<AddNewItemRowButton name={item.name} onClick={addRow} />
 			</div>
 		</S.Wrapper>
-	);
-}
-
-type AddNewItemRowButtonProps = {
-	name: string;
-	onClick: (e?: React.MouseEvent<HTMLButtonElement>) => void;
-};
-
-function AddNewItemRowButton({ name, onClick }: AddNewItemRowButtonProps) {
-	return (
-		<S.Button type="button" onClick={onClick}>
-			<LucidePlusSquare />
-		</S.Button>
 	);
 }
