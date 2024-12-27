@@ -1,6 +1,13 @@
 import useLogDetail from "@/components/logbooks/LogDetail/hooks/useLogDetail";
 import LogDetailSection from "@/components/logbooks/LogDetail/LogDetailSection";
+import NewItemTemplate from "@/components/logbooks/NewItemTemplate/NewItemTemplate";
+import Modal from "@/components/utility/Modal/Modal";
+import modalIds from "@/lib/modal-ids";
+import { useModalState } from "@/lib/state/modal-state";
+import { Action } from "@/lib/theme/components/buttons";
+import Containers from "@/lib/theme/components/container.style";
 import type { ID } from "@t/data/utility.types";
+import { LucideFolderPen } from "lucide-react";
 import S from "./style/LogDetail.style";
 
 export type LogDetailProps = {
@@ -15,49 +22,56 @@ export default function LogDetail({ logbook_id }: LogDetailProps) {
 		log,
 		filteredItemTemplates,
 		notYetSelectedItemTemplates,
-		setSelectedOption,
-		toggleSelectedOptionInManualSelection
+		itemTemplates,
+		itemTemplateIdsInLog
 	} = useLogDetail({
 		logbook_id
 	});
 
-	if (isProbablySuspended) return null;
+	const { openModal } = useModalState();
+	function handleModalOpen() {
+		openModal(modalIds.logbooks.itemTemplate.new);
+	}
+
+	if (isProbablySuspended || !log) return <div>There is nothing here</div>;
 
 	return (
-		<S.Wrapper>
-			<S.LogHeader>{log.name}</S.LogHeader>
+		<>
+			<S.Wrapper>
+				<S.LogHeader>{log?.name}</S.LogHeader>
 
-			<S.Sections>
-				{filteredItemTemplates?.map((template, index) => (
-					<LogDetailSection
-						logbook_id={logbookId}
-						log_id={logId}
-						key={index}
-						itemTemplate={template}
-					/>
-				))}
-				{(notYetSelectedItemTemplates?.length ?? 0) > 0 && (
-					<div>
-						Add another section:
-						<select
-							defaultValue={notYetSelectedItemTemplates?.[0]?.item_template_id}
-							onChange={(e) => setSelectedOption(+e.target.value)}
-						>
-							{notYetSelectedItemTemplates?.map((template) => (
-								<option
-									value={template.item_template_id}
-									key={template.item_template_id}
-								>
-									{template.name}
-								</option>
-							))}
-						</select>
-						<button onClick={toggleSelectedOptionInManualSelection} type="button">
-							Add
-						</button>
-					</div>
-				)}
-			</S.Sections>
-		</S.Wrapper>
+				<S.Sections>
+					{filteredItemTemplates?.map((template, index) => (
+						<LogDetailSection
+							logbook_id={logbookId}
+							log_id={logId}
+							key={index}
+							itemTemplate={template}
+						/>
+					))}
+
+					{itemTemplates?.length === 0 && (
+						<Containers.EmptyState>
+							<p>
+								It looks awfully empty in here without item templates. Add one to
+								get started.
+							</p>
+							<Action.CallToAction $color="yellow" onClick={handleModalOpen}>
+								<LucideFolderPen />
+								Create an item template
+							</Action.CallToAction>
+						</Containers.EmptyState>
+					)}
+
+					{/* TODO */}
+					{itemTemplateIdsInLog.length === 0 && <div>... select item template</div>}
+				</S.Sections>
+			</S.Wrapper>
+			{!!logbookId && (
+				<Modal modalId={modalIds.logbooks.itemTemplate.new}>
+					<NewItemTemplate logbook_id={logbookId} />
+				</Modal>
+			)}
+		</>
 	);
 }

@@ -4,6 +4,8 @@ import styled from "styled-components";
 
 const Wrapper = styled.section`
 	${containers.minimal};
+
+	border: 3px solid red;
 `;
 
 const Header = styled.h1`

@@ -19,26 +19,21 @@ export default function useLogDetailData({
 	// TODO: as mentioned elsewhere, if we use maps instead of hashmap-like
 	// objects, we can avoid most of this pattern
 	const log = logsData?.byId[logId] as Maybe<Log>;
-
 	const itemTemplates = itemTemplatesData?.byId
 		? Object.values(itemTemplatesData.byId)
 		: [];
 
-	const { data: logTemplate, isSuccess } = useQueryLogTemplate(
-		log?.log_template_id ?? 0
+	const { data: logTemplate, isFetched } = useQueryLogTemplate(
+		log?.log_template_id ?? -1
 	);
+
 	// TODO: we also query itemRowsData in useItemSection. Probably not
 	// necessary, but since it's cached anyway, it doesn't really matter.
 	const { data: itemRowsData } = useQueryItemRowsByLog({ log_id: logId ? +logId : 0 });
 	const { data: itemsData } = useQueryItemsByLogbook(logbookId ?? 0);
 
 	const isProbablySuspended =
-		!itemTemplatesData ||
-		!logsData ||
-		!log ||
-		!isSuccess ||
-		!itemRowsData ||
-		!itemsData;
+		!itemTemplatesData || !logsData || !isFetched || !itemRowsData || !itemsData;
 
 	// The conditional return is to make the typing more accurate when we call
 	// this hook from useLogDetail.
