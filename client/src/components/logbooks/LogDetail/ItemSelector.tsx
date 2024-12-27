@@ -6,7 +6,10 @@ type ItemSelectorProps = {
 	onChange(item_id: ID): void;
 };
 
-// TODO: implement functionality
+// TODO: implement functionality. One part of this would be the new-item-button
+// that is a typable input field + button combo that creates a new item and adds
+// it right away
+// TODO: styling
 export default function ItemSelector({ items, onChange }: ItemSelectorProps) {
 	return (
 		<div>
