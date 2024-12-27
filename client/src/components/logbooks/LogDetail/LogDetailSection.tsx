@@ -27,7 +27,7 @@ export default function LogDetailSection({
 		items,
 		includedItems,
 		excludedItems,
-		appendItemToLayoutSection
+		addItemToSection
 	} = useLogDetailSection({
 		itemTemplate,
 		log_id
@@ -79,10 +79,7 @@ export default function LogDetailSection({
 				{!!excludedItems && excludedItems.length > 0 && (
 					<div>
 						add another "{itemTemplate.name}" item to this log
-						<ItemSelector
-							items={excludedItems}
-							onChange={appendItemToLayoutSection}
-						/>
+						<ItemSelector items={excludedItems} onChange={addItemToSection} />
 					</div>
 				)}
 			</S.Wrapper>
