@@ -7,9 +7,11 @@ export const updateLogbook: QueryFunction<
 	{ logbook: Logbook },
 	Promise<Logbook>
 > = async ({ sql = sqlConnection, logbook }) => {
+	const { logbook_id, ...logbookWithoutId } = logbook;
+
 	const [updatedLogbook] = await sql<[Logbook]>`
       UPDATE logbooks
-      SET ${sql(logbook)}
+      SET ${sql(logbookWithoutId)}
       WHERE logbook_id = ${logbook.logbook_id}
       RETURNING *
    `;

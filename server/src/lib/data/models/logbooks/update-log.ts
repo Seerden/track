@@ -10,11 +10,12 @@ export const updateLog: QueryFunction<{ log: Log }, Promise<Log>> = async ({
 	// TODO: verify that every value in layout actually belongs to the user
 	// TODO?: remove any values from the layout that no longer exist
 
+	const { log_id, ...logWithoutId } = log;
 	const [updatedLog] = await sql<[Log]>`
-      UPDATE logs
-      SET ${sql(log)}
-      WHERE log_id = ${log.log_id}
-      RETURNING *
+     UPDATE logs
+     SET ${sql(logWithoutId)}
+     WHERE log_id = ${log_id}
+     RETURNING *
    `;
 
 	return updatedLog;
