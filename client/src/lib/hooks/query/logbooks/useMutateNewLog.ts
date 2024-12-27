@@ -1,5 +1,6 @@
 import logbookService from "@/lib/fetch/logbook-service";
-import { mk } from "@/lib/query-keys";
+import { queryClient } from "@/lib/query-client";
+import { mk, qk } from "@/lib/query-keys";
 import type { Log, NewLogInput } from "@t/data/logbook.types";
 import { useMutation } from "@tanstack/react-query";
 
@@ -8,6 +9,11 @@ export default function useMutateNewLog() {
 		async mutationFn(input) {
 			return logbookService.logs.post(input);
 		},
-		mutationKey: mk.logbooks.log.new
+		mutationKey: mk.logbooks.log.new,
+		onSuccess: () => {
+			queryClient.invalidateQueries({
+				queryKey: qk.logs.all
+			});
+		}
 	});
 }
