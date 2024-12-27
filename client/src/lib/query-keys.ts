@@ -96,7 +96,8 @@ const mk = {
 		new: ["new-logbook"],
 		update: ["logbook"],
 		log: {
-			new: ["new-log"]
+			new: ["new-log"],
+			update: ["log"]
 		},
 		template: {
 			new: ["new-log-template"]
