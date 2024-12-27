@@ -1,14 +1,14 @@
 import type { FieldTemplateWithValue } from "@/components/logbooks/logbook.types";
 import Containers from "@/lib/theme/components/container.style";
-import S from "./style/ItemTableRow.style";
+import S from "./style/ItemRow";
 
-export type ItemRowCardProps = {
+export type ItemRowProps = {
 	fields: FieldTemplateWithValue[];
 };
 
 /** Renders a single table row for an item: one cell for every `field` in
  * `fields`. */
-export default function ItemTableRow({ fields }: ItemRowCardProps) {
+export default function ItemRow({ fields }: ItemRowProps) {
 	return (
 		<tr>
 			{fields.map((field) => (

@@ -1,4 +1,4 @@
-import ItemTableRow from "@/components/logbooks/LogDetail/ItemTableRow";
+import ItemRow from "@/components/logbooks/LogDetail/ItemRow";
 import { hasValues } from "@/components/logbooks/LogDetail/lib/has-values";
 import type { Field } from "@t/data/logbook.api.types";
 import type { ID } from "@t/data/utility.types";
@@ -30,6 +30,6 @@ export default function MaybeTableRow({
 	});
 
 	return !hasValues(fieldAndValueList) ? null : (
-		<ItemTableRow key={index} fields={fieldAndValueList} />
+		<ItemRow key={index} fields={fieldAndValueList} />
 	);
 }

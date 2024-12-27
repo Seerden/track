@@ -1,5 +1,5 @@
 import useLogDetail from "@/components/logbooks/LogDetail/hooks/useLogDetail";
-import ItemSection from "@/components/logbooks/LogDetail/ItemSection";
+import LogDetailSection from "@/components/logbooks/LogDetail/LogDetailSection";
 import type { ID } from "@t/data/utility.types";
 import S from "./style/LogDetail.style";
 
@@ -29,7 +29,7 @@ export default function LogDetail({ logbook_id }: LogDetailProps) {
 
 			<S.Sections>
 				{filteredItemTemplates?.map((template, index) => (
-					<ItemSection
+					<LogDetailSection
 						logbook_id={logbookId}
 						log_id={logId}
 						key={index}

@@ -1,39 +1,28 @@
-import { useQueryItemRowsByLog } from "@/lib/hooks/query/logbooks/useQueryItemRows";
-import type { ModalId } from "@/lib/modal-ids";
-import modalIds from "@/lib/modal-ids";
-import { useModalState } from "@/lib/state/modal-state";
-import type { ItemTemplate } from "@t/data/logbook.types";
-import type { ID } from "@t/data/utility.types";
+import { getFieldsForItem } from "@/components/logbooks/LogDetail/lib/get-fields";
+import useQueryFields from "@/lib/hooks/query/logbooks/useQueryFields";
+import type { Item } from "@t/data/logbook.types";
+import { useState } from "react";
 
-export default function useItemSection({
-	itemTemplate,
-	log_id
-}: {
-	itemTemplate: ItemTemplate;
-	log_id: ID;
-}) {
-	const { data: itemRowsData } = useQueryItemRowsByLog({ log_id });
-	const modalId = modalIds.logbooks.item.new(itemTemplate.name) as ModalId;
+/** Functionality hook for ItemSection */
+export default function useItemSection({ item }: { item: Item }) {
+	const { data: fieldsData } = useQueryFields();
+	const [newRowCount, setNewRowCount] = useState<number>(1);
 
-	const { openModal } = useModalState();
-
-	function handleModalOpen(e: React.MouseEvent<HTMLButtonElement>) {
-		e.preventDefault();
-		openModal(modalId);
+	function addRow() {
+		setNewRowCount((current) => current + 1);
 	}
 
-	const isProbablySuspended = !itemRowsData;
-
-	if (isProbablySuspended) {
-		return {
-			isProbablySuspended
-		};
-	}
+	const fieldsForItem = fieldsData?.byId
+		? getFieldsForItem({
+				item,
+				fields: Object.values(fieldsData.byId)
+			})
+		: [];
 
 	return {
-		isProbablySuspended,
-		itemRows: Object.values(itemRowsData.byId),
-		modalId,
-		handleModalOpen
+		fieldsData,
+		newRowCount,
+		addRow,
+		fieldsForItem
 	};
 }

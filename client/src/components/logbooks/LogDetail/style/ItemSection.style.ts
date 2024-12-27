@@ -1,18 +1,56 @@
-import { containers } from "@/lib/theme/components/container.style";
+import { Action } from "@/lib/theme/components/buttons";
 import { font } from "@/lib/theme/font";
+import { flex } from "@/lib/theme/snippets/flex";
 import styled from "styled-components";
 
-const Wrapper = styled.section`
-	${containers.minimal};
+const Wrapper = styled.div`
+	${flex.row};
+	gap: 3rem;
+
+	&:not(&:nth-of-type(1)) {
+		margin-top: 0.5rem;
+		padding-top: 0.5rem;
+	}
+
+	border-radius: 5px;
+	background-color: #eaeaea;
+	box-shadow: 0 0.3rem 0.5rem 0 #ddd;
+	border: 1px solid #fff;
+	padding: 0.5rem 1rem;
+	margin: 1rem;
+	max-width: 750px; // temporary
+
+	/* TODO: remove this dev-only style */
+	border: 3px solid orange;
 `;
 
-const Header = styled.h1`
-	font-size: ${font.size["2"]};
-	border-radius: 6px;
-	padding-inline: 1rem;
-	margin: 0;
-	box-shadow: 0 0.5rem 1.5rem -0.6rem #ccc;
-	border-bottom: 3px solid #fff;
+const Table = styled.table`
+	font-size: ${font.size["0.88"]};
 `;
 
-export default { Wrapper, Header };
+const ItemName = styled.h2`
+	font-size: ${font.size["1.2"]};
+	margin-top: 0.5rem;
+	background-color: dodgerblue;
+	height: max-content;
+	padding: 0.3rem 1rem;
+	border-radius: 5px;
+	color: white;
+`;
+
+const Button = styled(Action.Alternative)`
+	display: flex;
+	color: black;
+	width: 30px;
+	height: 30px;
+	margin-top: 0.5rem;
+	margin-left: 0.5rem;
+	border-radius: 50%;
+`;
+
+export default {
+	Wrapper,
+	Table,
+	ItemName,
+	Button
+};
