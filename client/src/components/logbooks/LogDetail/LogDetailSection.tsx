@@ -1,5 +1,6 @@
 import useLogDetailSection from "@/components/logbooks/LogDetail/hooks/useLogDetailSection";
 import ItemSection from "@/components/logbooks/LogDetail/ItemSection";
+import ItemSelector from "@/components/logbooks/LogDetail/ItemSelector";
 import { getRowsForItem } from "@/components/logbooks/LogDetail/lib/get-rows";
 import NewItem from "@/components/logbooks/NewItem/NewItem";
 import Modal from "@/components/utility/Modal/Modal";
@@ -24,15 +25,12 @@ export default function LogDetailSection({
 		handleModalOpen,
 		itemRows,
 		items,
-		filteredItems,
-		notYetSelectedItems,
-		setSelectedOption,
-		setManuallySelectedItemIds,
-		selectedOption
+		includedItems,
+		excludedItems,
+		appendItemToLayoutSection
 	} = useLogDetailSection({
 		itemTemplate,
-		log_id,
-		logbook_id
+		log_id
 	});
 
 	if (isProbablySuspended) return null;
@@ -41,8 +39,9 @@ export default function LogDetailSection({
 		<>
 			<S.Wrapper>
 				<S.Header>{itemTemplate.name}</S.Header>
-				{!!items && items.length === 0 && (
-					// TODO: implement the button to add a new item here
+				{/* TODO: remove the "1 ||" conditional */}
+				{(1 || (!!items && items.length === 0)) && (
+					// TODO: style this section
 					<>
 						<p>
 							This item template does not have any items yet. Add one to get
@@ -54,7 +53,7 @@ export default function LogDetailSection({
 					</>
 				)}
 
-				{filteredItems?.map((item) => (
+				{includedItems?.map((item) => (
 					<ItemSection
 						log_id={log_id}
 						key={item.item_id}
@@ -66,6 +65,7 @@ export default function LogDetailSection({
 						})}
 					/>
 				))}
+
 				{/* TODO: this button currently opens a NewItem modal. If we even want 
                to do that inside this view (we probably do), we should do it from 
                a smaller button in an action bar, not right here, and not with such 
@@ -74,32 +74,15 @@ export default function LogDetailSection({
 					<LucidePencilLine />
 					<span style={{ fontWeight: 600 }}>Add {itemTemplate.name}</span>
 				</Action.WithIcon> */}
-				{!!notYetSelectedItems && notYetSelectedItems.length > 0 && (
+
+				{/* TODO: styling of this section */}
+				{!!excludedItems && excludedItems.length > 0 && (
 					<div>
 						add another "{itemTemplate.name}" item to this log
-						<select
-							defaultValue={notYetSelectedItems[0]?.item_id}
-							onChange={(e) => setSelectedOption(+e.target.value)}
-						>
-							{/* TODO: map over all the items that belong to this item 
-                     section that aren't rendered yet */}
-							{notYetSelectedItems.map((item) => (
-								<option value={item.item_id} key={item.item_id}>
-									{item.name}
-								</option>
-							))}
-						</select>
-						<button
-							type="button"
-							onClick={() => {
-								setManuallySelectedItemIds((current) => [
-									...current,
-									+selectedOption
-								]);
-							}}
-						>
-							add
-						</button>
+						<ItemSelector
+							items={excludedItems}
+							onChange={appendItemToLayoutSection}
+						/>
 					</div>
 				)}
 			</S.Wrapper>

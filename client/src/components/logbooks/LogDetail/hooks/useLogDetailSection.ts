@@ -1,25 +1,25 @@
 import useLogDetailSectionData from "@/components/logbooks/LogDetail/hooks/useLogDetailSectionData";
+import useMutateLog from "@/lib/hooks/query/logbooks/useMutateLog";
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import type { ItemTemplate } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
-import { useMemo, useState } from "react";
+import { produce } from "immer";
+import { useCallback, useEffect, useMemo } from "react";
 
 export default function useLogDetailSection({
 	itemTemplate,
-	logbook_id,
 	log_id
 }: {
 	itemTemplate: ItemTemplate;
-	logbook_id: ID;
 	log_id: ID;
 }) {
-	const { isProbablySuspended, itemRows, items, layout } = useLogDetailSectionData({
+	const { isProbablySuspended, itemRows, items, log } = useLogDetailSectionData({
 		log_id,
-		logbook_id,
 		item_template_id: itemTemplate.item_template_id
 	});
+	const { mutate: putLog } = useMutateLog();
 
 	const modalId = modalIds.logbooks.item.new(itemTemplate.name) as ModalId;
 	const { openModal } = useModalState();
@@ -28,41 +28,64 @@ export default function useLogDetailSection({
 		openModal(modalId);
 	}
 
-	const [manuallySelectedItemIds, setManuallySelectedItemIds] = useState<ID[]>([]);
+	// TODO: the logic for selection, includedItems, excludedItems, the append
+	// fuanction and the requirement for a putLog function is extremely
+	// similar to that from useLogDetail.ts. Consider refactoring this logic into
+	// a shared hook somehow.
+	const selection = useMemo(() => {
+		return items?.reduce(
+			(acc, cur) => {
+				const selected = Boolean(
+					log?.layout.some((section) => section.item_ids?.includes(cur.item_id))
+				);
+				if (selected) {
+					acc.set(cur.item_id, selected);
+				}
+				return acc;
+			},
+			new Map() as Map<ID, boolean>
+		);
+	}, [items, log]);
 
-	const selectedItemIds = useMemo(() => {
-		// TODO: this should be done at a higher level in the component tree.
-		// Determine which sections (and which items) to render before we even get
-		// to this ItemSection component.
-		return items
-			?.map((item) => +item.item_id)
-			.filter((id) => {
-				// return true if the item is in the log's log_template.layout
-				// TODO: change this logic once we definitively change the shape of
-				// logTemplate.layout.
-				if (layout?.flat().includes(+id)) return true;
+	const includedItems = useMemo(() => {
+		return items?.filter((item) => selection?.has(item.item_id));
+	}, [items, selection]);
 
-				// return true if there is at least 1 item row for this item in the log (=
-				// in `itemRows`)
-				if (itemRows?.some((row) => +row.item_id === +id)) return true;
+	const excludedItems = useMemo(() => {
+		return items?.filter((item) => !selection?.has(item.item_id));
+	}, [items, selection]);
 
-				// return true if the user manually selected the item to be in the log
-				// using the not-yet-implemented button
-				return manuallySelectedItemIds.includes(+id);
+	useEffect(() => {
+		console.log({ log, includedItems, excludedItems });
+	}, [log]);
+
+	const appendItemToLayoutSection = useCallback(
+		(item_id: ID) => {
+			const logWithNewLayout = produce(log, (draft) => {
+				if (!draft) {
+					return;
+				}
+
+				const alreadyInLayout = Boolean(
+					draft.layout.some((section) => section.item_ids?.includes(item_id))
+				);
+
+				if (alreadyInLayout) return;
+
+				const section = draft.layout.find(
+					(section) => +section.item_template_id === +itemTemplate.item_template_id
+				);
+
+				if (!section) return;
+
+				section.item_ids = [...(section.item_ids ?? []), item_id];
 			});
-	}, [items, layout, itemRows, manuallySelectedItemIds]);
 
-	// TODO: here, filter out any items that are neither in the log's
-	// log_template, nor have item rows associated with them for this log.
-	const filteredItems = items?.filter((item) =>
-		selectedItemIds?.includes(+item.item_id)
-	);
-
-	const notYetSelectedItems = items?.filter(
-		(item) => !selectedItemIds?.includes(+item.item_id)
-	);
-	const [selectedOption, setSelectedOption] = useState<ID>(
-		+(notYetSelectedItems?.[0]?.item_id ?? 0) // TODO: do not use 0
+			if (logWithNewLayout) {
+				putLog({ log: logWithNewLayout });
+			}
+		},
+		[log, putLog]
 	);
 
 	if (isProbablySuspended) {
@@ -77,10 +100,8 @@ export default function useLogDetailSection({
 		modalId,
 		handleModalOpen,
 		items,
-		filteredItems,
-		notYetSelectedItems,
-		setSelectedOption,
-		setManuallySelectedItemIds,
-		selectedOption
+		includedItems,
+		excludedItems,
+		appendItemToLayoutSection
 	};
 }
