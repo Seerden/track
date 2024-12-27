@@ -1,6 +1,7 @@
 import useLogDetailData from "@/components/logbooks/LogDetail/hooks/useLogDetailData";
 import useUpdateLogLayout from "@/components/logbooks/LogDetail/hooks/useUpdateLogLayout";
 import useRouteProps from "@/lib/hooks/useRouteProps";
+import type { ItemTemplate } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
 import { useMemo } from "react";
 
@@ -16,7 +17,7 @@ export default function useLogDetail({ logbook_id }: { logbook_id?: ID }) {
 	});
 	const { appendLayoutSection } = useUpdateLogLayout({ log });
 
-	const selection = useMemo(() => {
+	const itemTemplateSelection = useMemo(() => {
 		return itemTemplates?.reduce(
 			(acc, cur) => {
 				const selected = Boolean(
@@ -25,20 +26,18 @@ export default function useLogDetail({ logbook_id }: { logbook_id?: ID }) {
 					)
 				);
 				if (selected) {
-					acc.set(cur.item_template_id, selected);
+					acc.included.push(cur);
+				} else {
+					acc.excluded.push(cur);
 				}
 				return acc;
 			},
-			new Map() as Map<ID, boolean>
+			{
+				included: [] as ItemTemplate[],
+				excluded: [] as ItemTemplate[]
+			} as const
 		);
 	}, [itemTemplates, log]);
-
-	const includedItemTemplates = itemTemplates?.filter((template) =>
-		selection?.has(template.item_template_id)
-	);
-	const excludedItemTemplates = itemTemplates?.filter(
-		(template) => !selection?.has(template.item_template_id)
-	);
 
 	if (isProbablySuspended) {
 		return {
@@ -52,8 +51,7 @@ export default function useLogDetail({ logbook_id }: { logbook_id?: ID }) {
 		logbookId,
 		log,
 		itemTemplates,
-		includedItemTemplates,
-		excludedItemTemplates,
+		itemTemplateSelection,
 		appendLayoutSection
 	};
 }

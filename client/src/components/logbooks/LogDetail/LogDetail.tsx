@@ -22,8 +22,7 @@ export default function LogDetail({ logbook_id }: LogDetailProps) {
 		logbookId,
 		log,
 		itemTemplates,
-		includedItemTemplates,
-		excludedItemTemplates,
+		itemTemplateSelection,
 		appendLayoutSection
 	} = useLogDetail({
 		logbook_id
@@ -42,7 +41,7 @@ export default function LogDetail({ logbook_id }: LogDetailProps) {
 				<S.LogHeader>{log?.name}</S.LogHeader>
 
 				<S.Sections>
-					{includedItemTemplates?.map((template, index) => (
+					{itemTemplateSelection?.included.map((template, index) => (
 						<LogDetailSection
 							logbook_id={logbookId}
 							log_id={logId}
@@ -65,9 +64,8 @@ export default function LogDetail({ logbook_id }: LogDetailProps) {
 					)}
 
 					{/* TODO */}
-					{includedItemTemplates?.length === 0 &&
-						Array.isArray(excludedItemTemplates) &&
-						excludedItemTemplates.length > 0 && (
+					{itemTemplateSelection?.included.length === 0 &&
+						itemTemplateSelection.excluded.length && (
 							<>
 								<p>
 									You have not selected any item templates yet. Select one to get
@@ -75,7 +73,7 @@ export default function LogDetail({ logbook_id }: LogDetailProps) {
 								</p>
 
 								<LogSectionSelector
-									itemTemplates={excludedItemTemplates ?? []}
+									itemTemplates={itemTemplateSelection.excluded}
 									onChange={appendLayoutSection}
 								/>
 							</>

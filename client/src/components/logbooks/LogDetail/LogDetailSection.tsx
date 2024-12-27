@@ -25,8 +25,7 @@ export default function LogDetailSection({
 		handleModalOpen,
 		itemRows,
 		items,
-		includedItems,
-		excludedItems,
+		itemSelection,
 		addItemToSection
 	} = useLogDetailSection({
 		itemTemplate,
@@ -53,7 +52,7 @@ export default function LogDetailSection({
 					</>
 				)}
 
-				{includedItems?.map((item) => (
+				{itemSelection?.included.map((item) => (
 					<ItemSection
 						log_id={log_id}
 						key={item.item_id}
@@ -76,10 +75,13 @@ export default function LogDetailSection({
 				</Action.WithIcon> */}
 
 				{/* TODO: styling of this section */}
-				{!!excludedItems && excludedItems.length > 0 && (
+				{!!itemSelection?.excluded && itemSelection.excluded.length > 0 && (
 					<div>
 						add another "{itemTemplate.name}" item to this log
-						<ItemSelector items={excludedItems} onChange={addItemToSection} />
+						<ItemSelector
+							items={itemSelection.excluded}
+							onChange={addItemToSection}
+						/>
 					</div>
 				)}
 			</S.Wrapper>

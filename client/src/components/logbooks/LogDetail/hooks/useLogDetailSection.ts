@@ -3,9 +3,9 @@ import useUpdateLogLayout from "@/components/logbooks/LogDetail/hooks/useUpdateL
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
-import type { ItemTemplate } from "@t/data/logbook.types";
+import type { Item, ItemTemplate } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 export default function useLogDetailSection({
 	itemTemplate,
@@ -30,32 +30,25 @@ export default function useLogDetailSection({
 	// TODO: the logic for selection, includedItems, excludedItems is extremely
 	// similar to that from useLogDetail.ts. Consider refactoring this logic into
 	// a shared hook somehow, like we did with useUpdateLogLayout.
-	const selection = useMemo(() => {
+	const itemSelection = useMemo(() => {
 		return items?.reduce(
 			(acc, cur) => {
 				const selected = Boolean(
 					log?.layout.some((section) => section.item_ids?.includes(cur.item_id))
 				);
 				if (selected) {
-					acc.set(cur.item_id, selected);
+					acc.included.push(cur);
+				} else {
+					acc.excluded.push(cur);
 				}
 				return acc;
 			},
-			new Map() as Map<ID, boolean>
+			{
+				included: [] as Item[],
+				excluded: [] as Item[]
+			} as const
 		);
 	}, [items, log]);
-
-	const includedItems = useMemo(() => {
-		return items?.filter((item) => selection?.has(item.item_id));
-	}, [items, selection]);
-
-	const excludedItems = useMemo(() => {
-		return items?.filter((item) => !selection?.has(item.item_id));
-	}, [items, selection]);
-
-	useEffect(() => {
-		console.log({ log, includedItems, excludedItems });
-	}, [log]);
 
 	const addItemToSection = useCallback(
 		(item_id: ID) => {
@@ -76,8 +69,7 @@ export default function useLogDetailSection({
 		modalId,
 		handleModalOpen,
 		items,
-		includedItems,
-		excludedItems,
+		itemSelection,
 		addItemToSection
 	};
 }
