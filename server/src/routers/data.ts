@@ -43,6 +43,7 @@ import postNote from "@/lib/data/request-handlers/post/post-note";
 import postTag from "@/lib/data/request-handlers/post/post-tag";
 import putActivity from "@/lib/data/request-handlers/put/put-activity";
 import putHabitEntry from "@/lib/data/request-handlers/put/put-habit-entry";
+import { putLog } from "@/lib/data/request-handlers/put/put-log";
 import { putLogbook } from "@/lib/data/request-handlers/put/put-logbook";
 import putTaskCompletion from "@/lib/data/request-handlers/put/put-task";
 import { Router } from "express";
@@ -121,4 +122,5 @@ dataRouter.get("/logbook/items/template/:item_template_id/items", getItemsByTemp
 dataRouter.get("/logbooks/items", getItems);
 
 /* --- PUT --- */
+dataRouter.put("/logbook/log/:log_id", putLog);
 dataRouter.put("/logbook/:logbook_id", putLogbook);
