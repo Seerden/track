@@ -23,7 +23,8 @@ export default function useLogForm({ logbook_id }: { logbook_id?: ID }) {
 		log_template_id: null,
 		logbook_id: +logbookId,
 		start_time: null,
-		end_time: null
+		end_time: null,
+		layout: []
 	});
 
 	const isProbablySuspended = !logbookId || !logTemplatesData;
