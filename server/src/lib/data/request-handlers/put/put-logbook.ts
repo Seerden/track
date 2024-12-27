@@ -1,5 +1,5 @@
 import { updateLogbook } from "@/lib/data/models/logbooks/update-logbook";
-import { Logbook } from "@t/data/logbook.types";
+import type { Logbook } from "@t/data/logbook.types";
 import type { RequestHandler } from "express";
 
 /** Request handler for `/data/logbook/:logbook_id`. */
