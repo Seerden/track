@@ -43,7 +43,15 @@ export default function LogDetailSection({
 				<S.Header>{itemTemplate.name}</S.Header>
 				{!!items && items.length === 0 && (
 					// TODO: implement the button to add a new item here
-					<div>This item template does not have any items yet. Create one...</div>
+					<>
+						<p>
+							This item template does not have any items yet. Add one to get
+							started.
+						</p>
+						<button type="button" onClick={handleModalOpen}>
+							Add an item
+						</button>
+					</>
 				)}
 
 				{filteredItems?.map((item) => (

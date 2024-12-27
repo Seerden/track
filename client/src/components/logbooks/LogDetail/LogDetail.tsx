@@ -1,5 +1,6 @@
 import useLogDetail from "@/components/logbooks/LogDetail/hooks/useLogDetail";
 import LogDetailSection from "@/components/logbooks/LogDetail/LogDetailSection";
+import LogSectionSelector from "@/components/logbooks/LogDetail/LogSectionSelector";
 import NewItemTemplate from "@/components/logbooks/NewItemTemplate/NewItemTemplate";
 import Modal from "@/components/utility/Modal/Modal";
 import modalIds from "@/lib/modal-ids";
@@ -20,10 +21,10 @@ export default function LogDetail({ logbook_id }: LogDetailProps) {
 		logId,
 		logbookId,
 		log,
-		filteredItemTemplates,
-		notYetSelectedItemTemplates,
 		itemTemplates,
-		itemTemplateIdsInLog
+		includedItemTemplates,
+		excludedItemTemplates,
+		appendLayoutSection
 	} = useLogDetail({
 		logbook_id
 	});
@@ -41,7 +42,7 @@ export default function LogDetail({ logbook_id }: LogDetailProps) {
 				<S.LogHeader>{log?.name}</S.LogHeader>
 
 				<S.Sections>
-					{filteredItemTemplates?.map((template, index) => (
+					{includedItemTemplates?.map((template, index) => (
 						<LogDetailSection
 							logbook_id={logbookId}
 							log_id={logId}
@@ -64,7 +65,21 @@ export default function LogDetail({ logbook_id }: LogDetailProps) {
 					)}
 
 					{/* TODO */}
-					{itemTemplateIdsInLog.length === 0 && <div>... select item template</div>}
+					{includedItemTemplates?.length === 0 &&
+						Array.isArray(excludedItemTemplates) &&
+						excludedItemTemplates.length > 0 && (
+							<>
+								<p>
+									You have not selected any item templates yet. Select one to get
+									started.
+								</p>
+
+								<LogSectionSelector
+									itemTemplates={excludedItemTemplates ?? []}
+									onChange={appendLayoutSection}
+								/>
+							</>
+						)}
 				</S.Sections>
 			</S.Wrapper>
 			{!!logbookId && (
