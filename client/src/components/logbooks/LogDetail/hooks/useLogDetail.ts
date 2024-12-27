@@ -1,7 +1,8 @@
 import useLogDetailData from "@/components/logbooks/LogDetail/hooks/useLogDetailData";
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import type { ID } from "@t/data/utility.types";
-import { useState } from "react";
+import { produce } from "immer";
+import { useCallback, useState } from "react";
 
 /** Functionality hook for LogDetail. */
 export default function useLogDetail({ logbook_id }: { logbook_id?: ID }) {
@@ -47,6 +48,20 @@ export default function useLogDetail({ logbook_id }: { logbook_id?: ID }) {
 		notYetSelectedItemTemplates?.[0]?.item_template_id ?? null
 	);
 
+	const toggleSelectedOptionInManualSelection = useCallback(() => {
+		if (!selectedOption) return;
+
+		setManuallySelectedItemTemplates(
+			produce((draft) => {
+				if (draft.includes(selectedOption)) {
+					draft.splice(draft.indexOf(selectedOption), 1);
+				} else {
+					draft.push(selectedOption);
+				}
+			})
+		);
+	}, [selectedOption]);
+
 	if (isProbablySuspended) {
 		return {
 			isProbablySuspended
@@ -61,7 +76,6 @@ export default function useLogDetail({ logbook_id }: { logbook_id?: ID }) {
 		filteredItemTemplates,
 		notYetSelectedItemTemplates,
 		setSelectedOption,
-		selectedOption,
-		setManuallySelectedItemTemplates
+		toggleSelectedOptionInManualSelection
 	};
 }

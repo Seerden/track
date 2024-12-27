@@ -16,8 +16,7 @@ export default function LogDetail({ logbook_id }: LogDetailProps) {
 		filteredItemTemplates,
 		notYetSelectedItemTemplates,
 		setSelectedOption,
-		selectedOption,
-		setManuallySelectedItemTemplates
+		toggleSelectedOptionInManualSelection
 	} = useLogDetail({
 		logbook_id
 	});
@@ -53,17 +52,7 @@ export default function LogDetail({ logbook_id }: LogDetailProps) {
 								</option>
 							))}
 						</select>
-						<button
-							onClick={() => {
-								if (selectedOption) {
-									setManuallySelectedItemTemplates((current) => [
-										...current,
-										selectedOption
-									]);
-								}
-							}}
-							type="button"
-						>
+						<button onClick={toggleSelectedOptionInManualSelection} type="button">
 							Add
 						</button>
 					</div>
