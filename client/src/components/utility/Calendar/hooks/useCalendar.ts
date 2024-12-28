@@ -33,6 +33,7 @@ export function useCalendar({ initialDate, onChange }: UseCalendarProps) {
 		}
 	}, [initialDate]);
 
+	// TODO: this can go inside the selectDate handler.
 	useEffect(() => {
 		if (selectedDate) onChange?.(selectedDate);
 	}, [selectedDate]);
