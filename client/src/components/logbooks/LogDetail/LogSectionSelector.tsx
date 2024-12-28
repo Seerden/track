@@ -14,6 +14,8 @@ export default function LogSectionSelector({
 	return (
 		<div>
 			{itemTemplates.map((template) => (
+				// TODO: make these share the same style as the buttons in
+				// ItemSelector.
 				<button
 					type="button"
 					onClick={() => onChange(template.item_template_id)}

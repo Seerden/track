@@ -8,7 +8,7 @@ import { useModalState } from "@/lib/state/modal-state";
 import { Action } from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import type { ID } from "@t/data/utility.types";
-import { LucideFolderPen } from "lucide-react";
+import { LucideFolderPen, LucidePlus } from "lucide-react";
 import S from "./style/LogDetail.style";
 
 export type LogDetailProps = {
@@ -34,6 +34,14 @@ export default function LogDetail({ logbook_id }: LogDetailProps) {
 	}
 
 	if (isProbablySuspended || !log) return <div>There is nothing here</div>;
+
+	function renderNewSectionButton() {
+		return (
+			<button type="button" onClick={handleModalOpen}>
+				<LucidePlus size={15} />
+			</button>
+		);
+	}
 
 	return (
 		<>
@@ -64,20 +72,39 @@ export default function LogDetail({ logbook_id }: LogDetailProps) {
 					)}
 
 					{/* TODO */}
-					{itemTemplateSelection?.included.length === 0 &&
-						itemTemplateSelection.excluded.length && (
-							<>
+					<div style={{ display: "flex", flexDirection: "column" }}>
+						<>
+							{itemTemplateSelection?.included.length === 0 && (
 								<p>
 									You have not selected any item templates yet. Select one to get
 									started.
 								</p>
+							)}
 
-								<LogSectionSelector
-									itemTemplates={itemTemplateSelection.excluded}
-									onChange={appendLayoutSection}
-								/>
-							</>
-						)}
+							<div
+								style={{
+									display: "flex",
+									flexDirection: "column",
+									gap: "0.5rem"
+								}}
+							>
+								Add a new section
+								<div
+									style={{
+										display: "flex",
+										flexDirection: "row",
+										gap: "0.5rem"
+									}}
+								>
+									<LogSectionSelector
+										itemTemplates={itemTemplateSelection?.excluded ?? []}
+										onChange={appendLayoutSection}
+									/>
+									<NewSectionButton onClick={handleModalOpen} compact />
+								</div>
+							</div>
+						</>
+					</div>
 				</S.Sections>
 			</S.Wrapper>
 			{!!logbookId && (
@@ -85,6 +112,23 @@ export default function LogDetail({ logbook_id }: LogDetailProps) {
 					<NewItemTemplate logbook_id={logbookId} />
 				</Modal>
 			)}
+		</>
+	);
+}
+
+function NewSectionButton({
+	onClick,
+	compact
+}: {
+	onClick: () => void;
+	compact?: boolean;
+}) {
+	return (
+		<>
+			<button type="button" onClick={onClick}>
+				<LucidePlus size={15} />
+				{!compact && <>Add a new section</>}
+			</button>
 		</>
 	);
 }
