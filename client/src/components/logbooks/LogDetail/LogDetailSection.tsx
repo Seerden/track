@@ -38,8 +38,7 @@ export default function LogDetailSection({
 		<>
 			<S.Wrapper>
 				<S.Header>{itemTemplate.name}</S.Header>
-				{/* TODO: remove the "1 ||" conditional */}
-				{(1 || (!!items && items.length === 0)) && (
+				{!!items && items.length === 0 && (
 					// TODO: style this section
 					<>
 						<p>
@@ -75,11 +74,22 @@ export default function LogDetailSection({
 				</Action.WithIcon> */}
 
 				{/* TODO: styling of this section */}
-				{!!itemSelection?.excluded && itemSelection.excluded.length > 0 && (
+				{(1 || !!itemSelection?.excluded.length) && (
 					<div>
 						add another "{itemTemplate.name}" item to this log
 						<ItemSelector
-							items={itemSelection.excluded}
+							items={
+								// itemSelection?.excluded
+								[
+									{
+										created_at: "",
+										item_id: 0,
+										name: "test",
+										item_template_id: itemTemplate.item_template_id,
+										logbook_id: 5
+									}
+								]
+							}
 							onChange={addItemToSection}
 						/>
 					</div>

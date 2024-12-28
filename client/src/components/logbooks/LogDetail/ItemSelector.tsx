@@ -1,5 +1,8 @@
+import { Unstyled } from "@/lib/theme/components/buttons";
 import type { Item } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
+import { LucidePlus } from "lucide-react";
+import S from "./style/ItemSelector.style";
 
 type ItemSelectorProps = {
 	items: Item[];
@@ -12,16 +15,33 @@ type ItemSelectorProps = {
 // TODO: styling
 export default function ItemSelector({ items, onChange }: ItemSelectorProps) {
 	return (
-		<div>
+		<S.Wrapper>
 			{items.map((item) => (
-				<button
+				<S.ItemButton
 					onClick={() => onChange(item.item_id)}
 					type="button"
 					key={item.item_id}
 				>
 					{item.name}
-				</button>
+				</S.ItemButton>
 			))}
-		</div>
+
+			<S.NewItemButton>
+				<label style={{ display: "flex", flexDirection: "column" }}>
+					<div
+						style={{
+							display: "flex",
+							flexDirection: "row",
+							height: "max-content"
+						}}
+					>
+						<input type="text" placeholder="new item" />
+						<Unstyled type="button">
+							<LucidePlus size={15} />
+						</Unstyled>
+					</div>
+				</label>
+			</S.NewItemButton>
+		</S.Wrapper>
 	);
 }
