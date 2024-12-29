@@ -49,7 +49,7 @@ export default function useLogForm({ logbook_id }: { logbook_id?: ID }) {
 			},
 			{
 				onSuccess: (log) => {
-					navigate(`/logbooks/${log.log_id}`);
+					navigate(`/logbooks/${log.logbook_id}`);
 				}
 			}
 		);
