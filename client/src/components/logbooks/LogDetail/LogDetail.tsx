@@ -1,6 +1,7 @@
 import useLogDetail from "@/components/logbooks/LogDetail/hooks/useLogDetail";
 import LogDetailSection from "@/components/logbooks/LogDetail/LogDetailSection";
 import LogSectionSelector from "@/components/logbooks/LogDetail/LogSectionSelector";
+import T from "@/components/logbooks/LogDetail/style/_shared.style";
 import NewItemTemplate from "@/components/logbooks/NewItemTemplate/NewItemTemplate";
 import Modal from "@/components/utility/Modal/Modal";
 import modalIds from "@/lib/modal-ids";
@@ -125,10 +126,10 @@ function NewSectionButton({
 }) {
 	return (
 		<>
-			<button type="button" onClick={onClick}>
+			<T.SelectorButton type="button" onClick={onClick}>
 				<LucidePlus size={15} />
 				{!compact && <>Add a new section</>}
-			</button>
+			</T.SelectorButton>
 		</>
 	);
 }

@@ -6,6 +6,7 @@ import { produce } from "immer";
 import { LucidePlus } from "lucide-react";
 import { useState } from "react";
 import S from "./style/ItemSelector.style";
+import T from "./style/_shared.style";
 
 type ItemSelectorProps = {
 	items: Item[];
@@ -41,16 +42,16 @@ export default function ItemSelector({
 	return (
 		<S.Wrapper>
 			{items.map((item) => (
-				<S.ItemButton
+				<T.SelectorButton
 					onClick={() => onChange(item.item_id)}
 					type="button"
 					key={item.item_id}
 				>
 					{item.name}
-				</S.ItemButton>
+				</T.SelectorButton>
 			))}
 
-			<S.NewItemButton>
+			<T.SelectorNewButton>
 				<label style={{ display: "flex", flexDirection: "column" }}>
 					<div
 						style={{
@@ -71,7 +72,7 @@ export default function ItemSelector({
 						</Unstyled>
 					</div>
 				</label>
-			</S.NewItemButton>
+			</T.SelectorNewButton>
 		</S.Wrapper>
 	);
 }

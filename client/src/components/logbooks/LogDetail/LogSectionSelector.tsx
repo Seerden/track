@@ -1,5 +1,6 @@
 import type { ItemTemplate } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
+import S from "./style/_shared.style";
 
 type LogSectionSelectorProps = {
 	itemTemplates: ItemTemplate[];
@@ -16,13 +17,13 @@ export default function LogSectionSelector({
 			{itemTemplates.map((template) => (
 				// TODO: make these share the same style as the buttons in
 				// ItemSelector.
-				<button
+				<S.SelectorButton
 					type="button"
 					onClick={() => onChange(template.item_template_id)}
 					key={template.item_template_id}
 				>
 					{template.name}
-				</button>
+				</S.SelectorButton>
 			))}
 		</div>
 	);
