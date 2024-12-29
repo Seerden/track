@@ -12,11 +12,8 @@ export default function useUpdateLogLayout({ log }: { log: Maybe<Log> }) {
 			const logWithNewLayout = produce(log, (draft) => {
 				if (!draft) return;
 
-				const alreadyInLayout = Boolean(
-					draft.layout.some((section) => section.item_ids?.includes(item_id))
-				);
-
-				if (alreadyInLayout) return;
+				if (draft.layout.some((section) => section.item_ids?.includes(item_id)))
+					return; // item is already in layout, no need to append it.
 
 				const section = draft.layout.find(
 					(section) => +section.item_template_id === +item_template_id
@@ -41,15 +38,14 @@ export default function useUpdateLogLayout({ log }: { log: Maybe<Log> }) {
 	const appendLayoutSection = useCallback(
 		(item_template_id: ID) => {
 			const logWithNewLayout = produce(log, (draft) => {
-				if (!draft) return;
-
-				const alreadyInLayout = Boolean(
-					draft.layout.find(
+				if (
+					!draft ||
+					draft.layout.some(
 						(section) => +section.item_template_id === +item_template_id
-					)
-				);
-
-				if (alreadyInLayout) return;
+					) // itemTemplate is already in layout, no need to append it.
+				) {
+					return;
+				}
 
 				draft.layout.push({
 					item_template_id,
