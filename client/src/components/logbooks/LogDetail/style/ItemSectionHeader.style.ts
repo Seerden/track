@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
-const HeaderField = styled.th`
-	text-align: start;
+const HeaderField = styled.div`
 	padding: 0 0.5rem;
 `;
 

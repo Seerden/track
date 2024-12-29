@@ -24,8 +24,13 @@ const Wrapper = styled.div`
 	border: 3px solid orange;
 `;
 
-const Table = styled.table`
+const Table = styled.div`
 	font-size: ${font.size["0.88"]};
+`;
+
+const TableContent = styled.div<{ $columns: number }>`
+	display: grid;
+	grid-template-columns: repeat(${(p) => p.$columns}, max-content);
 `;
 
 const ItemName = styled.h2`
@@ -51,6 +56,7 @@ const Button = styled(Action.Alternative)`
 export default {
 	Wrapper,
 	Table,
+	TableContent,
 	ItemName,
 	Button
 };

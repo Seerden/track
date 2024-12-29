@@ -36,14 +36,6 @@ export default function LogDetail({ logbook_id }: LogDetailProps) {
 
 	if (isProbablySuspended || !log) return <div>There is nothing here</div>;
 
-	function renderNewSectionButton() {
-		return (
-			<button type="button" onClick={handleModalOpen}>
-				<LucidePlus size={15} />
-			</button>
-		);
-	}
-
 	return (
 		<>
 			<S.Wrapper>

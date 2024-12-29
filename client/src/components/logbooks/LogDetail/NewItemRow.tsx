@@ -26,7 +26,7 @@ export default function NewItemRow({
 	});
 
 	return (
-		<tr>
+		<S.RowWrapper>
 			{fieldTemplates.map((template, index) => (
 				<S.Field key={template.field_template_id} style={{ position: "relative" }}>
 					<Containers.Field
@@ -55,6 +55,6 @@ export default function NewItemRow({
 					</Containers.Field>
 				</S.Field>
 			))}
-		</tr>
+		</S.RowWrapper>
 	);
 }

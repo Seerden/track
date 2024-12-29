@@ -1,5 +1,8 @@
 import type { FieldTemplateWithValue } from "@/components/logbooks/logbook.types";
+import { hasValues } from "@/components/logbooks/LogDetail/lib/has-values";
 import Containers from "@/lib/theme/components/container.style";
+import type { Field } from "@t/data/logbook.api.types";
+import type { ID } from "@t/data/utility.types";
 import S from "./style/ItemRow.style";
 
 export type ItemRowProps = {
@@ -8,9 +11,9 @@ export type ItemRowProps = {
 
 /** Renders a single table row for an item: one cell for every `field` in
  * `fields`. */
-export default function ItemRow({ fields }: ItemRowProps) {
+function ItemRow({ fields }: ItemRowProps) {
 	return (
-		<tr>
+		<S.RowWrapper>
 			{fields.map((field) => (
 				<S.Field key={field.name}>
 					<Containers.Field $small>
@@ -18,6 +21,30 @@ export default function ItemRow({ fields }: ItemRowProps) {
 					</Containers.Field>
 				</S.Field>
 			))}
-		</tr>
+		</S.RowWrapper>
 	);
+}
+
+type MaybeItemRowProps = {
+	fields: Field[];
+	item_row_id: ID;
+	index: number;
+};
+
+/** If each `field` in `fieldsForItem` has values, returns an ItemRow. */
+export default function MaybeItemRow({ fields, item_row_id, index }: MaybeItemRowProps) {
+	const fieldAndValueList = fields.map((field) => {
+		const { values, ..._field } = field;
+
+		/** @todo issue #175 */
+		const fieldValue = values.find((value) => +value.item_row_id === +item_row_id);
+
+		return Object.assign({}, _field, {
+			value: fieldValue?.value
+		});
+	});
+
+	if (!hasValues(fieldAndValueList)) return null;
+
+	return <ItemRow key={index} fields={fieldAndValueList} />;
 }
