@@ -66,40 +66,39 @@ export default function LogDetail({ logbook_id }: LogDetailProps) {
 
 					{/* TODO */}
 					<div style={{ display: "flex", flexDirection: "column" }}>
-						<>
-							{itemTemplateSelection?.included.length === 0 && (
-								<p>
-									You have not selected any item templates yet. Select one to get
-									started.
-								</p>
-							)}
+						{itemTemplateSelection?.included.length === 0 && (
+							<p>
+								You have not selected any item templates yet. Select one to get
+								started.
+							</p>
+						)}
 
-							<T.SectionWrapper
+						<T.SectionWrapper
+							style={{
+								display: "flex",
+								flexDirection: "column",
+								gap: "0.5rem"
+							}}
+						>
+							Add a new section
+							<div
 								style={{
 									display: "flex",
-									flexDirection: "column",
+									flexDirection: "row",
 									gap: "0.5rem"
 								}}
 							>
-								Add a new section
-								<div
-									style={{
-										display: "flex",
-										flexDirection: "row",
-										gap: "0.5rem"
-									}}
-								>
-									<LogSectionSelector
-										itemTemplates={itemTemplateSelection?.excluded ?? []}
-										onChange={appendLayoutSection}
-									/>
-									<NewSectionButton onClick={handleModalOpen} compact />
-								</div>
-							</T.SectionWrapper>
-						</>
+								<LogSectionSelector
+									itemTemplates={itemTemplateSelection?.excluded ?? []}
+									onChange={appendLayoutSection}
+								/>
+								<NewSectionButton onClick={handleModalOpen} compact />
+							</div>
+						</T.SectionWrapper>
 					</div>
 				</S.Sections>
 			</S.Wrapper>
+
 			{!!logbookId && (
 				<Modal modalId={modalIds.logbooks.itemTemplate.new}>
 					<NewItemTemplate logbook_id={logbookId} />

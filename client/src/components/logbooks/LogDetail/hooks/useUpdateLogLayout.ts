@@ -26,7 +26,11 @@ export default function useUpdateLogLayout({ log }: { log: Maybe<Log> }) {
 
 				if (!section) return;
 
-				section.item_ids = [...(section.item_ids ?? []), item_id];
+				if (!section.item_ids) {
+					section.item_ids = [item_id];
+				} else {
+					section.item_ids.push(item_id);
+				}
 			});
 
 			if (logWithNewLayout) {
