@@ -1,10 +1,11 @@
+import useMutateNewItem from "@/lib/hooks/query/logbooks/useMutateNewItem";
 import { Unstyled } from "@/lib/theme/components/buttons";
 import type { NewItem } from "@t/data/logbook.types";
 import { type Item } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
 import { produce } from "immer";
 import { LucidePlus } from "lucide-react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import S from "./style/ItemSelector.style";
 import T from "./style/_shared.style";
 
@@ -31,6 +32,8 @@ export default function ItemSelector({
 		logbook_id
 	});
 
+	const { mutate } = useMutateNewItem();
+
 	function handleNewItemChange(e: React.ChangeEvent<HTMLInputElement>) {
 		setNewItem(
 			produce((draft) => {
@@ -38,6 +41,23 @@ export default function ItemSelector({
 			})
 		);
 	}
+
+	function clearNewItemName() {
+		setNewItem(
+			produce((draft) => {
+				draft.name = "";
+			})
+		);
+	}
+
+	const submitNewItem = useCallback(() => {
+		// TODO: actually validate the new item; includes a check for uniqueness
+		// of name among descendants from the given item template.
+		const isValid = newItem.name.length > 0;
+		if (isValid) {
+			mutate({ newItem });
+		}
+	}, [newItem, mutate]);
 
 	return (
 		<S.Wrapper>
@@ -64,10 +84,16 @@ export default function ItemSelector({
 							type="text"
 							placeholder="new item"
 							value={newItem.name}
-							size={Math.max(newItem.name.length, 7)}
+							size={Math.max(newItem.name.length, 7)} // 7 looks good because of the length of the placeholder
 							onChange={handleNewItemChange}
 						/>
-						<Unstyled type="button">
+						<Unstyled
+							type="button"
+							onClick={() => {
+								submitNewItem();
+								clearNewItemName();
+							}}
+						>
 							<LucidePlus size={15} />
 						</Unstyled>
 					</div>
