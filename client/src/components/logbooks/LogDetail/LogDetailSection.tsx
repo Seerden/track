@@ -6,6 +6,7 @@ import NewItem from "@/components/logbooks/NewItem/NewItem";
 import Modal from "@/components/utility/Modal/Modal";
 import type { ItemTemplate } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
+import T from "./style/_shared.style";
 import S from "./style/LogDetailSection.style";
 
 export type LogDetailSectionProps = {
@@ -36,7 +37,7 @@ export default function LogDetailSection({
 
 	return (
 		<>
-			<S.Wrapper>
+			<T.SectionWrapper>
 				<S.Header>{itemTemplate.name}</S.Header>
 				{!!items && items.length === 0 && (
 					// TODO: style this section
@@ -85,7 +86,7 @@ export default function LogDetailSection({
 						/>
 					</div>
 				}
-			</S.Wrapper>
+			</T.SectionWrapper>
 
 			<Modal modalId={modalId}>
 				<NewItem itemTemplate={itemTemplate} logbook_id={logbook_id} />

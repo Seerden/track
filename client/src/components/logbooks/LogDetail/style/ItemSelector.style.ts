@@ -2,7 +2,7 @@ import { flex } from "@/lib/theme/snippets/flex";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-	${flex.row};
+	${flex.column};
 	flex-wrap: wrap;
 	max-width: 100%;
 
@@ -10,13 +10,19 @@ const Wrapper = styled.div`
 		max-width: 500px;
 	}
 
-	gap: 1rem;
+	gap: 0.5rem;
 	padding: 0.5rem;
 
 	// TODO: remove
 	outline: 2px solid red;
 `;
 
+const Items = styled.div`
+	${flex.row};
+	gap: 0.5rem;
+`;
+
 export default {
-	Wrapper
+	Wrapper,
+	Items
 };

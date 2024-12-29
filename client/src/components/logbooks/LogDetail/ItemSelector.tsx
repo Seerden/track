@@ -27,15 +27,17 @@ export default function ItemSelector({
 
 	return (
 		<S.Wrapper>
-			{items.map((item) => (
-				<T.SelectorButton
-					onClick={() => onChange(item.item_id)}
-					type="button"
-					key={item.item_id}
-				>
-					{item.name}
-				</T.SelectorButton>
-			))}
+			<S.Items>
+				{items.map((item) => (
+					<T.SelectorButton
+						onClick={() => onChange(item.item_id)}
+						type="button"
+						key={item.item_id}
+					>
+						{item.name}
+					</T.SelectorButton>
+				))}
+			</S.Items>
 
 			<T.SelectorNewButton>
 				<input

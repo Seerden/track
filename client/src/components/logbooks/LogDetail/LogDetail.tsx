@@ -82,7 +82,7 @@ export default function LogDetail({ logbook_id }: LogDetailProps) {
 								</p>
 							)}
 
-							<div
+							<T.SectionWrapper
 								style={{
 									display: "flex",
 									flexDirection: "column",
@@ -103,7 +103,7 @@ export default function LogDetail({ logbook_id }: LogDetailProps) {
 									/>
 									<NewSectionButton onClick={handleModalOpen} compact />
 								</div>
-							</div>
+							</T.SectionWrapper>
 						</>
 					</div>
 				</S.Sections>
@@ -126,7 +126,7 @@ function NewSectionButton({
 }) {
 	return (
 		<>
-			<T.SelectorButton type="button" onClick={onClick}>
+			<T.SelectorButton type="button" onClick={onClick} $compact>
 				<LucidePlus size={15} />
 				{!compact && <>Add a new section</>}
 			</T.SelectorButton>

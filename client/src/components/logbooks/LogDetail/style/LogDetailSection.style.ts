@@ -1,12 +1,5 @@
-import { containers } from "@/lib/theme/components/container.style";
 import { font } from "@/lib/theme/font";
 import styled from "styled-components";
-
-const Wrapper = styled.section`
-	${containers.minimal};
-
-	border: 3px solid red;
-`;
 
 const Header = styled.h1`
 	font-size: ${font.size["2"]};
@@ -17,4 +10,4 @@ const Header = styled.h1`
 	border-bottom: 3px solid #fff;
 `;
 
-export default { Wrapper, Header };
+export default { Header };

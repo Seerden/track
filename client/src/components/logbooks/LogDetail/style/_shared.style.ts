@@ -1,9 +1,10 @@
 import { Unstyled } from "@/lib/theme/components/buttons";
+import { containers } from "@/lib/theme/components/container.style";
 import styled, { css } from "styled-components";
 
 const itemStyle = css`
 	border-radius: 5px;
-	padding: 0.2rem 1rem;
+	padding: 0.2rem 0.3rem;
 	max-width: 100%;
 
 	display: flex;
@@ -14,16 +15,21 @@ const itemStyle = css`
 	outline: 2px solid #ddd;
 `;
 
-const SelectorButton = styled(Unstyled)`
+const SelectorButton = styled(Unstyled)<{ $compact?: boolean }>`
 	${itemStyle};
 	width: max-content;
+
+	${(p) =>
+		!p.$compact &&
+		css`
+			flex-grow: 1;
+		`}
 `;
 
 const SelectorNewButton = styled.div`
 	${itemStyle};
 	flex-direction: row;
 	height: max-content;
-	font-size: 0.9rem;
 	width: max-content;
 
 	gap: 0.5rem;
@@ -41,7 +47,14 @@ const SelectorNewButton = styled.div`
 	}
 `;
 
+const SectionWrapper = styled.section`
+	${containers.minimal};
+
+	border: 3px solid red;
+`;
+
 export default {
 	SelectorButton,
-	SelectorNewButton
+	SelectorNewButton,
+	SectionWrapper
 };
