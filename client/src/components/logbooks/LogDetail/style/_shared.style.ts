@@ -21,25 +21,23 @@ const SelectorButton = styled(Unstyled)`
 
 const SelectorNewButton = styled.div`
 	${itemStyle};
-	label {
-		font-size: 0.9rem;
-		width: max-content;
+	flex-direction: row;
+	height: max-content;
+	font-size: 0.9rem;
+	width: max-content;
 
-		div {
-			gap: 0.5rem;
-			padding: 0.3rem;
+	gap: 0.5rem;
+	padding: 0.3rem;
 
-			input {
-				background-color: #eee;
-				outline: none;
-				text-indent: 5px;
-				border: none;
-				border-bottom: 1px solid #ccc;
-				padding: 0.2rem 0;
-				min-width: 50px;
-				max-width: 100%;
-			}
-		}
+	input {
+		background-color: #eee;
+		outline: none;
+		text-indent: 5px;
+		border: none;
+		border-bottom: 1px solid #ccc;
+		padding: 0.2rem 0;
+		min-width: 50px;
+		max-width: 100%;
 	}
 `;
 
