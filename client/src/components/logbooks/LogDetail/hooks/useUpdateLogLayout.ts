@@ -10,9 +10,7 @@ export default function useUpdateLogLayout({ log }: { log: Maybe<Log> }) {
 	const appendItemToLayoutSection = useCallback(
 		(item_id: ID, item_template_id: ID) => {
 			const logWithNewLayout = produce(log, (draft) => {
-				if (!draft) {
-					return;
-				}
+				if (!draft) return;
 
 				const alreadyInLayout = Boolean(
 					draft.layout.some((section) => section.item_ids?.includes(item_id))
@@ -43,9 +41,7 @@ export default function useUpdateLogLayout({ log }: { log: Maybe<Log> }) {
 	const appendLayoutSection = useCallback(
 		(item_template_id: ID) => {
 			const logWithNewLayout = produce(log, (draft) => {
-				if (!draft) {
-					return;
-				}
+				if (!draft) return;
 
 				const alreadyInLayout = Boolean(
 					draft.layout.find(
@@ -53,9 +49,7 @@ export default function useUpdateLogLayout({ log }: { log: Maybe<Log> }) {
 					)
 				);
 
-				if (alreadyInLayout) {
-					return;
-				}
+				if (alreadyInLayout) return;
 
 				draft.layout.push({
 					item_template_id,
