@@ -1,25 +1,14 @@
-import { font } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import styled from "styled-components";
+import T, { headerStyle } from "./_shared.style";
 
-const Wrapper = styled.div`
-	max-width: 800px;
+const Wrapper = styled.div``;
 
-	margin: 2rem;
-	border: 3px solid #eee;
-	outline: 2px solid dodgerblue;
-	box-shadow:
-		0 0 0 0.5rem #eee,
-		1.5rem 1.5rem 0 0 dodgerblue,
-		-2rem -2rem 0 -1rem royalblue,
-		0 0 1rem 0 #bbb;
-	padding: 2rem 5rem;
-	border-radius: 12px;
-`;
+const LogHeader = styled.h1``;
 
-const LogHeader = styled.h1`
-	font-size: ${font.size["2"]};
-	margin: 0;
+const NewSectionTitle = styled.h2`
+	${headerStyle};
+	background-color: #fff;
 `;
 
 const Sections = styled.div`
@@ -27,8 +16,21 @@ const Sections = styled.div`
 	gap: 2rem;
 `;
 
+const NewSectionWrapper = styled(T.SectionWrapper)`
+	${flex.column};
+	gap: 0.5rem;
+`;
+
+const SectionSelectorWrapper = styled.div`
+	${flex.row};
+	gap: 0.5rem;
+`;
+
 export default {
 	Wrapper,
 	LogHeader,
-	Sections
+	NewSectionTitle,
+	Sections,
+	NewSectionWrapper,
+	SectionSelectorWrapper
 };

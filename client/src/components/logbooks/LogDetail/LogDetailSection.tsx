@@ -39,31 +39,47 @@ export default function LogDetailSection({
 		<>
 			<T.SectionWrapper>
 				<S.Header>{itemTemplate.name}</S.Header>
-				{!!items && items.length === 0 && (
-					// TODO: style this section
-					<>
-						<p>
-							This item template does not have any items yet. Add one to get
-							started.
-						</p>
-						<button type="button" onClick={handleModalOpen}>
-							Add an item
-						</button>
-					</>
-				)}
 
-				{itemSelection?.included.map((item) => (
-					<ItemSection
-						log_id={log_id}
-						key={item.item_id}
-						item={item}
-						rows={getRowsForItem({
-							itemRows,
-							item_id: +item.item_id,
-							log_id
-						})}
-					/>
-				))}
+				<S.ItemSections>
+					{itemSelection?.included.map((item) => (
+						<ItemSection
+							log_id={log_id}
+							key={item.item_id}
+							item={item}
+							rows={getRowsForItem({
+								itemRows,
+								item_id: +item.item_id,
+								log_id
+							})}
+						/>
+					))}
+				</S.ItemSections>
+
+				<S.AddSectionWrapper>
+					{items.length === 0 ? (
+						// TODO: style this section
+						<>
+							<p>
+								This item template does not have any items yet. Add one to get
+								started.
+							</p>
+							<button type="button" onClick={handleModalOpen}>
+								Add an item
+							</button>
+						</>
+					) : (
+						// {/* TODO: styling of this section */}
+						<>
+							<S.Subtitle>Add another "{itemTemplate.name}"</S.Subtitle>
+							<ItemSelector
+								item_template_id={itemTemplate.item_template_id}
+								logbook_id={logbook_id}
+								items={itemSelection?.excluded ?? []}
+								onChange={addItemToSection}
+							/>
+						</>
+					)}
+				</S.AddSectionWrapper>
 
 				{/* TODO: this button currently opens a NewItem modal. If we even want 
                to do that inside this view (we probably do), we should do it from 
@@ -73,19 +89,6 @@ export default function LogDetailSection({
 					<LucidePencilLine />
 					<span style={{ fontWeight: 600 }}>Add {itemTemplate.name}</span>
 				</Action.WithIcon> */}
-
-				{/* TODO: styling of this section */}
-				{
-					<div>
-						add another "{itemTemplate.name}" item to this log
-						<ItemSelector
-							item_template_id={itemTemplate.item_template_id}
-							logbook_id={logbook_id}
-							items={itemSelection?.excluded ?? []}
-							onChange={addItemToSection}
-						/>
-					</div>
-				}
 			</T.SectionWrapper>
 
 			<Modal modalId={modalId}>

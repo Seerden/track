@@ -12,8 +12,10 @@ export default function LogSectionSelector({
 	itemTemplates,
 	onChange
 }: LogSectionSelectorProps) {
+	if (!itemTemplates.length) return null;
+
 	return (
-		<div>
+		<S.SelectorWrapper>
 			{itemTemplates.map((template) => (
 				// TODO: make these share the same style as the buttons in
 				// ItemSelector.
@@ -25,6 +27,6 @@ export default function LogSectionSelector({
 					{template.name}
 				</S.SelectorButton>
 			))}
-		</div>
+		</S.SelectorWrapper>
 	);
 }

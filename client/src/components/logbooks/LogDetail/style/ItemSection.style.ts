@@ -1,27 +1,21 @@
+import { itemSectionStyle } from "@/components/logbooks/LogDetail/style/_shared.style";
 import { Action } from "@/lib/theme/components/buttons";
 import { font } from "@/lib/theme/font";
-import { flex } from "@/lib/theme/snippets/flex";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-	${flex.row};
-	gap: 3rem;
+	display: grid;
+	grid-template-columns: subgrid;
+	grid-column: 1 / -1;
 
 	&:not(&:nth-of-type(1)) {
 		margin-top: 0.5rem;
 		padding-top: 0.5rem;
 	}
 
-	border-radius: 5px;
-	background-color: #eaeaea;
-	box-shadow: 0 0.3rem 0.5rem 0 #ddd;
-	border: 1px solid #fff;
-	padding: 0.5rem 1rem;
-	margin: 1rem;
-	max-width: 750px; // temporary
+	${itemSectionStyle};
 
-	/* TODO: remove this dev-only style */
-	border: 3px solid orange;
+	max-width: 100%;
 `;
 
 const Table = styled.div`
@@ -31,6 +25,8 @@ const Table = styled.div`
 const TableContent = styled.div<{ $columns: number }>`
 	display: grid;
 	grid-template-columns: repeat(${(p) => p.$columns}, max-content);
+
+	overflow-x: auto;
 `;
 
 const ItemName = styled.h2`

@@ -26,7 +26,7 @@ export default function ItemSelector({
 	});
 
 	return (
-		<S.Wrapper>
+		<T.SelectorWrapper>
 			<S.Items>
 				{items.map((item) => (
 					<T.SelectorButton
@@ -42,7 +42,7 @@ export default function ItemSelector({
 			<T.SelectorNewButton>
 				<input
 					type="text"
-					placeholder="new item"
+					placeholder={`new`}
 					value={newItem.name}
 					size={Math.max(newItem.name.length, 7)} // 7 looks good because of the length of the placeholder
 					onChange={handleNewItemChange}
@@ -51,6 +51,6 @@ export default function ItemSelector({
 					<LucidePlus size={15} />
 				</Unstyled>
 			</T.SelectorNewButton>
-		</S.Wrapper>
+		</T.SelectorWrapper>
 	);
 }
