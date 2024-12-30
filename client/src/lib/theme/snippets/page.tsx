@@ -36,6 +36,8 @@ export const pageStyle = css`
 
 const StyledPageWrapper = styled.div`
 	margin-top: 5.4rem;
+
+	width: calc(100dvw - 17px);
 `;
 
 export default function PageWrapper({ children }: PropsWithChildren) {

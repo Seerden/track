@@ -26,6 +26,7 @@ const ItemSections = styled.div`
 	@media (max-width: 768px) {
 		grid-template-columns: 1fr;
 	}
+
 	grid-column-gap: 3rem;
 `;
 

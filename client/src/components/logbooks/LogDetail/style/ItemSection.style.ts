@@ -1,6 +1,7 @@
 import { itemSectionStyle } from "@/components/logbooks/LogDetail/style/_shared.style";
 import { Action } from "@/lib/theme/components/buttons";
 import { font } from "@/lib/theme/font";
+import scrollbar from "@/lib/theme/snippets/scroll";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -27,6 +28,16 @@ const TableContent = styled.div<{ $columns: number }>`
 	grid-template-columns: repeat(${(p) => p.$columns}, max-content);
 
 	overflow-x: auto;
+
+	${scrollbar.custom}
+
+	max-width: calc(
+		100dvw - 200px - 11rem
+	); /* 200px is the first column, 8rem is about the margin+padding */
+
+	@media (max-width: 768px) {
+		max-width: calc(100dvw - 9rem);
+	}
 `;
 
 const ItemName = styled.h2`
