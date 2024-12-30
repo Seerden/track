@@ -11,6 +11,8 @@ const LogHeader = styled.h1``;
 const NewSectionTitle = styled.h2`
 	${headerStyle};
 	background-color: #fff;
+	max-width: 100%;
+	width: max-content;
 `;
 
 const Sections = styled.div`

@@ -82,7 +82,7 @@ export default function LogDetail({ logbook_id }: LogDetailProps) {
 
 						<S.NewSectionWrapper>
 							{itemTemplateSelection?.included.length === 0 ? (
-								<S.NewSectionTitle>
+								<S.NewSectionTitle style={{ fontSize: "1.2rem" }}>
 									You have not selected any item templates yet. Create or select
 									one to get started.
 								</S.NewSectionTitle>
