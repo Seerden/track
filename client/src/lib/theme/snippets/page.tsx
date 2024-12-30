@@ -1,14 +1,11 @@
 import { flex } from "@/lib/theme/snippets/flex";
 import shadows from "@/lib/theme/snippets/shadow";
-import { spacing } from "@/lib/theme/snippets/spacing";
 import type { PropsWithChildren } from "react";
 import styled, { css } from "styled-components";
 
 export const pageStyle = css`
 	background-color: #efefef;
 	display: flex;
-
-	${spacing.padding.wide({ size: 1.2, ratio: 1.5 })};
 
 	${shadows.page};
 
@@ -33,6 +30,8 @@ export const pageStyle = css`
 
 	/* TODO: this needs to be responsive to the size of the navbar. */
 	min-height: calc(100vh - 5.4rem);
+
+	padding-bottom: 2rem;
 `;
 
 const StyledPageWrapper = styled.div`
