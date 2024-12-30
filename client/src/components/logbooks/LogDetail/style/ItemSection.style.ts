@@ -31,12 +31,14 @@ const TableContent = styled.div<{ $columns: number }>`
 
 	${scrollbar.custom}
 
+	// NOTE: if the padding or margin on any of the containers this is in
+   // changes, we have to update the max-width accordingly.
 	max-width: calc(
-		100dvw - 200px - 11rem
+		75dvw - 200px - 14rem
 	); /* 200px is the first column, 8rem is about the margin+padding */
 
 	@media (max-width: 768px) {
-		max-width: calc(100dvw - 9rem);
+		max-width: calc(75dvw - 4rem);
 	}
 `;
 
@@ -48,6 +50,10 @@ const ItemName = styled.h2`
 	padding: 0.3rem 1rem;
 	border-radius: 5px;
 	color: white;
+
+	max-width: calc(
+		200px - 2rem
+	); // matches the width of the subgrid column this is put in on large viewports
 `;
 
 const Button = styled(Action.Alternative)`

@@ -116,7 +116,11 @@ const SelectorNewButton = styled.div`
 
 const SectionWrapper = styled.section`
 	${containers.minimal};
-	padding: 2.5rem;
+
+	@media (min-width: 768px) {
+		padding: 2.5rem;
+		padding-right: 3.2rem;
+	}
 `;
 
 export default {

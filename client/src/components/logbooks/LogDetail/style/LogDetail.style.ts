@@ -2,7 +2,9 @@ import { flex } from "@/lib/theme/snippets/flex";
 import styled from "styled-components";
 import T, { headerStyle } from "./_shared.style";
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+	max-width: calc(100% - 34px);
+`;
 
 const LogHeader = styled.h1``;
 

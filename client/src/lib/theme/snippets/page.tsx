@@ -10,14 +10,19 @@ export const pageStyle = css`
 	${shadows.page};
 
 	${flex.column}
-	justify-self: center;
-	width: 75dvw;
+
+	max-width: calc(100dvw); // 17px offsets the scrollbar
+
+	@media (min-width: 768px) {
+		justify-self: center;
+		max-width: 75dvw;
+	}
 
 	border-left: 2px solid #666;
 	border-right: 2px solid #666;
 
 	@media (max-width: 768px) {
-		width: 100vw;
+		width: 100dvw;
 		border-left: none;
 		border-right: none;
 	}
@@ -26,6 +31,7 @@ export const pageStyle = css`
 
 	@media (max-width: 768px) {
 		padding: 0;
+		align-items: center;
 	}
 
 	/* TODO: this needs to be responsive to the size of the navbar. */
