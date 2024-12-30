@@ -5,6 +5,11 @@ import type { Field } from "@t/data/logbook.api.types";
 import type { ID } from "@t/data/utility.types";
 import S from "./style/ItemRow.style";
 
+/**
+ * @todo I do not like how ItemRow and MaybeItemRow both have a `fields` prop, but
+ * the actual type of each `fields` is different.
+ */
+
 export type ItemRowProps = {
 	fields: FieldTemplateWithValue[];
 };
@@ -28,11 +33,10 @@ function ItemRow({ fields }: ItemRowProps) {
 type MaybeItemRowProps = {
 	fields: Field[];
 	item_row_id: ID;
-	index: number;
 };
 
 /** If each `field` in `fieldsForItem` has values, returns an ItemRow. */
-export default function MaybeItemRow({ fields, item_row_id, index }: MaybeItemRowProps) {
+export default function MaybeItemRow({ fields, item_row_id }: MaybeItemRowProps) {
 	const fieldAndValueList = fields.map((field) => {
 		const { values, ..._field } = field;
 
@@ -46,5 +50,5 @@ export default function MaybeItemRow({ fields, item_row_id, index }: MaybeItemRo
 
 	if (!hasValues(fieldAndValueList)) return null;
 
-	return <ItemRow key={index} fields={fieldAndValueList} />;
+	return <ItemRow fields={fieldAndValueList} />;
 }

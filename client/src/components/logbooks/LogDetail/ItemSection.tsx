@@ -33,7 +33,6 @@ export default function ItemSection({ rows, item, log_id }: ItemSectionProps) {
 							key={index}
 							fields={fieldsForItem}
 							item_row_id={item_row_id}
-							index={index}
 						/>
 					))}
 					<NewItemRow
