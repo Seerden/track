@@ -34,8 +34,11 @@ const qk = {
 	},
 	items: {
 		byLogbook: (logbook_id: ID) => ["logbooks", logbook_id, "items"] as const,
+		byTemplate: (item_template_id: ID) =>
+			["logbooks", "items", item_template_id] as const,
 		rows: {
-			all: ["logbooks", "items", "rows"]
+			all: ["logbooks", "items", "rows"],
+			byLog: (log_id: ID) => ["logbooks", "items", "rows", "log", log_id] as const
 		},
 		all: ["logbooks", "items"]
 	},
@@ -46,7 +49,8 @@ const qk = {
 	logTemplates: {
 		all: ["logbooks", "templates"],
 		byId: (log_template_id: ID) => ["logbooks", "templates", log_template_id] as const,
-		byLogbook: (logbook_id: ID) => ["logbooks", logbook_id, "templates"] as const
+		byLogbook: (logbook_id: ID) =>
+			["logbooks", "templates", "logbook", logbook_id] as const
 	},
 	fields: {
 		all: ["logbooks", "fields"]
@@ -92,7 +96,8 @@ const mk = {
 		new: ["new-logbook"],
 		update: ["logbook"],
 		log: {
-			new: ["new-log"]
+			new: ["new-log"],
+			update: ["log"]
 		},
 		template: {
 			new: ["new-log-template"]

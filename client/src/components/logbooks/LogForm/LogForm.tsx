@@ -109,7 +109,7 @@ export default function LogForm({ logbook_id }: LogFormProps) {
 								This logbook doesn't have any templates yet. It's easier to get
 								going if you start from a template.
 							</p>
-							<Action.CallToAction $color="yellow">
+							<Action.CallToAction $color="yellow" onClick={handleModalOpen}>
 								<LucidePlus /> Create a log template.
 							</Action.CallToAction>
 						</Containers.EmptyState>

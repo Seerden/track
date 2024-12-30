@@ -13,12 +13,7 @@ const hiddenScrollbar = css`
 
 const customScrollbar = css`
 	&::-webkit-scrollbar {
-		height: 12px;
-	}
-
-	&::-webkit-scrollbar-button {
-		background-color: #ccc;
-		width: 5px;
+		height: 8px;
 	}
 
 	&::-webkit-scrollbar-track-piece {

@@ -1,5 +1,5 @@
 import useNewItemRow from "@/components/logbooks/LogDetail/hooks/useNewItemRow";
-import S from "@/components/logbooks/LogDetail/style/ItemTableRow.style";
+import S from "@/components/logbooks/LogDetail/style/ItemRow.style";
 import Containers from "@/lib/theme/components/container.style";
 import UnstyledInput from "@/lib/theme/components/input/UnstyledInput.style";
 import type { FieldTemplate, Item } from "@t/data/logbook.types";
@@ -26,7 +26,7 @@ export default function NewItemRow({
 	});
 
 	return (
-		<tr>
+		<S.RowWrapper>
 			{fieldTemplates.map((template, index) => (
 				<S.Field key={template.field_template_id} style={{ position: "relative" }}>
 					<Containers.Field
@@ -34,7 +34,10 @@ export default function NewItemRow({
 						style={{
 							// TODO: if we end up combining ItemRowCard and NewItemRow,
 							// only provide an outline to a field if it changed.
-							outlineColor: isValidEntry(entries.at(index)) ? "green" : "red"
+							outlineColor: isValidEntry(entries.at(index))
+								? "green"
+								: "orangered",
+							backgroundColor: "#f9f9f9"
 						}}
 					>
 						<UnstyledInput
@@ -55,6 +58,6 @@ export default function NewItemRow({
 					</Containers.Field>
 				</S.Field>
 			))}
-		</tr>
+		</S.RowWrapper>
 	);
 }

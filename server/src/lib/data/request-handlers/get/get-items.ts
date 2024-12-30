@@ -1,5 +1,9 @@
 import { groupById } from "@/lib/data/models/group-by-id";
-import { queryItems, queryItemsByLogbook } from "@/lib/data/models/logbooks/query-items";
+import {
+	queryItems,
+	queryItemsByLogbook,
+	queryItemsByTemplate,
+} from "@/lib/data/models/logbooks/query-items";
 import type { RequestHandler } from "express";
 
 /** Request handler for `/data/logbook/:logbook_id/items`. */
@@ -19,6 +23,17 @@ export const getItems: RequestHandler = async (req, res) => {
 	}
 
 	const items = await queryItems({ user_id });
+	const byId = groupById(items, "item_id");
+
+	res.json({ byId });
+};
+
+/** Request handler for `/data/logbook/items/template/:item_template_id/items
+ * @todo I don't like this endpoint. Maybe the /template/ part can be removed?
+ */
+export const getItemsByTemplate: RequestHandler = async (req, res) => {
+	const item_template_id = +req.params.item_template_id;
+	const items = await queryItemsByTemplate({ item_template_id });
 	const byId = groupById(items, "item_id");
 
 	res.json({ byId });

@@ -61,3 +61,16 @@ export const queryItems: QueryFunction<{ user_id: ID }, Promise<Item[]>> = async
 
 	return items;
 };
+
+/** Get all items that belong to the given template. */
+export const queryItemsByTemplate: QueryFunction<
+	{ item_template_id: ID },
+	Promise<Item[]>
+> = async ({ sql = sqlConnection, item_template_id }) => {
+	const items = await sql<[Item]>`
+      SELECT * FROM items
+      WHERE item_template_id = ${item_template_id}
+   `;
+
+	return items;
+};

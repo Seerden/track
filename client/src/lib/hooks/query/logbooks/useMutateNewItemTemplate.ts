@@ -15,9 +15,12 @@ export default function useMutateNewItemTemplate() {
 			return logbookService.itemTemplates.post(itemTemplateInput);
 		},
 		mutationKey: mk.logbooks.itemTemplate.new,
+		/**
+		 * @see https://tkdodo.eu/blog/mastering-mutations-in-react-query#some-callbacks-might-not-fire
+		 */
 		onSuccess: (data) => {
 			queryClient.invalidateQueries({
-				queryKey: qk.itemTemplates.byLogbook(data.itemTemplate.logbook_id)
+				queryKey: qk.itemTemplates.byLogbook(+data.itemTemplate.logbook_id)
 			});
 
 			closeModal(modalIds.logbooks.itemTemplate.new);

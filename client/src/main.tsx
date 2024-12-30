@@ -31,9 +31,6 @@ Sentry.init({
 			useNavigationType,
 			createRoutesFromChildren,
 			matchRoutes
-		}),
-		Sentry.replayIntegration({
-			useCompression: false
 		})
 	],
 	// Tracing

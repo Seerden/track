@@ -28,6 +28,7 @@ function getSpacing(rule: SpacingRule, type: SpacingType, { size, ratio }: Spaci
 }
 
 export const spacingValue = {
+	smaller: "0.3rem",
 	small: "0.5rem",
 	medium: "1rem",
 	large: "1.5rem",

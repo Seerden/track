@@ -1,6 +1,4 @@
 import useMutateNewItemTemplate from "@/lib/hooks/query/logbooks/useMutateNewItemTemplate";
-import { queryClient } from "@/lib/query-client";
-import { qk } from "@/lib/query-keys";
 import type { NewFieldTemplate, NewItemTemplate } from "@t/data/logbook.new.types";
 import type { ID } from "@t/data/utility.types";
 import type React from "react";
@@ -45,15 +43,7 @@ export default function useNewItemTemplate({ logbook_id }: { logbook_id: ID }) {
 			return;
 		}
 
-		submit(
-			{ newItemTemplate: itemTemplate, newFieldTemplates },
-			{
-				onSuccess: () => {
-					// TODO: use a more specific query key
-					queryClient.invalidateQueries({ queryKey: qk.logbooks.all, exact: false });
-				}
-			}
-		);
+		submit({ newItemTemplate: itemTemplate, newFieldTemplates });
 	}
 
 	return {
