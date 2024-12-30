@@ -116,6 +116,7 @@ const SelectorNewButton = styled.div`
 
 const SectionWrapper = styled.section`
 	${containers.minimal};
+	min-width: max-content;
 	padding: 2.5rem;
 `;
 

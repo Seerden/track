@@ -164,9 +164,7 @@ const topLevelRoutes: RouteObject[] = [
 						path: "log/:logId",
 						element: (
 							<Protected>
-								<Page>
-									<LogDetail />
-								</Page>
+								<LogDetail />
 							</Protected>
 						)
 					}

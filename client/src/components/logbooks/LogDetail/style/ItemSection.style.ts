@@ -15,7 +15,7 @@ const Wrapper = styled.div`
 
 	${itemSectionStyle};
 
-	max-width: 100%;
+	overflow-x: auto;
 `;
 
 const Table = styled.div`

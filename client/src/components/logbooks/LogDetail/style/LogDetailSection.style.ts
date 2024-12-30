@@ -21,7 +21,11 @@ const Subtitle = styled.h2`
 
 const ItemSections = styled.div`
 	display: grid;
-	grid-template-columns: max-content 1fr;
+	grid-template-columns: 200px 1fr;
+
+	@media (max-width: 768px) {
+		grid-template-columns: 1fr;
+	}
 	grid-column-gap: 3rem;
 `;
 
