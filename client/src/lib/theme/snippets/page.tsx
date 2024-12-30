@@ -15,7 +15,7 @@ export const pageStyle = css`
 
 	@media (min-width: 768px) {
 		justify-self: center;
-		max-width: 75dvw;
+		width: 75dvw;
 	}
 
 	border-left: 2px solid #666;
