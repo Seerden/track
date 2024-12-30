@@ -4,13 +4,16 @@ import type { ID } from "@t/data/utility.types";
 import { produce } from "immer";
 import { useCallback, useState } from "react";
 
+type UseItemSelectorArgs = {
+	item_template_id: ID;
+	logbook_id: ID;
+};
+
+/** Functionality hook for ItemSelector. */
 export default function useItemSelector({
 	item_template_id,
 	logbook_id
-}: {
-	item_template_id: ID;
-	logbook_id: ID;
-}) {
+}: UseItemSelectorArgs) {
 	const [newItem, setNewItem] = useState<NewItem>({
 		name: "",
 		item_template_id,
@@ -19,6 +22,7 @@ export default function useItemSelector({
 
 	const { mutate } = useMutateNewItem();
 
+	/** Input handler that updates the newItem's name. */
 	function handleNewItemChange(e: React.ChangeEvent<HTMLInputElement>) {
 		setNewItem(
 			produce((draft) => {
@@ -27,6 +31,7 @@ export default function useItemSelector({
 		);
 	}
 
+	/** Reset the new item's name. */
 	function clearNewItemName() {
 		setNewItem(
 			produce((draft) => {
@@ -35,19 +40,20 @@ export default function useItemSelector({
 		);
 	}
 
+	/** If the new item is valid, POST it.
+	 * @todo actually validate the new item. That means we also need to check for
+	 * uniqueness of the name among all descendants from the given item template.
+	 */
 	const submitNewItem = useCallback(() => {
-		// TODO: actually validate the new item; includes a check for uniqueness
-		// of name among descendants from the given item template.
 		const isValid = newItem.name.length > 0;
-		if (isValid) {
-			mutate({ newItem });
-		}
+		if (isValid) mutate({ newItem });
 	}, [newItem, mutate]);
 
-	const handleNewButtonClick = useCallback(() => {
+	/** Submit the new item (if valid) and clear the state. */
+	function handleNewButtonClick() {
 		submitNewItem();
 		clearNewItemName();
-	}, [submitNewItem]);
+	}
 
 	return {
 		newItem,

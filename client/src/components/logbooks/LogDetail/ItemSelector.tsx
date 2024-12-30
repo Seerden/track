@@ -7,18 +7,17 @@ import S from "./style/ItemSelector.style";
 import T from "./style/_shared.style";
 
 type ItemSelectorProps = {
-	items: Item[];
-	onChange(item_id: ID): void;
 	item_template_id: ID;
 	logbook_id: ID;
+	items: Item[];
+	onChange(item_id: ID): void;
 };
 
-// TODO: styling
 export default function ItemSelector({
-	items,
-	onChange,
 	item_template_id,
-	logbook_id
+	logbook_id,
+	items,
+	onChange
 }: ItemSelectorProps) {
 	const { newItem, handleNewItemChange, handleNewButtonClick } = useItemSelector({
 		item_template_id,
@@ -30,9 +29,8 @@ export default function ItemSelector({
 			<S.Items>
 				{items.map((item) => (
 					<T.SelectorButton
-						onClick={() => onChange(item.item_id)}
-						type="button"
 						key={item.item_id}
+						onClick={() => onChange(item.item_id)}
 					>
 						{item.name}
 					</T.SelectorButton>
@@ -42,7 +40,7 @@ export default function ItemSelector({
 			<T.SelectorNewButton>
 				<input
 					type="text"
-					placeholder={`new`}
+					placeholder="new"
 					value={newItem.name}
 					size={Math.max(newItem.name.length, 7)} // 7 looks good because of the length of the placeholder
 					onChange={handleNewItemChange}
