@@ -34,7 +34,9 @@ export default function NewItemRow({
 						style={{
 							// TODO: if we end up combining ItemRowCard and NewItemRow,
 							// only provide an outline to a field if it changed.
-							outlineColor: isValidEntry(entries.at(index)) ? "green" : "#333",
+							outlineColor: isValidEntry(entries.at(index))
+								? "green"
+								: "orangered",
 							backgroundColor: "#f9f9f9"
 						}}
 					>
