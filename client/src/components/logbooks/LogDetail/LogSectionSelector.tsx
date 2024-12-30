@@ -7,7 +7,8 @@ type LogSectionSelectorProps = {
 	onChange(item_template_id: ID): void;
 };
 
-// TODO: finish this component
+/** Renders buttons for all not-yet-displayed itemTemplates in the log. Clicking
+ * one of the buttons adds the corresponding itemTemplate to the log's layout. */
 export default function LogSectionSelector({
 	itemTemplates,
 	onChange
@@ -17,12 +18,9 @@ export default function LogSectionSelector({
 	return (
 		<S.SelectorWrapper>
 			{itemTemplates.map((template) => (
-				// TODO: make these share the same style as the buttons in
-				// ItemSelector.
 				<S.SelectorButton
-					type="button"
-					onClick={() => onChange(template.item_template_id)}
 					key={template.item_template_id}
+					onClick={() => onChange(template.item_template_id)}
 				>
 					{template.name}
 				</S.SelectorButton>

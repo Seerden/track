@@ -17,6 +17,9 @@ export default function useLogDetail({ logbook_id }: { logbook_id?: ID }) {
 	});
 	const { appendLayoutSection } = useUpdateLogLayout({ log });
 
+	// TODO: this should be a pure function that's called with memoized values,
+	// so we can test it properly. In fact, it should probably be on the server
+	// altogether.
 	const itemTemplateSelection = useMemo(() => {
 		return itemTemplates?.reduce(
 			(acc, cur) => {

@@ -23,10 +23,10 @@ export default function LogDetailSection({
 	const {
 		isProbablySuspended,
 		modalId,
-		handleModalOpen,
 		itemRows,
 		items,
 		itemSelection,
+		handleModalOpen,
 		addItemToSection
 	} = useLogDetailSection({
 		itemTemplate,
@@ -46,6 +46,7 @@ export default function LogDetailSection({
 							log_id={log_id}
 							key={item.item_id}
 							item={item}
+							// TODO: do not compute rows inline
 							rows={getRowsForItem({
 								itemRows,
 								item_id: +item.item_id,
@@ -57,7 +58,6 @@ export default function LogDetailSection({
 
 				<S.AddSectionWrapper>
 					{items.length === 0 ? (
-						// TODO: style this section
 						<>
 							<p>
 								This item template does not have any items yet. Add one to get
@@ -68,9 +68,8 @@ export default function LogDetailSection({
 							</button>
 						</>
 					) : (
-						// {/* TODO: styling of this section */}
 						<>
-							<S.Subtitle>Add another "{itemTemplate.name}"</S.Subtitle>
+							<S.SubTitle>Add another "{itemTemplate.name}"</S.SubTitle>
 							<ItemSelector
 								item_template_id={itemTemplate.item_template_id}
 								logbook_id={logbook_id}
@@ -80,15 +79,6 @@ export default function LogDetailSection({
 						</>
 					)}
 				</S.AddSectionWrapper>
-
-				{/* TODO: this button currently opens a NewItem modal. If we even want 
-               to do that inside this view (we probably do), we should do it from 
-               a smaller button in an action bar, not right here, and not with such 
-               a large button. */}
-				{/* <Action.WithIcon $color={"darkBlue"} onClick={handleModalOpen}>
-					<LucidePencilLine />
-					<span style={{ fontWeight: 600 }}>Add {itemTemplate.name}</span>
-				</Action.WithIcon> */}
 			</T.SectionWrapper>
 
 			<Modal modalId={modalId}>

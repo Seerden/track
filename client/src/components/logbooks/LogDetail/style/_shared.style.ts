@@ -1,6 +1,8 @@
 import { Unstyled } from "@/lib/theme/components/buttons";
 import { containers } from "@/lib/theme/components/container.style";
 import { flex } from "@/lib/theme/snippets/flex";
+import { radius } from "@/lib/theme/snippets/radius";
+import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 import styled, { css } from "styled-components";
 
 export const itemSectionStyle = css`
@@ -13,7 +15,7 @@ export const itemSectionStyle = css`
 `;
 
 export const headerStyle = css`
-	border-radius: 6px;
+	${radius.medium};
 	padding-inline: 1rem;
 	margin: 0;
 	box-shadow: 0 0.5rem 1.5rem -0.6rem #ccc;
@@ -22,8 +24,8 @@ export const headerStyle = css`
 `;
 
 const itemStyle = css`
-	border-radius: 3px;
-	padding: 0.2rem 0.3rem;
+	${radius.small};
+	${spacing.padding.wide({ size: 0.2, ratio: 1.5 })}
 	max-width: 100%;
 
 	display: flex;
@@ -31,13 +33,13 @@ const itemStyle = css`
 	justify-content: center;
 
 	border: 2px solid #ccc;
-	background-color: #f9f9f9;
+	background-color: #f9f9f9; // TODO: put this in the theme as 'offwhite'
 	box-shadow: 0 0.3rem 0.2rem -0.3rem #999;
 
 	&:active,
 	&:focus,
 	&:focus-within {
-		border-color: dodgerblue;
+		border-color: ${(p) => p.theme.colors.blue.main};
 	}
 `;
 
@@ -50,7 +52,7 @@ const SelectorWrapper = styled.div`
 		max-width: 500px;
 	}
 
-	gap: 0.5rem;
+	gap: ${spacingValue.small};
 `;
 
 const SelectorButton = styled(Unstyled)<{ $compact?: boolean }>`
@@ -62,7 +64,7 @@ const SelectorButton = styled(Unstyled)<{ $compact?: boolean }>`
 	}
 
 	width: max-content;
-	gap: 0.5rem;
+	gap: ${spacingValue.small};
 
 	${(p) =>
 		!p.$compact &&
@@ -78,8 +80,8 @@ const SelectorNewButton = styled.div`
 	height: max-content;
 	width: max-content;
 
-	gap: 0.5rem;
-	padding: 0.3rem;
+	gap: ${spacingValue.small};
+	padding: ${spacingValue.smaller};
 
 	input {
 		background-color: transparent;
@@ -92,8 +94,8 @@ const SelectorNewButton = styled.div`
 		max-width: 100%;
 
 		&:focus {
-			border-bottom: 2px solid dodgerblue;
-			margin-bottom: -1px;
+			border-bottom: 2px solid ${(p) => p.theme.colors.blue.main};
+			margin-bottom: -1px; // to adjust for the 1px increase in border size
 		}
 	}
 
@@ -119,7 +121,7 @@ const SectionWrapper = styled.section`
 
 	@media (min-width: 768px) {
 		padding: 2.5rem;
-		padding-right: 3.2rem;
+		padding-right: 3.2rem; /* this is unconventional, but the best way to make the table look good */
 	}
 `;
 

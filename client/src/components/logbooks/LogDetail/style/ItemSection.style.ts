@@ -1,7 +1,9 @@
 import { itemSectionStyle } from "@/components/logbooks/LogDetail/style/_shared.style";
 import { Action } from "@/lib/theme/components/buttons";
 import { font } from "@/lib/theme/font";
+import { radius } from "@/lib/theme/snippets/radius";
 import scrollbar from "@/lib/theme/snippets/scroll";
+import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
@@ -10,8 +12,8 @@ const Wrapper = styled.div`
 	grid-column: 1 / -1;
 
 	&:not(&:nth-of-type(1)) {
-		margin-top: 0.5rem;
-		padding-top: 0.5rem;
+		margin-top: ${spacingValue.small};
+		padding-top: ${spacingValue.small};
 	}
 
 	${itemSectionStyle};
@@ -35,20 +37,22 @@ const TableContent = styled.div<{ $columns: number }>`
    // changes, we have to update the max-width accordingly.
 	max-width: calc(
 		75dvw - 200px - 14rem
-	); /* 200px is the first column, 8rem is about the margin+padding */
+	); /* 200px is the first column, 14rem is ~ margin + padding */
 
 	@media (max-width: 768px) {
-		max-width: calc(75dvw - 4rem);
+		max-width: calc(
+			75dvw - 4rem
+		); /* like elsewhere, this unconventional width is because of the table */
 	}
 `;
 
 const ItemName = styled.h2`
 	font-size: ${font.size["1.2"]};
-	margin-top: 0.5rem;
-	background-color: dodgerblue;
+	margin-top: ${spacingValue.small};
+	background-color: ${(p) => p.theme.colors.blue.main};
 	height: max-content;
-	padding: 0.3rem 1rem;
-	border-radius: 5px;
+	${spacing.padding.wide({ size: 0.3, ratio: 3 })}
+	${radius.medium};
 	color: white;
 
 	max-width: calc(
@@ -58,11 +62,12 @@ const ItemName = styled.h2`
 
 const Button = styled(Action.Alternative)`
 	display: flex;
-	color: black;
-	width: 30px;
-	height: 30px;
-	margin-top: 0.5rem;
-	margin-left: 0.5rem;
+	-size: 30px;
+	color: #000;
+	width: var(--size);
+	height: var(--size);
+	margin-top: ${spacingValue.small};
+	margin-left: ${spacingValue.small};
 	border-radius: 50%;
 `;
 

@@ -4,9 +4,13 @@ import type { ID, Maybe } from "@t/data/utility.types";
 import { produce } from "immer";
 import { useCallback } from "react";
 
+/** This hook exposes two memoized functions that add an item or item template to the
+ * specified log's layout. */
 export default function useUpdateLogLayout({ log }: { log: Maybe<Log> }) {
 	const { mutate: putLog } = useMutateLog();
 
+	/** If it's not already in the layout, this appends an item to the log's
+	 * layout. */
 	const appendItemToLayoutSection = useCallback(
 		(item_id: ID, item_template_id: ID) => {
 			const logWithNewLayout = produce(log, (draft) => {
@@ -35,6 +39,8 @@ export default function useUpdateLogLayout({ log }: { log: Maybe<Log> }) {
 		[log, putLog]
 	);
 
+	/** If it's not already included, this appends an itemTemplate section to the
+	 * log's layout. */
 	const appendLayoutSection = useCallback(
 		(item_template_id: ID) => {
 			const logWithNewLayout = produce(log, (draft) => {

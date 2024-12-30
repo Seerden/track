@@ -8,12 +8,13 @@ import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import { Action } from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
+import { font } from "@/lib/theme/font";
 import type { ID } from "@t/data/utility.types";
 import { LucideFolderPen, LucidePlus } from "lucide-react";
 import S from "./style/LogDetail.style";
 
 type NewSectionButtonProps = {
-	onClick: () => void;
+	onClick(): void;
 	compact?: boolean;
 };
 
@@ -31,6 +32,7 @@ export type LogDetailProps = {
 	logbook_id?: ID;
 };
 
+/** This renders an editable all-inclusive view of a single log. */
 export default function LogDetail({ logbook_id }: LogDetailProps) {
 	const {
 		isProbablySuspended,
@@ -44,11 +46,14 @@ export default function LogDetail({ logbook_id }: LogDetailProps) {
 		logbook_id
 	});
 
+	// TODO: move this into useLogDetail, also put the modalId in there so we
+	// don't use it manually twice in this component.
 	const { openModal } = useModalState();
 	function handleModalOpen() {
 		openModal(modalIds.logbooks.itemTemplate.new);
 	}
 
+	// TODO: implement an actual fallback.
 	if (isProbablySuspended || !log) return <div>There is nothing here</div>;
 
 	return (
@@ -82,7 +87,7 @@ export default function LogDetail({ logbook_id }: LogDetailProps) {
 
 						<S.NewSectionWrapper>
 							{itemTemplateSelection?.included.length === 0 ? (
-								<S.NewSectionTitle style={{ fontSize: "1.2rem" }}>
+								<S.NewSectionTitle style={{ fontSize: font.size["1.2"] }}>
 									You have not selected any item templates yet. Create or select
 									one to get started.
 								</S.NewSectionTitle>

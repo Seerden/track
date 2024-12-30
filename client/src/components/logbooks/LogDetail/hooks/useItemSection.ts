@@ -6,16 +6,25 @@ import type { Item } from "@t/data/logbook.types";
 export default function useItemSection({ item }: { item: Item }) {
 	const { data: fieldsData } = useQueryFields();
 
-	// TODO: this should come from the server.
-	const fieldsForItem = fieldsData?.byId
-		? getFieldsForItem({
-				item,
-				fields: Object.values(fieldsData.byId)
-			})
-		: [];
+	const isProbablySuspended = !fieldsData;
+
+	if (isProbablySuspended) {
+		return {
+			isProbablySuspended
+		};
+	}
+
+	const fields = Object.values(fieldsData.byId);
+
+	// TODO: this should come from the server, instead of us fetching all fields
+	// and filtering them here.
+	const fieldsForItem = getFieldsForItem({
+		item,
+		fields
+	});
 
 	return {
-		fieldsData,
+		isProbablySuspended,
 		fieldsForItem
 	};
 }

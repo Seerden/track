@@ -15,7 +15,7 @@ export default function LogbookCard({ logbook_id }: LogbookCardProps) {
 		logbook_id
 	});
 
-	if (isProbablySuspended) return null;
+	if (isProbablySuspended || !logbook) return null;
 
 	return (
 		<S.Card>
