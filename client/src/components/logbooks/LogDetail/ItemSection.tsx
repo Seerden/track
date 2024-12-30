@@ -14,9 +14,9 @@ export type ItemSectionProps = {
 
 /** Renders a table of item rows for a single item for the specified log. */
 export default function ItemSection({ rows, item, log_id }: ItemSectionProps) {
-	const { fieldsData, fieldsForItem } = useItemSection({ item });
+	const { isProbablySuspended, fieldsForItem } = useItemSection({ item });
 
-	if (!fieldsData) return null;
+	if (isProbablySuspended) return null;
 
 	const labels = fieldsForItem.map((field) => field.name);
 
