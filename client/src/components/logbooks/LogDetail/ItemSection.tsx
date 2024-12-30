@@ -12,9 +12,7 @@ export type ItemSectionProps = {
 	log_id: ID;
 };
 
-/** Renders all the rows for the given item.
- * @todo ^ this description sucks, make it more descriptive
- */
+/** Renders a table of item rows for a single item for the specified log. */
 export default function ItemSection({ rows, item, log_id }: ItemSectionProps) {
 	const { fieldsData, fieldsForItem } = useItemSection({ item });
 
