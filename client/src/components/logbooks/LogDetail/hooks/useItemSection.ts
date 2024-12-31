@@ -1,5 +1,6 @@
 import { getFieldsForItem } from "@/components/logbooks/LogDetail/lib/get-fields";
 import useQueryFields from "@/lib/hooks/query/logbooks/useQueryFields";
+import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
 import type { Item } from "@t/data/logbook.types";
 
 /** Functionality hook for ItemSection */
@@ -14,7 +15,7 @@ export default function useItemSection({ item }: { item: Item }) {
 		};
 	}
 
-	const fields = Object.values(fieldsData.byId);
+	const fields = byIdAsList(fieldsData.byId);
 
 	// TODO: this should come from the server, instead of us fetching all fields
 	// and filtering them here.

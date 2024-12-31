@@ -1,6 +1,7 @@
 import useQueryFields from "@/lib/hooks/query/logbooks/useQueryFields";
 import { useQueryItemTemplatesByLogbook } from "@/lib/hooks/query/logbooks/useQueryItemTemplates";
 import { useQueryLogTemplate } from "@/lib/hooks/query/logbooks/useQueryLogTemplates";
+import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import type { ID } from "@t/data/utility.types";
 
@@ -32,7 +33,7 @@ export default function useMiniLogTemplate({
 		return { isProbablySuspended };
 	}
 
-	const fields = Object.values(fieldsData.byId);
+	const fields = byIdAsList(fieldsData.byId);
 
 	const itemTemplatesWithFields = Array.from(itemTemplatesData.byId.entries()).map(
 		([itemTemplateId, itemTemplate]) => ({

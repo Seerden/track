@@ -1,5 +1,6 @@
 import useMutateNewItem from "@/lib/hooks/query/logbooks/useMutateNewItem";
 import useQueryFields from "@/lib/hooks/query/logbooks/useQueryFields";
+import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
 import { queryClient } from "@/lib/query-client";
@@ -59,7 +60,7 @@ export default function useNewItem({
 		};
 	}
 
-	const fieldsForItemTemplate = Object.values(fieldsData.byId).filter(
+	const fieldsForItemTemplate = byIdAsList(fieldsData.byId).filter(
 		// TODO: a case where we _have to_ parse an id to a number because as a
 		// bigint, it comes in as a string -- see
 		// https://github.com/Seerden/track/issues/175

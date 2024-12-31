@@ -24,8 +24,6 @@ export type HabitEntriesData = DataById<HabitEntry>;
 
 export type UserData = Data<"user", Maybe<User>>;
 
-export type FieldsData = DataById<Field>;
-
 // usage transformed to Map
 export type LogbooksData = DataById<Logbook>;
 export type TagsData = DataById<TagWithIds>;
@@ -36,3 +34,4 @@ export type ItemsData = DataById<Item>;
 export type ItemTemplatesData = DataById<ItemTemplate>;
 export type LogTemplatesData = DataById<LogTemplate>;
 export type ItemRowsData = DataById<ItemRow>;
+export type FieldsData = DataById<Field>;
