@@ -6,8 +6,9 @@ import type {
 import { defaultFilter } from "@/components/activities/ActivityFilter/lib/constants";
 import { getTreeMembers } from "@/components/activities/ActivityFilter/lib/tag-branch";
 import { createDate } from "@/lib/datetime/make-date";
-import type { TagsData, TagsTreeData } from "@/types/data.types";
-import type { ID } from "@t/data/utility.types";
+import type { TagsTreeData } from "@/types/data.types";
+import type { TagWithIds } from "@t/data/tag.types";
+import type { ByIdMap, ID } from "@t/data/utility.types";
 import { produce } from "immer";
 import type { Dispatch, SetStateAction } from "react";
 import { useCallback } from "react";
@@ -21,7 +22,7 @@ export default function useActivityFilterActions({
 }: {
 	setActiveTagIds: Dispatch<SetStateAction<ID[]>>;
 	wholeTree: boolean;
-	tagsById: TagsData["byId"] | undefined;
+	tagsById: ByIdMap<TagWithIds> | undefined;
 	tagsTreeById: TagsTreeData["byId"] | undefined;
 	setFilter: Dispatch<SetStateAction<ActivityFilterWithValues>>;
 }) {

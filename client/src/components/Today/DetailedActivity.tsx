@@ -94,17 +94,21 @@ export default function DetailedActivity({ activity }: DetailedActivityProps) {
 						gridArea: "tags"
 					}}
 				>
-					{activity.tag_ids.map((id) => (
-						<S.Tag
-							onClick={(e) => {
-								e.stopPropagation();
-								openDetailedItemModal(tagsData.byId[id].tag_id);
-							}}
-							key={id}
-						>
-							{tagsData.byId[id].name}
-						</S.Tag>
-					))}
+					{activity.tag_ids.map((id) => {
+						const tag = tagsData.byId.get(id);
+						if (!tag) return null;
+						return (
+							<S.Tag
+								onClick={(e) => {
+									e.stopPropagation();
+									openDetailedItemModal(tag.tag_id);
+								}}
+								key={id}
+							>
+								{tag.name}
+							</S.Tag>
+						);
+					})}
 				</S.Tags>
 			)}
 

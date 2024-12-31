@@ -60,8 +60,7 @@ export default function DetailedHabit({ habit }: PropsWithChildren<DetailedHabit
 								openDetailedItemModal(id);
 							}}
 						>
-							{/* TODO: I'm throwing this TODO here, but it's applicable everywhere: instead of using objects for byId, use Maps. */}
-							{tagsData.byId[id]?.name}
+							{tagsData.byId.get(id)?.name}
 						</C.Tag>
 					))}
 				</C.Tags>

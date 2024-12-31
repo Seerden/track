@@ -5,7 +5,7 @@ import type { Dayjs } from "dayjs";
 export type Timestamp = Datelike;
 
 /** ids are serial and auto-incrementing */
-export type ID = number;
+export type ID = string | number;
 
 export type Maybe<T> = T | null | undefined;
 
@@ -16,6 +16,7 @@ export type Maybe<T> = T | null | undefined;
  * @see https://stackoverflow.com/questions/71422178/typescript-record-accepts-array-why
  **/
 export type ById<T> = T extends unknown[] ? never : Record<ID, T>;
+export type ByIdMap<T> = T extends unknown[] ? never : Map<ID, T>;
 
 export type NullUnused<TUsed, TUnused> = TUsed & {
 	[k in keyof TUnused]: null;

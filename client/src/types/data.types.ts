@@ -27,7 +27,9 @@ export type HabitEntriesData = DataById<HabitEntry>;
 
 export type UserData = Data<"user", Maybe<User>>;
 
+// usage transformed to Map
 export type LogbooksData = DataById<Logbook>;
+
 export type LogsData = DataById<Log>;
 export type ItemsData = DataById<Item>;
 export type ItemTemplatesData = DataById<ItemTemplate>;

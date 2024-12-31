@@ -1,10 +1,11 @@
 import type { DataById, MappedData } from "@/types/query.types";
+import type { ID } from "@t/data/utility.types";
 
 // export default function transformByIdToMap<T extends DataById<unknown>>(
 // 	data: T
 // ): MappedData<T> {
 // 	type ValueType = T extends DataById<infer U> ? U : never;
-// 	const byId = new Map(Object.entries(data.byId) as [string, ValueType][]);
+// 	const byId = new Map(Object.entries(data.byId) as [ID, ValueType][]);
 // 	return Object.assign({}, data, { byId });
 // }
 
@@ -20,4 +21,9 @@ export default function transformByIdToMap<T extends DataById<unknown>>(
 	const byId = new Map(Object.entries(data.byId));
 
 	return Object.assign({}, data, { byId }) as MappedData<T>;
+}
+
+/** Transforms a byId Map to a list containing `byId`'s values. */
+export function byIdAsList<T>(map: Map<ID, T>): T[] {
+	return [...map.values()];
 }

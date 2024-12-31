@@ -9,7 +9,7 @@ import S from "./style/Today.style";
 
 export default function Notes() {
 	const { data: notesData } = useQueryNotes();
-	const { data: tags } = useQueryTags();
+	const { data: tagsData } = useQueryTags();
 
 	const notes = Object.values(notesData?.byId ?? {}).filter((note) =>
 		// TODO: note.date is not a field in the client when creating a new note,
@@ -23,7 +23,11 @@ export default function Notes() {
 			<S.BlockTitle>Notes</S.BlockTitle>
 			{!notes.length && <Empty>No notes found for today.</Empty>}
 			{notes.map((n) => (
-				<Note key={n.note_id} note={n} tags={filterTagsById(n.tag_ids, tags?.byId)} />
+				<Note
+					key={n.note_id}
+					note={n}
+					tags={filterTagsById(n.tag_ids, tagsData?.byId)}
+				/>
 			))}
 		</S.NotesWrapper>
 	);

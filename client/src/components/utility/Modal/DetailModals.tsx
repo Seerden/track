@@ -16,7 +16,7 @@ export default function DetailModals() {
 
 	const { tag, habit, activity } = useRecoilValue(activeItemState);
 
-	const activeTag = tag.activeId ? tags?.byId[tag.activeId] : null;
+	const activeTag = tag.activeId ? tags?.byId.get(tag.activeId) : null;
 	const activeActivity = activity.activeId ? activities?.byId[activity.activeId] : null;
 	const activeHabit = habit.activeId ? habits?.byId[habit.activeId] : null;
 

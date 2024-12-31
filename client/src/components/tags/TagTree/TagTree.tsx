@@ -1,11 +1,12 @@
 import Modal from "@/components/utility/Modal/Modal";
+import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
 import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
 import useQueryTagsTree from "@/lib/hooks/query/tags/useQueryTagsTree";
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
 import Badge from "@/lib/theme/components/Badge";
 import type { TagWithIds } from "@t/data/tag.types";
-import type { ById, ID } from "@t/data/utility.types";
+import type { ByIdMap, ID } from "@t/data/utility.types";
 import { useState } from "react";
 import { MdOutlineExpandLess, MdOutlineExpandMore } from "react-icons/md";
 import S from "./style/TagTree.style";
@@ -27,9 +28,9 @@ export default function TagTree({
 	if (!tagTreeData || !tagsData) return null;
 
 	const rootTagIds = Object.keys(tagTreeData.byId);
-	const rootTags = rootTagIds.map((id) => tagsData.byId[+id]);
+	const rootTags = rootTagIds.map((id) => tagsData.byId.get(id));
 
-	if (!Object.values(tagsData.byId).length) return null;
+	if (!byIdAsList(tagsData.byId).length) return null;
 
 	return (
 		<Modal modalId={modalId} initialOpen={initialOpen}>
@@ -42,9 +43,11 @@ export default function TagTree({
 						Soon, you will be able to edit the hierarchy of your tags from here.
 					</p>
 					<S.Tree $orientation={orientation} $columnCount={rootTags.length}>
-						{rootTags.map((tag) => (
-							<Tag key={tag.tag_id} tag={tag} level={0} />
-						))}
+						{rootTags
+							.filter((t) => !!t)
+							.map((tag) => (
+								<Tag key={tag.tag_id} tag={tag} level={0} />
+							))}
 					</S.Tree>
 				</S.Container>
 			</div>
@@ -57,8 +60,9 @@ type TagProps = {
 	level: number;
 };
 
-function getTag(tag_id: ID, tagsById: ById<TagWithIds>) {
-	return tagsById[tag_id];
+// TODO: this has to exist in a utility file somewhere
+function getTag(tag_id: ID, tagsById: ByIdMap<TagWithIds>) {
+	return tagsById.get(tag_id);
 }
 
 function Tag({ tag, level }: TagProps) {
@@ -115,9 +119,11 @@ function Tag({ tag, level }: TagProps) {
 						ease: "easeIn"
 					}}
 				>
-					{children.map((child) => (
-						<Tag key={child.tag_id} tag={child} level={(level ?? 0) + 1} />
-					))}
+					{children
+						.filter((c) => !!c)
+						.map((child) => (
+							<Tag key={child.tag_id} tag={child} level={(level ?? 0) + 1} />
+						))}
 				</S.Children>
 			)}
 		</S.Tag>

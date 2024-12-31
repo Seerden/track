@@ -10,7 +10,7 @@ type NewTagProps = {
 };
 
 function NewTag({ modalId }: NewTagProps) {
-	const { onInputChange, onSubmit, tags } = useNewTag();
+	const { onInputChange, onSubmit, tagsData } = useNewTag();
 
 	return (
 		<F.Wrapper role="form">
@@ -39,12 +39,12 @@ function NewTag({ modalId }: NewTagProps) {
 					</F.Label>
 				</F.Row>
 				<F.Row>
-					{Object.keys(tags?.byId ?? {}).length > 0 && (
+					{Object.keys(tagsData?.byId ?? {}).length > 0 && (
 						<S.Tags>
 							<TagSelector
 								title="Categorize"
 								maximum={1}
-								tagsById={tags?.byId}
+								tagsById={tagsData?.byId}
 								modalId={modalId}
 							/>
 						</S.Tags>
