@@ -14,8 +14,6 @@ export const insertLog: QueryFunction<NewLogInput, Promise<Log>> = async ({
 			: null;
 		const newLogWithLayout = newLog;
 		if (template) {
-			// TODO: this type will not be correct until we fix the logTemplate's
-			// layout type. This needs to be refactored in both the client and server.
 			newLogWithLayout.layout = template.layout;
 		}
 
