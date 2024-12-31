@@ -8,6 +8,7 @@ import useRouteProps from "@/lib/hooks/useRouteProps";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import type { NewLogTemplate } from "@t/data/logbook.new.types";
+import type { Layout, LayoutSection } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
 import { useCallback, useMemo, useState } from "react";
 
@@ -52,9 +53,16 @@ export default function useLogTemplateForm({ logbook_id }: { logbook_id: ID }) {
 		setLogTemplate((current) => ({ ...current, [name]: value }));
 	}
 
-	const getLayoutFromSections = useCallback(() => {
+	const getLayoutFromSections = useCallback((): Layout => {
 		// TODO: this assumes all the sections can only have length 1.
-		return templateSections.map((section) => section[0]);
+		// TODO: The functionality to select specific items is not yet
+		// implemented, see TRK-125.
+		return templateSections.map((section): LayoutSection => {
+			return {
+				item_template_id: section[0],
+				item_ids: null
+			};
+		});
 	}, [templateSections]);
 
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {

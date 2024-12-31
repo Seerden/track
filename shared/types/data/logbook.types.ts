@@ -38,13 +38,6 @@ export type ItemTemplate = {
 	standalone: boolean; // false for lifts, but probably true for meta items like dates etc.
 };
 
-type NestedPrimitiveObject =
-	| {
-			[k: string]: string | number | NestedPrimitiveObject;
-	  }
-	| string
-	| number;
-
 /** A LogbookEntryTemplate describes what a logbook entry should look like.
  *  For example, a "lifting" logbook entry template could contain a number of
  *  "Lift" items, a number of "Warmup" items (e.g. cardio, stretch) and a single
@@ -113,7 +106,7 @@ export type LayoutSection = {
 	item_ids: Nullable<ID[]>;
 };
 
-type Layout = LayoutSection[];
+export type Layout = LayoutSection[];
 
 /** A Log represents a filled-in session for a Logbook. */
 export type Log = {
