@@ -1,7 +1,7 @@
 import logbookService from "@/lib/fetch/logbook-service";
+import { select } from "@/lib/hooks/query/select-map-by-id";
 import { defaultQueryConfig } from "@/lib/query-client";
 import { qk } from "@/lib/query-keys";
-import type { LogTemplatesData } from "@/types/data.types";
 import type { LogTemplate } from "@t/data/logbook.types";
 import type { ID, Nullable } from "@t/data/utility.types";
 import { useQuery } from "@tanstack/react-query";
@@ -14,10 +14,12 @@ export function useQueryLogTemplate(log_template_id: ID) {
 	});
 }
 
+/** TODO: this is unused currently. */
 export default function useQueryLogTemplates() {
-	return useQuery<LogTemplatesData>({
+	return useQuery({
 		queryKey: qk.logTemplates.all,
 		queryFn: logbookService.logTemplates.getByUser,
+		select,
 		...defaultQueryConfig
 	});
 }
@@ -25,9 +27,10 @@ export default function useQueryLogTemplates() {
 export function useQueryLogTemplatesByLogbook(logbook_id: ID) {
 	// TODO: does LogTemplatesData make sense, or do we want to include
 	// logbook_id in the response?
-	return useQuery<LogTemplatesData>({
+	return useQuery({
 		queryKey: qk.logTemplates.byLogbook(logbook_id),
 		queryFn: () => logbookService.logTemplates.getByLogbook(logbook_id),
+		select,
 		...defaultQueryConfig
 	});
 }

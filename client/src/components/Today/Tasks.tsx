@@ -11,7 +11,7 @@ type TasksProps = {
 };
 
 export default function Tasks({ activities }: TasksProps) {
-	const { data: tags } = useQueryTags();
+	const { data: tagsData } = useQueryTags();
 
 	return (
 		<T.TasksWrapper>
@@ -22,7 +22,7 @@ export default function Tasks({ activities }: TasksProps) {
 						<Task
 							key={a.activity_id}
 							activity={a}
-							tags={filterTagsById(a.tag_ids, tags?.byId)}
+							tags={filterTagsById(a.tag_ids, tagsData?.byId)}
 						/>
 					))}
 				</T.Tasks>

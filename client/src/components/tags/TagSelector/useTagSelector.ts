@@ -1,13 +1,14 @@
+import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
 import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import type { TagWithIds } from "@t/data/tag.types";
-import type { ById, ID } from "@t/data/utility.types";
+import type { ById, ByIdMap, ID } from "@t/data/utility.types";
 import type { ChangeEvent, MouseEvent } from "react";
 import { useMemo, useState } from "react";
 
 type UseTagSelector = {
 	maximum?: number;
-	tagsById?: ById<TagWithIds>;
+	tagsById?: ByIdMap<TagWithIds>;
 };
 
 // TODO: handle case where maximum > 1.
@@ -47,12 +48,12 @@ export default function useTagSelector({ maximum, tagsById }: UseTagSelector = {
 
 	// TODO: If tags are passed through props (=p.tagsById), they take priority over all the
 	// user's tags (=t.tags.tagsById), We need to rename the variables to make that clear.
-	const tags = Object.values(tagsById ?? tagsData?.byId ?? []);
+	const tags = byIdAsList(tagsById ?? tagsData?.byId);
 	const tagsToDisplay = tags.filter((tag) =>
 		tag.name.toLowerCase().includes(filter.toLowerCase())
 	);
 	const selectedTags = useMemo(
-		() => tags.filter((tag) => selectedTagIds.includes(tag.tag_id)),
+		() => tags.filter((tag) => selectedTagIds.includes(+tag.tag_id)),
 		[tagsData, selectedTagIds]
 	);
 

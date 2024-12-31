@@ -1,11 +1,12 @@
 import Modal from "@/components/utility/Modal/Modal";
+import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
 import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
 import useQueryTagsTree from "@/lib/hooks/query/tags/useQueryTagsTree";
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
 import Badge from "@/lib/theme/components/Badge";
 import type { TagWithIds } from "@t/data/tag.types";
-import type { ById, ID } from "@t/data/utility.types";
+import type { ByIdMap, ID } from "@t/data/utility.types";
 import { useState } from "react";
 import { MdOutlineExpandLess, MdOutlineExpandMore } from "react-icons/md";
 import S from "./style/TagTree.style";
@@ -26,10 +27,12 @@ export default function TagTree({
 
 	if (!tagTreeData || !tagsData) return null;
 
-	const rootTagIds = Object.keys(tagTreeData.byId);
-	const rootTags = rootTagIds.map((id) => tagsData.byId[+id]);
+	const rootTagIds = [...tagTreeData.byId.keys()];
+	const rootTags = rootTagIds
+		.map((id) => tagsData.byId.get(String(id)))
+		.filter((tag) => !!tag);
 
-	if (!Object.values(tagsData.byId).length) return null;
+	if (!byIdAsList(tagsData.byId).length) return null;
 
 	return (
 		<Modal modalId={modalId} initialOpen={initialOpen}>
@@ -57,8 +60,9 @@ type TagProps = {
 	level: number;
 };
 
-function getTag(tag_id: ID, tagsById: ById<TagWithIds>) {
-	return tagsById[tag_id];
+// TODO: this has to exist in a utility file somewhere
+function getTag(tag_id: ID, tagsById: ByIdMap<TagWithIds>) {
+	return tagsById.get(String(tag_id));
 }
 
 function Tag({ tag, level }: TagProps) {
@@ -69,7 +73,9 @@ function Tag({ tag, level }: TagProps) {
 		return null;
 	}
 
-	const children = tag.child_ids?.map((id) => getTag(id, tagsData.byId));
+	const children = tag.child_ids
+		?.map((id) => getTag(id, tagsData.byId))
+		.filter((tag) => !!tag);
 
 	return (
 		<S.Tag $level={level} layout>

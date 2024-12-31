@@ -1,6 +1,7 @@
 import useQueryFields from "@/lib/hooks/query/logbooks/useQueryFields";
 import { useQueryItemTemplatesByLogbook } from "@/lib/hooks/query/logbooks/useQueryItemTemplates";
 import { useQueryLogTemplate } from "@/lib/hooks/query/logbooks/useQueryLogTemplates";
+import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import type { ID } from "@t/data/utility.types";
 
@@ -13,7 +14,7 @@ export default function useMiniLogTemplate({
 }) {
 	const { params } = useRouteProps();
 
-	const { data: logTemplateData } = useQueryLogTemplate(log_template_id);
+	const { data: logTemplateData, isSuccess } = useQueryLogTemplate(log_template_id);
 	// TODO: I'm casting as ID, but it's possible that it's undefined (if it's
 	// neither in the URL nor in props). Solve this properly.
 	const logbookId = params.logbookId ? +params.logbookId : (logbook_id as ID);
@@ -26,15 +27,15 @@ export default function useMiniLogTemplate({
 	// For now, useQueryFields() is fine, but it's very inefficient.
 	const { data: fieldsData } = useQueryFields();
 
-	const isProbablySuspended = !itemTemplatesData || !logTemplateData || !fieldsData;
+	const isProbablySuspended = !itemTemplatesData || !isSuccess || !fieldsData;
 
 	if (isProbablySuspended) {
 		return { isProbablySuspended };
 	}
 
-	const fields = Object.values(fieldsData.byId);
+	const fields = byIdAsList(fieldsData.byId);
 
-	const itemTemplatesWithFields = Object.entries(itemTemplatesData.byId).map(
+	const itemTemplatesWithFields = [...itemTemplatesData.byId.entries()].map(
 		([itemTemplateId, itemTemplate]) => ({
 			...itemTemplate,
 			fields: fields.filter((field) => +field.item_template_id === +itemTemplateId)

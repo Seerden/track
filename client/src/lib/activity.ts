@@ -234,7 +234,7 @@ function firstOverlappingActivity(
 		() => [] as number[]
 	);
 	for (const [id, level] of indentation.entries()) {
-		grouped[level]?.push(id);
+		grouped[level]?.push(+id);
 	}
 
 	for (const group of grouped) {
