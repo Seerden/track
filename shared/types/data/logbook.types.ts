@@ -4,6 +4,7 @@ export type ValueType = string | number | null;
 
 /** A FieldTemplate describes which fields are to be displayed. */
 export type FieldTemplate = {
+	user_id: ID;
 	field_template_id: ID;
 	logbook_id: ID;
 	created_at: Timestamp;
@@ -29,6 +30,7 @@ export type FieldTemplate = {
  * it represents e.g. a lift, which has a name, like "squat", and fields weight, sets, type
  */
 export type ItemTemplate = {
+	user_id: ID;
 	item_template_id: ID;
 	logbook_id: ID;
 	created_at: Timestamp;
@@ -60,6 +62,7 @@ export type LogTemplate = {
  * @todo do we want to include `item_id`?
  */
 export type FieldValue = {
+	user_id: ID;
 	field_value_id: ID;
 	field_template_id: ID;
 	log_id: ID;
@@ -78,6 +81,7 @@ export type FieldValue = {
  * multiple rows (3 sets with different weights, for example).
  */
 export type ItemRow = {
+	user_id: ID;
 	item_row_id: ID;
 	item_id: ID;
 	log_id: ID;

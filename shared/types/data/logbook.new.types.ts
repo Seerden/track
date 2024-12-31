@@ -25,16 +25,19 @@ export type NewLog = OmitStrict<Log, "log_id" | "created_at">;
 
 export type NewItemTemplate = OmitStrict<
 	ItemTemplate,
-	"item_template_id" | "created_at"
+	"item_template_id" | "created_at" | "user_id"
 >;
 
 export type NewItem = OmitStrict<Item, "item_id" | "created_at">;
 
-export type NewItemRow = OmitStrict<ItemRow, "item_row_id" | "created_at">;
+export type NewItemRow = OmitStrict<
+	ItemRow,
+	"item_row_id" | "created_at" | "user_id"
+>;
 
 export type NewFieldTemplate = OmitStrict<
 	FieldTemplate,
-	"field_template_id" | "created_at" | "item_template_id"
+	"field_template_id" | "created_at" | "item_template_id" | "user_id"
 >;
 
 /** NewFieldTemplate with item_template_id */
@@ -45,7 +48,7 @@ export type NewFieldTemplateWithId = OmitStrict<
 
 export type NewFieldValue = OmitStrict<
 	FieldValue,
-	"created_at" | "field_value_id" | "item_row_id"
+	"created_at" | "field_value_id" | "item_row_id" | "user_id"
 >;
 
 /** NewFieldValue with item_row_id */
