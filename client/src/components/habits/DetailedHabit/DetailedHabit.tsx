@@ -60,7 +60,8 @@ export default function DetailedHabit({ habit }: PropsWithChildren<DetailedHabit
 								openDetailedItemModal(id);
 							}}
 						>
-							{tagsData.byId.get(id)?.name}
+							{/* TODO: See #176 */}
+							{tagsData.byId.get(String(id))?.name}
 						</C.Tag>
 					))}
 				</C.Tags>

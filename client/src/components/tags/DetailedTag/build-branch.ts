@@ -5,7 +5,7 @@ import type { ByIdMap, ID } from "@t/data/utility.types";
  * @todo I know for a fact I already have something like this somewhere. *
  */
 export function getTag({ id, tagsById }: { id: ID; tagsById: ByIdMap<TagWithIds> }) {
-	const tag = tagsById.get(id);
+	const tag = tagsById.get(String(id));
 	if (!tag) return null;
 	return tag;
 }
