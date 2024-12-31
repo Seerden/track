@@ -1,6 +1,7 @@
 import { useQueryItemRowsByLog } from "@/lib/hooks/query/logbooks/useQueryItemRows";
 import { useQueryItemsByItemTemplate } from "@/lib/hooks/query/logbooks/useQueryItems";
 import useQueryLogs from "@/lib/hooks/query/logbooks/useQueryLogs";
+import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
 import type { ID } from "@t/data/utility.types";
 
 type UseLogDetailSectionDataArgs = {
@@ -27,7 +28,7 @@ export default function useLogDetailSectionData({
 	}
 
 	const itemRows = itemRowsData.byId ? Object.values(itemRowsData.byId) : [];
-	const items = itemsData?.byId ? Object.values(itemsData.byId) : [];
+	const items = byIdAsList(itemsData.byId);
 	const log = logsData.byId.get(log_id);
 
 	return {

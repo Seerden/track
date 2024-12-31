@@ -1,5 +1,4 @@
 import { useQueryItemRowsByLog } from "@/lib/hooks/query/logbooks/useQueryItemRows";
-import { useQueryItemsByLogbook } from "@/lib/hooks/query/logbooks/useQueryItems";
 import { useQueryItemTemplatesByLogbook } from "@/lib/hooks/query/logbooks/useQueryItemTemplates";
 import useQueryLogs from "@/lib/hooks/query/logbooks/useQueryLogs";
 import type { ID } from "@t/data/utility.types";
@@ -15,10 +14,8 @@ export default function useLogDetailData({ logbookId, logId }: UseLogDetailDataA
 	// TODO: we also query itemRowsData in useItemSection(?). Probably not
 	// necessary, but since it's cached anyway, it doesn't really matter.
 	const { data: itemRowsData } = useQueryItemRowsByLog({ log_id: +logId });
-	const { data: itemsData } = useQueryItemsByLogbook(logbookId ?? 0);
 
-	const isProbablySuspended =
-		!itemTemplatesData || !logsData || !itemRowsData || !itemsData;
+	const isProbablySuspended = !itemTemplatesData || !logsData || !itemRowsData;
 
 	// The conditional return is to make the typing more accurate when we call
 	// this hook from useLogDetail.

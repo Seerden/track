@@ -24,7 +24,6 @@ export type HabitEntriesData = DataById<HabitEntry>;
 
 export type UserData = Data<"user", Maybe<User>>;
 
-export type ItemsData = DataById<Item>;
 export type ItemTemplatesData = DataById<ItemTemplate>;
 export type LogTemplatesData = DataById<LogTemplate>;
 export type ItemRowsData = DataById<ItemRow>;
@@ -36,3 +35,4 @@ export type TagsData = DataById<TagWithIds>;
 export type ActivitiesData = DataById<ActivityWithIds>;
 export type TagsTreeData = DataById<{ members: number[] }>;
 export type LogsData = DataById<Log>;
+export type ItemsData = DataById<Item>;

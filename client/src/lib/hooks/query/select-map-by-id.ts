@@ -24,6 +24,7 @@ export default function transformByIdToMap<T extends DataById<unknown>>(
 }
 
 /** Transforms a byId Map to a list containing `byId`'s values. */
-export function byIdAsList<T>(map: Map<ID, T>): T[] {
+export function byIdAsList<T>(map?: Map<ID, T>): T[] {
+	if (!map) return [];
 	return [...map.values()];
 }
