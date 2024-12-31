@@ -1,8 +1,7 @@
 import { useQueryItemRowsByLog } from "@/lib/hooks/query/logbooks/useQueryItemRows";
 import { useQueryItemsByItemTemplate } from "@/lib/hooks/query/logbooks/useQueryItems";
 import useQueryLogs from "@/lib/hooks/query/logbooks/useQueryLogs";
-import type { Log } from "@t/data/logbook.types";
-import type { ID, Maybe } from "@t/data/utility.types";
+import type { ID } from "@t/data/utility.types";
 
 type UseLogDetailSectionDataArgs = {
 	log_id: ID;
@@ -29,7 +28,7 @@ export default function useLogDetailSectionData({
 
 	const itemRows = itemRowsData.byId ? Object.values(itemRowsData.byId) : [];
 	const items = itemsData?.byId ? Object.values(itemsData.byId) : [];
-	const log = logsData.byId[log_id] as Maybe<Log>;
+	const log = logsData.byId.get(log_id);
 
 	return {
 		isProbablySuspended,

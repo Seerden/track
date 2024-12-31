@@ -2,8 +2,7 @@ import { useQueryItemRowsByLog } from "@/lib/hooks/query/logbooks/useQueryItemRo
 import { useQueryItemsByLogbook } from "@/lib/hooks/query/logbooks/useQueryItems";
 import { useQueryItemTemplatesByLogbook } from "@/lib/hooks/query/logbooks/useQueryItemTemplates";
 import useQueryLogs from "@/lib/hooks/query/logbooks/useQueryLogs";
-import type { Log } from "@t/data/logbook.types";
-import type { ID, Maybe } from "@t/data/utility.types";
+import type { ID } from "@t/data/utility.types";
 
 type UseLogDetailDataArgs = {
 	logbookId: ID;
@@ -29,9 +28,7 @@ export default function useLogDetailData({ logbookId, logId }: UseLogDetailDataA
 		};
 	}
 
-	// TODO: as mentioned elsewhere, if we use maps instead of hashmap-like
-	// objects, we can avoid most of this pattern
-	const log = logsData.byId[logId] as Maybe<Log>;
+	const log = logsData.byId.get(logId);
 	const itemTemplates = Object.values(itemTemplatesData.byId);
 
 	return {
