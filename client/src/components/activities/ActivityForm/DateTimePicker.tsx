@@ -1,6 +1,6 @@
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
-import { FaInfo } from "react-icons/fa";
+import { LucideHelpCircle } from "lucide-react";
 import type { DateTimePickerProps } from "./datetime-picker.types";
 import S from "./style/DateTimePicker.style";
 import useDateTimePicker from "./useDateTimePicker";
@@ -47,7 +47,7 @@ export default function DateTimePicker({ onChange, defaultValues }: DateTimePick
 							"If you do not set an end date, it will default to the start date."
 						}
 					>
-						<FaInfo size={12} />
+						<LucideHelpCircle size={20} />
 					</S.Info>
 				</S.Fields>
 			</S.Row>

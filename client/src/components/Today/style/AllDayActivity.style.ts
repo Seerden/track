@@ -41,8 +41,9 @@ const AllDayActivity = styled.li<{ $completed?: boolean }>`
 		height: var(--size);
 		background-color: azure;
 
-		svg {
-			fill: black;
+		.lucide {
+			fill: white;
+			color: black;
 		}
 
 		box-shadow: 0 0 0.3rem 0 #333;

@@ -101,6 +101,7 @@ const AllDay = styled.label`
 `;
 
 const size = "25px";
+
 const Info = styled.div`
 	position: absolute;
 	top: calc(50% -${size});

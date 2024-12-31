@@ -54,9 +54,6 @@ const Alternative = styled(Unstyled)`
 	&:active {
 		transform: scale(1.1);
 		background-color: white;
-		& > svg {
-			fill: black;
-		}
 	}
 
 	&:focus:not(:active) {

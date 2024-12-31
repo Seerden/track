@@ -3,8 +3,8 @@ import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
 import type { ActivityWithIds } from "@t/data/activity.types";
+import { LucideHistory } from "lucide-react";
 import { useRef } from "react";
-import { Ri24HoursLine } from "react-icons/ri";
 import T from "./style/AllDayActivity.style";
 import S from "./style/Today.style";
 
@@ -43,7 +43,7 @@ export default function AllDayActivity({ activity }: AllDayActivityProps) {
 			}}
 		>
 			<p title="This activity lasts all day">
-				<Ri24HoursLine size={25} color="white" />
+				<LucideHistory size={15} />
 			</p>
 
 			<span>{activity.name}</span>
