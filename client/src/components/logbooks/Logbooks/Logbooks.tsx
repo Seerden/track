@@ -7,11 +7,11 @@ import { Link } from "react-router-dom";
 import S from "./style/Logbooks.style";
 
 export default function Logbooks() {
-	const { data } = useQueryLogbooks();
+	const { data: logbooksData } = useQueryLogbooks();
 
-	if (!data) return null;
+	if (!logbooksData) return null;
 
-	const logbookCount = Object.values(data.byId).length;
+	const logbooks = [...logbooksData.byId.values()];
 
 	return (
 		<div>
@@ -35,7 +35,7 @@ export default function Logbooks() {
 			</S.Header>
 
 			{/* maybe: you don't have any logbooks yet, create one now! -- text with action button */}
-			{logbookCount === 0 ? (
+			{logbooks.length === 0 ? (
 				<Containers.EmptyState>
 					<p>
 						You don't have any logbooks yet. Create one to get started. This page
@@ -48,7 +48,7 @@ export default function Logbooks() {
 				</Containers.EmptyState>
 			) : (
 				<S.LogbookCardList>
-					{Object.values(data.byId).map((logbook) => (
+					{logbooks.map((logbook) => (
 						<LogbookCard key={logbook.logbook_id} logbook_id={logbook.logbook_id} />
 					))}
 				</S.LogbookCardList>
