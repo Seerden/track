@@ -7,8 +7,8 @@ import modalIds from "@/lib/modal-ids";
 import Badge from "@/lib/theme/components/Badge";
 import type { TagWithIds } from "@t/data/tag.types";
 import type { ByIdMap, ID } from "@t/data/utility.types";
+import { LucideChevronDown, LucideChevronUp } from "lucide-react";
 import { useState } from "react";
-import { MdOutlineExpandLess, MdOutlineExpandMore } from "react-icons/md";
 import S from "./style/TagTree.style";
 
 type TagTreeProps = {
@@ -101,9 +101,9 @@ function Tag({ tag, level }: TagProps) {
 							}}
 						/>
 						{collapsed ? (
-							<MdOutlineExpandMore size={18} />
+							<LucideChevronDown size={15} />
 						) : (
-							<MdOutlineExpandLess size={18} />
+							<LucideChevronUp size={15} />
 						)}
 					</>
 				)}
