@@ -2,6 +2,7 @@ import { activityFallsOnDay, isAllDayActivityOnDate } from "@/lib/activity";
 import { formatDate } from "@/lib/datetime/format-date";
 import { today } from "@/lib/datetime/make-date";
 import useQueryActivities from "@/lib/hooks/query/activities/useQueryActivities";
+import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
 import useHabitsData from "@/lib/hooks/useHabitsData";
 import { selectedTimeWindowState } from "@/lib/state/selected-time-window-state";
 import type { Dayjs } from "dayjs";
@@ -43,11 +44,8 @@ export default function useToday() {
 		}, 25);
 	}
 
-	// TODO: like in useActivityOverview, this is inferred as any[] for some
-	// reason, now -- maybe using a Map instead of object.values fixes it.
-	const activities = useMemo(() => {
-		return Object.values(activitiesData?.byId ?? {}); // TODO: should this not be in a useActivities hook or someting?
-	}, [activitiesData]);
+	// TODO: check if this needs to be a memo
+	const activities = activitiesData?.byId ? byIdAsList(activitiesData.byId) : [];
 	const todayActivities = useMemo(() => {
 		return activities.filter((activity) => {
 			return activityFallsOnDay(activity, currentDate);
