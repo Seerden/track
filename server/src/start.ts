@@ -1,5 +1,5 @@
-import migrationCache from "@/db/cache-migrations";
+import databaseScriptCache from "@/db/cache-script-executions";
 
 export async function runAtStartup() {
-	await migrationCache.synchronize();
+	await databaseScriptCache.synchronize();
 }
