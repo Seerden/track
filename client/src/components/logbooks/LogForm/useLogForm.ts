@@ -8,7 +8,6 @@ import { useModalState } from "@/lib/state/modal-state";
 import type { NewLog } from "@t/data/logbook.new.types";
 import type { LogTemplate } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
-import { produce } from "immer";
 import { useState } from "react";
 
 export default function useLogForm({ logbook_id }: { logbook_id?: ID }) {
@@ -21,12 +20,13 @@ export default function useLogForm({ logbook_id }: { logbook_id?: ID }) {
 	const { openModal } = useModalState();
 	const [log, setLog] = useState<NewLog>({
 		name: "",
-		log_template_id: null,
 		logbook_id: +logbookId,
 		start_time: null,
 		end_time: null,
 		layout: []
 	});
+
+	const [selectedTemplate, setSelectedTemplate] = useState<LogTemplate | null>(null);
 
 	const isProbablySuspended = !logbookId || !logTemplatesData;
 
@@ -46,7 +46,8 @@ export default function useLogForm({ logbook_id }: { logbook_id?: ID }) {
 		e.preventDefault();
 		submit(
 			{
-				newLog: log
+				newLog: log,
+				logTemplateId: selectedTemplate?.log_template_id
 			},
 			{
 				onSuccess: (log) => {
@@ -61,15 +62,10 @@ export default function useLogForm({ logbook_id }: { logbook_id?: ID }) {
 		template: LogTemplate
 	) {
 		e.preventDefault();
-		setLog(
-			produce((draft) => {
-				if (draft.log_template_id === +template.log_template_id) {
-					draft.log_template_id = null;
-				} else {
-					draft.log_template_id = +template.log_template_id;
-				}
-			})
-		);
+		setSelectedTemplate((current) => {
+			if (current?.log_template_id === template.log_template_id) return null;
+			return template;
+		});
 	}
 
 	const modalId = modalIds.logbooks.logTemplate.form;
@@ -87,7 +83,6 @@ export default function useLogForm({ logbook_id }: { logbook_id?: ID }) {
 		handleInputChange,
 		hasTemplates,
 		logTemplates,
-		log,
 		logbookId,
 		handleModalOpen,
 		modalId,
@@ -95,6 +90,7 @@ export default function useLogForm({ logbook_id }: { logbook_id?: ID }) {
 		isValid,
 		float,
 		activeId,
-		setActiveId
+		setActiveId,
+		selectedTemplate
 	};
 }

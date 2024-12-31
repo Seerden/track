@@ -58,7 +58,7 @@ export type LogTemplate = {
 	log_template_id: ID;
 	logbook_id: ID;
 	name: Nullable<string>; // for example "PPL routine", which would be in the lifting logbook
-	layout: Nullable<NestedPrimitiveObject[]>; // we should probably enforce a subtype here, but I don't know how to enforce it inside the database
+	layout: Layout;
 
 	created_at: Timestamp;
 };
@@ -119,7 +119,6 @@ type Layout = LayoutSection[];
 export type Log = {
 	log_id: ID;
 	logbook_id: ID;
-	log_template_id: Nullable<ID>; // TODO: maybe we only need this for the UI, not in the database
 
 	/** the difference between `name` and log_template.name is that this is the
 	 * actual log title. if log_template.name is "PPL routine", this could be

@@ -9,9 +9,9 @@ export const postLog: RequestHandler = async (req, res) => {
 		return res.status(401).send("Unauthorized");
 	}
 
-	const { newLog } = req.body as NewLogInput;
+	const { newLog, logTemplateId } = req.body as NewLogInput;
 
-	const log = await insertLog({ newLog });
+	const log = await insertLog({ newLog, logTemplateId });
 
 	res.json(log);
 };

@@ -12,7 +12,7 @@ import {
 	Logbook,
 	LogTemplate,
 } from "./logbook.types";
-import { OmitStrict } from "./utility.types";
+import { ID, Maybe, OmitStrict } from "./utility.types";
 
 export type NewLogbook = OmitStrict<Logbook, "logbook_id" | "created_at">;
 
@@ -70,6 +70,7 @@ export type NewItemInput = {
 
 export type NewLogInput = {
 	newLog: NewLog;
+	logTemplateId: Maybe<ID>;
 };
 
 export type NewLogTemplateInput = {
