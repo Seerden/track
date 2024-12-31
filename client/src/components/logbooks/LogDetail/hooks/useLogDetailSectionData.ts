@@ -29,7 +29,7 @@ export default function useLogDetailSectionData({
 
 	const itemRows = byIdAsList(itemRowsData.byId);
 	const items = byIdAsList(itemsData.byId);
-	const log = logsData.byId.get(log_id);
+	const log = logsData.byId.get(String(log_id));
 
 	return {
 		isProbablySuspended,

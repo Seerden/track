@@ -95,7 +95,7 @@ export default function DetailedActivity({ activity }: DetailedActivityProps) {
 					}}
 				>
 					{activity.tag_ids.map((id) => {
-						const tag = tagsData.byId.get(id);
+						const tag = tagsData.byId.get(String(id));
 						if (!tag) return null;
 						return (
 							<S.Tag

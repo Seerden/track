@@ -21,7 +21,7 @@ export default function useLogDetailData({ logbookId, logId }: UseLogDetailDataA
 		};
 	}
 
-	const log = logsData.byId.get(logId);
+	const log = logsData.byId.get(String(logId));
 	const itemTemplates = byIdAsList(itemTemplatesData.byId);
 
 	return {

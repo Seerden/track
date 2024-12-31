@@ -28,7 +28,9 @@ export default function TagTree({
 	if (!tagTreeData || !tagsData) return null;
 
 	const rootTagIds = [...tagTreeData.byId.keys()];
-	const rootTags = rootTagIds.map((id) => tagsData.byId.get(id)).filter((tag) => !!tag);
+	const rootTags = rootTagIds
+		.map((id) => tagsData.byId.get(String(id)))
+		.filter((tag) => !!tag);
 
 	if (!byIdAsList(tagsData.byId).length) return null;
 
