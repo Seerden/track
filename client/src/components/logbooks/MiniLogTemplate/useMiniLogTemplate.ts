@@ -34,7 +34,7 @@ export default function useMiniLogTemplate({
 
 	const fields = Object.values(fieldsData.byId);
 
-	const itemTemplatesWithFields = Object.entries(itemTemplatesData.byId).map(
+	const itemTemplatesWithFields = Array.from(itemTemplatesData.byId.entries()).map(
 		([itemTemplateId, itemTemplate]) => ({
 			...itemTemplate,
 			fields: fields.filter((field) => +field.item_template_id === +itemTemplateId)

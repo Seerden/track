@@ -1,6 +1,7 @@
 import { useQueryItemRowsByLog } from "@/lib/hooks/query/logbooks/useQueryItemRows";
 import { useQueryItemTemplatesByLogbook } from "@/lib/hooks/query/logbooks/useQueryItemTemplates";
 import useQueryLogs from "@/lib/hooks/query/logbooks/useQueryLogs";
+import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
 import type { ID } from "@t/data/utility.types";
 
 type UseLogDetailDataArgs = {
@@ -26,7 +27,7 @@ export default function useLogDetailData({ logbookId, logId }: UseLogDetailDataA
 	}
 
 	const log = logsData.byId.get(logId);
-	const itemTemplates = Object.values(itemTemplatesData.byId);
+	const itemTemplates = byIdAsList(itemTemplatesData.byId);
 
 	return {
 		isProbablySuspended,

@@ -3,6 +3,7 @@ import type { ItemValue } from "@/components/utility/selection/SelectionList/Sel
 import SelectionList from "@/components/utility/selection/SelectionList/SelectionList";
 import useMutateNewLogTemplate from "@/lib/hooks/query/logbooks/useMutateNewLogTemplate";
 import { useQueryItemTemplatesByLogbook } from "@/lib/hooks/query/logbooks/useQueryItemTemplates";
+import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
@@ -17,20 +18,20 @@ export default function useLogTemplateForm({ logbook_id }: { logbook_id: ID }) {
 	const sectionCount = sections.length;
 	const templateSections = sections.filter((section) => section.length > 0);
 	const { closeModal, openModal } = useModalState();
-
-	const { data: itemTemplatesData } = useQueryItemTemplatesByLogbook(logbook_id);
-	// TODO: use the isProbablySuspended pattern I've been introducing lately, so
-	// we can move to suspended skeleton states more easily later on.
-	const itemTemplates = itemTemplatesData ? Object.values(itemTemplatesData.byId) : [];
-	const selectionListItems = itemTemplates.map((item) => ({
-		label: item.name,
-		value: item.item_template_id
-	}));
 	const [logTemplate, setLogTemplate] = useState<NewLogTemplate>({
 		logbook_id,
 		name: "",
 		layout: []
 	});
+	const { data: itemTemplatesData } = useQueryItemTemplatesByLogbook(logbook_id);
+
+	// TODO: use the isProbablySuspended pattern I've been introducing lately, so
+	// we can move to suspended skeleton states more easily later on.
+	const itemTemplates = byIdAsList(itemTemplatesData?.byId);
+	const selectionListItems = itemTemplates.map((item) => ({
+		label: item.name,
+		value: item.item_template_id
+	}));
 
 	// TODO: the type defines name as nullable, but it shouldn't be.
 	const isSubmittable = templateSections.length && logTemplate.name?.length;
