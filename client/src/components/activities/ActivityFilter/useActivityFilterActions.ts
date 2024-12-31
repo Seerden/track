@@ -23,7 +23,7 @@ export default function useActivityFilterActions({
 	setActiveTagIds: Dispatch<SetStateAction<ID[]>>;
 	wholeTree: boolean;
 	tagsById: ByIdMap<TagWithIds> | undefined;
-	tagsTreeById: TagsTreeData["byId"] | undefined;
+	tagsTreeById: ByIdMap<TagsTreeData["byId"][number]> | undefined;
 	setFilter: Dispatch<SetStateAction<ActivityFilterWithValues>>;
 }) {
 	const updateActiveTagIds = useCallback(

@@ -15,9 +15,9 @@ export function getRootTagId(tag_id: ID, tagsById: ByIdMap<TagWithIds>) {
 export function getTreeMembers(
 	tag_id: ID,
 	tagsById: ByIdMap<TagWithIds>,
-	tagTree: TagsTreeData["byId"]
+	tagTree: ByIdMap<TagsTreeData["byId"][number]>
 ): ID[] {
 	const rootTagId = getRootTagId(tag_id, tagsById);
 	if (!rootTagId) return [];
-	return tagTree[rootTagId].members;
+	return tagTree.get(rootTagId)?.members ?? [];
 }
