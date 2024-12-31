@@ -28,7 +28,7 @@ export default function TagTree({
 	if (!tagTreeData || !tagsData) return null;
 
 	const rootTagIds = Object.keys(tagTreeData.byId);
-	const rootTags = rootTagIds.map((id) => tagsData.byId.get(id));
+	const rootTags = rootTagIds.map((id) => tagsData.byId.get(id)).filter((tag) => !!tag);
 
 	if (!byIdAsList(tagsData.byId).length) return null;
 
@@ -43,11 +43,9 @@ export default function TagTree({
 						Soon, you will be able to edit the hierarchy of your tags from here.
 					</p>
 					<S.Tree $orientation={orientation} $columnCount={rootTags.length}>
-						{rootTags
-							.filter((t) => !!t)
-							.map((tag) => (
-								<Tag key={tag.tag_id} tag={tag} level={0} />
-							))}
+						{rootTags.map((tag) => (
+							<Tag key={tag.tag_id} tag={tag} level={0} />
+						))}
 					</S.Tree>
 				</S.Container>
 			</div>
@@ -73,7 +71,9 @@ function Tag({ tag, level }: TagProps) {
 		return null;
 	}
 
-	const children = tag.child_ids?.map((id) => getTag(id, tagsData.byId));
+	const children = tag.child_ids
+		?.map((id) => getTag(id, tagsData.byId))
+		.filter((tag) => !!tag);
 
 	return (
 		<S.Tag $level={level} layout>
@@ -119,11 +119,9 @@ function Tag({ tag, level }: TagProps) {
 						ease: "easeIn"
 					}}
 				>
-					{children
-						.filter((c) => !!c)
-						.map((child) => (
-							<Tag key={child.tag_id} tag={child} level={(level ?? 0) + 1} />
-						))}
+					{children.map((child) => (
+						<Tag key={child.tag_id} tag={child} level={(level ?? 0) + 1} />
+					))}
 				</S.Children>
 			)}
 		</S.Tag>

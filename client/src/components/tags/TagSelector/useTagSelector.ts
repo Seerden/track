@@ -48,12 +48,12 @@ export default function useTagSelector({ maximum, tagsById }: UseTagSelector = {
 
 	// TODO: If tags are passed through props (=p.tagsById), they take priority over all the
 	// user's tags (=t.tags.tagsById), We need to rename the variables to make that clear.
-	const tags = byIdAsList(tagsById ?? tagsData?.byId ?? new Map());
+	const tags = byIdAsList(tagsById ?? tagsData?.byId);
 	const tagsToDisplay = tags.filter((tag) =>
 		tag.name.toLowerCase().includes(filter.toLowerCase())
 	);
 	const selectedTags = useMemo(
-		() => tags.filter((tag) => selectedTagIds.includes(tag.tag_id)),
+		() => tags.filter((tag) => selectedTagIds.includes(+tag.tag_id)),
 		[tagsData, selectedTagIds]
 	);
 

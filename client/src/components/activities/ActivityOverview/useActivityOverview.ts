@@ -11,11 +11,10 @@ export default function useActivityOverview() {
 	if (isProbablySuspended) return { isProbablySuspended };
 
 	const activities = byIdAsList(activitiesData.byId);
-	const tags = byIdAsList(tagsData.byId);
 
 	return {
 		isProbablySuspended,
 		activities,
-		tags
+		tagsData
 	};
 }

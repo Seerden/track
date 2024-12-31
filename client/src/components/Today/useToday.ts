@@ -45,7 +45,7 @@ export default function useToday() {
 	}
 
 	// TODO: check if this needs to be a memo
-	const activities = activitiesData?.byId ? byIdAsList(activitiesData.byId) : [];
+	const activities = byIdAsList(activitiesData?.byId);
 	const todayActivities = useMemo(() => {
 		return activities.filter((activity) => {
 			return activityFallsOnDay(activity, currentDate);

@@ -11,6 +11,7 @@ import type { NewLogTemplate } from "@t/data/logbook.new.types";
 import type { ID } from "@t/data/utility.types";
 import { useCallback, useMemo, useState } from "react";
 
+// TODO: consider splitting up the data logic into a use...Data hook.
 export default function useLogTemplateForm({ logbook_id }: { logbook_id: ID }) {
 	const { mutate: submit } = useMutateNewLogTemplate();
 	const { navigate } = useRouteProps();

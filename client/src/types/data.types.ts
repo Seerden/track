@@ -20,7 +20,6 @@ import type { Data, DataById } from "./query.types";
 
 export type UserData = Data<"user", Maybe<User>>;
 
-// usage transformed to Map
 export type LogbooksData = DataById<Logbook>;
 export type TagsData = DataById<TagWithIds>;
 export type ActivitiesData = DataById<ActivityWithIds>;
