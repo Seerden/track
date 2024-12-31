@@ -5,6 +5,7 @@ export type Data<K extends string, T> = Record<K, T>;
 
 export type DataById<T> = Data<"byId", ById<T>>;
 
+/** This type represents DataById<T> with the byId object transformed to a Map. */
 export type MappedData<T extends DataById<unknown>> = {
 	byId: Map<string, T extends DataById<infer U> ? U : never>;
 };
