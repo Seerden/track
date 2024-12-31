@@ -18,7 +18,6 @@ import type { Data, DataById } from "./query.types";
 // TODO: all these types come from the backend, so they should be moved to the
 // server folder, and also be used directly on the server.
 
-export type HabitsData = DataById<HabitWithIds>;
 export type HabitEntriesData = DataById<HabitEntry>;
 
 export type UserData = Data<"user", Maybe<User>>;
@@ -35,3 +34,4 @@ export type LogTemplatesData = DataById<LogTemplate>;
 export type ItemRowsData = DataById<ItemRow>;
 export type FieldsData = DataById<Field>;
 export type NotesData = DataById<NoteWithIds>;
+export type HabitsData = DataById<HabitWithIds>;

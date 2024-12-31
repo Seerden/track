@@ -20,7 +20,7 @@ export default function DetailModals() {
 	const activeActivity = activity.activeId
 		? activities?.byId.get(activity.activeId)
 		: null;
-	const activeHabit = habit.activeId ? habits?.byId[habit.activeId] : null;
+	const activeHabit = habit.activeId ? habits?.byId.get(habit.activeId) : null;
 
 	return (
 		<>

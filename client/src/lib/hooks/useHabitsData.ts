@@ -13,7 +13,7 @@ export default function useHabitsData() {
 	const habitsWithEntriesById = useMemo(() => {
 		if (!habitsData || !habitEntriesData) return {};
 
-		return Object.entries(habitsData.byId).reduce((acc, [id, habit]) => {
+		return Array.from(habitsData.byId.entries()).reduce((acc, [id, habit]) => {
 			const entriesForHabit = Object.values(habitEntriesData.byId).filter((entry) => {
 				return habit.entry_ids.includes(entry.habit_entry_id);
 			});

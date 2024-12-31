@@ -1,13 +1,16 @@
 import habitService from "@/lib/fetch/habit-service";
+import transformByIdToMap from "@/lib/hooks/query/select-map-by-id";
 import { defaultQueryConfig } from "@/lib/query-client";
 import { qk } from "@/lib/query-keys";
-import type { HabitsData } from "@/types/data.types";
 import { useQuery } from "@tanstack/react-query";
 
 export default function useQueryHabits() {
-	return useQuery<HabitsData>({
+	return useQuery({
 		queryKey: qk.habits.all,
 		queryFn: habitService.getByUser,
+		select(data) {
+			return transformByIdToMap(data);
+		},
 		...defaultQueryConfig
 	});
 }
