@@ -16,11 +16,16 @@ export default function DetailModals() {
 
 	const { tag, habit, activity } = useRecoilValue(activeItemState);
 
-	const activeTag = tag.activeId ? tags?.byId.get(tag.activeId) : null;
+	// TODO: because not all ids are bigints parsed to strings, and we manually
+	// cast them to numbers a lof of the time, the activeItemState contains ids
+	// as numbers, whereas the byId Maps usually expect strings. This is why I'm
+	// casting the ids to strings. We can get rid of this when we homogeneize the
+	// ids to be strings everywhere.
+	const activeTag = tag.activeId ? tags?.byId.get(String(tag.activeId)) : null;
 	const activeActivity = activity.activeId
-		? activities?.byId.get(activity.activeId)
+		? activities?.byId.get(String(activity.activeId))
 		: null;
-	const activeHabit = habit.activeId ? habits?.byId.get(habit.activeId) : null;
+	const activeHabit = habit.activeId ? habits?.byId.get(String(habit.activeId)) : null;
 
 	return (
 		<>
