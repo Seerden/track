@@ -27,7 +27,7 @@ export default function useLogDetailSectionData({
 		};
 	}
 
-	const itemRows = itemRowsData.byId ? Object.values(itemRowsData.byId) : [];
+	const itemRows = byIdAsList(itemRowsData.byId);
 	const items = byIdAsList(itemsData.byId);
 	const log = logsData.byId.get(log_id);
 
