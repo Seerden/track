@@ -27,7 +27,7 @@ export default function TagTree({
 
 	if (!tagTreeData || !tagsData) return null;
 
-	const rootTagIds = Object.keys(tagTreeData.byId);
+	const rootTagIds = [...tagTreeData.byId.keys()];
 	const rootTags = rootTagIds.map((id) => tagsData.byId.get(id)).filter((tag) => !!tag);
 
 	if (!byIdAsList(tagsData.byId).length) return null;
@@ -60,7 +60,7 @@ type TagProps = {
 
 // TODO: this has to exist in a utility file somewhere
 function getTag(tag_id: ID, tagsById: ByIdMap<TagWithIds>) {
-	return tagsById.get(tag_id);
+	return tagsById.get(String(tag_id));
 }
 
 function Tag({ tag, level }: TagProps) {
