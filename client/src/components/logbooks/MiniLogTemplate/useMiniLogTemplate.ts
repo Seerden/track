@@ -13,7 +13,7 @@ export default function useMiniLogTemplate({
 }) {
 	const { params } = useRouteProps();
 
-	const { data: logTemplateData } = useQueryLogTemplate(log_template_id);
+	const { data: logTemplateData, isSuccess } = useQueryLogTemplate(log_template_id);
 	// TODO: I'm casting as ID, but it's possible that it's undefined (if it's
 	// neither in the URL nor in props). Solve this properly.
 	const logbookId = params.logbookId ? +params.logbookId : (logbook_id as ID);
@@ -26,7 +26,7 @@ export default function useMiniLogTemplate({
 	// For now, useQueryFields() is fine, but it's very inefficient.
 	const { data: fieldsData } = useQueryFields();
 
-	const isProbablySuspended = !itemTemplatesData || !logTemplateData || !fieldsData;
+	const isProbablySuspended = !itemTemplatesData || !isSuccess || !fieldsData;
 
 	if (isProbablySuspended) {
 		return { isProbablySuspended };

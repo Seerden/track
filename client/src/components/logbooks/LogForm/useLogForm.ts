@@ -1,5 +1,6 @@
 import useMutateNewLog from "@/lib/hooks/query/logbooks/useMutateNewLog";
 import { useQueryLogTemplatesByLogbook } from "@/lib/hooks/query/logbooks/useQueryLogTemplates";
+import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
 import useFloatingProps from "@/lib/hooks/useFloatingProps";
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import modalIds from "@/lib/modal-ids";
@@ -33,7 +34,7 @@ export default function useLogForm({ logbook_id }: { logbook_id?: ID }) {
 		return { isProbablySuspended };
 	}
 
-	const logTemplates = Object.values(logTemplatesData.byId);
+	const logTemplates = byIdAsList(logTemplatesData.byId);
 	const hasTemplates = !!logTemplates.length;
 
 	function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
