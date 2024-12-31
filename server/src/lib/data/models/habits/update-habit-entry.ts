@@ -6,10 +6,12 @@ export const updateHabitEntry: QueryFunction<
 	{ input: HabitEntryUpdateInput },
 	Promise<HabitEntry[]>
 > = async ({ sql = sqlConnection, input }) => {
+	const { habit_entry_id, value } = input;
+
 	return sql<[HabitEntry]>`
       update habit_entries
-      set ${sql(input)}
-      where habit_entry_id = ${input.habit_entry_id}
+      set ${sql({ value })}
+      where habit_entry_id = ${habit_entry_id}
       returning *
    `;
 };
