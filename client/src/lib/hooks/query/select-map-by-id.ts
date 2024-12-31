@@ -28,3 +28,8 @@ export function byIdAsList<T>(map?: Map<ID, T>): T[] {
 	if (!map) return [];
 	return [...map.values()];
 }
+
+/** Selector for useQuery for query hooks whose queryFn returns a ById object. */
+export function select<T extends DataById<unknown>>(data: T) {
+	return transformByIdToMap(data);
+}

@@ -1,5 +1,5 @@
 import logbookService from "@/lib/fetch/logbook-service";
-import transformByIdToMap from "@/lib/hooks/query/select-map-by-id";
+import { select } from "@/lib/hooks/query/select-map-by-id";
 import { defaultQueryConfig } from "@/lib/query-client";
 import { qk } from "@/lib/query-keys";
 import type { ID } from "@t/data/utility.types";
@@ -9,9 +9,7 @@ export function useQueryItemsByItemTemplate(item_template_id: ID) {
 	return useQuery({
 		queryKey: qk.items.byTemplate(item_template_id),
 		queryFn: () => logbookService.items.getByTemplate(item_template_id),
-		select(data) {
-			return transformByIdToMap(data);
-		},
+		select,
 		...defaultQueryConfig
 	});
 }
@@ -22,9 +20,7 @@ export function useQueryItemsByLogbook(logbook_id: ID) {
 	return useQuery({
 		queryKey: qk.items.byLogbook(logbook_id),
 		queryFn: () => logbookService.items.getByLogbook(logbook_id),
-		select(data) {
-			return transformByIdToMap(data);
-		},
+		select,
 		...defaultQueryConfig
 	});
 }
@@ -34,9 +30,7 @@ export default function useQueryItems() {
 	return useQuery({
 		queryKey: qk.items.all,
 		queryFn: logbookService.items.getByUser,
-		select(data) {
-			return transformByIdToMap(data);
-		},
+		select,
 		...defaultQueryConfig
 	});
 }

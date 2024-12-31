@@ -1,5 +1,5 @@
 import tagService from "@/lib/fetch/tags-service";
-import transformByIdToMap from "@/lib/hooks/query/select-map-by-id";
+import { select } from "@/lib/hooks/query/select-map-by-id";
 import { qk } from "@/lib/query-keys";
 import { defaultQueryConfig } from "@lib/query-client";
 import { useQuery } from "@tanstack/react-query";
@@ -8,9 +8,7 @@ export default function useQueryTags() {
 	return useQuery({
 		queryKey: qk.tags.all,
 		queryFn: tagService.getByUser,
-		select(data) {
-			return transformByIdToMap(data);
-		},
+		select,
 		...defaultQueryConfig
 	});
 }
