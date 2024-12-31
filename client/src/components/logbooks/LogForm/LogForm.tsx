@@ -19,7 +19,6 @@ export default function LogForm({ logbook_id }: LogFormProps) {
 		handleInputChange,
 		handleSubmit,
 		hasTemplates,
-		log,
 		logTemplates,
 		modalId,
 		handleModalOpen,
@@ -28,7 +27,8 @@ export default function LogForm({ logbook_id }: LogFormProps) {
 		logbookId,
 		float,
 		activeId,
-		setActiveId
+		setActiveId,
+		selectedTemplate
 	} = useLogForm({ logbook_id });
 
 	if (isProbablySuspended) return null;
@@ -70,8 +70,9 @@ export default function LogForm({ logbook_id }: LogFormProps) {
 										onClick={(e) => handleTemplateClick(e, template)}
 										key={+template.log_template_id}
 										$selected={
-											!!log.log_template_id &&
-											+template.log_template_id === +log.log_template_id
+											!!selectedTemplate &&
+											+template.log_template_id ===
+												+selectedTemplate.log_template_id
 										}
 										onMouseOver={() => setActiveId(+template.log_template_id)}
 										ref={(node) =>

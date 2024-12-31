@@ -14,6 +14,9 @@ export default function useMutateNewLog() {
 			queryClient.invalidateQueries({
 				queryKey: qk.logs.all
 			});
+			queryClient.invalidateQueries({
+				queryKey: qk.logbooks.all
+			});
 		}
 	});
 }

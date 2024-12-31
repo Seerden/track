@@ -38,13 +38,6 @@ export type ItemTemplate = {
 	standalone: boolean; // false for lifts, but probably true for meta items like dates etc.
 };
 
-type NestedPrimitiveObject =
-	| {
-			[k: string]: string | number | NestedPrimitiveObject;
-	  }
-	| string
-	| number;
-
 /** A LogbookEntryTemplate describes what a logbook entry should look like.
  *  For example, a "lifting" logbook entry template could contain a number of
  *  "Lift" items, a number of "Warmup" items (e.g. cardio, stretch) and a single
@@ -58,7 +51,7 @@ export type LogTemplate = {
 	log_template_id: ID;
 	logbook_id: ID;
 	name: Nullable<string>; // for example "PPL routine", which would be in the lifting logbook
-	layout: Nullable<NestedPrimitiveObject[]>; // we should probably enforce a subtype here, but I don't know how to enforce it inside the database
+	layout: Layout;
 
 	created_at: Timestamp;
 };
@@ -113,13 +106,12 @@ export type LayoutSection = {
 	item_ids: Nullable<ID[]>;
 };
 
-type Layout = LayoutSection[];
+export type Layout = LayoutSection[];
 
 /** A Log represents a filled-in session for a Logbook. */
 export type Log = {
 	log_id: ID;
 	logbook_id: ID;
-	log_template_id: Nullable<ID>; // TODO: maybe we only need this for the UI, not in the database
 
 	/** the difference between `name` and log_template.name is that this is the
 	 * actual log title. if log_template.name is "PPL routine", this could be
