@@ -18,7 +18,6 @@ import type { Data, DataById } from "./query.types";
 // TODO: all these types come from the backend, so they should be moved to the
 // server folder, and also be used directly on the server.
 
-export type TagsData = DataById<TagWithIds>;
 export type ActivitiesData = DataById<ActivityWithIds>;
 export type NotesData = DataById<NoteWithIds>;
 export type TagsTreeData = DataById<{ members: number[] }>;
@@ -27,12 +26,13 @@ export type HabitEntriesData = DataById<HabitEntry>;
 
 export type UserData = Data<"user", Maybe<User>>;
 
-// usage transformed to Map
-export type LogbooksData = DataById<Logbook>;
-
 export type LogsData = DataById<Log>;
 export type ItemsData = DataById<Item>;
 export type ItemTemplatesData = DataById<ItemTemplate>;
 export type LogTemplatesData = DataById<LogTemplate>;
 export type ItemRowsData = DataById<ItemRow>;
 export type FieldsData = DataById<Field>;
+
+// usage transformed to Map
+export type LogbooksData = DataById<Logbook>;
+export type TagsData = DataById<TagWithIds>;
