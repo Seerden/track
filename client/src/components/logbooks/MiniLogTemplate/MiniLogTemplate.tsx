@@ -23,7 +23,7 @@ export default function MiniLogTemplate({
 
 	const [expanded, setExpanded] = useState(false);
 
-	if (isProbablySuspended) {
+	if (isProbablySuspended || !logTemplate) {
 		return null;
 	}
 
