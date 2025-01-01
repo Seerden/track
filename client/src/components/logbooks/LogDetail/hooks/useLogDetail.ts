@@ -1,38 +1,60 @@
-import { useQueryItemsByLogbook } from "@/lib/hooks/query/logbooks/useQueryItems";
-import { useQueryItemTemplatesByLogbook } from "@/lib/hooks/query/logbooks/useQueryItemTemplates";
-import useQueryLogs from "@/lib/hooks/query/logbooks/useQueryLogs";
+import useLogDetailData from "@/components/logbooks/LogDetail/hooks/useLogDetailData";
+import useUpdateLogLayout from "@/components/logbooks/LogDetail/hooks/useUpdateLogLayout";
 import useRouteProps from "@/lib/hooks/useRouteProps";
-import type { Log } from "@t/data/logbook.types";
-import type { ID, Maybe } from "@t/data/utility.types";
+import type { ItemTemplate } from "@t/data/logbook.types";
+import type { ID } from "@t/data/utility.types";
+import { useMemo } from "react";
 
 /** Functionality hook for LogDetail. */
 export default function useLogDetail({ logbook_id }: { logbook_id?: ID }) {
 	const { params } = useRouteProps();
 	const logbookId = +(logbook_id ?? (params.logbookId || 0)); // TODO: do not use 0
 	const logId = +(params.logId ?? 0); // TODO: do not use 0
-	const { data: logsData } = useQueryLogs();
-	const { data: itemTemplatesData } = useQueryItemTemplatesByLogbook(logbookId);
-	const { data: itemsData } = useQueryItemsByLogbook(logbookId);
 
-	// TODO: as mentioned elsewhere, if we use maps instead of hashmap-like
-	// objects, we can avoid most of this pattern
-	const log = logsData?.byId[logId] as Maybe<Log>;
+	const { isProbablySuspended, itemTemplates, log } = useLogDetailData({
+		logbookId,
+		logId
+	});
+	const { appendLayoutSection } = useUpdateLogLayout({ log });
 
-	const isProbablySuspended = !itemTemplatesData || !itemsData || !logsData || !log;
+	// TODO: this should be a pure function that's called with memoized values,
+	// so we can test it properly. In fact, it should probably be on the server
+	// altogether.
+	const itemTemplateSelection = useMemo(() => {
+		return itemTemplates?.reduce(
+			(acc, cur) => {
+				const selected = Boolean(
+					log?.layout.find(
+						(section) => +section.item_template_id === +cur.item_template_id
+					)
+				);
+				if (selected) {
+					acc.included.push(cur);
+				} else {
+					acc.excluded.push(cur);
+				}
+				return acc;
+			},
+			{
+				included: [] as ItemTemplate[],
+				excluded: [] as ItemTemplate[]
+			} as const
+		);
+	}, [itemTemplates, log]);
 
-	// The conditional return is to make the typing more accurate when we call
-	// ths hook from LogDetail.
-	if (isProbablySuspended)
+	if (isProbablySuspended) {
 		return {
 			isProbablySuspended
 		};
+	}
 
 	return {
 		isProbablySuspended,
-		itemTemplates: Object.values(itemTemplatesData.byId),
-		items: Object.values(itemsData.byId),
 		logId,
 		logbookId,
-		log
+		log,
+		itemTemplates,
+		itemTemplateSelection,
+		appendLayoutSection
 	};
 }

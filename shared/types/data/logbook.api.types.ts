@@ -3,11 +3,16 @@ import {
 	FieldValue,
 	ItemRow,
 	ItemTemplate,
+	Log,
 	Logbook,
 } from "@t/data/logbook.types";
 
 export type LogbookInput = {
 	logbook: Logbook;
+};
+
+export type LogInput = {
+	log: Log;
 };
 
 export type ItemTemplateAndFieldTemplates = {

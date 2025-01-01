@@ -1,7 +1,8 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 import { pageStyle } from "../../theme/snippets/page";
 
-const Page = styled.section`
+const Page = styled(motion.section)`
 	${pageStyle};
 
 	// TODO: we need to overflow-y in case there is a dropdown at the bottom of

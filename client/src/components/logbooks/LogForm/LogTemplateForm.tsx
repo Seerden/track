@@ -86,10 +86,12 @@ export default function LogTemplateForm({ logbook_id }: LogTemplateFormProps) {
 							</>
 						) : (
 							<p>
-								You don't have any item templates yet. You need at least one item
-								template to get started.
+								This logbook does not have any item templates yet. You need at
+								least one item template to get started.
 							</p>
 						)}
+						{/* TODO: this Action.WithIcon is so ugly, and the idea doesn't work either
+                  since we don't enforce the usage of an icon. Get rid of it. */}
 						<Action.WithIcon $color="blue" onClick={handleModalOpen}>
 							New item template <LucideText size={20} />
 						</Action.WithIcon>

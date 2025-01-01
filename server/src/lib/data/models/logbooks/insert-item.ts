@@ -1,13 +1,16 @@
 import { sqlConnection } from "@/db/init";
 import type { Item, NewItem } from "@t/data/logbook.types";
+import type { ID } from "@t/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
-export const insertItem: QueryFunction<{ newItem: NewItem }, Promise<Item>> = async ({
-	sql = sqlConnection,
-	newItem,
-}) => {
+export const insertItem: QueryFunction<
+	{ newItem: NewItem; user_id: ID },
+	Promise<Item>
+> = async ({ sql = sqlConnection, newItem, user_id }) => {
+	const withUserId = { ...newItem, user_id };
+
 	const [insertedItem] = await sql<[Item]>`
-      INSERT INTO items ${sql(newItem)}
+      INSERT INTO items ${sql(withUserId)}
       RETURNING *
    `;
 

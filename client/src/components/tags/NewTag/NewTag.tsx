@@ -1,6 +1,7 @@
 import type { ModalId } from "@/lib/modal-ids";
 import F from "@/lib/theme/components/form.style";
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
+import { LucideTag } from "lucide-react";
 import TagSelector from "../TagSelector/TagSelector";
 import S from "./style/NewTag.style";
 import useNewTag from "./useNewTag";
@@ -10,12 +11,15 @@ type NewTagProps = {
 };
 
 function NewTag({ modalId }: NewTagProps) {
-	const { onInputChange, onSubmit, tags } = useNewTag();
+	const { onInputChange, onSubmit, tagsData } = useNewTag();
+	const tagIds = tagsData ? [...tagsData.byId.keys()] : [];
 
 	return (
 		<F.Wrapper role="form">
 			<F.Form>
-				<F.FormTitle>New🏷️</F.FormTitle>
+				<F.FormTitle>
+					New <LucideTag />
+				</F.FormTitle>
 
 				<F.Row>
 					<F.Label>
@@ -39,12 +43,12 @@ function NewTag({ modalId }: NewTagProps) {
 					</F.Label>
 				</F.Row>
 				<F.Row>
-					{Object.keys(tags?.byId ?? {}).length > 0 && (
+					{tagIds.length > 0 && (
 						<S.Tags>
 							<TagSelector
 								title="Categorize"
 								maximum={1}
-								tagsById={tags?.byId}
+								tagsById={tagsData?.byId}
 								modalId={modalId}
 							/>
 						</S.Tags>

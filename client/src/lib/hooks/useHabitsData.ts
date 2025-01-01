@@ -1,6 +1,7 @@
 import { withSyntheticHabitEntries } from "@/components/habits/Habits/synthetic";
 import useQueryHabitEntries from "@/lib/hooks/query/habits/useQueryHabitEntries";
 import useQueryHabits from "@/lib/hooks/query/habits/useQueryHabits";
+import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
 import type { TimeWindow } from "@/types/time-window.types";
 import type { Habit, HabitWithEntries } from "@t/data/habit.types";
 import type { ById } from "@t/data/utility.types";
@@ -13,8 +14,8 @@ export default function useHabitsData() {
 	const habitsWithEntriesById = useMemo(() => {
 		if (!habitsData || !habitEntriesData) return {};
 
-		return Object.entries(habitsData.byId).reduce((acc, [id, habit]) => {
-			const entriesForHabit = Object.values(habitEntriesData.byId).filter((entry) => {
+		return Array.from(habitsData.byId.entries()).reduce((acc, [id, habit]) => {
+			const entriesForHabit = byIdAsList(habitEntriesData.byId).filter((entry) => {
 				return habit.entry_ids.includes(entry.habit_entry_id);
 			});
 			acc[+id] = Object.assign(habit, { entries: entriesForHabit });

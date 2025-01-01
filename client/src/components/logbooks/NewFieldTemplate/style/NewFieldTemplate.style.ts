@@ -39,6 +39,7 @@ const Title = styled.h2`
 	padding: 0.3rem 1rem;
 `;
 
+// TODO: this is also used in Register.style -- extract it
 const Column = styled.fieldset`
 	${flex.column};
 

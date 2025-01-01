@@ -24,23 +24,23 @@ export default function useRegister() {
 		newUser.password.length > 0 &&
 		newUser.password == passwordConfirm;
 
-	function onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-		if (event.target.name === "passwordConfirm") {
-			setPasswordConfirm(event.target.value);
+	function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+		if (e.target.name === "passwordConfirm") {
+			setPasswordConfirm(e.target.value);
 		} else {
 			setNewUser((current) => ({
 				...current,
-				[event.target.name]: event.target.value
+				[e.target.name]: e.target.value
 			}));
 		}
 	}
 
-	function onSubmit(event: React.FormEvent<HTMLFormElement>) {
-		event.preventDefault();
+	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+		e.preventDefault();
 		if (isValidNewUser) {
 			// mutate, login and redirect
 			register(newUser, {
-				// TODO: of course eventually we want a user to verify their
+				// TODO: of course eually we want a user to verify their
 				// account, but for dev purposes this approach is good enough
 				onSuccess: () => {
 					// TODO: login and redirect
@@ -52,8 +52,8 @@ export default function useRegister() {
 	}
 
 	return {
-		onInputChange,
-		onSubmit,
+		handleInputChange,
+		handleSubmit,
 		passwordVisible,
 		togglePasswordVisible
 	};

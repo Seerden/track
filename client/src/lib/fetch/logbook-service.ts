@@ -15,6 +15,7 @@ import type {
 	Log,
 	Logbook,
 	LogbookInput,
+	LogInput,
 	LogTemplate,
 	NewItemInput,
 	NewItemRowInput,
@@ -49,9 +50,18 @@ const logbookService = {
 			api.post<NewLogInput, Log>({
 				url: "/data/logbook/log",
 				body: input
+			}),
+		put: async (input: LogInput) =>
+			api.put<LogInput, Log>({
+				url: `/data/logbook/log/${input.log.log_id}`,
+				body: input
 			})
 	},
 	logTemplates: {
+		getById: async (log_template_id: ID) =>
+			api.get<Nullable<LogTemplate>>({
+				url: `/data/logbook/template/${log_template_id}`
+			}),
 		getByUser: async () =>
 			api.get<LogTemplatesData>({ url: "/data/logbook/templates" }),
 		getByLogbook: async (logbook_id: ID) =>
@@ -75,6 +85,10 @@ const logbookService = {
 	},
 	items: {
 		getByUser: async () => api.get<ItemsData>({ url: "/data/logbooks/items" }),
+		getByTemplate: async (item_template_id: ID) =>
+			api.get<ItemsData>({
+				url: `/data/logbook/items/template/${item_template_id}/items`
+			}),
 		getByLogbook: async (logbook_id: ID) =>
 			api.get<ItemsData>({ url: `/data/logbook/${logbook_id}/items` }),
 		post: async (input: NewItemInput) =>
@@ -85,6 +99,8 @@ const logbookService = {
 	},
 	itemRows: {
 		getByUser: async () => api.get<ItemRowsData>({ url: "/data/logbooks/items/rows" }),
+		getByLog: async (log_id: ID) =>
+			api.get<ItemRowsData>({ url: `/data/logbook/log/${log_id}/items/rows` }),
 		post: async (input: NewItemRowInput) =>
 			api.post<NewItemRowInput, ItemRowWithFieldValues>({
 				url: "/data/logbook/item/row",

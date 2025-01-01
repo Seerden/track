@@ -1,37 +1,56 @@
+import F from "@/lib/theme/components/form/form.alternate.style";
+import { LucideArrowRight, LucideEye, LucideEyeOff } from "lucide-react";
+import S from "../style/auth.style";
 import useLogin from "./useLogin";
 
 function Login() {
-	const login = useLogin();
+	const { handleInputChange, handleSubmit, passwordVisible, togglePasswordVisible } =
+		useLogin();
 
 	return (
 		// TODO: this probably becomes a modal that expands from the navigation/header
-		<>
-			<h1>Login</h1>
-			<form onSubmit={login.onSubmit}>
-				<input
-					onChange={(e) => login.onInputChange(e)}
-					type="text"
-					required
-					placeholder="Username"
-					name="username"
-				/>
-				<span>
-					<input
-						onChange={(e) => login.onInputChange(e)}
-						type={login.passwordVisible ? "text" : "password"}
-						required
-						name="password"
-						placeholder="Password"
-					/>
-					<input
-						type="button"
-						onClick={() => login.togglePasswordVisible()}
-						value={`${login.passwordVisible ? "Hide" : "Show"} password`}
-					/>
-				</span>
-				<button type="submit">Login</button>
-			</form>
-		</>
+		<S.Wrapper>
+			<F.Form onSubmit={handleSubmit}>
+				<F.FormTitle>Login</F.FormTitle>
+				<S.Fields>
+					<F.Label>
+						<span>username</span>
+						<input
+							onChange={handleInputChange}
+							type="text"
+							required
+							name="username"
+						/>
+					</F.Label>
+					<S.PasswordLabel>
+						<span>password</span>
+						<div style={{ position: "relative" }}>
+							<input
+								onChange={handleInputChange}
+								type={passwordVisible ? "text" : "password"}
+								required
+								name="password"
+							/>
+							<S.ShowPassword
+								tabIndex={-1}
+								type="button"
+								onClick={togglePasswordVisible}
+								value={`${passwordVisible ? "Hide" : "Show"} password`}
+							>
+								{passwordVisible ? (
+									<LucideEyeOff size={24} />
+								) : (
+									<LucideEye size={24} />
+								)}
+							</S.ShowPassword>
+						</div>
+					</S.PasswordLabel>
+				</S.Fields>
+				<S.Submit $color="theme">
+					log in <LucideArrowRight size={15} color="black" strokeWidth={2} />
+				</S.Submit>
+			</F.Form>
+		</S.Wrapper>
 	);
 }
 

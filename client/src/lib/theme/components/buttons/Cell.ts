@@ -2,12 +2,13 @@ import Unstyled from "@/lib/theme/components/buttons/Unstyled";
 import type { CSSProperties } from "styled-components";
 import styled, { css } from "styled-components";
 
-const highlightColor: CSSProperties["color"] = "dodgerblue";
+const highlightColor: CSSProperties["color"] = "royalblue";
 export const defaultCellWidth = 25;
 export const defaultCellHeight = 25;
 
 const Default = styled(Unstyled)<{
 	$selected?: boolean;
+	$highlight?: boolean;
 	width?: number;
 	height?: number;
 }>`
@@ -23,14 +24,10 @@ const Default = styled(Unstyled)<{
 		// an EmptyCell, keeps the JSX cleaner.
 		p.children
 			? css`
-					background-color: #eaeaea;
-					border-radius: 50%;
-					box-shadow: 0 0 0.2rem 0 #ccc;
+					background-color: #f9f9f9;
+					outline: 1px solid #eee;
+					border-radius: 3px;
 					cursor: pointer;
-
-					&:hover {
-						outline: 1px solid ${highlightColor};
-					}
 
 					&:active {
 						background-color: ${highlightColor};
@@ -39,10 +36,35 @@ const Default = styled(Unstyled)<{
 					}
 				`
 			: css`
+					cursor: default;
 					background-color: unset;
 					border-radius: none;
 					box-shadow: none;
 				`}
+
+	&:focus {
+		outline: 2px solid #ddd;
+	}
+
+	&:hover {
+		${(p) =>
+			!p.$selected &&
+			p.children &&
+			css`
+				transition: all 35ms linear;
+				background-color: dodgerblue;
+				color: white;
+				box-shadow: 0 0 0.3rem 0 #ddd;
+			`}
+	}
+
+	${(p) =>
+		p.$highlight &&
+		css`
+			background-color: #eee;
+			color: #333;
+			font-weight: 600;
+		`}
 
 	${(p) =>
 		p.$selected &&

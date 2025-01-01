@@ -1,15 +1,16 @@
 import logbookService from "@/lib/fetch/logbook-service";
+import { select } from "@/lib/hooks/query/select-map-by-id";
 import { defaultQueryConfig } from "@/lib/query-client";
 import { qk } from "@/lib/query-keys";
-import type { LogbooksData } from "@/types/data.types";
 import type { Logbook } from "@t/data/logbook.types";
 import type { ID, Nullable } from "@t/data/utility.types";
 import { useQuery } from "@tanstack/react-query";
 
 export default function useQueryLogbooks() {
-	return useQuery<LogbooksData>({
+	return useQuery({
 		queryKey: qk.logbooks.all,
 		queryFn: logbookService.logbooks.getByUser,
+		select,
 		...defaultQueryConfig
 	});
 }

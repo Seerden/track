@@ -4,7 +4,8 @@ const baseColors = {
 	purple: {
 		main: "indigo",
 		secondary: "blueviolet",
-		tertiary: "darkorchid"
+		tertiary: "darkorchid",
+		dark: "darkviolet"
 	},
 	blue: {
 		main: "dodgerblue",
@@ -15,8 +16,12 @@ const baseColors = {
 		secondary: "dodgerblue"
 	},
 	yellow: {
-		main: "gold",
-		secondary: "orange"
+		main: "hsl(54, 100.00%, 50.00%)",
+		secondary: "gold"
+	},
+	orange: {
+		main: "orange",
+		secondary: "darkorange"
 	},
 	red: {
 		main: "tomato",

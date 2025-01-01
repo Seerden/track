@@ -1,11 +1,11 @@
 import type { TagWithIds } from "@t/data/tag.types";
-import type { ById, ID } from "@t/data/utility.types";
+import type { ByIdMap, ID } from "@t/data/utility.types";
 
 /** Gets a tag by id from a TagsById object.
  * @todo I know for a fact I already have something like this somewhere. *
  */
-export function getTag({ id, tagsById }: { id: ID; tagsById: ById<TagWithIds> }) {
-	const tag = tagsById[id];
+export function getTag({ id, tagsById }: { id: ID; tagsById: ByIdMap<TagWithIds> }) {
+	const tag = tagsById.get(String(id));
 	if (!tag) return null;
 	return tag;
 }
@@ -17,7 +17,7 @@ export function findAncestors({
 	tagsById
 }: {
 	tag: TagWithIds;
-	tagsById: ById<TagWithIds>;
+	tagsById: ByIdMap<TagWithIds>;
 }) {
 	const ancestors: TagWithIds[] = [];
 	let parentId = tag.parent_id;
@@ -38,7 +38,7 @@ export function findChildren({
 	tagsById
 }: {
 	tag: TagWithIds;
-	tagsById: ById<TagWithIds>;
+	tagsById: ByIdMap<TagWithIds>;
 }) {
 	return tag.child_ids
 		?.map((id) => getTag({ id, tagsById }))

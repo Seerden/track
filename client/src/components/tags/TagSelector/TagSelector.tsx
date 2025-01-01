@@ -8,9 +8,13 @@ import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import { Action } from "@/lib/theme/components/buttons";
+import {
+	LucideChevronDown,
+	LucideChevronUp,
+	LucideFilterX,
+	LucideMaximize
+} from "lucide-react";
 import type { MouseEvent } from "react";
-import { FaChevronDown, FaChevronUp, FaExpand } from "react-icons/fa";
-import { MdOutlineFilterListOff } from "react-icons/md";
 import NewTagButton from "./NewTagButton";
 import S from "./style/TagSelector.style";
 import useTagSelector from "./useTagSelector";
@@ -51,15 +55,16 @@ export default function TagSelector(p: TagSelectorProps) {
 									clearFilter={t.clearFilter}
 									onFocus={f.expandFilter}
 								/>
+								{/* TODO: we show this exact thing in two different places -- make it a subcomponent, or at least a render function */}
 								{!!t.selectedTagIds.length && (
 									<Action.Alternative onClick={t.onSelectionReset}>
-										<MdOutlineFilterListOff color="orangered" />
+										<LucideFilterX size={20} color="orangered" />
 									</Action.Alternative>
 								)}
 								{p.showNewTagButton && <NewTagButton modalId={p.modalId} />}
 
 								<Action.Alternative onClick={f.expandFilter}>
-									<FaChevronDown size={15} color={"darkorchid"} />
+									<LucideChevronDown size={20} color={"darkorchid"} />
 								</Action.Alternative>
 							</>
 						)}
@@ -83,18 +88,18 @@ export default function TagSelector(p: TagSelectorProps) {
 
 								{!!t.selectedTagIds.length && (
 									<Action.Alternative onClick={t.onSelectionReset}>
-										<MdOutlineFilterListOff color="orangered" />
+										<LucideFilterX size={20} color="orangered" />
 									</Action.Alternative>
 								)}
 
 								<Action.Alternative onClick={onModalOpen}>
-									<FaExpand size={15} color={"dodgerblue"} />
+									<LucideMaximize size={20} color={"dodgerblue"} />
 								</Action.Alternative>
 
 								{p.showNewTagButton && <NewTagButton modalId={p.modalId} />}
 
 								<Action.Alternative onClick={f.minimizeFilter}>
-									<FaChevronUp size={15} color={"forestgreen"} />
+									<LucideChevronUp size={20} color={"forestgreen"} />
 								</Action.Alternative>
 							</S.DropdownActions>
 

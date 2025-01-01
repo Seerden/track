@@ -1,8 +1,9 @@
 import useMutateLogin from "@/lib/hooks/query/user/useMutateLogin";
+import useAuthentication from "@/lib/hooks/useAuthentication";
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import { localUser } from "@lib/user-storage";
 import { type UserLogin } from "@t/data/user.types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function useLogin() {
 	const { navigate } = useRouteProps();
@@ -10,21 +11,28 @@ export default function useLogin() {
 	function togglePasswordVisible() {
 		setPasswordVisible((current) => !current);
 	}
+	const { isLoggedIn } = useAuthentication();
+
+	useEffect(() => {
+		if (isLoggedIn) {
+			navigate("/");
+		}
+	}, [isLoggedIn]);
 
 	const [userLogin, setUserLogin] = useState<UserLogin>({ username: "", password: "" });
 	const { mutate: login } = useMutateLogin();
 
 	const isValidLogin = userLogin.username.length > 0 && userLogin.password.length > 0;
 
-	function onInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+	function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
 		setUserLogin((current) => ({
 			...current,
-			[event.target.name]: event.target.value
+			[e.target.name]: e.target.value
 		}));
 	}
 
-	function onSubmit(event: React.FormEvent<HTMLFormElement>) {
-		event.preventDefault();
+	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+		e.preventDefault();
 
 		if (!isValidLogin) {
 			// TODO: show error state
@@ -45,8 +53,7 @@ export default function useLogin() {
 	return {
 		passwordVisible,
 		togglePasswordVisible,
-		userLogin,
-		onInputChange,
-		onSubmit
+		handleInputChange,
+		handleSubmit
 	};
 }

@@ -27,12 +27,12 @@ export default function NewItem({ itemTemplate, logbook_id }: NewItemProps) {
 	return (
 		<F.Form onSubmit={handleSubmit}>
 			<F.FormTitle style={{ marginBottom: "1rem", paddingBottom: "0.5rem" }}>
-				<LucideNotebookText size={40} color="royalblue" /> New Named{" "}
+				<LucideNotebookText size={40} color="royalblue" /> New
 				<S.TextHighlight>{itemTemplate.name}</S.TextHighlight>
 			</F.FormTitle>
 			<p>
-				The <span style={{ color: "blue" }}>{itemTemplate.name}</span> template
-				contains the following fields:
+				A <span style={{ color: "blue" }}>{itemTemplate.name}</span> template contains
+				the following fields:
 			</p>
 			<ul
 				style={{

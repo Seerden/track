@@ -4,6 +4,7 @@ export type ValueType = string | number | null;
 
 /** A FieldTemplate describes which fields are to be displayed. */
 export type FieldTemplate = {
+	user_id: ID;
 	field_template_id: ID;
 	logbook_id: ID;
 	created_at: Timestamp;
@@ -29,6 +30,7 @@ export type FieldTemplate = {
  * it represents e.g. a lift, which has a name, like "squat", and fields weight, sets, type
  */
 export type ItemTemplate = {
+	user_id: ID;
 	item_template_id: ID;
 	logbook_id: ID;
 	created_at: Timestamp;
@@ -37,13 +39,6 @@ export type ItemTemplate = {
 	description: Nullable<string>; // e.g. "various types of lifts"
 	standalone: boolean; // false for lifts, but probably true for meta items like dates etc.
 };
-
-type NestedPrimitiveObject =
-	| {
-			[k: string]: string | number | NestedPrimitiveObject;
-	  }
-	| string
-	| number;
 
 /** A LogbookEntryTemplate describes what a logbook entry should look like.
  *  For example, a "lifting" logbook entry template could contain a number of
@@ -58,7 +53,7 @@ export type LogTemplate = {
 	log_template_id: ID;
 	logbook_id: ID;
 	name: Nullable<string>; // for example "PPL routine", which would be in the lifting logbook
-	layout: Nullable<NestedPrimitiveObject[]>; // we should probably enforce a subtype here, but I don't know how to enforce it inside the database
+	layout: Layout;
 
 	created_at: Timestamp;
 };
@@ -67,6 +62,7 @@ export type LogTemplate = {
  * @todo do we want to include `item_id`?
  */
 export type FieldValue = {
+	user_id: ID;
 	field_value_id: ID;
 	field_template_id: ID;
 	log_id: ID;
@@ -85,6 +81,7 @@ export type FieldValue = {
  * multiple rows (3 sets with different weights, for example).
  */
 export type ItemRow = {
+	user_id: ID;
 	item_row_id: ID;
 	item_id: ID;
 	log_id: ID;
@@ -108,11 +105,17 @@ export type Item = {
 	created_at: Timestamp;
 };
 
+export type LayoutSection = {
+	item_template_id: ID;
+	item_ids: Nullable<ID[]>;
+};
+
+export type Layout = LayoutSection[];
+
 /** A Log represents a filled-in session for a Logbook. */
 export type Log = {
 	log_id: ID;
 	logbook_id: ID;
-	log_template_id: Nullable<ID>; // TODO: maybe we only need this for the UI, not in the database
 
 	/** the difference between `name` and log_template.name is that this is the
 	 * actual log title. if log_template.name is "PPL routine", this could be
@@ -126,6 +129,13 @@ export type Log = {
 	end_time: Nullable<Timestamp>;
 
 	created_at: Timestamp;
+
+	/** This describes the layout of the log. In the database, it's implemented
+	 * as a json array, which means that removing an item or item template
+	 * doesn't automatically remove the values from the layout.
+	 * @todo make sure that nonexistent items/item templates do not mess up the
+	 * UI. */
+	layout: Layout;
 };
 
 /** A logbook contains any number of entries that presumably each denote a day,

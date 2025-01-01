@@ -1,42 +1,58 @@
 import LogbookCard from "@/components/logbooks/Logbooks/LogbookCard";
 import useQueryLogbooks from "@/lib/hooks/query/logbooks/useQueryLogbooks";
-import { Action } from "@/lib/theme/components/buttons";
-import { Notebook } from "lucide-react";
+import { Action, Link as LinkButton } from "@/lib/theme/components/buttons";
+import Containers from "@/lib/theme/components/container.style";
+import { LucideFilter, LucideFolderPen } from "lucide-react";
 import { Link } from "react-router-dom";
+import S from "./style/Logbooks.style";
 
 export default function Logbooks() {
-	const { data } = useQueryLogbooks();
+	const { data: logbooksData } = useQueryLogbooks();
 
-	if (!data) return null;
+	if (!logbooksData) return null;
 
-	const logbookCount = Object.values(data.byId).length;
+	const logbooks = [...logbooksData.byId.values()];
 
 	return (
-		// page wrapper
 		<div>
-			<h1>Logbooks</h1>
-			<Link to="/logbooks/new">new logbook</Link>
+			<S.Header>
+				<S.Title>Logbooks</S.Title>
+				<S.Actions>
+					<LinkButton.Icon
+						$size={"40px"}
+						as={Link}
+						$color="theme"
+						to="/logbooks/new"
+					>
+						<LucideFolderPen size={20} strokeWidth={1.5} />
+					</LinkButton.Icon>
+
+					{/* filter -- not functional yet */}
+					<LinkButton.Icon $size={"40px"} $color="theme" disabled>
+						<LucideFilter size={20} strokeWidth={1.5} />
+					</LinkButton.Icon>
+				</S.Actions>
+			</S.Header>
 
 			{/* maybe: you don't have any logbooks yet, create one now! -- text with action button */}
-			{!logbookCount ? (
-				<div>
-					<p>You don't have any logbooks yet, create one now!</p>
-					<Action.WithIcon $color="blue">
-						<Notebook />
-						Create Logbook
-					</Action.WithIcon>
-				</div>
+			{logbooks.length === 0 ? (
+				<Containers.EmptyState>
+					<p>
+						You don't have any logbooks yet. Create one to get started. This page
+						will look a lot less empty.
+					</p>
+					<Action.CallToAction $color="yellow" as={Link} to="/logbooks/new">
+						<LucideFolderPen />
+						Create your first logbook
+					</Action.CallToAction>
+				</Containers.EmptyState>
 			) : (
-				<ul>
-					{Object.values(data.byId).map((logbook) => (
+				<S.LogbookCardList>
+					{logbooks.map((logbook) => (
 						<LogbookCard key={logbook.logbook_id} logbook_id={logbook.logbook_id} />
 					))}
-				</ul>
+				</S.LogbookCardList>
 			)}
-
-			{/* maybe: list of logbooks */}
-			{/* logbooks.map(logbook => LogbookCard) */}
-			{/* single logbook card */}
 		</div>
 	);
 }

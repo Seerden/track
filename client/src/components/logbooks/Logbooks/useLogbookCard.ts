@@ -1,15 +1,16 @@
 import { useQueryLogbookById } from "@/lib/hooks/query/logbooks/useQueryLogbooks";
 import { useQueryLogsByLogbook } from "@/lib/hooks/query/logbooks/useQueryLogs";
+import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import type { ID } from "@t/data/utility.types";
 
 export default function useLogbookCard({ logbook_id }: { logbook_id?: ID }) {
 	const { params } = useRouteProps();
 	const logbookId = +(logbook_id ?? (params.logbookId || 0));
-	const { data: logbook } = useQueryLogbookById(logbookId);
-	const { data: logsData } = useQueryLogsByLogbook(logbookId);
+	const { data: logbook, isSuccess } = useQueryLogbookById(+logbookId);
+	const { data: logsData } = useQueryLogsByLogbook(+logbookId);
 
-	const isProbablySuspended = !logsData || !logbook;
+	const isProbablySuspended = !logsData || !isSuccess;
 
 	if (isProbablySuspended) {
 		return {
@@ -17,7 +18,7 @@ export default function useLogbookCard({ logbook_id }: { logbook_id?: ID }) {
 		};
 	}
 
-	const logs = Object.values(logsData.byId);
+	const logs = byIdAsList(logsData.byId);
 
 	return {
 		isProbablySuspended,

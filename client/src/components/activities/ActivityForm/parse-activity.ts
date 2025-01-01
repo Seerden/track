@@ -35,8 +35,7 @@ export function maybeThrowOnInvalidActivity(
 /** Parse the activity built in ActivityForm to the correct shape so we can make
  * a PUT request to update the activity. */
 export function parseUpdatedActivity(activity: Partial<ActivityWithIds>) {
-	if (!activity.activity_id || isNaN(activity.activity_id))
-		throw new Error("Activity must have a valid activity id");
+	if (!activity.activity_id) throw new Error("Activity must have a valid activity id");
 
 	maybeThrowOnInvalidActivity(activity);
 	maybeShiftEndDateToEndOfDay(activity);

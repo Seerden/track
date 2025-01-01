@@ -28,9 +28,11 @@ function getSpacing(rule: SpacingRule, type: SpacingType, { size, ratio }: Spaci
 }
 
 export const spacingValue = {
+	smaller: "0.3rem",
 	small: "0.5rem",
 	medium: "1rem",
-	large: "2rem"
+	large: "1.5rem",
+	larger: "2rem"
 };
 
 const margin = {
@@ -42,8 +44,8 @@ const margin = {
 	medium: css`
 		margin: ${spacingValue.medium};
 	`,
-	large: css`
-		margin: ${spacingValue.large};
+	larger: css`
+		margin: ${spacingValue.larger};
 	`
 } as const;
 

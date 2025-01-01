@@ -6,9 +6,8 @@ import modalIds from "@/lib/modal-ids";
 import { Action } from "@/lib/theme/components/buttons";
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
 import F from "@lib/theme/components/form.style";
-import { CalendarOff } from "lucide-react";
+import { LucideCalendarOff, LucideCalendarPlus } from "lucide-react";
 import { useState } from "react";
-import { LuCalendarPlus } from "react-icons/lu";
 import S from "./style/NewHabit.style";
 import useNewHabit from "./useNewHabit";
 
@@ -163,7 +162,7 @@ export default function NewHabit() {
 									}));
 								}}
 							>
-								<CalendarOff size={16} color="white" />
+								<LucideCalendarOff size={16} color="white" />
 							</Action.Default>
 						</S.ClearEndDateButtonWrapper>
 					)}
@@ -198,7 +197,7 @@ export default function NewHabit() {
 									setHasEndDate(true);
 								}}
 							>
-								Add end date <LuCalendarPlus size={15} />
+								Add end date <LucideCalendarPlus size={15} />
 							</S.SetEndDateButton>
 						)}
 					</S.DateFields>

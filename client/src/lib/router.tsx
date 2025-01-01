@@ -1,9 +1,4 @@
 import App from "@/App";
-import LogbookForm from "@/components/logbooks/LogbookForm/LogbookForm";
-import LogbookCard from "@/components/logbooks/Logbooks/LogbookCard";
-import Logbooks from "@/components/logbooks/Logbooks/Logbooks";
-import LogDetail from "@/components/logbooks/LogDetail/LogDetail";
-import LogForm from "@/components/logbooks/LogForm/LogForm";
 import { Protected, Suspended } from "@/components/wrappers";
 import Page from "@/lib/framer/components/Page";
 import { lazy } from "react";
@@ -19,6 +14,14 @@ const ActivityForm = lazy(
 const NewHabit = lazy(() => import("@components/habits/NewHabit/NewHabit"));
 const Today = lazy(() => import("@components/Today/Today"));
 const Login = lazy(() => import("@/components/auth/Login/Login"));
+const ActivityOverview = lazy(
+	() => import("@/components/activities/ActivityOverview/ActivityOverview")
+);
+const LogDetail = lazy(() => import("@/components/logbooks/LogDetail/LogDetail"));
+const LogbookForm = lazy(() => import("@/components/logbooks/LogbookForm/LogbookForm"));
+const LogbookCard = lazy(() => import("@/components/logbooks/Logbooks/LogbookCard"));
+const Logbooks = lazy(() => import("@/components/logbooks/Logbooks/Logbooks"));
+const LogForm = lazy(() => import("@/components/logbooks/LogForm/LogForm"));
 
 const topLevelRoutes: RouteObject[] = [
 	{
@@ -59,6 +62,16 @@ const topLevelRoutes: RouteObject[] = [
 	{
 		path: "/activities",
 		children: [
+			{
+				index: true,
+				element: (
+					<Protected>
+						<Page>
+							<ActivityOverview />
+						</Page>
+					</Protected>
+				)
+			},
 			{
 				path: "new",
 				element: (

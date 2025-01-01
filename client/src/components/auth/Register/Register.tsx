@@ -1,47 +1,95 @@
+import F from "@/lib/theme/components/form/form.alternate.style";
+import { LucideArrowRight, LucideEye, LucideEyeOff } from "lucide-react";
+import S from "../style/auth.style";
 import useRegister from "./useRegister";
 
 function Register() {
-	const register = useRegister();
+	const { handleInputChange, handleSubmit, passwordVisible, togglePasswordVisible } =
+		useRegister();
 	return (
 		// TODO: like in the login form, this probably becomes a modal that expands from the navigation/header
-		<>
-			<h1>Register</h1>
-			<form onSubmit={(e) => register.onSubmit(e)}>
-				<input
-					onChange={(e) => register.onInputChange(e)}
-					type="text"
-					required
-					placeholder="Username"
-					name="username"
-				/>
-				<input
-					onChange={(e) => register.onInputChange(e)}
-					type="email"
-					placeholder="e-mail address"
-					name="email"
-				/>
-				<div>
-					<input
-						onChange={(e) => register.onInputChange(e)}
-						type={register.passwordVisible ? "text" : "password"}
-						required
-						placeholder="Password"
-						name="password"
-					/>
-					<input
-						onChange={(e) => register.onInputChange(e)}
-						type={register.passwordVisible ? "text" : "password"}
-						required
-						placeholder="Confirm Password"
-						name="passwordConfirm"
-					/>
-					<button onClick={() => register.togglePasswordVisible()}>
-						{register.passwordVisible ? "Hide" : "Show"} password
-					</button>
-				</div>
-				<button type="submit">Register</button>
-			</form>
-		</>
+		<S.Wrapper>
+			<F.Form onSubmit={handleSubmit}>
+				<F.FormTitle>Register</F.FormTitle>
+				<S.Fields>
+					<F.Label>
+						<span>username</span>
+						<input
+							onChange={handleInputChange}
+							type="text"
+							required
+							placeholder="Username"
+							name="username"
+						/>
+					</F.Label>
+					<F.Label>
+						<span>email</span>
+						<input onChange={handleInputChange} type="email" name="email" />
+					</F.Label>
+					{/* TODO: instead of using a label, use a fieldset, and try the 
+                  styling from ItemTemplateForm  */}
+					<S.Column>
+						<div
+							style={{
+								display: "flex",
+								flexDirection: "row",
+								gap: "0.5rem"
+							}}
+						>
+							<S.PasswordLabel>
+								<span>password</span>
+								<div style={{ position: "relative" }}>
+									<input
+										onChange={handleInputChange}
+										type={passwordVisible ? "text" : "password"}
+										required
+										name="password"
+									/>
+									<S.ShowPassword
+										tabIndex={-1}
+										type="button"
+										onClick={togglePasswordVisible}
+										value={`${passwordVisible ? "Hide" : "Show"} password`}
+									>
+										{passwordVisible ? (
+											<LucideEyeOff size={24} />
+										) : (
+											<LucideEye size={24} />
+										)}
+									</S.ShowPassword>
+								</div>
+							</S.PasswordLabel>
+							<S.PasswordLabel>
+								<span>confirm password</span>
+								<div style={{ position: "relative" }}>
+									<input
+										onChange={handleInputChange}
+										type={passwordVisible ? "text" : "password"}
+										required
+										name="passwordConfirm"
+									/>
+									<S.ShowPassword
+										tabIndex={-1}
+										type="button"
+										onClick={togglePasswordVisible}
+										value={`${passwordVisible ? "Hide" : "Show"} password`}
+									>
+										{passwordVisible ? (
+											<LucideEyeOff size={24} />
+										) : (
+											<LucideEye size={24} />
+										)}
+									</S.ShowPassword>
+								</div>
+							</S.PasswordLabel>
+						</div>
+					</S.Column>
+				</S.Fields>
+				<S.Submit $color="theme">
+					register <LucideArrowRight size={15} color="black" />
+				</S.Submit>
+			</F.Form>
+		</S.Wrapper>
 	);
 }
 

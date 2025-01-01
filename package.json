@@ -14,7 +14,8 @@
     "test-db": "docker exec -it docker-test-database-1 psql track-test -U postgres -p 5434",
     "test-back": "docker exec -it docker-server-1 npm test --watchAll",
     "test-front": "docker exec -it docker-client-1 npm test --watchAll",
-    "store": "docker exec -it docker-store-1 redis-cli"
+    "store": "docker exec -it docker-store-1 redis-cli",
+    "build:types": "npx tsc --build"
   },
   "author": "",
   "license": "ISC",

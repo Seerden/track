@@ -22,15 +22,22 @@ function TagSelectorItem(p: TagSelectorItemProps) {
 	);
 }
 
+// TODO: put logic in a component hook, extract inline styles, use
+// isProbablySuspended pattern.
 function TagSelectorItems(p: TagSelectorItemsProps) {
 	const { openModal } = useModalState();
-	const { data } = useQueryTags();
+	const { data: tagsData } = useQueryTags();
 
-	if (data?.byId && Object.keys(data.byId).length > 0 && p.tags.length === 0) {
+	if (!tagsData?.byId) return null;
+
+	const tagIds = [...tagsData.byId.keys()];
+	const hasTags = tagIds.length > 0;
+
+	if (hasTags && p.tags.length === 0) {
 		return <p>No tags found for selected filter.</p>;
 	}
 
-	if (data?.byId && Object.keys(data.byId).length === 0)
+	if (tagIds.length === 0)
 		return (
 			<button
 				type="button"
