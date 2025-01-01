@@ -3,19 +3,18 @@ import {
 	queryLogbookById,
 	queryLogbooksByUser,
 } from "@/lib/data/models/logbooks/query-logbooks";
+import { getUserIdFromSessionOrBail } from "@/lib/data/request-handlers/get-user-id-from-session-or-bail";
 import type { RequestHandler } from "express";
 
 /** Queries all logbooks by user. */
 export const getLogbooks: RequestHandler = async (req, res) => {
-	const user_id = req.session.user?.user_id;
-	if (!user_id) {
-		return res.status(401).send("Unauthorized");
-	} // TODO: should never happen because of middleware
+	const user_id = getUserIdFromSessionOrBail(req, res);
+	if (user_id) {
+		const logbooks = await queryLogbooksByUser({ user_id });
+		const byId = groupById(logbooks, "logbook_id");
 
-	const logbooks = await queryLogbooksByUser({ user_id });
-	const byId = groupById(logbooks, "logbook_id");
-
-	res.json({ byId });
+		res.json({ byId });
+	}
 };
 
 /** Queries a single logbook by id. */

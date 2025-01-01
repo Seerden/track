@@ -7,6 +7,9 @@ import { Router } from "express";
 
 export const authRouter = Router({ mergeParams: true });
 
+// TODO: these functions all need request handler functions defined separately,
+// like we do with the data router.
+
 authRouter.get("/me", async (req, res) => {
 	if (!req.session?.user?.user_id) {
 		return res.status(401).json({ user: null, message: "No active user." });
