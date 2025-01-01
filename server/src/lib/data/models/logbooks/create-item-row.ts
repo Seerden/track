@@ -6,14 +6,15 @@ import type {
 	NewFieldValue,
 	NewItemRow,
 } from "@t/data/logbook.types";
+import type { ID } from "@t/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
 export const createItemRow: QueryFunction<
-	{ newItemRow: NewItemRow; newFieldValues: NewFieldValue[] },
+	{ newItemRow: NewItemRow; newFieldValues: NewFieldValue[]; user_id: ID },
 	Promise<ItemRowWithFieldValues>
-> = async ({ sql = sqlConnection, newItemRow, newFieldValues }) => {
+> = async ({ sql = sqlConnection, newItemRow, newFieldValues, user_id }) => {
 	const result = await sql.begin(async (q) => {
-		const itemRow = await insertItemRow({ sql: q, newItemRow });
+		const itemRow = await insertItemRow({ sql: q, newItemRow, user_id });
 
 		const fieldValues = await Promise.all(
 			newFieldValues.map(async (fieldValue) => {
@@ -21,6 +22,7 @@ export const createItemRow: QueryFunction<
 					sql: q,
 					newFieldValue: {
 						...fieldValue,
+						user_id,
 						item_row_id: itemRow.item_row_id,
 					},
 				});

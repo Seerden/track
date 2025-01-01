@@ -9,5 +9,8 @@ export async function getMe({ req, res }: { req: Request; res: Response }) {
 		return res.status(200).json({ user: await queryUserbyId({ user_id }) });
 	}
 
+	// TODO: this should probably still be a 200, because not being logged in
+	// isn't an error. Then we can gracefully handle the not-logged-in case in
+	// the client.
 	return res.status(401).json({ user: null, message: "No active user." });
 }

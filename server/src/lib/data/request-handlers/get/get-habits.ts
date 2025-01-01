@@ -1,10 +1,13 @@
 import { queryHabitsAndRelations } from "@/lib/data/models/habits/query-habits";
+import { getUserIdFromSessionOrBail } from "@/lib/data/request-handlers/get-user-id-from-session-or-bail";
 import type { RequestHandler } from "express";
 
 const getHabits: RequestHandler = async (req, res) => {
-	const user_id = req.session.user!.user_id; // always exists if we're here, because of middleware
-	const habitsById = await queryHabitsAndRelations({ user_id });
-	res.json({ byId: habitsById });
+	const user_id = getUserIdFromSessionOrBail(req, res);
+	if (user_id) {
+		const habitsById = await queryHabitsAndRelations({ user_id });
+		res.json({ byId: habitsById });
+	}
 };
 
 export default getHabits;

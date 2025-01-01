@@ -3,19 +3,18 @@ import {
 	queryItemRows,
 	queryItemRowsByLog,
 } from "@/lib/data/models/logbooks/query-item-rows";
+import { getUserIdFromSessionOrBail } from "@/lib/data/request-handlers/get-user-id-from-session-or-bail";
 import type { RequestHandler } from "express-serve-static-core";
 
 /** Request handler for `/data/logbooks/items/rows`. */
 export const getItemRows: RequestHandler = async (req, res) => {
-	const user_id = req.session.user?.user_id;
-	if (!user_id) {
-		return res.status(401).send("Unauthorized");
+	const user_id = getUserIdFromSessionOrBail(req, res);
+	if (user_id) {
+		const itemRows = await queryItemRows({ user_id });
+		const byId = groupById(itemRows, "item_row_id");
+
+		res.json({ byId });
 	}
-
-	const itemRows = await queryItemRows({ user_id });
-	const byId = groupById(itemRows, "item_row_id");
-
-	res.json({ byId });
 };
 
 /** Request handler for `/data/logbooks/log/:log_id/items/rows`. */

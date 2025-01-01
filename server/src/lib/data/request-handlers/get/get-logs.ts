@@ -3,19 +3,18 @@ import {
 	queryLogsByLogbook,
 	queryLogsByUser,
 } from "@/lib/data/models/logbooks/query-logs";
+import { getUserIdFromSessionOrBail } from "@/lib/data/request-handlers/get-user-id-from-session-or-bail";
 import type { RequestHandler } from "express";
 
 /** Request handler for `/data/logbooks/logs`. */
 export const getLogs: RequestHandler = async (req, res) => {
-	const user_id = req.session.user?.user_id;
-	if (!user_id) {
-		return res.status(401).send("Unauthorized");
-	} // TODO: same as everywhere else...
+	const user_id = getUserIdFromSessionOrBail(req, res);
+	if (user_id) {
+		const logs = await queryLogsByUser({ user_id });
+		const byId = groupById(logs, "log_id");
 
-	const logs = await queryLogsByUser({ user_id });
-	const byId = groupById(logs, "log_id");
-
-	res.json({ byId });
+		res.json({ byId });
+	}
 };
 
 /** Request handler for `/data/logbook/:logbook_id/logs`. */
