@@ -1,6 +1,4 @@
 -- users
--- rename user_id to user_id_old, then add user_id bigint generated always as
--- identity primary key using user_id_old::bigint
 alter table users drop constraint users_pkey cascade;
 alter table users drop column user_id;
 alter table users add column user_id bigint generated always as identity primary key;
