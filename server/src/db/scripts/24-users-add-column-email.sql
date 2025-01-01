@@ -1,0 +1,1 @@
+alter table users add column email text unique not null;
