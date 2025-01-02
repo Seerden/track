@@ -7,6 +7,7 @@ import { deleteLog } from "@/lib/data/request-handlers/delete/delete-log";
 import { deleteLogTemplate } from "@/lib/data/request-handlers/delete/delete-log-template";
 import { deleteLogbook } from "@/lib/data/request-handlers/delete/delete-logbook";
 import getActivities from "@/lib/data/request-handlers/get/get-activities";
+import { getFieldTemplatesByItemTemplate } from "@/lib/data/request-handlers/get/get-field-templates";
 import {
 	getFields,
 	getFieldsByItemRow,
@@ -124,6 +125,10 @@ dataRouter.get("/logbook/:logbook_id/templates", getLogTemplatesByLogbook);
 dataRouter.get("/logbooks/fields", getFields);
 dataRouter.get("/logbooks/items/rows", getItemRows);
 dataRouter.get("/logbook/items/template/:item_template_id/items", getItemsByTemplate);
+dataRouter.get(
+	"/logbook/items/template/:item_template_id/fields/templates",
+	getFieldTemplatesByItemTemplate,
+);
 dataRouter.get("/logbooks/items", getItems);
 
 /* --- PUT --- */
