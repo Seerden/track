@@ -40,7 +40,7 @@ export default function LogDetailSection({
 				<S.Header>{itemTemplate.name}</S.Header>
 
 				<S.ItemSections>
-					{itemSelection?.included.map((item) => (
+					{itemSelection.included.map((item) => (
 						<ItemSection
 							fieldTemplates={fieldTemplates}
 							log_id={log_id}
