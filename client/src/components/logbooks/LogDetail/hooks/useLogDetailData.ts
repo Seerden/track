@@ -27,6 +27,7 @@ export default function useLogDetailData({ logbookId, logId }: UseLogDetailDataA
 	return {
 		isProbablySuspended,
 		itemTemplates,
+		itemTemplatesById: itemTemplatesData.byId,
 		log
 	};
 }

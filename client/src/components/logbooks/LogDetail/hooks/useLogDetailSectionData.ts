@@ -36,6 +36,7 @@ export default function useLogDetailSectionData({
 	return {
 		isProbablySuspended,
 		items,
+		itemsById: itemsData.byId,
 		log,
 		fieldTemplates
 	};

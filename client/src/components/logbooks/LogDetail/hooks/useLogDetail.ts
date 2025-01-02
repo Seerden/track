@@ -3,7 +3,6 @@ import useUpdateLogLayout from "@/components/logbooks/LogDetail/hooks/useUpdateL
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import type { ItemTemplate } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
-import { useMemo } from "react";
 
 /** Functionality hook for LogDetail. */
 export default function useLogDetail({ logbook_id }: { logbook_id?: ID }) {
@@ -11,42 +10,38 @@ export default function useLogDetail({ logbook_id }: { logbook_id?: ID }) {
 	const logbookId = +(logbook_id ?? (params.logbookId || 0)); // TODO: do not use 0
 	const logId = +(params.logId ?? 0); // TODO: do not use 0
 
-	const { isProbablySuspended, itemTemplates, log } = useLogDetailData({
-		logbookId,
-		logId
-	});
+	const { isProbablySuspended, itemTemplates, itemTemplatesById, log } =
+		useLogDetailData({
+			logbookId,
+			logId
+		});
 	const { appendLayoutSection } = useUpdateLogLayout({ log });
-
-	// TODO: this should be a pure function that's called with memoized values,
-	// so we can test it properly. In fact, it should probably be on the server
-	// altogether.
-	const itemTemplateSelection = useMemo(() => {
-		return itemTemplates?.reduce(
-			(acc, cur) => {
-				const selected = Boolean(
-					log?.layout.find(
-						(section) => +section.item_template_id === +cur.item_template_id
-					)
-				);
-				if (selected) {
-					acc.included.push(cur);
-				} else {
-					acc.excluded.push(cur);
-				}
-				return acc;
-			},
-			{
-				included: [] as ItemTemplate[],
-				excluded: [] as ItemTemplate[]
-			} as const
-		);
-	}, [itemTemplates, log]);
 
 	if (isProbablySuspended) {
 		return {
 			isProbablySuspended
 		};
 	}
+
+	// TODO: this itemTemplateSelection computation should be a pure function
+	// that's called with memoized values, so we can test it properly. In fact,
+	// it should probably be on the server altogether.
+	const layoutSectionIds = log?.layout.map((section) => section.item_template_id) ?? [];
+
+	const included = layoutSectionIds.reduce((acc, cur) => {
+		const template = itemTemplatesById.get(cur);
+		return template ? acc.concat(template) : acc;
+	}, [] as ItemTemplate[]);
+
+	const excluded = itemTemplates.filter(
+		(template) =>
+			!included.some((i) => i.item_template_id === template.item_template_id)
+	);
+
+	const itemTemplateSelection = {
+		included,
+		excluded
+	};
 
 	return {
 		isProbablySuspended,
