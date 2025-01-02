@@ -1,4 +1,5 @@
 import { sqlConnection } from "@/db/init";
+import { groupById } from "@/lib/data/models/group-by-id";
 import type { Field } from "@t/data/logbook.types";
 import type { ById, ID } from "@t/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
@@ -12,7 +13,7 @@ export const queryFields: QueryFunction<{ user_id: ID }, Promise<ById<Field>>> =
 	sql = sqlConnection,
 	user_id,
 }) => {
-	const value = await sql<[Field]>`
+	const fields = await sql<[Field]>`
       SELECT 
          t.*, 
          jsonb_agg(v.*) AS values
@@ -24,8 +25,5 @@ export const queryFields: QueryFunction<{ user_id: ID }, Promise<ById<Field>>> =
       GROUP BY t.field_template_id
    `;
 
-	return value.reduce((acc, cur) => {
-		acc[cur.field_template_id] = cur;
-		return acc;
-	}, {} as ById<Field>);
+	return groupById(fields, "field_template_id");
 };

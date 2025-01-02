@@ -1,5 +1,4 @@
 import { sqlConnection } from "@/db/init";
-import { queryLogbooksByUser } from "@/lib/data/models/logbooks/query-logbooks";
 import type { Log } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
@@ -10,12 +9,9 @@ export const queryLogsByUser: QueryFunction<{ user_id: ID }, Promise<Log[]>> = a
 	sql = sqlConnection,
 	user_id,
 }) => {
-	const logbooks = await queryLogbooksByUser({ user_id, sql });
-	const logbookIds = logbooks.map((logbook) => +logbook.logbook_id);
-
 	const logs = await sql<[Log]>`
       SELECT * FROM logs
-      WHERE logbook_id = ANY(${sql.array(logbookIds)}::bigint[])
+      WHERE user_id=${user_id})
    `;
 
 	return logs;
