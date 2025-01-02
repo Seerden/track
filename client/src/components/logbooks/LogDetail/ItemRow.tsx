@@ -1,7 +1,7 @@
-import type { FieldTemplateWithValue } from "@/components/logbooks/logbook.types";
 import { hasValues } from "@/components/logbooks/LogDetail/lib/has-values";
 import Containers from "@/lib/theme/components/container.style";
 import type { Field } from "@t/data/logbook.api.types";
+import type { FieldTemplateWithValue } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
 import S from "./style/ItemRow.style";
 
@@ -37,7 +37,7 @@ type MaybeItemRowProps = {
 
 /** If each `field` in `fieldsForItem` has values, returns an ItemRow. */
 export default function MaybeItemRow({ fields, item_row_id }: MaybeItemRowProps) {
-	// const { data: fields } = useQueryFieldsByItemRow(item_row_id) // TODO(TRK-182)
+	// const { data: fieldsData } = useQueryFieldsByItemRow({ item_row_id }); // TODO(TRK-182)
 
 	const fieldAndValueList = fields.map((field) => {
 		const { values, ..._field } = field;
@@ -46,11 +46,11 @@ export default function MaybeItemRow({ fields, item_row_id }: MaybeItemRowProps)
 		const fieldValue = values.find((value) => +value.item_row_id === +item_row_id);
 
 		return Object.assign({}, _field, {
-			value: fieldValue?.value
+			value: fieldValue?.value ?? null
 		});
 	});
 
-	// TODO(TRK-182): rename hasValues to eachFieldHasValue
+	// TODO(TRK-182): rename hasValues to eachRequiredFieldHasValue
 	if (!hasValues(fieldAndValueList)) return null;
 
 	return <ItemRow fields={fieldAndValueList} />;

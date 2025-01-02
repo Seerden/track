@@ -55,7 +55,9 @@ const qk = {
 			["logbooks", "templates", "logbook", logbook_id] as const
 	},
 	fields: {
-		all: ["logbooks", "fields"]
+		all: ["logbooks", "fields"],
+		byItemRow: (item_row_id: ID) =>
+			["logbooks", "items", "rows", item_row_id, "fields"] as const
 	}
 } as const;
 
