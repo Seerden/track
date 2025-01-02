@@ -1,13 +1,10 @@
 import databaseScriptCache from "@/db/cache-script-executions";
-import { sqlConnection } from "@/db/init";
 import * as Sentry from "@sentry/node";
 import type { SeverityLevel } from "@sentry/types";
 
 export async function runAtStartup() {
 	try {
 		await databaseScriptCache.synchronize();
-
-		await sqlConnection`select ()()`;
 	} catch (error) {
 		Sentry.captureEvent({
 			message: "Failed to runAtStartup",
