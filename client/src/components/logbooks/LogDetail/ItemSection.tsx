@@ -18,6 +18,7 @@ export default function ItemSection({ rows, item, log_id }: ItemSectionProps) {
 
 	if (isProbablySuspended) return null;
 
+	// const labels = fieldTemplates.map(template => template.name) // TODO(TRK-182)
 	const labels = fieldsForItem.map((field) => field.name);
 
 	return (

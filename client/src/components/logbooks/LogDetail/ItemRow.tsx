@@ -37,6 +37,8 @@ type MaybeItemRowProps = {
 
 /** If each `field` in `fieldsForItem` has values, returns an ItemRow. */
 export default function MaybeItemRow({ fields, item_row_id }: MaybeItemRowProps) {
+	// const { data: fields } = useQueryFieldsByItemRow(item_row_id) // TODO(TRK-182)
+
 	const fieldAndValueList = fields.map((field) => {
 		const { values, ..._field } = field;
 
@@ -48,6 +50,7 @@ export default function MaybeItemRow({ fields, item_row_id }: MaybeItemRowProps)
 		});
 	});
 
+	// TODO(TRK-182): rename hasValues to eachFieldHasValue
 	if (!hasValues(fieldAndValueList)) return null;
 
 	return <ItemRow fields={fieldAndValueList} />;

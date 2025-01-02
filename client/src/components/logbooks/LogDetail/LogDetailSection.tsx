@@ -33,6 +33,11 @@ export default function LogDetailSection({
 		log_id
 	});
 
+	// const fieldTemplates =
+	// useQueryFieldTemplatesByItemTemplate(itemTemplate.item_template_id);
+	// TODO(TRK-182) -- put ^ this in the hook and include the condition in
+	// isProbablySuspended.
+
 	if (isProbablySuspended) return null;
 
 	return (
@@ -43,10 +48,12 @@ export default function LogDetailSection({
 				<S.ItemSections>
 					{itemSelection?.included.map((item) => (
 						<ItemSection
+							// fieldTemplates={fieldTemplates} // TODO(TRK-182)
 							log_id={log_id}
 							key={item.item_id}
 							item={item}
-							// TODO: do not compute rows inline
+							// TODO: do not compute rows inline -- TRK-182 (can get rid
+							// of this prop once changes are implemented)
 							rows={getRowsForItem({
 								itemRows,
 								item_id: +item.item_id,
