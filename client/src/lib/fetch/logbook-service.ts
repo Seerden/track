@@ -118,6 +118,12 @@ const logbookService = {
 			api.get<{ fields: FieldTemplateWithValue[] }>({
 				url: `/data/logbooks/items/rows/${item_row_id}/fields`
 			})
+	},
+	fieldTemplates: {
+		getByItemTemplate: async (item_template_id: ID) =>
+			api.get<{ fieldTemplates: FieldTemplateWithValue[] }>({
+				url: `/data/logbook/items/template/${item_template_id}/fields/templates`
+			})
 	}
 };
 

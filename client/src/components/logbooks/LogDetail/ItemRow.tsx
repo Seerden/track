@@ -46,7 +46,7 @@ export default function MaybeItemRow({ fields, item_row_id }: MaybeItemRowProps)
 		const fieldValue = values.find((value) => +value.item_row_id === +item_row_id);
 
 		return Object.assign({}, _field, {
-			value: fieldValue?.value ?? null
+			value: fieldValue?.value ?? null // TODO: since we do null now, we can get empty value fields in the table -- revealed a bug with the cell height when empty
 		});
 	});
 
