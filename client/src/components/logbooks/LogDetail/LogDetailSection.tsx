@@ -42,7 +42,7 @@ export default function LogDetailSection({
 				<S.ItemSections>
 					{itemSelection?.included.map((item) => (
 						<ItemSection
-							fieldTemplates={fieldTemplates} // TODO(TRK-182)
+							fieldTemplates={fieldTemplates}
 							log_id={log_id}
 							key={item.item_id}
 							item={item}
