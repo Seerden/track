@@ -1,10 +1,11 @@
-import Sentry from "@sentry/node";
+import * as Sentry from "@sentry/node";
 import cors from "cors";
 import "dotenv/config";
 import type { RequestHandler } from "express";
 import express from "express";
 import session from "express-session";
-import "./instrument";
+import "./instrument"; // THIS MUST BE TOP OF FILE
+import { onError } from "./instrument";
 import { pingDatabase } from "./src/db/init";
 import { logRequests } from "./src/lib/log-requests";
 import { initializeRedisConnection, redisSession } from "./src/lib/redis/redis-client";
@@ -45,11 +46,7 @@ async function start() {
 	app.use("/auth", routers.auth);
 
 	Sentry.setupExpressErrorHandler(app);
-	app.use(function onError(err, req, res, next) {
-		console.error(err);
-		res.statusCode = 500;
-		res.end(res.sentry + "\n");
-	});
+	app.use(onError);
 
 	const port = process.env.PORT || 5000;
 

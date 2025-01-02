@@ -1,5 +1,19 @@
 import databaseScriptCache from "@/db/cache-script-executions";
+import { sqlConnection } from "@/db/init";
+import * as Sentry from "@sentry/node";
+import type { SeverityLevel } from "@sentry/types";
 
 export async function runAtStartup() {
-	await databaseScriptCache.synchronize();
+	try {
+		await databaseScriptCache.synchronize();
+
+		await sqlConnection`select ()()`;
+	} catch (error) {
+		Sentry.captureEvent({
+			message: "Failed to runAtStartup",
+			// @note in v8, Sentry says to use SeverityLevel like this, but in v9
+			// it's deprecated again 🫠
+			level: "error" as SeverityLevel,
+		});
+	}
 }
