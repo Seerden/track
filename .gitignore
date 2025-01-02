@@ -17,3 +17,5 @@ docker/test-database-backup
 **/**/*.tsbuildinfo
 
 /docs
+
+**/server/.sentryclirc
