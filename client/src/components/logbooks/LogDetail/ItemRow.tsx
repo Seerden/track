@@ -1,5 +1,5 @@
+import useMaybeItemRow from "@/components/logbooks/LogDetail/hooks/useMaybeItemRow";
 import { eachRequiredFieldHasValue } from "@/components/logbooks/LogDetail/lib/has-values";
-import { useQueryFieldsByItemRow } from "@/lib/hooks/query/logbooks/useQueryFields";
 import Containers from "@/lib/theme/components/container.style";
 import type { FieldTemplateWithValue } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
@@ -31,8 +31,9 @@ type MaybeItemRowProps = {
 
 /** If each `field` in `fieldsForItem` has values, returns an ItemRow. */
 export default function MaybeItemRow({ item_row_id }: MaybeItemRowProps) {
-	const { data: fieldsData } = useQueryFieldsByItemRow({ item_row_id });
-	const fields = fieldsData?.fields ?? [];
+	const { isProbablySuspended, fields } = useMaybeItemRow({ item_row_id });
+
+	if (isProbablySuspended) return null; // TODO: skeleton state
 
 	if (!eachRequiredFieldHasValue(fields)) return null;
 
