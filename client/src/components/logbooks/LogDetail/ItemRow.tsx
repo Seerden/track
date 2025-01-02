@@ -1,7 +1,7 @@
-import type { FieldTemplateWithValue } from "@/components/logbooks/logbook.types";
 import { hasValues } from "@/components/logbooks/LogDetail/lib/has-values";
 import Containers from "@/lib/theme/components/container.style";
 import type { Field } from "@t/data/logbook.api.types";
+import type { FieldTemplateWithValue } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
 import S from "./style/ItemRow.style";
 
@@ -46,7 +46,7 @@ export default function MaybeItemRow({ fields, item_row_id }: MaybeItemRowProps)
 		const fieldValue = values.find((value) => +value.item_row_id === +item_row_id);
 
 		return Object.assign({}, _field, {
-			value: fieldValue?.value
+			value: fieldValue?.value ?? null
 		});
 	});
 
