@@ -24,3 +24,19 @@ export function useQueryItemRowsByLog({ log_id }: { log_id: ID }) {
 		...defaultQueryConfig
 	});
 }
+
+/** This query gets the item rows for the given log/item combination. */
+export function useQueryItemRowsByLogItem({
+	log_id,
+	item_id
+}: {
+	log_id: ID;
+	item_id: ID;
+}) {
+	return useQuery({
+		queryKey: qk.items.rows.byLogItem({ log_id, item_id }),
+		queryFn: () => logbookService.itemRows.getByLogItem({ log_id, item_id }),
+		select,
+		...defaultQueryConfig
+	});
+}
