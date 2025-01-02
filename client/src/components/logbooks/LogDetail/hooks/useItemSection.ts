@@ -1,13 +1,12 @@
-import { getFieldsForItem } from "@/components/logbooks/LogDetail/lib/get-fields";
-import useQueryFields from "@/lib/hooks/query/logbooks/useQueryFields";
+import { useQueryItemRowsByLogItem } from "@/lib/hooks/query/logbooks/useQueryItemRows";
 import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
-import type { Item } from "@t/data/logbook.types";
+import type { ID } from "@t/data/utility.types";
 
 /** Functionality hook for ItemSection */
-export default function useItemSection({ item }: { item: Item }) {
-	const { data: fieldsData } = useQueryFields();
+export default function useItemSection({ item_id, log_id }: { item_id: ID; log_id: ID }) {
+	const { data: itemRowsData } = useQueryItemRowsByLogItem({ item_id, log_id });
 
-	const isProbablySuspended = !fieldsData;
+	const isProbablySuspended = !itemRowsData;
 
 	if (isProbablySuspended) {
 		return {
@@ -15,17 +14,10 @@ export default function useItemSection({ item }: { item: Item }) {
 		};
 	}
 
-	const fields = byIdAsList(fieldsData.byId);
-
-	// TODO: this should come from the server, instead of us fetching all fields
-	// and filtering them here.
-	const fieldsForItem = getFieldsForItem({
-		item,
-		fields
-	});
+	const itemRows = byIdAsList(itemRowsData.byId);
 
 	return {
 		isProbablySuspended,
-		fieldsForItem
+		itemRows
 	};
 }

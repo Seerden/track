@@ -152,4 +152,5 @@ export type Logbook = {
 };
 
 export * from "./logbook.api.types";
+export * from "./logbook.derived.types";
 export * from "./logbook.new.types";

@@ -1,4 +1,4 @@
-import type { FieldTemplateWithMaybeValue } from "@/components/logbooks/logbook.types";
+import type { FieldTemplateWithMaybeValue } from "@t/data/logbook.derived.types";
 import type { NewFieldValue } from "@t/data/logbook.new.types";
 import type { ID } from "@t/data/utility.types";
 

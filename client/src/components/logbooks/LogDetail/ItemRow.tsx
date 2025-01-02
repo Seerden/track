@@ -1,16 +1,11 @@
-import type { FieldTemplateWithValue } from "@/components/logbooks/logbook.types";
-import { hasValues } from "@/components/logbooks/LogDetail/lib/has-values";
+import useMaybeItemRow from "@/components/logbooks/LogDetail/hooks/useMaybeItemRow";
+import { eachRequiredFieldHasValue } from "@/components/logbooks/LogDetail/lib/has-values";
 import Containers from "@/lib/theme/components/container.style";
-import type { Field } from "@t/data/logbook.api.types";
+import type { FieldTemplateWithValue } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
 import S from "./style/ItemRow.style";
 
-/**
- * @todo I do not like how ItemRow and MaybeItemRow both have a `fields` prop, but
- * the actual type of each `fields` is different.
- */
-
-export type ItemRowProps = {
+type ItemRowProps = {
 	fields: FieldTemplateWithValue[];
 };
 
@@ -31,24 +26,16 @@ function ItemRow({ fields }: ItemRowProps) {
 }
 
 type MaybeItemRowProps = {
-	fields: Field[];
 	item_row_id: ID;
 };
 
 /** If each `field` in `fieldsForItem` has values, returns an ItemRow. */
-export default function MaybeItemRow({ fields, item_row_id }: MaybeItemRowProps) {
-	const fieldAndValueList = fields.map((field) => {
-		const { values, ..._field } = field;
+export default function MaybeItemRow({ item_row_id }: MaybeItemRowProps) {
+	const { isProbablySuspended, fields } = useMaybeItemRow({ item_row_id });
 
-		/** @todo issue #175 */
-		const fieldValue = values.find((value) => +value.item_row_id === +item_row_id);
+	if (isProbablySuspended) return null; // TODO: skeleton state
 
-		return Object.assign({}, _field, {
-			value: fieldValue?.value
-		});
-	});
+	if (!eachRequiredFieldHasValue(fields)) return null;
 
-	if (!hasValues(fieldAndValueList)) return null;
-
-	return <ItemRow fields={fieldAndValueList} />;
+	return <ItemRow fields={fields} />;
 }

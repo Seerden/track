@@ -9,6 +9,8 @@ import type {
 	LogTemplatesData
 } from "@/types/data.types";
 import type {
+	FieldTemplate,
+	FieldTemplateWithMaybeValue,
 	Item,
 	ItemRowWithFieldValues,
 	ItemTemplateAndFieldTemplates,
@@ -101,6 +103,10 @@ const logbookService = {
 		getByUser: async () => api.get<ItemRowsData>({ url: "/data/logbooks/items/rows" }),
 		getByLog: async (log_id: ID) =>
 			api.get<ItemRowsData>({ url: `/data/logbook/log/${log_id}/items/rows` }),
+		getByLogItem: async ({ log_id, item_id }: { log_id: ID; item_id: ID }) =>
+			api.get<ItemRowsData>({
+				url: `/data/logbook/log/${log_id}/items/${item_id}/rows`
+			}),
 		post: async (input: NewItemRowInput) =>
 			api.post<NewItemRowInput, ItemRowWithFieldValues>({
 				url: "/data/logbook/item/row",
@@ -108,7 +114,17 @@ const logbookService = {
 			})
 	},
 	fields: {
-		getByUser: async () => api.get<FieldsData>({ url: "/data/logbooks/fields" })
+		getByUser: async () => api.get<FieldsData>({ url: "/data/logbooks/fields" }),
+		getByItemRow: async ({ item_row_id }: { item_row_id: ID }) =>
+			api.get<{ fields: FieldTemplateWithMaybeValue[] }>({
+				url: `/data/logbooks/items/rows/${item_row_id}/fields`
+			})
+	},
+	fieldTemplates: {
+		getByItemTemplate: async (item_template_id: ID) =>
+			api.get<{ fieldTemplates: FieldTemplate[] }>({
+				url: `/data/logbook/items/template/${item_template_id}/fields/templates`
+			})
 	}
 };
 

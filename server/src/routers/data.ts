@@ -7,12 +7,17 @@ import { deleteLog } from "@/lib/data/request-handlers/delete/delete-log";
 import { deleteLogTemplate } from "@/lib/data/request-handlers/delete/delete-log-template";
 import { deleteLogbook } from "@/lib/data/request-handlers/delete/delete-logbook";
 import getActivities from "@/lib/data/request-handlers/get/get-activities";
-import { getFields } from "@/lib/data/request-handlers/get/get-fields";
+import { getFieldTemplatesByItemTemplate } from "@/lib/data/request-handlers/get/get-field-templates";
+import {
+	getFields,
+	getFieldsByItemRow,
+} from "@/lib/data/request-handlers/get/get-fields";
 import getHabitEntries from "@/lib/data/request-handlers/get/get-habit-entries";
 import getHabits from "@/lib/data/request-handlers/get/get-habits";
 import {
 	getItemRows,
 	getItemRowsByLog,
+	getItemRowsByLogItem,
 } from "@/lib/data/request-handlers/get/get-item-rows";
 import { getItemTemplatesByLogbook } from "@/lib/data/request-handlers/get/get-item-templates";
 import {
@@ -104,9 +109,11 @@ dataRouter.delete("/logbook/:logbook_id", deleteLogbook);
 dataRouter.get("/logbooks", getLogbooks);
 dataRouter.get("/logbooks/logs", getLogs);
 
+dataRouter.get("/logbooks/items/rows/:item_row_id/fields", getFieldsByItemRow);
 // This should probably take the logbook_id as a parameter, but it's simpler for
 // the frontend now to not worry about that
 dataRouter.get("/logbook/log/:log_id/items/rows", getItemRowsByLog);
+dataRouter.get("/logbook/log/:log_id/items/:item_id/rows", getItemRowsByLogItem);
 
 dataRouter.get("/logbook/:logbook_id", getLogbook);
 dataRouter.get("/logbook/:logbook_id/logs", getLogsByLogbook);
@@ -115,10 +122,13 @@ dataRouter.get("/logbook/:logbook_id/item/templates", getItemTemplatesByLogbook)
 dataRouter.get("/logbook/templates", getLogTemplates);
 dataRouter.get("/logbook/template/:log_template_id", getLogTemplate);
 dataRouter.get("/logbook/:logbook_id/templates", getLogTemplatesByLogbook);
-
 dataRouter.get("/logbooks/fields", getFields);
 dataRouter.get("/logbooks/items/rows", getItemRows);
 dataRouter.get("/logbook/items/template/:item_template_id/items", getItemsByTemplate);
+dataRouter.get(
+	"/logbook/items/template/:item_template_id/fields/templates",
+	getFieldTemplatesByItemTemplate,
+);
 dataRouter.get("/logbooks/items", getItems);
 
 /* --- PUT --- */

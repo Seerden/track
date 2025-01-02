@@ -1,4 +1,4 @@
-import type { FieldTemplateWithMaybeValue } from "@/components/logbooks/logbook.types";
+import type { FieldTemplateWithMaybeValue } from "@t/data/logbook.derived.types";
 
 /** Helper for useNewItemRow that determines whether an input is valid according
  * to the settings specified by its `FieldTemplateWithValue`. */

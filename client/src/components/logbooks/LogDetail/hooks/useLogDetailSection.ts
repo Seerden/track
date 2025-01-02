@@ -16,7 +16,7 @@ export default function useLogDetailSection({
 	itemTemplate,
 	log_id
 }: UseLogDetailSectionArgs) {
-	const { isProbablySuspended, itemRows, items, log } = useLogDetailSectionData({
+	const { isProbablySuspended, items, log, fieldTemplates } = useLogDetailSectionData({
 		log_id,
 		item_template_id: itemTemplate.item_template_id
 	});
@@ -69,11 +69,11 @@ export default function useLogDetailSection({
 
 	return {
 		isProbablySuspended,
-		itemRows,
 		modalId,
 		items,
 		itemSelection,
 		handleModalOpen,
-		addItemToSection
+		addItemToSection,
+		fieldTemplates
 	};
 }

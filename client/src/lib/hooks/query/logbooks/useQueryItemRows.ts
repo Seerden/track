@@ -24,3 +24,22 @@ export function useQueryItemRowsByLog({ log_id }: { log_id: ID }) {
 		...defaultQueryConfig
 	});
 }
+
+/** This query gets the item rows for the given log/item combination. */
+export function useQueryItemRowsByLogItem({
+	log_id,
+	item_id
+}: {
+	// TODO: putting this comment in the codebase once: should we start
+	// extracting query parameter types? This one for example is used about 5
+	// times when defining the whole endpoint from client to database.
+	log_id: ID;
+	item_id: ID;
+}) {
+	return useQuery({
+		queryKey: qk.items.rows.byLogItem({ log_id, item_id }),
+		queryFn: () => logbookService.itemRows.getByLogItem({ log_id, item_id }),
+		select,
+		...defaultQueryConfig
+	});
+}
