@@ -38,7 +38,9 @@ const qk = {
 			["logbooks", "items", item_template_id] as const,
 		rows: {
 			all: ["logbooks", "items", "rows"],
-			byLog: (log_id: ID) => ["logbooks", "items", "rows", "log", log_id] as const
+			byLog: (log_id: ID) => ["logbooks", "items", "rows", "log", log_id] as const,
+			byLogItem: ({ log_id, item_id }: { log_id: ID; item_id: ID }) =>
+				["logbooks", "items", "rows", "log", log_id, "item", item_id] as const
 		},
 		all: ["logbooks", "items"]
 	},

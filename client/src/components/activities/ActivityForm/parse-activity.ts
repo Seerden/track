@@ -24,7 +24,7 @@ export function maybeThrowOnInvalidActivity(
 	activity: Partial<ActivityWithIds | NewActivity>
 ) {
 	if (!hasValidUserId(activity)) {
-		throw new Error("Activity must have a valid user idd");
+		throw new Error("Activity must have a valid user id");
 	}
 
 	if (!activityGuards.withDates(activity) && !activityGuards.withTimestamps(activity)) {

@@ -101,6 +101,10 @@ const logbookService = {
 		getByUser: async () => api.get<ItemRowsData>({ url: "/data/logbooks/items/rows" }),
 		getByLog: async (log_id: ID) =>
 			api.get<ItemRowsData>({ url: `/data/logbook/log/${log_id}/items/rows` }),
+		getByLogItem: async ({ log_id, item_id }: { log_id: ID; item_id: ID }) =>
+			api.get<ItemRowsData>({
+				url: `/data/logbook/log/${log_id}/items/${item_id}/rows`
+			}),
 		post: async (input: NewItemRowInput) =>
 			api.post<NewItemRowInput, ItemRowWithFieldValues>({
 				url: "/data/logbook/item/row",

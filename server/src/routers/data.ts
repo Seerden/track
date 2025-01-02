@@ -13,6 +13,7 @@ import getHabits from "@/lib/data/request-handlers/get/get-habits";
 import {
 	getItemRows,
 	getItemRowsByLog,
+	getItemRowsByLogItem,
 } from "@/lib/data/request-handlers/get/get-item-rows";
 import { getItemTemplatesByLogbook } from "@/lib/data/request-handlers/get/get-item-templates";
 import {
@@ -107,6 +108,7 @@ dataRouter.get("/logbooks/logs", getLogs);
 // This should probably take the logbook_id as a parameter, but it's simpler for
 // the frontend now to not worry about that
 dataRouter.get("/logbook/log/:log_id/items/rows", getItemRowsByLog);
+dataRouter.get("/logbook/log/:log_id/items/:item_id/rows", getItemRowsByLogItem);
 
 dataRouter.get("/logbook/:logbook_id", getLogbook);
 dataRouter.get("/logbook/:logbook_id/logs", getLogsByLogbook);
@@ -115,7 +117,6 @@ dataRouter.get("/logbook/:logbook_id/item/templates", getItemTemplatesByLogbook)
 dataRouter.get("/logbook/templates", getLogTemplates);
 dataRouter.get("/logbook/template/:log_template_id", getLogTemplate);
 dataRouter.get("/logbook/:logbook_id/templates", getLogTemplatesByLogbook);
-
 dataRouter.get("/logbooks/fields", getFields);
 dataRouter.get("/logbooks/items/rows", getItemRows);
 dataRouter.get("/logbook/items/template/:item_template_id/items", getItemsByTemplate);

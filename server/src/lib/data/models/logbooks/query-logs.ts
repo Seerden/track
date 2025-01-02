@@ -11,7 +11,7 @@ export const queryLogsByUser: QueryFunction<{ user_id: ID }, Promise<Log[]>> = a
 }) => {
 	const logs = await sql<[Log]>`
       SELECT * FROM logs
-      WHERE user_id=${user_id})
+      WHERE user_id=${user_id}
    `;
 
 	return logs;
