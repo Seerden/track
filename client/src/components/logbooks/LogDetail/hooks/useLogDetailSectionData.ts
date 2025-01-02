@@ -1,4 +1,4 @@
-import { useQueryItemRowsByLog } from "@/lib/hooks/query/logbooks/useQueryItemRows";
+import { useQueryFieldTemplatesByItemTemplate } from "@/lib/hooks/query/logbooks/useQueryFieldTemplates";
 import { useQueryItemsByItemTemplate } from "@/lib/hooks/query/logbooks/useQueryItems";
 import useQueryLogs from "@/lib/hooks/query/logbooks/useQueryLogs";
 import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
@@ -15,11 +15,13 @@ export default function useLogDetailSectionData({
 	log_id,
 	item_template_id
 }: UseLogDetailSectionDataArgs) {
-	const { data: itemRowsData } = useQueryItemRowsByLog({ log_id });
 	const { data: itemsData } = useQueryItemsByItemTemplate(item_template_id);
 	const { data: logsData } = useQueryLogs();
+	const { data: fieldTemplatesData } = useQueryFieldTemplatesByItemTemplate({
+		item_template_id
+	});
 
-	const isProbablySuspended = !itemRowsData || !itemsData || !logsData;
+	const isProbablySuspended = !itemsData || !logsData || !fieldTemplatesData;
 
 	if (isProbablySuspended) {
 		return {
@@ -27,14 +29,14 @@ export default function useLogDetailSectionData({
 		};
 	}
 
-	const itemRows = byIdAsList(itemRowsData.byId);
 	const items = byIdAsList(itemsData.byId);
 	const log = logsData.byId.get(String(log_id));
+	const fieldTemplates = fieldTemplatesData.fieldTemplates;
 
 	return {
 		isProbablySuspended,
-		itemRows,
 		items,
-		log
+		log,
+		fieldTemplates
 	};
 }

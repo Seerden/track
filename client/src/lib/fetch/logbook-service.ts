@@ -9,7 +9,8 @@ import type {
 	LogTemplatesData
 } from "@/types/data.types";
 import type {
-	FieldTemplateWithValue,
+	FieldTemplate,
+	FieldTemplateWithMaybeValue,
 	Item,
 	ItemRowWithFieldValues,
 	ItemTemplateAndFieldTemplates,
@@ -115,13 +116,13 @@ const logbookService = {
 	fields: {
 		getByUser: async () => api.get<FieldsData>({ url: "/data/logbooks/fields" }),
 		getByItemRow: async ({ item_row_id }: { item_row_id: ID }) =>
-			api.get<{ fields: FieldTemplateWithValue[] }>({
+			api.get<{ fields: FieldTemplateWithMaybeValue[] }>({
 				url: `/data/logbooks/items/rows/${item_row_id}/fields`
 			})
 	},
 	fieldTemplates: {
 		getByItemTemplate: async (item_template_id: ID) =>
-			api.get<{ fieldTemplates: FieldTemplateWithValue[] }>({
+			api.get<{ fieldTemplates: FieldTemplate[] }>({
 				url: `/data/logbook/items/template/${item_template_id}/fields/templates`
 			})
 	}

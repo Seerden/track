@@ -1,16 +1,11 @@
-import { hasValues } from "@/components/logbooks/LogDetail/lib/has-values";
+import { eachRequiredFieldHasValue } from "@/components/logbooks/LogDetail/lib/has-values";
+import { useQueryFieldsByItemRow } from "@/lib/hooks/query/logbooks/useQueryFields";
 import Containers from "@/lib/theme/components/container.style";
-import type { Field } from "@t/data/logbook.api.types";
 import type { FieldTemplateWithValue } from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
 import S from "./style/ItemRow.style";
 
-/**
- * @todo I do not like how ItemRow and MaybeItemRow both have a `fields` prop, but
- * the actual type of each `fields` is different.
- */
-
-export type ItemRowProps = {
+type ItemRowProps = {
 	fields: FieldTemplateWithValue[];
 };
 
@@ -31,27 +26,15 @@ function ItemRow({ fields }: ItemRowProps) {
 }
 
 type MaybeItemRowProps = {
-	fields: Field[];
 	item_row_id: ID;
 };
 
 /** If each `field` in `fieldsForItem` has values, returns an ItemRow. */
-export default function MaybeItemRow({ fields, item_row_id }: MaybeItemRowProps) {
-	// const { data: fieldsData } = useQueryFieldsByItemRow({ item_row_id }); // TODO(TRK-182)
+export default function MaybeItemRow({ item_row_id }: MaybeItemRowProps) {
+	const { data: fieldsData } = useQueryFieldsByItemRow({ item_row_id });
+	const fields = fieldsData?.fields ?? [];
 
-	const fieldAndValueList = fields.map((field) => {
-		const { values, ..._field } = field;
+	if (!eachRequiredFieldHasValue(fields)) return null;
 
-		/** @todo issue #175 */
-		const fieldValue = values.find((value) => +value.item_row_id === +item_row_id);
-
-		return Object.assign({}, _field, {
-			value: fieldValue?.value ?? null // TODO: since we do null now, we can get empty value fields in the table -- revealed a bug with the cell height when empty
-		});
-	});
-
-	// TODO(TRK-182): rename hasValues to eachRequiredFieldHasValue
-	if (!hasValues(fieldAndValueList)) return null;
-
-	return <ItemRow fields={fieldAndValueList} />;
+	return <ItemRow fields={fields} />;
 }

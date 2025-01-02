@@ -1,8 +1,11 @@
-import type { FieldTemplateWithMaybeValue } from "@/components/logbooks/logbook.types";
 import { buildNewFieldValuesFromEntries } from "@/components/logbooks/LogDetail/lib/build-new-field-values";
 import { isValidEntry, isValidRow } from "@/components/logbooks/LogDetail/lib/is-valid";
 import useMutateNewItemRow from "@/lib/hooks/query/logbooks/useMutateNewItemRow";
-import type { FieldTemplate, Item } from "@t/data/logbook.types";
+import type {
+	FieldTemplate,
+	FieldTemplateWithMaybeValue,
+	Item
+} from "@t/data/logbook.types";
 import type { ID } from "@t/data/utility.types";
 import { useState } from "react";
 
@@ -22,7 +25,7 @@ export default function useNewItemRow({
 	// like a ById object, but that would require more logic for the "position"
 	// of each new item etc.
 	const [entries, setEntries] = useState<FieldTemplateWithMaybeValue[]>(
-		fieldTemplates.map((template) => Object.assign({}, template, { value: undefined }))
+		fieldTemplates.map((template) => Object.assign({}, template, { value: null }))
 	);
 
 	const isSubmittable = isValidRow(entries);

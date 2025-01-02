@@ -1,6 +1,6 @@
 import { sqlConnection } from "@/db/init";
 import { groupById } from "@/lib/data/models/group-by-id";
-import type { Field, FieldTemplateWithValue } from "@t/data/logbook.types";
+import type { Field, FieldTemplateWithMaybeValue } from "@t/data/logbook.types";
 import type { ById, ID } from "@t/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
@@ -32,9 +32,9 @@ export const queryFields: QueryFunction<{ user_id: ID }, Promise<ById<Field>>> =
  * (value can be null -- e.g. when the field is optional). */
 export const queryFieldsByItemRow: QueryFunction<
 	{ item_row_id: ID },
-	Promise<FieldTemplateWithValue[]>
+	Promise<FieldTemplateWithMaybeValue[]>
 > = async ({ sql = sqlConnection, item_row_id }) => {
-	return await sql<[FieldTemplateWithValue]>`
+	return await sql<[FieldTemplateWithMaybeValue]>`
       SELECT
          t.*,
          (SELECT v.value 

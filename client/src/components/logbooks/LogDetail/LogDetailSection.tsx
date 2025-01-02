@@ -1,7 +1,6 @@
 import useLogDetailSection from "@/components/logbooks/LogDetail/hooks/useLogDetailSection";
 import ItemSection from "@/components/logbooks/LogDetail/ItemSection";
 import ItemSelector from "@/components/logbooks/LogDetail/ItemSelector";
-import { getRowsForItem } from "@/components/logbooks/LogDetail/lib/get-rows";
 import NewItem from "@/components/logbooks/NewItem/NewItem";
 import Modal from "@/components/utility/Modal/Modal";
 import type { ItemTemplate } from "@t/data/logbook.types";
@@ -23,20 +22,15 @@ export default function LogDetailSection({
 	const {
 		isProbablySuspended,
 		modalId,
-		itemRows,
 		items,
 		itemSelection,
+		fieldTemplates,
 		handleModalOpen,
 		addItemToSection
 	} = useLogDetailSection({
 		itemTemplate,
 		log_id
 	});
-
-	// const fieldTemplates =
-	// useQueryFieldTemplatesByItemTemplate(itemTemplate.item_template_id);
-	// TODO(TRK-182) -- put ^ this in the hook and include the condition in
-	// isProbablySuspended.
 
 	if (isProbablySuspended) return null;
 
@@ -48,17 +42,10 @@ export default function LogDetailSection({
 				<S.ItemSections>
 					{itemSelection?.included.map((item) => (
 						<ItemSection
-							// fieldTemplates={fieldTemplates} // TODO(TRK-182)
+							fieldTemplates={fieldTemplates} // TODO(TRK-182)
 							log_id={log_id}
 							key={item.item_id}
 							item={item}
-							// TODO: do not compute rows inline -- TRK-182 (can get rid
-							// of this prop once changes are implemented)
-							rows={getRowsForItem({
-								itemRows,
-								item_id: +item.item_id,
-								log_id
-							})}
 						/>
 					))}
 				</S.ItemSections>

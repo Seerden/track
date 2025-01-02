@@ -1,12 +1,24 @@
-import type { FieldTemplateWithMaybeValue } from "@/components/logbooks/logbook.types";
-import type { FieldTemplateWithValue } from "@t/data/logbook.types";
+import type {
+	FieldTemplateWithMaybeValue,
+	FieldTemplateWithValue
+} from "@t/data/logbook.types";
 
-function hasValue(field: FieldTemplateWithMaybeValue): field is FieldTemplateWithValue {
-	return field.value !== undefined;
+// TODO: the two types we import are functionally identical, because we do not
+// allow 'undefined' in the database. The rest of the logic makes sense, though.
+// We can amend this semantic issue by making FieldTemplateWithValue.value not
+// nullable, and changing hte ...MaybeValue to be value | null
+
+function hasValueOrIsOptional(
+	field: FieldTemplateWithMaybeValue
+): field is FieldTemplateWithValue {
+	return !field.required || field.value !== null;
 }
 
-export function hasValues(
+export function eachRequiredFieldHasValue(
 	fields: FieldTemplateWithMaybeValue[]
 ): fields is FieldTemplateWithValue[] {
-	return fields.every(hasValue);
+	for (const field of fields) {
+		if (!hasValueOrIsOptional(field)) return false;
+	}
+	return true;
 }
