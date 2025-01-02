@@ -1,6 +1,6 @@
 import { sqlConnection } from "@/db/init";
 import { groupById } from "@/lib/data/models/group-by-id";
-import type { Field } from "@t/data/logbook.types";
+import type { Field, FieldTemplateWithValue } from "@t/data/logbook.types";
 import type { ById, ID } from "@t/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
@@ -26,4 +26,23 @@ export const queryFields: QueryFunction<{ user_id: ID }, Promise<ById<Field>>> =
    `;
 
 	return groupById(fields, "field_template_id");
+};
+
+/** For the given item row, gets all field templates along with their value
+ * (value can be null -- e.g. when the field is optional). */
+export const queryFieldsByItemRow: QueryFunction<
+	{ item_row_id: ID },
+	Promise<FieldTemplateWithValue[]>
+> = async ({ sql = sqlConnection, item_row_id }) => {
+	return await sql<[FieldTemplateWithValue]>`
+      SELECT
+         t.*,
+         (SELECT v.value 
+            FROM field_values v 
+            WHERE v.field_template_id = t.field_template_id 
+            AND v.item_row_id = ${item_row_id} 
+            LIMIT 1) 
+         AS value
+      FROM field_templates t
+   `;
 };

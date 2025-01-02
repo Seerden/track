@@ -7,7 +7,10 @@ import { deleteLog } from "@/lib/data/request-handlers/delete/delete-log";
 import { deleteLogTemplate } from "@/lib/data/request-handlers/delete/delete-log-template";
 import { deleteLogbook } from "@/lib/data/request-handlers/delete/delete-logbook";
 import getActivities from "@/lib/data/request-handlers/get/get-activities";
-import { getFields } from "@/lib/data/request-handlers/get/get-fields";
+import {
+	getFields,
+	getFieldsByItemRow,
+} from "@/lib/data/request-handlers/get/get-fields";
 import getHabitEntries from "@/lib/data/request-handlers/get/get-habit-entries";
 import getHabits from "@/lib/data/request-handlers/get/get-habits";
 import {
@@ -105,6 +108,7 @@ dataRouter.delete("/logbook/:logbook_id", deleteLogbook);
 dataRouter.get("/logbooks", getLogbooks);
 dataRouter.get("/logbooks/logs", getLogs);
 
+dataRouter.get("/logbooks/items/rows/:item_row_id/fields", getFieldsByItemRow);
 // This should probably take the logbook_id as a parameter, but it's simpler for
 // the frontend now to not worry about that
 dataRouter.get("/logbook/log/:log_id/items/rows", getItemRowsByLog);
