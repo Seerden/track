@@ -34,6 +34,8 @@ import { postLogTemplate } from "@/lib/data/request-handlers/post/post-log-templ
 import { postLogbook } from "@/lib/data/request-handlers/post/post-logbook";
 import { putLog } from "@/lib/data/request-handlers/put/put-log";
 import { putLogbook } from "@/lib/data/request-handlers/put/put-logbook";
+import { logbookEndpointsService } from "@shared/lib/endpoints/logbooks-endpoints";
+import { mapEndpoints } from "@shared/lib/endpoints/map-endpoints";
 import type { RequestHandler } from "express";
 
 type EndpointConfig = {
@@ -43,6 +45,26 @@ type EndpointConfig = {
 };
 
 type EndpointGroup = Record<string, EndpointConfig>;
+
+// This one has the same structure as in shared/logbooks-endpoints,
+// except instead of strings, the values are objects with a path (the string)
+// and a handler (specific to the server).
+// TODO: add a method field to every endpoint based on the method it's in.
+const _logbooks = mapEndpoints(logbookEndpointsService.logbooks, {
+	get: {
+		getByUser: getLogbooks,
+		getById: getLogbook,
+	},
+	post: {
+		post: postLogbook,
+	},
+	put: {
+		put: putLogbook,
+	},
+	delete: {
+		delete: deleteLogbook,
+	},
+});
 
 const logbooks: EndpointGroup = {
 	getByUser: {
