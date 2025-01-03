@@ -42,46 +42,47 @@ export const logbooksRouter = Router({ mergeParams: true });
 // handlers and do the same for them, too.
 
 /* --- POST --- */
-logbooksRouter.post("/", postLogbook);
-logbooksRouter.post("/log", postLog);
-logbooksRouter.post("/template", postLogTemplate);
-logbooksRouter.post("/item/template", postItemTemplate);
-logbooksRouter.post("/item/row", postItemRow);
-logbooksRouter.post("/item", postItem);
+logbooksRouter.post("/", postLogbook); // logbooks.post
+logbooksRouter.post("/log", postLog); // logs.post
+logbooksRouter.post("/template", postLogTemplate); // logTemplates.post
+logbooksRouter.post("/item/template", postItemTemplate); // itemTemplates.post
+logbooksRouter.post("/item/row", postItemRow); // itemRows.post
+logbooksRouter.post("/item", postItem); // items.post
 
 /* --- DELETE --- */
-logbooksRouter.delete("/:logbook_id", deleteLogbook);
+logbooksRouter.delete("/:logbook_id", deleteLogbook); // logbooks.delete
 logbooksRouter.delete("/log/:log_id", deleteLog);
 logbooksRouter.delete("/log/template/:log_template_id", deleteLogTemplate);
 logbooksRouter.delete("/item/:item_id", deleteItem);
 logbooksRouter.delete("/item/template/:item_template_id", deleteItemTemplate);
 
 /* --- GET --- */
-logbooksRouter.get("/", getLogbooks);
-logbooksRouter.get("/:logbook_id", getLogbook);
-logbooksRouter.get("/:logbook_id/logs", getLogsByLogbook);
-logbooksRouter.get("/:logbook_id/items", getItemsByLogbook);
-logbooksRouter.get("/:logbook_id/item/templates", getItemTemplatesByLogbook);
-logbooksRouter.get("/:logbook_id/templates", getLogTemplatesByLogbook);
+logbooksRouter.get("/", getLogbooks); // logbooks.getByUser
+logbooksRouter.get("/:logbook_id", getLogbook); // logbooks.getById
+logbooksRouter.get("/:logbook_id/logs", getLogsByLogbook); // logs.getByLogbook
+logbooksRouter.get("/:logbook_id/items", getItemsByLogbook); // items.getByLogbook
+logbooksRouter.get("/:logbook_id/item/templates", getItemTemplatesByLogbook); // itemTemplates.getByLogbook
+logbooksRouter.get("/:logbook_id/templates", getLogTemplatesByLogbook); // logTemplates.getByLogbook
 
-logbooksRouter.get("/logs", getLogs);
-logbooksRouter.get("/logs/:log_id/items/rows", getItemRowsByLog); // This should probably take the logbook_id as a parameter, but it's simpler for the frontend now to not worry about that.
-logbooksRouter.get("/logs/:log_id/items/:item_id/rows", getItemRowsByLogItem);
+logbooksRouter.get("/logs", getLogs); // logs.getByUser
 
-logbooksRouter.get("/templates", getLogTemplates);
-logbooksRouter.get("/templates/:log_template_id", getLogTemplate);
+logbooksRouter.get("/logs/:log_id/items/rows", getItemRowsByLog); // itemRows.getByLog
+logbooksRouter.get("/logs/:log_id/items/:item_id/rows", getItemRowsByLogItem); // itemRows.getByLogItem
 
-logbooksRouter.get("/fields", getFields);
+logbooksRouter.get("/templates", getLogTemplates); // logTemplates.getByUser
+logbooksRouter.get("/templates/:log_template_id", getLogTemplate); // logTemplates.getById
 
-logbooksRouter.get("/items", getItems);
-logbooksRouter.get("/items/rows", getItemRows);
-logbooksRouter.get("/items/rows/:item_row_id/fields", getFieldsByItemRow);
-logbooksRouter.get("/items/templates/:item_template_id/items", getItemsByTemplate);
+logbooksRouter.get("/fields", getFields); // fields.getByUser
+
+logbooksRouter.get("/items", getItems); // items.getByUser
+logbooksRouter.get("/items/rows", getItemRows); // itemRows.getByUser
+logbooksRouter.get("/items/rows/:item_row_id/fields", getFieldsByItemRow); // fields.getByItemRow
+logbooksRouter.get("/items/templates/:item_template_id/items", getItemsByTemplate); // items.getByTemplate
 logbooksRouter.get(
 	"/items/templates/:item_template_id/fields/templates",
 	getFieldTemplatesByItemTemplate,
-);
+); // fieldTemplates.getByItemTemplate
 
 /* --- PUT --- */
-logbooksRouter.put("/log/:log_id", putLog);
-logbooksRouter.put("/:logbook_id", putLogbook);
+logbooksRouter.put("/log/:log_id", putLog); // logs.put
+logbooksRouter.put("/:logbook_id", putLogbook); // logbooks.put
