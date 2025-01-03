@@ -43,45 +43,44 @@ export const logbooksRouter = Router({ mergeParams: true });
 
 /* --- POST --- */
 logbooksRouter.post("/", postLogbook);
-logbooksRouter.post("/template", postLogTemplate);
 logbooksRouter.post("/log", postLog);
+logbooksRouter.post("/template", postLogTemplate);
 logbooksRouter.post("/item/template", postItemTemplate);
 logbooksRouter.post("/item/row", postItemRow);
 logbooksRouter.post("/item", postItem);
 
 /* --- DELETE --- */
-logbooksRouter.delete("/log/template/:log_template_id", deleteLogTemplate);
-logbooksRouter.delete("/log/:log_id", deleteLog);
-logbooksRouter.delete("/item/template/:item_template_id", deleteItemTemplate);
-logbooksRouter.delete("/item/:item_id", deleteItem);
 logbooksRouter.delete("/:logbook_id", deleteLogbook);
+logbooksRouter.delete("/log/:log_id", deleteLog);
+logbooksRouter.delete("/log/template/:log_template_id", deleteLogTemplate);
+logbooksRouter.delete("/item/:item_id", deleteItem);
+logbooksRouter.delete("/item/template/:item_template_id", deleteItemTemplate);
 
 /* --- GET --- */
 logbooksRouter.get("/", getLogbooks);
-logbooksRouter.get("/logs", getLogs);
-
-logbooksRouter.get("/items/rows/:item_row_id/fields", getFieldsByItemRow);
-
-// This should probably take the logbook_id as a parameter, but it's simpler for
-// the frontend now to not worry about that
-logbooksRouter.get("/log/:log_id/items/rows", getItemRowsByLog);
-logbooksRouter.get("/log/:log_id/items/:item_id/rows", getItemRowsByLogItem);
-
 logbooksRouter.get("/:logbook_id", getLogbook);
 logbooksRouter.get("/:logbook_id/logs", getLogsByLogbook);
 logbooksRouter.get("/:logbook_id/items", getItemsByLogbook);
 logbooksRouter.get("/:logbook_id/item/templates", getItemTemplatesByLogbook);
-logbooksRouter.get("/templates", getLogTemplates);
-logbooksRouter.get("/template/:log_template_id", getLogTemplate);
 logbooksRouter.get("/:logbook_id/templates", getLogTemplatesByLogbook);
+
+logbooksRouter.get("/logs", getLogs);
+logbooksRouter.get("/logs/:log_id/items/rows", getItemRowsByLog); // This should probably take the logbook_id as a parameter, but it's simpler for the frontend now to not worry about that.
+logbooksRouter.get("/logs/:log_id/items/:item_id/rows", getItemRowsByLogItem);
+
+logbooksRouter.get("/templates", getLogTemplates);
+logbooksRouter.get("/templates/:log_template_id", getLogTemplate);
+
 logbooksRouter.get("/fields", getFields);
+
+logbooksRouter.get("/items", getItems);
 logbooksRouter.get("/items/rows", getItemRows);
-logbooksRouter.get("/items/template/:item_template_id/items", getItemsByTemplate);
+logbooksRouter.get("/items/rows/:item_row_id/fields", getFieldsByItemRow);
+logbooksRouter.get("/items/templates/:item_template_id/items", getItemsByTemplate);
 logbooksRouter.get(
-	"/items/template/:item_template_id/fields/templates",
+	"/items/templates/:item_template_id/fields/templates",
 	getFieldTemplatesByItemTemplate,
 );
-logbooksRouter.get("/items", getItems);
 
 /* --- PUT --- */
 logbooksRouter.put("/log/:log_id", putLog);
