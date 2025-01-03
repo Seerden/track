@@ -3,7 +3,7 @@ import { updateActivityCompletion } from "@/lib/data/models/activities/update-ac
 import type { TaskUpdateInput } from "@shared/types/data/activity.types";
 import type { RequestHandler } from "express";
 
-const putTaskCompletion: RequestHandler = async (req, res) => {
+export const putTaskCompletion: RequestHandler = async (req, res) => {
 	const input = req.body as TaskUpdateInput;
 	const [activity] = await updateActivityCompletion({ input });
 	const updatedActivity = await queryActivityByIdWithRelations({
@@ -11,5 +11,3 @@ const putTaskCompletion: RequestHandler = async (req, res) => {
 	});
 	res.json(updatedActivity);
 };
-
-export default putTaskCompletion;

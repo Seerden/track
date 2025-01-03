@@ -3,7 +3,7 @@ import { updateActivity } from "@/lib/data/models/activities/update-activity";
 import type { ActivityUpdateInput } from "@shared/types/data/activity.types";
 import type { RequestHandler } from "express";
 
-const putActivity: RequestHandler = async (req, res) => {
+export const putActivity: RequestHandler = async (req, res) => {
 	const input = req.body as ActivityUpdateInput;
 	const activity = await updateActivity({ input });
 	const updatedActivity = await queryActivityByIdWithRelations({
@@ -11,5 +11,3 @@ const putActivity: RequestHandler = async (req, res) => {
 	});
 	res.json(updatedActivity);
 };
-
-export default putActivity;

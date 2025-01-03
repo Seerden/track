@@ -1,20 +1,18 @@
-// TODO: some handlers are default exports in their files, others aren't. Make
-// none of them default exports.
-import deleteHabit from "@/lib/data/request-handlers/delete/delete-habit";
-import getActivities from "@/lib/data/request-handlers/get/get-activities";
-import getHabitEntries from "@/lib/data/request-handlers/get/get-habit-entries";
-import getHabits from "@/lib/data/request-handlers/get/get-habits";
-import getNotes from "@/lib/data/request-handlers/get/get-notes";
-import getTags from "@/lib/data/request-handlers/get/get-tags";
-import getTagsTree from "@/lib/data/request-handlers/get/get-tags-tree";
-import postActivity from "@/lib/data/request-handlers/post/post-activity";
-import postHabit from "@/lib/data/request-handlers/post/post-habit";
-import postHabitEntry from "@/lib/data/request-handlers/post/post-habit-entry";
-import postNote from "@/lib/data/request-handlers/post/post-note";
-import postTag from "@/lib/data/request-handlers/post/post-tag";
-import putActivity from "@/lib/data/request-handlers/put/put-activity";
-import putHabitEntry from "@/lib/data/request-handlers/put/put-habit-entry";
-import putTaskCompletion from "@/lib/data/request-handlers/put/put-task";
+import { deleteHabit } from "@/lib/data/request-handlers/delete/delete-habit";
+import { getActivities } from "@/lib/data/request-handlers/get/get-activities";
+import { getHabitEntries } from "@/lib/data/request-handlers/get/get-habit-entries";
+import { getHabits } from "@/lib/data/request-handlers/get/get-habits";
+import { getNotes } from "@/lib/data/request-handlers/get/get-notes";
+import { getTags } from "@/lib/data/request-handlers/get/get-tags";
+import { getTagsTree } from "@/lib/data/request-handlers/get/get-tags-tree";
+import { postActivity } from "@/lib/data/request-handlers/post/post-activity";
+import { postHabit } from "@/lib/data/request-handlers/post/post-habit";
+import { postHabitEntry } from "@/lib/data/request-handlers/post/post-habit-entry";
+import { postNote } from "@/lib/data/request-handlers/post/post-note";
+import { postTag } from "@/lib/data/request-handlers/post/post-tag";
+import { putActivity } from "@/lib/data/request-handlers/put/put-activity";
+import { putHabitEntry } from "@/lib/data/request-handlers/put/put-habit-entry";
+import { putTaskCompletion } from "@/lib/data/request-handlers/put/put-task";
 import { logbooksRouter } from "@/routers/data/logbooks";
 import { Router } from "express";
 import { isAuthorized } from "../lib/auth/is-authorized";

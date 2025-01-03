@@ -2,10 +2,8 @@ import { updateHabitEntry } from "@/lib/data/models/habits/update-habit-entry";
 import type { HabitEntryUpdateInput } from "@shared/types/data/habit.types";
 import type { RequestHandler } from "express";
 
-const putHabitEntry: RequestHandler = async (req, res) => {
+export const putHabitEntry: RequestHandler = async (req, res) => {
 	const input = req.body as HabitEntryUpdateInput;
 	const [habitEntry] = await updateHabitEntry({ input });
 	res.json({ habitEntry });
 };
-
-export default putHabitEntry;
