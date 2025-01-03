@@ -2,7 +2,7 @@ import type { ModalId } from "@/lib/modal-ids";
 import type { ActiveItemState } from "@/lib/state/active-item-state";
 import { activeItemState } from "@/lib/state/active-item-state";
 import { useModalState } from "@/lib/state/modal-state";
-import type { ID } from "@t/data/utility.types";
+import type { ID } from "@shared/types/data/utility.types";
 import { useRecoilState } from "recoil";
 
 /**

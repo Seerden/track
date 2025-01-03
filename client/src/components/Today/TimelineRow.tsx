@@ -1,8 +1,8 @@
 import CurrentTimeMark from "@/components/Today/CurrentTimeMark";
 import { isToday } from "@/lib/datetime/compare";
 import useCurrentTime from "@/lib/hooks/useCurrentTime";
-import type { ActivityWithIds } from "@t/data/activity.types";
-import type { ID } from "@t/data/utility.types";
+import type { ActivityWithIds } from "@shared/types/data/activity.types";
+import type { ID } from "@shared/types/data/utility.types";
 import type { Dayjs } from "dayjs";
 import Activity from "./Activity";
 import HourMark from "./HourMark";

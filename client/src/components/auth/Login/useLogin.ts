@@ -2,7 +2,7 @@ import useMutateLogin from "@/lib/hooks/query/user/useMutateLogin";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import { localUser } from "@lib/user-storage";
-import { type UserLogin } from "@t/data/user.types";
+import { type UserLogin } from "@shared/types/data/user.types";
 import { useEffect, useState } from "react";
 
 export default function useLogin() {

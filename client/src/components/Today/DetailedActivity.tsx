@@ -10,8 +10,8 @@ import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import CardStyle from "@/lib/theme/components/Card.style";
-import type { ActivityWithIds } from "@t/data/activity.types";
-import type { Datelike } from "@t/data/utility.types";
+import type { ActivityWithIds } from "@shared/types/data/activity.types";
+import type { Datelike } from "@shared/types/data/utility.types";
 import { PenLine } from "lucide-react";
 
 type DetailedActivityProps = {

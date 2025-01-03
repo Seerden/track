@@ -8,8 +8,8 @@ import type {
 	ActivityUpdateInput,
 	ActivityWithIds,
 	TaskUpdateInput,
-} from "@t/data/activity.types";
-import type { ActivityTagRelation } from "@t/data/relational.types";
+} from "@shared/types/data/activity.types";
+import type { ActivityTagRelation } from "@shared/types/data/relational.types";
 import dayjs from "dayjs";
 import type { QueryFunction } from "types/sql.types";
 

@@ -1,5 +1,5 @@
-import type { User } from "@t/data/user.types";
-import type { Maybe } from "@t/data/utility.types";
+import type { User } from "@shared/types/data/user.types";
+import type { Maybe } from "@shared/types/data/utility.types";
 
 function setLocalUser(user: User) {
 	if (!user) return;

@@ -1,5 +1,5 @@
 import { queryUserByName } from "@/lib/data/models/user/query-user";
-import type { UserLogin } from "@t/data/user.types";
+import type { UserLogin } from "@shared/types/data/user.types";
 import { compare } from "bcryptjs";
 import type { Request, Response } from "express";
 import { destroySession } from "./destroy-session";

@@ -1,7 +1,10 @@
 import { sqlConnection } from "@/db/init";
-import type { ActivityTagRelation, TagTagRelation } from "@t/data/relational.types";
-import type { TagWithId } from "@t/data/tag.types";
-import type { ID } from "@t/data/utility.types";
+import type {
+	ActivityTagRelation,
+	TagTagRelation,
+} from "@shared/types/data/relational.types";
+import type { TagWithId } from "@shared/types/data/tag.types";
+import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
 /** Get all of a user's tags. */

@@ -1,5 +1,5 @@
 import { sqlConnection } from "@/db/init";
-import type { FieldValue, NewFieldValueWithId } from "@t/data/logbook.types";
+import type { FieldValue, NewFieldValueWithId } from "@shared/types/data/logbook.types";
 import type { QueryFunction } from "types/sql.types";
 
 export const insertFieldValue: QueryFunction<

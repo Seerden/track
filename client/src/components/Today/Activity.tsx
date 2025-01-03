@@ -1,7 +1,7 @@
 import { activityDurationOnDate, activityStartOnDate } from "@/lib/activity";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import modalIds from "@/lib/modal-ids";
-import type { ActivityWithIds } from "@t/data/activity.types";
+import type { ActivityWithIds } from "@shared/types/data/activity.types";
 import type { Dayjs } from "dayjs";
 import T from "./style/Activity.style";
 

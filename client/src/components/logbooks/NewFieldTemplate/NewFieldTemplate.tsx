@@ -2,8 +2,8 @@ import useNewFieldTemplate from "@/components/logbooks/NewFieldTemplate/useNewFi
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import F from "@/lib/theme/components/form/form.alternate.style";
 import { font } from "@/lib/theme/font";
-import type { NewFieldTemplate as TNewFieldTemplate } from "@t/data/logbook.new.types";
-import type { ID } from "@t/data/utility.types";
+import type { NewFieldTemplate as TNewFieldTemplate } from "@shared/types/data/logbook.new.types";
+import type { ID } from "@shared/types/data/utility.types";
 import { LucideListPlus } from "lucide-react";
 import S from "./style/NewFieldTemplate.style";
 

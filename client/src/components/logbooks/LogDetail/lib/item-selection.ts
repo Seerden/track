@@ -1,5 +1,5 @@
-import type { Item, ItemTemplate, Layout } from "@t/data/logbook.types";
-import type { ByIdMap, ID } from "@t/data/utility.types";
+import type { Item, ItemTemplate, Layout } from "@shared/types/data/logbook.types";
+import type { ByIdMap, ID } from "@shared/types/data/utility.types";
 
 export function computeItemTemplateSelection({
 	layout,

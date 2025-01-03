@@ -1,7 +1,7 @@
 import { sqlConnection } from "@/db/init";
 import { queryLogTemplate } from "@/lib/data/models/logbooks/query-log-templates";
-import type { Log, NewLogInput } from "@t/data/logbook.types";
-import type { ID } from "@t/data/utility.types";
+import type { Log, NewLogInput } from "@shared/types/data/logbook.types";
+import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
 export const insertLog: QueryFunction<

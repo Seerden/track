@@ -2,8 +2,8 @@ import useMutateLogbook from "@/lib/hooks/query/logbooks/useMutateLogbook";
 import useMutateNewLogbook from "@/lib/hooks/query/logbooks/useMutateNewLogbook";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import useRouteProps from "@/lib/hooks/useRouteProps";
-import type { NewLogbook } from "@t/data/logbook.new.types";
-import type { Logbook } from "@t/data/logbook.types";
+import type { NewLogbook } from "@shared/types/data/logbook.new.types";
+import type { Logbook } from "@shared/types/data/logbook.types";
 import { useState } from "react";
 
 type NewLogbookState = Omit<NewLogbook, "user_id">;

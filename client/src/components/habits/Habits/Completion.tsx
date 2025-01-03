@@ -1,5 +1,9 @@
 import CompletionInstance from "@/components/habits/Habits/CompletionInstance";
-import type { HabitEntry, HabitWithIds, SyntheticHabitEntry } from "@t/data/habit.types";
+import type {
+	HabitEntry,
+	HabitWithIds,
+	SyntheticHabitEntry
+} from "@shared/types/data/habit.types";
 import S from "./style/Completion.style";
 
 type CompletionProps = {

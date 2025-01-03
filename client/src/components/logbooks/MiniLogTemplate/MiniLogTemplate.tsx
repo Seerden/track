@@ -1,7 +1,7 @@
 import MiniItemTemplate from "@/components/logbooks/MiniLogTemplate/MiniItemTemplate";
 import useMiniLogTemplate from "@/components/logbooks/MiniLogTemplate/useMiniLogTemplate";
 import { Link } from "@/lib/theme/components/buttons";
-import type { ID } from "@t/data/utility.types";
+import type { ID } from "@shared/types/data/utility.types";
 import { LucideChevronDown, LucideChevronUp } from "lucide-react";
 import { useState } from "react";
 import S from "./style/MiniLogTemplate.style";

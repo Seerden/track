@@ -1,5 +1,5 @@
 import useMutateTaskCompletion from "@/lib/hooks/query/activities/useMutateTask";
-import type { ActivityWithIds } from "@t/data/activity.types";
+import type { ActivityWithIds } from "@shared/types/data/activity.types";
 import { useCallback } from "react";
 
 export default function usePutTaskCompletion(task: ActivityWithIds) {

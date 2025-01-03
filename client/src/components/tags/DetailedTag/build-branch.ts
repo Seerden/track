@@ -1,5 +1,5 @@
-import type { TagWithIds } from "@t/data/tag.types";
-import type { ByIdMap, ID } from "@t/data/utility.types";
+import type { TagWithIds } from "@shared/types/data/tag.types";
+import type { ByIdMap, ID } from "@shared/types/data/utility.types";
 
 /** Gets a tag by id from a TagsById object.
  * @todo I know for a fact I already have something like this somewhere. *

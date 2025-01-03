@@ -1,5 +1,5 @@
 import { sqlConnection } from "@/db/init";
-import type { Log } from "@t/data/logbook.types";
+import type { Log } from "@shared/types/data/logbook.types";
 import type { QueryFunction } from "types/sql.types";
 
 /** Set a single Log's values to those in `log`. */

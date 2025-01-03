@@ -1,7 +1,7 @@
 import type {
 	FieldTemplateWithMaybeValue,
 	FieldTemplateWithValue
-} from "@t/data/logbook.types";
+} from "@shared/types/data/logbook.types";
 
 // TODO: the two types we import are functionally identical, because we do not
 // allow 'undefined' in the database. The rest of the logic makes sense, though.

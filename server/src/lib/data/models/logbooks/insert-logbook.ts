@@ -1,5 +1,5 @@
 import { sqlConnection } from "@/db/init";
-import type { Logbook, NewLogbook } from "@t/data/logbook.types";
+import type { Logbook, NewLogbook } from "@shared/types/data/logbook.types";
 import type { QueryFunction } from "types/sql.types";
 
 export const insertLogbook: QueryFunction<

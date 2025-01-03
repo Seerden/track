@@ -1,6 +1,6 @@
 import { sqlConnection } from "@/db/init";
-import type { Habit } from "@t/data/habit.types";
-import type { ID } from "@t/data/utility.types";
+import type { Habit } from "@shared/types/data/habit.types";
+import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
 export const deleteHabitById: QueryFunction<

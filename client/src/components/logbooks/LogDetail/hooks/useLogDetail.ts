@@ -2,7 +2,7 @@ import useLogDetailData from "@/components/logbooks/LogDetail/hooks/useLogDetail
 import useUpdateLogLayout from "@/components/logbooks/LogDetail/hooks/useUpdateLogLayout";
 import { computeItemTemplateSelection } from "@/components/logbooks/LogDetail/lib/item-selection";
 import useRouteProps from "@/lib/hooks/useRouteProps";
-import type { ID } from "@t/data/utility.types";
+import type { ID } from "@shared/types/data/utility.types";
 import { useMemo } from "react";
 
 /** Functionality hook for LogDetail. */

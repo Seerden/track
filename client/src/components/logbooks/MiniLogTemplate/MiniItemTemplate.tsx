@@ -1,4 +1,4 @@
-import type { Field, ItemTemplate } from "@t/data/logbook.types";
+import type { Field, ItemTemplate } from "@shared/types/data/logbook.types";
 import { LucideSquare, LucideSquareStack } from "lucide-react";
 import S from "./style/MiniItemTemplate.style";
 

@@ -1,4 +1,4 @@
-import type { NewFieldTemplate } from "@t/data/logbook.types";
+import type { NewFieldTemplate } from "@shared/types/data/logbook.types";
 import S from "./style/MiniField.style";
 
 type MiniFieldProps = {

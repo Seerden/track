@@ -5,7 +5,7 @@ import { useModalState } from "@/lib/state/modal-state";
 import useAuthentication from "@lib/hooks/useAuthentication";
 import { queryClient } from "@lib/query-client";
 import { useTagSelection } from "@lib/state/selected-tags-state";
-import type { NewTag } from "@t/data/tag.types";
+import type { NewTag } from "@shared/types/data/tag.types";
 import { useEffect, useState } from "react";
 import { useNewTagMutation } from "./useNewTagMutation";
 

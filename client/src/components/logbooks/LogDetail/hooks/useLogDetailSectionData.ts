@@ -2,7 +2,7 @@ import { useQueryFieldTemplatesByItemTemplate } from "@/lib/hooks/query/logbooks
 import { useQueryItemsByItemTemplate } from "@/lib/hooks/query/logbooks/useQueryItems";
 import useQueryLogs from "@/lib/hooks/query/logbooks/useQueryLogs";
 import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
-import type { ID } from "@t/data/utility.types";
+import type { ID } from "@shared/types/data/utility.types";
 
 type UseLogDetailSectionDataArgs = {
 	log_id: ID;

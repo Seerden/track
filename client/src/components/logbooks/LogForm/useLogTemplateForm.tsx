@@ -7,9 +7,9 @@ import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
 import useRouteProps from "@/lib/hooks/useRouteProps";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
-import type { NewLogTemplate } from "@t/data/logbook.new.types";
-import type { Layout, LayoutSection } from "@t/data/logbook.types";
-import type { ID } from "@t/data/utility.types";
+import type { NewLogTemplate } from "@shared/types/data/logbook.new.types";
+import type { Layout, LayoutSection } from "@shared/types/data/logbook.types";
+import type { ID } from "@shared/types/data/utility.types";
 import { useCallback, useMemo, useState } from "react";
 
 // TODO: consider splitting up the data logic into a use...Data hook.

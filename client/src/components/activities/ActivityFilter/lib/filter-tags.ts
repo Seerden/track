@@ -1,6 +1,6 @@
 import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
-import type { ActivityWithIds } from "@t/data/activity.types";
-import type { ID, Nullable } from "@t/data/utility.types";
+import type { ActivityWithIds } from "@shared/types/data/activity.types";
+import type { ID, Nullable } from "@shared/types/data/utility.types";
 
 export const tagPredicates = {
 	includes: (activity: ActivityWithIds, tag_ids: Nullable<ID[]>, exact?: boolean) => {

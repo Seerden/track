@@ -1,6 +1,6 @@
 import useMutateNewItem from "@/lib/hooks/query/logbooks/useMutateNewItem";
-import type { NewItem } from "@t/data/logbook.new.types";
-import type { ID } from "@t/data/utility.types";
+import type { NewItem } from "@shared/types/data/logbook.new.types";
+import type { ID } from "@shared/types/data/utility.types";
 import { produce } from "immer";
 import { useCallback, useState } from "react";
 

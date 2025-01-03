@@ -4,7 +4,7 @@ import type {
 	HabitEntry,
 	HabitEntryUpdateInput,
 	SyntheticHabitEntry
-} from "@t/data/habit.types";
+} from "@shared/types/data/habit.types";
 import { useMutation } from "@tanstack/react-query";
 
 export type HabitEntryUpdateMutationArgs = {

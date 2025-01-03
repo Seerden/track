@@ -1,6 +1,6 @@
 import useMutateLog from "@/lib/hooks/query/logbooks/useMutateLog";
-import type { Log } from "@t/data/logbook.types";
-import type { ID, Maybe } from "@t/data/utility.types";
+import type { Log } from "@shared/types/data/logbook.types";
+import type { ID, Maybe } from "@shared/types/data/utility.types";
 import { produce } from "immer";
 import { useCallback } from "react";
 

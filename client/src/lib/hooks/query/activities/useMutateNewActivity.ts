@@ -1,6 +1,6 @@
 import activityService from "@/lib/fetch/activity-service";
 import { mk } from "@/lib/query-keys";
-import type { ActivityInput, ActivityWithIds } from "@t/data/activity.types";
+import type { ActivityInput, ActivityWithIds } from "@shared/types/data/activity.types";
 import { useMutation } from "@tanstack/react-query";
 
 export function useMutateNewActivity() {

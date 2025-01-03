@@ -19,7 +19,7 @@ export default defineConfig({
 			"@": path.resolve(__dirname, "../client/src"),
 			"@lib": path.resolve(__dirname, "../client/src/lib"),
 			"@components": path.resolve(__dirname, "../client/src/components"),
-			"@t": path.resolve(__dirname, "../shared/types")
+			"@shared": path.resolve(__dirname, "../shared/src")
 		},
 		extensions: [".js", ".jsx", ".ts", ".tsx", ".json"]
 	},

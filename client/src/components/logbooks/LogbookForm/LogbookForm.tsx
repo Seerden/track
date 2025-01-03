@@ -1,6 +1,6 @@
 import useLogbookForm from "@/components/logbooks/LogbookForm/useLogbookForm";
 import F from "@lib/theme/components/form/form.alternate.style";
-import type { Logbook } from "@t/data/logbook.types";
+import type { Logbook } from "@shared/types/data/logbook.types";
 import { LucideArrowRight, NotebookPen } from "lucide-react";
 
 type LogbookFormProps = { logbook?: Logbook };

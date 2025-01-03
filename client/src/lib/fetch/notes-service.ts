@@ -1,6 +1,6 @@
 import api from "@/lib/fetch/api";
 import type { NotesData } from "@/types/data.types";
-import type { NoteInput, NoteWithIds } from "@t/data/note.types";
+import type { NoteInput, NoteWithIds } from "@shared/types/data/note.types";
 
 async function getNotes() {
 	return api.get<NotesData>({ url: "/data/notes" });

@@ -1,4 +1,4 @@
-import type { DeepValue } from "@t/data/utility.types";
+import type { DeepValue } from "@shared/types/data/utility.types";
 
 /**
  * This is a list of known modal ids. If you're using a modal somewhere, aim to

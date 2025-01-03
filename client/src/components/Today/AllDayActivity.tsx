@@ -2,7 +2,7 @@ import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
-import type { ActivityWithIds } from "@t/data/activity.types";
+import type { ActivityWithIds } from "@shared/types/data/activity.types";
 import { LucideHistory } from "lucide-react";
 import { useRef } from "react";
 import T from "./style/AllDayActivity.style";

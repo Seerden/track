@@ -1,7 +1,7 @@
 import { getLocalHour } from "@/lib/datetime/local";
 import { createDate, now } from "@/lib/datetime/make-date";
-import type { ActivityWithIds } from "@t/data/activity.types";
-import type { ID } from "@t/data/utility.types";
+import type { ActivityWithIds } from "@shared/types/data/activity.types";
+import type { ID } from "@shared/types/data/utility.types";
 import type { Dayjs } from "dayjs";
 import { sameDay } from "./datetime/compare";
 

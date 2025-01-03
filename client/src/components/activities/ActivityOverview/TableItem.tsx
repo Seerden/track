@@ -2,8 +2,8 @@ import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import { activityEnd, activityStart } from "@/lib/activity";
 import { createDate } from "@/lib/datetime/make-date";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
-import type { ActivityWithIds } from "@t/data/activity.types";
-import type { TagWithIds } from "@t/data/tag.types";
+import type { ActivityWithIds } from "@shared/types/data/activity.types";
+import type { TagWithIds } from "@shared/types/data/tag.types";
 import S from "./style/TableItem.style";
 
 type TableItemProps = {

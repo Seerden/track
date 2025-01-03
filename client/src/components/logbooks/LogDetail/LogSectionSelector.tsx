@@ -1,5 +1,5 @@
-import type { ItemTemplate } from "@t/data/logbook.types";
-import type { ID } from "@t/data/utility.types";
+import type { ItemTemplate } from "@shared/types/data/logbook.types";
+import type { ID } from "@shared/types/data/utility.types";
 import S from "./style/_shared.style";
 
 type LogSectionSelectorProps = {

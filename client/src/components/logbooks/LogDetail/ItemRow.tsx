@@ -1,8 +1,8 @@
 import useMaybeItemRow from "@/components/logbooks/LogDetail/hooks/useMaybeItemRow";
 import { eachRequiredFieldHasValue } from "@/components/logbooks/LogDetail/lib/has-values";
 import Containers from "@/lib/theme/components/container.style";
-import type { FieldTemplateWithValue } from "@t/data/logbook.types";
-import type { ID } from "@t/data/utility.types";
+import type { FieldTemplateWithValue } from "@shared/types/data/logbook.types";
+import type { ID } from "@shared/types/data/utility.types";
 import S from "./style/ItemRow.style";
 
 type ItemRowProps = {

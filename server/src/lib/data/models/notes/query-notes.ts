@@ -1,7 +1,7 @@
 import { sqlConnection } from "@/db/init";
-import type { Note, NoteWithIds } from "@t/data/note.types";
-import type { NoteTagRelation } from "@t/data/relational.types";
-import type { ById, ID } from "@t/data/utility.types";
+import type { Note, NoteWithIds } from "@shared/types/data/note.types";
+import type { NoteTagRelation } from "@shared/types/data/relational.types";
+import type { ById, ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 import { mergeNotesAndRelations } from "./merge-notes-and-relations";
 

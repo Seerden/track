@@ -1,7 +1,7 @@
 import { sqlConnection } from "@/db/init";
-import type { Activity, ActivityWithIds } from "@t/data/activity.types";
-import type { ActivityTagRelation } from "@t/data/relational.types";
-import type { ById, ID } from "@t/data/utility.types";
+import type { Activity, ActivityWithIds } from "@shared/types/data/activity.types";
+import type { ActivityTagRelation } from "@shared/types/data/relational.types";
+import type { ById, ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 import { mergeActivitiesAndRelations } from "./merge-activities-and-relations";
 

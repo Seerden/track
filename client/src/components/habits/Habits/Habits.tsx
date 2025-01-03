@@ -1,7 +1,7 @@
 import Habit from "@/components/habits/Habits/Habit";
 import L from "@/lib/theme/components/List.style";
-import type { HabitWithPossiblySyntheticEntries } from "@t/data/habit.types";
-import type { ById } from "@t/data/utility.types";
+import type { HabitWithPossiblySyntheticEntries } from "@shared/types/data/habit.types";
+import type { ById } from "@shared/types/data/utility.types";
 
 type HabitsProps = {
 	habits: ById<HabitWithPossiblySyntheticEntries>;

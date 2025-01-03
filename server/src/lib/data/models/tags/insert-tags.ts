@@ -1,7 +1,12 @@
 import { sqlConnection } from "@/db/init";
-import type { TagTagRelation } from "@t/data/relational.types";
-import type { NewTag, TagInput, TagWithId, TagWithIds } from "@t/data/tag.types";
-import type { ID } from "@t/data/utility.types";
+import type { TagTagRelation } from "@shared/types/data/relational.types";
+import type {
+	NewTag,
+	TagInput,
+	TagWithId,
+	TagWithIds,
+} from "@shared/types/data/tag.types";
+import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
 /** Inserts one or multiple tags into the database. Does not handle tag-tag relationships. */

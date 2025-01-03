@@ -1,8 +1,8 @@
 import logbookService from "@/lib/fetch/logbook-service";
 import { queryClient } from "@/lib/query-client";
 import { mk, qk } from "@/lib/query-keys";
-import type { NewLogTemplateInput } from "@t/data/logbook.new.types";
-import type { LogTemplate } from "@t/data/logbook.types";
+import type { NewLogTemplateInput } from "@shared/types/data/logbook.new.types";
+import type { LogTemplate } from "@shared/types/data/logbook.types";
 import { useMutation } from "@tanstack/react-query";
 
 export default function useMutateNewLogTemplate() {

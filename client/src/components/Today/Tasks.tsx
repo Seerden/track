@@ -1,7 +1,7 @@
 import Empty from "@/components/Today/Empty";
 import { filterTagsById } from "@/lib/filter-tags";
 import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
-import type { ActivityWithIds } from "@t/data/activity.types";
+import type { ActivityWithIds } from "@shared/types/data/activity.types";
 import Task from "./Task";
 import T from "./style/Tasks.style";
 import S from "./style/Today.style";

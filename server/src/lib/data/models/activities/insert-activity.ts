@@ -1,7 +1,11 @@
 import { sqlConnection } from "@/db/init";
 import { linkTagsToActivity } from "@/lib/data/models/activities/link-and-unlink-tags-and-activities";
-import type { Activity, ActivityWithIds, NewActivity } from "@t/data/activity.types";
-import type { ID } from "@t/data/utility.types";
+import type {
+	Activity,
+	ActivityWithIds,
+	NewActivity,
+} from "@shared/types/data/activity.types";
+import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
 const insertActivity: QueryFunction<

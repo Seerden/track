@@ -1,5 +1,5 @@
-import type { ActivityWithIds } from "@t/data/activity.types";
-import type { HabitEntry, HabitWithIds } from "@t/data/habit.types";
+import type { ActivityWithIds } from "@shared/types/data/activity.types";
+import type { HabitEntry, HabitWithIds } from "@shared/types/data/habit.types";
 import type {
 	Field,
 	Item,
@@ -8,11 +8,11 @@ import type {
 	Log,
 	Logbook,
 	LogTemplate
-} from "@t/data/logbook.types";
-import type { NoteWithIds } from "@t/data/note.types";
-import type { TagWithIds } from "@t/data/tag.types";
-import type { User } from "@t/data/user.types";
-import type { Maybe } from "@t/data/utility.types";
+} from "@shared/types/data/logbook.types";
+import type { NoteWithIds } from "@shared/types/data/note.types";
+import type { TagWithIds } from "@shared/types/data/tag.types";
+import type { User } from "@shared/types/data/user.types";
+import type { Maybe } from "@shared/types/data/utility.types";
 import type { Data, DataById } from "./query.types";
 
 // TODO: all these types come from the backend, so they should be moved to the

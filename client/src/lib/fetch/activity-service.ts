@@ -5,7 +5,7 @@ import type {
 	ActivityUpdateInput,
 	ActivityWithIds,
 	TaskUpdateInput
-} from "@t/data/activity.types";
+} from "@shared/types/data/activity.types";
 
 async function getActivities() {
 	return api.get<ActivitiesData>({ url: "/data/activities" });

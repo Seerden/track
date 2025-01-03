@@ -1,6 +1,6 @@
 import { useQueryItemRowsByLogItem } from "@/lib/hooks/query/logbooks/useQueryItemRows";
 import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
-import type { ID } from "@t/data/utility.types";
+import type { ID } from "@shared/types/data/utility.types";
 
 /** Functionality hook for ItemSection */
 export default function useItemSection({ item_id, log_id }: { item_id: ID; log_id: ID }) {

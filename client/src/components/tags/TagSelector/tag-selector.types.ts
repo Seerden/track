@@ -1,6 +1,6 @@
 import type { ModalId } from "@/lib/modal-ids";
-import type { TagWithIds } from "@t/data/tag.types";
-import type { ByIdMap } from "@t/data/utility.types";
+import type { TagWithIds } from "@shared/types/data/tag.types";
+import type { ByIdMap } from "@shared/types/data/utility.types";
 import type { FocusEvent, MouseEvent } from "react";
 
 // These are passed from TagSelector > TagSelectorItems > TagSelectorItem

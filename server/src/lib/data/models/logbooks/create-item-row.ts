@@ -5,8 +5,8 @@ import type {
 	ItemRowWithFieldValues,
 	NewFieldValue,
 	NewItemRow,
-} from "@t/data/logbook.types";
-import type { ID } from "@t/data/utility.types";
+} from "@shared/types/data/logbook.types";
+import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
 export const createItemRow: QueryFunction<

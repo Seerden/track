@@ -1,7 +1,7 @@
 import MiniLog from "@/components/logbooks/Logbooks/MiniLog";
 import useLogbookCard from "@/components/logbooks/Logbooks/useLogbookCard";
 import { Link as LinkButton } from "@/lib/theme/components/buttons";
-import type { ID } from "@t/data/utility.types";
+import type { ID } from "@shared/types/data/utility.types";
 import { LucideMaximize, SquarePen } from "lucide-react";
 import { Link } from "react-router-dom";
 import S from "./style/LogbookCard.style";
