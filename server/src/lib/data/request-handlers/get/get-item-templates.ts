@@ -3,8 +3,7 @@ import { queryItemTemplatesByLogbook } from "@/lib/data/models/logbooks/query-it
 import type { RequestHandler } from "express";
 
 export const getItemTemplatesByLogbook: RequestHandler = async (req, res) => {
-	const logbook_id = +req.params.logbook_id;
-
+	const logbook_id = req.params.logbook_id;
 	const itemTemplates = await queryItemTemplatesByLogbook({ logbook_id });
 	const byId = groupById(itemTemplates, "item_template_id");
 
