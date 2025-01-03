@@ -108,6 +108,13 @@ const logTemplates: EndpointGroup = {
 
 // TODO: the delete handlers aren't in the client logbook-service.
 
+// TODO: I guess the goal is to have the list of server routes in /shared, then
+// we include those by key in this service here (e.g.
+// itemTemplates.getByLogbook.path = paths.itemTemplates.getByLogbook),
+// and then we use that to generate the client paths. The only thing to figure
+// out is how to add the handlers here and in the client, since they're shaped
+// very differently. I guess that part stays manual.
+
 const itemTemplates: EndpointGroup = {
 	getByLogbook: {
 		path: "/:logbook_id/item/templates",
