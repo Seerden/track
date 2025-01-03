@@ -23,13 +23,18 @@ type ExtractParams<Path extends string> =
  *     makeClientPath: (params: {logbook_id: string, item_id: string}) => `/${logbook_id}/items/${item_id}`
  *  }
  */
-export function matchPaths<Path extends string>(serverPath: Path) {
+export function matchPaths<Path extends string>(
+	serverPath: Path,
+	prefix: Path,
+) {
 	const makeClientPath = (params: { [K in ExtractParams<Path>]: string }) => {
 		let path: string = serverPath;
 		for (const key of Object.keys(params) as Array<ExtractParams<Path>>) {
 			path = path.replace(`:${key}`, params[key as ExtractParams<Path>]);
 		}
-		return path;
+		const result = `${prefix}${path}`;
+		console.log(result);
+		return result;
 	};
 
 	return { serverPath, makeClientPath };

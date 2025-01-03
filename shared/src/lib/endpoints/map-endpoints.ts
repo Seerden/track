@@ -1,7 +1,4 @@
-import {
-	ServerSubServiceMap,
-	SubService,
-} from "lib/endpoints/logbooks-endpoints";
+import { ServerSubServiceMap, SubService } from "./logbooks-endpoints";
 
 /** This function maps the given object of handlers by method, using the given endpoints,
  * to a ServerSubServiceMap.

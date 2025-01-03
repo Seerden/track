@@ -25,7 +25,7 @@ type LogbookSubService =
 	| "fieldTemplates";
 
 /** the HTTP methods we use */
-type Method = "get" | "post" | "put" | "delete";
+export type Method = "get" | "post" | "put" | "delete";
 
 /** represents the routes, grouped by method, for a subservice. These are
  * relative to the router itself, but not further subdivided (e.g. if we have a

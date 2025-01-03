@@ -1,3 +1,7 @@
+// This one has the same structure as in shared/logbooks-endpoints,
+// except instead of strings, the values are objects with a path (the string)
+// and a handler (specific to the server).
+
 import { deleteItem } from "@/lib/data/request-handlers/delete/delete-item";
 import { deleteItemTemplate } from "@/lib/data/request-handlers/delete/delete-item-template";
 import { deleteLog } from "@/lib/data/request-handlers/delete/delete-log";
@@ -36,21 +40,8 @@ import { putLog } from "@/lib/data/request-handlers/put/put-log";
 import { putLogbook } from "@/lib/data/request-handlers/put/put-logbook";
 import { logbookEndpointsService } from "@shared/lib/endpoints/logbooks-endpoints";
 import { mapEndpoints } from "@shared/lib/endpoints/map-endpoints";
-import type { RequestHandler } from "express";
 
-type EndpointConfig = {
-	path: string;
-	handler: RequestHandler;
-	method?: "get" | "post" | "put" | "delete";
-};
-
-type EndpointGroup = Record<string, EndpointConfig>;
-
-// This one has the same structure as in shared/logbooks-endpoints,
-// except instead of strings, the values are objects with a path (the string)
-// and a handler (specific to the server).
-// TODO: add a method field to every endpoint based on the method it's in.
-const _logbooks = mapEndpoints(logbookEndpointsService.logbooks, {
+const logbooks = mapEndpoints(logbookEndpointsService.logbooks, {
 	get: {
 		getByUser: getLogbooks,
 		getById: getLogbook,
@@ -66,178 +57,98 @@ const _logbooks = mapEndpoints(logbookEndpointsService.logbooks, {
 	},
 });
 
-const logbooks: EndpointGroup = {
-	getByUser: {
-		path: "/",
-		handler: getLogbooks,
-	},
-	getById: {
-		path: "/:logbook_id",
-		handler: getLogbook,
+const logs = mapEndpoints(logbookEndpointsService.logs, {
+	get: {
+		getByUser: getLogs,
+		getByLogbook: getLogsByLogbook,
 	},
 	post: {
-		path: "/",
-		handler: postLogbook,
-		method: "post",
-	},
-	delete: {
-		path: "/:logbook_id",
-		handler: deleteLogbook,
-		method: "delete",
+		post: postLog,
 	},
 	put: {
-		path: "/:logbook_id",
-		handler: putLogbook,
-		method: "put",
-	},
-};
-
-const logs: EndpointGroup = {
-	getByUser: {
-		path: "/logs",
-		handler: getLogs,
-	},
-	getByLogbook: {
-		path: "/:logbook_id/logs",
-		handler: getLogsByLogbook,
-	},
-	post: {
-		path: "/log",
-		handler: postLog,
-		method: "post",
-	},
-	put: {
-		path: "/log/:log_id",
-		handler: putLog,
-		method: "put",
+		put: putLog,
 	},
 	delete: {
-		path: "/log/:log_id",
-		handler: deleteLog,
-		method: "delete",
+		delete: deleteLog,
 	},
-};
+});
 
-const logTemplates: EndpointGroup = {
-	getById: {
-		path: "/templates/:log_template_id",
-		handler: getLogTemplate,
-	},
-	getByUser: {
-		path: "/templates",
-		handler: getLogTemplates,
-	},
-	getByLogbook: {
-		path: "/:logbook_id/templates",
-		handler: getLogTemplatesByLogbook,
+const logTemplates = mapEndpoints(logbookEndpointsService.logTemplates, {
+	get: {
+		getById: getLogTemplate,
+		getByUser: getLogTemplates,
+		getByLogbook: getLogTemplatesByLogbook,
 	},
 	post: {
-		path: "/template",
-		handler: postLogTemplate,
-		method: "post",
+		post: postLogTemplate,
 	},
+	put: {},
 	delete: {
-		path: "/log/template/:log_template_id",
-		handler: deleteLogTemplate,
-		method: "delete",
+		delete: deleteLogTemplate,
 	},
-};
+});
 
-// TODO: I'm working on making this object out of all the routes,
-// the structure (top-level and second-level keys) match those in the client
-// logbook-service.
-// not sure how we're going to reconcile the two, but we'll see when we get there.
-
-// TODO: the delete handlers aren't in the client logbook-service.
-
-// TODO: I guess the goal is to have the list of server routes in /shared, then
-// we include those by key in this service here (e.g.
-// itemTemplates.getByLogbook.path = paths.itemTemplates.getByLogbook),
-// and then we use that to generate the client paths. The only thing to figure
-// out is how to add the handlers here and in the client, since they're shaped
-// very differently. I guess that part stays manual.
-
-const itemTemplates: EndpointGroup = {
-	getByLogbook: {
-		path: "/:logbook_id/item/templates",
-		handler: getItemTemplatesByLogbook,
+const itemTemplates = mapEndpoints(logbookEndpointsService.itemTemplates, {
+	get: {
+		getByLogbook: getItemTemplatesByLogbook,
 	},
 	post: {
-		path: "/item/template",
-		handler: postItemTemplate,
-		method: "post",
+		post: postItemTemplate,
 	},
+	put: {},
 	delete: {
-		path: "/item/template/:item_template_id",
-		handler: deleteItemTemplate,
-		method: "delete",
+		delete: deleteItemTemplate,
 	},
-};
+});
 
-const items: EndpointGroup = {
-	getByUser: {
-		path: "/items",
-		handler: getItems,
-	},
-	getByTemplate: {
-		path: "/items/templates/:item_template_id/items",
-		handler: getItemsByTemplate,
-	},
-	getByLogbook: {
-		path: "/:logbook_id/items",
-		handler: getItemsByLogbook,
+const items = mapEndpoints(logbookEndpointsService.items, {
+	get: {
+		getByUser: getItems,
+		getByTemplate: getItemsByTemplate,
+		getByLogbook: getItemsByLogbook,
 	},
 	post: {
-		path: "/item",
-		handler: postItem,
-		method: "post",
+		post: postItem,
 	},
+	put: {},
 	delete: {
-		path: "/item/:item_id",
-		handler: deleteItem,
-		method: "delete",
+		delete: deleteItem,
 	},
-};
+});
 
-const itemRows: EndpointGroup = {
-	getByUser: {
-		path: "/items/rows",
-		handler: getItemRows,
+const itemRows = mapEndpoints(logbookEndpointsService.itemRows, {
+	get: {
+		getByUser: getItemRows,
+		getByLog: getItemRowsByLog,
+		getByLogItem: getItemRowsByLogItem,
 	},
-	getByLog: {
-		path: "/logs/:log_id/items/rows",
-		handler: getItemRowsByLog,
-	},
-	getByLogItem: {
-		path: "/logs/:log_id/items/:item_id/rows",
-		handler: getItemRowsByLogItem,
-	},
+	put: {},
 	post: {
-		path: "/item/row",
-		handler: postItemRow,
-		method: "post",
+		post: postItemRow,
 	},
-};
+	delete: {},
+});
 
-const fields: EndpointGroup = {
-	getByUser: {
-		path: "/fields",
-		handler: getFields,
+const fields = mapEndpoints(logbookEndpointsService.fields, {
+	get: {
+		getByUser: getFields,
+		getByItemRow: getFieldsByItemRow,
 	},
-	getByItemRow: {
-		path: "/items/rows/:item_row_id/fields",
-		handler: getFieldsByItemRow,
-	},
-};
+	post: {},
+	put: {},
+	delete: {},
+});
 
-const fieldTemplates: EndpointGroup = {
-	getByItemTemplate: {
-		path: "/items/templates/:item_template_id/fields/templates",
-		handler: getFieldTemplatesByItemTemplate,
+const fieldTemplates = mapEndpoints(logbookEndpointsService.fieldTemplates, {
+	get: {
+		getByItemTemplate: getFieldTemplatesByItemTemplate,
 	},
-};
+	post: {},
+	put: {},
+	delete: {},
+});
 
-export const logbookService = {
+export const logbookServiceMapped = {
 	logbooks,
 	logs,
 	logTemplates,

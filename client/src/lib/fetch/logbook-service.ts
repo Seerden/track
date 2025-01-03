@@ -8,6 +8,8 @@ import type {
 	LogsData,
 	LogTemplatesData
 } from "@/types/data.types";
+import { logbookEndpointsService as urls } from "@shared/lib/endpoints/logbooks-endpoints";
+import { matchPaths } from "@shared/lib/match-endpoints";
 import type {
 	FieldTemplate,
 	FieldTemplateWithMaybeValue,
@@ -28,60 +30,76 @@ import type {
 } from "@shared/types/data/logbook.types";
 import type { ID, Nullable } from "@shared/types/data/utility.types";
 
+const getPath = (url: string) => matchPaths(url, "/data/logbooks").makeClientPath;
+
 const logbookService = {
 	logbooks: {
-		getByUser: async () => api.get<LogbooksData>({ url: "/data/logbooks" }),
+		getByUser: async () =>
+			api.get<LogbooksData>({
+				url: getPath(urls.logbooks.get.getByUser)({})
+			}),
 		getById: async (logbook_id: ID) =>
-			api.get<Nullable<Logbook>>({ url: `/data/logbook/${logbook_id}` }),
+			api.get<Nullable<Logbook>>({
+				url: getPath(urls.logbooks.get.getById)({ logbook_id })
+			}),
 		post: async (input: NewLogbookInput) =>
 			api.post<NewLogbookInput, Logbook>({
-				url: "/data/logbook",
+				url: getPath(urls.logbooks.post.post)({}),
 				body: input
 			}),
 		put: async (input: LogbookInput) =>
 			api.put<LogbookInput, Logbook>({
-				url: `/data/logbook/${input.logbook.logbook_id}`,
+				url: getPath(urls.logbooks.put.put)({ logbook_id: input.logbook.logbook_id }),
 				body: input
 			})
 	},
 	logs: {
-		getByUser: async () => api.get<LogsData>({ url: "/data/logbooks/logs" }),
+		getByUser: async () =>
+			api.get<LogsData>({
+				url: getPath(urls.logs.get.getByUser)({})
+			}),
 		getByLogbook: async (logbook_id: ID) =>
-			api.get<LogsData>({ url: `/data/logbook/${logbook_id}/logs` }),
+			api.get<LogsData>({
+				url: getPath(urls.logs.get.getByLogbook)({ logbook_id })
+			}),
 		post: async (input: NewLogInput) =>
 			api.post<NewLogInput, Log>({
-				url: "/data/logbook/log",
+				url: getPath(urls.logs.post.post)({}),
 				body: input
 			}),
 		put: async (input: LogInput) =>
 			api.put<LogInput, Log>({
-				url: `/data/logbook/log/${input.log.log_id}`,
+				url: getPath(urls.logs.put.put)({ log_id: input.log.log_id }),
 				body: input
 			})
 	},
 	logTemplates: {
 		getById: async (log_template_id: ID) =>
 			api.get<Nullable<LogTemplate>>({
-				url: `/data/logbook/template/${log_template_id}`
+				url: getPath(urls.logTemplates.get.getById)({ log_template_id })
 			}),
 		getByUser: async () =>
-			api.get<LogTemplatesData>({ url: "/data/logbook/templates" }),
+			api.get<LogTemplatesData>({
+				url: getPath(urls.logTemplates.get.getByUser)({})
+			}),
 		getByLogbook: async (logbook_id: ID) =>
-			api.get<LogTemplatesData>({ url: `/data/logbook/${logbook_id}/templates` }),
+			api.get<LogTemplatesData>({
+				url: getPath(urls.logTemplates.get.getByLogbook)({ logbook_id })
+			}),
 		post: async (input: NewLogTemplateInput) =>
 			api.post<NewLogTemplateInput, LogTemplate>({
-				url: "/data/logbook/template",
+				url: getPath(urls.logTemplates.post.post)({}),
 				body: input
 			})
 	},
 	itemTemplates: {
 		getByLogbook: async (logbook_id: ID) =>
 			api.get<ItemTemplatesData>({
-				url: `/data/logbook/${logbook_id}/item/templates`
+				url: getPath(urls.itemTemplates.get.getByLogbook)({ logbook_id })
 			}),
 		post: async (input: NewItemTemplateInput) =>
 			api.post<NewItemTemplateInput, ItemTemplateAndFieldTemplates>({
-				url: "/data/logbook/item/template",
+				url: getPath(urls.itemTemplates.post.post)({}),
 				body: input
 			})
 	},
@@ -89,41 +107,49 @@ const logbookService = {
 		getByUser: async () => api.get<ItemsData>({ url: "/data/logbooks/items" }),
 		getByTemplate: async (item_template_id: ID) =>
 			api.get<ItemsData>({
-				url: `/data/logbook/items/template/${item_template_id}/items`
+				url: getPath(urls.items.get.getByTemplate)({ item_template_id })
 			}),
 		getByLogbook: async (logbook_id: ID) =>
 			api.get<ItemsData>({ url: `/data/logbook/${logbook_id}/items` }),
 		post: async (input: NewItemInput) =>
 			api.post<NewItemInput, Item>({
-				url: "/data/logbook/item",
+				url: getPath(urls.items.post.post)({}),
 				body: input
 			})
 	},
 	itemRows: {
-		getByUser: async () => api.get<ItemRowsData>({ url: "/data/logbooks/items/rows" }),
+		getByUser: async () =>
+			api.get<ItemRowsData>({
+				url: getPath(urls.itemRows.get.getByUser)({})
+			}),
 		getByLog: async (log_id: ID) =>
-			api.get<ItemRowsData>({ url: `/data/logbook/log/${log_id}/items/rows` }),
+			api.get<ItemRowsData>({
+				url: getPath(urls.itemRows.get.getByLog)({ log_id })
+			}),
 		getByLogItem: async ({ log_id, item_id }: { log_id: ID; item_id: ID }) =>
 			api.get<ItemRowsData>({
-				url: `/data/logbook/log/${log_id}/items/${item_id}/rows`
+				url: getPath(urls.itemRows.get.getByLogItem)({ log_id, item_id })
 			}),
 		post: async (input: NewItemRowInput) =>
 			api.post<NewItemRowInput, ItemRowWithFieldValues>({
-				url: "/data/logbook/item/row",
+				url: getPath(urls.itemRows.post.post)({}),
 				body: input
 			})
 	},
 	fields: {
-		getByUser: async () => api.get<FieldsData>({ url: "/data/logbooks/fields" }),
+		getByUser: async () =>
+			api.get<FieldsData>({
+				url: getPath(urls.fields.get.getByUser)({})
+			}),
 		getByItemRow: async ({ item_row_id }: { item_row_id: ID }) =>
 			api.get<{ fields: FieldTemplateWithMaybeValue[] }>({
-				url: `/data/logbooks/items/rows/${item_row_id}/fields`
+				url: getPath(urls.fields.get.getByItemRow)({ item_row_id })
 			})
 	},
 	fieldTemplates: {
 		getByItemTemplate: async (item_template_id: ID) =>
 			api.get<{ fieldTemplates: FieldTemplate[] }>({
-				url: `/data/logbook/items/template/${item_template_id}/fields/templates`
+				url: getPath(urls.fieldTemplates.get.getByItemTemplate)({ item_template_id })
 			})
 	}
 };
