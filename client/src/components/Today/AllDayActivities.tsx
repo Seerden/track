@@ -1,5 +1,5 @@
 import AllDayActivity from "@/components/Today/AllDayActivity";
-import type { ActivityWithIds } from "@t/data/activity.types";
+import type { ActivityWithIds } from "@shared/types/data/activity.types";
 import S from "./style/Today.style";
 
 type AllDayActivitiesProps = {

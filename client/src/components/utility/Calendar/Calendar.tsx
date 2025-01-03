@@ -5,7 +5,7 @@ import { today } from "@/lib/datetime/make-date";
 import { daysOfWeekShort } from "@/lib/datetime/weekdays";
 import { Cell } from "@/lib/theme/components/buttons";
 import { MonthPicker } from "@mantine/dates";
-import type { Maybe } from "@t/data/utility.types";
+import type { Maybe } from "@shared/types/data/utility.types";
 import type { Dayjs } from "dayjs";
 import { LucideChevronLeft, LucideChevronRight } from "lucide-react";
 import S from "./style/Calendar.style";

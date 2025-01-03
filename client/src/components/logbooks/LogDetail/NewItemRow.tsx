@@ -2,8 +2,8 @@ import useNewItemRow from "@/components/logbooks/LogDetail/hooks/useNewItemRow";
 import S from "@/components/logbooks/LogDetail/style/ItemRow.style";
 import Containers from "@/lib/theme/components/container.style";
 import UnstyledInput from "@/lib/theme/components/input/UnstyledInput.style";
-import type { FieldTemplate, Item } from "@t/data/logbook.types";
-import type { ID } from "@t/data/utility.types";
+import type { FieldTemplate, Item } from "@shared/types/data/logbook.types";
+import type { ID } from "@shared/types/data/utility.types";
 
 interface NewItemRowProps {
 	position: number;

@@ -1,5 +1,5 @@
 import { sqlConnection } from "@/db/init";
-import type { HabitEntry, NewHabitEntry } from "@t/data/habit.types";
+import type { HabitEntry, NewHabitEntry } from "@shared/types/data/habit.types";
 import type { QueryFunction } from "types/sql.types";
 
 export const insertHabitEntry: QueryFunction<

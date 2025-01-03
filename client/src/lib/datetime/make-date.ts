@@ -1,5 +1,5 @@
 import day from "@/lib/dayjs";
-import type { Datelike } from "@t/data/utility.types";
+import type { Datelike } from "@shared/types/data/utility.types";
 
 /**
  * General note: I'm not sure _why_ utc is vital, but dates do not get parsed

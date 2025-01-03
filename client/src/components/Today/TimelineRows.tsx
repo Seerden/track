@@ -3,7 +3,7 @@ import {
 	activityStartHourOnDate,
 	assignIndentationLevelToActivities
 } from "@/lib/activity";
-import type { ActivityWithIds } from "@t/data/activity.types";
+import type { ActivityWithIds } from "@shared/types/data/activity.types";
 import type { Dayjs } from "dayjs";
 import S from "./style/Today.style";
 

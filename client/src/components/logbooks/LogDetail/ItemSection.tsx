@@ -2,8 +2,8 @@ import MaybeItemRow from "@/components/logbooks/LogDetail/ItemRow";
 import ItemSectionHeader from "@/components/logbooks/LogDetail/ItemSectionHeader";
 import NewItemRow from "@/components/logbooks/LogDetail/NewItemRow";
 import useItemSection from "@/components/logbooks/LogDetail/hooks/useItemSection";
-import type { FieldTemplate, Item } from "@t/data/logbook.types";
-import type { ID } from "@t/data/utility.types";
+import type { FieldTemplate, Item } from "@shared/types/data/logbook.types";
+import type { ID } from "@shared/types/data/utility.types";
 import S from "./style/ItemSection.style";
 
 export type ItemSectionProps = {

@@ -5,8 +5,8 @@ import type {
 	FieldTemplate,
 	FieldTemplateWithMaybeValue,
 	Item
-} from "@t/data/logbook.types";
-import type { ID } from "@t/data/utility.types";
+} from "@shared/types/data/logbook.types";
+import type { ID } from "@shared/types/data/utility.types";
 import { useState } from "react";
 
 export default function useNewItemRow({

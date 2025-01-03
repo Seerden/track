@@ -1,5 +1,5 @@
 import { insertHabitEntry } from "@/lib/data/models/habits/insert-habit-entry";
-import type { HabitEntryInput } from "@t/data/habit.types";
+import type { HabitEntryInput } from "@shared/types/data/habit.types";
 import type { RequestHandler } from "express";
 
 const postHabitEntry: RequestHandler = async (req, res) => {

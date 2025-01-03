@@ -13,7 +13,7 @@ import type {
 	NewActivity,
 	WithDates,
 	WithTimestamps
-} from "@t/data/activity.types";
+} from "@shared/types/data/activity.types";
 import { useEffect, useState } from "react";
 import { parseNewActivity, parseUpdatedActivity } from "./parse-activity";
 

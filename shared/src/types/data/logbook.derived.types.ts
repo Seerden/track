@@ -1,4 +1,4 @@
-import { FieldTemplate, ValueType } from "@t/data/logbook.types";
+import { FieldTemplate, ValueType } from "./logbook.types";
 
 export type FieldTemplateWithValue = FieldTemplate & {
 	value: NonNullable<ValueType>;

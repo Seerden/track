@@ -4,7 +4,7 @@ import Modal from "@/components/utility/Modal/Modal";
 import modalIds from "@/lib/modal-ids";
 import { Action } from "@/lib/theme/components/buttons";
 import F from "@/lib/theme/components/form/form.alternate.style";
-import type { ID } from "@t/data/utility.types";
+import type { ID } from "@shared/types/data/utility.types";
 import {
 	LucideArrowRight,
 	LucideFolderPlus,

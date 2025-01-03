@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@t/*": ["shared/src/types/*"]
+      "@shared/*": ["shared/src/types/*"]
     }
   },
   "files": [],

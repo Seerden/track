@@ -1,5 +1,8 @@
 import { sqlConnection } from "@/db/init";
-import type { FieldTemplate, NewFieldTemplateWithId } from "@t/data/logbook.types";
+import type {
+	FieldTemplate,
+	NewFieldTemplateWithId,
+} from "@shared/types/data/logbook.types";
 import type { QueryFunction } from "types/sql.types";
 
 export const insertFieldTemplate: QueryFunction<

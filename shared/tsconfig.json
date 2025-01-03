@@ -14,9 +14,7 @@
     "noImplicitAny": true,
     "outDir": "./dist" /* Redirect output structure to the directory. */,
     "composite": true,
-    "paths": {
-      "@t/*": ["types/*"]
-    }
+    "paths": {}
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]

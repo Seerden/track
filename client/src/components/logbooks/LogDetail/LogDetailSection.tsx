@@ -3,8 +3,8 @@ import ItemSection from "@/components/logbooks/LogDetail/ItemSection";
 import ItemSelector from "@/components/logbooks/LogDetail/ItemSelector";
 import NewItem from "@/components/logbooks/NewItem/NewItem";
 import Modal from "@/components/utility/Modal/Modal";
-import type { ItemTemplate } from "@t/data/logbook.types";
-import type { ID } from "@t/data/utility.types";
+import type { ItemTemplate } from "@shared/types/data/logbook.types";
+import type { ID } from "@shared/types/data/utility.types";
 import T from "./style/_shared.style";
 import S from "./style/LogDetailSection.style";
 

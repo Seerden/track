@@ -1,9 +1,9 @@
 import { sqlConnection } from "@/db/init";
 import { mergeHabitsAndRelations } from "@/lib/data/models/habits/merge-habits-and-relations";
 import { queryHabitEntriesByUser } from "@/lib/data/models/habits/query-habit-entries";
-import type { Habit } from "@t/data/habit.types";
-import type { HabitTagRelation } from "@t/data/relational.types";
-import type { ID } from "@t/data/utility.types";
+import type { Habit } from "@shared/types/data/habit.types";
+import type { HabitTagRelation } from "@shared/types/data/relational.types";
+import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
 const queryHabitsByUser: QueryFunction<{ user_id: ID }, Promise<Habit[]>> = async ({

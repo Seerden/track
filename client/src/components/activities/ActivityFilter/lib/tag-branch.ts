@@ -1,6 +1,6 @@
 import type { TagsTreeData } from "@/types/data.types";
-import type { TagWithIds } from "@t/data/tag.types";
-import type { ByIdMap, ID } from "@t/data/utility.types";
+import type { TagWithIds } from "@shared/types/data/tag.types";
+import type { ByIdMap, ID } from "@shared/types/data/utility.types";
 
 // TODO: on the server, we have a findRootTag function. Put it in shared and use
 // it both here and there.

@@ -1,4 +1,4 @@
-import type { ById } from "@t/data/utility.types";
+import type { ById } from "@shared/types/data/utility.types";
 
 type IdFieldUnion<T> = {
 	[K in keyof T]: K extends `${string}_id` ? K : never;

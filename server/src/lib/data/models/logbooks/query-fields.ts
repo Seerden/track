@@ -1,7 +1,10 @@
 import { sqlConnection } from "@/db/init";
 import { groupById } from "@/lib/data/models/group-by-id";
-import type { Field, FieldTemplateWithMaybeValue } from "@t/data/logbook.types";
-import type { ById, ID } from "@t/data/utility.types";
+import type {
+	Field,
+	FieldTemplateWithMaybeValue,
+} from "@shared/types/data/logbook.types";
+import type { ById, ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
 /** Get all fields belonging to a user. A field is a fieldTemplate along with

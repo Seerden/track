@@ -1,7 +1,7 @@
 import { useQueryItemTemplatesByLogbook } from "@/lib/hooks/query/logbooks/useQueryItemTemplates";
 import useQueryLogs from "@/lib/hooks/query/logbooks/useQueryLogs";
 import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
-import type { ID } from "@t/data/utility.types";
+import type { ID } from "@shared/types/data/utility.types";
 
 type UseLogDetailDataArgs = {
 	logbookId: ID;

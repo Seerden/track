@@ -1,5 +1,5 @@
 import { insertTagWithRelations } from "@/lib/data/models/tags/insert-tags";
-import type { TagInput } from "@t/data/tag.types";
+import type { TagInput } from "@shared/types/data/tag.types";
 import type { RequestHandler } from "express";
 
 const postTag: RequestHandler = async (req, res) => {

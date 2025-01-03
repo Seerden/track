@@ -1,6 +1,6 @@
 import { sqlConnection } from "@/db/init";
-import type { FieldTemplate } from "@t/data/logbook.types";
-import type { ID } from "@t/data/utility.types";
+import type { FieldTemplate } from "@shared/types/data/logbook.types";
+import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
 /** Get all field templates that belong to the given item template. */

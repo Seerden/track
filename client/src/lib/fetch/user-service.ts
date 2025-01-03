@@ -2,7 +2,7 @@ import api from "@/lib/fetch/api";
 import { localUser } from "@/lib/user-storage";
 import type { UserData } from "@/types/data.types";
 import type { Data } from "@/types/query.types";
-import type { NewUser, User, UserLogin } from "@t/data/user.types";
+import type { NewUser, User, UserLogin } from "@shared/types/data/user.types";
 
 async function postLogin(user: UserLogin) {
 	return api.post<{ user: UserLogin }, Data<"user", User>>({

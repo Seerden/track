@@ -28,13 +28,14 @@ sentryRouter.post("/", async (req, res) => {
 
 		if (response.ok) {
 			const data = await response.json();
-			return res.status(response.status).json(data);
+			res.status(response.status).json(data);
 		} else {
 			console.log({ response });
-			return res.status(response.status).send("Error forwarding to Sentry");
+			res.status(response.status).send("Error forwarding to Sentry");
 		}
 	} catch (error) {
 		console.error("Error forwarding to Sentry:", error);
-		return res.status(500).send("Error forwarding to Sentry");
+		res.status(500).send("Error forwarding to Sentry");
+		return;
 	}
 });

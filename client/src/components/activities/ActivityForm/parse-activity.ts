@@ -1,8 +1,8 @@
 import { createDate } from "@/lib/datetime/make-date";
-import { activityGuards } from "@t/data/activity.guards";
-import type { ActivityWithIds } from "@t/data/activity.types";
-import { type NewActivity } from "@t/data/activity.types";
-import { hasValidUserId } from "@t/data/user-id.guards";
+import { activityGuards } from "@shared/types/data/activity.guards";
+import type { ActivityWithIds } from "@shared/types/data/activity.types";
+import { type NewActivity } from "@shared/types/data/activity.types";
+import { hasValidUserId } from "@shared/types/data/user-id.guards";
 
 /** If `activity` is an all-day activity (which we determine by seeing if it's
  * an activity withDates), set end_date to the end of that day.

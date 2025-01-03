@@ -1,6 +1,6 @@
 import { createDate } from "@/lib/datetime/make-date";
 import { Link as LinkButton } from "@/lib/theme/components/buttons";
-import type { Log } from "@t/data/logbook.types";
+import type { Log } from "@shared/types/data/logbook.types";
 import { LucideMaximize } from "lucide-react";
 import { Link } from "react-router-dom";
 import S from "./style/MiniLog.style";

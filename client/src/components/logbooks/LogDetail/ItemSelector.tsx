@@ -1,7 +1,7 @@
 import useItemSelector from "@/components/logbooks/LogDetail/hooks/useItemSelector";
 import { Unstyled } from "@/lib/theme/components/buttons";
-import { type Item } from "@t/data/logbook.types";
-import type { ID } from "@t/data/utility.types";
+import { type Item } from "@shared/types/data/logbook.types";
+import type { ID } from "@shared/types/data/utility.types";
 import { LucidePlus } from "lucide-react";
 import S from "./style/ItemSelector.style";
 import T from "./style/_shared.style";

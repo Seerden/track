@@ -1,6 +1,6 @@
 import { createItemTemplate } from "@/lib/data/models/logbooks/create-item-template";
 import { getUserIdFromSessionOrBail } from "@/lib/data/request-handlers/get-user-id-from-session-or-bail";
-import type { NewItemTemplateInput } from "@t/data/logbook.types";
+import type { NewItemTemplateInput } from "@shared/types/data/logbook.types";
 import type { RequestHandler } from "express";
 
 export const postItemTemplate: RequestHandler = async (req, res) => {

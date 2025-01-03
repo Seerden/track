@@ -3,8 +3,8 @@ import useQueryHabitEntries from "@/lib/hooks/query/habits/useQueryHabitEntries"
 import useQueryHabits from "@/lib/hooks/query/habits/useQueryHabits";
 import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
 import type { TimeWindow } from "@/types/time-window.types";
-import type { Habit, HabitWithEntries } from "@t/data/habit.types";
-import type { ById } from "@t/data/utility.types";
+import type { Habit, HabitWithEntries } from "@shared/types/data/habit.types";
+import type { ById } from "@shared/types/data/utility.types";
 import { useCallback, useMemo } from "react";
 
 export default function useHabitsData() {

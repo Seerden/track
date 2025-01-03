@@ -9,7 +9,7 @@ import { useModalState } from "@/lib/state/modal-state";
 import { Action } from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import { font } from "@/lib/theme/font";
-import type { ID } from "@t/data/utility.types";
+import type { ID } from "@shared/types/data/utility.types";
 import { LucideFolderPen, LucidePlus } from "lucide-react";
 import S from "./style/LogDetail.style";
 

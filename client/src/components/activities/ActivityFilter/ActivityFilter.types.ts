@@ -1,4 +1,4 @@
-import type { ID, Nullable } from "@t/data/utility.types";
+import type { ID, Nullable } from "@shared/types/data/utility.types";
 import type { Dayjs } from "dayjs";
 
 export type ActivityFilterState = {

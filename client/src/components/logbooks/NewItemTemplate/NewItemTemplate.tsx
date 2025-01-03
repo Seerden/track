@@ -4,7 +4,7 @@ import useNewItemTemplate from "@/components/logbooks/NewItemTemplate/useNewItem
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import F from "@/lib/theme/components/form/form.alternate.style";
 import { font } from "@/lib/theme/font";
-import type { ID } from "@t/data/utility.types";
+import type { ID } from "@shared/types/data/utility.types";
 import { LucideBookCopy } from "lucide-react";
 import S from "./style/NewItemTemplate.style";
 

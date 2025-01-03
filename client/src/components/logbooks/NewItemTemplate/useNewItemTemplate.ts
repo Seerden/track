@@ -1,6 +1,9 @@
 import useMutateNewItemTemplate from "@/lib/hooks/query/logbooks/useMutateNewItemTemplate";
-import type { NewFieldTemplate, NewItemTemplate } from "@t/data/logbook.new.types";
-import type { ID } from "@t/data/utility.types";
+import type {
+	NewFieldTemplate,
+	NewItemTemplate
+} from "@shared/types/data/logbook.new.types";
+import type { ID } from "@shared/types/data/utility.types";
 import type React from "react";
 import { useState } from "react";
 

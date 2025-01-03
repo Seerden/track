@@ -1,5 +1,5 @@
 import type { DataById, MappedData } from "@/types/query.types";
-import type { ID } from "@t/data/utility.types";
+import type { ID } from "@shared/types/data/utility.types";
 
 // export default function transformByIdToMap<T extends DataById<unknown>>(
 // 	data: T

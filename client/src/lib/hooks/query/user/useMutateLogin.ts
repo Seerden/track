@@ -3,7 +3,7 @@ import { queryClient } from "@/lib/query-client";
 import { mk, qk } from "@/lib/query-keys";
 import { localUser } from "@/lib/user-storage";
 import type { Data } from "@/types/query.types";
-import type { User, UserLogin } from "@t/data/user.types";
+import type { User, UserLogin } from "@shared/types/data/user.types";
 import { useMutation } from "@tanstack/react-query";
 
 export default function useMutateLogin() {

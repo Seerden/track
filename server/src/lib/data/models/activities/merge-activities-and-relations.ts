@@ -1,7 +1,7 @@
 import { groupById } from "@/lib/data/models/group-by-id";
-import type { Activity, ActivityWithIds } from "@t/data/activity.types";
-import type { ActivityTagRelation } from "@t/data/relational.types";
-import type { ById } from "@t/data/utility.types";
+import type { Activity, ActivityWithIds } from "@shared/types/data/activity.types";
+import type { ActivityTagRelation } from "@shared/types/data/relational.types";
+import type { ById } from "@shared/types/data/utility.types";
 
 export function mergeActivitiesAndRelations(
 	activities: Activity[],

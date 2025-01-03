@@ -5,7 +5,7 @@ import {
 	ItemTemplate,
 	Log,
 	Logbook,
-} from "@t/data/logbook.types";
+} from "./logbook.types";
 
 export type LogbookInput = {
 	logbook: Logbook;

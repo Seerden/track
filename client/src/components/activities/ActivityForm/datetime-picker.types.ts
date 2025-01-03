@@ -1,6 +1,6 @@
 import type { DateTimeField } from "@/types/form.types";
-import type { WithDates, WithTimestamps } from "@t/data/activity.types";
-import type { Datelike, Nullable } from "@t/data/utility.types";
+import type { WithDates, WithTimestamps } from "@shared/types/data/activity.types";
+import type { Datelike, Nullable } from "@shared/types/data/utility.types";
 
 export type DateTimeStateSetter = (args: {
 	name: DateTimeField;

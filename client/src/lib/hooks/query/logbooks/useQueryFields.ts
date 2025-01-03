@@ -2,7 +2,7 @@ import logbookService from "@/lib/fetch/logbook-service";
 import { select } from "@/lib/hooks/query/select-map-by-id";
 import { defaultQueryConfig } from "@/lib/query-client";
 import { qk } from "@/lib/query-keys";
-import type { ID } from "@t/data/utility.types";
+import type { ID } from "@shared/types/data/utility.types";
 import { useQuery } from "@tanstack/react-query";
 
 export default function useQueryFields() {

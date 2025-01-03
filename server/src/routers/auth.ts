@@ -2,7 +2,7 @@ import { createUser } from "@/lib/data/models/user/insert-user";
 import { queryUserbyId } from "@/lib/data/models/user/query-user";
 import { destroySession } from "@lib/auth/destroy-session";
 import { login } from "@lib/auth/log-in";
-import { type NewUser, type UserLogin } from "@t/data/user.types";
+import { type NewUser, type UserLogin } from "@shared/types/data/user.types";
 import { Router } from "express";
 
 export const authRouter = Router({ mergeParams: true });
@@ -12,12 +12,12 @@ export const authRouter = Router({ mergeParams: true });
 
 authRouter.get("/me", async (req, res) => {
 	if (!req.session?.user?.user_id) {
-		return res.status(401).json({ user: null, message: "No active user." });
+		res.status(401).json({ user: null, message: "No active user." });
+	} else {
+		res.status(200).json({
+			user: await queryUserbyId({ user_id: req.session.user.user_id }),
+		});
 	}
-
-	return res
-		.status(200)
-		.json({ user: await queryUserbyId({ user_id: req.session.user.user_id }) });
 });
 
 authRouter.post("/logout", async (req, res) => {
@@ -35,8 +35,8 @@ authRouter.post("/register", async (req, res) => {
 	const registeredUser = await createUser({ newUser });
 
 	if (!registeredUser) {
-		return res.status(400).json({ message: "Registration failed." });
+		res.status(400).json({ message: "Registration failed." });
+	} else {
+		await login(newUser, req, res);
 	}
-
-	await login(newUser, req, res);
 });

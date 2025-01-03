@@ -1,5 +1,5 @@
 import { updateLog } from "@/lib/data/models/logbooks/update-log";
-import type { Log } from "@t/data/logbook.types";
+import type { Log } from "@shared/types/data/logbook.types";
 import type { RequestHandler } from "express";
 
 export const putLog: RequestHandler = async (req, res) => {

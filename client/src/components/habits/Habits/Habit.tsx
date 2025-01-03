@@ -3,7 +3,7 @@ import { frequencyString } from "@/components/habits/Habits/frequency-string";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import modalIds from "@/lib/modal-ids";
 import L from "@/lib/theme/components/List.style";
-import type { HabitWithPossiblySyntheticEntries } from "@t/data/habit.types";
+import type { HabitWithPossiblySyntheticEntries } from "@shared/types/data/habit.types";
 import { LucideMaximize2 } from "lucide-react";
 import { useState } from "react";
 import S from "./style/Habit.style";

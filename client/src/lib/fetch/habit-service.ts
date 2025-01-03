@@ -7,7 +7,7 @@ import type {
 	HabitEntryUpdateInput,
 	HabitInput,
 	HabitWithIds
-} from "@t/data/habit.types";
+} from "@shared/types/data/habit.types";
 
 async function getHabits() {
 	return api.get<HabitsData>({ url: "/data/habits" });

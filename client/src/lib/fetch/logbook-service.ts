@@ -25,8 +25,8 @@ import type {
 	NewLogbookInput,
 	NewLogInput,
 	NewLogTemplateInput
-} from "@t/data/logbook.types";
-import type { ID, Nullable } from "@t/data/utility.types";
+} from "@shared/types/data/logbook.types";
+import type { ID, Nullable } from "@shared/types/data/utility.types";
 
 const logbookService = {
 	logbooks: {

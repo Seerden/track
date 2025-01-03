@@ -3,7 +3,7 @@ import { useQueryItemTemplatesByLogbook } from "@/lib/hooks/query/logbooks/useQu
 import { useQueryLogTemplate } from "@/lib/hooks/query/logbooks/useQueryLogTemplates";
 import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
 import useRouteProps from "@/lib/hooks/useRouteProps";
-import type { ID } from "@t/data/utility.types";
+import type { ID } from "@shared/types/data/utility.types";
 
 export default function useMiniLogTemplate({
 	log_template_id,

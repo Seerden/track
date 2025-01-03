@@ -1,8 +1,8 @@
 import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
 import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
 import { useTagSelection } from "@lib/state/selected-tags-state";
-import type { TagWithIds } from "@t/data/tag.types";
-import type { ById, ByIdMap, ID } from "@t/data/utility.types";
+import type { TagWithIds } from "@shared/types/data/tag.types";
+import type { ById, ByIdMap, ID } from "@shared/types/data/utility.types";
 import type { ChangeEvent, MouseEvent } from "react";
 import { useMemo, useState } from "react";
 

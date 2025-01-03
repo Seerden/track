@@ -1,6 +1,6 @@
 import { sqlConnection } from "@/db/init";
-import type { Item } from "@t/data/logbook.types";
-import type { ID } from "@t/data/utility.types";
+import type { Item } from "@shared/types/data/logbook.types";
+import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
 /** Deletes an item from the database by id.

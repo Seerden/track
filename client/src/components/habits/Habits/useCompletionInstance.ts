@@ -4,8 +4,8 @@ import useMutateNewHabitEntry from "@/lib/hooks/query/habits/useMutateNewHabitEn
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import { queryClient } from "@/lib/query-client";
 import { qk } from "@/lib/query-keys";
-import { isSynthetic } from "@t/data/habit-entry.guards";
-import type { HabitEntry, SyntheticHabitEntry } from "@t/data/habit.types";
+import { isSynthetic } from "@shared/types/data/habit-entry.guards";
+import type { HabitEntry, SyntheticHabitEntry } from "@shared/types/data/habit.types";
 
 export default function useCompletionInstance() {
 	const { mutate: submitNewEntry } = useMutateNewHabitEntry();

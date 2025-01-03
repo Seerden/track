@@ -1,7 +1,7 @@
 import habitService from "@/lib/fetch/habit-service";
 import { queryClient } from "@/lib/query-client";
 import { mk, qk } from "@/lib/query-keys";
-import type { Habit } from "@t/data/habit.types";
+import type { Habit } from "@shared/types/data/habit.types";
 import { useMutation } from "@tanstack/react-query";
 
 export default function useMutateDeleteHabit() {

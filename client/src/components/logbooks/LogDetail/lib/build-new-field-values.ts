@@ -1,6 +1,6 @@
-import type { FieldTemplateWithMaybeValue } from "@t/data/logbook.derived.types";
-import type { NewFieldValue } from "@t/data/logbook.new.types";
-import type { ID } from "@t/data/utility.types";
+import type { FieldTemplateWithMaybeValue } from "@shared/types/data/logbook.derived.types";
+import type { NewFieldValue } from "@shared/types/data/logbook.new.types";
+import type { ID } from "@shared/types/data/utility.types";
 
 /** Helper function for useNewItemRow that wrangles data into the correct shape
  * to be submitted as NewFieldValue[]. */

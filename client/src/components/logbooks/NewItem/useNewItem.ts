@@ -6,9 +6,9 @@ import modalIds from "@/lib/modal-ids";
 import { queryClient } from "@/lib/query-client";
 import { qk } from "@/lib/query-keys";
 import { useModalState } from "@/lib/state/modal-state";
-import type { NewItem } from "@t/data/logbook.new.types";
-import type { ItemTemplate } from "@t/data/logbook.types";
-import type { ID } from "@t/data/utility.types";
+import type { NewItem } from "@shared/types/data/logbook.new.types";
+import type { ItemTemplate } from "@shared/types/data/logbook.types";
+import type { ID } from "@shared/types/data/utility.types";
 import { useState } from "react";
 
 export default function useNewItem({

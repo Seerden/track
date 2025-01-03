@@ -1,6 +1,6 @@
 import { queryActivityByIdWithRelations } from "@/lib/data/models/activities/query-activities";
 import { updateActivity } from "@/lib/data/models/activities/update-activity";
-import type { ActivityUpdateInput } from "@t/data/activity.types";
+import type { ActivityUpdateInput } from "@shared/types/data/activity.types";
 import type { RequestHandler } from "express";
 
 const putActivity: RequestHandler = async (req, res) => {

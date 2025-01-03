@@ -3,8 +3,8 @@ import useUpdateLogLayout from "@/components/logbooks/LogDetail/hooks/useUpdateL
 import { computeItemSelection } from "@/components/logbooks/LogDetail/lib/item-selection";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
-import type { ItemTemplate } from "@t/data/logbook.types";
-import type { ID } from "@t/data/utility.types";
+import type { ItemTemplate } from "@shared/types/data/logbook.types";
+import type { ID } from "@shared/types/data/utility.types";
 import { useCallback, useMemo } from "react";
 
 type UseLogDetailSectionArgs = {

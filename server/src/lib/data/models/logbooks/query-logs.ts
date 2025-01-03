@@ -1,6 +1,6 @@
 import { sqlConnection } from "@/db/init";
-import type { Log } from "@t/data/logbook.types";
-import type { ID } from "@t/data/utility.types";
+import type { Log } from "@shared/types/data/logbook.types";
+import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
 /** Get all of a single user's logs.

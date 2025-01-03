@@ -7,7 +7,7 @@ import { defaultFilter } from "@/components/activities/ActivityFilter/lib/consta
 import useActivityFilterActions from "@/components/activities/ActivityFilter/useActivityFilterActions";
 import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
 import useQueryTagsTree from "@/lib/hooks/query/tags/useQueryTagsTree";
-import type { ID } from "@t/data/utility.types";
+import type { ID } from "@shared/types/data/utility.types";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 export default function useActivityFilter({ onChange }: ActivityFilterProps) {

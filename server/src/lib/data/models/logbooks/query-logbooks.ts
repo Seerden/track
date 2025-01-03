@@ -1,6 +1,6 @@
 import { sqlConnection } from "@/db/init";
-import type { Logbook } from "@t/data/logbook.types";
-import type { ID, Nullable } from "@t/data/utility.types";
+import type { Logbook } from "@shared/types/data/logbook.types";
+import type { ID, Nullable } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
 export const queryLogbooksByUser: QueryFunction<{ user_id: ID }, Promise<[Logbook]>> = ({
