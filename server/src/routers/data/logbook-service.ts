@@ -41,120 +41,104 @@ import { putLogbook } from "@/lib/data/request-handlers/put/put-logbook";
 import { logbookEndpointsService } from "@shared/lib/endpoints/logbooks-endpoints";
 import { mapEndpoints } from "@shared/lib/endpoints/map-endpoints";
 
-const logbooks = mapEndpoints(logbookEndpointsService.logbooks, {
-	get: {
-		getByUser: getLogbooks,
-		getById: getLogbook,
-	},
-	post: {
-		post: postLogbook,
-	},
-	put: {
-		put: putLogbook,
-	},
-	delete: {
-		delete: deleteLogbook,
-	},
-});
-
-const logs = mapEndpoints(logbookEndpointsService.logs, {
-	get: {
-		getByUser: getLogs,
-		getByLogbook: getLogsByLogbook,
-	},
-	post: {
-		post: postLog,
-	},
-	put: {
-		put: putLog,
-	},
-	delete: {
-		delete: deleteLog,
-	},
-});
-
-const logTemplates = mapEndpoints(logbookEndpointsService.logTemplates, {
-	get: {
-		getById: getLogTemplate,
-		getByUser: getLogTemplates,
-		getByLogbook: getLogTemplatesByLogbook,
-	},
-	post: {
-		post: postLogTemplate,
-	},
-	put: {},
-	delete: {
-		delete: deleteLogTemplate,
-	},
-});
-
-const itemTemplates = mapEndpoints(logbookEndpointsService.itemTemplates, {
-	get: {
-		getByLogbook: getItemTemplatesByLogbook,
-	},
-	post: {
-		post: postItemTemplate,
-	},
-	put: {},
-	delete: {
-		delete: deleteItemTemplate,
-	},
-});
-
-const items = mapEndpoints(logbookEndpointsService.items, {
-	get: {
-		getByUser: getItems,
-		getByTemplate: getItemsByTemplate,
-		getByLogbook: getItemsByLogbook,
-	},
-	post: {
-		post: postItem,
-	},
-	put: {},
-	delete: {
-		delete: deleteItem,
-	},
-});
-
-const itemRows = mapEndpoints(logbookEndpointsService.itemRows, {
-	get: {
-		getByUser: getItemRows,
-		getByLog: getItemRowsByLog,
-		getByLogItem: getItemRowsByLogItem,
-	},
-	put: {},
-	post: {
-		post: postItemRow,
-	},
-	delete: {},
-});
-
-const fields = mapEndpoints(logbookEndpointsService.fields, {
-	get: {
-		getByUser: getFields,
-		getByItemRow: getFieldsByItemRow,
-	},
-	post: {},
-	put: {},
-	delete: {},
-});
-
-const fieldTemplates = mapEndpoints(logbookEndpointsService.fieldTemplates, {
-	get: {
-		getByItemTemplate: getFieldTemplatesByItemTemplate,
-	},
-	post: {},
-	put: {},
-	delete: {},
-});
-
 export const logbookServiceMapped = {
-	logbooks,
-	logs,
-	logTemplates,
-	itemTemplates,
-	items,
-	itemRows,
-	fields,
-	fieldTemplates,
+	logbooks: mapEndpoints(logbookEndpointsService.logbooks, {
+		get: {
+			getByUser: getLogbooks,
+			getById: getLogbook,
+		},
+		post: {
+			post: postLogbook,
+		},
+		put: {
+			put: putLogbook,
+		},
+		delete: {
+			delete: deleteLogbook,
+		},
+	}),
+	logs: mapEndpoints(logbookEndpointsService.logs, {
+		get: {
+			getByUser: getLogs,
+			getByLogbook: getLogsByLogbook,
+		},
+		post: {
+			post: postLog,
+		},
+		put: {
+			put: putLog,
+		},
+		delete: {
+			delete: deleteLog,
+		},
+	}),
+	logTemplates: mapEndpoints(logbookEndpointsService.logTemplates, {
+		get: {
+			getById: getLogTemplate,
+			getByUser: getLogTemplates,
+			getByLogbook: getLogTemplatesByLogbook,
+		},
+		post: {
+			post: postLogTemplate,
+		},
+		put: {},
+		delete: {
+			delete: deleteLogTemplate,
+		},
+	}),
+	itemTemplates: mapEndpoints(logbookEndpointsService.itemTemplates, {
+		get: {
+			getByLogbook: getItemTemplatesByLogbook,
+		},
+		post: {
+			post: postItemTemplate,
+		},
+		put: {},
+		delete: {
+			delete: deleteItemTemplate,
+		},
+	}),
+	items: mapEndpoints(logbookEndpointsService.items, {
+		get: {
+			getByUser: getItems,
+			getByTemplate: getItemsByTemplate,
+			getByLogbook: getItemsByLogbook,
+		},
+		post: {
+			post: postItem,
+		},
+		put: {},
+		delete: {
+			delete: deleteItem,
+		},
+	}),
+	itemRows: mapEndpoints(logbookEndpointsService.itemRows, {
+		get: {
+			getByUser: getItemRows,
+			getByLog: getItemRowsByLog,
+			getByLogItem: getItemRowsByLogItem,
+		},
+		put: {},
+		post: {
+			post: postItemRow,
+		},
+		delete: {},
+	}),
+	fields: mapEndpoints(logbookEndpointsService.fields, {
+		get: {
+			getByUser: getFields,
+			getByItemRow: getFieldsByItemRow,
+		},
+		post: {},
+		put: {},
+		delete: {},
+	}),
+	fieldTemplates: mapEndpoints(logbookEndpointsService.fieldTemplates, {
+		get: {
+			getByItemTemplate: getFieldTemplatesByItemTemplate,
+		},
+		post: {},
+		put: {},
+		delete: {},
+	}),
 };
