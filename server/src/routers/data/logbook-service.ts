@@ -1,3 +1,7 @@
+import { deleteItem } from "@/lib/data/request-handlers/delete/delete-item";
+import { deleteItemTemplate } from "@/lib/data/request-handlers/delete/delete-item-template";
+import { deleteLog } from "@/lib/data/request-handlers/delete/delete-log";
+import { deleteLogTemplate } from "@/lib/data/request-handlers/delete/delete-log-template";
 import { deleteLogbook } from "@/lib/data/request-handlers/delete/delete-logbook";
 import { getFieldTemplatesByItemTemplate } from "@/lib/data/request-handlers/get/get-field-templates";
 import {
@@ -35,6 +39,7 @@ import type { RequestHandler } from "express";
 type EndpointConfig = {
 	path: string;
 	handler: RequestHandler;
+	method?: "get" | "post" | "put" | "delete";
 };
 
 type EndpointGroup = Record<string, EndpointConfig>;
@@ -51,14 +56,17 @@ const logbooks: EndpointGroup = {
 	post: {
 		path: "/",
 		handler: postLogbook,
+		method: "post",
 	},
 	delete: {
 		path: "/:logbook_id",
 		handler: deleteLogbook,
+		method: "delete",
 	},
 	put: {
 		path: "/:logbook_id",
 		handler: putLogbook,
+		method: "put",
 	},
 };
 
@@ -74,10 +82,17 @@ const logs: EndpointGroup = {
 	post: {
 		path: "/log",
 		handler: postLog,
+		method: "post",
 	},
 	put: {
 		path: "/log/:log_id",
 		handler: putLog,
+		method: "put",
+	},
+	delete: {
+		path: "/log/:log_id",
+		handler: deleteLog,
+		method: "delete",
 	},
 };
 
@@ -94,10 +109,15 @@ const logTemplates: EndpointGroup = {
 		path: "/:logbook_id/templates",
 		handler: getLogTemplatesByLogbook,
 	},
-
 	post: {
 		path: "/template",
 		handler: postLogTemplate,
+		method: "post",
+	},
+	delete: {
+		path: "/log/template/:log_template_id",
+		handler: deleteLogTemplate,
+		method: "delete",
 	},
 };
 
@@ -123,6 +143,12 @@ const itemTemplates: EndpointGroup = {
 	post: {
 		path: "/item/template",
 		handler: postItemTemplate,
+		method: "post",
+	},
+	delete: {
+		path: "/item/template/:item_template_id",
+		handler: deleteItemTemplate,
+		method: "delete",
 	},
 };
 
@@ -142,6 +168,12 @@ const items: EndpointGroup = {
 	post: {
 		path: "/item",
 		handler: postItem,
+		method: "post",
+	},
+	delete: {
+		path: "/item/:item_id",
+		handler: deleteItem,
+		method: "delete",
 	},
 };
 
@@ -161,6 +193,7 @@ const itemRows: EndpointGroup = {
 	post: {
 		path: "/item/row",
 		handler: postItemRow,
+		method: "post",
 	},
 };
 
