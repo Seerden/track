@@ -11,10 +11,7 @@ export const logbooksRouter = Router({ mergeParams: true });
 for (const group of Object.values(logbookServiceMapped)) {
 	for (const [method, byMethod] of Object.entries(group)) {
 		for (const [routeKey, { path, handler }] of Object.entries(byMethod)) {
-			console.log({ method, path });
 			logbooksRouter[method as Method](path, handler as RequestHandler);
 		}
 	}
 }
-
-console.log({ routes: logbooksRouter.stack.map((layer) => layer.route) });

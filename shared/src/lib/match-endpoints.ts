@@ -32,9 +32,7 @@ export function matchPaths<Path extends string>(
 		for (const key of Object.keys(params) as Array<ExtractParams<Path>>) {
 			path = path.replace(`:${key}`, params[key as ExtractParams<Path>]);
 		}
-		const result = `${prefix}${path}`;
-		console.log(result);
-		return result;
+		return `${prefix}${path}`;
 	};
 
 	return { serverPath, makeClientPath };
