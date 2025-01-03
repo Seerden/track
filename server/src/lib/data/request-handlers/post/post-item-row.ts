@@ -3,7 +3,6 @@ import { getUserIdFromSessionOrBail } from "@/lib/data/request-handlers/get-user
 import type { NewItemRowInput } from "@t/data/logbook.types";
 import type { RequestHandler } from "express";
 
-/** Request handler for `/data/logbook/item/row`. */
 export const postItemRow: RequestHandler = async (req, res) => {
 	const { newItemRow, newFieldValues } = req.body as NewItemRowInput;
 

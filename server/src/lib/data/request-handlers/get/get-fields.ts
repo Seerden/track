@@ -5,7 +5,6 @@ import {
 import { getUserIdFromSessionOrBail } from "@/lib/data/request-handlers/get-user-id-from-session-or-bail";
 import type { RequestHandler } from "express";
 
-/** Request handler for `/data/logbooks/fields`. */
 export const getFields: RequestHandler = async (req, res) => {
 	const user_id = getUserIdFromSessionOrBail(req, res);
 	if (user_id) {
@@ -14,8 +13,6 @@ export const getFields: RequestHandler = async (req, res) => {
 	}
 };
 
-/** Request handler for
- * `/data/logbooks/items/rows/:item_row_id/fields`. */
 export const getFieldsByItemRow: RequestHandler = async (req, res) => {
 	const item_row_id = req.params.item_row_id;
 

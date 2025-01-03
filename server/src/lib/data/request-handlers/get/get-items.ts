@@ -7,7 +7,6 @@ import {
 import { getUserIdFromSessionOrBail } from "@/lib/data/request-handlers/get-user-id-from-session-or-bail";
 import type { RequestHandler } from "express";
 
-/** Request handler for `/data/logbook/:logbook_id/items`. */
 export const getItemsByLogbook: RequestHandler = async (req, res) => {
 	const logbook_id = +req.params.logbook_id;
 	const items = await queryItemsByLogbook({ logbook_id });
@@ -16,7 +15,6 @@ export const getItemsByLogbook: RequestHandler = async (req, res) => {
 	res.json({ byId });
 };
 
-/** Request handler for `/data/logbooks/items`. */
 export const getItems: RequestHandler = async (req, res) => {
 	const user_id = getUserIdFromSessionOrBail(req, res);
 	if (user_id) {
