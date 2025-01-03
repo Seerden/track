@@ -2,42 +2,45 @@
 // except instead of strings, the values are objects with a path (the string)
 // and a handler (specific to the server).
 
-import { deleteItem } from "@/lib/data/request-handlers/delete/delete-item";
-import { deleteItemTemplate } from "@/lib/data/request-handlers/delete/delete-item-template";
-import { deleteLog } from "@/lib/data/request-handlers/delete/delete-log";
-import { deleteLogTemplate } from "@/lib/data/request-handlers/delete/delete-log-template";
-import { deleteLogbook } from "@/lib/data/request-handlers/delete/delete-logbook";
-import { getFieldTemplatesByItemTemplate } from "@/lib/data/request-handlers/get/get-field-templates";
+import { deleteItem } from "@/lib/data/request-handlers/logbooks/delete-item";
+import { deleteItemTemplate } from "@/lib/data/request-handlers/logbooks/delete-item-template";
+import { deleteLog } from "@/lib/data/request-handlers/logbooks/delete-log";
+import { deleteLogTemplate } from "@/lib/data/request-handlers/logbooks/delete-log-template";
+import { deleteLogbook } from "@/lib/data/request-handlers/logbooks/delete-logbook";
+import { getFieldTemplatesByItemTemplate } from "@/lib/data/request-handlers/logbooks/get-field-templates";
 import {
 	getFields,
 	getFieldsByItemRow,
-} from "@/lib/data/request-handlers/get/get-fields";
+} from "@/lib/data/request-handlers/logbooks/get-fields";
 import {
 	getItemRows,
 	getItemRowsByLog,
 	getItemRowsByLogItem,
-} from "@/lib/data/request-handlers/get/get-item-rows";
-import { getItemTemplatesByLogbook } from "@/lib/data/request-handlers/get/get-item-templates";
+} from "@/lib/data/request-handlers/logbooks/get-item-rows";
+import { getItemTemplatesByLogbook } from "@/lib/data/request-handlers/logbooks/get-item-templates";
 import {
 	getItems,
 	getItemsByLogbook,
 	getItemsByTemplate,
-} from "@/lib/data/request-handlers/get/get-items";
+} from "@/lib/data/request-handlers/logbooks/get-items";
 import {
 	getLogTemplate,
 	getLogTemplates,
 	getLogTemplatesByLogbook,
-} from "@/lib/data/request-handlers/get/get-log-templates";
-import { getLogbook, getLogbooks } from "@/lib/data/request-handlers/get/get-logbooks";
-import { getLogs, getLogsByLogbook } from "@/lib/data/request-handlers/get/get-logs";
-import { postItem } from "@/lib/data/request-handlers/post/post-item";
-import { postItemRow } from "@/lib/data/request-handlers/post/post-item-row";
-import { postItemTemplate } from "@/lib/data/request-handlers/post/post-item-template";
-import { postLog } from "@/lib/data/request-handlers/post/post-log";
-import { postLogTemplate } from "@/lib/data/request-handlers/post/post-log-template";
-import { postLogbook } from "@/lib/data/request-handlers/post/post-logbook";
-import { putLog } from "@/lib/data/request-handlers/put/put-log";
-import { putLogbook } from "@/lib/data/request-handlers/put/put-logbook";
+} from "@/lib/data/request-handlers/logbooks/get-log-templates";
+import {
+	getLogbook,
+	getLogbooks,
+} from "@/lib/data/request-handlers/logbooks/get-logbooks";
+import { getLogs, getLogsByLogbook } from "@/lib/data/request-handlers/logbooks/get-logs";
+import { postItem } from "@/lib/data/request-handlers/logbooks/post-item";
+import { postItemRow } from "@/lib/data/request-handlers/logbooks/post-item-row";
+import { postItemTemplate } from "@/lib/data/request-handlers/logbooks/post-item-template";
+import { postLog } from "@/lib/data/request-handlers/logbooks/post-log";
+import { postLogTemplate } from "@/lib/data/request-handlers/logbooks/post-log-template";
+import { postLogbook } from "@/lib/data/request-handlers/logbooks/post-logbook";
+import { putLog } from "@/lib/data/request-handlers/logbooks/put-log";
+import { putLogbook } from "@/lib/data/request-handlers/logbooks/put-logbook";
 import { logbookEndpointsService } from "@shared/lib/endpoints/logbooks-endpoints";
 import { mapEndpoints } from "@shared/lib/endpoints/map-endpoints";
 
