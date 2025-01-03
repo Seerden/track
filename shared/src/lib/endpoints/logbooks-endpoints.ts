@@ -42,8 +42,8 @@ export type ServerLogbookService = Record<LogbookSubService, ServerSubService>;
 
 const logbooks = {
 	get: {
-		getByUser: "/",
-		getById: "/:logbook_id",
+		getByUser: "/logbooks",
+		getById: "/logbooks/:logbook_id",
 	} as const,
 	post: {
 		post: "/",
