@@ -2,135 +2,99 @@
 // except instead of strings, the values are objects with a path (the string)
 // and a handler (specific to the server).
 
-import { deleteItem } from "@/lib/data/request-handlers/logbooks/delete-item";
-import { deleteItemTemplate } from "@/lib/data/request-handlers/logbooks/delete-item-template";
-import { deleteLog } from "@/lib/data/request-handlers/logbooks/delete-log";
-import { deleteLogTemplate } from "@/lib/data/request-handlers/logbooks/delete-log-template";
-import { deleteLogbook } from "@/lib/data/request-handlers/logbooks/delete-logbook";
-import { getFieldTemplatesByItemTemplate } from "@/lib/data/request-handlers/logbooks/get-field-templates";
-import {
-	getFields,
-	getFieldsByItemRow,
-} from "@/lib/data/request-handlers/logbooks/get-fields";
-import {
-	getItemRows,
-	getItemRowsByLog,
-	getItemRowsByLogItem,
-} from "@/lib/data/request-handlers/logbooks/get-item-rows";
-import { getItemTemplatesByLogbook } from "@/lib/data/request-handlers/logbooks/get-item-templates";
-import {
-	getItems,
-	getItemsByLogbook,
-	getItemsByTemplate,
-} from "@/lib/data/request-handlers/logbooks/get-items";
-import {
-	getLogTemplate,
-	getLogTemplates,
-	getLogTemplatesByLogbook,
-} from "@/lib/data/request-handlers/logbooks/get-log-templates";
-import {
-	getLogbook,
-	getLogbooks,
-} from "@/lib/data/request-handlers/logbooks/get-logbooks";
-import { getLogs, getLogsByLogbook } from "@/lib/data/request-handlers/logbooks/get-logs";
-import { postItem } from "@/lib/data/request-handlers/logbooks/post-item";
-import { postItemRow } from "@/lib/data/request-handlers/logbooks/post-item-row";
-import { postItemTemplate } from "@/lib/data/request-handlers/logbooks/post-item-template";
-import { postLog } from "@/lib/data/request-handlers/logbooks/post-log";
-import { postLogTemplate } from "@/lib/data/request-handlers/logbooks/post-log-template";
-import { postLogbook } from "@/lib/data/request-handlers/logbooks/post-logbook";
-import { putLog } from "@/lib/data/request-handlers/logbooks/put-log";
-import { putLogbook } from "@/lib/data/request-handlers/logbooks/put-logbook";
+import logbookHandlers from "@lib/data/request-handlers/logbooks/_handlers";
 import { logbookEndpointsService } from "@shared/lib/endpoints/logbooks-endpoints";
 import { mapEndpoints } from "@shared/lib/endpoints/map-endpoints";
+
+const { get, put, post, delete: _delete } = logbookHandlers;
 
 export const logbookServiceMapped = {
 	logbooks: mapEndpoints(logbookEndpointsService.logbooks, {
 		get: {
-			getByUser: getLogbooks,
-			getById: getLogbook,
+			getByUser: get.getLogbooks,
+			getById: get.getLogbook,
 		},
 		post: {
-			post: postLogbook,
+			post: post.postLogbook,
 		},
 		put: {
-			put: putLogbook,
+			put: put.putLogbook,
 		},
 		delete: {
-			delete: deleteLogbook,
+			delete: _delete.deleteLogbook,
 		},
 	}),
 	logs: mapEndpoints(logbookEndpointsService.logs, {
 		get: {
-			getByUser: getLogs,
-			getByLogbook: getLogsByLogbook,
+			getByUser: get.getLogs,
+			getByLogbook: get.getLogsByLogbook,
 		},
 		post: {
-			post: postLog,
+			post: post.postLog,
 		},
 		put: {
-			put: putLog,
+			put: put.putLog,
 		},
 		delete: {
-			delete: deleteLog,
+			delete: _delete.deleteLog,
 		},
 	}),
 	logTemplates: mapEndpoints(logbookEndpointsService.logTemplates, {
 		get: {
-			getById: getLogTemplate,
-			getByUser: getLogTemplates,
-			getByLogbook: getLogTemplatesByLogbook,
+			getById: get.getLogTemplate,
+			getByUser: get.getLogTemplates,
+			getByLogbook: get.getLogTemplatesByLogbook,
 		},
 		post: {
-			post: postLogTemplate,
+			post: post.postLogTemplate,
 		},
 		put: {},
 		delete: {
-			delete: deleteLogTemplate,
+			delete: _delete.deleteLogTemplate,
 		},
 	}),
 	itemTemplates: mapEndpoints(logbookEndpointsService.itemTemplates, {
 		get: {
-			getByLogbook: getItemTemplatesByLogbook,
+			getByLogbook: get.getItemTemplatesByLogbook,
 		},
 		post: {
-			post: postItemTemplate,
+			post: post.postItemTemplate,
 		},
 		put: {},
 		delete: {
-			delete: deleteItemTemplate,
+			delete: _delete.deleteItemTemplate,
 		},
 	}),
 	items: mapEndpoints(logbookEndpointsService.items, {
 		get: {
-			getByUser: getItems,
-			getByTemplate: getItemsByTemplate,
-			getByLogbook: getItemsByLogbook,
+			getByUser: get.getItems,
+			getByTemplate: get.getItemsByTemplate,
+			getByLogbook: get.getItemsByLogbook,
 		},
 		post: {
-			post: postItem,
+			post: post.postItem,
 		},
 		put: {},
 		delete: {
-			delete: deleteItem,
+			delete: _delete.deleteItem,
 		},
 	}),
 	itemRows: mapEndpoints(logbookEndpointsService.itemRows, {
 		get: {
-			getByUser: getItemRows,
-			getByLog: getItemRowsByLog,
-			getByLogItem: getItemRowsByLogItem,
+			getByUser: get.getItemRows,
+			getByLog: get.getItemRowsByLog,
+			getByLogItem: get.getItemRowsByLogItem,
 		},
 		put: {},
 		post: {
-			post: postItemRow,
+			post: post.postItemRow,
 		},
 		delete: {},
 	}),
 	fields: mapEndpoints(logbookEndpointsService.fields, {
 		get: {
-			getByUser: getFields,
-			getByItemRow: getFieldsByItemRow,
+			getByUser: get.getFields,
+			getByItemRow: get.getFieldsByItemRow,
 		},
 		post: {},
 		put: {},
@@ -138,7 +102,7 @@ export const logbookServiceMapped = {
 	}),
 	fieldTemplates: mapEndpoints(logbookEndpointsService.fieldTemplates, {
 		get: {
-			getByItemTemplate: getFieldTemplatesByItemTemplate,
+			getByItemTemplate: get.getFieldTemplatesByItemTemplate,
 		},
 		post: {},
 		put: {},
