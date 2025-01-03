@@ -2,8 +2,8 @@
   "compilerOptions": {
     "target": "ES2021" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
     "module": "commonjs" /* Specify what module code is generated. */,
-    "rootDir": "./types" /* Specify the root folder within your source files. */,
-    "baseUrl": "./types" /* Specify the base directory to resolve non-relative module names. */,
+    "rootDir": "./src" /* Specify the root folder within your source files. */,
+    "baseUrl": "./src" /* Specify the base directory to resolve non-relative module names. */,
 
     "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
     "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
@@ -15,9 +15,9 @@
     "outDir": "./dist" /* Redirect output structure to the directory. */,
     "composite": true,
     "paths": {
-      "@t/*": ["*"]
+      "@t/*": ["types/*"]
     }
   },
-  "include": ["types/**/*"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
 }

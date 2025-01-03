@@ -32,7 +32,7 @@
 			"@/*": ["client/src/*"],
 			"@components/*": ["client/src/components/*"],
 			"@lib/*": ["client/src/lib/*"],
-			"@t/*": ["shared/types/*"]
+			"@t/*": ["shared/src/types/*"]
 		},
 		"types": ["vitest/globals"]
 	},

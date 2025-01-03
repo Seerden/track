@@ -20,7 +20,7 @@
 		"paths": {
 			"@/*": ["server/src/*"],
 			"@lib/*": ["server/src/lib/*"],
-			"@t/*": ["shared/types/*"],
+			"@t/*": ["shared/src/types/*"],
 			"types/*": ["server/types/*"]
 		},
 
