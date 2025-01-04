@@ -44,6 +44,7 @@ export default function ActivityMenu({}: ActivityMenuProps) {
 							<S.Link to={`/activities/new?task=true`}>
 								<LucidePlus /> new task
 							</S.Link>
+							{/* TODO: use something fancier, like a time window selector */}
 							<S.Link to={`/`}>
 								<LucideCalendarDays /> my calendar
 							</S.Link>
