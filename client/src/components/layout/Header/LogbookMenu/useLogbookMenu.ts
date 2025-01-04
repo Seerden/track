@@ -1,17 +1,6 @@
-import { offsetIfOverflowing } from "@/components/layout/Header/LogbookMenu/floating-middleware";
+import useFloatingProps from "@/lib/hooks/useFloatingProps";
 import useRouteProps from "@/lib/hooks/useRouteProps";
-import {
-	arrow,
-	safePolygon,
-	shift,
-	useClick,
-	useDismiss,
-	useFloating,
-	useHover,
-	useInteractions,
-	useRole
-} from "@floating-ui/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function useLogbookMenu() {
 	const [open, setOpen] = useState(false);
@@ -25,42 +14,14 @@ export default function useLogbookMenu() {
 		setOpen(false);
 	}, [location]);
 
-	const arrowRef = useRef(null);
-	const { refs, context, floatingStyles } = useFloating({
-		placement: "bottom",
-		middleware: [
-			shift(),
-			offsetIfOverflowing(),
-			// eslint-disable-next-line react-compiler/react-compiler
-			arrow({
-				element: arrowRef
-			})
-		],
+	const float = useFloatingProps({
+		click: {},
+		hover: {},
 		open,
-		onOpenChange: setOpen
+		setOpen
 	});
-
-	const click = useClick(context);
-	const dismiss = useDismiss(context);
-	const role = useRole(context);
-	const hover = useHover(context, {
-		handleClose: safePolygon()
-	});
-
-	const { getReferenceProps, getFloatingProps } = useInteractions([
-		click,
-		dismiss,
-		role,
-		hover
-	]);
 
 	return {
-		arrowRef,
-		context,
-		floatingStyles,
-		open,
-		refs,
-		getFloatingProps,
-		getReferenceProps
+		float
 	};
 }

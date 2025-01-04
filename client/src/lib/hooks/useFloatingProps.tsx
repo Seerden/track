@@ -12,15 +12,26 @@ import {
 	useInteractions,
 	useRole
 } from "@floating-ui/react";
+import type { Dispatch, SetStateAction } from "react";
 import { useRef, useState } from "react";
 
 type UseFloatingPreviewArgs = {
 	click?: UseClickProps;
 	hover?: UseHoverProps;
+	open?: boolean;
+	setOpen?: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function useFloatingProps({ click, hover }: UseFloatingPreviewArgs) {
-	const [open, setOpen] = useState(false);
+export default function useFloatingProps({
+	click,
+	hover,
+	open,
+	setOpen
+}: UseFloatingPreviewArgs) {
+	// This local state is used as a fallback if open state isn't provided by
+	// the caller.
+	const [_open, _setOpen] = useState(open ?? false);
+
 	const arrowRef = useRef(null);
 
 	const { refs, context, floatingStyles } = useFloating({
@@ -36,8 +47,8 @@ export default function useFloatingProps({ click, hover }: UseFloatingPreviewArg
 				element: arrowRef
 			})
 		],
-		open,
-		onOpenChange: setOpen
+		open: open ?? _open,
+		onOpenChange: setOpen ?? _setOpen
 	});
 
 	const dismiss = useDismiss(context);
@@ -59,9 +70,9 @@ export default function useFloatingProps({ click, hover }: UseFloatingPreviewArg
 		floatingStyles,
 		getFloatingProps,
 		getReferenceProps,
-		open,
+		open: open ?? _open,
 		refs,
-		setOpen,
+		setOpen: setOpen ?? _setOpen,
 		context,
 		arrowRef
 	};

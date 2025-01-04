@@ -13,34 +13,26 @@ type LogbookMenuProps = {
 };
 
 export default function LogbookMenu({ iconSize = 15 }: LogbookMenuProps) {
-	const {
-		arrowRef,
-		context,
-		floatingStyles,
-		open,
-		refs,
-		getFloatingProps,
-		getReferenceProps
-	} = useLogbookMenu();
+	const { float } = useLogbookMenu();
 
 	return (
 		<>
-			<S.TriggerButton ref={refs.setReference} {...getReferenceProps()}>
+			<S.TriggerButton ref={float.refs.setReference} {...float.getReferenceProps()}>
 				Logbooks
 			</S.TriggerButton>
 
-			{open && (
+			{float.open && (
 				<>
 					<S.Menu
-						ref={refs.setFloating}
+						ref={float.refs.setFloating}
 						style={{
-							...floatingStyles
+							...float.floatingStyles
 						}}
-						{...getFloatingProps()}
+						{...float.getFloatingProps()}
 					>
 						<FloatingArrow
-							ref={arrowRef}
-							context={context}
+							ref={float.arrowRef}
+							context={float.context}
 							fill="#fff"
 							width={20}
 						/>
