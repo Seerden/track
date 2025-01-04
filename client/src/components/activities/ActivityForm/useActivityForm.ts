@@ -101,11 +101,15 @@ export default function useActivityForm({
 
 	const isEditing = !!existingActivity;
 
+	// TODO: this should not be Partial, but the full type. We can't do that
+	// until TRK-83 is implemented.
 	const defaultNewActivity: Partial<NewActivity> = {
 		name: "",
 		description: "",
 		user_id: currentUser?.user_id,
-		is_task: initialIsTask
+		is_task: initialIsTask,
+		occurrence: null,
+		recurrence_id: null
 	};
 
 	const [activity, setActivity] = useState<ActivityState>(
