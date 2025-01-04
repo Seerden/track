@@ -1,6 +1,7 @@
 import { offsetIfOverflowing } from "@/components/layout/Header/LogbookMenu/floating-middleware";
 import type { UseClickProps, UseHoverProps } from "@floating-ui/react";
 import {
+	arrow,
 	autoUpdate,
 	safePolygon,
 	shift,
@@ -11,22 +12,43 @@ import {
 	useInteractions,
 	useRole
 } from "@floating-ui/react";
-import { useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
+import { useRef, useState } from "react";
 
 type UseFloatingPreviewArgs = {
 	click?: UseClickProps;
 	hover?: UseHoverProps;
+	open?: boolean;
+	setOpen?: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function useFloatingProps({ click, hover }: UseFloatingPreviewArgs) {
-	const [open, setOpen] = useState(false);
+export default function useFloatingProps({
+	click,
+	hover,
+	open,
+	setOpen
+}: UseFloatingPreviewArgs) {
+	// This local state is used as a fallback if open state isn't provided by
+	// the caller.
+	const [_open, _setOpen] = useState(open ?? false);
+
+	const arrowRef = useRef(null);
+
 	const { refs, context, floatingStyles } = useFloating({
 		whileElementsMounted: autoUpdate,
 		placement: "bottom",
 		strategy: "fixed",
-		middleware: [shift(), offsetIfOverflowing()],
-		open,
-		onOpenChange: setOpen
+		middleware: [
+			shift(),
+			offsetIfOverflowing(),
+			// TODO: only use arrow if it's needed -- determine it through props
+			// eslint-disable-next-line react-compiler/react-compiler
+			arrow({
+				element: arrowRef
+			})
+		],
+		open: open ?? _open,
+		onOpenChange: setOpen ?? _setOpen
 	});
 
 	const dismiss = useDismiss(context);
@@ -48,8 +70,10 @@ export default function useFloatingProps({ click, hover }: UseFloatingPreviewArg
 		floatingStyles,
 		getFloatingProps,
 		getReferenceProps,
-		open,
+		open: open ?? _open,
 		refs,
-		setOpen
+		setOpen: setOpen ?? _setOpen,
+		context,
+		arrowRef
 	};
 }
