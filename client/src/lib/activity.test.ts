@@ -14,7 +14,9 @@ describe("activityFallsOnDay", () => {
 		name: "test",
 		user_id: 0,
 		is_task: false,
-		tag_ids: []
+		tag_ids: [],
+		occurrence: null,
+		recurrence_id: null
 	};
 
 	it("returns true if activity falls on day", () => {

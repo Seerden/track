@@ -1,9 +1,4 @@
-import {
-	ID,
-	IntervalUnit,
-	Nullable,
-	Timestamp,
-} from "types/data/utility.types";
+import { ID, IntervalUnit, Nullable, Timestamp } from "./utility.types";
 
 export type Recurrence = {
 	recurrence_id: ID;
