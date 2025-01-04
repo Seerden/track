@@ -1,3 +1,4 @@
+import ActivityMenu from "@/components/layout/Header/ActivityMenu/ActivityMenu";
 import LogbookMenu from "@/components/layout/Header/LogbookMenu/LogbookMenu";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import useRouteProps from "@/lib/hooks/useRouteProps";
@@ -11,6 +12,7 @@ export default function NavBar() {
 				<LucideCalendar strokeWidth={2} size={20} />
 			</S.HomeLink>
 			<S.Actions>
+				<ActivityMenu />
 				<LogbookMenu />
 				<ProfileAction />
 			</S.Actions>
