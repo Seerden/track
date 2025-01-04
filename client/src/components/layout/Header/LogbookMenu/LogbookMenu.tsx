@@ -6,7 +6,7 @@ import {
 	LucideNotebookTabs,
 	LucidePin
 } from "lucide-react";
-import S from "./style/LogbookMenu.style";
+import S from "../style/menu.style";
 
 type LogbookMenuProps = {
 	iconSize?: number;
