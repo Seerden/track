@@ -20,6 +20,7 @@ export type Occurrence =
 			user_id: ID;
 			activity_id: ID;
 			divergence_count: number;
+			excluded_activity_ids: ID[];
 	  } & {
 			divergence_kind: "offset";
 			offset_milliseconds: Bigint;
