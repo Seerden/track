@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS occurrences (
    occurrence_id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
    recurrence_id bigint NOT NULL REFERENCES recurrences ON DELETE CASCADE,
    user_id bigint NOT NULL REFERENCES users ON DELETE CASCADE,
-   activity_id bigint NOT NULL REFERENCES activities,
+   activity_id bigint NOT NULL REFERENCES activities ON DELETE CASCADE,
    divergence_count integer NOT NULL CHECK(divergence_count > 0),
    divergence_kind varchar(32) NOT NULL,
    offset_milliseconds bigint
