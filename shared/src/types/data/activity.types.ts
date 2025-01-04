@@ -25,8 +25,19 @@ export type WithDates = NullUnused<ActivityDates, ActivityTimestamps>;
 export type ActivityWithTimestamps = NewActivityBase & WithTimestamps;
 export type ActivityWithDates = NewActivityBase & WithDates;
 
+type ActivityOccurrenceBase =
+	| {
+			occurrence: null;
+			recurrence_id: null;
+	  }
+	| {
+			occurrence: number;
+			recurrence_id: ID;
+	  };
+
 export type NewActivity = NewActivityBase &
-	(ActivityWithTimestamps | ActivityWithDates);
+	(ActivityWithTimestamps | ActivityWithDates) &
+	ActivityOccurrenceBase;
 
 export type TaskUpdate = {
 	completion_start?: Timestamp;
