@@ -1,4 +1,10 @@
-import type { ID, Nullable, Timestamp, Varchar } from "./utility.types";
+import type {
+	ID,
+	IntervalUnit,
+	Nullable,
+	Timestamp,
+	Varchar,
+} from "./utility.types";
 
 /** These are the fields the user fills in. */
 export type NewHabit = {
@@ -9,7 +15,7 @@ export type NewHabit = {
 	end_timestamp: Nullable<Timestamp>;
 	interval: number;
 	frequency: number;
-	interval_unit: string;
+	interval_unit: IntervalUnit;
 	goal_type: "checkbox" | "goal";
 	goal_unit: Nullable<Varchar>; // TODO: just a string
 	goal: Nullable<number>;
@@ -77,4 +83,5 @@ export type HabitEntryUpdate = {
 	value: HabitEntry["value"];
 };
 
-export type HabitEntryUpdateInput = HabitEntryUpdate & Pick<HabitEntry, "habit_entry_id">;
+export type HabitEntryUpdateInput = HabitEntryUpdate &
+	Pick<HabitEntry, "habit_entry_id">;
