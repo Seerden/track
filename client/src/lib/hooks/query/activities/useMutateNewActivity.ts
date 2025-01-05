@@ -6,7 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 export function useMutateNewActivity() {
 	return useMutation<ActivityWithIds, unknown, ActivityInput>({
 		async mutationFn(activityInput) {
-			return activityService.post(activityInput);
+			return activityService.activities.post(activityInput);
 		},
 		mutationKey: mk.activities.new
 	});

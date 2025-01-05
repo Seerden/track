@@ -7,6 +7,7 @@ const activitiesRouter = Router({ mergeParams: true });
 mapServiceToRouter({
 	mappedService: activityServiceMapped,
 	router: activitiesRouter,
+	withUserIdWrapper: true,
 });
 
 export { activitiesRouter };

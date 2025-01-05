@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 export default function useQueryActivities() {
 	return useQuery({
 		queryKey: qk.activities.all,
-		queryFn: activityService.getByUser,
+		queryFn: activityService.activities.getByUser,
 		select,
 		...defaultQueryConfig
 	});

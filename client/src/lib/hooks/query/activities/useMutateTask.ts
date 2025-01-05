@@ -35,7 +35,7 @@ function updateActivitiesCache(updatedActivity: ActivityWithIds) {
 export default function useMutateTaskCompletion() {
 	return useMutation<ActivityWithIds, unknown, TaskUpdateInput>({
 		async mutationFn(activity) {
-			return activityService.putCompletion(activity);
+			return activityService.activities.putTaskCompletion(activity);
 		},
 		mutationKey: mk.activities.update.task.completion,
 		onSuccess: updateActivitiesCache

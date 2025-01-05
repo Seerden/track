@@ -10,6 +10,7 @@ import type {
 	LogTemplate
 } from "@shared/types/data/logbook.types";
 import type { NoteWithIds } from "@shared/types/data/note.types";
+import type { Occurrence, Recurrence } from "@shared/types/data/recurrence.types";
 import type { TagWithIds } from "@shared/types/data/tag.types";
 import type { User } from "@shared/types/data/user.types";
 import type { Maybe } from "@shared/types/data/utility.types";
@@ -33,3 +34,5 @@ export type FieldsData = DataById<Field>;
 export type NotesData = DataById<NoteWithIds>;
 export type HabitsData = DataById<HabitWithIds>;
 export type HabitEntriesData = DataById<HabitEntry>;
+export type OccurrencesData = DataById<Occurrence>;
+export type RecurrencesData = DataById<Recurrence>;
