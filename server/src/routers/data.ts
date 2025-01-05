@@ -1,7 +1,3 @@
-import { getActivities } from "@/lib/data/request-handlers/activities/get-activities";
-import { postActivity } from "@/lib/data/request-handlers/activities/post-activity";
-import { putActivity } from "@/lib/data/request-handlers/activities/put-activity";
-import { putTaskCompletion } from "@/lib/data/request-handlers/activities/put-task";
 import { deleteHabit } from "@/lib/data/request-handlers/habits/delete-habit";
 import { getHabitEntries } from "@/lib/data/request-handlers/habits/get-habit-entries";
 import { getHabits } from "@/lib/data/request-handlers/habits/get-habits";
@@ -13,6 +9,7 @@ import { postNote } from "@/lib/data/request-handlers/notes/post-note";
 import { getTags } from "@/lib/data/request-handlers/tags/get-tags";
 import { getTagsTree } from "@/lib/data/request-handlers/tags/get-tags-tree";
 import { postTag } from "@/lib/data/request-handlers/tags/post-tag";
+import { activitiesRouter } from "@/routers/data/activities";
 import { logbooksRouter } from "@/routers/data/logbooks";
 import { Router } from "express";
 import { isAuthorized } from "../lib/auth/is-authorized";
@@ -23,12 +20,6 @@ dataRouter.use(isAuthorized);
 // TODO: start without error handling, work on that later
 // TODO: turn every handler into a function itself, so that the router is just a
 // list of testable functions
-
-/* Activities */
-dataRouter.get("/activities", getActivities);
-dataRouter.post("/activity", postActivity);
-dataRouter.put("/activity/:activity_id", putActivity);
-dataRouter.put("/task/completion", putTaskCompletion);
 
 /* Tags */
 dataRouter.get("/tags", getTags);
@@ -49,5 +40,5 @@ dataRouter.get("/habit/entries", getHabitEntries);
 dataRouter.post("/habit/entry", postHabitEntry);
 dataRouter.put("/habit/entry", putHabitEntry);
 
-/* Logbooks */
 dataRouter.use("/logbooks", logbooksRouter);
+dataRouter.use("/activities", activitiesRouter);
