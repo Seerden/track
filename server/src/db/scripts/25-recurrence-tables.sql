@@ -22,5 +22,5 @@ CREATE TABLE IF NOT EXISTS occurrences (
 );
 
 ALTER TABLE activities 
-ADD column recurrence_id bigint references recurrences,
-ADD column occurrence int check(occurrence >= 0);
+ADD column IF NOT EXISTS recurrence_id bigint references recurrences,
+ADD column IF NOT EXISTS occurrence int check(occurrence >= 0);
