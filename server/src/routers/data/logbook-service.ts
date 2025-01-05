@@ -8,95 +8,95 @@ import type { LogbookService } from "@shared/lib/endpoints/logbooks-endpoints";
 import { logbookEndpointsService } from "@shared/lib/endpoints/logbooks-endpoints";
 import { mapEndpoints } from "@shared/lib/endpoints/map-endpoints";
 
-const { get, put, post, delete: _delete } = logbookHandlers;
+const { GET, PUT, POST, DELETE } = logbookHandlers;
 
 export const logbookServiceMapped: MappedService<LogbookService> = {
 	logbooks: mapEndpoints(logbookEndpointsService.logbooks, {
 		get: {
-			getByUser: get.getLogbooks,
-			getById: get.getLogbook,
+			getByUser: GET.getLogbooks,
+			getById: GET.getLogbook,
 		},
 		post: {
-			post: post.postLogbook,
+			post: POST.postLogbook,
 		},
 		put: {
-			put: put.putLogbook,
+			put: PUT.putLogbook,
 		},
 		delete: {
-			delete: _delete.deleteLogbook,
+			delete: DELETE.deleteLogbook,
 		},
 	}),
 	logs: mapEndpoints(logbookEndpointsService.logs, {
 		get: {
-			getByUser: get.getLogs,
-			getByLogbook: get.getLogsByLogbook,
+			getByUser: GET.getLogs,
+			getByLogbook: GET.getLogsByLogbook,
 		},
 		post: {
-			post: post.postLog,
+			post: POST.postLog,
 		},
 		put: {
-			put: put.putLog,
+			put: PUT.putLog,
 		},
 		delete: {
-			delete: _delete.deleteLog,
+			delete: DELETE.deleteLog,
 		},
 	}),
 	logTemplates: mapEndpoints(logbookEndpointsService.logTemplates, {
 		get: {
-			getById: get.getLogTemplate,
-			getByUser: get.getLogTemplates,
-			getByLogbook: get.getLogTemplatesByLogbook,
+			getById: GET.getLogTemplate,
+			getByUser: GET.getLogTemplates,
+			getByLogbook: GET.getLogTemplatesByLogbook,
 		},
 		post: {
-			post: post.postLogTemplate,
+			post: POST.postLogTemplate,
 		},
 		put: {},
 		delete: {
-			delete: _delete.deleteLogTemplate,
+			delete: DELETE.deleteLogTemplate,
 		},
 	}),
 	itemTemplates: mapEndpoints(logbookEndpointsService.itemTemplates, {
 		get: {
-			getByLogbook: get.getItemTemplatesByLogbook,
+			getByLogbook: GET.getItemTemplatesByLogbook,
 		},
 		post: {
-			post: post.postItemTemplate,
+			post: POST.postItemTemplate,
 		},
 		put: {},
 		delete: {
-			delete: _delete.deleteItemTemplate,
+			delete: DELETE.deleteItemTemplate,
 		},
 	}),
 	items: mapEndpoints(logbookEndpointsService.items, {
 		get: {
-			getByUser: get.getItems,
-			getByTemplate: get.getItemsByTemplate,
-			getByLogbook: get.getItemsByLogbook,
+			getByUser: GET.getItems,
+			getByTemplate: GET.getItemsByTemplate,
+			getByLogbook: GET.getItemsByLogbook,
 		},
 		post: {
-			post: post.postItem,
+			post: POST.postItem,
 		},
 		put: {},
 		delete: {
-			delete: _delete.deleteItem,
+			delete: DELETE.deleteItem,
 		},
 	}),
 	itemRows: mapEndpoints(logbookEndpointsService.itemRows, {
 		get: {
-			getByUser: get.getItemRows,
-			getByLog: get.getItemRowsByLog,
-			getByLogItem: get.getItemRowsByLogItem,
+			getByUser: GET.getItemRows,
+			getByLog: GET.getItemRowsByLog,
+			getByLogItem: GET.getItemRowsByLogItem,
 		},
 		put: {},
 		post: {
-			post: post.postItemRow,
+			post: POST.postItemRow,
 		},
 		delete: {},
 	}),
 	fields: mapEndpoints(logbookEndpointsService.fields, {
 		get: {
-			getByUser: get.getFields,
-			getByItemRow: get.getFieldsByItemRow,
+			getByUser: GET.getFields,
+			getByItemRow: GET.getFieldsByItemRow,
 		},
 		post: {},
 		put: {},
@@ -104,7 +104,7 @@ export const logbookServiceMapped: MappedService<LogbookService> = {
 	}),
 	fieldTemplates: mapEndpoints(logbookEndpointsService.fieldTemplates, {
 		get: {
-			getByItemTemplate: get.getFieldTemplatesByItemTemplate,
+			getByItemTemplate: GET.getFieldTemplatesByItemTemplate,
 		},
 		post: {},
 		put: {},
