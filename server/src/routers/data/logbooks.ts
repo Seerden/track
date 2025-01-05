@@ -1,5 +1,5 @@
 import { logbookServiceMapped } from "@/routers/data/logbook-service";
-import type { Method } from "@shared/lib/endpoints/logbooks-endpoints";
+import type { Method } from "@shared/lib/endpoints/endpoint.types";
 import type { RequestHandler } from "express";
 import { Router } from "express";
 
