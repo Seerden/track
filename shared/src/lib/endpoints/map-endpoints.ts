@@ -1,4 +1,4 @@
-import { ServerSubServiceMap, SubService } from "lib/endpoints/endpoint.types";
+import { ServerSubServiceMap, SubService } from "./endpoint.types";
 
 /** This function maps the given object of handlers by method, using the given endpoints,
  * to a ServerSubServiceMap.
