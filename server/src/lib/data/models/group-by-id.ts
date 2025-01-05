@@ -1,8 +1,11 @@
+import type { Occurrence } from "@shared/types/data/recurrence.types";
 import type { ById } from "@shared/types/data/utility.types";
 
 type IdFieldUnion<T> = {
 	[K in keyof T]: K extends `${string}_id` ? K : never;
 }[keyof T];
+
+type B = IdFieldUnion<Occurrence>;
 
 /** Reduces a list of objects that share an *_id field into a Record<ID,
  * object>. */
