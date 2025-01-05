@@ -2,7 +2,7 @@ import { ServerSubService, SubService } from "./endpoint.types";
 
 type ActivitySubService = "activities" | "recurrence";
 
-type ActivityService = Record<ActivitySubService, SubService>;
+export type ActivityService = Record<ActivitySubService, SubService>;
 export type ServerActivityService = Record<
 	ActivitySubService,
 	ServerSubService

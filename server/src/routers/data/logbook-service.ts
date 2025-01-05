@@ -3,12 +3,14 @@
 // and a handler (specific to the server).
 
 import logbookHandlers from "@lib/data/request-handlers/logbooks/_handlers";
+import type { MappedService } from "@shared/lib/endpoints/endpoint.types";
+import type { LogbookService } from "@shared/lib/endpoints/logbooks-endpoints";
 import { logbookEndpointsService } from "@shared/lib/endpoints/logbooks-endpoints";
 import { mapEndpoints } from "@shared/lib/endpoints/map-endpoints";
 
 const { get, put, post, delete: _delete } = logbookHandlers;
 
-export const logbookServiceMapped = {
+export const logbookServiceMapped: MappedService<LogbookService> = {
 	logbooks: mapEndpoints(logbookEndpointsService.logbooks, {
 		get: {
 			getByUser: get.getLogbooks,

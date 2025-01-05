@@ -37,3 +37,7 @@ export type ServerSubServiceMap<T extends SubService> = {
 		};
 	};
 };
+
+export type MappedService<T extends Record<string, SubService>> = {
+	[K in keyof T]: ServerSubServiceMap<T[K]>;
+};

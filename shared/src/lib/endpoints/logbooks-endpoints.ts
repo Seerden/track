@@ -11,7 +11,7 @@ type LogbookSubService =
 	| "fields"
 	| "fieldTemplates";
 
-type LogbookService = Record<LogbookSubService, SubService>;
+export type LogbookService = Record<LogbookSubService, SubService>;
 /** ^, but adapted for the server */
 export type ServerLogbookService = Record<LogbookSubService, ServerSubService>;
 
