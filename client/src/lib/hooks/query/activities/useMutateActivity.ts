@@ -9,7 +9,7 @@ import { useMutation } from "@tanstack/react-query";
 export default function useActivityMutation() {
 	return useMutation<ActivityWithIds, unknown, ActivityUpdateInput>({
 		async mutationFn(input) {
-			return activityService.put(input);
+			return activityService.activities.putActivity(input);
 		},
 		mutationKey: mk.activities.update.activity
 	});

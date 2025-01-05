@@ -14,5 +14,9 @@ export const insertOccurrence: QueryFunction<
       RETURNING *
    `;
 
+	// TODO: for all non-synthetic activities that this occurence applies to, we
+	// need to set the `occurrence` field. I'm debating whether an
+	// `occurrence_id` field is better.
+
 	return occurence;
 };

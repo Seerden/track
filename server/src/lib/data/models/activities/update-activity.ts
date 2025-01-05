@@ -10,6 +10,7 @@ import type {
 	TaskUpdateInput,
 } from "@shared/types/data/activity.types";
 import type { ActivityTagRelation } from "@shared/types/data/relational.types";
+import type { ID } from "@shared/types/data/utility.types";
 import dayjs from "dayjs";
 import type { QueryFunction } from "types/sql.types";
 
@@ -40,7 +41,7 @@ export const updateActivityCompletion: QueryFunction<
 
 /**
  * Update the meta values of an activity (currently, that means everything
- * exception the completion-related fields of a task).
+ * except the completion-related fields of a task).
  */
 export const updateActivity: QueryFunction<
 	{
@@ -74,4 +75,22 @@ export const updateActivity: QueryFunction<
 			tag_ids: relations.map((r) => r.tag_id),
 		});
 	});
+};
+
+/** Sets the `recurrence_id` for the activity with the specified `activity_id`. */
+export const updateActivityRecurrence: QueryFunction<
+	{
+		activity_id: ID;
+		recurrence_id: ID;
+	},
+	Promise<Pick<ActivityWithIds, "activity_id">>
+> = async ({ sql = sqlConnection, activity_id, recurrence_id }) => {
+	const [updated] = await sql<[Pick<ActivityWithIds, "activity_id">]>`
+      UPDATE activities
+      SET recurrence_id = ${recurrence_id}
+      WHERE activity_id = ${activity_id}
+      RETURNING activity_id
+   `;
+
+	return updated;
 };

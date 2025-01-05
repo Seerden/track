@@ -1,3 +1,4 @@
+import { ActivityWithIds } from "./activity.types";
 import {
 	ID,
 	IntervalUnit,
@@ -16,6 +17,10 @@ export type Recurrence = {
 	end_timestamp: Nullable<Timestamp>;
 	created_at: Timestamp;
 };
+
+export type RecurrenceWithIds = Recurrence &
+	Pick<ActivityWithIds, "activity_id">;
+
 export type RecurrenceInput = {
 	recurrence: Recurrence;
 };
@@ -24,9 +29,15 @@ export type NewRecurrence = OmitStrict<
 	Recurrence,
 	"recurrence_id" | "created_at"
 >;
+
 export type NewRecurrenceInput = {
 	newRecurrence: OmitStrict<NewRecurrence, "user_id">;
 };
+/**
+ * @note by including activity_id, we're directly associating this type with
+ * business logic. */
+export type CreateRecurrenceInput = NewRecurrenceInput &
+	Pick<ActivityWithIds, "activity_id">;
 
 type Bigint = string; // database returns bigints as strings;
 
@@ -46,7 +57,9 @@ export type Occurrence = {
 	user_id: ID;
 	activity_id: ID;
 	divergence_count: number;
+	excluded_activity_ids: ID[];
 } & OccurrenceDivergenceBase;
+
 export type OccurrenceInput = {
 	occurrence: Occurrence;
 };

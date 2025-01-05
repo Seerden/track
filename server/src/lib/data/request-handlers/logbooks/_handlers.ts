@@ -23,7 +23,7 @@ import * as DeleteLog from "./delete-log";
 import * as DeleteLogTemplate from "./delete-log-template";
 import * as DeleteLogbook from "./delete-logbook";
 
-const get = {
+const GET = {
 	...GetFieldTemplates,
 	...GetFields,
 	...GetItemRows,
@@ -34,7 +34,7 @@ const get = {
 	...GetLogs,
 };
 
-const post = {
+const POST = {
 	...PostItemRow,
 	...PostItemTemplate,
 	...PostItem,
@@ -43,12 +43,12 @@ const post = {
 	...PostLogbook,
 };
 
-const put = {
+const PUT = {
 	...PutLog,
 	...PutLogbook,
 };
 
-const _delete = {
+const DELETE = {
 	...DeleteItemTemplate,
 	...DeleteItem,
 	...DeleteLogTemplate,
@@ -57,10 +57,10 @@ const _delete = {
 };
 
 const logbookHandlers = {
-	get,
-	post,
-	put,
-	delete: _delete,
+	GET,
+	POST,
+	PUT,
+	DELETE,
 };
 
 export default logbookHandlers;

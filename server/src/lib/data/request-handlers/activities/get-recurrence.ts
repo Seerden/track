@@ -5,8 +5,11 @@ import {
 import { groupById } from "@/lib/data/models/group-by-id";
 import type { RequestHandlerWithUserId } from "@/lib/data/request-handlers/wrap-with-user-id";
 
+// TODO: allow GET recurrences with their initial activity (use a query param)
+// TODO: handler to GET the activity that is the "template" for a recurrence
+
 export const getRecurrencesByUser: RequestHandlerWithUserId = async (
-	{ req, res },
+	{ res },
 	user_id,
 ) => {
 	const recurrences = await queryRecurrencesByUser({ user_id });

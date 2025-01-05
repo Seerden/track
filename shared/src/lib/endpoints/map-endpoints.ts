@@ -1,10 +1,10 @@
-import { ServerSubServiceMap, SubService } from "./logbooks-endpoints";
+import { ServerSubServiceMap, SubService } from "./endpoint.types";
 
 /** This function maps the given object of handlers by method, using the given endpoints,
  * to a ServerSubServiceMap.
  * @todo I think we could use this in both the client and server, if we pass a
  * generic for the handler type. Let's try.
- * @usage
+ * @example
  * ```
  *  const _logbooks = mapEndpoints(logbookEndpointsService.logbooks, {
  *     get: {
