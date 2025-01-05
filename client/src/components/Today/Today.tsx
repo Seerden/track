@@ -31,6 +31,9 @@ export default function Today() {
 		openModal(modalId);
 	}
 
+	// TODO: out of laziness, I defined this in here so we didn't have to pass
+	// handleModalOpen down as an onClick prop. Take this component out of
+	// Today's scope.
 	function SpeedDialAction({
 		children,
 		$color = "blue",
