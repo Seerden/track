@@ -1,3 +1,4 @@
+import { ActivityWithIds } from "types/data/activity.types";
 import {
 	ID,
 	IntervalUnit,
@@ -24,9 +25,15 @@ export type NewRecurrence = OmitStrict<
 	Recurrence,
 	"recurrence_id" | "created_at"
 >;
+
 export type NewRecurrenceInput = {
 	newRecurrence: OmitStrict<NewRecurrence, "user_id">;
 };
+/**
+ * @note by including activity_id, we're directly associating this type with
+ * business logic. */
+export type CreateRecurrenceInput = NewRecurrenceInput &
+	Pick<ActivityWithIds, "activity_id">;
 
 type Bigint = string; // database returns bigints as strings;
 
