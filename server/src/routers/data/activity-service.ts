@@ -1,58 +1,43 @@
-import { deleteOccurrence } from "@/lib/data/request-handlers/activities/delete-occurrence";
-import { deleteRecurrence } from "@/lib/data/request-handlers/activities/delete-recurrence";
-import { getActivities } from "@/lib/data/request-handlers/activities/get-activities";
-import {
-	getOccurrencesByRecurrence,
-	getOccurrencesByUser,
-} from "@/lib/data/request-handlers/activities/get-occurrence";
-import {
-	getRecurrenceByActivity,
-	getRecurrencesByUser,
-} from "@/lib/data/request-handlers/activities/get-recurrence";
-import { postActivity } from "@/lib/data/request-handlers/activities/post-activity";
-import { postOccurrence } from "@/lib/data/request-handlers/activities/post-occurrence";
-import { postRecurrence } from "@/lib/data/request-handlers/activities/post-recurrence";
-import { putActivity } from "@/lib/data/request-handlers/activities/put-activity";
-import { putOccurrence } from "@/lib/data/request-handlers/activities/put-occurrence";
-import { putRecurrence } from "@/lib/data/request-handlers/activities/put-recurrence";
-import { putTaskCompletion } from "@/lib/data/request-handlers/activities/put-task";
+import activityHandlers from "@/lib/data/request-handlers/activities/_handlers";
 import type { ActivityService } from "@shared/lib/endpoints/activities-endpoints";
 import { activityEndpointsService } from "@shared/lib/endpoints/activities-endpoints";
 import type { MappedService } from "@shared/lib/endpoints/endpoint.types";
 import { mapEndpoints } from "@shared/lib/endpoints/map-endpoints";
 
+const { GET, POST, PUT, DELETE } = activityHandlers;
+
 export const activityServiceMapped: MappedService<ActivityService> = {
 	activities: mapEndpoints(activityEndpointsService.activities, {
 		get: {
-			getByUser: getActivities,
+			getByUser: GET.getActivities,
 		},
 		post: {
-			post: postActivity,
+			post: POST.postActivity,
 		},
 		put: {
-			putActivity,
-			putTaskCompletion,
+			putActivity: PUT.putActivity,
+			putTaskCompletion: PUT.putTaskCompletion,
 		},
 		delete: {},
 	}),
 	recurrence: mapEndpoints(activityEndpointsService.recurrence, {
 		get: {
-			getOccurrencesByRecurrence,
-			getOccurrencesByUser,
-			getRecurrenceByActivity,
-			getRecurrencesByUser,
+			getOccurrencesByRecurrence: GET.getOccurrencesByRecurrence,
+			getOccurrencesByUser: GET.getOccurrencesByUser,
+			getRecurrenceByActivity: GET.getRecurrenceByActivity,
+			getRecurrencesByUser: GET.getRecurrencesByUser,
 		},
 		post: {
-			postOccurrence,
-			postRecurrence,
+			postOccurrence: POST.postOccurrence,
+			postRecurrence: POST.postRecurrence,
 		},
 		put: {
-			putOccurrence,
-			putRecurrence,
+			putOccurrence: PUT.putOccurrence,
+			putRecurrence: PUT.putRecurrence,
 		},
 		delete: {
-			deleteOccurrence,
-			deleteRecurrence,
+			deleteOccurrence: DELETE.deleteOccurrence,
+			deleteRecurrence: DELETE.deleteRecurrence,
 		},
 	}),
 };
