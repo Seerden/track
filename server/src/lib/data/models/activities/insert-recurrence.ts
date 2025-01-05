@@ -1,10 +1,10 @@
 import { sqlConnection } from "@/db/init";
 import { updateActivityRecurrence } from "@/lib/data/models/activities/update-activity";
-import type { ActivityWithIds } from "@shared/types/data/activity.types";
 import type {
 	CreateRecurrenceInput,
 	NewRecurrenceInput,
 	Recurrence,
+	RecurrenceWithIds,
 } from "@shared/types/data/recurrence.types";
 import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
@@ -27,7 +27,7 @@ const insertRecurrence: QueryFunction<
 /** Insert a new recurrent row and assign its id to its progenitor activity. */
 export const createRecurrence: QueryFunction<
 	CreateRecurrenceInput & { user_id: ID },
-	Promise<{ recurrence: Recurrence } & Pick<ActivityWithIds, "activity_id">>
+	Promise<RecurrenceWithIds>
 > = async ({ sql = sqlConnection, newRecurrence, user_id, activity_id }) => {
 	return sql.begin(async (q) => {
 		const withUserId = { ...newRecurrence, user_id };
@@ -45,8 +45,8 @@ export const createRecurrence: QueryFunction<
 		});
 
 		return {
-			recurrence,
+			...recurrence,
 			activity_id: updatedActivity.activity_id,
-		};
+		} as RecurrenceWithIds;
 	});
 };

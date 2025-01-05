@@ -17,6 +17,10 @@ export type Recurrence = {
 	end_timestamp: Nullable<Timestamp>;
 	created_at: Timestamp;
 };
+
+export type RecurrenceWithIds = Recurrence &
+	Pick<ActivityWithIds, "activity_id">;
+
 export type RecurrenceInput = {
 	recurrence: Recurrence;
 };

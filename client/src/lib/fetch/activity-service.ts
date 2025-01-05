@@ -46,6 +46,11 @@ const activityService = {
 			api.post<ActivityInput, ActivityWithIds>({
 				url: getPath(urls.activities.post.post)({}),
 				body: input
+			}),
+		postRecurring: async (input: ActivityInput & NewRecurrenceInput) =>
+			api.post<ActivityInput & NewRecurrenceInput, ActivityWithIds>({
+				url: getPath(urls.activities.post.postRecurring)({}),
+				body: input
 			})
 	},
 	recurrence: {

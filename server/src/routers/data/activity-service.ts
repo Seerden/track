@@ -13,6 +13,7 @@ export const activityServiceMapped: MappedService<ActivityService> = {
 		},
 		post: {
 			post: POST.postActivity,
+			postRecurring: POST.postRecurringActivity,
 		},
 		put: {
 			putActivity: PUT.putActivity,

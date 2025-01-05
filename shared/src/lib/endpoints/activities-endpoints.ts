@@ -14,6 +14,7 @@ const activities = {
 	},
 	post: {
 		post: "/", // postActivity
+		postRecurring: "/recurring", // postRecurringActivity
 	},
 	put: {
 		putActivity: "/:activity_id", // putActivity
