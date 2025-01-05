@@ -1,4 +1,4 @@
-import { ActivityWithIds } from "types/data/activity.types";
+import { ActivityWithIds } from "./activity.types";
 import {
 	ID,
 	IntervalUnit,
