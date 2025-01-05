@@ -3,7 +3,7 @@ import type { Occurrence } from "@shared/types/data/recurrence.types";
 import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
-// TODO: business logic
+// TODO: business logic -- haven't designed the logic for this yet.
 export const removeOccurrenceById: QueryFunction<
 	{
 		occurrence_id: ID;

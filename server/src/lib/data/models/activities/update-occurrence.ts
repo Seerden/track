@@ -5,6 +5,9 @@ import type { QueryFunction } from "types/sql.types";
 
 // TODO: include the user_id in the QueryFunction type, because basically all
 // query functions require it.
+// TODO: I'm not sure what the use-case for this is. I guess it would be
+// possible to re-adjust (an) already adjusted occurrence(s) to a different
+// offset or something, but I don't know if that would ever actually happen.
 export const updateOccurrence: QueryFunction<
 	OccurrenceInput & { user_id: ID },
 	Promise<Maybe<Occurrence>>
