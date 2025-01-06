@@ -1,9 +1,9 @@
 import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
-import Habits from "@/components/habits/Habits/Habits";
 import NewHabit from "@/components/habits/NewHabit/NewHabit";
 import NewNote from "@/components/notes/NewNote/NewNote";
 import AllDayActivities from "@/components/Today/AllDayActivities";
 import ChangeDayButton from "@/components/Today/ChangeDayButton";
+import Habits from "@/components/Today/Habits";
 import TimelineRows from "@/components/Today/TimelineRows";
 import useToday from "@/components/Today/useToday";
 import Calendar from "@/components/utility/Calendar/Calendar";
@@ -97,35 +97,16 @@ export default function Today() {
 						<AllDayActivities activities={t.allDayActivities} />
 					)}
 
-					<div style={{ gridArea: "timeline" }}>
-						<TimelineRows
-							activities={t.timestampedActivities}
-							currentDate={t.currentDate}
-						/>
-					</div>
+					<TimelineRows
+						activities={t.timestampedActivities}
+						currentDate={t.currentDate}
+					/>
 				</S.TimelineWrapper>
 
 				<S.Things>
-					{!!t.habits && (
-						<S.Habits style={{ gridArea: "habits" }}>
-							<S.BlockTitle>Habits</S.BlockTitle>
-							<Habits habits={t.habits} />
-						</S.Habits>
-					)}
-					<div
-						style={{
-							gridArea: "tasks"
-						}}
-					>
-						<Tasks activities={t.activities.filter((a) => a.is_task)} />
-					</div>
-					<div
-						style={{
-							gridArea: "notes"
-						}}
-					>
-						<Notes />
-					</div>
+					<Habits habits={t.habits} />
+					<Tasks activities={t.activities.filter((a) => a.is_task)} />
+					<Notes />
 				</S.Things>
 			</S.Columns>
 
