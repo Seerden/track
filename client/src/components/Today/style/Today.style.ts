@@ -30,19 +30,7 @@ const TimelineWrapper = styled.section`
 	overflow: hidden;
 	overflow-y: auto;
 
-	${scrollbar.custom};
-	&::-webkit-scrollbar {
-		width: 10px;
-	}
-	&::-webkit-scrollbar-track-piece {
-		background-color: transparent;
-	}
-	&::-webkit-scrollbar-track {
-	}
-	&::-webkit-scrollbar-thumb {
-		border-radius: 8px;
-		clip-path: inset(0 round 14px);
-	}
+	${scrollbar.customVertical};
 `;
 
 const NotesWrapper = styled.section`

@@ -33,9 +33,24 @@ const customScrollbar = css`
 	}
 `;
 
+const customVerticalScrollbar = css`
+	${customScrollbar};
+
+	&::-webkit-scrollbar {
+		width: 10px;
+	}
+	&::-webkit-scrollbar-track-piece {
+		background-color: transparent;
+	}
+	&::-webkit-scrollbar-thumb {
+		border-radius: 8px;
+	}
+`;
+
 const scrollbar = {
 	hidden: hiddenScrollbar,
-	custom: customScrollbar
+	custom: customScrollbar,
+	customVertical: customVerticalScrollbar
 };
 
 export default scrollbar;
