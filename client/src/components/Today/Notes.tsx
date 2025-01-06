@@ -4,6 +4,8 @@ import { filterTagsById } from "@/lib/filter-tags";
 import useQueryNotes from "@/lib/hooks/query/notes/useQueryNotes";
 import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
 import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
+import modalIds from "@/lib/modal-ids";
+import { useModalState } from "@/lib/state/modal-state";
 import { isToday } from "@lib/datetime/compare";
 import { Note } from "./Note";
 import S from "./style/Today.style";
@@ -11,6 +13,7 @@ import S from "./style/Today.style";
 export default function Notes() {
 	const { data: notesData } = useQueryNotes();
 	const { data: tagsData } = useQueryTags();
+	const { openModal } = useModalState();
 
 	if (!notesData || !tagsData) return null; // TODO: use isProbablySuspended
 
@@ -24,7 +27,11 @@ export default function Notes() {
 		<S.NotesWrapper style={{ gridArea: "notes" }}>
 			{/* need list style for padding, like tasks */}
 			<S.BlockTitle>Notes</S.BlockTitle>
-			{!notes.length && <Empty>No notes found for today.</Empty>}
+			{!notes.length && (
+				<Empty action={() => openModal(modalIds.notes.new)}>
+					<span>No notes found for today.</span>
+				</Empty>
+			)}
 			{notes.map((n) => (
 				<Note
 					key={n.note_id}

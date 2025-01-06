@@ -1,5 +1,7 @@
 import Empty from "@/components/Today/Empty";
 import Habit from "@/components/Today/Habit";
+import modalIds from "@/lib/modal-ids";
+import { useModalState } from "@/lib/state/modal-state";
 import L from "@/lib/theme/components/List.style";
 import type { HabitWithPossiblySyntheticEntries } from "@shared/types/data/habit.types";
 import type { ById } from "@shared/types/data/utility.types";
@@ -13,6 +15,7 @@ type HabitsProps = {
 // TODO: rename habits to habitsById, because that's what it is.
 export default function Habits({ habitsById }: HabitsProps) {
 	const habits = Object.values(habitsById);
+	const { openModal } = useModalState();
 
 	return (
 		<S.Habits>
@@ -31,7 +34,9 @@ export default function Habits({ habitsById }: HabitsProps) {
 					))}
 				</L.ItemList>
 			) : (
-				<Empty> No habits found for today. </Empty>
+				<Empty action={() => openModal(modalIds.habits.new)}>
+					<span>No habits found for today. </span>
+				</Empty>
 			)}
 		</S.Habits>
 	);

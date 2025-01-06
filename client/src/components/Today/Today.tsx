@@ -22,44 +22,49 @@ type SpeedDialActionProps = {
 	modalId: ModalId;
 };
 
-export default function Today() {
-	const t = useToday();
-
+function SpeedDialAction({
+	children,
+	$color = "blue",
+	modalId
+}: PropsWithChildren<SpeedDialActionProps>) {
 	const { openModal } = useModalState();
-	function handleModalOpen(e: React.MouseEvent<HTMLButtonElement>, modalId: ModalId) {
-		e.stopPropagation();
-		openModal(modalId);
-	}
 
-	// TODO: out of laziness, I defined this in here so we didn't have to pass
-	// handleModalOpen down as an onClick prop. Take this component out of
-	// Today's scope.
-	function SpeedDialAction({
-		children,
-		$color = "blue",
-		modalId
-	}: PropsWithChildren<SpeedDialActionProps>) {
-		return (
-			<S.SpeedDialButton $color={$color} onClick={(e) => handleModalOpen(e, modalId)}>
-				{children}
-			</S.SpeedDialButton>
-		);
-	}
+	return (
+		<S.SpeedDialButton
+			$color={$color}
+			onClick={(e) => {
+				e.stopPropagation();
+				openModal(modalId);
+			}}
+		>
+			{children}
+		</S.SpeedDialButton>
+	);
+}
+
+export default function Today() {
+	const {
+		activities,
+		allDayActivities,
+		currentDate,
+		habitsById,
+		speedDialOpen,
+		timestampedActivities,
+		title,
+		changeDay,
+		setCurrentDate,
+		setSpeedDialOpen
+	} = useToday();
 
 	return (
 		<>
-			{/* TODO: we want the header to be aligned above the Timeline */}
 			<S.Columns>
-				<div
-					style={{
-						gridArea: "calendar"
-					}}
-				>
-					<Calendar initialDate={t.currentDate} onChange={t.setCurrentDate} />
+				<div style={{ gridArea: "calendar" }}>
+					<Calendar initialDate={currentDate} onChange={setCurrentDate} />
 				</div>
 
 				<S.Create>
-					<SpeedDial open={t.speedDialOpen} setOpen={t.setSpeedDialOpen}>
+					<SpeedDial open={speedDialOpen} setOpen={setSpeedDialOpen}>
 						<S.SpeedDialActions>
 							<SpeedDialAction modalId={modalIds.activities.form}>
 								activity
@@ -74,42 +79,35 @@ export default function Today() {
 						</S.SpeedDialActions>
 					</SpeedDial>
 				</S.Create>
-				<S.TimelineWrapper
-					style={{
-						gridArea: "timeline"
-					}}
-				>
-					<S.Header
-						style={{
-							gridArea: "header"
-						}}
-					>
+				<S.TimelineWrapper style={{ gridArea: "timeline" }}>
+					<S.Header style={{ gridArea: "header" }}>
 						<h1>
 							<ChangeDayButton
 								type="previous"
-								onClick={() => t.changeDay("previous")}
+								onClick={() => changeDay("previous")}
 							/>
-							{t.title}
-							<ChangeDayButton type="next" onClick={() => t.changeDay("next")} />
+							{title}
+							<ChangeDayButton type="next" onClick={() => changeDay("next")} />
 						</h1>
 					</S.Header>
-					{!!t.allDayActivities.length && (
-						<AllDayActivities activities={t.allDayActivities} />
+					{!!allDayActivities.length && (
+						<AllDayActivities activities={allDayActivities} />
 					)}
 
 					<TimelineRows
-						activities={t.timestampedActivities}
-						currentDate={t.currentDate}
+						activities={timestampedActivities}
+						currentDate={currentDate}
 					/>
 				</S.TimelineWrapper>
 
 				<S.Things>
-					<Habits habitsById={t.habitsById} />
-					<Tasks activities={t.activities.filter((a) => a.is_task)} />
+					<Habits habitsById={habitsById} />
+					<Tasks activities={activities.filter((a) => a.is_task)} />
 					<Notes />
 				</S.Things>
 			</S.Columns>
 
+			{/* TODO: see modal rework issue (TRK-211) */}
 			<Modal initialOpen={false} modalId={modalIds.activities.form}>
 				<ActivityForm modalId={modalIds.activities.form} />
 			</Modal>
