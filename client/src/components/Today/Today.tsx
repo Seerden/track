@@ -104,7 +104,7 @@ export default function Today() {
 				</S.TimelineWrapper>
 
 				<S.Things>
-					<Habits habits={t.habits} />
+					<Habits habitsById={t.habitsById} />
 					<Tasks activities={t.activities.filter((a) => a.is_task)} />
 					<Notes />
 				</S.Things>

@@ -72,7 +72,7 @@ export default function useToday() {
 
 	// eslint-disable-next-line react-compiler/react-compiler
 	return {
-		habits: getHabitsForTimeWindow(timeWindow),
+		habitsById: getHabitsForTimeWindow(timeWindow),
 		activities: todayActivities,
 		allDayActivities,
 		timestampedActivities,
