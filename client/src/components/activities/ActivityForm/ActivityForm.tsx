@@ -1,3 +1,4 @@
+import RecurrenceForm from "@/components/activities/ActivityForm/RecurrenceForm/RecurrenceForm";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
@@ -64,6 +65,10 @@ export default function ActivityForm({
 						onChange={onDateTimeChange}
 						defaultValues={defaultDateTimeValues}
 					/>
+				</N.Row>
+
+				<N.Row>
+					<RecurrenceForm />
 				</N.Row>
 
 				<TagSelector

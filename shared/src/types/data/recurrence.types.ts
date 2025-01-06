@@ -12,7 +12,7 @@ export type Recurrence = {
 	user_id: ID;
 	interval: number;
 	interval_unit: IntervalUnit; // implement this utility type and also use it in Habit
-	frequency: number;
+	frequency: "numeric" | "calendar";
 	start_timestamp: Timestamp;
 	end_timestamp: Nullable<Timestamp>;
 	created_at: Timestamp;
