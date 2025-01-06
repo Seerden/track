@@ -3,6 +3,7 @@ import { Action } from "@/lib/theme/components/buttons";
 import { getFontSize } from "@/lib/theme/font";
 import { column } from "@/lib/theme/snippets/column";
 import { flex } from "@/lib/theme/snippets/flex";
+import scrollbar from "@/lib/theme/snippets/scroll";
 import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
 
@@ -28,6 +29,20 @@ const TimelineWrapper = styled.section`
 	max-height: 80vh;
 	overflow: hidden;
 	overflow-y: auto;
+
+	${scrollbar.custom};
+	&::-webkit-scrollbar {
+		width: 10px;
+	}
+	&::-webkit-scrollbar-track-piece {
+		background-color: transparent;
+	}
+	&::-webkit-scrollbar-track {
+	}
+	&::-webkit-scrollbar-thumb {
+		border-radius: 8px;
+		clip-path: inset(0 round 14px);
+	}
 `;
 
 const NotesWrapper = styled.section`
@@ -163,13 +178,15 @@ const SpeedDialButton = styled(Action.Stylized)`
 // TODO: rename this
 const Things = styled.div`
 	grid-area: things;
+
 	display: flex;
 
 	flex-direction: row;
-
 	@media (min-width: 1280px) {
 		flex-direction: column;
 	}
+
+	gap: 1rem;
 `;
 
 export default {
