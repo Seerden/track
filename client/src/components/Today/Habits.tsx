@@ -11,8 +11,7 @@ type HabitsProps = {
 
 export default function Habits({ habits }: HabitsProps) {
 	return (
-		// TODO: is the grid-area not already being set in the style file?
-		<S.Habits style={{ gridArea: "habits" }}>
+		<S.Habits>
 			<T.BlockTitle>Habits</T.BlockTitle>
 			<L.ItemList
 				style={{

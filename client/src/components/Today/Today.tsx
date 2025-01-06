@@ -94,30 +94,16 @@ export default function Today() {
 						<AllDayActivities activities={t.allDayActivities} />
 					)}
 
-					<div style={{ gridArea: "timeline" }}>
-						<TimelineRows
-							activities={t.timestampedActivities}
-							currentDate={t.currentDate}
-						/>
-					</div>
+					<TimelineRows
+						activities={t.timestampedActivities}
+						currentDate={t.currentDate}
+					/>
 				</S.TimelineWrapper>
 
 				<S.Things>
 					<Habits habits={t.habits} />
-					<div
-						style={{
-							gridArea: "tasks"
-						}}
-					>
-						<Tasks activities={t.activities.filter((a) => a.is_task)} />
-					</div>
-					<div
-						style={{
-							gridArea: "notes"
-						}}
-					>
-						<Notes />
-					</div>
+					<Tasks activities={t.activities.filter((a) => a.is_task)} />
+					<Notes />
 				</S.Things>
 			</S.Columns>
 
