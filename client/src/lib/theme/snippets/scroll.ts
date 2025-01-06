@@ -24,8 +24,6 @@ const customScrollbar = css`
 		background-color: dodgerblue;
 		outline: 2px solid #fff;
 		outline-offset: -2px;
-		border: 0.1px solid #b7b7b7;
-		border: 4px solid transparent;
 
 		&:hover {
 			background-color: royalblue;
