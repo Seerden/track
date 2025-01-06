@@ -12,7 +12,6 @@ type HabitsProps = {
 	habitsById: ById<HabitWithPossiblySyntheticEntries>;
 };
 
-// TODO: rename habits to habitsById, because that's what it is.
 export default function Habits({ habitsById }: HabitsProps) {
 	const habits = Object.values(habitsById);
 	const { openModal } = useModalState();
