@@ -1,9 +1,9 @@
 import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
-import Habits from "@/components/habits/Habits/Habits";
 import NewHabit from "@/components/habits/NewHabit/NewHabit";
 import NewNote from "@/components/notes/NewNote/NewNote";
 import AllDayActivities from "@/components/Today/AllDayActivities";
 import ChangeDayButton from "@/components/Today/ChangeDayButton";
+import Habits from "@/components/Today/Habits";
 import TimelineRows from "@/components/Today/TimelineRows";
 import useToday from "@/components/Today/useToday";
 import Calendar from "@/components/utility/Calendar/Calendar";
@@ -103,12 +103,7 @@ export default function Today() {
 				</S.TimelineWrapper>
 
 				<S.Things>
-					{!!t.habits && (
-						<S.Habits style={{ gridArea: "habits" }}>
-							<S.BlockTitle>Habits</S.BlockTitle>
-							<Habits habits={t.habits} />
-						</S.Habits>
-					)}
+					<Habits habits={t.habits} />
 					<div
 						style={{
 							gridArea: "tasks"
