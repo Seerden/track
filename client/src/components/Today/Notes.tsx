@@ -21,7 +21,7 @@ export default function Notes() {
 		isToday(note.date ? createDate(note.date) : createDate(note.created_at))
 	);
 	return (
-		<S.NotesWrapper>
+		<S.NotesWrapper style={{ gridArea: "notes" }}>
 			{/* need list style for padding, like tasks */}
 			<S.BlockTitle>Notes</S.BlockTitle>
 			{!notes.length && <Empty>No notes found for today.</Empty>}

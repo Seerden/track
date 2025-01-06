@@ -32,7 +32,7 @@ export default function TimelineRows({ activities, currentDate }: RowsProps) {
 	const { indentation } = useRows({ activities, currentDate });
 
 	return (
-		<S.Rows>
+		<S.Rows style={{ gridArea: "timeline" }}>
 			{Array.from(
 				{ length: 25 }, // render a row for every hour of the day
 				(_, i) => (

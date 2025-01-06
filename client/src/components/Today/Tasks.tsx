@@ -14,7 +14,7 @@ export default function Tasks({ activities }: TasksProps) {
 	const { data: tagsData } = useQueryTags();
 
 	return (
-		<T.TasksWrapper>
+		<T.TasksWrapper style={{ gridArea: "tasks" }}>
 			<S.BlockTitle>Tasks</S.BlockTitle>
 			{activities.length ? (
 				<T.Tasks>
