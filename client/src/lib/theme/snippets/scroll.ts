@@ -24,7 +24,6 @@ const customScrollbar = css`
 		background-color: dodgerblue;
 		outline: 2px solid #fff;
 		outline-offset: -2px;
-		border: 0.1px solid #b7b7b7;
 
 		&:hover {
 			background-color: royalblue;
@@ -32,9 +31,24 @@ const customScrollbar = css`
 	}
 `;
 
+const customVerticalScrollbar = css`
+	${customScrollbar};
+
+	&::-webkit-scrollbar {
+		width: 10px;
+	}
+	&::-webkit-scrollbar-track-piece {
+		background-color: transparent;
+	}
+	&::-webkit-scrollbar-thumb {
+		border-radius: 8px;
+	}
+`;
+
 const scrollbar = {
 	hidden: hiddenScrollbar,
-	custom: customScrollbar
+	custom: customScrollbar,
+	customVertical: customVerticalScrollbar
 };
 
 export default scrollbar;
