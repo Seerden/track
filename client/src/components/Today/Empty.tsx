@@ -12,7 +12,7 @@ export default function Empty({ children, action }: PropsWithChildren<EmptyProps
 		<S.Empty>
 			{children}
 			{!!action && (
-				<Buttons.Action.Default $color="themeInverted" onClick={action}>
+				<Buttons.Action.Default $color="theme" onClick={action}>
 					<LucidePlus />
 				</Buttons.Action.Default>
 			)}

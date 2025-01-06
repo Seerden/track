@@ -12,6 +12,10 @@ const Empty = styled.p`
 
 	${flex.column};
 	gap: 0.5rem;
+
+	button {
+		color: #666;
+	}
 `;
 
 export default {
