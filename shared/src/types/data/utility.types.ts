@@ -51,3 +51,12 @@ export type OmitStrict<T, K extends keyof T> = T extends any
 	: never;
 
 export type IntervalUnit = "day" | "week" | "month" | "year";
+
+export type DayOfWeek =
+	| "sunday"
+	| "monday"
+	| "tuesday"
+	| "wednesday"
+	| "thursday"
+	| "friday"
+	| "saturday";

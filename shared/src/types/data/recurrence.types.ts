@@ -1,5 +1,6 @@
 import { ActivityWithIds } from "./activity.types";
 import {
+	DayOfWeek,
 	ID,
 	IntervalUnit,
 	Nullable,
@@ -7,16 +8,34 @@ import {
 	Timestamp,
 } from "./utility.types";
 
+type RecurrenceIntervalBase =
+	| {
+			frequency: "numeric";
+			interval_unit: IntervalUnit;
+			weekdays: null;
+			monthdays: null;
+	  }
+	| {
+			frequency: "calendar";
+			interval_unit: "week";
+			weekdays: DayOfWeek[];
+			monthdays: null;
+	  }
+	| {
+			frequency: "calendar";
+			interval_unit: "month";
+			weekdays: null;
+			monthdays: number[];
+	  };
+
 export type Recurrence = {
 	recurrence_id: ID;
 	user_id: ID;
 	interval: number;
-	interval_unit: IntervalUnit; // implement this utility type and also use it in Habit
-	frequency: "numeric" | "calendar";
 	start_timestamp: Timestamp;
 	end_timestamp: Nullable<Timestamp>;
 	created_at: Timestamp;
-};
+} & RecurrenceIntervalBase;
 
 export type RecurrenceWithIds = Recurrence &
 	Pick<ActivityWithIds, "activity_id">;
