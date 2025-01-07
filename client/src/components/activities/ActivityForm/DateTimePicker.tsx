@@ -8,9 +8,9 @@ import useDateTimePicker from "./useDateTimePicker";
 export default function DateTimePicker({ onChange, defaultValues }: DateTimePickerProps) {
 	const {
 		allDay,
-		date,
 		manualEndDate,
 		defaultStartDate,
+		defaultEndDate,
 		defaultTime,
 		onAllDayFieldChange,
 		onStartDateFieldChange,
@@ -38,7 +38,7 @@ export default function DateTimePicker({ onChange, defaultValues }: DateTimePick
 						<span>End date</span>
 						<DefaultInput
 							type="date"
-							value={date.end}
+							defaultValue={defaultEndDate}
 							onChange={onEndDateFieldChange}
 						/>
 					</S.Label>
