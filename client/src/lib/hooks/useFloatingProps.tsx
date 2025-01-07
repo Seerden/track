@@ -55,7 +55,8 @@ export default function useFloatingProps({
 	const role = useRole(context);
 	const _hover = useHover(context, {
 		handleClose: safePolygon(),
-		...hover
+		...hover,
+		enabled: !!hover
 	});
 	const _click = useClick(context, click);
 
