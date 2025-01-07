@@ -20,7 +20,7 @@ type UseDateTimePickerDefaults = {
 
 function useDateTimePickerDefaults({ defaultStartAndEnd }: UseDateTimePickerDefaults) {
 	const timeWindow = useRecoilValue(selectedTimeWindowState);
-	const currentTime = useCurrentTime(); // the default interval on this might be too short, causing too many re-renders.
+	const currentTime = useCurrentTime(30 * 1000); // 30 second poll interval
 
 	const defaultTime = useMemo(() => {
 		return defaultStartAndEnd
@@ -136,11 +136,15 @@ export default function useDateTimePicker({
 		? formatToYearMonthDay(defaultStartAndEnd.start)
 		: date.start;
 
+	const defaultEndDate = defaultStartAndEnd?.end
+		? formatToYearMonthDay(defaultStartAndEnd.end)
+		: date.end;
+
 	return {
 		allDay,
-		date,
 		manualEndDate,
 		defaultStartDate,
+		defaultEndDate,
 		defaultTime,
 		onAllDayFieldChange,
 		onStartDateFieldChange,
