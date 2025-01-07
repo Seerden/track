@@ -140,11 +140,6 @@ export default function useDateTimePicker({
 		? formatToYearMonthDay(defaultStartAndEnd.end)
 		: date.end;
 
-	console.log({
-		date,
-		defaultStartAndEnd
-	});
-
 	return {
 		allDay,
 		manualEndDate,
