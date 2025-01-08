@@ -1,4 +1,6 @@
+import { habitEntryIsDone } from "@/components/habits/Habits/entry-is-completed";
 import type { HabitEntryUpdateMutationFunction } from "@/lib/hooks/query/habits/useMutateHabitEntry";
+import { colors } from "@/lib/theme/colors";
 import type { SliderProps } from "@mantine/core";
 import { Slider } from "@mantine/core";
 import { isSynthetic } from "@shared/types/data/habit-entry.guards";
@@ -33,6 +35,7 @@ export default function HabitEntrySlider({
 }: HabitEntrySliderProps) {
 	const defaultValue = isSynthetic(entry) ? 0 : +entry.value;
 	const [sliderValue, setSliderValue] = useState(() => defaultValue); // TODO: do we need to do anything else to fully synchronize this with the entry's value?
+	const isDone = habitEntryIsDone({ habit, entry });
 
 	function handleChangeEnd(value: number) {
 		onChangeEnd({ input: entry, value: value.toString() });
@@ -61,7 +64,7 @@ export default function HabitEntrySlider({
 					label={(value) => `${value} ${habit.goal_unit}`}
 					// TODO: color and styling are work in progress that is out of scope
 					// for https://github.com/Seerden/track/pull/112. Handle it soon after.
-					color={sliderValue >= (habit.goal ?? 1) ? "green" : "blue"} // TODO: expand this into a gradient?
+					color={isDone ? colors.green.main : colors.blue.main} // TODO: expand this into a gradient?
 					style={{
 						maxWidth: "200px",
 						width: "100%"
