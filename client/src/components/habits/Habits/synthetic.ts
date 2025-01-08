@@ -67,6 +67,10 @@ function makeSyntheticEntry({
  * For UI purposes, this function adds synthetic habit entries to each habit in
  * `habits`, if there are not enough actual entries (yet) for the given habit
  * and timescale.
+ * @todo currently, the order is [...real, ...synthetic], but the order should
+ * be done by index, since a user can turn e.g. synthetic entries 1, 3 and 5
+ * into real ones, while not touching 2 and 4. In our UI, now, the real entries shift
+ * to the start of the list, while they should stay in their actual order.
  */
 export function withSyntheticHabitEntries(
 	habits: ById<HabitWithEntries>,

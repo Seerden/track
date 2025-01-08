@@ -40,7 +40,7 @@ export type NewHabitEntry = {
 	user_id: ID;
 	date: Timestamp;
 	index: number;
-	value: Varchar;
+	value: Varchar; // TODO: why not implement it as a number, and use values 0 and 1 for boolean habits?
 };
 
 /** Matches the shape of the `habit_entries` table. */

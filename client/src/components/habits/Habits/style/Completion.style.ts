@@ -1,13 +1,22 @@
+import Floating from "@/lib/theme/components/containers/floating.style";
+import { flex } from "@/lib/theme/snippets/flex";
 import styled from "styled-components";
 
 const List = styled.ul<{ $itemCount: number }>`
 	width: 100%;
-	display: grid;
 	gap: 0.8rem;
-	grid-template-columns: repeat(
-		${(p) => p.$itemCount},
-		calc(100% / ${(p) => p.$itemCount} - 0.8rem)
-	);
+
+	${flex.row};
+
+	flex-wrap: nowrap;
 `;
 
-export default { List };
+const FloatingWrapper = styled(Floating.Wrapper)`
+	* {
+		/* This makes sure the background of each Slider completion entry is
+		      visible. */
+		--slider-track-bg: #aaa;
+	}
+`;
+
+export default { List, FloatingWrapper };
