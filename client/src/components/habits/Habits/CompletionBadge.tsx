@@ -33,8 +33,8 @@ type CircularProgressProps = {
 };
 
 function CircularProgress({ percentage, size }: CircularProgressProps) {
-	const thickness = 2; // should make the thickness configurable
-	const radius = size / 2 - thickness / 2; // 30px is the size of the completion badge -- should be configurable
+	const thickness = 2; // TODO: should make this thickness configurable
+	const radius = size / 2 - thickness / 2;
 	const circumference = 2 * Math.PI * radius;
 	const offset = thickness;
 
