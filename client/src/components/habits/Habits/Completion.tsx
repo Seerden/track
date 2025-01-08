@@ -30,8 +30,8 @@ function CompletionInstances({
 						key={`${entry.created_at}-${entry.index}`}
 						entry={entry}
 						habit={habit}
-						width={shouldShowBadge ? "50px" : "100px"}
-						alwaysShowLabelText={!shouldShowBadge}
+						sliderWidth={shouldShowBadge ? "50px" : "100px"}
+						showLabelText={!shouldShowBadge}
 					/>
 				))}
 		</>
@@ -57,33 +57,33 @@ export default function Completion({ habit, entries }: CompletionProps) {
 		setOpen: setIsOpen
 	});
 
+	const completionInstanceProps = {
+		entries,
+		habit,
+		shouldShowBadge
+	};
+
+	if (!shouldShowBadge) {
+		return (
+			<S.List $itemCount={itemCount}>
+				<CompletionInstances {...completionInstanceProps} />
+			</S.List>
+		);
+	}
+
 	return (
 		<S.List $itemCount={itemCount}>
-			{shouldShowBadge ? (
-				<>
-					<div ref={float.refs.setReference} {...float.getReferenceProps()}>
-						<CompletionBadge habit={habit} entries={entries} />
-					</div>
-					{isOpen && (
-						<S.FloatingWrapper
-							ref={float.refs.setFloating}
-							style={{ ...float.floatingStyles }}
-							{...float.getFloatingProps()}
-						>
-							<CompletionInstances
-								entries={entries}
-								habit={habit}
-								shouldShowBadge={shouldShowBadge}
-							/>
-						</S.FloatingWrapper>
-					)}
-				</>
-			) : (
-				<CompletionInstances
-					entries={entries}
-					habit={habit}
-					shouldShowBadge={shouldShowBadge}
-				/>
+			<div ref={float.refs.setReference} {...float.getReferenceProps()}>
+				<CompletionBadge habit={habit} entries={entries} />
+			</div>
+			{isOpen && (
+				<S.FloatingWrapper
+					ref={float.refs.setFloating}
+					style={{ ...float.floatingStyles }}
+					{...float.getFloatingProps()}
+				>
+					<CompletionInstances {...completionInstanceProps} />
+				</S.FloatingWrapper>
 			)}
 		</S.List>
 	);

@@ -23,7 +23,7 @@ type HabitEntrySliderProps = {
 	entry: HabitEntry | SyntheticHabitEntry;
 	onChangeEnd: HabitEntryUpdateMutationFunction;
 	width?: string;
-	alwaysShowLabelText?: boolean;
+	showLabelText?: boolean;
 };
 
 export default function HabitEntrySlider({
@@ -31,7 +31,7 @@ export default function HabitEntrySlider({
 	entry,
 	onChangeEnd,
 	width,
-	alwaysShowLabelText = true
+	showLabelText = true
 }: HabitEntrySliderProps) {
 	const defaultValue = isSynthetic(entry) ? 0 : +entry.value;
 	const [sliderValue, setSliderValue] = useState(() => defaultValue); // TODO: do we need to do anything else to fully synchronize this with the entry's value?
@@ -45,7 +45,7 @@ export default function HabitEntrySlider({
 
 	return (
 		<label>
-			{alwaysShowLabelText && (
+			{showLabelText && (
 				<span>
 					{sliderValue} {habit.goal_unit}
 				</span>

@@ -13,8 +13,8 @@ const List = styled.ul<{ $itemCount: number }>`
 
 const FloatingWrapper = styled(Floating.Wrapper)`
 	* {
-		// This makes sure the background of each Slider completino entry is
-		// visible.
+		/* This makes sure the background of each Slider completion entry is
+		      visible. */
 		--slider-track-bg: #aaa;
 	}
 `;

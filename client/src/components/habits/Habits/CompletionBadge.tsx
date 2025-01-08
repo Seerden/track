@@ -1,4 +1,5 @@
 import { habitEntryIsDone } from "@/components/habits/Habits/entry-is-completed";
+import CircularProgress from "@/components/utility/CircularProgress/CircularProgress";
 import type {
 	HabitEntry,
 	HabitWithIds,
@@ -24,32 +25,5 @@ export default function CompletionBadge({ habit, entries }: CompletionBadgeProps
 			<CircularProgress percentage={percentageCompleted} size={size} />
 			{completedCount}
 		</S.Badge>
-	);
-}
-
-type CircularProgressProps = {
-	percentage: number;
-	size: number;
-};
-
-function CircularProgress({ percentage, size }: CircularProgressProps) {
-	const thickness = 1.5; // TODO: should make this thickness configurable
-	const radius = size / 2 - thickness / 2;
-	const circumference = 2 * Math.PI * radius;
-	const offset = thickness;
-
-	return (
-		<S.Svg $size={size} $offset={offset}>
-			<S.Circle
-				$offset={offset}
-				$done={percentage >= 100}
-				cx="50%"
-				cy="50%"
-				r={radius}
-				$circumference={circumference}
-				$thickness={thickness}
-				$percentage={percentage}
-			/>
-		</S.Svg>
 	);
 }
