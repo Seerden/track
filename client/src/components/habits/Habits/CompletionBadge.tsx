@@ -33,7 +33,7 @@ type CircularProgressProps = {
 };
 
 function CircularProgress({ percentage, size }: CircularProgressProps) {
-	const thickness = 2; // TODO: should make this thickness configurable
+	const thickness = 1.5; // TODO: should make this thickness configurable
 	const radius = size / 2 - thickness / 2;
 	const circumference = 2 * Math.PI * radius;
 	const offset = thickness;
