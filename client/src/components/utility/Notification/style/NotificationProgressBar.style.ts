@@ -10,8 +10,8 @@ const Bar = styled.div`
 	height: 3px;
 
 	/* --contrast is set in Container (Notification.style), and the only use
-      of this Bar component as yet is to be directly inside Container, so --contrast
-      should exist. */
+      of this Bar component (currently) is directly inside Container, so
+      --contrast hould exist. */
 	background-color: var(--contrast, #fff);
 
 	z-index: 100;
