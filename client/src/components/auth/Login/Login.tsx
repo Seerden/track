@@ -5,14 +5,20 @@ import S from "../style/auth.style";
 import useLogin from "./useLogin";
 
 function Login() {
-	const { handleInputChange, handleSubmit, passwordVisible, togglePasswordVisible } =
-		useLogin();
+	const {
+		handleInputChange,
+		handleSubmit,
+		passwordVisible,
+		togglePasswordVisible,
+		isError
+	} = useLogin();
 
 	return (
 		// TODO: this probably becomes a modal that expands from the navigation/header
 		<S.Wrapper>
 			<F.Form onSubmit={handleSubmit}>
 				<F.FormTitle>Log in</F.FormTitle>
+				{isError && <>{/* TODO: error toast */}</>}
 				<S.Fields>
 					<F.Label>
 						<span>username</span>

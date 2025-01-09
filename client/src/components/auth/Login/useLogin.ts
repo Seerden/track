@@ -20,7 +20,7 @@ export default function useLogin() {
 	}, [isLoggedIn]);
 
 	const [userLogin, setUserLogin] = useState<UserLogin>({ username: "", password: "" });
-	const { mutate: login } = useMutateLogin();
+	const { mutate: login, isError } = useMutateLogin();
 
 	const isValidLogin = !!userLogin.username.length && !!userLogin.password.length;
 
@@ -52,6 +52,7 @@ export default function useLogin() {
 
 	return {
 		passwordVisible,
+		isError,
 		togglePasswordVisible,
 		handleInputChange,
 		handleSubmit
