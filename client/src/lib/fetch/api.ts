@@ -58,7 +58,14 @@ function apiUpdate(method: "put" | "post") {
 
 async function apiDelete<T>({ url }: { url: string }): Promise<T> {
 	const _url = makeAuthorizedUrl(url);
-	return (await fetch(_url, createRequestConfig.delete())).json() as T;
+	const response = await fetch(_url, createRequestConfig.delete());
+	if (!response.ok) {
+		const responseJson = await response.json();
+		const errorBody = "api.delete returned an error";
+		sentryApiError(errorBody, "delete", responseJson);
+		throw new Error("api.delete returned an error");
+	}
+	return response.json() as T;
 }
 
 const api = {
