@@ -1,10 +1,13 @@
 import NotificationProgressBar from "@/components/utility/Notification/NotificationProgressBar";
-import { memo, useState, type PropsWithChildren } from "react";
+import { useState, type PropsWithChildren } from "react";
 import S from "./style/Notification.style";
 
 export type NotificationType = "error" | "success" | "warning" | "info";
 
-function Notification({ children, type }: PropsWithChildren<{ type: NotificationType }>) {
+export default function Notification({
+	children,
+	type
+}: PropsWithChildren<{ type: NotificationType }>) {
 	const timeout = 2 * 1000; // 5 seconds;
 
 	const [isVisible, setIsVisible] = useState(true);
@@ -23,5 +26,3 @@ function Notification({ children, type }: PropsWithChildren<{ type: Notification
 		</S.Container>
 	);
 }
-
-export default memo(Notification);
