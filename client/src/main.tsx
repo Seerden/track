@@ -44,7 +44,9 @@ Sentry.init({
 });
 
 if (process.env.NODE_ENV === "development") {
-	await worker.start();
+	await worker.start({
+		onUnhandledRequest: "bypass"
+	});
 }
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
