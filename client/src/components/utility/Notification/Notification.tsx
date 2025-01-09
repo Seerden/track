@@ -4,6 +4,8 @@ import S from "./style/Notification.style";
 
 export type NotificationType = "error" | "success" | "warning" | "info";
 
+/** Renders a notification at a fixed position in the viewport that disappears
+ * after `timeout` milliseconds. */
 export default function Notification({
 	children,
 	type
