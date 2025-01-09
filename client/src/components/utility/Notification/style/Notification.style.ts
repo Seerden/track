@@ -1,8 +1,8 @@
 import type { NotificationType } from "@/components/utility/Notification/Notification";
 import type { MainTheme } from "@/lib/theme/theme";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-function getMainColor(theme: MainTheme, type: NotificationType) {
+function getNotificationColor(theme: MainTheme, type: NotificationType) {
 	switch (type) {
 		case "error":
 			return theme.colors.red.main;
@@ -27,31 +27,20 @@ const Container = styled.div<{
 	left: 1rem;
 	padding: 1rem 2rem;
 	border-radius: 0.5rem;
-	--main: ${(p) => (p.$invert ? "#fff" : getMainColor(p.theme, p.$type))};
-	--contrast: ${(p) =>
-		p.$invert ? getMainColor(p.theme, p.$type) : p.theme.colors.tint.white};
 	border: 2px solid #fff;
-	outline: 1px solid var(--main);
-	box-shadow: 1.1rem 1.1rem 0.4rem -0.9rem var(--main);
-	background-color: var(--main);
-	color: var(--contrast);
+
+	--main: ${(p) => getNotificationColor(p.theme, p.$type)};
+	--contrast: ${(p) => p.theme.colors.tint.white};
+
+	outline: 1px solid ${(p) => (p.$invert ? css`var(--main)` : css`var(--contrast)`)};
+	box-shadow: 1.1rem 1.1rem 0.4rem -0.9rem ${(p) => (p.$invert ? css`var(--contrast)` : css`var(--main)`)};
+	background-color: ${(p) => (p.$invert ? css`var(--contrast)` : css`var(--main)`)};
+	color: ${(p) => (p.$invert ? css`var(--main)` : css`var(--contrast)`)};
+
 	overflow: hidden;
 	z-index: 10;
 `;
 
-const Bar = styled.div`
-	// bar that has width equal to $percentage
-	position: absolute;
-	content: "";
-	bottom: 5px;
-	left: 5px;
-	height: 3px;
-	background-color: var(--contrast);
-	z-index: 100;
-	border-radius: 5px;
-`;
-
 export default {
-	Container,
-	Bar
+	Container
 };
