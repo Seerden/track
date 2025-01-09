@@ -20,7 +20,7 @@ function Login() {
 			<F.Form onSubmit={handleSubmit}>
 				<F.FormTitle>Log in</F.FormTitle>
 				{isError && (
-					<Notification type="success">
+					<Notification type="error">
 						Could not log in with these credentials.
 					</Notification>
 				)}
