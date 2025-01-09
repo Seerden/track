@@ -1,7 +1,7 @@
 import useMutateLogin from "@/lib/hooks/query/user/useMutateLogin";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import useRouteProps from "@/lib/hooks/useRouteProps";
-import { localUser } from "@lib/user-storage";
+import { localUser } from "@/lib/user-storage";
 import { type UserLogin } from "@shared/types/data/user.types";
 import { useEffect, useState } from "react";
 
@@ -20,9 +20,9 @@ export default function useLogin() {
 	}, [isLoggedIn]);
 
 	const [userLogin, setUserLogin] = useState<UserLogin>({ username: "", password: "" });
-	const { mutate: login } = useMutateLogin();
+	const { mutate: login, isError } = useMutateLogin();
 
-	const isValidLogin = userLogin.username.length > 0 && userLogin.password.length > 0;
+	const isValidLogin = !!userLogin.username.length && !!userLogin.password.length;
 
 	function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
 		setUserLogin((current) => ({
@@ -52,6 +52,7 @@ export default function useLogin() {
 
 	return {
 		passwordVisible,
+		isError,
 		togglePasswordVisible,
 		handleInputChange,
 		handleSubmit
