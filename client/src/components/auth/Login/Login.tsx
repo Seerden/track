@@ -1,3 +1,4 @@
+import Notification from "@/components/utility/Notification/Notification";
 import F from "@/lib/theme/components/form/form.alternate.style";
 import { LucideArrowRight, LucideEye, LucideEyeOff } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -18,7 +19,11 @@ function Login() {
 		<S.Wrapper>
 			<F.Form onSubmit={handleSubmit}>
 				<F.FormTitle>Log in</F.FormTitle>
-				{isError && <>{/* TODO: error toast */}</>}
+				{isError && (
+					<Notification type="error">
+						Could not log in with these credentials.
+					</Notification>
+				)}
 				<S.Fields>
 					<F.Label>
 						<span>username</span>
