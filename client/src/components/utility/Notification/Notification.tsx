@@ -8,7 +8,7 @@ export default function Notification({
 	children,
 	type
 }: PropsWithChildren<{ type: NotificationType }>) {
-	const timeout = 2 * 1000; // 5 seconds;
+	const timeout = 5 * 1000; // by default, notification is visible for 5 seconds
 
 	const [isVisible, setIsVisible] = useState(true);
 	function hide() {
