@@ -1,10 +1,10 @@
-import DayOfMonthSelector from "@/components/activities/ActivityForm/RecurrenceForm/DayOfMonthSelector";
-import DayOfWeekSelector from "@/components/activities/ActivityForm/RecurrenceForm/DayOfWeekSelector";
+import DaySelector from "@/components/activities/ActivityForm/RecurrenceForm/DaySelector";
 import SharedStyle from "@/components/activities/ActivityForm/RecurrenceForm/style/shared.style";
 import useRecurrenceForm, {
 	frequencyOptions
 } from "@/components/activities/ActivityForm/RecurrenceForm/useRecurrenceForm";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
+import day from "@/lib/dayjs";
 import type { NewRecurrenceInput } from "@shared/types/data/recurrence.types";
 import { useState } from "react";
 import S from "./style/RecurrenceForm.style";
@@ -23,6 +23,15 @@ export default function RecurrenceForm() {
 	// TODO: when changing the interval_unit, reset the other unit's selection
 	const [daysOfWeekSelection, setDaysOfWeekSelection] = useState<string[]>([]);
 	const [daysOfMonthSelection, setDaysOfMonthSelection] = useState<number[]>([]);
+
+	const daysOfMonth = Array.from({ length: 31 }, (_, i) => i + 1).reduce((acc, day) => {
+		if (!((day - 1) % 7)) {
+			acc.push([day]);
+		} else {
+			acc.at(-1)?.push(day);
+		}
+		return acc;
+	}, [] as number[][]);
 
 	return (
 		<S.Container>
@@ -77,14 +86,19 @@ export default function RecurrenceForm() {
 								</S.IntervalContainer>
 								<div>
 									{recurrence.interval_unit === "week" ? (
-										<DayOfWeekSelector
+										<DaySelector
 											selection={daysOfWeekSelection}
 											setSelection={setDaysOfWeekSelection}
+											options={day.weekdays()}
+											optionLabels={day.weekdays().map((d) => d[0])}
+											triggerLabel={"pick days of week"}
 										/>
 									) : (
-										<DayOfMonthSelector
+										<DaySelector
 											selection={daysOfMonthSelection}
 											setSelection={setDaysOfMonthSelection}
+											options={daysOfMonth}
+											triggerLabel={"pick days of month"}
 										/>
 									)}
 								</div>
