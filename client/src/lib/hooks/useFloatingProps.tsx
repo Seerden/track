@@ -9,6 +9,7 @@ import {
 	useClick,
 	useDismiss,
 	useFloating,
+	useFocus,
 	useHover,
 	useInteractions,
 	useRole
@@ -65,10 +66,12 @@ export default function useFloatingProps({
 		enabled: !!hover
 	});
 	const _click = useClick(context, click);
+	const focus = useFocus(context);
 
 	const { getReferenceProps, getFloatingProps } = useInteractions([
 		dismiss,
 		role,
+		focus,
 		...[hover ? _hover : undefined],
 		...[click ? _click : undefined]
 	]);
