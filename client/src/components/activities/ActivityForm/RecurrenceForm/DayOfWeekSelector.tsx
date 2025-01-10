@@ -17,7 +17,7 @@ export default function DayOfWeekSelector() {
 	return (
 		<>
 			<S.Trigger ref={float.refs.setReference} {...float.getReferenceProps()}>
-				select days
+				pick days of week
 			</S.Trigger>
 
 			{isOpen && (

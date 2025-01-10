@@ -32,7 +32,7 @@ export default function DayOfMonthSelector() {
 	return (
 		<>
 			<S.Trigger ref={float.refs.setReference} {...float.getReferenceProps()}>
-				select days
+				pick days of month
 			</S.Trigger>
 
 			{/* TODO: 
