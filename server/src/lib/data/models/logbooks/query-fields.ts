@@ -38,14 +38,10 @@ export const queryFieldsByItemRow: QueryFunction<
 	Promise<FieldTemplateWithMaybeValue[]>
 > = async ({ sql = sqlConnection, item_row_id }) => {
 	return await sql<[FieldTemplateWithMaybeValue]>`
-      SELECT
-         t.*,
-         (SELECT v.value 
-            FROM field_values v 
-            WHERE v.field_template_id = t.field_template_id 
-            AND v.item_row_id = ${item_row_id} 
-            LIMIT 1) 
-         AS value
+      SELECT t.*, v.value
       FROM field_templates t
+      JOIN field_values v 
+      ON v.field_template_id = t.field_template_id 
+      WHERE v.item_row_id = ${item_row_id}
    `;
 };

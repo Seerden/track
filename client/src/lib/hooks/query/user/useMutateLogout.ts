@@ -22,7 +22,7 @@ export default function useMutateLogout() {
 			// `me` (above)? Need to make it so useAuthentication redirects on
 			// logout, too, instead of doing it here, I think.
 			queryClient.clear();
-			navigate("/");
+			navigate("/login");
 		}
 	});
 }

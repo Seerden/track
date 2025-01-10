@@ -1,5 +1,6 @@
 import habitService from "@/lib/fetch/habit-service";
-import { mk } from "@/lib/query-keys";
+import { queryClient } from "@/lib/query-client";
+import { mk, qk } from "@/lib/query-keys";
 import type { HabitInput, HabitWithIds } from "@shared/types/data/habit.types";
 import { useMutation } from "@tanstack/react-query";
 
@@ -8,6 +9,11 @@ export function useMutateNewHabit() {
 		async mutationFn(habitInput) {
 			return habitService.post(habitInput);
 		},
-		mutationKey: mk.habits.new
+		mutationKey: mk.habits.new,
+		onSuccess: () => {
+			queryClient.invalidateQueries({
+				queryKey: qk.habits.all
+			});
+		}
 	});
 }

@@ -1,8 +1,9 @@
 import { offsetIfOverflowing } from "@/components/layout/Header/LogbookMenu/floating-middleware";
-import type { UseClickProps, UseHoverProps } from "@floating-ui/react";
+import type { Middleware, UseClickProps, UseHoverProps } from "@floating-ui/react";
 import {
 	arrow,
 	autoUpdate,
+	flip,
 	safePolygon,
 	shift,
 	useClick,
@@ -19,12 +20,14 @@ type UseFloatingPreviewArgs = {
 	click?: UseClickProps;
 	hover?: UseHoverProps;
 	open?: boolean;
+	offset?: Middleware;
 	setOpen?: Dispatch<SetStateAction<boolean>>;
 };
 
 export default function useFloatingProps({
 	click,
 	hover,
+	offset,
 	open,
 	setOpen
 }: UseFloatingPreviewArgs) {
@@ -39,7 +42,10 @@ export default function useFloatingProps({
 		placement: "bottom",
 		strategy: "fixed",
 		middleware: [
+			offset,
 			shift(),
+			flip(),
+
 			offsetIfOverflowing(),
 			// TODO: only use arrow if it's needed -- determine it through props
 			// eslint-disable-next-line react-compiler/react-compiler
