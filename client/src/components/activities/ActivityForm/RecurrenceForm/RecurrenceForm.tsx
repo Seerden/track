@@ -1,4 +1,3 @@
-import F from "@/components/activities/ActivityFilter/style/ActivityFilter.style";
 import DayOfMonthSelector from "@/components/activities/ActivityForm/RecurrenceForm/DayOfMonthSelector";
 import DayOfWeekSelector from "@/components/activities/ActivityForm/RecurrenceForm/DayOfWeekSelector";
 import SharedStyle from "@/components/activities/ActivityForm/RecurrenceForm/style/shared.style";
@@ -7,6 +6,8 @@ import useRecurrenceForm, {
 } from "@/components/activities/ActivityForm/RecurrenceForm/useRecurrenceForm";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import type { NewRecurrenceInput } from "@shared/types/data/recurrence.types";
+import { useState } from "react";
+import S from "./style/RecurrenceForm.style";
 
 export default function RecurrenceForm() {
 	const {
@@ -19,41 +20,22 @@ export default function RecurrenceForm() {
 		setRecurrenceIntervalUnit
 	} = useRecurrenceForm();
 
-	return (
-		<div style={{ margin: "0.5rem" }}>
-			<label
-				style={{
-					display: "flex",
-					flexDirection: "row",
-					gap: "0.5rem"
-				}}
-			>
-				<span>Activity is recurring?</span>
-				<Checkbox checked={isRecurring} onChange={toggleRecurring} />
-			</label>
+	// TODO: when changing the interval_unit, reset the other unit's selection
+	const [daysOfWeekSelection, setDaysOfWeekSelection] = useState<string[]>([]);
+	const [daysOfMonthSelection, setDaysOfMonthSelection] = useState<number[]>([]);
 
+	return (
+		<S.Container>
+			<S.CheckboxWrapper>
+				<span>Recurring activity?</span>
+				<Checkbox checked={isRecurring} onChange={toggleRecurring} />
+			</S.CheckboxWrapper>
 			{isRecurring && (
 				<>
-					<div>When does this repeat?</div>
-					<div
-						style={{
-							display: "flex",
-							flexDirection: "row",
-							padding: "1rem",
-							gap: "1rem",
-							maxWidth: "100%"
-						}}
-					>
-						{/* First column */}
-						<div
-							style={{
-								display: "flex",
-								flexDirection: "column",
-								width: "max-content"
-							}}
-						>
+					<S.RecurrenceWrapper>
+						<S.Column>
 							{frequencyOptions.map((frequency) => (
-								<F.Label
+								<S.Label
 									key={frequency}
 									$active={recurrence.frequency === frequency}
 								>
@@ -67,21 +49,14 @@ export default function RecurrenceForm() {
 									<span>
 										{frequency === "calendar" ? "fixed date" : "interval"}
 									</span>
-								</F.Label>
+								</S.Label>
 							))}
-						</div>
+						</S.Column>
 
-						{/* Second column */}
 						{/* fixed date (= "calendar" frequency) */}
 						{recurrence.frequency === "calendar" ? (
-							<div style={{ display: "flex", flexDirection: "column" }}>
-								<div
-									style={{
-										display: "flex",
-										flexDirection: "row",
-										gap: "0.5rem"
-									}}
-								>
+							<S.Column>
+								<S.IntervalContainer>
 									<span>every</span>
 									<SharedStyle.NumberInput
 										value={recurrence.interval}
@@ -99,38 +74,38 @@ export default function RecurrenceForm() {
 										<option value="week">week{intervalUnitSuffix}</option>
 										<option value="month">month{intervalUnitSuffix}</option>
 									</SharedStyle.Select>
+								</S.IntervalContainer>
+								<div>
+									{recurrence.interval_unit === "week" ? (
+										<DayOfWeekSelector
+											selection={daysOfWeekSelection}
+											setSelection={setDaysOfWeekSelection}
+										/>
+									) : (
+										<DayOfMonthSelector
+											selection={daysOfMonthSelection}
+											setSelection={setDaysOfMonthSelection}
+										/>
+									)}
 								</div>
-								{recurrence.interval_unit === "week" ? (
-									<div>
-										<DayOfWeekSelector />
-									</div>
-								) : (
-									<div>
-										<DayOfMonthSelector />
-									</div>
-								)}
-							</div>
+							</S.Column>
 						) : (
 							/* interval (= "numeric" frequency) */
-							<div
-								style={{
-									display: "flex",
-									flexDirection: "row",
-									height: "max-content",
-									gap: "0.5rem"
-								}}
-							>
-								<span>every</span>
-								<SharedStyle.NumberInput
-									value={recurrence.interval}
-									onChange={(e) => setRecurrenceInterval(+e.target.value)}
-								/>
-								<span>day{intervalUnitSuffix}</span>
-							</div>
+							<S.Column>
+								<S.IntervalContainer>
+									<span>every</span>
+									<SharedStyle.NumberInput
+										value={recurrence.interval}
+										onChange={(e) => setRecurrenceInterval(+e.target.value)}
+									/>
+									<span>day{intervalUnitSuffix}</span>
+								</S.IntervalContainer>
+							</S.Column>
 						)}
-					</div>
+					</S.RecurrenceWrapper>
 				</>
 			)}
-		</div>
+			Preview: ...
+		</S.Container>
 	);
 }

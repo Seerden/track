@@ -6,11 +6,22 @@
 */
 
 import useFloatingProps from "@/lib/hooks/useFloatingProps";
-import { FloatingArrow } from "@floating-ui/react";
+import { FloatingArrow, FloatingFocusManager } from "@floating-ui/react";
+import { produce } from "immer";
+import { LucideXCircle } from "lucide-react";
+import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
 import S from "./style/shared.style";
 
-export default function DayOfMonthSelector() {
+type DayOfMonthSelectorProps = {
+	selection: number[];
+	setSelection: Dispatch<SetStateAction<number[]>>;
+};
+
+export default function DayOfMonthSelector({
+	selection,
+	setSelection
+}: DayOfMonthSelectorProps) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const float = useFloatingProps({
@@ -29,6 +40,24 @@ export default function DayOfMonthSelector() {
 		return acc;
 	}, [] as number[][]);
 
+	const isActive = (day: number) => selection.includes(day);
+
+	function handleClick(day: number) {
+		setSelection(
+			produce((draft) => {
+				if (draft.includes(day)) {
+					draft.splice(draft.indexOf(day), 1);
+				} else {
+					draft.push(day);
+				}
+			})
+		);
+	}
+
+	function resetSelection() {
+		setSelection([]);
+	}
+
 	return (
 		<>
 			<S.Trigger ref={float.refs.setReference} {...float.getReferenceProps()}>
@@ -39,7 +68,7 @@ export default function DayOfMonthSelector() {
             - implement each cell as a button
             - pass handler to each button */}
 			{isOpen && (
-				<>
+				<FloatingFocusManager context={float.context}>
 					<S.FloatingWrapper
 						ref={float.refs.setFloating}
 						style={{
@@ -54,18 +83,33 @@ export default function DayOfMonthSelector() {
 							width={15}
 							height={5}
 							style={{
-								marginBottom: "2px"
+								marginBottom: "2px" // matches the width of the outline/border
 							}}
 						/>
+						<S.ActionBar>
+							<S.ClearButton
+								disabled={selection.length === 0}
+								title="Clear selection"
+								onClick={resetSelection}
+							>
+								<LucideXCircle size={20} strokeWidth={2} />
+							</S.ClearButton>
+						</S.ActionBar>
 						{daysOfMonth.map((week, i) => (
 							<div key={i} style={{ display: "flex", flexDirection: "row" }}>
 								{week.map((day) => (
-									<S.Cell key={day}>{day}</S.Cell>
+									<S.Cell
+										$active={isActive(day)}
+										onClick={() => handleClick(day)}
+										key={day}
+									>
+										{day}
+									</S.Cell>
 								))}
 							</div>
 						))}
 					</S.FloatingWrapper>
-				</>
+				</FloatingFocusManager>
 			)}
 		</>
 	);

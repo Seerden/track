@@ -1,10 +1,22 @@
 import day from "@/lib/dayjs";
 import useFloatingProps from "@/lib/hooks/useFloatingProps";
-import { FloatingArrow } from "@floating-ui/react";
+import { FloatingArrow, FloatingFocusManager } from "@floating-ui/react";
+import { produce } from "immer";
+import { LucideXCircle } from "lucide-react";
+import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
 import S from "./style/shared.style";
 
-export default function DayOfWeekSelector() {
+type DayOfWeekSelectorProps = {
+	// TODO: could be Set<string> instead of string[]
+	selection: string[];
+	setSelection: Dispatch<SetStateAction<string[]>>;
+};
+
+export default function DayOfWeekSelector({
+	selection,
+	setSelection
+}: DayOfWeekSelectorProps) {
 	const [isOpen, setIsOpen] = useState(false);
 	const float = useFloatingProps({
 		click: {},
@@ -12,7 +24,31 @@ export default function DayOfWeekSelector() {
 		setOpen: setIsOpen
 	});
 
-	const weekdayLabels = day.weekdays().map((day) => day[0]);
+	const weekdays = day.weekdays();
+	const weekdayLabels = weekdays.map((day) => day[0]);
+
+	// TODO: this handleClick + isActive logic is basically the same in
+	// this and DayOfMonthSelector. We can extract it to a custom hook.
+	// in fact, the components are sufficiently similar that we could
+	// probably extract a generic selector component, and only provide the
+	// list of options to it.
+	function handleClick(day: string) {
+		setSelection(
+			produce((draft) => {
+				if (draft.includes(day)) {
+					draft.splice(draft.indexOf(day), 1);
+				} else {
+					draft.push(day);
+				}
+			})
+		);
+	}
+
+	const isActive = (day: string) => selection.includes(day);
+
+	function resetSelection() {
+		setSelection([]);
+	}
 
 	return (
 		<>
@@ -21,7 +57,7 @@ export default function DayOfWeekSelector() {
 			</S.Trigger>
 
 			{isOpen && (
-				<>
+				<FloatingFocusManager context={float.context}>
 					<S.FloatingWrapper
 						ref={float.refs.setFloating}
 						style={{
@@ -39,18 +75,28 @@ export default function DayOfWeekSelector() {
 								marginBottom: "2px"
 							}}
 						/>
+						<S.ActionBar>
+							<S.ClearButton
+								disabled={selection.length === 0}
+								title="Clear selection"
+								onClick={resetSelection}
+							>
+								<LucideXCircle size={20} strokeWidth={2} />
+							</S.ClearButton>
+						</S.ActionBar>
 						<div style={{ display: "flex", flexDirection: "row" }}>
-							{weekdayLabels.map((label) => (
-								<div
+							{weekdays.map((label, index) => (
+								<S.Cell
 									key={label}
-									style={{ display: "flex", flexDirection: "row" }}
+									$active={isActive(weekdays[index])}
+									onClick={() => handleClick(weekdays[index])}
 								>
-									<S.Cell key={label}>{label}</S.Cell>
-								</div>
+									{weekdayLabels[index]}
+								</S.Cell>
 							))}
 						</div>
 					</S.FloatingWrapper>
-				</>
+				</FloatingFocusManager>
 			)}
 		</>
 	);

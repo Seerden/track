@@ -7,7 +7,7 @@ type NewRecurrenceState = NewRecurrenceInput["newRecurrence"];
 const defaultRecurrence: NewRecurrenceState = {
 	start_timestamp: new Date().toISOString(),
 	interval: 1,
-	interval_unit: "week",
+	interval_unit: "day",
 	monthdays: null,
 	weekdays: null,
 	frequency: "numeric",
@@ -57,14 +57,14 @@ export default function useRecurrenceForm() {
 	// setRecurrence... functions.
 	/** Change the recurrence frequency, and reset the interval state accordingly. */
 	function setRecurrenceFrequency(frequency: NewRecurrenceState["frequency"]) {
+		setRecurrenceInterval(1);
+		toggleRecurrenceIntervalUnit();
+
 		setRecurrence(
 			produce((draft) => {
 				draft.frequency = frequency;
 			})
 		);
-
-		setRecurrenceInterval(1);
-		toggleRecurrenceIntervalUnit();
 	}
 
 	return {
