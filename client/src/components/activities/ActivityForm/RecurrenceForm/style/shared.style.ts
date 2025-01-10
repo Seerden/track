@@ -26,6 +26,7 @@ const Trigger = styled(Buttons.Unstyled)`
 	margin-top: 0.3rem;
 `;
 
+// TODO: put this in floating.style.ts!
 const FloatingWrapper = styled.div`
 	background-color: #eee;
 	padding: 1rem;
