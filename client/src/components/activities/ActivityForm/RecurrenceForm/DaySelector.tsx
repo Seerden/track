@@ -7,17 +7,33 @@ import S from "./style/shared.style";
 
 type Option = string | number;
 
-// TODO: this replaces the DayOfWeekSelector and DayOfMonthSelector components
-// do some checking to enforce typing and shapes of stuff
+type DaySelectorOptionsBase<T extends Option> =
+	| {
+			options: T[];
+			optionLabels: string[];
+	  }
+	| {
+			options: T[][];
+			optionLabels?: undefined;
+	  };
 
 type DaySelectorProps<T extends Option> = {
 	selection: T[];
 	setSelection: Dispatch<SetStateAction<T[]>>;
 	triggerLabel: string;
-	options: T[] | T[][];
-	optionLabels?: string[];
-};
+} & DaySelectorOptionsBase<T>;
 
+/** Type guard for  */
+function isNestedArray<TOption>(
+	options: TOption[] | TOption[][]
+): options is TOption[][] {
+	return options.every(Array.isArray);
+}
+
+/** This component handles two types of day selector for RecurrenceForm. Either
+ * daysOfWeek, or daysOfMonth. In the case of daysOfMonth, `options` is` a
+ * nested array, each entry containing up to 7 days. In the case of daysOfWeek,
+ * a flat array is passed as `options`. */
 export default function DaySelector<T extends Option>({
 	selection,
 	setSelection,
@@ -32,8 +48,6 @@ export default function DaySelector<T extends Option>({
 		setOpen: setIsOpen
 	});
 
-	// TODO: type the thing so that the function accepts selection of either
-	// string[] or number[]
 	function handleClick(day: T) {
 		setSelection(
 			produce((_draft) => {
@@ -87,41 +101,35 @@ export default function DaySelector<T extends Option>({
 								<LucideXCircle size={20} strokeWidth={2} />
 							</S.ClearButton>
 						</S.ActionBar>
-						<>
-							{/* OPTIONS -- either nested arrays, or single-depth array */}
-							{Array.isArray(options[0]) ? (
-								<>
-									{options.map((week, i) => (
-										<div
-											key={i}
-											style={{ display: "flex", flexDirection: "row" }}
-										>
-											{(week as T[]).map((day) => (
-												<S.Cell
-													$active={isActive(day)}
-													onClick={() => handleClick(day)}
-													key={day}
-												>
-													{day}
-												</S.Cell>
-											))}
-										</div>
-									))}
-								</>
-							) : (
-								<div style={{ display: "flex", flexDirection: "row" }}>
-									{(options as T[]).map((option, index) => (
-										<S.Cell
-											key={option}
-											$active={isActive(option)}
-											onClick={() => handleClick(option)}
-										>
-											{optionLabels?.[index] ?? option}
-										</S.Cell>
-									))}
-								</div>
-							)}
-						</>
+						{isNestedArray(options) ? (
+							<>
+								{options.map((week, i) => (
+									<div key={i} style={{ display: "flex", flexDirection: "row" }}>
+										{week.map((day) => (
+											<S.Cell
+												$active={isActive(day)}
+												onClick={() => handleClick(day)}
+												key={day}
+											>
+												{day}
+											</S.Cell>
+										))}
+									</div>
+								))}
+							</>
+						) : (
+							<div style={{ display: "flex", flexDirection: "row" }}>
+								{options.map((option, index) => (
+									<S.Cell
+										key={option}
+										$active={isActive(option)}
+										onClick={() => handleClick(option)}
+									>
+										{optionLabels?.[index] ?? option}
+									</S.Cell>
+								))}
+							</div>
+						)}
 					</S.FloatingWrapper>
 				</FloatingFocusManager>
 			)}
