@@ -19,10 +19,8 @@ export default function RecurrenceForm() {
 		intervalUnitSuffix,
 		toggleRecurring,
 		updateRecurrence,
-		daysOfWeekSelection,
-		setDaysOfWeekSelection,
-		daysOfMonthSelection,
-		setDaysOfMonthSelection
+		setSelection,
+		resetSelection
 	} = useRecurrenceForm();
 
 	if (!isRecurring) {
@@ -89,16 +87,18 @@ export default function RecurrenceForm() {
 						<div>
 							{recurrence.interval_unit === INTERVAL_UNIT.WEEK ? (
 								<DaySelector
-									selection={daysOfWeekSelection}
-									setSelection={setDaysOfWeekSelection}
+									selection={recurrence.weekdays}
+									setSelection={setSelection("weekdays")}
+									resetSelection={resetSelection}
 									options={daysOfWeek}
 									optionLabels={daysOfWeek.map((d) => d[0])}
 									triggerLabel={"pick days of week"}
 								/>
 							) : (
 								<DaySelector
-									selection={daysOfMonthSelection}
-									setSelection={setDaysOfMonthSelection}
+									selection={recurrence.monthdays}
+									setSelection={setSelection("monthdays")}
+									resetSelection={resetSelection}
 									options={daysOfMonth}
 									triggerLabel={"pick days of month"}
 								/>

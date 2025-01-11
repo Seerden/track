@@ -1,8 +1,9 @@
 import type { NewRecurrenceState } from "@/components/activities/ActivityForm/RecurrenceForm/useRecurrenceForm";
 import day from "@/lib/dayjs";
+import type { DayOfWeek } from "@shared/types/data/utility.types";
 
 /** ["Sunday", "Monday", ...] */
-export const daysOfWeek = day.weekdays();
+export const daysOfWeek = day.weekdays() as DayOfWeek[];
 
 /** An array containing days of the month -- [[1..7], [...]] */
 export const daysOfMonth = Array.from({ length: 31 }, (_, index) => index).reduce(

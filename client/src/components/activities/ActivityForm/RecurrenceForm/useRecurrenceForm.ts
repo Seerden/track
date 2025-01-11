@@ -4,7 +4,7 @@ import {
 	type FREQUENCY
 } from "@/components/activities/ActivityForm/RecurrenceForm/constants";
 import type { NewRecurrenceInput } from "@shared/types/data/recurrence.types";
-import type { IntervalUnit } from "@shared/types/data/utility.types";
+import type { DayOfWeek, IntervalUnit } from "@shared/types/data/utility.types";
 import { produce } from "immer";
 import { useState } from "react";
 
@@ -24,16 +24,54 @@ type UpdateRecurrencePayload =
 			value: number;
 	  };
 
+type SetRecurrenceSelection =
+	| { type: "weekdays"; value: DayOfWeek }
+	| { type: "monthdays"; value: number };
+
 export default function useRecurrenceForm() {
 	const [isRecurring, setIsRecurring] = useState(false);
 	const [recurrence, setRecurrence] = useState<NewRecurrenceState>(defaultRecurrence);
 	const intervalUnitSuffix = recurrence.interval > 1 ? "s" : "";
-	const [daysOfWeekSelection, setDaysOfWeekSelection] = useState<string[]>([]);
-	const [daysOfMonthSelection, setDaysOfMonthSelection] = useState<number[]>([]);
 
-	function resetSelections() {
-		setDaysOfWeekSelection([]);
-		setDaysOfMonthSelection([]);
+	function resetSelection() {
+		setRecurrence(
+			produce((draft) => {
+				draft.weekdays = [];
+				draft.monthdays = [];
+			})
+		);
+	}
+
+	function setSelection<T extends SetRecurrenceSelection["type"]>(type: T) {
+		return (value: Extract<SetRecurrenceSelection, { type: T }>["value"]) =>
+			setRecurrence(
+				produce((draft) => {
+					// The logic for these cases is basically the same, but the
+					// typing is different, so it's easier to write it out twice.
+					if (type === "weekdays") {
+						const v = value as DayOfWeek;
+						draft.monthdays = null;
+
+						draft.weekdays ??= [];
+						if (draft.weekdays.includes(v)) {
+							draft.weekdays.splice(draft.weekdays.indexOf(v), 1);
+						} else {
+							draft.weekdays.push(v);
+						}
+					} else {
+						const v = value as number;
+						draft.monthdays ??= [];
+
+						if (draft.monthdays.includes(v)) {
+							draft.monthdays.splice(draft.monthdays.indexOf(v), 1);
+						} else {
+							draft.monthdays.push(v);
+						}
+
+						draft.weekdays = null;
+					}
+				})
+			);
 	}
 
 	function toggleRecurring() {
@@ -48,7 +86,7 @@ export default function useRecurrenceForm() {
 						draft.interval_unit = value;
 					})
 				);
-				resetSelections();
+				resetSelection();
 				break;
 			case "frequency":
 				setRecurrence(
@@ -63,7 +101,7 @@ export default function useRecurrenceForm() {
 						draft.frequency = value;
 					})
 				);
-				resetSelections();
+				resetSelection();
 				break;
 			case "interval":
 				setRecurrence(
@@ -81,9 +119,7 @@ export default function useRecurrenceForm() {
 		intervalUnitSuffix,
 		toggleRecurring,
 		updateRecurrence,
-		daysOfWeekSelection,
-		setDaysOfWeekSelection,
-		daysOfMonthSelection,
-		setDaysOfMonthSelection
+		setSelection,
+		resetSelection
 	};
 }

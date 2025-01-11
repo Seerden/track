@@ -1,9 +1,8 @@
 import useFloatingProps from "@/lib/hooks/useFloatingProps";
 import Containers from "@/lib/theme/components/container.style";
 import { FloatingArrow, FloatingFocusManager } from "@floating-ui/react";
-import { produce } from "immer";
 import { LucideXCircle } from "lucide-react";
-import { useState, type Dispatch, type SetStateAction } from "react";
+import { useState } from "react";
 import S from "./style/DaySelector.style";
 
 /** Either e.g. "monday" or in domain [1,31]. */
@@ -29,7 +28,8 @@ type DaySelectorProps<T extends Option> = {
 	/** State passed to this by RecurrenceForm. */
 	selection: T[];
 	/** State setter passed to this by RecurrenceForm. */
-	setSelection: Dispatch<SetStateAction<T[]>>;
+	setSelection: (value: T) => void;
+	resetSelection: () => void;
 	/** The text to display on the floating trigger button. */
 	triggerLabel: string;
 } & DaySelectorOptionsBase<T>;
@@ -48,6 +48,7 @@ function isNestedArray<TOption>(
 export default function DaySelector<T extends Option>({
 	selection,
 	setSelection,
+	resetSelection,
 	triggerLabel,
 	options,
 	optionLabels
@@ -59,23 +60,14 @@ export default function DaySelector<T extends Option>({
 		setOpen: setIsOpen
 	});
 
-	function handleClick(day: T) {
-		setSelection(
-			produce((_draft) => {
-				const draft = _draft as T[];
-				if (draft.includes(day)) {
-					draft.splice(draft.indexOf(day), 1);
-				} else {
-					draft.push(day);
-				}
-			})
-		);
-	}
-
 	const isActive = (day: T) => selection.includes(day);
 
-	function resetSelection() {
-		setSelection([]);
+	if (!isOpen) {
+		return (
+			<S.Trigger ref={float.refs.setReference} {...float.getReferenceProps()}>
+				{triggerLabel}
+			</S.Trigger>
+		);
 	}
 
 	return (
@@ -84,66 +76,64 @@ export default function DaySelector<T extends Option>({
 				{triggerLabel}
 			</S.Trigger>
 
-			{isOpen && (
-				<FloatingFocusManager context={float.context}>
-					<S.FloatingWrapper
-						ref={float.refs.setFloating}
+			<FloatingFocusManager context={float.context}>
+				<S.FloatingWrapper
+					ref={float.refs.setFloating}
+					style={{
+						...float.floatingStyles
+					}}
+					{...float.getFloatingProps()}
+				>
+					<FloatingArrow
+						ref={float.arrowRef}
+						context={float.context}
+						width={15}
+						height={5}
+						fill={"#ccc"}
 						style={{
-							...float.floatingStyles
+							marginBottom: "1px"
 						}}
-						{...float.getFloatingProps()}
-					>
-						<FloatingArrow
-							ref={float.arrowRef}
-							context={float.context}
-							width={15}
-							height={5}
-							fill={"#ccc"}
-							style={{
-								marginBottom: "1px"
-							}}
-						/>
-						<S.ActionBar>
-							<S.ClearButton
-								disabled={selection.length === 0}
-								title="Clear selection"
-								onClick={resetSelection}
-							>
-								<LucideXCircle size={20} strokeWidth={2} />
-							</S.ClearButton>
-						</S.ActionBar>
-						{isNestedArray(options) ? (
-							<>
-								{options.map((week, index) => (
-									<Containers.Utility.FlexRow key={index}>
-										{week.map((day) => (
-											<S.Cell
-												$active={isActive(day)}
-												onClick={() => handleClick(day)}
-												key={day}
-											>
-												{day}
-											</S.Cell>
-										))}
-									</Containers.Utility.FlexRow>
-								))}
-							</>
-						) : (
-							<Containers.Utility.FlexRow>
-								{options.map((option, index) => (
-									<S.Cell
-										key={option}
-										$active={isActive(option)}
-										onClick={() => handleClick(option)}
-									>
-										{optionLabels?.[index] ?? option}
-									</S.Cell>
-								))}
-							</Containers.Utility.FlexRow>
-						)}
-					</S.FloatingWrapper>
-				</FloatingFocusManager>
-			)}
+					/>
+					<S.ActionBar>
+						<S.ClearButton
+							disabled={selection.length === 0}
+							title="Clear selection"
+							onClick={resetSelection}
+						>
+							<LucideXCircle size={20} strokeWidth={2} />
+						</S.ClearButton>
+					</S.ActionBar>
+					{isNestedArray(options) ? (
+						<>
+							{options.map((week, index) => (
+								<Containers.Utility.FlexRow key={index}>
+									{week.map((day) => (
+										<S.Cell
+											$active={isActive(day)}
+											onClick={() => setSelection(day)}
+											key={day}
+										>
+											{day}
+										</S.Cell>
+									))}
+								</Containers.Utility.FlexRow>
+							))}
+						</>
+					) : (
+						<Containers.Utility.FlexRow>
+							{options.map((option, index) => (
+								<S.Cell
+									key={option}
+									$active={isActive(option)}
+									onClick={() => setSelection(option)}
+								>
+									{optionLabels?.[index] ?? option}
+								</S.Cell>
+							))}
+						</Containers.Utility.FlexRow>
+					)}
+				</S.FloatingWrapper>
+			</FloatingFocusManager>
 		</>
 	);
 }
