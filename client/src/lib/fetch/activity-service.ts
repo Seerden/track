@@ -4,7 +4,7 @@ import type {
 	OccurrencesData,
 	RecurrencesData
 } from "@/types/data.types";
-import { clientUrlBuilder } from "@shared/lib/client-url-builder";
+import { clientPathBuilder } from "@shared/lib/client-url-builder";
 import type {
 	ActivityInput,
 	ActivityUpdateInput,
@@ -23,7 +23,8 @@ import type {
 } from "@shared/types/data/recurrence.types";
 import type { ID, Maybe } from "@shared/types/data/utility.types";
 
-const getPath = (url: string) => clientUrlBuilder(url, "/data/activities").makeClientPath;
+const getPath = clientPathBuilder("/data/activities");
+
 const activityService = {
 	activities: {
 		getByUser: async () =>
@@ -55,17 +56,21 @@ const activityService = {
 	},
 	recurrence: {
 		get: {
-			getOccurrencesByRecurrence: async () =>
+			getOccurrencesByRecurrence: async (recurrence_id: ID) =>
 				api.get<OccurrencesData>({
-					url: getPath(urls.recurrence.get.getOccurrencesByRecurrence)({})
+					url: getPath(urls.recurrence.get.getOccurrencesByRecurrence)({
+						recurrence_id
+					})
 				}),
 			getOccurrencesByUser: async () =>
 				api.get<OccurrencesData>({
 					url: getPath(urls.recurrence.get.getOccurrencesByUser)({})
 				}),
-			getRecurrenceByActivity: async () =>
+			getRecurrenceByActivity: async (activity_id: ID) =>
 				api.get<Maybe<Recurrence>>({
-					url: getPath(urls.recurrence.get.getRecurrenceByActivity)({})
+					url: getPath(urls.recurrence.get.getRecurrenceByActivity)({
+						activity_id
+					})
 				}),
 			getRecurrencesByUser: async () =>
 				api.get<RecurrencesData>({
@@ -87,12 +92,16 @@ const activityService = {
 		put: {
 			putOccurrence: async (input: OccurrenceInput) =>
 				api.put<OccurrenceInput, Occurrence>({
-					url: getPath(urls.recurrence.put.putOccurrence)({}),
+					url: getPath(urls.recurrence.put.putOccurrence)({
+						occurrence_id: input.occurrence.occurrence_id
+					}),
 					body: input
 				}),
 			putRecurrence: async (input: RecurrenceInput) =>
 				api.put<RecurrenceInput, Recurrence>({
-					url: getPath(urls.recurrence.put.putRecurrence)({}),
+					url: getPath(urls.recurrence.put.putRecurrence)({
+						recurrence_id: input.recurrence.recurrence_id
+					}),
 					body: input
 				})
 		},
