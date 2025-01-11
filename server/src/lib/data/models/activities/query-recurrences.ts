@@ -15,11 +15,17 @@ export const queryRecurrencesByUser: QueryFunction<
 
 export const queryRecurrenceByActivity: QueryFunction<
 	{ activity_id: ID; user_id: ID },
-	Promise<Recurrence[]>
+	Promise<Recurrence>
 > = async ({ sql = sqlConnection, activity_id, user_id }) => {
-	return sql<Recurrence[]>`
-      SELECT * FROM recurrences
+	const [recurrence] = await sql<Recurrence[]>`
+     SELECT r.* FROM recurrences r
+     LEFT JOIN activities a
+      ON r.recurrence_id = a.recurrence_id
       WHERE activity_id = ${activity_id}
-      AND user_id = ${user_id}
+     AND a.user_id = ${user_id}
+     AND r.user_id = ${user_id}
+     AND a.recurrence_id IS NOT NULL
    `;
+
+	return recurrence;
 };

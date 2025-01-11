@@ -24,8 +24,8 @@ export const getRecurrenceByActivity: RequestHandlerWithUserId = async (
 ) => {
 	const activity_id = req.params.activity_id;
 
-	const recurrences = await queryRecurrenceByActivity({ activity_id, user_id });
+	const recurrence = await queryRecurrenceByActivity({ activity_id, user_id });
 	res.json({
-		byId: groupById(recurrences, "recurrence_id"),
+		recurrence,
 	});
 };
