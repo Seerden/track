@@ -114,8 +114,8 @@ export default function DaySelector<T extends Option>({
 						</S.ActionBar>
 						{isNestedArray(options) ? (
 							<>
-								{options.map((week, i) => (
-									<Containers.Utility.FlexRow key={i}>
+								{options.map((week, index) => (
+									<Containers.Utility.FlexRow key={index}>
 										{week.map((day) => (
 											<S.Cell
 												$active={isActive(day)}

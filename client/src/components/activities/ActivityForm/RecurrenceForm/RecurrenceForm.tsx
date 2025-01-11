@@ -25,8 +25,6 @@ export default function RecurrenceForm() {
 		setDaysOfMonthSelection
 	} = useRecurrenceForm();
 
-	// TODO: when changing the interval_unit, reset the other unit's selection
-
 	if (!isRecurring) {
 		return (
 			<S.Container>
