@@ -5,24 +5,26 @@ import { LucideXCircle } from "lucide-react";
 import { useState, type Dispatch, type SetStateAction } from "react";
 import S from "./style/shared.style";
 
-// TODO: this replaCES the DayOfWeekSelector and DayOfMonthSelector components
+type Option = string | number;
+
+// TODO: this replaces the DayOfWeekSelector and DayOfMonthSelector components
 // do some checking to enforce typing and shapes of stuff
 
-type DaySelectorProps = {
-	selection: (string | number)[];
-	setSelection: Dispatch<SetStateAction<string[]>> | Dispatch<SetStateAction<number[]>>;
+type DaySelectorProps<T extends Option> = {
+	selection: T[];
+	setSelection: Dispatch<SetStateAction<T[]>>;
 	triggerLabel: string;
-	options: (string | number)[] | (string | number)[][];
+	options: T[] | T[][];
 	optionLabels?: string[];
 };
 
-export default function DaySelector({
+export default function DaySelector<T extends Option>({
 	selection,
 	setSelection,
 	triggerLabel,
 	options,
 	optionLabels
-}: DaySelectorProps) {
+}: DaySelectorProps<T>) {
 	const [isOpen, setIsOpen] = useState(false);
 	const float = useFloatingProps({
 		click: {},
@@ -32,9 +34,10 @@ export default function DaySelector({
 
 	// TODO: type the thing so that the function accepts selection of either
 	// string[] or number[]
-	function handleClick(day: any) {
+	function handleClick(day: T) {
 		setSelection(
-			produce((draft: string[]) => {
+			produce((_draft) => {
+				const draft = _draft as T[];
 				if (draft.includes(day)) {
 					draft.splice(draft.indexOf(day), 1);
 				} else {
@@ -44,7 +47,7 @@ export default function DaySelector({
 		);
 	}
 
-	const isActive = (day: string | number) => selection.includes(day);
+	const isActive = (day: T) => selection.includes(day);
 
 	function resetSelection() {
 		setSelection([]);
@@ -93,7 +96,7 @@ export default function DaySelector({
 											key={i}
 											style={{ display: "flex", flexDirection: "row" }}
 										>
-											{(week as string[] | number[]).map((day) => (
+											{(week as T[]).map((day) => (
 												<S.Cell
 													$active={isActive(day)}
 													onClick={() => handleClick(day)}
@@ -107,7 +110,7 @@ export default function DaySelector({
 								</>
 							) : (
 								<div style={{ display: "flex", flexDirection: "row" }}>
-									{(options as string[] | number[]).map((option, index) => (
+									{(options as T[]).map((option, index) => (
 										<S.Cell
 											key={option}
 											$active={isActive(option)}

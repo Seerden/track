@@ -24,6 +24,8 @@ export default function RecurrenceForm() {
 	const [daysOfWeekSelection, setDaysOfWeekSelection] = useState<string[]>([]);
 	const [daysOfMonthSelection, setDaysOfMonthSelection] = useState<number[]>([]);
 
+	const daysOfWeek = day.weekdays();
+
 	const daysOfMonth = Array.from({ length: 31 }, (_, i) => i + 1).reduce((acc, day) => {
 		if (!((day - 1) % 7)) {
 			acc.push([day]);
@@ -89,8 +91,8 @@ export default function RecurrenceForm() {
 										<DaySelector
 											selection={daysOfWeekSelection}
 											setSelection={setDaysOfWeekSelection}
-											options={day.weekdays()}
-											optionLabels={day.weekdays().map((d) => d[0])}
+											options={daysOfWeek}
+											optionLabels={daysOfWeek.map((d) => d[0])}
 											triggerLabel={"pick days of week"}
 										/>
 									) : (
