@@ -36,16 +36,16 @@ const logs = {
 	get: {
 		getByUser: "/logs",
 		getByLogbook: "/:logbook_id/logs",
-	},
+	} as const,
 	post: {
 		post: "/log",
-	},
+	} as const,
 	put: {
 		put: "/log/:log_id",
-	},
+	} as const,
 	delete: {
 		delete: "/log/:log_id",
-	},
+	} as const,
 } satisfies SubService;
 
 const logTemplates = {
@@ -53,27 +53,27 @@ const logTemplates = {
 		getById: "/templates/:log_template_id",
 		getByUser: "/templates",
 		getByLogbook: "/:logbook_id/templates",
-	},
+	} as const,
 	post: {
 		post: "/template",
-	},
-	put: {},
+	} as const,
+	put: {} as const,
 	delete: {
 		delete: "/log/template/:log_template_id",
-	},
+	} as const,
 } satisfies SubService;
 
 const itemTemplates = {
 	get: {
 		getByLogbook: "/:logbook_id/item/templates",
-	},
+	} as const,
 	post: {
 		post: "/item/template",
-	},
-	put: {},
+	} as const,
+	put: {} as const,
 	delete: {
 		delete: "/item/template/:item_template_id",
-	},
+	} as const,
 } satisfies SubService;
 
 const items = {
@@ -81,14 +81,14 @@ const items = {
 		getByUser: "/items",
 		getByTemplate: "/items/templates/:item_template_id/items",
 		getByLogbook: "/:logbook_id/items",
-	},
+	} as const,
 	post: {
 		post: "/item",
-	},
-	put: {},
+	} as const,
+	put: {} as const,
 	delete: {
 		delete: "/item/:item_id",
-	},
+	} as const,
 } satisfies SubService;
 
 const itemRows = {
@@ -96,31 +96,31 @@ const itemRows = {
 		getByUser: "/items/rows",
 		getByLog: "/logs/:log_id/items/rows",
 		getByLogItem: "/logs/:log_id/items/:item_id/rows",
-	},
+	} as const,
 	post: {
 		post: "/item/row",
-	},
-	put: {},
-	delete: {},
+	} as const,
+	put: {} as const,
+	delete: {} as const,
 };
 
 const fields = {
 	get: {
 		getByUser: "/fields",
 		getByItemRow: "/items/rows/:item_row_id/fields",
-	},
-	post: {},
-	put: {},
-	delete: {},
+	} as const,
+	post: {} as const,
+	put: {} as const,
+	delete: {} as const,
 } satisfies SubService;
 
 const fieldTemplates = {
 	get: {
 		getByItemTemplate: "/items/templates/:item_template_id/fields/templates",
-	},
-	post: {},
-	put: {},
-	delete: {},
+	} as const,
+	post: {} as const,
+	put: {} as const,
+	delete: {} as const,
 } satisfies SubService;
 
 export const logbookEndpointsService = {

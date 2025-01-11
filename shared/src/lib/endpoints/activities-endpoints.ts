@@ -11,37 +11,37 @@ export type ServerActivityService = Record<
 const activities = {
 	get: {
 		getByUser: "/activities", // getActivities
-	},
+	} as const,
 	post: {
 		post: "/", // postActivity
 		postRecurring: "/recurring", // postRecurringActivity
-	},
+	} as const,
 	put: {
 		putActivity: "/:activity_id", // putActivity
 		putTaskCompletion: "/task/completion", // putTaskCompletion
-	},
-	delete: {},
+	} as const,
+	delete: {} as const,
 } satisfies SubService;
 
 const recurrence = {
 	get: {
-		getRecurrencesByUser: "/recur",
-		getOccurrencesByUser: "/recur/occurrences",
-		getRecurrenceByActivity: "/recur/activity/:activity_id/recurrence",
-		getOccurrencesByRecurrence: "/recur/:recurrence_id/occurrences",
-	},
+		getRecurrencesByUser: "/recur" as const,
+		getOccurrencesByUser: "/recur/occurrences" as const,
+		getRecurrenceByActivity: "/recur/activity/:activity_id/recurrence" as const,
+		getOccurrencesByRecurrence: "/recur/:recurrence_id/occurrences" as const,
+	} as const,
 	post: {
 		postRecurrence: "/recur/recurrence",
 		postOccurrence: "/recur/occurrence",
-	},
+	} as const,
 	put: {
 		putRecurrence: "/recur/recurrence/:recurrence_id",
 		putOccurrence: "/recur/occurrence/:occurrence_id",
-	},
+	} as const,
 	delete: {
 		deleteRecurrence: "/recur/recurrence/:recurrence_id",
 		deleteOccurrence: "/recur/occurrence/:occurrence_id",
-	},
+	} as const,
 } satisfies SubService;
 
 // base: data/activities
