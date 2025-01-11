@@ -5,7 +5,7 @@ import type { Dayjs } from "dayjs";
 export type Timestamp = Datelike;
 
 /** ids are serial and auto-incrementing */
-export type ID = string | number;
+export type ID = string;
 
 export type Maybe<T> = T | null | undefined;
 

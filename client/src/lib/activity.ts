@@ -231,10 +231,10 @@ function firstOverlappingActivity(
 ) {
 	const grouped = Array.from(
 		{ length: 1 + Math.max(...Array.from(indentation.values())) },
-		() => [] as number[]
+		() => [] as string[]
 	);
 	for (const [id, level] of indentation.entries()) {
-		grouped[level]?.push(+id);
+		grouped[level]?.push(id);
 	}
 
 	for (const group of grouped) {

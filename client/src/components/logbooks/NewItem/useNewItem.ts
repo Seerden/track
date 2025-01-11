@@ -64,7 +64,7 @@ export default function useNewItem({
 		// TODO: a case where we _have to_ parse an id to a number because as a
 		// bigint, it comes in as a string -- see
 		// https://github.com/Seerden/track/issues/175
-		(field) => +field.item_template_id === +itemTemplate.item_template_id
+		(field) => field.item_template_id === itemTemplate.item_template_id
 	);
 
 	return {

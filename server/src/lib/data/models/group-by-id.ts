@@ -1,4 +1,4 @@
-import type { ById } from "@shared/types/data/utility.types";
+import type { ById, ByIdMap } from "@shared/types/data/utility.types";
 
 type IdFieldUnion<T> = {
 	[K in keyof T]: K extends `${string}_id` ? K : never;
@@ -10,9 +10,11 @@ export function groupById<T extends object>(
 	data: T[],
 	idField: IdFieldUnion<T>,
 ): ById<T> {
-	return data.reduce((acc, cur) => {
-		const id = cur[idField] as number;
-		acc[id] = cur;
+	const byIdMap = data.reduce((acc, cur) => {
+		const id = cur[idField];
+		acc.set(id as string, cur);
 		return acc;
-	}, {} as ById<T>);
+	}, new Map() as ByIdMap<T>);
+
+	return Object.fromEntries(byIdMap.entries()) as ById<T>;
 }

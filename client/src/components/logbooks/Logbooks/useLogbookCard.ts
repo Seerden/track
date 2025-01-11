@@ -6,9 +6,9 @@ import type { ID } from "@shared/types/data/utility.types";
 
 export default function useLogbookCard({ logbook_id }: { logbook_id?: ID }) {
 	const { params } = useRouteProps();
-	const logbookId = +(logbook_id ?? (params.logbookId || 0));
-	const { data: logbook, isSuccess } = useQueryLogbookById(+logbookId);
-	const { data: logsData } = useQueryLogsByLogbook(+logbookId);
+	const logbookId = logbook_id ?? (params.logbookId || "0"); // TODO: do not use '0' as fallback
+	const { data: logbook, isSuccess } = useQueryLogbookById(logbookId);
+	const { data: logsData } = useQueryLogsByLogbook(logbookId);
 
 	const isProbablySuspended = !logsData || !isSuccess;
 

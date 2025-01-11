@@ -1,12 +1,12 @@
 import type { ModalId } from "@/lib/modal-ids";
 import type { TagWithIds } from "@shared/types/data/tag.types";
-import type { ByIdMap } from "@shared/types/data/utility.types";
+import type { ByIdMap, ID } from "@shared/types/data/utility.types";
 import type { FocusEvent, MouseEvent } from "react";
 
 // These are passed from TagSelector > TagSelectorItems > TagSelectorItem
 export type SubcomponentProps = {
 	tagSelection: Record<number, boolean>;
-	updateTagSelection: (id: number) => void;
+	updateTagSelection: (id: ID) => void;
 };
 
 export type TagSelectorItemProps = SubcomponentProps & {

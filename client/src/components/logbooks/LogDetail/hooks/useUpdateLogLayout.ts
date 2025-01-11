@@ -20,7 +20,7 @@ export default function useUpdateLogLayout({ log }: { log: Maybe<Log> }) {
 					return; // item is already in layout, no need to append it.
 
 				const section = draft.layout.find(
-					(section) => +section.item_template_id === +item_template_id
+					(section) => section.item_template_id === item_template_id
 				);
 
 				if (!section) return;
@@ -47,7 +47,7 @@ export default function useUpdateLogLayout({ log }: { log: Maybe<Log> }) {
 				if (
 					!draft ||
 					draft.layout.some(
-						(section) => +section.item_template_id === +item_template_id
+						(section) => section.item_template_id === item_template_id
 					) // itemTemplate is already in layout, no need to append it.
 				) {
 					return;

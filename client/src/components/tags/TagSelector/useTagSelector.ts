@@ -53,7 +53,7 @@ export default function useTagSelector({ maximum, tagsById }: UseTagSelector = {
 		tag.name.toLowerCase().includes(filter.toLowerCase())
 	);
 	const selectedTags = useMemo(
-		() => tags.filter((tag) => selectedTagIds.includes(+tag.tag_id)),
+		() => tags.filter((tag) => selectedTagIds.includes(tag.tag_id)),
 		[tagsData, selectedTagIds]
 	);
 

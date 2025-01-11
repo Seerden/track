@@ -17,7 +17,7 @@ export const getLogs: RequestHandler = async (req, res) => {
 };
 
 export const getLogsByLogbook: RequestHandler = async (req, res) => {
-	const logbook_id = +req.params.logbook_id;
+	const logbook_id = req.params.logbook_id;
 	const logs = await queryLogsByLogbook({ logbook_id });
 	const byId = groupById(logs, "log_id");
 

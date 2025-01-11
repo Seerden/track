@@ -1,4 +1,4 @@
-import type { Timestamp } from "./utility.types";
+import type { ID, Timestamp } from "./utility.types";
 
 export type NewUser = {
 	username: string;
@@ -14,6 +14,6 @@ export type UserInput = Omit<NewUser, "password"> & {
 
 // TODO: never pass password_hash to the client
 export type User = UserInput & {
-	user_id: number;
+	user_id: ID;
 	created_at: Timestamp;
 };

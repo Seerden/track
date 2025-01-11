@@ -53,7 +53,7 @@ export default function useActivityFilterActions({
 		(e: React.MouseEvent<HTMLButtonElement>) => {
 			if (!tagsById || !tagsTreeById) return;
 
-			const tag_id = +e.currentTarget.value;
+			const tag_id = e.currentTarget.value;
 
 			setFilter(
 				produce((draft) => {

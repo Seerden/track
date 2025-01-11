@@ -9,5 +9,5 @@ const meta: Meta<typeof MiniLogTemplate> = {
 export default meta;
 
 export const Default: StoryFn = (args) => {
-	return <MiniLogTemplate {...args} log_template_id={4} logbook_id={5} />;
+	return <MiniLogTemplate {...args} log_template_id={"4"} logbook_id={"5"} />;
 };

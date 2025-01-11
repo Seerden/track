@@ -17,5 +17,5 @@ export const getLogbooks: RequestHandler = async (req, res) => {
 };
 
 export const getLogbook: RequestHandler = async (req, res) => {
-	res.json(await queryLogbookById({ logbook_id: +req.params.logbook_id }));
+	res.json(await queryLogbookById({ logbook_id: req.params.logbook_id }));
 };

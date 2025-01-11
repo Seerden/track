@@ -74,9 +74,9 @@ export default function LogForm({ logbook_id }: LogFormProps) {
 											+template.log_template_id ===
 												+selectedTemplate.log_template_id
 										}
-										onMouseOver={() => setActiveId(+template.log_template_id)}
+										onMouseOver={() => setActiveId(template.log_template_id)}
 										ref={(node) =>
-											activeId === +template.log_template_id
+											activeId === template.log_template_id
 												? float.refs.setReference(node)
 												: null
 										}
@@ -97,7 +97,7 @@ export default function LogForm({ logbook_id }: LogFormProps) {
 									>
 										<MiniLogTemplate
 											log_template_id={activeId}
-											logbook_id={+logbookId}
+											logbook_id={logbookId}
 										/>
 									</div>
 								)}
@@ -128,7 +128,7 @@ export default function LogForm({ logbook_id }: LogFormProps) {
 				)}
 			</F.Form>
 			<Modal modalId={modalId}>
-				<LogTemplateForm logbook_id={+logbookId} />
+				<LogTemplateForm logbook_id={logbookId} />
 			</Modal>
 		</S.Wrapper>
 	);

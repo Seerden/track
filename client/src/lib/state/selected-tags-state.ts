@@ -27,9 +27,7 @@ export const tagSelectionFamilyState = atomFamily<ById<boolean>, string>({
 export const selectedTagIdsSelector = selector({
 	get: ({ get }) => {
 		const selectedTags = get(tagSelectionState);
-		return Object.keys(selectedTags)
-			.filter((tagId) => selectedTags[+tagId])
-			.map((id) => +id);
+		return Object.keys(selectedTags).filter((tagId) => selectedTags[tagId]);
 	},
 	key: "selectedTagIds"
 });

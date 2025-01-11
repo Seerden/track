@@ -8,8 +8,8 @@ import { useMemo } from "react";
 /** Functionality hook for LogDetail. */
 export default function useLogDetail({ logbook_id }: { logbook_id?: ID }) {
 	const { params } = useRouteProps();
-	const logbookId = +(logbook_id ?? (params.logbookId || 0)); // TODO: do not use 0
-	const logId = +(params.logId ?? 0); // TODO: do not use 0
+	const logbookId = logbook_id ?? (params.logbookId || "0"); // TODO: do not use 0
+	const logId = params.logId ?? "0"; // TODO: do not use 0
 
 	const { isProbablySuspended, itemTemplates, itemTemplatesById, log } =
 		useLogDetailData({
