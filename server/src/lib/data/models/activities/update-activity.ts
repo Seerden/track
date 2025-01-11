@@ -50,7 +50,7 @@ export const updateActivity: QueryFunction<
 	Promise<ActivityWithIds>
 > = async ({ sql = sqlConnection, input }) => {
 	return sql.begin(async (q) => {
-		const { tag_ids, ...activityUpdate } = input.activity;
+		const { tag_ids, user_id, activity_id, ...activityUpdate } = input.activity;
 
 		const [activity] = await sql<[Activity]>`
          UPDATE activities
