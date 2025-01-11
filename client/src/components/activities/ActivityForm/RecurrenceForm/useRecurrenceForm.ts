@@ -1,70 +1,78 @@
+import {
+	defaultRecurrence,
+	INTERVAL_UNIT,
+	type FREQUENCY
+} from "@/components/activities/ActivityForm/RecurrenceForm/constants";
 import type { NewRecurrenceInput } from "@shared/types/data/recurrence.types";
+import type { IntervalUnit } from "@shared/types/data/utility.types";
 import { produce } from "immer";
 import { useState } from "react";
 
-type NewRecurrenceState = NewRecurrenceInput["newRecurrence"];
+export type NewRecurrenceState = NewRecurrenceInput["newRecurrence"];
 
-const defaultRecurrence: NewRecurrenceState = {
-	start_timestamp: new Date().toISOString(),
-	interval: 1,
-	interval_unit: "day",
-	monthdays: null,
-	weekdays: null,
-	frequency: "numeric",
-	end_timestamp: null
-};
-
-export const frequencyOptions = [
-	"numeric",
-	"calendar"
-] as NewRecurrenceState["frequency"][];
+type UpdateRecurrencePayload =
+	| {
+			type: "intervalUnit";
+			value: IntervalUnit;
+	  }
+	| {
+			type: "frequency";
+			value: `${FREQUENCY}`;
+	  }
+	| {
+			type: "interval";
+			value: number;
+	  };
 
 export default function useRecurrenceForm() {
 	const [isRecurring, setIsRecurring] = useState(false);
 	const [recurrence, setRecurrence] = useState<NewRecurrenceState>(defaultRecurrence);
-
 	const intervalUnitSuffix = recurrence.interval > 1 ? "s" : "";
+	const [daysOfWeekSelection, setDaysOfWeekSelection] = useState<string[]>([]);
+	const [daysOfMonthSelection, setDaysOfMonthSelection] = useState<number[]>([]);
+
+	function resetSelections() {
+		setDaysOfWeekSelection([]);
+		setDaysOfMonthSelection([]);
+	}
 
 	function toggleRecurring() {
 		setIsRecurring((current) => !current);
 	}
 
-	function setRecurrenceInterval(interval: NewRecurrenceState["interval"]) {
-		setRecurrence(
-			produce((draft) => {
-				draft.interval = interval;
-			})
-		);
-	}
+	function updateRecurrence({ type, value }: UpdateRecurrencePayload) {
+		switch (type) {
+			case "intervalUnit":
+				setRecurrence(
+					produce((draft) => {
+						draft.interval_unit = value;
+					})
+				);
+				resetSelections();
+				break;
+			case "frequency":
+				setRecurrence(
+					produce((draft) => {
+						draft.interval = 1;
 
-	function setRecurrenceIntervalUnit(intervalUnit: NewRecurrenceState["interval_unit"]) {
-		setRecurrence(
-			produce((draft) => {
-				draft.interval_unit = intervalUnit;
-			})
-		);
-	}
+						draft.interval_unit =
+							draft.interval_unit === INTERVAL_UNIT.DAY
+								? INTERVAL_UNIT.WEEK
+								: INTERVAL_UNIT.DAY;
 
-	function toggleRecurrenceIntervalUnit() {
-		setRecurrence(
-			produce((draft) => {
-				draft.interval_unit = draft.interval_unit === "day" ? "week" : "day";
-			})
-		);
-	}
-
-	// TODO: we can use a single reducer-like function to handle these
-	// setRecurrence... functions.
-	/** Change the recurrence frequency, and reset the interval state accordingly. */
-	function setRecurrenceFrequency(frequency: NewRecurrenceState["frequency"]) {
-		setRecurrenceInterval(1);
-		toggleRecurrenceIntervalUnit();
-
-		setRecurrence(
-			produce((draft) => {
-				draft.frequency = frequency;
-			})
-		);
+						draft.frequency = value;
+					})
+				);
+				resetSelections();
+				break;
+			case "interval":
+				setRecurrence(
+					produce((draft) => {
+						draft.interval = value;
+					})
+				);
+				break;
+		}
 	}
 
 	return {
@@ -72,8 +80,10 @@ export default function useRecurrenceForm() {
 		recurrence,
 		intervalUnitSuffix,
 		toggleRecurring,
-		setRecurrenceFrequency,
-		setRecurrenceInterval,
-		setRecurrenceIntervalUnit
+		updateRecurrence,
+		daysOfWeekSelection,
+		setDaysOfWeekSelection,
+		daysOfMonthSelection,
+		setDaysOfMonthSelection
 	};
 }
