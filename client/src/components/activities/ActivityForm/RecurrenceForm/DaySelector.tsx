@@ -1,15 +1,23 @@
 import useFloatingProps from "@/lib/hooks/useFloatingProps";
+import Containers from "@/lib/theme/components/container.style";
 import { FloatingArrow, FloatingFocusManager } from "@floating-ui/react";
 import { produce } from "immer";
 import { LucideXCircle } from "lucide-react";
 import { useState, type Dispatch, type SetStateAction } from "react";
 import S from "./style/shared.style";
 
+/** Either e.g. "monday" or in domain [1,31]. */
 type Option = string | number;
 
 type DaySelectorOptionsBase<T extends Option> =
 	| {
+			/** The options to display. */
 			options: T[];
+			/** The labels to display for each option
+			 * @note we can't use the labels as options, because e.g. S(aturday)
+			 * and S(unday) have the same label, but they need different keys and
+			 * values in the `selection` state.
+			 */
 			optionLabels: string[];
 	  }
 	| {
@@ -18,8 +26,11 @@ type DaySelectorOptionsBase<T extends Option> =
 	  };
 
 type DaySelectorProps<T extends Option> = {
+	/** State passed to this by RecurrenceForm. */
 	selection: T[];
+	/** State setter passed to this by RecurrenceForm. */
 	setSelection: Dispatch<SetStateAction<T[]>>;
+	/** The text to display on the floating trigger button. */
 	triggerLabel: string;
 } & DaySelectorOptionsBase<T>;
 
@@ -85,11 +96,11 @@ export default function DaySelector<T extends Option>({
 						<FloatingArrow
 							ref={float.arrowRef}
 							context={float.context}
-							fill="#ccc"
 							width={15}
 							height={5}
+							fill={"#ccc"}
 							style={{
-								marginBottom: "2px"
+								marginBottom: "1px"
 							}}
 						/>
 						<S.ActionBar>
@@ -104,7 +115,7 @@ export default function DaySelector<T extends Option>({
 						{isNestedArray(options) ? (
 							<>
 								{options.map((week, i) => (
-									<div key={i} style={{ display: "flex", flexDirection: "row" }}>
+									<Containers.Utility.FlexRow key={i}>
 										{week.map((day) => (
 											<S.Cell
 												$active={isActive(day)}
@@ -114,11 +125,11 @@ export default function DaySelector<T extends Option>({
 												{day}
 											</S.Cell>
 										))}
-									</div>
+									</Containers.Utility.FlexRow>
 								))}
 							</>
 						) : (
-							<div style={{ display: "flex", flexDirection: "row" }}>
+							<Containers.Utility.FlexRow>
 								{options.map((option, index) => (
 									<S.Cell
 										key={option}
@@ -128,7 +139,7 @@ export default function DaySelector<T extends Option>({
 										{optionLabels?.[index] ?? option}
 									</S.Cell>
 								))}
-							</div>
+							</Containers.Utility.FlexRow>
 						)}
 					</S.FloatingWrapper>
 				</FloatingFocusManager>
