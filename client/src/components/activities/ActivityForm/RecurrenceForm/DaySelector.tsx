@@ -4,7 +4,7 @@ import { FloatingArrow, FloatingFocusManager } from "@floating-ui/react";
 import { produce } from "immer";
 import { LucideXCircle } from "lucide-react";
 import { useState, type Dispatch, type SetStateAction } from "react";
-import S from "./style/shared.style";
+import S from "./style/DaySelector.style";
 
 /** Either e.g. "monday" or in domain [1,31]. */
 type Option = string | number;

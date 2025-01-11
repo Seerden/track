@@ -5,9 +5,6 @@ import { noBorders } from "@/lib/theme/snippets/border";
 
 import styled, { css } from "styled-components";
 
-/* Shared styles for DayOfWeekSelector and DayOfMonthSelector, because they're
-basically the same thing. */
-
 const activeStyle = css`
 	outline: 2px solid deepskyblue;
 `;

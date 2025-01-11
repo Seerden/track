@@ -6,7 +6,7 @@ import {
 	INTERVAL_UNIT
 } from "@/components/activities/ActivityForm/RecurrenceForm/constants";
 import DaySelector from "@/components/activities/ActivityForm/RecurrenceForm/DaySelector";
-import SharedStyle from "@/components/activities/ActivityForm/RecurrenceForm/style/shared.style";
+import SharedStyle from "@/components/activities/ActivityForm/RecurrenceForm/style/DaySelector.style";
 import useRecurrenceForm from "@/components/activities/ActivityForm/RecurrenceForm/useRecurrenceForm";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import type { IntervalUnit } from "@shared/types/data/utility.types";
