@@ -18,7 +18,7 @@ export const getItemRows: RequestHandler = async (req, res) => {
 };
 
 export const getItemRowsByLog: RequestHandler = async (req, res) => {
-	const log_id = +req.params.log_id;
+	const log_id = req.params.log_id;
 	const itemRows = await queryItemRowsByLog({ log_id });
 	const byId = groupById(itemRows, "item_row_id");
 
@@ -26,8 +26,8 @@ export const getItemRowsByLog: RequestHandler = async (req, res) => {
 };
 
 export const getItemRowsByLogItem: RequestHandler = async (req, res) => {
-	const log_id = +req.params.log_id;
-	const item_id = +req.params.item_id;
+	const log_id = req.params.log_id;
+	const item_id = req.params.item_id;
 	const itemRows = await queryItemRowsByLogItem({ log_id, item_id });
 	const byId = groupById(itemRows, "item_row_id");
 

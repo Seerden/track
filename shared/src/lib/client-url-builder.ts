@@ -36,7 +36,7 @@ type ExtractParams<Path extends string> =
  */
 export function clientUrlBuilder<Path extends string>(
 	serverPath: Path,
-	prefix: Path,
+	prefix: string,
 ) {
 	const makeClientPath = (params: { [K in ExtractParams<Path>]: string }) => {
 		let path: string = serverPath;
@@ -48,3 +48,8 @@ export function clientUrlBuilder<Path extends string>(
 
 	return { serverPath, makeClientPath };
 }
+
+export const clientPathBuilder =
+	(prefix: string) =>
+	<Path extends string>(url: Path) =>
+		clientUrlBuilder(url, prefix).makeClientPath;

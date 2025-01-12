@@ -20,7 +20,7 @@ export default function useMutateNewItemTemplate() {
 		 */
 		onSuccess: (data) => {
 			queryClient.invalidateQueries({
-				queryKey: qk.itemTemplates.byLogbook(+data.itemTemplate.logbook_id)
+				queryKey: qk.itemTemplates.byLogbook(data.itemTemplate.logbook_id)
 			});
 
 			closeModal(modalIds.logbooks.itemTemplate.new);

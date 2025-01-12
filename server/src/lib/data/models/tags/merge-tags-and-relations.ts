@@ -45,11 +45,11 @@ export function createTagTreeMap(tagsById: ById<TagWithIds>) {
 	const treeIdMap = {} as ById<{ members: ID[] }>;
 
 	for (const tag_id in tagsById) {
-		const root_id = findRootTag(+tag_id, tagsById);
+		const root_id = findRootTag(tag_id, tagsById);
 		if (!treeIdMap[root_id]) {
 			treeIdMap[root_id] = { members: [] };
 		}
-		treeIdMap[root_id].members.push(+tag_id);
+		treeIdMap[root_id].members.push(tag_id);
 	}
 
 	return treeIdMap;

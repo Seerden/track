@@ -8,7 +8,8 @@ export function mergeActivitiesAndRelations(
 	activityTagRelations: ActivityTagRelation[],
 ) {
 	const activitiesById = groupById(activities, "activity_id");
-	const withTagIds = Object.assign({}, activitiesById) as ById<ActivityWithIds>;
+
+	const withTagIds = activitiesById as ById<ActivityWithIds>;
 	for (const activity of activities) {
 		withTagIds[activity.activity_id] = Object.assign({}, activity, { tag_ids: [] });
 	}

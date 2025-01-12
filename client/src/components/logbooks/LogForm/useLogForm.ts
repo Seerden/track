@@ -16,11 +16,11 @@ export default function useLogForm({ logbook_id }: { logbook_id?: ID }) {
 	const float = useFloatingProps({ hover: { restMs: 100 } });
 	const [activeId, setActiveId] = useState<ID | null>(null); // id for floating template
 	const logbookId = params.logbookId ?? (logbook_id as ID); // TODO: do not cast as ID -- it can actually be undefined
-	const { data: logTemplatesData } = useQueryLogTemplatesByLogbook(+(logbookId ?? 0)); // TODO: do not use 0
+	const { data: logTemplatesData } = useQueryLogTemplatesByLogbook(logbookId ?? "0"); // TODO: do not use 0
 	const { openModal } = useModalState();
 	const [log, setLog] = useState<NewLog>({
 		name: "",
-		logbook_id: +logbookId,
+		logbook_id: logbookId,
 		start_time: null,
 		end_time: null,
 		layout: []

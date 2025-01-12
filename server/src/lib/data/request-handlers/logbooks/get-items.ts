@@ -8,7 +8,7 @@ import { getUserIdFromSessionOrBail } from "@/lib/data/request-handlers/get-user
 import type { RequestHandler } from "express";
 
 export const getItemsByLogbook: RequestHandler = async (req, res) => {
-	const logbook_id = +req.params.logbook_id;
+	const logbook_id = req.params.logbook_id;
 	const items = await queryItemsByLogbook({ logbook_id });
 	const byId = groupById(items, "item_id");
 
@@ -29,7 +29,7 @@ export const getItems: RequestHandler = async (req, res) => {
  * @todo I don't like this endpoint. Maybe the /template/ part can be removed?
  */
 export const getItemsByTemplate: RequestHandler = async (req, res) => {
-	const item_template_id = +req.params.item_template_id;
+	const item_template_id = req.params.item_template_id;
 	const items = await queryItemsByTemplate({ item_template_id });
 	const byId = groupById(items, "item_id");
 

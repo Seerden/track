@@ -2,7 +2,7 @@ import { removeItemTemplateById } from "@/lib/data/models/logbooks/remove-item-t
 import type { RequestHandler } from "express";
 
 export const deleteItemTemplate: RequestHandler = async (req, res) => {
-	const item_template_id = +req.params.item_template_id;
+	const item_template_id = req.params.item_template_id;
 
 	// TODO: parse the id properly using a regex -- or zod
 

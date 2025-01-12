@@ -3,7 +3,7 @@ import { useState } from "react";
 import type { CSS } from "styled-components/dist/types";
 import S from "./SelectionList.style";
 
-export type ItemValue = string | number;
+export type ItemValue = string;
 
 export type Item = {
 	label: string;

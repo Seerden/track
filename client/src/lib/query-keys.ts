@@ -10,6 +10,17 @@ const qk = {
 		all: ["activities"]
 	},
 
+	occurrences: {
+		byUser: ["activities", "occurrences"],
+		byRecurrence: (recurrence_id: ID) =>
+			["activities", "occurrences", "recurrence", recurrence_id] as const
+	},
+	recurrences: {
+		byUser: ["activities", "recurrences"] as const,
+		byActivity: (activity_id: ID) =>
+			["activities", "recurrences", "activity", activity_id] as const
+	},
+
 	habits: {
 		all: ["habits"],
 		entries: ["habit-entries"]

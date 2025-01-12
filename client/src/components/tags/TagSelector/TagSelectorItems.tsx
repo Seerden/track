@@ -15,7 +15,7 @@ function TagSelectorItem(p: TagSelectorItemProps) {
 			$hasParent={hasParent}
 			$isSelected={isSelected}
 			key={p.tag.tag_id}
-			onClick={() => p.updateTagSelection(+p.tag.tag_id)}
+			onClick={() => p.updateTagSelection(p.tag.tag_id)}
 		>
 			{p.tag.name}
 		</S.ListItem>

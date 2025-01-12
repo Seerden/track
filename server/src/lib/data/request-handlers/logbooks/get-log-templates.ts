@@ -8,7 +8,7 @@ import { getUserIdFromSessionOrBail } from "@/lib/data/request-handlers/get-user
 import type { RequestHandler } from "express";
 
 export const getLogTemplate: RequestHandler = async (req, res) => {
-	const log_template_id = +req.params.log_template_id;
+	const log_template_id = req.params.log_template_id;
 
 	const logTemplate = await queryLogTemplate({ log_template_id });
 
@@ -26,7 +26,7 @@ export const getLogTemplates: RequestHandler = async (req, res) => {
 };
 
 export const getLogTemplatesByLogbook: RequestHandler = async (req, res) => {
-	const logbook_id = +req.params.logbook_id;
+	const logbook_id = req.params.logbook_id;
 
 	const logTemplates = await queryLogTemplatesByLogbook({ logbook_id });
 	const byId = groupById(logTemplates, "log_template_id");

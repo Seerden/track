@@ -8,7 +8,7 @@ import type {
 	LogsData,
 	LogTemplatesData
 } from "@/types/data.types";
-import { clientUrlBuilder } from "@shared/lib/client-url-builder";
+import { clientPathBuilder } from "@shared/lib/client-url-builder";
 import { logbookEndpointsService as urls } from "@shared/lib/endpoints/logbooks-endpoints";
 import type {
 	FieldTemplate,
@@ -30,7 +30,7 @@ import type {
 } from "@shared/types/data/logbook.types";
 import type { ID, Nullable } from "@shared/types/data/utility.types";
 
-const getPath = (url: string) => clientUrlBuilder(url, "/data/logbooks").makeClientPath;
+const getPath = clientPathBuilder("/data/logbooks");
 
 const logbookService = {
 	logbooks: {
