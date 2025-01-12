@@ -14,6 +14,7 @@ import type {
 
 import { activityEndpointsService as urls } from "@shared/lib/endpoints/activities-endpoints";
 import type {
+	CreateRecurrenceInput,
 	NewOccurrenceInput,
 	NewRecurrenceInput,
 	Occurrence,
@@ -83,8 +84,8 @@ const activityService = {
 					url: getPath(urls.recurrence.post.postOccurrence)({}),
 					body: input
 				}),
-			postRecurrence: async (input: NewRecurrenceInput) =>
-				api.post<NewRecurrenceInput, Recurrence>({
+			postRecurrence: async (input: CreateRecurrenceInput) =>
+				api.post<CreateRecurrenceInput, Recurrence>({
 					url: getPath(urls.recurrence.post.postRecurrence)({}),
 					body: input
 				})

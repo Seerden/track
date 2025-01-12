@@ -2,8 +2,8 @@ import activityService from "@/lib/fetch/activity-service";
 import { queryClient } from "@/lib/query-client";
 import { qk } from "@/lib/query-keys";
 import type {
+	CreateRecurrenceInput,
 	NewOccurrenceInput,
-	NewRecurrenceInput,
 	OccurrenceInput,
 	RecurrenceInput
 } from "@shared/types/data/recurrence.types";
@@ -12,7 +12,7 @@ import { useMutation } from "@tanstack/react-query";
 
 export const useMutateNewRecurrence = () =>
 	useMutation({
-		mutationFn: (recurrenceInput: NewRecurrenceInput) =>
+		mutationFn: (recurrenceInput: CreateRecurrenceInput) =>
 			activityService.recurrence.post.postRecurrence(recurrenceInput),
 		onSuccess: () => {
 			// TODO: also invalidate activities?
