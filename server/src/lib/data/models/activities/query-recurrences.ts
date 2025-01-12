@@ -1,6 +1,6 @@
 import { sqlConnection } from "@/db/init";
 import type { Recurrence } from "@shared/types/data/recurrence.types";
-import type { ID } from "@shared/types/data/utility.types";
+import type { ID, Maybe } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
 export const queryRecurrencesByUser: QueryFunction<
@@ -15,9 +15,9 @@ export const queryRecurrencesByUser: QueryFunction<
 
 export const queryRecurrenceByActivity: QueryFunction<
 	{ activity_id: ID; user_id: ID },
-	Promise<Recurrence>
+	Promise<Maybe<Recurrence>>
 > = async ({ sql = sqlConnection, activity_id, user_id }) => {
-	const [recurrence] = await sql<Recurrence[]>`
+	const [recurrence] = await sql<[Recurrence?]>`
      SELECT r.* FROM recurrences r
      LEFT JOIN activities a
       ON r.recurrence_id = a.recurrence_id
