@@ -1,9 +1,10 @@
+import type { ID } from "@shared/types/data/utility.types";
 import "express-session";
 
 declare module "express-session" {
 	export interface SessionData {
 		user?: {
-			user_id: string;
+			user_id: ID;
 			username: string;
 		};
 	}
