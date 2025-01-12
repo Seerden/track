@@ -1,31 +1,34 @@
 import activityService from "@/lib/fetch/activity-service";
-import q from "@/lib/hooks/query/use-query-with-defaults";
+import { defaultQueryConfig } from "@/lib/query-client";
 import { qk } from "@/lib/query-keys";
 import type { ID } from "@shared/types/data/utility.types";
-import type { UseQueryResult } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
-type Query = keyof typeof activityService.recurrence.get;
+export const useQueryOccurrencesByRecurrence = (recurrence_id: ID) =>
+	useQuery({
+		queryKey: qk.occurrences.byRecurrence(recurrence_id),
+		queryFn: () =>
+			activityService.recurrence.get.getOccurrencesByRecurrence(recurrence_id),
+		...defaultQueryConfig
+	});
 
-type QueryHooks = {
-	[K in Query]: (
-		...args: Parameters<(typeof activityService.recurrence.get)[K]>
-	) => UseQueryResult<Awaited<ReturnType<(typeof activityService.recurrence.get)[K]>>>;
-};
+export const useQueryOccurrencesByUser = () =>
+	useQuery({
+		queryKey: qk.occurrences.byUser,
+		queryFn: activityService.recurrence.get.getOccurrencesByUser,
+		...defaultQueryConfig
+	});
 
-type QueryHook = QueryHooks[keyof QueryHooks];
+export const useQueryRecurrencesByUser = () =>
+	useQuery({
+		queryKey: qk.recurrences.byUser,
+		queryFn: activityService.recurrence.get.getRecurrencesByUser,
+		...defaultQueryConfig
+	});
 
-export const useQueryOccurrencesByRecurrence: QueryHook = (recurrence_id: ID) =>
-	q(qk.occurrences.byRecurrence(recurrence_id), () =>
-		activityService.recurrence.get.getOccurrencesByRecurrence(recurrence_id)
-	);
-
-export const useQueryOccurrencesByUser: QueryHook = () =>
-	q(qk.occurrences.byUser, activityService.recurrence.get.getOccurrencesByUser);
-
-export const useQueryRecurrencesByUser: QueryHook = () =>
-	q(qk.recurrences.byUser, activityService.recurrence.get.getRecurrencesByUser);
-
-export const useQueryRecurrenceByActivity: QueryHook = (activity_id: ID) =>
-	q(qk.recurrences.byActivity(activity_id), () =>
-		activityService.recurrence.get.getRecurrenceByActivity(activity_id)
-	);
+export const useQueryRecurrenceByActivity = (activity_id: ID) =>
+	useQuery({
+		queryKey: qk.recurrences.byActivity(activity_id),
+		queryFn: () => activityService.recurrence.get.getRecurrenceByActivity(activity_id),
+		...defaultQueryConfig
+	});
