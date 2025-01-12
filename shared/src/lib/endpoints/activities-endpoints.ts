@@ -10,25 +10,25 @@ export type ServerActivityService = Record<
 
 const activities = {
 	get: {
-		getByUser: "/activities", // getActivities
+		getByUser: "/activities",
 	} as const,
 	post: {
-		post: "/", // postActivity
-		postRecurring: "/recurring", // postRecurringActivity
+		post: "/",
+		postRecurring: "/recurring",
 	} as const,
 	put: {
-		putActivity: "/:activity_id", // putActivity
-		putTaskCompletion: "/task/completion", // putTaskCompletion
+		putActivity: "/:activity_id",
+		putTaskCompletion: "/task/completion",
 	} as const,
 	delete: {} as const,
 } satisfies SubService;
 
 const recurrence = {
 	get: {
-		getRecurrencesByUser: "/recur" as const,
-		getOccurrencesByUser: "/recur/occurrences" as const,
-		getRecurrenceByActivity: "/recur/activity/:activity_id/recurrence" as const,
-		getOccurrencesByRecurrence: "/recur/:recurrence_id/occurrences" as const,
+		getRecurrencesByUser: "/recur",
+		getOccurrencesByUser: "/recur/occurrences",
+		getRecurrenceByActivity: "/recur/activity/:activity_id/recurrence",
+		getOccurrencesByRecurrence: "/recur/:recurrence_id/occurrences",
 	} as const,
 	post: {
 		postRecurrence: "/recur/recurrence",
