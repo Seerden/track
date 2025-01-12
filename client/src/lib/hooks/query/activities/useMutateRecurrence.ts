@@ -4,47 +4,89 @@ import { queryClient } from "@/lib/query-client";
 import { qk } from "@/lib/query-keys";
 import type {
 	NewOccurrenceInput,
-	NewRecurrenceInput
+	NewRecurrenceInput,
+	OccurrenceInput,
+	RecurrenceInput
 } from "@shared/types/data/recurrence.types";
-import { type UseMutationResult } from "@tanstack/react-query";
+import type { ID } from "@shared/types/data/utility.types";
 
-type PostMutation = keyof typeof activityService.recurrence.post;
-
-type PostMutationHooks = {
-	[K in PostMutation]: (
-		...args: Parameters<(typeof activityService.recurrence.post)[K]>
-	) => UseMutationResult<
-		Awaited<ReturnType<(typeof activityService.recurrence.post)[K]>>,
-		Error,
-		Parameters<(typeof activityService.recurrence.post)[K]>[0]
-	>;
-};
-
-type PostMutationHook = PostMutationHooks[keyof PostMutationHooks];
-
-export const useMutateNewRecurrence: PostMutationHook = () =>
+export const useMutateNewRecurrence = () =>
 	useMutation(
-		(recurrenceInput: NewRecurrenceInput) => {
-			return activityService.recurrence.post.postRecurrence(recurrenceInput);
-		},
+		(recurrenceInput: NewRecurrenceInput) =>
+			activityService.recurrence.post.postRecurrence(recurrenceInput),
 		() => {
+			// TODO: also invalidate activities?
 			queryClient.invalidateQueries({
 				queryKey: qk.recurrences.byUser
 			});
-			// TODO: also invalidate activities?
 		}
 	);
 
-export const useMutateNewOccurrence: PostMutationHook = () =>
+export const useMutateNewOccurrence = () =>
 	useMutation(
-		(occurrenceInput: NewOccurrenceInput) => {
-			return activityService.recurrence.post.postOccurrence(occurrenceInput);
-		},
+		(occurrenceInput: NewOccurrenceInput) =>
+			activityService.recurrence.post.postOccurrence(occurrenceInput),
 		() => {
 			queryClient.invalidateQueries({
-				queryKey: qk.occurrences.byUser
 				// TODO: depending on how we implement synthetic activities, may
 				// need to also invalidate activities.
+				queryKey: qk.occurrences.byUser
 			});
 		}
 	);
+
+export const useMutateUpdateRecurrence = () => {
+	return useMutation(
+		(recurrenceInput: RecurrenceInput) =>
+			activityService.recurrence.put.putRecurrence(recurrenceInput),
+		() => {
+			// TODO: refine this
+			queryClient.invalidateQueries({
+				queryKey: qk.activities.all
+			});
+			queryClient.invalidateQueries({
+				queryKey: qk.recurrences.byUser
+			});
+		}
+	);
+};
+
+export const useMutateUpdateOccurrence = () => {
+	return useMutation(
+		(occurrenceInput: OccurrenceInput) =>
+			activityService.recurrence.put.putOccurrence(occurrenceInput),
+		() => {
+			// TODO: refine this
+			queryClient.invalidateQueries({
+				queryKey: qk.activities.all
+			});
+			queryClient.invalidateQueries({
+				queryKey: qk.occurrences.byUser
+			});
+		}
+	);
+};
+
+export const useMutateDeleteRecurrence = () => {
+	return useMutation(
+		(recurrence_id: ID) =>
+			activityService.recurrence.delete.deleteRecurrence(recurrence_id),
+		() => {
+			queryClient.invalidateQueries({
+				queryKey: qk.activities.all
+			});
+		}
+	);
+};
+
+export const useMutateDeleteOccurrence = () => {
+	return useMutation(
+		(occurrence_id: ID) =>
+			activityService.recurrence.delete.deleteOccurrence(occurrence_id),
+		() => {
+			queryClient.invalidateQueries({
+				queryKey: qk.activities.all
+			});
+		}
+	);
+};
