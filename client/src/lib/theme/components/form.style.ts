@@ -41,10 +41,6 @@ const Row = styled.fieldset`
 	border: 1px solid #ccc;
 	justify-content: space-between;
 	box-shadow: 0.6rem 0.6rem 0 -0.5rem #555;
-
-	&:focus-within {
-		border-left-color: ${(p) => p.theme.colors.blue.main};
-	}
 `;
 
 const CompactRow = styled(Row)`

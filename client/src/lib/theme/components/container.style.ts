@@ -41,9 +41,16 @@ const EmptyState = styled.div`
 	}
 `;
 
+const FlexRow = styled.div`
+	${flex.row};
+`;
+
 const Containers = {
 	Field: FieldWrapper,
-	EmptyState
+	EmptyState,
+	Utility: {
+		FlexRow
+	}
 };
 
 export default Containers;
