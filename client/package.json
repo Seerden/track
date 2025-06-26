@@ -25,11 +25,11 @@
 		"dayjs": "^1.11.12",
 		"framer-motion": "^11.3.23-alpha.3",
 		"immer": "^10.1.1",
+		"jotai": "2.12.5",
 		"lucide-react": "^0.460.0",
 		"msw": "^2.3.5",
 		"react": "19.1.0",
 		"react-dom": "19.1.0",
-		"recoil": "^0.7.7",
 		"styled-components": "^6.1.12"
 	},
 	"devDependencies": {
@@ -59,8 +59,6 @@
 		"jsdom": "^25.0.1",
 		"prettier": "3.3.3",
 		"prettier-eslint": "^16.3.0",
-		"react-router": "^6.26.0",
-		"react-router-dom": "^6.26.0",
 		"sass": "^1.77.8",
 		"typescript": "5.8.3",
 		"vite": "6.3.5",
