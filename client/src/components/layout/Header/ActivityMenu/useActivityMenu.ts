@@ -1,10 +1,10 @@
 import useFloatingProps from "@/lib/hooks/useFloatingProps";
-import useRouteProps from "@/lib/hooks/useRouteProps";
+import { useLocation } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 export default function useActivityMenu() {
 	const [open, setOpen] = useState(false);
-	const { location } = useRouteProps();
+	const location = useLocation();
 
 	useEffect(() => {
 		// reset menu state after location change

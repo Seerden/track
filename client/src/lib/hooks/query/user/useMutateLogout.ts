@@ -1,12 +1,12 @@
 import userService from "@/lib/fetch/user-service";
-import useRouteProps from "@/lib/hooks/useRouteProps";
 import { queryClient } from "@/lib/query-client";
 import { mk, qk } from "@/lib/query-keys";
 import { localUser } from "@/lib/user-storage";
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 
 export default function useMutateLogout() {
-	const { navigate } = useRouteProps();
+	const navigate = useNavigate();
 
 	return useMutation({
 		mutationKey: mk.user.logout, // TODO: should we distinguish between login and logout?
@@ -22,7 +22,7 @@ export default function useMutateLogout() {
 			// `me` (above)? Need to make it so useAuthentication redirects on
 			// logout, too, instead of doing it here, I think.
 			queryClient.clear();
-			navigate("/login");
+			navigate({ to: "/login" });
 		}
 	});
 }

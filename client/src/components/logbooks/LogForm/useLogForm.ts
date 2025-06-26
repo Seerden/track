@@ -2,16 +2,17 @@ import useMutateNewLog from "@/lib/hooks/query/logbooks/useMutateNewLog";
 import { useQueryLogTemplatesByLogbook } from "@/lib/hooks/query/logbooks/useQueryLogTemplates";
 import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
 import useFloatingProps from "@/lib/hooks/useFloatingProps";
-import useRouteProps from "@/lib/hooks/useRouteProps";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import type { NewLog } from "@shared/types/data/logbook.new.types";
 import type { LogTemplate } from "@shared/types/data/logbook.types";
 import type { ID } from "@shared/types/data/utility.types";
+import { useNavigate, useParams } from "@tanstack/react-router";
 import { useState } from "react";
 
 export default function useLogForm({ logbook_id }: { logbook_id?: ID }) {
-	const { params, navigate } = useRouteProps();
+	const params = useParams({ from: "/logbooks/$logbookId/log/$logId" });
+	const navigate = useNavigate();
 	const { mutate: submit } = useMutateNewLog();
 	const float = useFloatingProps({ hover: { restMs: 100 } });
 	const [activeId, setActiveId] = useState<ID | null>(null); // id for floating template
@@ -51,7 +52,10 @@ export default function useLogForm({ logbook_id }: { logbook_id?: ID }) {
 			},
 			{
 				onSuccess: (log) => {
-					navigate(`/logbooks/${log.logbook_id}`);
+					navigate({
+						to: `/logbooks/$logbookId`,
+						params: { logbookId: log.logbook_id }
+					});
 				}
 			}
 		);

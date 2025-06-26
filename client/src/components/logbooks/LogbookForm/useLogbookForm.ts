@@ -1,9 +1,9 @@
 import useMutateLogbook from "@/lib/hooks/query/logbooks/useMutateLogbook";
 import useMutateNewLogbook from "@/lib/hooks/query/logbooks/useMutateNewLogbook";
 import useAuthentication from "@/lib/hooks/useAuthentication";
-import useRouteProps from "@/lib/hooks/useRouteProps";
 import type { NewLogbook } from "@shared/types/data/logbook.new.types";
 import type { Logbook } from "@shared/types/data/logbook.types";
+import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 
 type NewLogbookState = Omit<NewLogbook, "user_id">;
@@ -22,7 +22,7 @@ export default function useLogbookForm({
 }: {
 	logbook?: Logbook;
 }) {
-	const { navigate } = useRouteProps();
+	const navigate = useNavigate();
 	const { currentUser } = useAuthentication();
 
 	const { mutate: submitNewLogbook } = useMutateNewLogbook();
@@ -41,7 +41,7 @@ export default function useLogbookForm({
 	}
 
 	function handleSuccess() {
-		navigate("/logbooks");
+		navigate({ to: "/logbooks" });
 	}
 
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
