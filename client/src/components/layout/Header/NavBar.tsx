@@ -1,7 +1,7 @@
 import ActivityMenu from "@/components/layout/Header/ActivityMenu/ActivityMenu";
 import LogbookMenu from "@/components/layout/Header/LogbookMenu/LogbookMenu";
 import useAuthentication from "@/lib/hooks/useAuthentication";
-import useRouteProps from "@/lib/hooks/useRouteProps";
+import { useNavigate } from "@tanstack/react-router";
 import { LucideCalendar } from "lucide-react";
 import S from "./style/NavBar.style";
 
@@ -22,7 +22,7 @@ export default function NavBar() {
 
 function ProfileAction() {
 	const { isLoggedIn, logout } = useAuthentication();
-	const { navigate } = useRouteProps();
+	const navigate = useNavigate();
 
 	if (isLoggedIn) {
 		return (
@@ -36,7 +36,7 @@ function ProfileAction() {
 		<S.Action
 			type="button"
 			onClick={() => {
-				navigate("login");
+				navigate({ to: "/login" });
 			}}
 		>
 			log in

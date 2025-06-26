@@ -78,7 +78,7 @@ export default function LogForm({ logbook_id }: LogFormProps) {
 										ref={(node) =>
 											activeId === template.log_template_id
 												? float.refs.setReference(node)
-												: null
+												: undefined
 										}
 										{...float.getReferenceProps()}
 									>

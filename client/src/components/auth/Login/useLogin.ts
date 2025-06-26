@@ -1,12 +1,12 @@
 import useMutateLogin from "@/lib/hooks/query/user/useMutateLogin";
 import useAuthentication from "@/lib/hooks/useAuthentication";
-import useRouteProps from "@/lib/hooks/useRouteProps";
 import { localUser } from "@/lib/user-storage";
 import { type UserLogin } from "@shared/types/data/user.types";
+import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 export default function useLogin() {
-	const { navigate } = useRouteProps();
+	const navigate = useNavigate();
 	const [passwordVisible, setPasswordVisible] = useState(false);
 	function togglePasswordVisible() {
 		setPasswordVisible((current) => !current);
@@ -15,7 +15,7 @@ export default function useLogin() {
 
 	useEffect(() => {
 		if (isLoggedIn) {
-			navigate("/");
+			navigate({ to: "/" });
 		}
 	}, [isLoggedIn]);
 
@@ -45,7 +45,7 @@ export default function useLogin() {
 				// modal. probably we redirect to the user's home page, because I
 				// expect almost everyting will be behind a login wall.
 				localUser.set(user);
-				navigate("/");
+				navigate({ to: "/" });
 			}
 		});
 	}

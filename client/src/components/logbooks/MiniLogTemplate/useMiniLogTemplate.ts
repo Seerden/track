@@ -2,8 +2,8 @@ import useQueryFields from "@/lib/hooks/query/logbooks/useQueryFields";
 import { useQueryItemTemplatesByLogbook } from "@/lib/hooks/query/logbooks/useQueryItemTemplates";
 import { useQueryLogTemplate } from "@/lib/hooks/query/logbooks/useQueryLogTemplates";
 import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
-import useRouteProps from "@/lib/hooks/useRouteProps";
 import type { ID } from "@shared/types/data/utility.types";
+import { useParams } from "@tanstack/react-router";
 
 export default function useMiniLogTemplate({
 	log_template_id,
@@ -12,7 +12,7 @@ export default function useMiniLogTemplate({
 	log_template_id: ID;
 	logbook_id?: ID;
 }) {
-	const { params } = useRouteProps();
+	const params = useParams({ strict: false });
 
 	const { data: logTemplateData, isSuccess } = useQueryLogTemplate(log_template_id);
 	// TODO: I'm casting as ID, but it's possible that it's undefined (if it's

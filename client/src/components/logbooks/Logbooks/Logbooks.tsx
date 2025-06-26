@@ -2,8 +2,8 @@ import LogbookCard from "@/components/logbooks/Logbooks/LogbookCard";
 import useQueryLogbooks from "@/lib/hooks/query/logbooks/useQueryLogbooks";
 import { Action, Link as LinkButton } from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
+import { Link } from "@tanstack/react-router";
 import { LucideFilter, LucideFolderPen } from "lucide-react";
-import { Link } from "react-router-dom";
 import S from "./style/Logbooks.style";
 
 export default function Logbooks() {

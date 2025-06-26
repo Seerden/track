@@ -2,15 +2,15 @@ import { useMutateNewNote } from "@/lib/hooks/query/notes/useMutateNewNote";
 import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
 import { qk } from "@/lib/query-keys";
 import useAuthentication from "@lib/hooks/useAuthentication";
-import useRouteProps from "@lib/hooks/useRouteProps";
 import { queryClient } from "@lib/query-client";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import type { NewNote } from "@shared/types/data/note.types";
+import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 export default function useNewNote() {
 	const { data: tagsData } = useQueryTags();
-	const { navigate } = useRouteProps();
+	const navigate = useNavigate();
 	const { currentUser } = useAuthentication();
 	const { mutate } = useMutateNewNote();
 	const { selectedTagIds, resetTagSelection } = useTagSelection();
@@ -49,7 +49,9 @@ export default function useNewNote() {
 						// TODO: redirect, or close the modal.
 
 						queryClient.invalidateQueries({ queryKey: qk.notes.all });
-						navigate("/notes");
+						// TODO: this would navigate to /notes, but we're reworking
+						// that, so doesn't matter what this is for now.
+						navigate({ to: "/" });
 
 						// TODO: also optimistically populate the UI with the newly
 						// created note if possible. depends on from which

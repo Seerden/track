@@ -1,7 +1,7 @@
 import ActionButtons from "@/lib/theme/components/buttons/Action";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import styled from "styled-components";
 
 const NavBar = styled.nav`

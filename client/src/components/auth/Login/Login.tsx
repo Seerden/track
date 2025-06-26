@@ -1,7 +1,7 @@
 import Notification from "@/components/utility/Notification/Notification";
 import F from "@/lib/theme/components/form/form.alternate.style";
+import { Link } from "@tanstack/react-router";
 import { LucideArrowRight, LucideEye, LucideEyeOff } from "lucide-react";
-import { Link } from "react-router-dom";
 import S from "../style/auth.style";
 import useLogin from "./useLogin";
 

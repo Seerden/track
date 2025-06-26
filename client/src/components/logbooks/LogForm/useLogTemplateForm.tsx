@@ -4,18 +4,18 @@ import SelectionList from "@/components/utility/selection/SelectionList/Selectio
 import useMutateNewLogTemplate from "@/lib/hooks/query/logbooks/useMutateNewLogTemplate";
 import { useQueryItemTemplatesByLogbook } from "@/lib/hooks/query/logbooks/useQueryItemTemplates";
 import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
-import useRouteProps from "@/lib/hooks/useRouteProps";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import type { NewLogTemplate } from "@shared/types/data/logbook.new.types";
 import type { Layout, LayoutSection } from "@shared/types/data/logbook.types";
 import type { ID } from "@shared/types/data/utility.types";
+import { useNavigate } from "@tanstack/react-router";
 import { useCallback, useMemo, useState } from "react";
 
 // TODO: consider splitting up the data logic into a use...Data hook.
 export default function useLogTemplateForm({ logbook_id }: { logbook_id: ID }) {
 	const { mutate: submit } = useMutateNewLogTemplate();
-	const { navigate } = useRouteProps();
+	const navigate = useNavigate();
 	const [sections, setSections] = useState<ItemValue[][]>([]);
 	const sectionCount = sections.length;
 	const templateSections = sections.filter((section) => section.length > 0);
@@ -82,7 +82,12 @@ export default function useLogTemplateForm({ logbook_id }: { logbook_id: ID }) {
 					closeModal(modalIds.logbooks.itemTemplate.new);
 					closeModal(modalIds.logbooks.logTemplate.form);
 					// TODO: do not navigate to this when we're on the LogForm page!
-					navigate(`/logbooks/${logbook_id}`);
+					navigate({
+						to: "/logbooks/$logbookId",
+						params: {
+							logbookId: logbook_id
+						}
+					});
 				}
 			}
 		);
