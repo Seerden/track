@@ -25,7 +25,8 @@
 		"express": "^5.0.1",
 		"express-session": "^1.18.0",
 		"ioredis": "^5.4.1",
-		"postgres": "^3.4.4"
+		"postgres": "^3.4.4",
+		"superjson": "^2.2.2"
 	},
 	"devDependencies": {
 		"@sentry/types": "^8.47.0",
