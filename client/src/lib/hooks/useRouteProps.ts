@@ -1,10 +1,10 @@
-import { useLocation, useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "@tanstack/react-router";
 
 function useRouteProps() {
 	return {
 		location: useLocation(),
 		navigate: useNavigate(),
-		params: useParams()
+		params: useParams({ strict: false })
 	};
 }
 

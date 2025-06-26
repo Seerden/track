@@ -6,15 +6,15 @@ import useQueryActivities from "@/lib/hooks/query/activities/useQueryActivities"
 import useQueryHabits from "@/lib/hooks/query/habits/useQueryHabits";
 import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
 import modalIds from "@/lib/modal-ids";
-import { activeItemState } from "@/lib/state/active-item-state";
-import { useRecoilValue } from "recoil";
+import { activeItemAtom } from "@/lib/state/active-item-state";
+import { useAtomValue } from "jotai";
 
 export default function DetailModals() {
 	const { data: tags } = useQueryTags();
 	const { data: activities } = useQueryActivities();
 	const { data: habits } = useQueryHabits();
 
-	const { tag, habit, activity } = useRecoilValue(activeItemState);
+	const { tag, habit, activity } = useAtomValue(activeItemAtom);
 
 	// TODO: because not all ids are bigints parsed to strings, and we manually
 	// cast them to numbers a lof of the time, the activeItemState contains ids

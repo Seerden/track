@@ -48,7 +48,6 @@ export default function useFloatingProps({
 
 			offsetIfOverflowing(),
 			// TODO: only use arrow if it's needed -- determine it through props
-			// eslint-disable-next-line react-compiler/react-compiler
 			arrow({
 				element: arrowRef
 			})

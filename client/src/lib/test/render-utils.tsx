@@ -2,18 +2,13 @@ import "@testing-library/jest-dom/vitest";
 import type { RenderOptions } from "@testing-library/react";
 import { render } from "@testing-library/react";
 import type { ReactElement, ReactNode } from "react";
-import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "styled-components";
 import { theme } from "../theme/theme";
 
 // TODO: this does not contain router provider or query client provider. I'm
 // still working on figuring out the best way to set that up.
 const WithProviders = ({ children }: { children: ReactNode }) => {
-	return (
-		<RecoilRoot>
-			<ThemeProvider theme={theme}>{children}</ThemeProvider>
-		</RecoilRoot>
-	);
+	return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
 
 const customRender = (

@@ -6,7 +6,6 @@ import { queryClient } from "@/lib/query-client";
 import { qk } from "@/lib/query-keys";
 import { useModalState } from "@/lib/state/modal-state";
 import useAuthentication from "@lib/hooks/useAuthentication";
-import useRouteProps from "@lib/hooks/useRouteProps";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import type {
 	ActivityWithIds,
@@ -14,12 +13,13 @@ import type {
 	WithDates,
 	WithTimestamps
 } from "@shared/types/data/activity.types";
+import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { parseNewActivity, parseUpdatedActivity } from "./parse-activity";
 
 function useSubmitNewActivity(newActivity: Partial<NewActivity>, modalId?: ModalId) {
 	const { mutate: submit } = useMutateNewActivity();
-	const { navigate } = useRouteProps();
+	const navigate = useNavigate();
 	const { selectedTagIds } = useTagSelection();
 	const { closeModal } = useModalState();
 
@@ -37,7 +37,7 @@ function useSubmitNewActivity(newActivity: Partial<NewActivity>, modalId?: Modal
 					if (modalId) {
 						closeModal(modalId);
 					} else {
-						navigate("/today");
+						navigate({ to: "/today" });
 					}
 				}
 			}
@@ -49,7 +49,7 @@ function useSubmitNewActivity(newActivity: Partial<NewActivity>, modalId?: Modal
 
 function useSubmitUpdatedActivity(activity: Partial<ActivityWithIds>, modalId?: ModalId) {
 	const { mutate: submit } = useActivityMutation();
-	const { navigate } = useRouteProps();
+	const navigate = useNavigate();
 	const { selectedTagIds } = useTagSelection();
 	const { closeModal } = useModalState();
 
@@ -73,7 +73,7 @@ function useSubmitUpdatedActivity(activity: Partial<ActivityWithIds>, modalId?: 
 					if (modalId) {
 						closeModal(modalId);
 					} else {
-						navigate("/today");
+						navigate({ to: "/today" });
 					}
 				}
 			}

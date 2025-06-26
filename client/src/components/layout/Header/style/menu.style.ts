@@ -3,7 +3,7 @@ import { font } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink } from "@tanstack/react-router";
 import styled from "styled-components";
 
 const Menu = styled.div`

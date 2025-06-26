@@ -14,6 +14,7 @@ export default function useModal(
 	{ keys, modalId, initialOpen }: UseModalProps
 ) {
 	const { setModalOpen, modalIds } = useModalState();
+	console.log({ modalIds });
 
 	useEffect(() => {
 		if (initialOpen) {

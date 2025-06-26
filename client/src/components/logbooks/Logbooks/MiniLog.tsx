@@ -1,8 +1,9 @@
 import { createDate } from "@/lib/datetime/make-date";
 import { Link as LinkButton } from "@/lib/theme/components/buttons";
+import { FlatPaths } from "@/types/router.types";
 import type { Log } from "@shared/types/data/logbook.types";
+import { Link } from "@tanstack/react-router";
 import { LucideMaximize } from "lucide-react";
-import { Link } from "react-router-dom";
 import S from "./style/MiniLog.style";
 
 interface MiniLogProps {
@@ -16,12 +17,14 @@ export default function MiniLog({ log }: MiniLogProps) {
 			<S.Header>
 				<S.Title>{log.name}</S.Title>
 				<S.Actions>
-					<LinkButton.IconMinimal
-						as={Link}
-						to={`/logbooks/${log.logbook_id}/log/${log.log_id}`}
+					<Link
+						to={`/logbooks/$logbookId/log/$logId` as const satisfies FlatPaths}
+						params={{ logbookId: log.logbook_id, logId: log.log_id }}
 					>
-						<LucideMaximize size={20} color="black" />
-					</LinkButton.IconMinimal>
+						<LinkButton.IconMinimal>
+							<LucideMaximize size={20} color="black" />
+						</LinkButton.IconMinimal>
+					</Link>
 				</S.Actions>
 			</S.Header>
 			<S.LastUpdated>

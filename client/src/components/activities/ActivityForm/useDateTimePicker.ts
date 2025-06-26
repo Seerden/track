@@ -6,12 +6,12 @@ import { designateDateFields } from "@/components/activities/ActivityForm/used-a
 import { isToday, sameDay } from "@/lib/datetime/compare";
 import { formatToHHmm, formatToYearMonthDay } from "@/lib/datetime/format-date";
 import useCurrentTime from "@/lib/hooks/useCurrentTime";
-import { selectedTimeWindowState } from "@/lib/state/selected-time-window-state";
+import { timeWindowAtom } from "@/lib/state/time-window.state";
 import { createDate } from "@lib/datetime/make-date";
 import { parseTimeString } from "@lib/datetime/parse-string";
 import type { Maybe, StartAndEnd } from "@shared/types/data/utility.types";
+import { useAtomValue } from "jotai";
 import { useEffect, useMemo, useState } from "react";
-import { useRecoilValue } from "recoil";
 import type { DateTimePickerProps } from "./datetime-picker.types";
 
 type UseDateTimePickerDefaults = {
@@ -19,7 +19,7 @@ type UseDateTimePickerDefaults = {
 };
 
 function useDateTimePickerDefaults({ defaultStartAndEnd }: UseDateTimePickerDefaults) {
-	const timeWindow = useRecoilValue(selectedTimeWindowState);
+	const timeWindow = useAtomValue(timeWindowAtom);
 	const currentTime = useCurrentTime(30 * 1000); // 30 second poll interval
 
 	const defaultTime = useMemo(() => {
