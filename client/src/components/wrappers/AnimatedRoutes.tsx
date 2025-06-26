@@ -12,11 +12,8 @@ import { forwardRef, Fragment, useContext, useRef } from "react";
  */
 const AnimatedOutlet = forwardRef<HTMLDivElement>((_, ref) => {
 	const RouterContext = getRouterContext();
-
 	const routerContext = useContext(RouterContext);
-
 	const renderedContext = useRef(routerContext);
-
 	const isPresent = useIsPresent();
 
 	if (isPresent) {
