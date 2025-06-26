@@ -22,7 +22,6 @@ export function useModalState() {
 	}
 
 	function openModal(modalId: ModalId) {
-		console.log("called openModal");
 		setModalIds(
 			produce((current) => {
 				if (!current.includes(modalId)) {
@@ -39,7 +38,6 @@ export function useModalState() {
 	}
 
 	function setModalOpen({ modalId, value }: { modalId: ModalId; value: boolean }) {
-		console.log("opening modal");
 		if (!value) {
 			closeModal(modalId);
 		} else {
