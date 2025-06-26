@@ -10,6 +10,8 @@ import "./normalize.css";
 
 import { createRouter } from "@/router";
 
+export const router = createRouter();
+
 Sentry.init({
 	// Note: we could also use an environment variable, but the DSN is public
 	// anyway and we're probably not going to use different DSNs for different
@@ -18,7 +20,7 @@ Sentry.init({
 	integrations: [
 		// See docs for support of different versions of variation of react router
 		// https://docs.sentry.io/platforms/javascript/guides/react/configuration/integrations/react-router/
-		// TODO: is there a tanstack router integration?
+		Sentry.tanstackRouterBrowserTracingIntegration(router)
 	],
 	// Tracing
 	tracesSampleRate: 1.0, //  Capture 100% of the transactions
@@ -35,8 +37,6 @@ if (process.env.NODE_ENV === "development") {
 	// 	onUnhandledRequest: "bypass"
 	// });
 }
-
-export const router = createRouter();
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 ReactDOM.createRoot(document.getElementById("root")!).render(
