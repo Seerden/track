@@ -6,6 +6,8 @@ import { defineConfig } from "vite";
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [
+		// I think I recall seeing somewhere that the order of these plugins
+		// matters. Tanstack Router is weird like that, so it could be necessary.
 		tanstackRouter({
 			target: "react",
 			autoCodeSplitting: true,
