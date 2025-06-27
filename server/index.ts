@@ -59,7 +59,6 @@ async function start() {
 
 	app.use("/", routers.index);
 	app.use("/data", routers.data);
-	app.use("/auth", routers.auth);
 
 	Sentry.setupExpressErrorHandler(app);
 	app.use(onError);

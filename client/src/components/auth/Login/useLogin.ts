@@ -1,4 +1,4 @@
-import useMutateLogin from "@/lib/hooks/query/user/useMutateLogin";
+import { useLoginMutation } from "@/lib/hooks/query/user/login.mutation";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import { localUser } from "@/lib/user-storage";
 import { type UserLogin } from "@shared/types/data/user.types";
@@ -20,7 +20,7 @@ export default function useLogin() {
 	}, [isLoggedIn]);
 
 	const [userLogin, setUserLogin] = useState<UserLogin>({ username: "", password: "" });
-	const { mutate: login, isError } = useMutateLogin();
+	const { mutate: login, isError } = useLoginMutation();
 
 	const isValidLogin = !!userLogin.username.length && !!userLogin.password.length;
 

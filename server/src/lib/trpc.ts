@@ -1,5 +1,8 @@
 import { sqlConnection } from "@/db/init";
+import { login } from "@/lib/trpc/resolvers/login";
+import { logout } from "@/lib/trpc/resolvers/logout";
 import { me } from "@/lib/trpc/resolvers/me";
+import { register } from "@/lib/trpc/resolvers/register";
 import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import superjson from "superjson";
 import { z } from "zod";
@@ -28,6 +31,9 @@ export const appRouter = t.router({
 	}),
 	auth: {
 		me,
+		login,
+		logout,
+		register,
 	},
 });
 

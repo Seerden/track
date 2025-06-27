@@ -1,5 +1,7 @@
 import type { Middleware } from "../../../types/middleware.types";
 
+// TODO: this can be removed once we have an analogous implementation in the
+// trpc router.
 // express middleware to check if user from query is same as user in session
 export const isAuthorized: Middleware = (req, res, next) => {
 	const user_id = req.query.user_id;
