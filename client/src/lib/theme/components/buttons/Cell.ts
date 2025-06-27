@@ -9,15 +9,15 @@ export const defaultCellHeight = 25;
 const Default = styled(Unstyled)<{
 	$selected?: boolean;
 	$highlight?: boolean;
-	width?: number;
-	height?: number;
+	$width?: number;
+	$height?: number;
 }>`
 	display: flex;
 	justify-content: center;
 	align-items: center;
 
-	width: ${(p) => p.width}px;
-	height: ${(p) => p.height}px;
+	width: ${(p) => p.$width}px;
+	height: ${(p) => p.$height}px;
 
 	${(p) =>
 		// a 'null' cell has no children, so this is nicer than using something like
@@ -49,7 +49,7 @@ const Default = styled(Unstyled)<{
 	&:hover {
 		${(p) =>
 			!p.$selected &&
-			p.children &&
+			!!p.children &&
 			css`
 				transition: all 35ms linear;
 				background-color: dodgerblue;
@@ -77,8 +77,8 @@ const Default = styled(Unstyled)<{
 
 Default.defaultProps = {
 	type: "button",
-	width: defaultCellWidth,
-	height: defaultCellHeight
+	$width: defaultCellWidth,
+	$height: defaultCellHeight
 };
 
 const CellButtons = {
