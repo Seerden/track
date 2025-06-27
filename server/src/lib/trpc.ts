@@ -1,4 +1,5 @@
 import { sqlConnection } from "@/db/init";
+import { me } from "@/lib/trpc/resolvers/me";
 import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import superjson from "superjson";
 import { z } from "zod";
@@ -25,7 +26,9 @@ export const appRouter = t.router({
 			};
 		}
 	}),
-	auth: {},
+	auth: {
+		me,
+	},
 });
 
 export type AppRouter = typeof appRouter;

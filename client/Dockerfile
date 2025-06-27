@@ -6,10 +6,6 @@ RUN yarn set version 4.6.0
 WORKDIR /track
 COPY . .
 
-WORKDIR /track/server
+WORKDIR /track/client
 
-RUN apk add --no-cache aws-cli
-
-EXPOSE 5000
-
-ENV CHOKIDAR_USEPOLLING=true
+EXPOSE 5175

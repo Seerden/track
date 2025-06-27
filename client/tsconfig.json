@@ -15,7 +15,7 @@
 			"path": "../shared"
 		},
 		{
-			"path": "../server/lib/trpc"
+			"path": "../server/"
 		}
 	]
 }

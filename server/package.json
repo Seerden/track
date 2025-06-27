@@ -1,10 +1,11 @@
 {
-	"name": "server",
+	"name": "@track/server",
 	"version": "1.0.0",
+	"type": "module",
 	"main": "index.js",
 	"scripts": {
 		"test": "jest --setupFiles ./dotenv-config.js --detectOpenHandles --watchAll",
-		"dev": "ts-node-dev --poll --files --respawn -r tsconfig-paths/register ./index.ts",
+		"dev": "tsx watch --clear-screen=false ./index.ts",
 		"build": "tsc -p './tsconfig.json' && npm run sentry:sourcemaps",
 		"sentry:sourcemaps": "sentry-cli sourcemaps inject --org track-am --project server ./dist && sentry-cli sourcemaps upload --org track-am --project server ./dist"
 	},
@@ -18,19 +19,19 @@
 		"@trpc/client": "11.3.1",
 		"@trpc/server": "11.3.1",
 		"@trpc/tanstack-react-query": "11.3.1",
-		"bcryptjs": "^2.4.3",
+		"bcryptjs": "3.0.2",
 		"connect-redis": "^7.1.1",
 		"cors": "^2.8.5",
 		"dayjs": "^1.11.13",
 		"express": "^5.0.1",
 		"express-session": "^1.18.0",
+		"immer": "^10.1.1",
 		"ioredis": "^5.4.1",
 		"postgres": "^3.4.4",
 		"superjson": "^2.2.2"
 	},
 	"devDependencies": {
 		"@sentry/types": "^8.47.0",
-		"@types/bcryptjs": "^2.4.6",
 		"@types/connect-redis": "^0.0.23",
 		"@types/cors": "^2.8.17",
 		"@types/express": "^5.0.0",
@@ -45,6 +46,7 @@
 		"ts-jest": "^29.2.4",
 		"ts-node-dev": "^2.0.0",
 		"tsconfig-paths": "^4.2.0",
+		"tsx": "^4.20.3",
 		"typescript": "5.8.3"
 	}
 }
