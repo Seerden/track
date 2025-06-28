@@ -1,10 +1,13 @@
+import { z } from "zod";
 import type { ID, Timestamp } from "./utility.types";
 
-export type NewUser = {
-	username: string;
-	password: string;
-	email?: string;
-};
+export const newUserSchema = z.object({
+	username: z.string(),
+	password: z.string(),
+	email: z.string().email().optional(),
+});
+
+export type NewUser = z.infer<typeof newUserSchema>;
 
 export type UserLogin = NewUser;
 

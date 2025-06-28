@@ -1,3 +1,4 @@
+import { TRPCError } from "@trpc/server";
 import type { Request, Response } from "express";
 import { sessionCookieName } from "../redis/redis-client";
 
@@ -5,18 +6,27 @@ import { sessionCookieName } from "../redis/redis-client";
 export async function destroySession({ req, res }: { req: Request; res: Response }) {
 	try {
 		if (!req.session?.user?.user_id) {
-			return res.json({ message: "There is no session." });
+			return null;
 		}
 
 		res.clearCookie(sessionCookieName);
 		req.session.destroy(() => {});
 
 		if (!req.session?.user?.user_id) {
-			return res.json({ message: "Logged out" });
+			return null;
 		} else {
-			throw new Error("Failed to destroy session.");
+			throw new TRPCError({
+				code: "INTERNAL_SERVER_ERROR",
+				message: "Session could not be destroyed.",
+			});
 		}
 	} catch (error) {
-		return res.status(500).json({ error });
+		throw new TRPCError({
+			code: "INTERNAL_SERVER_ERROR",
+			message:
+				error instanceof Error
+					? error.message
+					: "An error occurred while destroying the session.",
+		});
 	}
 }

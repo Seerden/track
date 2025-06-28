@@ -35,8 +35,7 @@ type ActivityOccurrenceBase =
 			recurrence_id: ID;
 	  };
 
-export type NewActivity = NewActivityBase &
-	(ActivityWithTimestamps | ActivityWithDates) &
+export type NewActivity = (ActivityWithTimestamps | ActivityWithDates) &
 	ActivityOccurrenceBase;
 
 export type TaskUpdate = {

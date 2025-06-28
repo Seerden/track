@@ -1,20 +1,15 @@
-FROM node:18.12.0-alpine
+FROM node:22-alpine
+
+RUN corepack enable
+RUN yarn set version 4.6.0
 
 WORKDIR /track
-
 COPY . .
-
-RUN npm install
 
 WORKDIR /track/server
 
-COPY package*.json ./
-
-RUN npm install
-COPY . .
-
-# RUN npm run build # don't need to build in development
+RUN apk add --no-cache aws-cli
 
 EXPOSE 5000
 
-CMD ["npm", "run", "dev"]
+ENV CHOKIDAR_USEPOLLING=true

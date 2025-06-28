@@ -1,7 +1,12 @@
+import { trpc } from "@/lib/trpc";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
-	component: Index
+	component: Index,
+	loader: async ({ context: { queryClient } }) => {
+		const me = await queryClient.ensureQueryData(trpc.auth.me.queryOptions());
+		console.log({ me });
+	}
 });
 
 function Index() {
