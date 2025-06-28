@@ -51,8 +51,7 @@ type OccurrenceDivergenceBase =
 			offset_milliseconds: null;
 	  };
 
-export type Occurrence = {
-	occurrence_id: ID;
+export type NewOccurrence = {
 	recurrence_id: ID;
 	user_id: ID;
 	activity_id: ID;
@@ -60,10 +59,14 @@ export type Occurrence = {
 	excluded_activity_ids: ID[];
 } & OccurrenceDivergenceBase;
 
+export type Occurrence = NewOccurrence & {
+	occurrence_id: ID;
+};
+
 export type OccurrenceInput = {
 	occurrence: Occurrence;
 };
-export type NewOccurrence = OmitStrict<Occurrence, "occurrence_id">;
+
 export type NewOccurrenceInput = {
 	newOccurrence: OmitStrict<NewOccurrence, "user_id">;
 };

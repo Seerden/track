@@ -1,7 +1,6 @@
 import { publicProcedure } from "@/lib/trpc/procedures/public.procedure";
 import type { User } from "@shared/types/data/user.types";
 import { TRPCError } from "@trpc/server";
-import { produce } from "immer";
 
 export const authenticatedProcedure = publicProcedure.use(async (opts) => {
 	if (!opts.ctx.req.session.user) {
@@ -9,12 +8,25 @@ export const authenticatedProcedure = publicProcedure.use(async (opts) => {
 			code: "UNAUTHORIZED",
 			message: "Must be logged in to access this resource.",
 		});
-	} else {
-		return opts.next(
-			produce(opts, (draft) => {
-				draft.ctx.req.session.destroy = opts.ctx.req.session.destroy;
-				draft.ctx.req.session.user = opts.ctx.req.session.user as User;
-			}),
-		);
 	}
+
+	// NOTE: this destructuring is a mess, but if we use something like an
+	// immer produce() function, the type is not properly overwritten (i.e.
+	// the authenticatedProcedure context will have a user that is not assumed
+	// to always be defined)
+	return opts.next({
+		...opts,
+		ctx: {
+			...opts.ctx,
+			req: {
+				...opts.ctx.req,
+				session: {
+					...opts.ctx.req.session,
+					user: opts.ctx.req.session.user as User,
+					destroy: opts.ctx.req.session.destroy,
+				},
+			},
+			user_id: opts.ctx.req.session.user?.user_id,
+		},
+	});
 });

@@ -1,4 +1,27 @@
 import { sqlConnection } from "@/db/init";
+import {
+	deleteOccurrenceById,
+	deleteRecurrenceById,
+} from "@/lib/trpc/resolvers/activity/delete-recurrences";
+import {
+	_createRecurrence,
+	createOccurrence,
+} from "@/lib/trpc/resolvers/activity/insert-recurrences";
+import { queryActivities } from "@/lib/trpc/resolvers/activity/query-activities";
+import {
+	_getRecurrenceByActivity,
+	_getRecurrencesByUser,
+	_queryOccurrencesByRecurrence,
+	_queryOccurrencesByUser,
+} from "@/lib/trpc/resolvers/activity/query-recurrences";
+import {
+	updateActivity,
+	updateTaskCompletion,
+} from "@/lib/trpc/resolvers/activity/update-activities";
+import {
+	_updateOccurrence,
+	_updateRecurrence,
+} from "@/lib/trpc/resolvers/activity/update-recurrences";
 import { login } from "@/lib/trpc/resolvers/login";
 import { logout } from "@/lib/trpc/resolvers/logout";
 import { me } from "@/lib/trpc/resolvers/me";
@@ -35,6 +58,27 @@ export const appRouter = t.router({
 		logout,
 		register,
 	},
+	habits: {},
+	activities: {
+		all: queryActivities,
+		update: updateActivity,
+		updateCompletion: updateTaskCompletion,
+		recurrences: {
+			queryByUser: _getRecurrencesByUser,
+			queryByActivity: _getRecurrenceByActivity,
+			create: _createRecurrence,
+			delete: deleteRecurrenceById,
+			update: _updateRecurrence,
+		},
+		occurrences: {
+			queryByRecurrence: _queryOccurrencesByRecurrence,
+			queryByUser: _queryOccurrencesByUser,
+			create: createOccurrence,
+			delete: deleteOccurrenceById,
+			update: _updateOccurrence,
+		},
+	},
+	tags: {},
 });
 
 export type AppRouter = typeof appRouter;

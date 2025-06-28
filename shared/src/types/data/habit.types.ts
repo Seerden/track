@@ -83,5 +83,10 @@ export type HabitEntryUpdate = {
 	value: HabitEntry["value"];
 };
 
-export type HabitEntryUpdateInput = HabitEntryUpdate &
-	Pick<HabitEntry, "habit_entry_id">;
+export type HabitEntryUpdateInput = Prettify<
+	HabitEntryUpdate & Pick<HabitEntry, "habit_entry_id">
+>;
+
+export type Prettify<T> = {
+	[K in keyof T]: T[K];
+} & {};

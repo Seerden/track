@@ -1,92 +1,85 @@
-import activityService from "@/lib/fetch/activity-service";
 import { queryClient } from "@/lib/query-client";
-import { qk } from "@/lib/query-keys";
-import type {
-	CreateRecurrenceInput,
-	NewOccurrenceInput,
-	OccurrenceInput,
-	RecurrenceInput
-} from "@shared/types/data/recurrence.types";
-import type { ID } from "@shared/types/data/utility.types";
+import { trpc } from "@/lib/trpc";
 import { useMutation } from "@tanstack/react-query";
 
 export const useMutateNewRecurrence = () =>
-	useMutation({
-		mutationFn: (recurrenceInput: CreateRecurrenceInput) =>
-			activityService.recurrence.post.postRecurrence(recurrenceInput),
-		onSuccess: () => {
-			// TODO: also invalidate activities?
-			queryClient.invalidateQueries({
-				queryKey: qk.recurrences.byUser
-			});
-		}
-	});
+	useMutation(
+		trpc.activities.recurrences.create.mutationOptions({
+			onSuccess: () => {
+				queryClient.invalidateQueries({
+					queryKey: trpc.activities.recurrences.queryByUser.queryKey()
+				});
+			}
+		})
+	);
 
 export const useMutateNewOccurrence = () =>
-	useMutation({
-		mutationFn: (occurrenceInput: NewOccurrenceInput) =>
-			activityService.recurrence.post.postOccurrence(occurrenceInput),
-		onSuccess: () => {
-			queryClient.invalidateQueries({
-				// TODO: depending on how we implement synthetic activities, may
-				// need to also invalidate activities.
-				queryKey: qk.occurrences.byUser
-			});
-		}
-	});
+	useMutation(
+		trpc.activities.occurrences.create.mutationOptions({
+			onSuccess: () => {
+				queryClient.invalidateQueries({
+					queryKey: trpc.activities.occurrences.queryByUser.queryKey()
+				});
+			}
+		})
+	);
 
 export const useMutateUpdateRecurrence = () => {
-	return useMutation({
-		mutationFn: (recurrenceInput: RecurrenceInput) =>
-			activityService.recurrence.put.putRecurrence(recurrenceInput),
-		onSuccess: () => {
-			// TODO: refine this
-			queryClient.invalidateQueries({
-				queryKey: qk.activities.all
-			});
-			queryClient.invalidateQueries({
-				queryKey: qk.recurrences.byUser
-			});
-		}
-	});
+	return useMutation(
+		trpc.activities.recurrences.update.mutationOptions({
+			onSuccess: () => {
+				queryClient.invalidateQueries({
+					queryKey: trpc.activities.all.queryKey()
+				});
+				queryClient.invalidateQueries({
+					queryKey: trpc.activities.recurrences.queryByUser.queryKey()
+				});
+			}
+		})
+	);
 };
 
 export const useMutateUpdateOccurrence = () => {
-	return useMutation({
-		mutationFn: (occurrenceInput: OccurrenceInput) =>
-			activityService.recurrence.put.putOccurrence(occurrenceInput),
-		onSuccess: () => {
-			// TODO: refine this
-			queryClient.invalidateQueries({
-				queryKey: qk.activities.all
-			});
-			queryClient.invalidateQueries({
-				queryKey: qk.occurrences.byUser
-			});
-		}
-	});
+	return useMutation(
+		trpc.activities.recurrences.update.mutationOptions({
+			onSuccess: () => {
+				queryClient.invalidateQueries({
+					queryKey: trpc.activities.all.queryKey()
+				});
+				queryClient.invalidateQueries({
+					queryKey: trpc.activities.occurrences.queryByUser.queryKey()
+				});
+			}
+		})
+	);
 };
 
 export const useMutateDeleteRecurrence = () => {
-	return useMutation({
-		mutationFn: (recurrence_id: ID) =>
-			activityService.recurrence.delete.deleteRecurrence(recurrence_id),
-		onSuccess: () => {
-			queryClient.invalidateQueries({
-				queryKey: qk.activities.all
-			});
-		}
-	});
+	return useMutation(
+		trpc.activities.recurrences.delete.mutationOptions({
+			onSuccess: () => {
+				queryClient.invalidateQueries({
+					queryKey: trpc.activities.recurrences.queryByUser.queryKey()
+				});
+				queryClient.invalidateQueries({
+					queryKey: trpc.activities.all.queryKey()
+				});
+			}
+		})
+	);
 };
 
 export const useMutateDeleteOccurrence = () => {
-	return useMutation({
-		mutationFn: (occurrence_id: ID) =>
-			activityService.recurrence.delete.deleteOccurrence(occurrence_id),
-		onSuccess: () => {
-			queryClient.invalidateQueries({
-				queryKey: qk.activities.all
-			});
-		}
-	});
+	return useMutation(
+		trpc.activities.occurrences.delete.mutationOptions({
+			onSuccess: () => {
+				queryClient.invalidateQueries({
+					queryKey: trpc.activities.occurrences.queryByUser.queryKey()
+				});
+				queryClient.invalidateQueries({
+					queryKey: trpc.activities.all.queryKey()
+				});
+			}
+		})
+	);
 };
