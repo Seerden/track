@@ -3,7 +3,8 @@ import {
 	insertActivityWithTags,
 } from "@/lib/data/models/activities/insert-activity";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
-import { intervalUnitSchema } from "@/lib/trpc/resolvers/habit/insert-habits";
+import { newRecurrenceSchema } from "@/lib/trpc/resolvers/activity/insert-recurrences";
+import { timestampSchema } from "@shared/types/schemas/timestamp";
 import { z } from "zod";
 
 const newActivityBaseSchema = z.object({
@@ -16,8 +17,8 @@ const newActivityBaseSchema = z.object({
 
 const activityWithTimestampsSchema = newActivityBaseSchema.merge(
 	z.object({
-		started_at: z.string(), // TODO: Timestamp
-		ended_at: z.string(), // TODO: Timestamp
+		started_at: timestampSchema,
+		ended_at: timestampSchema,
 		start_date: z.null(),
 		end_date: z.null(),
 	}),
@@ -27,8 +28,8 @@ const activityWithDatesSchema = newActivityBaseSchema.merge(
 	z.object({
 		started_at: z.null(),
 		ended_at: z.null(),
-		start_date: z.string(), // TODO: Datelike
-		end_date: z.string(), // TODO: Datelike
+		start_date: timestampSchema,
+		end_date: timestampSchema,
 	}),
 );
 
@@ -62,15 +63,6 @@ export const createActivity = authenticatedProcedure
 	.mutation(async ({ input: { activity, tagIds } }) => {
 		return await insertActivityWithTags({ activity, tag_ids: tagIds });
 	});
-
-export const newRecurrenceSchema = z.object({
-	user_id: z.string(),
-	interval: z.number(),
-	interval_unit: intervalUnitSchema,
-	frequency: z.number(),
-	start_timestamp: z.string(), // TODO: Timestamp
-	end_timestamp: z.string().nullable(), // TODO: Timestamp
-});
 
 export const newRecurrenceInputSchema = z.object({
 	newRecurrence: newRecurrenceSchema,

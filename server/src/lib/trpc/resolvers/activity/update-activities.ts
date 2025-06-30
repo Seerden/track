@@ -5,17 +5,18 @@ import {
 } from "@/lib/data/models/activities/update-activity";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 import { newActivitySchema } from "@/lib/trpc/resolvers/activity/insert-activities";
+import { timestampSchema } from "@shared/types/schemas/timestamp";
 import { z } from "zod";
 
 export const taskUpdateSchema = z.object({
-	completion_start: z.string().optional(), // TODO: Timestamp
-	completion_end: z.string().optional(), // TODO: Timestamp
+	completion_start: timestampSchema.optional(),
+	completion_end: timestampSchema.optional(),
 	completed: z.boolean().optional(),
 });
 
 export const activityBaseSchema = z.object({
 	activity_id: z.string(),
-	created_at: z.string(), // TODO: Timestamp
+	created_at: timestampSchema,
 });
 
 export const activitySchema = newActivitySchema

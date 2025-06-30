@@ -57,5 +57,7 @@ export const queryActivitiesAndRelations: QueryFunction<
 	const activities = await queryActivitiesByUser({ sql, user_id });
 	const activityTagRelations = await queryActivityTagsByUser({ sql, user_id });
 
-	return mergeActivitiesAndRelations(activities, activityTagRelations);
+	const a = mergeActivitiesAndRelations(activities, activityTagRelations);
+	console.log({ a });
+	return a satisfies ById<ActivityWithIds>;
 };

@@ -3,6 +3,7 @@ import {
 	deleteOccurrenceById,
 	deleteRecurrenceById,
 } from "@/lib/trpc/resolvers/activity/delete-recurrences";
+import { createActivity } from "@/lib/trpc/resolvers/activity/insert-activities";
 import {
 	_createRecurrence,
 	createOccurrence,
@@ -22,6 +23,10 @@ import {
 	_updateOccurrence,
 	_updateRecurrence,
 } from "@/lib/trpc/resolvers/activity/update-recurrences";
+import {
+	queryHabitEntries,
+	queryHabitsAndRelations,
+} from "@/lib/trpc/resolvers/habit/query-habits";
 import { login } from "@/lib/trpc/resolvers/login";
 import { logout } from "@/lib/trpc/resolvers/logout";
 import { me } from "@/lib/trpc/resolvers/me";
@@ -58,9 +63,13 @@ export const appRouter = t.router({
 		logout,
 		register,
 	},
-	habits: {},
+	habits: {
+		all: queryHabitsAndRelations,
+		entries: queryHabitEntries,
+	},
 	activities: {
 		all: queryActivities,
+		create: createActivity,
 		update: updateActivity,
 		updateCompletion: updateTaskCompletion,
 		recurrences: {

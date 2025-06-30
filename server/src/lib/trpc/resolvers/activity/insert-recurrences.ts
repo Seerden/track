@@ -2,14 +2,15 @@ import { insertOccurrence } from "@/lib/data/models/activities/insert-occurrence
 import { createRecurrence } from "@/lib/data/models/activities/insert-recurrence";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 import { intervalUnitSchema } from "@/lib/trpc/resolvers/habit/insert-habits";
+import { timestampSchema } from "@shared/types/schemas/timestamp";
 import { z } from "zod";
 
 export const newRecurrenceInputSchema = z.object({
 	interval: z.number(),
 	interval_unit: intervalUnitSchema,
 	frequency: z.number(),
-	start_timestamp: z.string(), // TODO: Timestamp
-	end_timestamp: z.string().nullable(), // TODO: Timestamp
+	start_timestamp: timestampSchema,
+	end_timestamp: timestampSchema.nullable(),
 });
 
 export const createRecurrenceInputSchema = newRecurrenceInputSchema.and(
@@ -28,7 +29,7 @@ export const newRecurrenceSchema = newRecurrenceInputSchema.and(
 export const recurrenceSchema = newRecurrenceSchema.and(
 	z.object({
 		recurrence_id: z.string(),
-		created_at: z.string(), // TODO: Timestamp
+		created_at: timestampSchema,
 	}),
 );
 

@@ -1,10 +1,9 @@
 import type { DateTimeStateSetter } from "@/components/activities/ActivityForm/datetime-picker.types";
-import useActivityMutation from "@/lib/hooks/query/activities/useMutateActivity";
-import { useMutateNewActivity } from "@/lib/hooks/query/activities/useMutateNewActivity";
 import type { ModalId } from "@/lib/modal-ids";
 import { queryClient } from "@/lib/query-client";
 import { qk } from "@/lib/query-keys";
 import { useModalState } from "@/lib/state/modal-state";
+import { trpc } from "@/lib/trpc";
 import useAuthentication from "@lib/hooks/useAuthentication";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import type {
@@ -13,12 +12,13 @@ import type {
 	WithDates,
 	WithTimestamps
 } from "@shared/types/data/activity.types";
+import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { parseNewActivity, parseUpdatedActivity } from "./parse-activity";
 
 function useSubmitNewActivity(newActivity: Partial<NewActivity>, modalId?: ModalId) {
-	const { mutate: submit } = useMutateNewActivity();
+	const { mutate: submit } = useMutation(trpc.activities.create.mutationOptions());
 	const navigate = useNavigate();
 	const { selectedTagIds } = useTagSelection();
 	const { closeModal } = useModalState();
@@ -48,7 +48,7 @@ function useSubmitNewActivity(newActivity: Partial<NewActivity>, modalId?: Modal
 }
 
 function useSubmitUpdatedActivity(activity: Partial<ActivityWithIds>, modalId?: ModalId) {
-	const { mutate: submit } = useActivityMutation();
+	const { mutate: submit } = useMutation(trpc.activities.update.mutationOptions());
 	const navigate = useNavigate();
 	const { selectedTagIds } = useTagSelection();
 	const { closeModal } = useModalState();

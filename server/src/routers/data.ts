@@ -1,6 +1,5 @@
 import { getNotes } from "@/lib/data/request-handlers/notes/get-notes";
 import { postNote } from "@/lib/data/request-handlers/notes/post-note";
-import { logbooksRouter } from "@/routers/data/logbooks";
 import { Router } from "express";
 import { isAuthorized } from "../lib/auth/is-authorized";
 
@@ -14,5 +13,3 @@ dataRouter.use(isAuthorized);
 /* Notes */
 dataRouter.get("/notes", getNotes);
 dataRouter.post("/note", postNote);
-
-dataRouter.use("/logbooks", logbooksRouter);

@@ -1,13 +1,5 @@
-import type { DataById, MappedData } from "@/types/query.types";
-import type { ID } from "@shared/types/data/utility.types";
-
-// export default function transformByIdToMap<T extends DataById<unknown>>(
-// 	data: T
-// ): MappedData<T> {
-// 	type ValueType = T extends DataById<infer U> ? U : never;
-// 	const byId = new Map(Object.entries(data.byId) as [ID, ValueType][]);
-// 	return Object.assign({}, data, { byId });
-// }
+import { DataById, MappedData } from "types/data/map";
+import { ID } from "types/data/utility.types";
 
 /** Transform the byId object of a DataById object to a Map.
  * @note the solution above means we don't have to cast the return value, but
@@ -15,8 +7,8 @@ import type { ID } from "@shared/types/data/utility.types";
  * the solution below, which is simpler in my opinion. I'm leaving it up there
  * because I think it's a cool example of `infer`.
  */
-export default function transformByIdToMap<T extends DataById<unknown>>(
-	data: T
+export function transformByIdToMap<T extends DataById<unknown>>(
+	data: T,
 ): MappedData<T> {
 	const byId = new Map(Object.entries(data.byId));
 
@@ -24,7 +16,7 @@ export default function transformByIdToMap<T extends DataById<unknown>>(
 }
 
 /** Transforms a byId Map to a list containing `byId`'s values. */
-function byIdAsList<T>(map?: Map<ID, T>): T[] {
+export function byIdAsList<T>(map?: Map<ID, T>): T[] {
 	if (!map) return [];
 	return [...map.values()];
 }
