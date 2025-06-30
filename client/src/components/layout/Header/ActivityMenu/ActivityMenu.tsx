@@ -1,4 +1,5 @@
 import useActivityMenu from "@/components/layout/Header/ActivityMenu/useActivityMenu";
+import { FlatPaths } from "@/types/router.types";
 import { FloatingArrow } from "@floating-ui/react";
 import { LucideCalendarDays, LucideList, LucidePlus } from "lucide-react";
 import S from "../style/menu.style";
@@ -45,7 +46,7 @@ export default function ActivityMenu({}: ActivityMenuProps) {
 								<LucidePlus /> new task
 							</S.Link>
 							{/* TODO: use something fancier, like a time window selector */}
-							<S.Link to={`/`}>
+							<S.Link to={`/today` satisfies FlatPaths}>
 								<LucideCalendarDays /> my calendar
 							</S.Link>
 						</S.MenuSection>

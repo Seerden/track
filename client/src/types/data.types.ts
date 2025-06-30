@@ -1,5 +1,9 @@
 import type { ActivityWithIds } from "@shared/types/data/activity.types";
-import type { HabitEntry, HabitWithIds } from "@shared/types/data/habit.types";
+import type {
+	HabitEntry,
+	HabitWithIds,
+	SyntheticHabitEntry
+} from "@shared/types/data/habit.types";
 import type { NoteWithIds } from "@shared/types/data/note.types";
 import type { Occurrence, Recurrence } from "@shared/types/data/recurrence.types";
 import type { TagWithIds } from "@shared/types/data/tag.types";
@@ -20,3 +24,15 @@ export type HabitsData = DataById<HabitWithIds>;
 export type HabitEntriesData = DataById<HabitEntry>;
 export type OccurrencesData = DataById<Occurrence>;
 export type RecurrencesData = DataById<Recurrence>;
+
+// TODO TRK-228: can we remove all the above types once trpc is fully
+// implemented?
+
+export type HabitEntryUpdateMutationArgs = {
+	input: HabitEntry | SyntheticHabitEntry;
+	value?: string;
+};
+
+export type HabitEntryUpdateMutationFunction = (
+	args: HabitEntryUpdateMutationArgs
+) => void;

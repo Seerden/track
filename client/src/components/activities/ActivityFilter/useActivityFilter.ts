@@ -5,14 +5,14 @@ import type {
 } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import { defaultFilter } from "@/components/activities/ActivityFilter/lib/constants";
 import useActivityFilterActions from "@/components/activities/ActivityFilter/useActivityFilterActions";
-import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
-import useQueryTagsTree from "@/lib/hooks/query/tags/useQueryTagsTree";
+import { trpc } from "@/lib/trpc";
 import type { ID } from "@shared/types/data/utility.types";
+import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 export default function useActivityFilter({ onChange }: ActivityFilterProps) {
-	const { data: tagsData } = useQueryTags();
-	const { data: tagsTreeData } = useQueryTagsTree();
+	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
+	const { data: tagsTreeData } = useQuery(trpc.tags.tree.queryOptions());
 	const [filter, setFilter] = useState<ActivityFilterWithValues>(defaultFilter);
 	const [wholeTree, setWholeTree] = useState(false);
 	const [activeTagIds, setActiveTagIds] = useState<ID[]>([]);

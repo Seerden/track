@@ -2,7 +2,7 @@ import { insertOccurrence } from "@/lib/data/models/activities/insert-occurrence
 import { createRecurrence } from "@/lib/data/models/activities/insert-recurrence";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 import { intervalUnitSchema } from "@/lib/trpc/resolvers/habit/insert-habits";
-import { timestampSchema } from "@shared/types/schemas/timestamp";
+import { timestampSchema } from "@shared/lib/schemas/timestamp";
 import { z } from "zod";
 
 export const newRecurrenceInputSchema = z.object({

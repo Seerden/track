@@ -2,6 +2,9 @@ import { createRequestConfig } from "@/lib/fetch/create-request-config";
 import { makeAuthorizedUrl } from "@/lib/fetch/make-authorized-url";
 import { captureEvent } from "@sentry/react";
 
+// TODO TRK-228: is any of this still necessary? the sentry error can be
+// implemented on the server, now
+
 function sentryApiError(errorBody: string, method: string, responseJson: unknown) {
 	const error = new Error(errorBody);
 	captureEvent({

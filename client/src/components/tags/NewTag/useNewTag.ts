@@ -1,17 +1,17 @@
-import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
 import modalIds from "@/lib/modal-ids";
-import { qk } from "@/lib/query-keys";
 import { useModalState } from "@/lib/state/modal-state";
+import { trpc } from "@/lib/trpc";
 import useAuthentication from "@lib/hooks/useAuthentication";
 import { queryClient } from "@lib/query-client";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import type { NewTag } from "@shared/types/data/tag.types";
+import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useNewTagMutation } from "./useNewTagMutation";
 
 export default function useNewTag() {
 	const { currentUser } = useAuthentication();
-	const { data: tagsData } = useQueryTags();
+	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
 	const { mutate: submit } = useNewTagMutation();
 
 	const [newTag, setNewTag] = useState<NewTag>({
@@ -44,7 +44,7 @@ export default function useNewTag() {
 			{ newTag, parent_id },
 			{
 				onSuccess: () => {
-					queryClient.invalidateQueries({ queryKey: qk.tags.all });
+					queryClient.invalidateQueries({ queryKey: trpc.tags.all.queryKey() });
 					closeModal(modalIds.tagSelector.activityForm);
 				}
 			}

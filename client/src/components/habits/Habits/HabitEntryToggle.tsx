@@ -1,5 +1,5 @@
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
-import type { HabitEntryUpdateMutationFunction } from "@/lib/hooks/query/habits/useMutateHabitEntry";
+import { HabitEntryUpdateMutationFunction } from "@/types/data.types";
 import { isSynthetic } from "@shared/types/data/habit-entry.guards";
 import type {
 	HabitEntry,

@@ -1,15 +1,16 @@
 import { syntheticToReal } from "@/components/habits/Habits/synthetic";
-import useMutateHabitEntry from "@/lib/hooks/query/habits/useMutateHabitEntry";
-import useMutateNewHabitEntry from "@/lib/hooks/query/habits/useMutateNewHabitEntry";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import { queryClient } from "@/lib/query-client";
-import { qk } from "@/lib/query-keys";
+import { trpc } from "@/lib/trpc";
 import { isSynthetic } from "@shared/types/data/habit-entry.guards";
 import type { HabitEntry, SyntheticHabitEntry } from "@shared/types/data/habit.types";
+import { useMutation } from "@tanstack/react-query";
 
 export default function useCompletionInstance() {
-	const { mutate: submitNewEntry } = useMutateNewHabitEntry();
-	const { mutate: putEntry } = useMutateHabitEntry();
+	const { mutate: submitNewEntry } = useMutation(
+		trpc.habits.createEntry.mutationOptions()
+	);
+	const { mutate: putEntry } = useMutation(trpc.habits.updateEntry.mutationOptions());
 	const { currentUser } = useAuthentication();
 
 	const user_id = currentUser?.user_id;
@@ -23,12 +24,10 @@ export default function useCompletionInstance() {
 	}) {
 		function onSuccess() {
 			queryClient.invalidateQueries({
-				queryKey: qk.habits.entries,
-				exact: true
+				queryKey: trpc.habits.entries.queryKey()
 			});
 			queryClient.invalidateQueries({
-				queryKey: qk.habits.all,
-				exact: true
+				queryKey: trpc.habits.all.queryKey()
 			});
 		}
 
@@ -42,7 +41,7 @@ export default function useCompletionInstance() {
 				user_id,
 				value
 			});
-			submitNewEntry({ habitEntry: realEntry }, { onSuccess });
+			submitNewEntry(realEntry, { onSuccess });
 		} else {
 			putEntry({ ...input, value }, { onSuccess });
 		}

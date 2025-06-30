@@ -23,14 +23,21 @@ import {
 	_updateOccurrence,
 	_updateRecurrence,
 } from "@/lib/trpc/resolvers/activity/update-recurrences";
+import { deleteHabitById } from "@/lib/trpc/resolvers/habit/delete-habits";
+import { createHabit, createHabitEntry } from "@/lib/trpc/resolvers/habit/insert-habits";
 import {
 	queryHabitEntries,
 	queryHabitsAndRelations,
 } from "@/lib/trpc/resolvers/habit/query-habits";
+import { updateEntry, updateHabit } from "@/lib/trpc/resolvers/habit/update-habits";
 import { login } from "@/lib/trpc/resolvers/login";
 import { logout } from "@/lib/trpc/resolvers/logout";
 import { me } from "@/lib/trpc/resolvers/me";
+import { createNote } from "@/lib/trpc/resolvers/note/insert-notes";
+import { queryNotes } from "@/lib/trpc/resolvers/note/query-notes";
 import { register } from "@/lib/trpc/resolvers/register";
+import { createTag } from "@/lib/trpc/resolvers/tag/insert-tags";
+import { queryTags, queryTagTree } from "@/lib/trpc/resolvers/tag/query-tags";
 import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import superjson from "superjson";
 import { z } from "zod";
@@ -64,8 +71,17 @@ export const appRouter = t.router({
 		register,
 	},
 	habits: {
+		delete: deleteHabitById,
 		all: queryHabitsAndRelations,
 		entries: queryHabitEntries,
+		update: updateHabit,
+		updateEntry,
+		create: createHabit,
+		createEntry: createHabitEntry,
+	},
+	notes: {
+		all: queryNotes,
+		create: createNote,
 	},
 	activities: {
 		all: queryActivities,
@@ -87,7 +103,11 @@ export const appRouter = t.router({
 			update: _updateOccurrence,
 		},
 	},
-	tags: {},
+	tags: {
+		all: queryTags,
+		tree: queryTagTree,
+		create: createTag,
+	},
 });
 
 export type AppRouter = typeof appRouter;

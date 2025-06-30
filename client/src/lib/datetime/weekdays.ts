@@ -1,4 +1,4 @@
-import day from "@/lib/dayjs";
+import day from "@shared/lib/day";
 
 export let daysOfWeekShort: string[] = day.weekdaysShort();
 // TODO: this is a hack to get Sunday to be the last day of the week, should

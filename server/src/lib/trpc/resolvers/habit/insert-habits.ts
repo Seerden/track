@@ -1,6 +1,7 @@
 import { insertHabitWithTags } from "@/lib/data/models/habits/insert-habit";
 import { insertHabitEntry } from "@/lib/data/models/habits/insert-habit-entry";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
+import { timestampSchema } from "@shared/lib/schemas/timestamp";
 import { z } from "zod";
 
 // matches IntervalUnit
@@ -10,8 +11,8 @@ export const newHabitSchema = z.object({
 	user_id: z.string(),
 	name: z.string(),
 	description: z.string(),
-	start_timestamp: z.string(), // Timestamp, actually
-	end_timestamp: z.string().nullable(), // Timestamp, actually
+	start_timestamp: timestampSchema,
+	end_timestamp: timestampSchema.nullable(),
 	interval: z.number(),
 	frequency: z.number(),
 	interval_unit: intervalUnitSchema,
@@ -31,7 +32,7 @@ export const habitEntryInputSchema = z.object({
 	habit_id: z.string(),
 	// TODO: take this out, get it from context
 	user_id: z.string(),
-	date: z.string(), // Timestamp, actually
+	date: timestampSchema,
 	index: z.number(),
 	value: z.string(), // Varchar
 });

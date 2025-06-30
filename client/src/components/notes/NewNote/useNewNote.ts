@@ -1,18 +1,19 @@
-import { useMutateNewNote } from "@/lib/hooks/query/notes/useMutateNewNote";
-import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
-import { qk } from "@/lib/query-keys";
+import { trpc } from "@/lib/trpc";
 import useAuthentication from "@lib/hooks/useAuthentication";
 import { queryClient } from "@lib/query-client";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import type { NewNote } from "@shared/types/data/note.types";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 export default function useNewNote() {
-	const { data: tagsData } = useQueryTags();
+	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
 	const navigate = useNavigate();
 	const { currentUser } = useAuthentication();
-	const { mutate } = useMutateNewNote();
+	// TODO TRK-228: invalidate `notes.all` (need to put the mutation in a hook
+	// like with other mutations)
+	const { mutate } = useMutation(trpc.notes.create.mutationOptions());
 	const { selectedTagIds, resetTagSelection } = useTagSelection();
 	const [note, setNote] = useState<Partial<NewNote>>({
 		content: "",
@@ -48,7 +49,7 @@ export default function useNewNote() {
 					onSuccess: () => {
 						// TODO: redirect, or close the modal.
 
-						queryClient.invalidateQueries({ queryKey: qk.notes.all });
+						queryClient.invalidateQueries({ queryKey: trpc.notes.all.queryKey() });
 						// TODO: this would navigate to /notes, but we're reworking
 						// that, so doesn't matter what this is for now.
 						navigate({ to: "/" });

@@ -1,9 +1,10 @@
 import Empty from "@/components/Today/Empty";
 import { filterTagsById } from "@/lib/filter-tags";
-import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
+import { trpc } from "@/lib/trpc";
 import type { ActivityWithIds } from "@shared/types/data/activity.types";
+import { useQuery } from "@tanstack/react-query";
 import Task from "./Task";
 import T from "./style/Tasks.style";
 import S from "./style/Today.style";
@@ -13,7 +14,7 @@ type TasksProps = {
 };
 
 export default function Tasks({ activities }: TasksProps) {
-	const { data: tagsData } = useQueryTags();
+	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
 	const { openModal } = useModalState();
 
 	return (

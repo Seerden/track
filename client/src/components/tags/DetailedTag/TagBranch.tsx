@@ -1,6 +1,7 @@
 import { findAncestors, findChildren } from "@/components/tags/DetailedTag/build-branch";
-import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
+import { trpc } from "@/lib/trpc";
 import type { TagWithIds } from "@shared/types/data/tag.types";
+import { useQuery } from "@tanstack/react-query";
 import S from "./style/TagBranch.style";
 
 /** A single row to-be-displayed inside TagTreeBranch. The branch consists of
@@ -31,7 +32,7 @@ type TagBranchProps = {
  * the whole family tree for this parent's branch traced back to the root).
  */
 export default function TagBranch({ tag }: TagBranchProps) {
-	const { data: tagsData } = useQueryTags();
+	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
 
 	if (!tagsData) return null;
 
