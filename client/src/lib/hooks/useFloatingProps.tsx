@@ -1,4 +1,4 @@
-import { offsetIfOverflowing } from "@/components/layout/Header/LogbookMenu/floating-middleware";
+import { offsetIfOverflowing } from "@/lib/floating-middleware";
 import type { Middleware, UseClickProps, UseHoverProps } from "@floating-ui/react";
 import {
 	arrow,

@@ -1,9 +1,9 @@
 import { sqlConnection } from "@/db/init";
+import type { TagWithId } from "@shared/lib/schemas/tag";
 import type {
 	ActivityTagRelation,
 	TagTagRelation,
 } from "@shared/types/data/relational.types";
-import type { TagWithId } from "@shared/types/data/tag.types";
 import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 

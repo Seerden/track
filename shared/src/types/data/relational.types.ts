@@ -1,4 +1,4 @@
-import type { Datelike, ID } from "./utility.types";
+import type { ID } from "./utility.types";
 
 export type ActivityTagRelation = {
 	user_id: ID;
@@ -25,12 +25,4 @@ export type HabitTagRelation = {
 	tag_id: ID;
 	user_id: ID;
 	created_at: Date;
-};
-
-/** logbooks_tags */
-export type LogbookTagRelation = {
-	logbook_id: ID;
-	tag_id: ID;
-	user_id: ID;
-	created_at: Datelike;
 };

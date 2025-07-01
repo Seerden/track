@@ -1,5 +1,5 @@
 import type { ModalId } from "@/lib/modal-ids";
-import type { TagWithIds } from "@shared/types/data/tag.types";
+import type { TagWithIds } from "@shared/lib/schemas/tag";
 import type { ByIdMap, ID } from "@shared/types/data/utility.types";
 import type { FocusEvent, MouseEvent } from "react";
 

@@ -1,17 +1,18 @@
 import { activityFallsOnDay, isAllDayActivityOnDate } from "@/lib/activity";
 import { formatDate } from "@/lib/datetime/format-date";
 import { today } from "@/lib/datetime/make-date";
-import useQueryActivities from "@/lib/hooks/query/activities/useQueryActivities";
-import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
 import useHabitsData from "@/lib/hooks/useHabitsData";
 import { timeWindowAtom } from "@/lib/state/time-window.state";
+import { trpc } from "@/lib/trpc";
+import { byIdAsList } from "@shared/lib/map";
+import { useQuery } from "@tanstack/react-query";
 import type { Dayjs } from "dayjs";
 import { useAtom } from "jotai";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 /** Functionality hook for the Today component. */
 export default function useToday() {
-	const { data: activitiesData } = useQueryActivities();
+	const { data: activitiesData } = useQuery(trpc.activities.all.queryOptions());
 	const { getHabitsForTimeWindow } = useHabitsData();
 	const [currentDate, setCurrentDate] = useState<Dayjs>(() => today());
 	const [timeWindow, setTimeWindow] = useAtom(timeWindowAtom);

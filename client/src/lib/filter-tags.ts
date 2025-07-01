@@ -1,4 +1,4 @@
-import type { TagWithIds } from "@shared/types/data/tag.types";
+import type { TagWithIds } from "@shared/lib/schemas/tag";
 import type { ByIdMap, ID, Maybe } from "@shared/types/data/utility.types";
 
 /**

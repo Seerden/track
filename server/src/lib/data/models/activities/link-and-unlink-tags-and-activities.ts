@@ -1,5 +1,5 @@
 import { sqlConnection } from "@/db/init";
-import type { ActivityWithIds } from "@shared/types/data/activity.types";
+import type { ActivityWithIds } from "@shared/lib/schemas/activity";
 import type { ActivityTagRelation } from "@shared/types/data/relational.types";
 import type { ID, Maybe } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";

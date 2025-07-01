@@ -1,5 +1,5 @@
 import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
-import type { ActivityWithIds } from "@shared/types/data/activity.types";
+import type { ActivityWithIds } from "@shared/lib/schemas/activity";
 import type { ID, Nullable } from "@shared/types/data/utility.types";
 
 export const tagPredicates = {

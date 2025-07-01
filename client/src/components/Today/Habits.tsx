@@ -3,7 +3,7 @@ import Habit from "@/components/Today/Habit";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import L from "@/lib/theme/components/List.style";
-import type { HabitWithPossiblySyntheticEntries } from "@shared/types/data/habit.types";
+import type { HabitWithPossiblySyntheticEntries } from "@shared/lib/schemas/habit";
 import type { ById } from "@shared/types/data/utility.types";
 import S from "./style/Habits.style";
 import T from "./style/Today.style";

@@ -4,7 +4,7 @@ import type {
 	HabitEntry,
 	HabitWithIds,
 	SyntheticHabitEntry
-} from "@shared/types/data/habit.types";
+} from "@shared/lib/schemas/habit";
 import S from "./style/CompletionBadge.style";
 
 type CompletionBadgeProps = {

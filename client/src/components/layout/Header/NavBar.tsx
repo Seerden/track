@@ -1,5 +1,4 @@
 import ActivityMenu from "@/components/layout/Header/ActivityMenu/ActivityMenu";
-import LogbookMenu from "@/components/layout/Header/LogbookMenu/LogbookMenu";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import { useNavigate } from "@tanstack/react-router";
 import { LucideCalendar } from "lucide-react";
@@ -13,7 +12,6 @@ export default function NavBar() {
 			</S.HomeLink>
 			<S.Actions>
 				<ActivityMenu />
-				<LogbookMenu />
 				<ProfileAction />
 			</S.Actions>
 		</S.NavBar>

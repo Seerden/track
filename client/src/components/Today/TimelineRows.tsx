@@ -3,9 +3,9 @@ import {
 	activityStartHourOnDate,
 	assignIndentationLevelToActivities
 } from "@/lib/activity";
-import type { ActivityWithIds } from "@shared/types/data/activity.types";
 import type { Dayjs } from "dayjs";
 import S from "./style/Today.style";
+import type { ActivityWithIds } from "@shared/lib/schemas/activity";
 
 function useRows({
 	activities,

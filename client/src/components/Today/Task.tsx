@@ -4,8 +4,8 @@ import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
 import { activityEnd, activityStart } from "@lib/activity";
-import type { ActivityWithIds } from "@shared/types/data/activity.types";
-import type { TagWithIds } from "@shared/types/data/tag.types";
+import type { ActivityWithIds } from "@shared/lib/schemas/activity";
+import type { TagWithIds } from "@shared/lib/schemas/tag";
 import { useRef } from "react";
 import TagCard from "../tags/TagCard/TagCard";
 import T from "./style/Tasks.style";
@@ -36,7 +36,7 @@ export default function Task({ activity, tags = [] }: TaskProps) {
 
 	return (
 		<T.Task
-			$completed={activity.completed}
+			$completed={activity.completed ?? false}
 			onClick={(e) => {
 				e.stopPropagation();
 				openDetailedItemModal(activity.activity_id);
@@ -48,7 +48,7 @@ export default function Task({ activity, tags = [] }: TaskProps) {
 					e.stopPropagation(); // This prevents the task from being opened when the checkbox is clicked.
 				}}
 			>
-				<Checkbox checked={activity.completed} onChange={putCompletion} />
+				<Checkbox checked={activity.completed ?? false} onChange={putCompletion} />
 			</S.CheckboxWrapper>
 			<T.Times>
 				<span>from {formatToHHmm(activityStart(activity))}</span>

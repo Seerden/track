@@ -2,17 +2,16 @@ import DetailedHabit from "@/components/habits/DetailedHabit/DetailedHabit";
 import DetailedTag from "@/components/tags/DetailedTag/DetailedTag";
 import DetailedActivity from "@/components/Today/DetailedActivity";
 import Modal from "@/components/utility/Modal/Modal";
-import useQueryActivities from "@/lib/hooks/query/activities/useQueryActivities";
-import useQueryHabits from "@/lib/hooks/query/habits/useQueryHabits";
-import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
 import modalIds from "@/lib/modal-ids";
 import { activeItemAtom } from "@/lib/state/active-item-state";
+import { trpc } from "@/lib/trpc";
+import { useQuery } from "@tanstack/react-query";
 import { useAtomValue } from "jotai";
 
 export default function DetailModals() {
-	const { data: tags } = useQueryTags();
-	const { data: activities } = useQueryActivities();
-	const { data: habits } = useQueryHabits();
+	const { data: tags } = useQuery(trpc.tags.all.queryOptions());
+	const { data: activities } = useQuery(trpc.activities.all.queryOptions());
+	const { data: habits } = useQuery(trpc.habits.all.queryOptions());
 
 	const { tag, habit, activity } = useAtomValue(activeItemAtom);
 

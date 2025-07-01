@@ -1,7 +1,6 @@
 import { createDate } from "@/lib/datetime/make-date";
+import type { ActivityWithIds, NewActivity } from "@shared/lib/schemas/activity";
 import { activityGuards } from "@shared/types/data/activity.guards";
-import type { ActivityWithIds } from "@shared/types/data/activity.types";
-import { type NewActivity } from "@shared/types/data/activity.types";
 import { hasValidUserId } from "@shared/types/data/user-id.guards";
 
 /** If `activity` is an all-day activity (which we determine by seeing if it's

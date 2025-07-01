@@ -1,4 +1,4 @@
-import type { Note, NoteWithIds } from "@shared/types/data/note.types";
+import type { Note, NoteWithIds } from "@shared/lib/schemas/note";
 import type { NoteTagRelation } from "@shared/types/data/relational.types";
 import type { ById } from "@shared/types/data/utility.types";
 

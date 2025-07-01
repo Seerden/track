@@ -20,6 +20,7 @@ function createDeleteConfig<T>(data?: T): RequestInit {
 	return maybeWithBody(deleteConfig, data);
 }
 
+// TODO TRK-228: this is obsolete now, no?
 export const createRequestConfig = {
 	post: createPostConfig,
 	put: createPutConfig,

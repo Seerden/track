@@ -4,7 +4,7 @@ import useAuthentication from "@/lib/hooks/useAuthentication";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import { useTagSelection } from "@/lib/state/selected-tags-state";
-import type { NewHabit } from "@shared/types/data/habit.types";
+import type { NewHabit } from "@shared/lib/schemas/habit";
 import { hasValidUserId } from "@shared/types/data/user-id.guards";
 import type { Nullable } from "@shared/types/data/utility.types";
 import { useNavigate } from "@tanstack/react-router";

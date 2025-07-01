@@ -1,9 +1,5 @@
 import type { Dayjs } from "dayjs";
 
-/** unix (milli?)seconds? or whatever a postgres Timestamp is, I guess.
- * TODO: figure out What postgres timestamps get parsed to */
-export type Timestamp = Datelike;
-
 /** ids are serial and auto-incrementing */
 export type ID = string;
 
@@ -18,6 +14,8 @@ export type Maybe<T> = T | null | undefined;
 export type ById<T> = T extends unknown[] ? never : Record<ID, T>;
 export type ByIdMap<T> = T extends unknown[] ? never : Map<ID, T>;
 
+/** Type helper for discriminated unions
+ * @usage mostly obsolete now that I have trpc schemas for validation. */
 export type NullUnused<TUsed, TUnused> = TUsed & {
 	[k in keyof TUnused]: null;
 };
@@ -29,8 +27,6 @@ export type HasUserIdField<T> = T & { user_id?: Nullable<ID> };
 
 export type Nullable<T> = T | null;
 export type Varchar = string; // TODO: make sure we parse this correctly
-
-export type Datelike = string | Date | Dayjs | number; // TODO: not decided on whether I like this
 
 export type DeepValue<T> = T extends unknown[]
 	? never
@@ -51,3 +47,7 @@ export type OmitStrict<T, K extends keyof T> = T extends any
 	: never;
 
 export type IntervalUnit = "day" | "week" | "month" | "year";
+
+export type Prettify<T> = {
+	[K in keyof T]: T[K];
+} & {};

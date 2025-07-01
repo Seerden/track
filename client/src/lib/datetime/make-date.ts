@@ -1,5 +1,6 @@
-import day from "@/lib/dayjs";
-import type { Datelike } from "@shared/types/data/utility.types";
+import day from "@shared/lib/day";
+import type { Datelike } from "@shared/lib/schemas/timestamp";
+import type { Dayjs } from "dayjs";
 
 /**
  * General note: I'm not sure _why_ utc is vital, but dates do not get parsed
@@ -17,7 +18,11 @@ export function now() {
 }
 
 export function createDate(date: Datelike) {
-	return day(date).utc().local();
+	// TODO: type-aliasing necessary because of the definition of Datelike, see
+	// the note with `timestampSchema`
+	return day(date as Dayjs)
+		.utc()
+		.local();
 }
 
 export function createFirstOfTheMonth({ month, year }: { month: number; year: number }) {

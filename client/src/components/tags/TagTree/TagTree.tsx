@@ -1,12 +1,12 @@
 import Modal from "@/components/utility/Modal/Modal";
-import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
-import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
-import useQueryTagsTree from "@/lib/hooks/query/tags/useQueryTagsTree";
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
 import Badge from "@/lib/theme/components/Badge";
-import type { TagWithIds } from "@shared/types/data/tag.types";
+import { trpc } from "@/lib/trpc";
+import { byIdAsList } from "@shared/lib/map";
+import type { TagWithIds } from "@shared/lib/schemas/tag";
 import type { ByIdMap, ID } from "@shared/types/data/utility.types";
+import { useQuery } from "@tanstack/react-query";
 import { LucideChevronDown, LucideChevronUp } from "lucide-react";
 import { useState } from "react";
 import S from "./style/TagTree.style";
@@ -22,8 +22,8 @@ export default function TagTree({
 	modalId = modalIds.tagTree.tree,
 	initialOpen = false
 }: TagTreeProps) {
-	const { data: tagTreeData } = useQueryTagsTree();
-	const { data: tagsData } = useQueryTags();
+	const { data: tagTreeData } = useQuery(trpc.tags.tree.queryOptions());
+	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
 
 	if (!tagTreeData || !tagsData) return null;
 
@@ -66,7 +66,7 @@ function getTag(tag_id: ID, tagsById: ByIdMap<TagWithIds>) {
 }
 
 function Tag({ tag, level }: TagProps) {
-	const { data: tagsData } = useQueryTags();
+	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
 	const [collapsed, setCollapsed] = useState(false);
 
 	if (!tagsData) {

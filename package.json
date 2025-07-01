@@ -1,11 +1,11 @@
 {
   "name": "track",
   "version": "1.0.0",
+  "private": true,
   "description": "`npm run dev` on the client to start the vite dev server.",
   "main": "index.js",
   "scripts": {
     "dev:shared": "npx tsc --build --watch shared",
-    "dev": "cd ./docker && docker-compose --file ./compose.yml up --build --force-recreate --remove-orphans",
     "prod": "cd ./docker && docker-compose --file ./docker-compose.prod.yml up --force-recreate --remove-orphans --build server database store test-database",
     "dev-build": "cd ./docker && docker-compose --file ./compose.yml up --force-recreate --remove-orphans --build server database store test-database",
     "dev-down": "cd ./docker && docker-compose --file ./compose.yml down --volumes -v",
@@ -23,5 +23,6 @@
     "shared",
     "client",
     "server"
-  ]
+  ],
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

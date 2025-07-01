@@ -1,5 +1,5 @@
 import { createDate } from "@/lib/datetime/make-date";
-import type { Datelike } from "@shared/types/data/utility.types";
+import { Datelike } from "@shared/lib/schemas/timestamp";
 
 export function getLocalHour(date: Datelike) {
 	return createDate(date).hour();

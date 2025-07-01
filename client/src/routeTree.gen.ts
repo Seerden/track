@@ -13,15 +13,10 @@ import { Route as TodayRouteImport } from "./routes/today"
 import { Route as RegisterRouteImport } from "./routes/register"
 import { Route as LoginRouteImport } from "./routes/login"
 import { Route as IndexRouteImport } from "./routes/index"
-import { Route as LogbooksIndexRouteImport } from "./routes/logbooks/index"
 import { Route as ActivitiesIndexRouteImport } from "./routes/activities/index"
 import { Route as NotesNewRouteImport } from "./routes/notes/new"
-import { Route as LogbooksNewRouteImport } from "./routes/logbooks/new"
 import { Route as HabitsNewRouteImport } from "./routes/habits/new"
 import { Route as ActivitiesNewRouteImport } from "./routes/activities/new"
-import { Route as LogbooksLogbookIdIndexRouteImport } from "./routes/logbooks/$logbookId/index"
-import { Route as LogbooksLogbookIdLogIndexRouteImport } from "./routes/logbooks/$logbookId/log/index"
-import { Route as LogbooksLogbookIdLogLogIdRouteImport } from "./routes/logbooks/$logbookId/log/$logId"
 
 const TodayRoute = TodayRouteImport.update({
   id: "/today",
@@ -43,11 +38,6 @@ const IndexRoute = IndexRouteImport.update({
   path: "/",
   getParentRoute: () => rootRouteImport,
 } as any)
-const LogbooksIndexRoute = LogbooksIndexRouteImport.update({
-  id: "/logbooks/",
-  path: "/logbooks/",
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ActivitiesIndexRoute = ActivitiesIndexRouteImport.update({
   id: "/activities/",
   path: "/activities/",
@@ -56,11 +46,6 @@ const ActivitiesIndexRoute = ActivitiesIndexRouteImport.update({
 const NotesNewRoute = NotesNewRouteImport.update({
   id: "/notes/new",
   path: "/notes/new",
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LogbooksNewRoute = LogbooksNewRouteImport.update({
-  id: "/logbooks/new",
-  path: "/logbooks/new",
   getParentRoute: () => rootRouteImport,
 } as any)
 const HabitsNewRoute = HabitsNewRouteImport.update({
@@ -73,23 +58,6 @@ const ActivitiesNewRoute = ActivitiesNewRouteImport.update({
   path: "/activities/new",
   getParentRoute: () => rootRouteImport,
 } as any)
-const LogbooksLogbookIdIndexRoute = LogbooksLogbookIdIndexRouteImport.update({
-  id: "/logbooks/$logbookId/",
-  path: "/logbooks/$logbookId/",
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LogbooksLogbookIdLogIndexRoute =
-  LogbooksLogbookIdLogIndexRouteImport.update({
-    id: "/logbooks/$logbookId/log/",
-    path: "/logbooks/$logbookId/log/",
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const LogbooksLogbookIdLogLogIdRoute =
-  LogbooksLogbookIdLogLogIdRouteImport.update({
-    id: "/logbooks/$logbookId/log/$logId",
-    path: "/logbooks/$logbookId/log/$logId",
-    getParentRoute: () => rootRouteImport,
-  } as any)
 
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute
@@ -98,13 +66,8 @@ export interface FileRoutesByFullPath {
   "/today": typeof TodayRoute
   "/activities/new": typeof ActivitiesNewRoute
   "/habits/new": typeof HabitsNewRoute
-  "/logbooks/new": typeof LogbooksNewRoute
   "/notes/new": typeof NotesNewRoute
   "/activities": typeof ActivitiesIndexRoute
-  "/logbooks": typeof LogbooksIndexRoute
-  "/logbooks/$logbookId": typeof LogbooksLogbookIdIndexRoute
-  "/logbooks/$logbookId/log/$logId": typeof LogbooksLogbookIdLogLogIdRoute
-  "/logbooks/$logbookId/log": typeof LogbooksLogbookIdLogIndexRoute
 }
 export interface FileRoutesByTo {
   "/": typeof IndexRoute
@@ -113,13 +76,8 @@ export interface FileRoutesByTo {
   "/today": typeof TodayRoute
   "/activities/new": typeof ActivitiesNewRoute
   "/habits/new": typeof HabitsNewRoute
-  "/logbooks/new": typeof LogbooksNewRoute
   "/notes/new": typeof NotesNewRoute
   "/activities": typeof ActivitiesIndexRoute
-  "/logbooks": typeof LogbooksIndexRoute
-  "/logbooks/$logbookId": typeof LogbooksLogbookIdIndexRoute
-  "/logbooks/$logbookId/log/$logId": typeof LogbooksLogbookIdLogLogIdRoute
-  "/logbooks/$logbookId/log": typeof LogbooksLogbookIdLogIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -129,13 +87,8 @@ export interface FileRoutesById {
   "/today": typeof TodayRoute
   "/activities/new": typeof ActivitiesNewRoute
   "/habits/new": typeof HabitsNewRoute
-  "/logbooks/new": typeof LogbooksNewRoute
   "/notes/new": typeof NotesNewRoute
   "/activities/": typeof ActivitiesIndexRoute
-  "/logbooks/": typeof LogbooksIndexRoute
-  "/logbooks/$logbookId/": typeof LogbooksLogbookIdIndexRoute
-  "/logbooks/$logbookId/log/$logId": typeof LogbooksLogbookIdLogLogIdRoute
-  "/logbooks/$logbookId/log/": typeof LogbooksLogbookIdLogIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -146,13 +99,8 @@ export interface FileRouteTypes {
     | "/today"
     | "/activities/new"
     | "/habits/new"
-    | "/logbooks/new"
     | "/notes/new"
     | "/activities"
-    | "/logbooks"
-    | "/logbooks/$logbookId"
-    | "/logbooks/$logbookId/log/$logId"
-    | "/logbooks/$logbookId/log"
   fileRoutesByTo: FileRoutesByTo
   to:
     | "/"
@@ -161,13 +109,8 @@ export interface FileRouteTypes {
     | "/today"
     | "/activities/new"
     | "/habits/new"
-    | "/logbooks/new"
     | "/notes/new"
     | "/activities"
-    | "/logbooks"
-    | "/logbooks/$logbookId"
-    | "/logbooks/$logbookId/log/$logId"
-    | "/logbooks/$logbookId/log"
   id:
     | "__root__"
     | "/"
@@ -176,13 +119,8 @@ export interface FileRouteTypes {
     | "/today"
     | "/activities/new"
     | "/habits/new"
-    | "/logbooks/new"
     | "/notes/new"
     | "/activities/"
-    | "/logbooks/"
-    | "/logbooks/$logbookId/"
-    | "/logbooks/$logbookId/log/$logId"
-    | "/logbooks/$logbookId/log/"
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -192,13 +130,8 @@ export interface RootRouteChildren {
   TodayRoute: typeof TodayRoute
   ActivitiesNewRoute: typeof ActivitiesNewRoute
   HabitsNewRoute: typeof HabitsNewRoute
-  LogbooksNewRoute: typeof LogbooksNewRoute
   NotesNewRoute: typeof NotesNewRoute
   ActivitiesIndexRoute: typeof ActivitiesIndexRoute
-  LogbooksIndexRoute: typeof LogbooksIndexRoute
-  LogbooksLogbookIdIndexRoute: typeof LogbooksLogbookIdIndexRoute
-  LogbooksLogbookIdLogLogIdRoute: typeof LogbooksLogbookIdLogLogIdRoute
-  LogbooksLogbookIdLogIndexRoute: typeof LogbooksLogbookIdLogIndexRoute
 }
 
 declare module "@tanstack/react-router" {
@@ -231,13 +164,6 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    "/logbooks/": {
-      id: "/logbooks/"
-      path: "/logbooks"
-      fullPath: "/logbooks"
-      preLoaderRoute: typeof LogbooksIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     "/activities/": {
       id: "/activities/"
       path: "/activities"
@@ -250,13 +176,6 @@ declare module "@tanstack/react-router" {
       path: "/notes/new"
       fullPath: "/notes/new"
       preLoaderRoute: typeof NotesNewRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    "/logbooks/new": {
-      id: "/logbooks/new"
-      path: "/logbooks/new"
-      fullPath: "/logbooks/new"
-      preLoaderRoute: typeof LogbooksNewRouteImport
       parentRoute: typeof rootRouteImport
     }
     "/habits/new": {
@@ -273,27 +192,6 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof ActivitiesNewRouteImport
       parentRoute: typeof rootRouteImport
     }
-    "/logbooks/$logbookId/": {
-      id: "/logbooks/$logbookId/"
-      path: "/logbooks/$logbookId"
-      fullPath: "/logbooks/$logbookId"
-      preLoaderRoute: typeof LogbooksLogbookIdIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    "/logbooks/$logbookId/log/": {
-      id: "/logbooks/$logbookId/log/"
-      path: "/logbooks/$logbookId/log"
-      fullPath: "/logbooks/$logbookId/log"
-      preLoaderRoute: typeof LogbooksLogbookIdLogIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    "/logbooks/$logbookId/log/$logId": {
-      id: "/logbooks/$logbookId/log/$logId"
-      path: "/logbooks/$logbookId/log/$logId"
-      fullPath: "/logbooks/$logbookId/log/$logId"
-      preLoaderRoute: typeof LogbooksLogbookIdLogLogIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -304,13 +202,8 @@ const rootRouteChildren: RootRouteChildren = {
   TodayRoute: TodayRoute,
   ActivitiesNewRoute: ActivitiesNewRoute,
   HabitsNewRoute: HabitsNewRoute,
-  LogbooksNewRoute: LogbooksNewRoute,
   NotesNewRoute: NotesNewRoute,
   ActivitiesIndexRoute: ActivitiesIndexRoute,
-  LogbooksIndexRoute: LogbooksIndexRoute,
-  LogbooksLogbookIdIndexRoute: LogbooksLogbookIdIndexRoute,
-  LogbooksLogbookIdLogLogIdRoute: LogbooksLogbookIdLogLogIdRoute,
-  LogbooksLogbookIdLogIndexRoute: LogbooksLogbookIdLogIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

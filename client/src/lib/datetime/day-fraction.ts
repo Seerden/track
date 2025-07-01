@@ -1,4 +1,4 @@
-import day from "@/lib/dayjs";
+import day from "@shared/lib/day";
 
 function currentHour() {
 	return day().hour();

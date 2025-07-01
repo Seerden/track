@@ -3,6 +3,7 @@ import {
 	linkTagsToActivity,
 	unlinkTagsFromActivity,
 } from "@/lib/data/models/activities/link-and-unlink-tags-and-activities";
+import day from "@shared/lib/day";
 import type {
 	Activity,
 	ActivityUpdateInput,
@@ -11,7 +12,7 @@ import type {
 } from "@shared/types/data/activity.types";
 import type { ActivityTagRelation } from "@shared/types/data/relational.types";
 import type { ID } from "@shared/types/data/utility.types";
-import dayjs from "dayjs";
+import type { Dayjs } from "dayjs";
 import type { QueryFunction } from "types/sql.types";
 
 /**
@@ -24,9 +25,11 @@ export const updateActivityCompletion: QueryFunction<
 	Promise<Activity[]>
 > = async ({ sql = sqlConnection, input }) => {
 	const start = input.completion_start
-		? dayjs(input.completion_start).toISOString()
+		? day(input.completion_start as Dayjs).toISOString()
 		: null;
-	const end = input.completion_end ? dayjs(input.completion_end).toISOString() : null;
+	const end = input.completion_end
+		? day(input.completion_end as Dayjs).toISOString()
+		: null;
 	// Writing the fields out manually is a bit verbose, but it's clearer than
 	// manipulating and using ${input}
 	return sql<[Activity]>`
