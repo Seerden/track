@@ -1,7 +1,7 @@
 // TODO: amend this so that we parse user_id in from the request context,
 
 import { timestampSchema } from "@shared/lib/schemas/timestamp";
-import { z } from "zod";
+import { z } from "@shared/lib/zod";
 
 // instead of letting the client send it
 export const newNoteSchema = z.object({

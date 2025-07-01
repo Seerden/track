@@ -1,6 +1,6 @@
 import { deleteHabitById as _deleteHabitById } from "@/lib/data/models/habits/delete-habit";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
-import { z } from "zod";
+import { z } from "@shared/lib/zod";
 
 export const deleteHabitById = authenticatedProcedure
 	.input(z.string())

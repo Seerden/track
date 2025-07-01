@@ -1,5 +1,5 @@
 import { timestampSchema } from "@shared/lib/schemas/timestamp";
-import { z } from "zod";
+import { z } from "@shared/lib/zod";
 
 // matches IntervalUnit
 export const intervalUnitSchema = z.enum(["day", "week", "month", "year"]);

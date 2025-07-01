@@ -1,6 +1,6 @@
 import day from "@shared/lib/day";
+import { z } from "@shared/lib/zod";
 import { type Dayjs } from "dayjs/esm";
-import { z } from "zod";
 
 export const timestampSchema = z.union([
 	z.string(),

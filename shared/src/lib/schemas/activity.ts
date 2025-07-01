@@ -1,6 +1,6 @@
 import { intervalUnitSchema } from "@shared/lib/schemas/habit";
 import { timestampSchema } from "@shared/lib/schemas/timestamp";
-import { z } from "zod";
+import { z } from "@shared/lib/zod";
 
 export const newRecurrenceInputSchema = z.object({
 	interval: z.number(),

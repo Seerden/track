@@ -1,5 +1,5 @@
 import { timestampSchema } from "@shared/lib/schemas/timestamp";
-import { z } from "zod";
+import { z } from "@shared/lib/zod";
 
 export const newTagSchema = z.object({
 	user_id: z.string(),

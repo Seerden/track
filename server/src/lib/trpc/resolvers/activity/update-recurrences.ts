@@ -1,10 +1,7 @@
 import { updateOccurrence } from "@/lib/data/models/activities/update-occurrence";
 import { updateRecurrence } from "@/lib/data/models/activities/update-recurrence";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
-import {
-	occurrenceSchema,
-	recurrenceSchema,
-} from "@/lib/trpc/resolvers/activity/insert-recurrences";
+import { occurrenceSchema, recurrenceSchema } from "@shared/lib/schemas/activity";
 
 export const _updateOccurrence = authenticatedProcedure
 	.input(occurrenceSchema)

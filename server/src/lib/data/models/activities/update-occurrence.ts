@@ -1,5 +1,5 @@
 import { sqlConnection } from "@/db/init";
-import type { Occurrence, OccurrenceInput } from "@shared/lib/schemas/activity";
+import type { Occurrence } from "@shared/lib/schemas/activity";
 import type { ID, Maybe } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
@@ -9,7 +9,7 @@ import type { QueryFunction } from "types/sql.types";
 // possible to re-adjust (an) already adjusted occurrence(s) to a different
 // offset or something, but I don't know if that would ever actually happen.
 export const updateOccurrence: QueryFunction<
-	OccurrenceInput & { user_id: ID },
+	{ occurrence: Occurrence } & { user_id: ID },
 	Promise<Maybe<Occurrence>>
 > = async ({ sql = sqlConnection, user_id, occurrence }) => {
 	const {
