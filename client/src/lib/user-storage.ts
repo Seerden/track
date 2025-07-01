@@ -1,4 +1,4 @@
-import type { User } from "@shared/types/data/user.types";
+import type { User } from "@shared/lib/schemas/user";
 import type { Maybe } from "@shared/types/data/utility.types";
 
 function setLocalUser(user: User) {

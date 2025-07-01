@@ -2,7 +2,7 @@ import { createRequestConfig } from "@/lib/fetch/create-request-config";
 import { queryClient } from "@/lib/query-client";
 import { trpc } from "@/lib/trpc";
 import { makeAuthorizedUrl } from "@lib/fetch/make-authorized-url";
-import type { TagInput } from "@shared/types/data/tag.types";
+import type { TagInput } from "@shared/lib/schemas/tag";
 import { useMutation } from "@tanstack/react-query";
 
 // TODO: move this to @lib/hooks/query

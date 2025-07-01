@@ -3,7 +3,7 @@ import type {
 	HabitEntry,
 	HabitWithIds,
 	SyntheticHabitEntry
-} from "@shared/types/data/habit.types";
+} from "@shared/lib/schemas/habit";
 
 const habit: HabitWithIds = {
 	habit_id: "1",

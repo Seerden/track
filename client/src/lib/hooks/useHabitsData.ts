@@ -2,7 +2,7 @@ import { withSyntheticHabitEntries } from "@/components/habits/Habits/synthetic"
 import { trpc } from "@/lib/trpc";
 import type { TimeWindow } from "@/types/time-window.types";
 import { byIdAsList } from "@shared/lib/map";
-import type { Habit, HabitWithEntries } from "@shared/types/data/habit.types";
+import type { Habit, HabitWithEntries } from "@shared/lib/schemas/habit";
 import type { ById } from "@shared/types/data/utility.types";
 import { useQuery } from "@tanstack/react-query";
 import { useCallback, useMemo } from "react";

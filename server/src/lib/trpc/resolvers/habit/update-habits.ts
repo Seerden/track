@@ -1,11 +1,6 @@
 import { updateHabitEntry } from "@/lib/data/models/habits/update-habit-entry";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
-import { z } from "zod";
-
-const habitEntryUpdateInputSchema = z.object({
-	habit_entry_id: z.string(),
-	value: z.string(), // TODO: type for Varchar
-});
+import { habitEntryUpdateInputSchema } from "@shared/lib/schemas/habit";
 
 export const updateEntry = authenticatedProcedure
 	.input(habitEntryUpdateInputSchema)

@@ -1,5 +1,5 @@
 import day from "@shared/lib/day";
-import type { Datelike } from "@shared/types/data/utility.types";
+import { Datelike } from "@shared/lib/schemas/timestamp";
 import { Dayjs } from "dayjs";
 
 /**

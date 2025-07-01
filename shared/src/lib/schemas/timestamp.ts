@@ -9,3 +9,8 @@ export const timestampSchema = z.union([
 	z.instanceof(day as unknown as typeof Dayjs),
 	z.number(),
 ]);
+
+/** unix (milli?)seconds? or whatever a postgres Timestamp is, I guess.
+ * TODO: figure out What postgres timestamps get parsed to */
+export type Timestamp = z.infer<typeof timestampSchema>;
+export type Datelike = Timestamp;

@@ -7,9 +7,8 @@ import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.proc
 import {
 	activityUpdateInputSchema,
 	taskUpdateInputSchema,
-} from "@shared/types/data/activity.types";
+} from "@shared/lib/schemas/activity";
 
-// trpc done
 export const updateActivity = authenticatedProcedure
 	.input(activityUpdateInputSchema)
 	.mutation(async ({ input: { activity, tag_ids } }) => {
@@ -21,7 +20,6 @@ export const updateActivity = authenticatedProcedure
 		});
 	});
 
-// trpc done
 export const updateTaskCompletion = authenticatedProcedure
 	.input(taskUpdateInputSchema)
 	.mutation(async ({ input }) => {

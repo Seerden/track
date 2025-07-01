@@ -2,8 +2,8 @@ import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import { activityEnd, activityStart } from "@/lib/activity";
 import { createDate } from "@/lib/datetime/make-date";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
-import type { ActivityWithIds } from "@shared/types/data/activity.types";
-import type { TagWithIds } from "@shared/types/data/tag.types";
+import type { ActivityWithIds } from "@shared/lib/schemas/activity";
+import type { TagWithIds } from "@shared/lib/schemas/tag";
 import S from "./style/TableItem.style";
 
 type TableItemProps = {
@@ -29,7 +29,10 @@ export default function TableItem({ activity, tags }: TableItemProps) {
 			>
 				{isTask ? (
 					<label>
-						<Checkbox checked={activity.completed} onChange={putCompletion} />
+						<Checkbox
+							checked={activity.completed ?? false}
+							onChange={putCompletion}
+						/>
 					</label>
 				) : null}
 			</S.Column>

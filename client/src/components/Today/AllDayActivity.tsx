@@ -2,7 +2,7 @@ import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
-import type { ActivityWithIds } from "@shared/types/data/activity.types";
+import type { ActivityWithIds } from "@shared/lib/schemas/activity";
 import { LucideHistory } from "lucide-react";
 import { useRef } from "react";
 import T from "./style/AllDayActivity.style";
@@ -33,7 +33,7 @@ export default function AllDayActivity({ activity }: AllDayActivityProps) {
 
 	return (
 		<T.AllDayActivity
-			$completed={activity.completed}
+			$completed={activity.completed ?? false}
 			key={activity.activity_id}
 			onClick={(e) => {
 				if (checkboxRef.current?.contains(e.target as Node)) return;
@@ -50,7 +50,7 @@ export default function AllDayActivity({ activity }: AllDayActivityProps) {
 
 			{activity.is_task && (
 				<S.CheckboxWrapper ref={checkboxRef}>
-					<Checkbox checked={activity.completed} onChange={putCompletion} />
+					<Checkbox checked={activity.completed ?? false} onChange={putCompletion} />
 				</S.CheckboxWrapper>
 			)}
 		</T.AllDayActivity>

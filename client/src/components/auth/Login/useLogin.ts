@@ -1,7 +1,7 @@
 import { useLoginMutation } from "@/lib/hooks/query/user/login.mutation";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import { localUser } from "@/lib/user-storage";
-import { type UserLogin } from "@shared/types/data/user.types";
+import { type NewUser } from "@shared/lib/schemas/user";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
@@ -19,7 +19,7 @@ export default function useLogin() {
 		}
 	}, [isLoggedIn]);
 
-	const [userLogin, setUserLogin] = useState<UserLogin>({ username: "", password: "" });
+	const [userLogin, setUserLogin] = useState<NewUser>({ username: "", password: "" });
 	const { mutate: login, isError } = useLoginMutation();
 
 	const isValidLogin = !!userLogin.username.length && !!userLogin.password.length;

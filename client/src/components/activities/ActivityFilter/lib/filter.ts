@@ -2,7 +2,7 @@ import type { ActivityFilterWithValues } from "@/components/activities/ActivityF
 import { filterByDatetime } from "@/components/activities/ActivityFilter/lib/filter-datetime";
 import { filterByName } from "@/components/activities/ActivityFilter/lib/filter-name";
 import { filterByTags } from "@/components/activities/ActivityFilter/lib/filter-tags";
-import type { ActivityWithIds } from "@shared/types/data/activity.types";
+import type { ActivityWithIds } from "@shared/lib/schemas/activity";
 
 export function filterActivities({
 	activities,

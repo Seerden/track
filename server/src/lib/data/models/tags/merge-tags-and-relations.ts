@@ -1,5 +1,5 @@
+import type { TagWithId, TagWithIds } from "@shared/lib/schemas/tag";
 import type { TagTagRelation } from "@shared/types/data/relational.types";
-import type { TagWithId, TagWithIds } from "@shared/types/data/tag.types";
 import type { ById, ID } from "@shared/types/data/utility.types";
 import { queryTagsAndRelations } from "./query-tags";
 

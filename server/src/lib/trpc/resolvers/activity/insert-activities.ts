@@ -3,15 +3,10 @@ import {
 	insertActivityWithTags,
 } from "@/lib/data/models/activities/insert-activity";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
-import { newRecurrenceSchema } from "@/lib/trpc/resolvers/activity/insert-recurrences";
-import { newActivitySchema } from "@shared/types/data/activity.types";
-import { z } from "zod";
-
-// ActivityInput
-export const activityInputSchema = z.object({
-	activity: newActivitySchema,
-	tagIds: z.array(z.string()).optional(),
-});
+import {
+	activityInputSchema,
+	recurringActivityInputSchema,
+} from "@shared/lib/schemas/activity";
 
 export const createActivity = authenticatedProcedure
 	.input(activityInputSchema)
@@ -19,15 +14,9 @@ export const createActivity = authenticatedProcedure
 		return await insertActivityWithTags({ activity, tag_ids: tagIds });
 	});
 
-export const newRecurrenceInputSchema = z.object({
-	newRecurrence: newRecurrenceSchema,
-});
-
-const recurringActivityInputSchema = activityInputSchema.merge(newRecurrenceInputSchema);
-
 export const createRecurringActivity = authenticatedProcedure
 	.input(recurringActivityInputSchema)
-	.mutation(async ({ input: { activity, newRecurrence, tagIds } }) => {
+	.mutation(async ({ input: { activity, tagIds, newRecurrence } }) => {
 		return await _createRecurringActivity({
 			newActivity: activity,
 			tag_ids: tagIds,

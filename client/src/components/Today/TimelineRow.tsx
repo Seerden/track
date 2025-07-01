@@ -1,12 +1,12 @@
 import CurrentTimeMark from "@/components/Today/CurrentTimeMark";
 import { isToday } from "@/lib/datetime/compare";
 import useCurrentTime from "@/lib/hooks/useCurrentTime";
-import type { ActivityWithIds } from "@shared/types/data/activity.types";
 import type { ID } from "@shared/types/data/utility.types";
 import type { Dayjs } from "dayjs";
 import Activity from "./Activity";
 import HourMark from "./HourMark";
 import R from "./style/TimelineRow.style";
+import type { ActivityWithIds } from "@shared/lib/schemas/activity";
 
 type RowProps = {
 	date: Dayjs;

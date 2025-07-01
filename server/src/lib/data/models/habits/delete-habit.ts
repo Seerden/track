@@ -1,5 +1,5 @@
 import { sqlConnection } from "@/db/init";
-import type { Habit } from "@shared/types/data/habit.types";
+import type { Habit } from "@shared/lib/schemas/habit";
 import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 

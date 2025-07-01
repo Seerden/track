@@ -1,5 +1,5 @@
 import { sqlConnection } from "@/db/init";
-import type { Note, NoteWithIds } from "@shared/types/data/note.types";
+import type { Note, NoteWithIds } from "@shared/lib/schemas/note";
 import type { NoteTagRelation } from "@shared/types/data/relational.types";
 import type { ById, ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";

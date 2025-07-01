@@ -4,7 +4,7 @@ import modalIds from "@/lib/modal-ids";
 import Badge from "@/lib/theme/components/Badge";
 import { trpc } from "@/lib/trpc";
 import { byIdAsList } from "@shared/lib/map";
-import type { TagWithIds } from "@shared/types/data/tag.types";
+import type { TagWithIds } from "@shared/lib/schemas/tag";
 import type { ByIdMap, ID } from "@shared/types/data/utility.types";
 import { useQuery } from "@tanstack/react-query";
 import { LucideChevronDown, LucideChevronUp } from "lucide-react";

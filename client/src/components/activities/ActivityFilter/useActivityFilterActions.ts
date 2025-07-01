@@ -7,7 +7,7 @@ import { defaultFilter } from "@/components/activities/ActivityFilter/lib/consta
 import { getTreeMembers } from "@/components/activities/ActivityFilter/lib/tag-branch";
 import { createDate } from "@/lib/datetime/make-date";
 import type { TagsTreeData } from "@/types/data.types";
-import type { TagWithIds } from "@shared/types/data/tag.types";
+import type { TagWithIds } from "@shared/lib/schemas/tag";
 import type { ByIdMap, ID } from "@shared/types/data/utility.types";
 import { produce } from "immer";
 import type { Dispatch, SetStateAction } from "react";

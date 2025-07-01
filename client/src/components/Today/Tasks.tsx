@@ -3,7 +3,7 @@ import { filterTagsById } from "@/lib/filter-tags";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import { trpc } from "@/lib/trpc";
-import type { ActivityWithIds } from "@shared/types/data/activity.types";
+import type { ActivityWithIds } from "@shared/lib/schemas/activity";
 import { useQuery } from "@tanstack/react-query";
 import Task from "./Task";
 import T from "./style/Tasks.style";

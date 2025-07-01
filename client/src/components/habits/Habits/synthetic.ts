@@ -3,12 +3,13 @@ import type { TimeWindow } from "@/types/time-window.types";
 import type {
 	Habit,
 	HabitEntry,
+	HabitEntryInput,
 	HabitWithEntries,
 	HabitWithPossiblySyntheticEntries,
-	NewHabitEntry,
 	SyntheticHabitEntry
-} from "@shared/types/data/habit.types";
-import type { ById, Datelike, ID } from "@shared/types/data/utility.types";
+} from "@shared/lib/schemas/habit";
+import type { Datelike } from "@shared/lib/schemas/timestamp";
+import type { ById, ID } from "@shared/types/data/utility.types";
 
 export function daysInInterval(interval: TimeWindow["intervalUnit"]) {
 	switch (interval) {
@@ -122,9 +123,9 @@ export function syntheticToReal({
 	user_id
 }: {
 	entry: SyntheticHabitEntry;
-	value: NewHabitEntry["value"];
+	value: HabitEntryInput["value"];
 	user_id: ID;
-}): NewHabitEntry {
+}): HabitEntryInput {
 	return {
 		date: entry.date,
 		habit_id: entry.habit_id,

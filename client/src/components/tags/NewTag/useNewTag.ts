@@ -4,7 +4,7 @@ import { trpc } from "@/lib/trpc";
 import useAuthentication from "@lib/hooks/useAuthentication";
 import { queryClient } from "@lib/query-client";
 import { useTagSelection } from "@lib/state/selected-tags-state";
-import type { NewTag } from "@shared/types/data/tag.types";
+import type { NewTag } from "@shared/lib/schemas/tag";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useNewTagMutation } from "./useNewTagMutation";

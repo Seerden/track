@@ -1,7 +1,7 @@
 import type {
 	ActivityWithDates,
 	ActivityWithTimestamps,
-} from "./activity.types";
+} from "@shared/lib/schemas/activity";
 
 function isActivityWithTimestamps(
 	activity: Partial<ActivityWithTimestamps | ActivityWithDates>,

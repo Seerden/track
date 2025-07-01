@@ -1,4 +1,7 @@
-import { HabitEntry, SyntheticHabitEntry } from "./habit.types";
+import type {
+	HabitEntry,
+	SyntheticHabitEntry,
+} from "@shared/lib/schemas/habit";
 
 export function isSynthetic(
 	entry: HabitEntry | SyntheticHabitEntry,

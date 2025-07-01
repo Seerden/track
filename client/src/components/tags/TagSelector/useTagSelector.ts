@@ -1,7 +1,7 @@
 import { trpc } from "@/lib/trpc";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import { byIdAsList } from "@shared/lib/map";
-import type { TagWithIds } from "@shared/types/data/tag.types";
+import type { TagWithIds } from "@shared/lib/schemas/tag";
 import type { ById, ByIdMap, ID } from "@shared/types/data/utility.types";
 import { useQuery } from "@tanstack/react-query";
 import type { ChangeEvent, MouseEvent } from "react";

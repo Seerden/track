@@ -1,6 +1,6 @@
 import { findAncestors, findChildren } from "@/components/tags/DetailedTag/build-branch";
 import { trpc } from "@/lib/trpc";
-import type { TagWithIds } from "@shared/types/data/tag.types";
+import type { TagWithIds } from "@shared/lib/schemas/tag";
 import { useQuery } from "@tanstack/react-query";
 import S from "./style/TagBranch.style";
 

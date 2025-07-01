@@ -1,4 +1,4 @@
-import type { Datelike } from "@shared/types/data/utility.types";
+import { Datelike } from "@shared/lib/schemas/timestamp";
 import type { Dayjs } from "dayjs";
 import { createDate } from "./make-date";
 

@@ -1,5 +1,5 @@
 import { publicProcedure } from "@/lib/trpc/procedures/public.procedure";
-import type { User } from "@shared/types/data/user.types";
+import type { User } from "@shared/lib/schemas/user";
 import { TRPCError } from "@trpc/server";
 
 export const authenticatedProcedure = publicProcedure.use(async (opts) => {

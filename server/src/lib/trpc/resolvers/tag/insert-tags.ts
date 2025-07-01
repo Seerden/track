@@ -1,19 +1,6 @@
 import { insertTagWithRelations } from "@/lib/data/models/tags/insert-tags";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
-import { z } from "zod";
-
-// NewTag
-export const newTagSchema = z.object({
-	user_id: z.string(),
-	name: z.string(),
-	description: z.string().optional(),
-});
-
-// TagInput
-export const tagInputSchema = z.object({
-	newTag: newTagSchema,
-	parent_id: z.string().optional(),
-});
+import { tagInputSchema } from "@shared/lib/schemas/tag";
 
 export const createTag = authenticatedProcedure
 	.input(tagInputSchema)

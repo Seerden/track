@@ -1,13 +1,16 @@
-import type { ActivityWithIds } from "@shared/types/data/activity.types";
+import type {
+	ActivityWithIds,
+	Occurrence,
+	Recurrence
+} from "@shared/lib/schemas/activity";
 import type {
 	HabitEntry,
 	HabitWithIds,
 	SyntheticHabitEntry
-} from "@shared/types/data/habit.types";
-import type { NoteWithIds } from "@shared/types/data/note.types";
-import type { Occurrence, Recurrence } from "@shared/types/data/recurrence.types";
-import type { TagWithIds } from "@shared/types/data/tag.types";
-import type { User } from "@shared/types/data/user.types";
+} from "@shared/lib/schemas/habit";
+import type { NoteWithIds } from "@shared/lib/schemas/note";
+import type { TagWithIds } from "@shared/lib/schemas/tag";
+import type { User } from "@shared/lib/schemas/user";
 import type { ID, Maybe } from "@shared/types/data/utility.types";
 import type { Data, DataById } from "./query.types";
 

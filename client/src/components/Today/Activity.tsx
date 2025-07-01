@@ -1,7 +1,7 @@
 import { activityDurationOnDate, activityStartOnDate } from "@/lib/activity";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import modalIds from "@/lib/modal-ids";
-import type { ActivityWithIds } from "@shared/types/data/activity.types";
+import type { ActivityWithIds } from "@shared/lib/schemas/activity";
 import type { Dayjs } from "dayjs";
 import T from "./style/Activity.style";
 
@@ -50,7 +50,7 @@ export default function Activity({ activity, level, date }: ActivityProps) {
 			<T.Activity
 				$isTask={activity.is_task}
 				$durationHours={durationHoursOnDate}
-				$completed={activity.completed}
+				$completed={activity.completed ?? false}
 			>
 				<T.ActivityName>{activity.name}</T.ActivityName>
 			</T.Activity>

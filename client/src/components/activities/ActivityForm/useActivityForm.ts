@@ -10,7 +10,7 @@ import type {
 	NewActivity,
 	WithDates,
 	WithTimestamps
-} from "@shared/types/data/activity.types";
+} from "@shared/lib/schemas/activity";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";

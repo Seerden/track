@@ -3,7 +3,7 @@ import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import modalIds from "@/lib/modal-ids";
 import C from "@/lib/theme/components/Card.style";
 import { trpc } from "@/lib/trpc";
-import type { HabitWithIds } from "@shared/types/data/habit.types";
+import type { HabitWithIds } from "@shared/lib/schemas/habit";
 import { useQuery } from "@tanstack/react-query";
 import type { PropsWithChildren } from "react";
 import S from "./style/DetailedHabit.style";

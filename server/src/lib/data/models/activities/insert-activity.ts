@@ -5,11 +5,9 @@ import type {
 	Activity,
 	ActivityWithIds,
 	NewActivity,
-} from "@shared/types/data/activity.types";
-import type {
 	NewRecurrenceInput,
 	RecurrenceWithIds,
-} from "@shared/types/data/recurrence.types";
+} from "@shared/lib/schemas/activity";
 import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 

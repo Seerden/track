@@ -1,5 +1,5 @@
 import { queryUserByName } from "@/lib/data/models/user/query-user";
-import type { UserLogin } from "@shared/types/data/user.types";
+import type { NewUser } from "@shared/lib/schemas/user";
 import { TRPCError } from "@trpc/server";
 import { compare } from "bcryptjs";
 import type { Request, Response } from "express";
@@ -8,7 +8,7 @@ import { destroySession } from "./destroy-session";
 /** Request handler. If login info is valid, (re-)set the session. */
 // TODO: this was an express request handler, but will now be called from a trpc
 // resolver, so we don't need the res.status stuff anymore.
-export async function login(user: UserLogin, req: Request, res: Response) {
+export async function login(user: NewUser, req: Request, res: Response) {
 	const foundUser = await queryUserByName({ username: user.username });
 
 	if (!foundUser) {

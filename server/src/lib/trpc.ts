@@ -40,19 +40,10 @@ import { createTag } from "@/lib/trpc/resolvers/tag/insert-tags";
 import { queryTags, queryTagTree } from "@/lib/trpc/resolvers/tag/query-tags";
 import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import superjson from "superjson";
-import { z } from "zod";
 import { publicProcedure } from "./trpc/procedures/public.procedure";
 import { t } from "./trpc/trpc-context";
 
 export const appRouter = t.router({
-	hello: publicProcedure
-		.input(z.object({ name: z.string() }))
-		.query(({ input, ctx }) => {
-			return { message: `Hello, ${input.name}!` };
-		}),
-	bye: publicProcedure.input(z.object({ name: z.string() })).query(({ input, ctx }) => {
-		return { message: `Hello, ${input.name}!` };
-	}),
 	dbTest: publicProcedure.query(async () => {
 		{
 			// const result = await pingDatabase();

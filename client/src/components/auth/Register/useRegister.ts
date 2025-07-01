@@ -1,5 +1,5 @@
 import { useRegisterMutation } from "@/lib/hooks/query/user/register.mutation";
-import type { NewUser } from "@shared/types/data/user.types";
+import type { NewUser } from "@shared/lib/schemas/user";
 import { useState } from "react";
 
 export default function useRegister() {

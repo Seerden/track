@@ -1,41 +1,7 @@
 import { insertHabitWithTags } from "@/lib/data/models/habits/insert-habit";
 import { insertHabitEntry } from "@/lib/data/models/habits/insert-habit-entry";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
-import { timestampSchema } from "@shared/lib/schemas/timestamp";
-import { z } from "zod";
-
-// matches IntervalUnit
-export const intervalUnitSchema = z.enum(["day", "week", "month", "year"]);
-
-export const newHabitSchema = z.object({
-	user_id: z.string(),
-	name: z.string(),
-	description: z.string(),
-	start_timestamp: timestampSchema,
-	end_timestamp: timestampSchema.nullable(),
-	interval: z.number(),
-	frequency: z.number(),
-	interval_unit: intervalUnitSchema,
-	goal_type: z.enum(["checkbox", "goal"]),
-	goal_unit: z.string().nullable(),
-	goal: z.number().nullable(),
-});
-
-// matches HabitInput
-export const habitInputSchema = z.object({
-	habit: newHabitSchema,
-	tagIds: z.array(z.string()).optional(),
-});
-
-// matches NewHabitEntry
-export const habitEntryInputSchema = z.object({
-	habit_id: z.string(),
-	// TODO: take this out, get it from context
-	user_id: z.string(),
-	date: timestampSchema,
-	index: z.number(),
-	value: z.string(), // Varchar
-});
+import { habitEntryInputSchema, habitInputSchema } from "@shared/lib/schemas/habit";
 
 export const createHabitEntry = authenticatedProcedure
 	.input(habitEntryInputSchema)
