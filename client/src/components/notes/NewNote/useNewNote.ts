@@ -1,9 +1,10 @@
+import { useMutateNewNote } from "@/lib/hooks/query/notes/useMutateNewNote";
 import { trpc } from "@/lib/trpc";
 import useAuthentication from "@lib/hooks/useAuthentication";
 import { queryClient } from "@lib/query-client";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import type { NewNote } from "@shared/lib/schemas/note";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
@@ -11,9 +12,7 @@ export default function useNewNote() {
 	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
 	const navigate = useNavigate();
 	const { currentUser } = useAuthentication();
-	// TODO TRK-228: invalidate `notes.all` (need to put the mutation in a hook
-	// like with other mutations)
-	const { mutate } = useMutation(trpc.notes.create.mutationOptions());
+	const { mutate } = useMutateNewNote();
 	const { selectedTagIds, resetTagSelection } = useTagSelection();
 	const [note, setNote] = useState<Partial<NewNote>>({
 		content: "",

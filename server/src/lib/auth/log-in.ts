@@ -6,8 +6,6 @@ import type { Request, Response } from "express";
 import { destroySession } from "./destroy-session";
 
 /** Request handler. If login info is valid, (re-)set the session. */
-// TODO: this was an express request handler, but will now be called from a trpc
-// resolver, so we don't need the res.status stuff anymore.
 export async function login(user: NewUser, req: Request, res: Response) {
 	const foundUser = await queryUserByName({ username: user.username });
 

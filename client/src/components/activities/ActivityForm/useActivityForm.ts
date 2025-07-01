@@ -1,4 +1,5 @@
 import type { DateTimeStateSetter } from "@/components/activities/ActivityForm/datetime-picker.types";
+import { useMutateNewActivity } from "@/lib/hooks/query/activities/useMutateNewActivity";
 import type { ModalId } from "@/lib/modal-ids";
 import { queryClient } from "@/lib/query-client";
 import { useModalState } from "@/lib/state/modal-state";
@@ -17,15 +18,7 @@ import { useEffect, useState } from "react";
 import { parseNewActivity, parseUpdatedActivity } from "./parse-activity";
 
 function useSubmitNewActivity(newActivity: Partial<NewActivity>, modalId?: ModalId) {
-	const { mutate: submit } = useMutation(
-		trpc.activities.create.mutationOptions({
-			onSuccess: () => {
-				queryClient.invalidateQueries({
-					queryKey: trpc.activities.all.queryKey()
-				});
-			}
-		})
-	);
+	const { mutate: submit } = useMutateNewActivity();
 	const navigate = useNavigate();
 	const { selectedTagIds } = useTagSelection();
 	const { closeModal } = useModalState();

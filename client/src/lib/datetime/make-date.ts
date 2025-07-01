@@ -1,6 +1,6 @@
 import day from "@shared/lib/day";
-import { Datelike } from "@shared/lib/schemas/timestamp";
-import { Dayjs } from "dayjs";
+import type { Datelike } from "@shared/lib/schemas/timestamp";
+import type { Dayjs } from "dayjs";
 
 /**
  * General note: I'm not sure _why_ utc is vital, but dates do not get parsed
