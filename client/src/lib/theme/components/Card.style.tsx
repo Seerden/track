@@ -55,7 +55,7 @@ const Tags = styled.ul`
 	margin-left: auto;
 `;
 
-const Tag = styled.li`
+const _Tag = styled.li`
 	user-select: none;
 	cursor: pointer;
 	list-style: none;
@@ -69,9 +69,9 @@ const Tag = styled.li`
 	justify-self: flex-end;
 `;
 
-Tag.defaultProps = {
-	title: "Click to show tag details"
-};
+function Tag(props: Parameters<typeof _Tag>[0]) {
+	return <_Tag title="Click to show tag details" {...props} />;
+}
 
 const InfoLine = styled.p`
 	margin-top: 0.4rem;

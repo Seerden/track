@@ -3,7 +3,7 @@ import Unstyled from "@/lib/theme/components/buttons/Unstyled";
 import styled from "styled-components";
 import type { CSS } from "styled-components/dist/types";
 
-const Default = styled(Unstyled)<{ $color?: ColorKey }>`
+const _Default = styled(Unstyled)<{ $color?: ColorKey }>`
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -35,10 +35,9 @@ const Default = styled(Unstyled)<{ $color?: ColorKey }>`
 	}
 `;
 
-Default.defaultProps = {
-	type: "button",
-	$color: "purple"
-};
+function Default(props: Parameters<typeof _Default>[0]) {
+	return <_Default type="button" $color="purple" {...props} />;
+}
 
 const Alternative = styled(Unstyled)`
 	display: flex;
@@ -68,7 +67,7 @@ const Alternative = styled(Unstyled)`
 	}
 `;
 
-const Stylized = styled(Unstyled)<{
+const _Stylized = styled(Unstyled)<{
 	$size?: CSS.Properties["width"];
 	$color: ColorKey;
 }>`
@@ -102,11 +101,11 @@ const Stylized = styled(Unstyled)<{
 	height: ${(p) => p.$size ?? "var(--default-edit-button-size)"};
 `;
 
-Stylized.defaultProps = {
-	$color: "themeInverted"
-};
+function Stylized(props: Parameters<typeof _Stylized>[0]) {
+	return <_Stylized type="button" {...props} />;
+}
 
-const WithIcon = styled(Default)`
+const WithIcon = styled(_Default)`
 	width: max-content;
 	border-radius: 10px;
 	margin-left: 1rem;

@@ -78,7 +78,7 @@ const Label = styled.label`
 /**
  * @todo extract this Button to theme buttons lib? -- make note of the default margin, which I dislike
  * */
-const Submit = styled(Action.CallToAction)`
+const _Submit = styled(Action.CallToAction)`
 	color: black;
 	margin-top: 1rem;
 	margin-left: 0;
@@ -89,8 +89,8 @@ const Submit = styled(Action.CallToAction)`
 	}
 `;
 
-Submit.defaultProps = {
-	type: "submit"
-};
+function Submit(props: Parameters<typeof _Submit>[0]) {
+	return <_Submit type="submit" {...props} />;
+}
 
 export default { Form, FormTitle, Label, Submit };

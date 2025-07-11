@@ -107,7 +107,7 @@ const MonthPickerActionWrapper = styled.div`
 	}
 `;
 
-const MonthPickerAction = styled(Unstyled)<{
+const _MonthPickerAction = styled(Unstyled)<{
 	$direction: "previous" | "next";
 }>`
 	transition: transform 50ms ease-out;
@@ -132,9 +132,9 @@ const MonthPickerAction = styled(Unstyled)<{
 	}
 `;
 
-MonthPickerAction.defaultProps = {
-	type: "button"
-};
+function MonthPickerAction(props: Parameters<typeof _MonthPickerAction>[0]) {
+	return <_MonthPickerAction type="button" {...props} />;
+}
 
 export default {
 	Calendar,

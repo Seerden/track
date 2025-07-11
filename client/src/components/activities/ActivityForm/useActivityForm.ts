@@ -126,11 +126,8 @@ export default function useActivityForm({
 	}
 
 	useEffect(() => {
-		if (!isEditing) {
-			resetTagSelection();
-		} else {
-			setTagSelectionFromList(existingActivity.tag_ids);
-		}
+		if (!isEditing) resetTagSelection();
+		else setTagSelectionFromList(existingActivity.tag_ids);
 	}, []);
 
 	function onInputChange(e: React.ChangeEvent<HTMLInputElement>) {

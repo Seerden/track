@@ -2,7 +2,7 @@ import { Action } from "@/lib/theme/components/buttons";
 import styled, { css } from "styled-components";
 import type { CSS } from "styled-components/dist/types";
 
-const Button = styled(Action.Default)<{
+const _Button = styled(Action.Default)<{
 	$absolute?: boolean;
 	$size?: CSS.Properties["width"];
 }>`
@@ -21,9 +21,9 @@ const Button = styled(Action.Default)<{
 		`}
 `;
 
-Button.defaultProps = {
-	type: "button"
-};
+function Button(props: Parameters<typeof _Button>[0]) {
+	return <_Button {...props} type="button" />;
+}
 
 export default {
 	Button

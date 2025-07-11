@@ -62,15 +62,15 @@ const CheckboxWrapper = styled.label`
 	}
 `;
 
-const EditButton = styled(Action.Stylized)`
+const _EditButton = styled(Action.Stylized)`
 	position: absolute;
 	top: -1rem;
 	right: 6rem;
 `;
 
-EditButton.defaultProps = {
-	title: "Edit this activity"
-};
+function EditButton(props: Parameters<typeof _EditButton>[0]) {
+	return <_EditButton title="Edit this activity" {...props} type="button" />;
+}
 
 const StyledDetailedActivity = {
 	Wrapper,

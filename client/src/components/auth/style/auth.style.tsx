@@ -16,7 +16,7 @@ const Fields = styled.div`
 	gap: 0.5rem;
 `;
 
-const ShowPassword = styled(Unstyled)`
+const _ShowPassword = styled(Unstyled)`
 	position: absolute;
 	right: 1rem;
 	top: 0;
@@ -29,9 +29,9 @@ const ShowPassword = styled(Unstyled)`
 	}
 `;
 
-ShowPassword.defaultProps = {
-	type: "button"
-};
+function ShowPassword(props: Parameters<typeof _ShowPassword>[0]) {
+	return <_ShowPassword {...props} type="button" />;
+}
 
 const PasswordLabel = styled(F.Label)`
 	${flex.column};

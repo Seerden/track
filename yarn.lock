@@ -684,17 +684,17 @@
   integrity sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==
 
 "@inquirer/confirm@^5.0.0":
-  version "5.1.12"
-  resolved "https://registry.yarnpkg.com/@inquirer/confirm/-/confirm-5.1.12.tgz#387037889a5a558ceefe52e978228630aa6e7d0e"
-  integrity sha512-dpq+ielV9/bqgXRUbNH//KsY6WEw9DrGPmipkpmgC1Y46cwuBTNx7PXFWTjc3MQ+urcc0QxoVHcMI0FW4Ok0hg==
+  version "5.1.13"
+  resolved "https://registry.yarnpkg.com/@inquirer/confirm/-/confirm-5.1.13.tgz#4931515edc63e25d833c9a40ccf1855e8e822dbc"
+  integrity sha512-EkCtvp67ICIVVzjsquUiVSd+V5HRGOGQfsqA4E4vMWhYnB7InUL0pa0TIWt1i+OfP16Gkds8CdIu6yGZwOM1Yw==
   dependencies:
-    "@inquirer/core" "^10.1.13"
+    "@inquirer/core" "^10.1.14"
     "@inquirer/type" "^3.0.7"
 
-"@inquirer/core@^10.1.13":
-  version "10.1.13"
-  resolved "https://registry.yarnpkg.com/@inquirer/core/-/core-10.1.13.tgz#8f1ecfaba288fd2d705c7ac0690371464cf687b0"
-  integrity sha512-1viSxebkYN2nJULlzCxES6G9/stgHSepZ9LqqfdIGPHj5OHhiBUXVS0a6R0bEC2A+VL4D9w6QB66ebCr6HGllA==
+"@inquirer/core@^10.1.14":
+  version "10.1.14"
+  resolved "https://registry.yarnpkg.com/@inquirer/core/-/core-10.1.14.tgz#7678b2daaecf32fa2f6e02a03dc235f9620e197f"
+  integrity sha512-Ma+ZpOJPewtIYl6HZHZckeX1STvDnHTCB2GVINNUlSEn2Am6LddWwfPkIGY0IUFVjUUrr/93XlBwTK6mfLjf0A==
   dependencies:
     "@inquirer/figures" "^1.0.12"
     "@inquirer/type" "^3.0.7"
@@ -929,9 +929,9 @@
     chalk "^4.0.0"
 
 "@jridgewell/gen-mapping@^0.3.5":
-  version "0.3.11"
-  resolved "https://registry.yarnpkg.com/@jridgewell/gen-mapping/-/gen-mapping-0.3.11.tgz#02faf35e82eb08a465704d501f60cd073f8d1715"
-  integrity sha512-C512c1ytBTio4MrpWKlJpyFHT6+qfFL8SZ58zBzJ1OOzUEjHeF1BtjY2fH7n4x/g2OV/KiiMLAivOp1DXmiMMw==
+  version "0.3.12"
+  resolved "https://registry.yarnpkg.com/@jridgewell/gen-mapping/-/gen-mapping-0.3.12.tgz#2234ce26c62889f03db3d7fea43c1932ab3e927b"
+  integrity sha512-OuLGC46TjB5BbN1dH8JULVVZY4WTdkF7tV9Ys6wLL1rubZnCMstOhNHueU5bLCrnRuDhKPDM4g6sw4Bel5Gzqg==
   dependencies:
     "@jridgewell/sourcemap-codec" "^1.5.0"
     "@jridgewell/trace-mapping" "^0.3.24"
@@ -942,9 +942,9 @@
   integrity sha512-bRISgCIjP20/tbWSPWMEi54QVPRZExkuD9lJL+UIxUKtwVJA8wW1Trb1jMs1RFXo1CBTNZ/5hpC9QvmKWdopKw==
 
 "@jridgewell/sourcemap-codec@^1.4.10", "@jridgewell/sourcemap-codec@^1.4.14", "@jridgewell/sourcemap-codec@^1.4.15", "@jridgewell/sourcemap-codec@^1.5.0":
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.5.3.tgz#2d7bbc63fdfe4e4fa6b3478f651ec3844e284c1b"
-  integrity sha512-AiR5uKpFxP3PjO4R19kQGIMwxyRyPuXmKEEy301V1C0+1rVjS94EZQXf1QKZYN8Q0YM+estSPhmx5JwNftv6nw==
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.5.4.tgz#7358043433b2e5da569aa02cbc4c121da3af27d7"
+  integrity sha512-VT2+G1VQs/9oz078bLrYbecdZKs912zQlkelYpuf+SXF+QvZDYJlbx/LSx+meSAwdDFnF8FVXW92AVjjkVmgFw==
 
 "@jridgewell/trace-mapping@0.3.9":
   version "0.3.9"
@@ -955,9 +955,9 @@
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
 "@jridgewell/trace-mapping@^0.3.12", "@jridgewell/trace-mapping@^0.3.18", "@jridgewell/trace-mapping@^0.3.24", "@jridgewell/trace-mapping@^0.3.25":
-  version "0.3.28"
-  resolved "https://registry.yarnpkg.com/@jridgewell/trace-mapping/-/trace-mapping-0.3.28.tgz#655017f73353f1e0eb1a0ecbd5edec01438c5e18"
-  integrity sha512-KNNHHwW3EIp4EDYOvYFGyIFfx36R2dNJYH4knnZlF8T5jdbD5Wx8xmSaQ2gP9URkJ04LGEtlcCtwArKcmFcwKw==
+  version "0.3.29"
+  resolved "https://registry.yarnpkg.com/@jridgewell/trace-mapping/-/trace-mapping-0.3.29.tgz#a58d31eaadaf92c6695680b2e1d464a9b8fbf7fc"
+  integrity sha512-uw6guiW/gcAGPDhLmd77/6lW8QLeiV5RUTsAX46Db6oLhGaVj4lhnPwb184s1bkc8kdVg/+h988dro8GRDpmYQ==
   dependencies:
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
@@ -1933,10 +1933,10 @@
     "@tanstack/store" "^0.7.0"
     tiny-invariant "^1.3.3"
 
-"@tanstack/router-core@^1.123.2":
-  version "1.123.2"
-  resolved "https://registry.yarnpkg.com/@tanstack/router-core/-/router-core-1.123.2.tgz#1328950571b9d1640046373f378f7c9922d7bdd2"
-  integrity sha512-k1GTymZ2CBOX9SDiVHlqtgrNiid8fSKGjAofLToMAoLgqESg1knuIsYSeivmPkVbeSSdKkwF2uqsrJqNRIp/TQ==
+"@tanstack/router-core@^1.124.0":
+  version "1.124.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/router-core/-/router-core-1.124.0.tgz#66d29629a205d4683f7542d6f2e46587ce65a9e2"
+  integrity sha512-mU2KA2v+ZFWC3NIjY2y+pPCx1sZDXPsUkzPjPPZxRgonE11nIu9MB89WuukqYuPbxoSWeodKNXsLe4KksGFCKA==
   dependencies:
     "@tanstack/history" "1.121.34"
     "@tanstack/store" "^0.7.0"
@@ -1946,20 +1946,20 @@
     tiny-warning "^1.0.3"
 
 "@tanstack/router-devtools-core@^1.121.27":
-  version "1.123.2"
-  resolved "https://registry.yarnpkg.com/@tanstack/router-devtools-core/-/router-devtools-core-1.123.2.tgz#0ed02e9fe50a13891bd941197023b090f5ecf989"
-  integrity sha512-BV16eDbZVp7fyYSkNP5jkjd9T5/LslPA8XkUIrxl56B/znqqYgFGNxL1aDh6BL7B9rYu0OqU2GTeXIhoxJklkw==
+  version "1.124.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/router-devtools-core/-/router-devtools-core-1.124.0.tgz#a0d95f675a42e69a4b3442032cf6ac0591692231"
+  integrity sha512-F4xejY63XrQmQZ8q6IJmLHJGeow/5CzdCAWChYEHIFy9SWYiFMMvdGFpB8SReJuwld+eoHvvtp2qhUqNloqzRA==
   dependencies:
     clsx "^2.1.1"
     goober "^2.1.16"
     solid-js "^1.9.5"
 
-"@tanstack/router-generator@1.123.2":
-  version "1.123.2"
-  resolved "https://registry.yarnpkg.com/@tanstack/router-generator/-/router-generator-1.123.2.tgz#afc99452de9155c2ff453e6881e0200571d77202"
-  integrity sha512-JJ1spXiYlUndXhZUwSpkwWwytvnhm164KP8mUbXHfY6STcH5doBZTcwkjUm5MYz8TXta3rNCuutNTshEMQX1BQ==
+"@tanstack/router-generator@1.124.0":
+  version "1.124.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/router-generator/-/router-generator-1.124.0.tgz#dbf157bde2839d2dd3b2d896285725d27c0ad867"
+  integrity sha512-fatjfBvgLh7i2xcLKO3QaM5egHAhMy57B7DfE44sYx1D7/xxLOubSEjSnVSLE3dWBrstZ3aqyuYYhw7NuoXB7g==
   dependencies:
-    "@tanstack/router-core" "^1.123.2"
+    "@tanstack/router-core" "^1.124.0"
     "@tanstack/router-utils" "1.121.21"
     "@tanstack/virtual-file-routes" "^1.121.21"
     prettier "^3.5.0"
@@ -1969,9 +1969,9 @@
     zod "^3.24.2"
 
 "@tanstack/router-plugin@^1.121.29":
-  version "1.123.2"
-  resolved "https://registry.yarnpkg.com/@tanstack/router-plugin/-/router-plugin-1.123.2.tgz#8bd3f55343a27e450db3d9d8c81c36e0a6734856"
-  integrity sha512-5+oM8Xmv0EAOs/ZU0wbKKzbpwiqixco1mAg3DCy/R5z4IIFq9Df9N33zC7c2RRDjJ/S2OzXWWA3Dn26DuC/HUg==
+  version "1.124.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/router-plugin/-/router-plugin-1.124.0.tgz#93a6f98c3953e166b74fbb8c60eae2b2cadf0f38"
+  integrity sha512-CqV3PCVoMrHw0HyTioIGHTTjaMRgfwbW4ax2Pule++smyetn+3KPLV6C3VWc0vdukZMQz13JvLORSSeM0B2cYQ==
   dependencies:
     "@babel/core" "^7.27.7"
     "@babel/plugin-syntax-jsx" "^7.27.1"
@@ -1979,8 +1979,8 @@
     "@babel/template" "^7.27.2"
     "@babel/traverse" "^7.27.7"
     "@babel/types" "^7.27.7"
-    "@tanstack/router-core" "^1.123.2"
-    "@tanstack/router-generator" "1.123.2"
+    "@tanstack/router-core" "^1.124.0"
+    "@tanstack/router-generator" "1.124.0"
     "@tanstack/router-utils" "1.121.21"
     "@tanstack/virtual-file-routes" "^1.121.21"
     babel-dead-code-elimination "^1.0.10"
@@ -2265,9 +2265,9 @@
     "@types/node" "*"
 
 "@types/node@*":
-  version "24.0.8"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-24.0.8.tgz#98f50977fe76ab78d02fc3bcb7f6c3b5f79a363c"
-  integrity sha512-WytNrFSgWO/esSH9NbpWUfTMGQwCGIKfCmNlmFDNiI5gGhgMmEA+V1AEvKLeBNvvtBnailJtkrEa2OIISwrVAA==
+  version "24.0.10"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-24.0.10.tgz#f65a169779bf0d70203183a1890be7bee8ca2ddb"
+  integrity sha512-ENHwaH+JIRTDIEEbDK6QSQntAYGtbvdDXnMXnZaZ6k13Du1dPMmprkEHIL7ok2Wl2aZevetwTAb5S+7yIF+enA==
   dependencies:
     undici-types "~7.8.0"
 

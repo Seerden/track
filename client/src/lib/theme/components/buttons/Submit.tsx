@@ -3,7 +3,7 @@ import { getFontSize } from "@/lib/theme/font";
 import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "styled-components";
 
-const Default = styled(Unstyled)`
+const _Default = styled(Unstyled)`
 	${spacing.padding.wide({ size: 0.6, ratio: 2.5 })};
 	margin-bottom: -1.5rem;
 	margin-top: 0.3rem;
@@ -27,9 +27,9 @@ const Default = styled(Unstyled)`
 	}
 `;
 
-Default.defaultProps = {
-	type: "submit"
-};
+function Default(props: Parameters<typeof _Default>[0]) {
+	return <_Default type="submit" {...props} />;
+}
 
 const SubmitButtons = {
 	Default

@@ -1,15 +1,17 @@
 import ActivityMenu from "@/components/layout/Header/ActivityMenu/ActivityMenu";
 import useAuthentication from "@/lib/hooks/useAuthentication";
-import { useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { LucideCalendar } from "lucide-react";
 import S from "./style/NavBar.style";
 
 export default function NavBar() {
 	return (
 		<S.NavBar>
-			<S.HomeLink to="/">
-				<LucideCalendar strokeWidth={2} size={20} />
-			</S.HomeLink>
+			<Link to="/">
+				<S.HomeLink>
+					<LucideCalendar strokeWidth={2} size={20} />
+				</S.HomeLink>
+			</Link>
 			<S.Actions>
 				<ActivityMenu />
 				<ProfileAction />
@@ -24,7 +26,7 @@ function ProfileAction() {
 
 	if (isLoggedIn) {
 		return (
-			<S.Action type="button" onClick={() => logout()}>
+			<S.Action type="button" onClick={() => logout()} color="darkblue">
 				log out
 			</S.Action>
 		);
@@ -33,6 +35,7 @@ function ProfileAction() {
 	return (
 		<S.Action
 			type="button"
+			color="darkblue"
 			onClick={() => {
 				navigate({ to: "/login" });
 			}}

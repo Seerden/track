@@ -6,7 +6,7 @@ const highlightColor: CSSProperties["color"] = "royalblue";
 export const defaultCellWidth = 25;
 export const defaultCellHeight = 25;
 
-const Default = styled(Unstyled)<{
+const _Default = styled(Unstyled)<{
 	$selected?: boolean;
 	$highlight?: boolean;
 	$width?: number;
@@ -75,11 +75,16 @@ const Default = styled(Unstyled)<{
 		`}
 `;
 
-Default.defaultProps = {
-	type: "button",
-	$width: defaultCellWidth,
-	$height: defaultCellHeight
-};
+function Default(props: Parameters<typeof _Default>[0]) {
+	return (
+		<_Default
+			type="button"
+			$width={defaultCellWidth}
+			$height={defaultCellHeight}
+			{...props}
+		/>
+	);
+}
 
 const CellButtons = {
 	Default

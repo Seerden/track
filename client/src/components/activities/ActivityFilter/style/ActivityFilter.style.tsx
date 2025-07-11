@@ -149,7 +149,7 @@ const DatetimeSectionColumn = styled.div`
 	${flex.column};
 `;
 
-const ResetButton = styled(Unstyled)`
+const _ResetButton = styled(Unstyled)`
 	margin-bottom: ${spacingValue.medium};
 
 	&:hover {
@@ -158,9 +158,9 @@ const ResetButton = styled(Unstyled)`
 		}
 	}
 `;
-ResetButton.defaultProps = {
-	type: "reset"
-};
+function ResetButton(props: Parameters<typeof _ResetButton>[0]) {
+	return <_ResetButton {...props} type="reset" />;
+}
 
 function getTagBackgroundColor(selected?: boolean, active?: boolean) {
 	if (selected && active) return "darkorange";

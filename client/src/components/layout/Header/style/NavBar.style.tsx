@@ -1,7 +1,6 @@
 import ActionButtons from "@/lib/theme/components/buttons/Action";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import { Link } from "@tanstack/react-router";
 import styled from "styled-components";
 
 const NavBar = styled.nav`
@@ -39,11 +38,11 @@ const Action = styled(ActionButtons.Default)`
 	height: max-content;
 `;
 
-Action.defaultProps = {
-	color: "darkBlue"
-};
-
-const HomeLink = styled(Link)`
+/**
+ * @note this is a `span` to circumvent typing issues with styled-components and
+ * the Link component.
+ */
+const HomeLink = styled.span`
 	border-radius: 5px;
 	min-width: 40px;
 	min-height: 35px;
@@ -74,8 +73,8 @@ const HomeLink = styled(Link)`
 `;
 
 export default {
+	HomeLink,
 	NavBar,
 	Actions,
-	Action,
-	HomeLink
+	Action
 };
