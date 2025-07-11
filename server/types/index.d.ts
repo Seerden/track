@@ -1,20 +1,9 @@
-import type { ID } from "@shared/types/data/utility.types";
+import type { User } from "@shared/lib/schemas/user";
 import "express-session";
 
 declare module "express-session" {
+	1;
 	export interface SessionData {
-		user?: {
-			user_id: ID;
-			username: string;
-		};
-	}
-}
-
-declare namespace Express {
-	interface Request {
-		user: {
-			username: string;
-			user_id: number;
-		};
+		user?: User;
 	}
 }

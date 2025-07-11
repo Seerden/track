@@ -1,7 +1,7 @@
 import { Unstyled } from "@/lib/theme/components/buttons";
 import { getFontSize } from "@/lib/theme/font";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 const _Default = styled(Unstyled)`
 	${spacing.padding.wide({ size: 0.6, ratio: 2.5 })};

@@ -1,9 +1,9 @@
 import { getFontSize } from "@/lib/theme/font";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import styled from "styled-components";
-import type { CSS } from "styled-components/dist/types";
+import styled from "@emotion/styled";
+import type { CSSProperties } from "react";
 
-const Badge = styled.div<{ height?: CSS.Properties["height"] }>`
+const Badge = styled.div<{ height?: CSSProperties["height"] }>`
 	user-select: none;
 	display: flex;
 	place-items: center;

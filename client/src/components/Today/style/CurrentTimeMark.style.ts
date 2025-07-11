@@ -1,5 +1,5 @@
-import type { CSSProperties } from "styled-components";
-import styled from "styled-components";
+import styled from "@emotion/styled";
+import type { CSSProperties } from "react";
 
 const markColor: CSSProperties["color"] = "orangered";
 

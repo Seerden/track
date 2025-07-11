@@ -1,5 +1,6 @@
 import { noBorders } from "@/lib/theme/snippets/border";
-import styled, { css } from "styled-components";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
 const defaultCheckboxStyle = css`
 	display: flex;

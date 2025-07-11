@@ -1,5 +1,6 @@
 import { getFontSize } from "@/lib/theme/font";
-import styled, { css } from "styled-components";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
 const HourMark = styled.span<{ $highlighted?: boolean }>`
 	--size: 1rem;

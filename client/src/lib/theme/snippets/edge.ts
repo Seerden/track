@@ -1,4 +1,4 @@
-import { css } from "styled-components";
+import { css } from "@emotion/react";
 
 const edgeSizes = [1, 2, 3, 5] as const;
 

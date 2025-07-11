@@ -1,8 +1,8 @@
 import { Action } from "@/lib/theme/components/buttons";
-import styled from "styled-components";
-import type { CSS } from "styled-components/dist/types";
+import styled from "@emotion/styled";
+import type { CSSProperties } from "react";
 
-const LinkIconButton = styled(Action.Default)<{ $size?: CSS.Properties["width"] }>`
+const LinkIconButton = styled(Action.Default)<{ $size?: CSSProperties["width"] }>`
 	display: flex;
 	justify-content: center;
 	align-items: center;

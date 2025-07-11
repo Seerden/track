@@ -1,6 +1,7 @@
 import { publicProcedure } from "@/lib/trpc/procedures/public.procedure";
 import type { User } from "@shared/lib/schemas/user";
 import { TRPCError } from "@trpc/server";
+import type { Session, SessionData } from "express-session";
 
 export const authenticatedProcedure = publicProcedure.use(async (opts) => {
 	if (!opts.ctx.req.session.user) {
@@ -23,8 +24,9 @@ export const authenticatedProcedure = publicProcedure.use(async (opts) => {
 				session: {
 					...opts.ctx.req.session,
 					user: opts.ctx.req.session.user as User,
-					destroy: opts.ctx.req.session.destroy,
-				},
+					save: opts.ctx.req.session.save.bind(opts.ctx.req.session),
+					destroy: opts.ctx.req.session.destroy.bind(opts.ctx.req.session),
+				} as Session & SessionData,
 			},
 			user_id: opts.ctx.req.session.user?.user_id,
 		},

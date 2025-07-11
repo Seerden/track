@@ -1,7 +1,8 @@
 import { getFontSize } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import styled, { css } from "styled-components";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import S from "./Today.style";
 
 const AllDayActivity = styled.li<{ $completed?: boolean }>`

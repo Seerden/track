@@ -1,5 +1,5 @@
 import Buttons from "@/lib/theme/components/buttons/buttons";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 // TODO: do we have any other badges? share styles 🙃
 const Badge = styled(Buttons.Unstyled)<{ $size: number; $done?: boolean }>`

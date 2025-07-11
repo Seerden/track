@@ -2,7 +2,8 @@ import ListStyle from "@/lib/theme/components/List.style";
 import { getFontSize } from "@/lib/theme/font";
 import { column } from "@/lib/theme/snippets/column";
 import { flex } from "@/lib/theme/snippets/flex";
-import styled, { css } from "styled-components";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
 // TODO: make this shared with Notes for now since they are currently the same
 const TasksWrapper = styled.section`

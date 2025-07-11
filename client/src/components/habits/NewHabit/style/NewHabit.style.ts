@@ -4,7 +4,7 @@ import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
 import { font } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import { inputStyle } from "@/lib/theme/snippets/input";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 const ClearEndDateButtonWrapper = styled.div`
 	position: absolute;

@@ -1,7 +1,8 @@
 import { rowHeight } from "@/components/Today/style/TimelineRow.style";
 import { getFontSize } from "@/lib/theme/font";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import { css, styled } from "styled-components";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import S from "./Today.style";
 
 const cardWidth = "8vw";

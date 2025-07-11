@@ -1,5 +1,5 @@
-import type { CSSProperties } from "styled-components";
-import { css } from "styled-components";
+import { css } from "@emotion/react";
+import type { CSSProperties } from "react";
 
 type SpacingRatio = 1 | 1.25 | 1.5 | 2 | 2.5 | 3 | 4 | 5;
 

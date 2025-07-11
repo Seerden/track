@@ -1,7 +1,7 @@
 import { getMainColor, getSecondaryColor, type ColorKey } from "@/lib/theme/colors";
 import Unstyled from "@/lib/theme/components/buttons/Unstyled";
-import styled from "styled-components";
-import type { CSS } from "styled-components/dist/types";
+import styled from "@emotion/styled";
+import type { CSSProperties } from "react";
 
 const _Default = styled(Unstyled)<{ $color?: ColorKey }>`
 	display: flex;
@@ -68,7 +68,7 @@ const Alternative = styled(Unstyled)`
 `;
 
 const _Stylized = styled(Unstyled)<{
-	$size?: CSS.Properties["width"];
+	$size?: CSSProperties["width"];
 	$color: ColorKey;
 }>`
 	--color: ${(p) => p.$color ?? "themeInverted"};

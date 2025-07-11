@@ -1,6 +1,7 @@
 import type { NotificationType } from "@/components/utility/Notification/Notification";
-import type { MainTheme } from "@/lib/theme/theme";
-import styled, { css } from "styled-components";
+import type { MainTheme } from "@/lib/style/theme";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
 function getNotificationColor(theme: MainTheme, type: NotificationType) {
 	switch (type) {

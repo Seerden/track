@@ -4,7 +4,8 @@ import { noBorders } from "@/lib/theme/snippets/border";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
-import styled, { css } from "styled-components";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
 const Wrapper = styled.div`
 	${flex.column};
@@ -76,7 +77,7 @@ const Label = styled.label<{ $active?: boolean }>`
 	${(p) =>
 		p.$active &&
 		css`
-			background-color: ${(p) => p.theme.colors.darkBlue.main};
+			background-color: ${p.theme.colors.darkBlue.main};
 			color: #fff;
 		`}
 `;
@@ -105,7 +106,7 @@ const Toggle = styled(Unstyled)<{ $active?: boolean }>`
 	${(p) =>
 		p.$active &&
 		css`
-			background-color: ${(p) => p.theme.colors.darkBlue.main};
+			background-color: ${p.theme.colors.darkBlue.main};
 			color: #fff;
 		`}
 `;

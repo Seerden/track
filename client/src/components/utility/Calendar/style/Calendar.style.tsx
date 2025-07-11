@@ -2,8 +2,8 @@ import { Unstyled } from "@/lib/theme/components/buttons";
 import { defaultCellHeight, defaultCellWidth } from "@/lib/theme/components/buttons/Cell";
 import { getFontSize } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
-import type { CSSProperties } from "styled-components";
-import styled from "styled-components";
+import styled from "@emotion/styled";
+import type { CSSProperties } from "react";
 
 const gap = "0.3rem";
 const highlightColor: CSSProperties["color"] = "dodgerblue";

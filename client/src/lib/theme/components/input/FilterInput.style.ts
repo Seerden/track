@@ -1,6 +1,6 @@
 import { getFontSize } from "@/lib/theme/font";
 import { inputStyle } from "@/lib/theme/snippets/input";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 const FilterInput = styled.input`
 	${inputStyle};

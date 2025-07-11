@@ -2,8 +2,9 @@ import { Submit } from "@/lib/theme/components/buttons";
 import { getFontSize } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacing } from "@/lib/theme/snippets/spacing";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import { inputStyle } from "@lib/theme/snippets/input";
-import styled, { css } from "styled-components";
 
 const Wrapper = styled.div`
 	${spacing.padding.wide({ size: 0.5, ratio: 2 })};

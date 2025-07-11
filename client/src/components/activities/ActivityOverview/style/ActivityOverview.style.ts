@@ -6,7 +6,7 @@ import { Action } from "@/lib/theme/components/buttons";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 const OverviewWrapper = styled.div`
 	width: 100%;

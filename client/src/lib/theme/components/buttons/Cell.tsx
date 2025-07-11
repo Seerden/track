@@ -1,6 +1,7 @@
 import Unstyled from "@/lib/theme/components/buttons/Unstyled";
-import type { CSSProperties } from "styled-components";
-import styled, { css } from "styled-components";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import type { CSSProperties } from "react";
 
 const highlightColor: CSSProperties["color"] = "royalblue";
 export const defaultCellWidth = 25;

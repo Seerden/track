@@ -16,7 +16,7 @@ export default defineConfig({
 		}),
 		viteReact({
 			babel: {
-				plugins: ["styled-components"],
+				plugins: [],
 				babelrc: false,
 				configFile: false
 			}

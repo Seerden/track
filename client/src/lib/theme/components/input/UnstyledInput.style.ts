@@ -1,5 +1,5 @@
 import { noBorders } from "@/lib/theme/snippets/border";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 const Unstyled = styled.input`
 	${noBorders};

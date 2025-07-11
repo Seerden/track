@@ -3,7 +3,8 @@ import FilterInput from "@/lib/theme/components/input/FilterInput.style";
 import { getFontSize } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import styled, { css } from "styled-components";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
 const Wrapper = styled.div<{ $fullSize?: boolean }>`
 	position: relative;
@@ -59,8 +60,8 @@ const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
 			!p.$isSelected &&
 			css`
 				background-color: #eee;
-				border-color: ${(p) => p.theme.colors.blue.main};
-				box-shadow: 0.3rem 0.3rem 0 -0.1rem ${(p) => p.theme.colors.blue.main};
+				border-color: ${p.theme.colors.blue.main};
+				box-shadow: 0.3rem 0.3rem 0 -0.1rem ${p.theme.colors.blue.main};
 			`}
 	}
 

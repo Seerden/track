@@ -1,4 +1,4 @@
-import { css } from "styled-components";
+import { css } from "@emotion/react";
 
 /** Visually hides scrollbar, but keeps the scrollability of the element the way
  * it was. */

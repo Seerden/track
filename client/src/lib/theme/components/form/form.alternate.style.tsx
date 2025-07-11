@@ -4,7 +4,7 @@ import { font } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 /** TODO: I implemented these styles for LogbookForm initially, but I like them
  * enough that I want to implement them as app-wide alternate form styles (in

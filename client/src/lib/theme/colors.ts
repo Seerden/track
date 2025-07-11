@@ -1,4 +1,4 @@
-import type { ExecutionContext } from "styled-components";
+import type { MainTheme } from "@/lib/style/theme";
 
 const baseColors = {
 	purple: {
@@ -77,10 +77,10 @@ export const colors = {
 
 export type ColorKey = keyof typeof baseColors | keyof typeof mainAndSecondary;
 
-export function getMainColor(theme: ExecutionContext["theme"], color: ColorKey) {
-	return theme.colors[color].main;
+export function getMainColor(theme: MainTheme, color?: ColorKey) {
+	return theme.colors[color ?? "theme"].main;
 }
 
-export function getSecondaryColor(theme: ExecutionContext["theme"], color: ColorKey) {
-	return theme.colors[color].secondary;
+export function getSecondaryColor(theme: MainTheme, color?: ColorKey) {
+	return theme.colors[color ?? "theme"].secondary;
 }

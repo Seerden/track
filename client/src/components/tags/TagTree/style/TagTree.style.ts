@@ -2,8 +2,9 @@ import BadgeStyles from "@/lib/theme/components/Badge.style";
 import { getFontSize } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacing } from "@/lib/theme/snippets/spacing";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import { motion } from "framer-motion";
-import styled, { css } from "styled-components";
 
 const colors = ["dodgerblue", "blueviolet", "darkorchid", "darkviolet", "indigo"];
 

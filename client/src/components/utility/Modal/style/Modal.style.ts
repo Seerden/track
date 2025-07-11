@@ -1,7 +1,7 @@
 import { Action } from "@/lib/theme/components/buttons";
 import scrollbar from "@/lib/theme/snippets/scroll";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 const ModalWrapper = styled.div`
 	--modal-offset: 5vh;

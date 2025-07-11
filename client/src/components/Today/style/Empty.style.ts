@@ -1,6 +1,6 @@
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 const Empty = styled.p`
 	background-color: #ddd;

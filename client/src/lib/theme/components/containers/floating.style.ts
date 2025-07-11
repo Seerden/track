@@ -1,5 +1,5 @@
 import { flex } from "@/lib/theme/snippets/flex";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 // TODO: put all other floating styles here, too.
 

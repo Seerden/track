@@ -1,6 +1,6 @@
 import { getFontSize } from "@/lib/theme/font";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 const ItemList = styled.ul`
 	gap: 0.6rem;

@@ -1,7 +1,7 @@
 import { Unstyled } from "@/lib/theme/components/buttons";
 import ListStyle from "@/lib/theme/components/List.style";
 import { flex } from "@/lib/theme/snippets/flex";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 const Wrapper = styled(ListStyle.Item)`
 	max-width: 500px; /* TODO: this is temporary, needs to become responsive */

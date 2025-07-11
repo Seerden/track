@@ -1,10 +1,11 @@
 import { Action } from "@/lib/theme/components/buttons";
-import styled, { css } from "styled-components";
-import type { CSS } from "styled-components/dist/types";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import type { CSSProperties } from "react";
 
 const _Button = styled(Action.Default)<{
 	$absolute?: boolean;
-	$size?: CSS.Properties["width"];
+	$size?: CSSProperties["width"];
 }>`
 	--new-tag-button-size: ${(p) => p.$size ?? "30px"};
 	min-width: var(--new-tag-button-size);

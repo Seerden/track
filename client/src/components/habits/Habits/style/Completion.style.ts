@@ -1,6 +1,6 @@
 import Floating from "@/lib/theme/components/containers/floating.style";
 import { flex } from "@/lib/theme/snippets/flex";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 const List = styled.ul<{ $itemCount: number }>`
 	width: 100%;

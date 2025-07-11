@@ -1,5 +1,5 @@
 import { Action } from "@/lib/theme/components/buttons";
-import { styled } from "styled-components";
+import styled from "@emotion/styled";
 
 const ChangeDayButton = styled(Action.Default)<{
 	$size: number;

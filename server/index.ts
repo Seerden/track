@@ -1,4 +1,3 @@
-import "./instrument"; // THIS MUST BE TOP OF FILE
 import * as Sentry from "@sentry/node";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import cors from "cors";
@@ -6,6 +5,7 @@ import "dotenv/config";
 import type { RequestHandler } from "express";
 import express from "express";
 import session from "express-session";
+import "./instrument"; // THIS MUST BE TOP OF FILE
 import { onError } from "./instrument";
 import { pingDatabase } from "./src/db/init";
 import { logRequests } from "./src/lib/log-requests";

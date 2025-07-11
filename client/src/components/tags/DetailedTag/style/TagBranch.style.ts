@@ -1,7 +1,8 @@
 import { font } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import styled, { css } from "styled-components";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
 const Branch = styled.ol`
 	position: relative;
@@ -38,7 +39,7 @@ const Node = styled.li<{ $active?: boolean }>`
 	${(p) =>
 		p.$active &&
 		css`
-			background-color: ${(p) => p.theme.colors.purple.main};
+			background-color: ${p.theme.colors.purple.main};
 			color: white;
 		`}
 `;

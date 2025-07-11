@@ -3,8 +3,8 @@ import { font } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
+import styled from "@emotion/styled";
 import { Link as RouterLink } from "@tanstack/react-router";
-import styled from "styled-components";
 
 const Menu = styled.div`
 	${flex.column};
@@ -33,6 +33,7 @@ const Menu = styled.div`
 	}
 `;
 
+// TODO: TRK-231: make this a span, and render it inside a <Link /> when using it.
 const Link = styled(RouterLink)`
 	${flex.row};
 	gap: ${spacingValue.medium};
