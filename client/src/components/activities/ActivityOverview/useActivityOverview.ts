@@ -11,7 +11,7 @@ export default function useActivityOverview() {
 	if (isProbablySuspended) return { isProbablySuspended };
 
 	const activities = activitiesData
-		? byIdAsList(new Map(Object.entries(activitiesData)))
+		? byIdAsList(new Map(Object.entries(activitiesData.byId)))
 		: [];
 
 	return {
