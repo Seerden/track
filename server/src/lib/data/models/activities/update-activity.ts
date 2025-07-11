@@ -56,10 +56,11 @@ export const updateActivity: QueryFunction<
 	return sql.begin(async (q) => {
 		const { tag_ids, ...activityUpdate } = input.activity;
 
+		const { activity_id, ...update } = activityUpdate;
 		const [activity] = await sql<[Activity]>`
          UPDATE activities
-            SET ${sql(activityUpdate)}
-            WHERE activity_id = ${input.activity.activity_id}
+            SET ${sql(update)}
+            WHERE activity_id = ${activity_id}
             RETURNING *
       `;
 
