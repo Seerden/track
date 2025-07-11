@@ -4,7 +4,6 @@ import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 import styled from "@emotion/styled";
-import { Link as RouterLink } from "@tanstack/react-router";
 
 const Menu = styled.div`
 	${flex.column};
@@ -34,7 +33,7 @@ const Menu = styled.div`
 `;
 
 // TODO: TRK-231: make this a span, and render it inside a <Link /> when using it.
-const Link = styled(RouterLink)`
+const Link = styled.span`
 	${flex.row};
 	gap: ${spacingValue.medium};
 	${radius.small};
@@ -96,7 +95,7 @@ const LinkCards = styled.div`
 	flex-wrap: nowrap;
 `;
 
-const LinkCard = styled(RouterLink)`
+const LinkCard = styled.span`
 	padding: ${spacingValue.small};
 	${radius.small};
 	background-color: ${(p) => p.theme.colors.orange.main};
