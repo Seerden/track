@@ -9,7 +9,8 @@ import type {
 	ActivityUpdateInput,
 	ActivityWithIds,
 	TaskUpdateInput,
-} from "@shared/types/data/activity.types";
+} from "@shared/lib/schemas/activity";
+
 import type { ActivityTagRelation } from "@shared/types/data/relational.types";
 import type { ID } from "@shared/types/data/utility.types";
 import type { Dayjs } from "dayjs";
