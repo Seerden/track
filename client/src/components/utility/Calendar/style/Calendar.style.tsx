@@ -1,7 +1,10 @@
 import { Unstyled } from "@/lib/theme/components/buttons";
 import { defaultCellHeight, defaultCellWidth } from "@/lib/theme/components/buttons/Cell";
 import { getFontSize } from "@/lib/theme/font";
+import { outline, thinBorder } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
+import { radius } from "@/lib/theme/snippets/radius";
+import { spacingValue } from "@/lib/theme/snippets/spacing";
 import styled from "@emotion/styled";
 import type { CSSProperties } from "react";
 
@@ -9,32 +12,34 @@ const gap = "0.3rem";
 const highlightColor: CSSProperties["color"] = "dodgerblue";
 
 const Calendar = styled.div`
-	position: relative;
-
 	${flex.column};
-
-	background-color: #f9f9f9;
+	position: relative;
 	user-select: none;
 	width: max-content;
 	height: max-content;
-	margin-left: 1rem;
-	margin-top: 0.5rem;
+
+	background-color: #f9f9f9;
+
 	--font-size: ${(p) => getFontSize(p, 0.8)};
 	font-size: var(--font-size);
 	line-height: var(--font-size);
 	font-family: "Roboto";
-	padding: 1rem;
-	border: 1px solid #eee;
-	border-radius: 5px;
+
+	padding: ${spacingValue.medium};
+	${thinBorder.secondary};
+	${radius.medium};
+	margin-left: 1rem;
+	margin-top: 0.5rem;
+
 	box-shadow: 0 0 0.5rem 0 #ddd;
 `;
 
 const TitleWrapper = styled.div`
-	width: 100%;
-
 	${flex.row};
 	justify-content: space-between;
 	align-items: center;
+	width: 100%;
+
 	margin-bottom: 0.2rem;
 `;
 
@@ -51,24 +56,24 @@ const MonthPickerWrapper = styled.div`
 	top: 5%;
 	background-color: #eee;
 	box-shadow: 0 0.5rem 1rem 0 #aaa;
-	border-radius: 5px;
-	outline: 2px solid #ccc;
+	${radius.medium};
+	${outline.grey};
 	z-index: 3;
 `;
 
 const Days = styled.div`
 	${flex.row};
-	gap: ${gap};
-
 	width: max-content;
-	margin-bottom: calc(2 * ${gap});
-	border-radius: 5px;
+
 	background-color: #eee;
 	border-bottom: 2px solid ${highlightColor};
 
 	font-size: ${(p) => getFontSize(p, 0.8)};
 	font-weight: 500;
 
+	gap: ${gap};
+	${radius.medium};
+	margin-bottom: calc(2 * ${gap});
 	margin-inline: -0.5rem;
 	padding-inline: 0.5rem;
 `;
@@ -80,9 +85,7 @@ type StyledCellProps = {
 };
 
 const Day = styled.div<StyledCellProps>`
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	${flex.centered};
 	width: ${({ width }) => width ?? defaultCellWidth}px;
 	height: ${({ height }) => height ?? defaultCellHeight}px;
 `;
@@ -110,11 +113,11 @@ const MonthPickerActionWrapper = styled.div`
 const _MonthPickerAction = styled(Unstyled)<{
 	$direction: "previous" | "next";
 }>`
+	display: flex;
+	align-items: center;
 	transition: transform 50ms ease-out;
 
 	border-bottom: 2px solid transparent;
-	display: flex;
-	align-items: center;
 
 	&:hover,
 	&:active,

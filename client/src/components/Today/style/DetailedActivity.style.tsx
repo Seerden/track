@@ -1,6 +1,8 @@
 import { Action } from "@/lib/theme/components/buttons";
 import CardStyle from "@/lib/theme/components/Card.style";
 import { flex } from "@/lib/theme/snippets/flex";
+import { radius } from "@/lib/theme/snippets/radius";
+import { spacingValue } from "@/lib/theme/snippets/spacing";
 import styled from "@emotion/styled";
 
 const Wrapper = styled(CardStyle.Wrapper)`
@@ -21,7 +23,7 @@ const Time = styled.div`
 	grid-area: time;
 
 	${flex.column};
-	gap: 0.5rem;
+	gap: ${spacingValue.small};
 `;
 
 const Description = styled.div``;
@@ -46,7 +48,7 @@ const CheckboxWrapper = styled.label`
 	height: 30px;
 
 	svg {
-		border-radius: 50%;
+		${radius.round};
 		background-color: azure;
 
 		/* TODO: use Checked and Unchecked instead of .on and .off */

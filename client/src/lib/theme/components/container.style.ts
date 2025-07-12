@@ -1,13 +1,15 @@
+import { border, outline, thinOutline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
-import { spacing } from "@/lib/theme/snippets/spacing";
+import { radius } from "@/lib/theme/snippets/radius";
+import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 const minimal = css`
-	padding: 0.5rem 1rem;
-	border-radius: 5px;
-	outline: 2px solid #eee;
-	border: 2px solid #fff;
+	${spacing.padding.wide({ size: 0.5, ratio: 2 })}
+	${radius.medium};
+	${outline.secondary};
+	${border.primary};
 	box-shadow: 0 0.5rem 1rem 0 #ccc;
 `;
 
@@ -18,17 +20,18 @@ export const containers = {
 const FieldWrapper = styled.div<{ $small?: boolean }>`
 	${(p) => spacing.padding.wide({ size: p.$small ? 0.2 : 0.5, ratio: 2 })}
 
-	border-radius: 5px;
-	outline: 2px solid #ddd;
-	margin: 0.3rem;
+	${radius.medium};
+	${outline.tertiary};
+	margin: ${spacingValue.smaller};
 `;
 
 const EmptyState = styled.div`
 	${flex.column};
+	${thinOutline.primary};
 
-	outline: 1px solid #fff;
 	width: max-content;
 	max-width: 100%;
+
 	box-shadow:
 		0.5rem 0.5rem 0 -0.2rem #555,
 		0 0 0.6rem 0 #ddd;

@@ -1,6 +1,8 @@
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
+import { border, outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
-import { spacing } from "@/lib/theme/snippets/spacing";
+import { radius } from "@/lib/theme/snippets/radius";
+import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
@@ -31,7 +33,7 @@ const Label = styled.label<{ $faded?: boolean }>`
 		&:not(:has(*:disabled)) {
 			outline: 2px solid ${(p) => p.theme.colors.blue.main};
 			span {
-				outline: 2px solid white;
+				${outline.primary};
 			}
 		}
 	}
@@ -86,17 +88,16 @@ const Fields = styled.fieldset`
 const AllDay = styled.label`
 	cursor: pointer;
 	${flex.row};
-	align-items: center;
-	justify-content: center;
-	gap: 0.2rem;
+	${flex.centered};
 
-	margin: 0.5rem;
-	padding: 0 1rem;
+	gap: ${spacingValue.smallest};
+	margin: ${spacingValue.small};
+	padding: 0 ${spacingValue.medium};
 
 	width: max-content;
 
-	border: 2px solid white;
-	border-radius: 3px;
+	${border.primary};
+	${radius.round};
 
 	background-color: #eaeaea;
 `;
@@ -104,21 +105,19 @@ const AllDay = styled.label`
 const size = "25px";
 
 const Info = styled.div`
+	${flex.centered};
+
 	position: absolute;
 	top: calc(50% -${size});
 	right: calc(-0.25 * ${size});
-
-	background-color: ${(p) => p.theme.colors.blue.main};
-	border-radius: 50%;
-	color: white;
-	outline: 2px solid white;
-
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
 	width: ${size};
 	height: ${size};
+
+	background-color: ${(p) => p.theme.colors.blue.main};
+	color: white;
+
+	${radius.round};
+	${outline.primary};
 `;
 
 export default {

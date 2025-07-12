@@ -32,7 +32,7 @@ const Task = styled(ListStyle.Item)<{ $completed?: boolean }>`
 		css`
 			opacity: 0.6;
 			background-color: #eee;
-			outline: 2px solid #e9e9e9;
+			outline: 2px solid #e9e9e9; // TODO TRK-231: add this to outline, or use an existing one
 		`}// TODO: this opacity is the same for completed tasks in all their implementations, so generalize it.
 `;
 

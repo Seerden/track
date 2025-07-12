@@ -1,3 +1,4 @@
+import { radius } from "@/lib/theme/snippets/radius";
 import styled from "@emotion/styled";
 import type { CSSProperties } from "react";
 
@@ -5,7 +6,7 @@ const markColor: CSSProperties["color"] = "orangered";
 
 const Circle = styled.div`
 	z-index: 4;
-	border-radius: 50%;
+	${radius.round};
 	position: absolute;
 	right: 0;
 	--size: 15px;

@@ -1,6 +1,7 @@
 import { Action } from "@/lib/theme/components/buttons";
 import { containers } from "@/lib/theme/components/container.style";
 import { font } from "@/lib/theme/font";
+import { thinBorder } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
@@ -60,18 +61,19 @@ const Label = styled.label`
 	textarea,
 	select {
 		resize: none;
-		margin: 0.3rem;
-		font-size: ${font.size["0.93"]};
-		border: none;
-		line-height: 1.5rem;
 
+		line-height: 1.5rem;
 		&:not(&[type="checkbox"]) {
 			height: 1.5rem;
 		}
+
 		background-color: #fff;
-		padding: 0.3rem 0.6rem;
-		border: 1px solid #ddd;
-		border-radius: 3px;
+
+		font-size: ${font.size["0.93"]};
+		margin: ${spacingValue.smaller};
+		${spacing.padding.wide({ size: 0.3, ratio: 2 })}
+		${thinBorder.tertiary};
+		${radius.small};
 	}
 `;
 
@@ -83,6 +85,7 @@ const _Submit = styled(Action.CallToAction)`
 	margin-top: 1rem;
 	margin-left: 0;
 
+	/* TODO TRK-231: lucide.ts */
 	svg {
 		color: royalblue;
 		stroke-width: 3;

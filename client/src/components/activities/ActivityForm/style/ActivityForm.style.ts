@@ -1,4 +1,6 @@
+import { border } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
+import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "@emotion/styled";
 
@@ -8,13 +10,15 @@ const Task = styled.label`
 
 	${flex.row};
 	align-items: center;
+
+	${border.primary};
+	${radius.small};
+
+	${spacing.margin.wide({ size: 0.2, ratio: 2.5 })}
 	padding: 0 1rem;
 	gap: 0.2rem;
 
 	background-color: #eaeaea;
-	${spacing.margin.wide({ size: 0.2, ratio: 2.5 })}
-	border: 2px solid white;
-	border-radius: 3px;
 `;
 
 export default {

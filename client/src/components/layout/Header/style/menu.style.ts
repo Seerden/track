@@ -1,5 +1,6 @@
 import { Unstyled } from "@/lib/theme/components/buttons";
 import { font } from "@/lib/theme/font";
+import { border, outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
@@ -16,10 +17,10 @@ const Menu = styled.div`
 	color: #444;
 	width: max-content;
 
-	border: 2px solid #fff;
-	outline: 2px solid #ccc;
+	${border.primary};
+	${outline.grey};
 
-	background-color: #f3f3f3;
+	background-color: #f3f3f3; // TODO: TRK-231: theme value
 
 	box-shadow:
 		0 0.2rem 0.1rem 0 #bbb,

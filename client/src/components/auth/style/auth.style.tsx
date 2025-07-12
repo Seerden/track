@@ -1,19 +1,23 @@
 import { Unstyled } from "@/lib/theme/components/buttons";
 import F from "@/lib/theme/components/form/form.alternate.style";
+import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
+import Lucide from "@/lib/theme/snippets/lucide";
+import { radius } from "@/lib/theme/snippets/radius";
+import { spacingValue } from "@/lib/theme/snippets/spacing";
 import styled from "@emotion/styled";
 
 const Wrapper = styled.div`
 	justify-self: center;
 	// TODO: this should be part of the page wrapper -- but first Register should
 	// be put inside a page wrapper :)
-	padding-top: 1rem;
+	padding-top: ${spacingValue.medium};
 `;
 
 // TODO: why is there nothing like this in F?
 const Fields = styled.div`
 	${flex.column};
-	gap: 0.5rem;
+	gap: ${spacingValue.small};
 `;
 
 const _ShowPassword = styled(Unstyled)`
@@ -22,11 +26,7 @@ const _ShowPassword = styled(Unstyled)`
 	top: 0;
 	max-height: max-content;
 
-	.lucide {
-		padding: 0.2rem;
-		margin-top: 5px;
-		color: #555;
-	}
+	${Lucide.PasswordEye};
 `;
 
 function ShowPassword(props: Parameters<typeof _ShowPassword>[0]) {
@@ -47,13 +47,14 @@ const Submit = styled(F.Submit)`
 const Column = styled.fieldset`
 	${flex.column};
 
-	gap: 0.3rem;
-	margin: 0 0.2rem;
-	margin-top: 0.5rem;
+	gap: ${spacingValue.smaller};
+	margin: 0 ${spacingValue.smallest};
+	margin-top: ${spacingValue.small};
+	padding: ${spacingValue.small};
+	${radius.medium};
+
 	background-color: #e9e9e9;
-	padding: 0.5rem;
-	outline: 2px solid #ddd;
-	border-radius: 5px;
+	${outline.tertiary};
 	height: max-content;
 `;
 

@@ -1,7 +1,9 @@
 import BadgeStyles from "@/lib/theme/components/Badge.style";
 import { getFontSize } from "@/lib/theme/font";
+import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
-import { spacing } from "@/lib/theme/snippets/spacing";
+import { radius } from "@/lib/theme/snippets/radius";
+import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
@@ -29,11 +31,11 @@ const TagName = styled.label<{ $level: number }>`
 	${flex.row};
 	justify-content: space-between;
 	align-items: center;
-	gap: 0.5rem;
+	gap: ${spacingValue.small};
 	${spacing.margin.wide({ size: 0.3, ratio: 2 })};
 	${spacing.padding.wide({ size: 0.3, ratio: 1.5 })};
-	outline: 2px solid #eee;
-	border-radius: 4px;
+	${outline.secondary};
+	${radius.small};
 	box-shadow: 0.6rem 0.6rem 0 -0.3rem #ddd;
 
 	background-color: ${(p) =>
@@ -89,30 +91,31 @@ const Tree = styled.ul<{
 	$columnCount: number;
 }>`
 	max-height: 900px;
-	padding: 1rem;
-	margin-right: -1rem;
+	padding: ${spacingValue.medium};
+	margin-right: calc(-1 * ${spacingValue.medium});
 	width: max-content;
 	min-width: 350px;
 	max-width: 100%;
 	width: 100%;
 	display: grid;
-	gap: 2rem;
+	gap: ${spacingValue.larger};
 
 	> ${Tag} {
 		min-width: 150px; // TODO: this is temporary and needs to become responsive
 		height: 98%;
 		justify-content: flex-start;
 		width: max-content;
-		border-radius: 4px;
+		${radius.small};
+		box-shadow: 0 0 1rem 0rem #ccc;
+		${outline.primary};
+		background-color: #eaeaea;
+
 		> ${TagName} {
 			justify-self: center;
 			width: 100%;
 			margin: 0;
 			box-shadow: none;
 		}
-		box-shadow: 0 0 1rem 0rem #ccc;
-		outline: 2px solid white;
-		background-color: #eaeaea;
 
 		> ${Children} {
 			min-height: 2rem;
@@ -143,7 +146,7 @@ const Container = styled.div`
 		0.5rem 0.5rem 0 -0.3rem ${(p) => p.theme.colors.blue.main},
 		0 0 0.8rem 0 #ccc;
 	${spacing.padding.wide({ size: 1, ratio: 2 })}
-	border-radius: 3px;
+	${radius.small};
 	margin: 3rem auto;
 `;
 

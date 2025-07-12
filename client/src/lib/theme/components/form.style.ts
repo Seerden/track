@@ -1,5 +1,6 @@
 import { Submit } from "@/lib/theme/components/buttons";
 import { getFontSize } from "@/lib/theme/font";
+import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacing } from "@/lib/theme/snippets/spacing";
 import { css } from "@emotion/react";
@@ -83,8 +84,9 @@ const Label = styled.label<{ $showWarning?: boolean }>`
 	&:active,
 	&:focus-within {
 		outline: 2px solid ${(p) => p.theme.colors.blue.main};
+
 		span {
-			outline: 2px solid white;
+			${outline.primary};
 		}
 	}
 

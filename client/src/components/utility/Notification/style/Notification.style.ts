@@ -1,5 +1,7 @@
 import type { NotificationType } from "@/components/utility/Notification/Notification";
 import type { MainTheme } from "@/lib/style/theme";
+import { radius } from "@/lib/theme/snippets/radius";
+import { spacing } from "@/lib/theme/snippets/spacing";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
@@ -26,17 +28,27 @@ const Container = styled.div<{
 	position: fixed;
 	top: 6rem;
 	left: 1rem;
-	padding: 1rem 2rem;
-	border-radius: 0.5rem;
+	${spacing.padding.wide({ size: 1, ratio: 2 })}
+	${radius.largish};
 	border: 2px solid #fff;
 
 	--main: ${(p) => getNotificationColor(p.theme, p.$type)};
 	--contrast: ${(p) => p.theme.colors.tint.white};
 
-	outline: 1px solid ${(p) => (p.$invert ? css`var(--main)` : css`var(--contrast)`)};
-	box-shadow: 1.1rem 1.1rem 0.4rem -0.9rem ${(p) => (p.$invert ? css`var(--contrast)` : css`var(--main)`)};
-	background-color: ${(p) => (p.$invert ? css`var(--contrast)` : css`var(--main)`)};
-	color: ${(p) => (p.$invert ? css`var(--main)` : css`var(--contrast)`)};
+	${(p) =>
+		p.$invert
+			? css`
+					outline: 1px solid var(--main);
+					box-shadow: 1.1rem 1.1rem 0.4rem -0.9rem var(--contrast);
+					background-color: var(--contrast);
+					color: var(--main);
+				`
+			: css`
+					outline: 1px solid var(--contrast);
+					box-shadow: 1.1rem 1.1rem 0.4rem -0.9rem var(--main);
+					background-color: var(--main);
+					color: var(--contrast);
+				`}
 
 	overflow: hidden;
 	z-index: 10;

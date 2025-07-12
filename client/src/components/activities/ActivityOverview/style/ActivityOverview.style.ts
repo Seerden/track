@@ -3,6 +3,7 @@ import {
 	itemAndHeaderStyle
 } from "@/components/activities/ActivityOverview/style/TableItem.style";
 import { Action } from "@/lib/theme/components/buttons";
+import { outline, thickOutline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
@@ -30,7 +31,7 @@ const FloatingWrapper = styled.div`
 
 	z-index: 2;
 
-	outline: 2px solid #fff;
+	${outline.primary};
 	background-color: #fff;
 	--highlight: ${(p) => p.theme.colors.darkBlue.main};
 	border: 2px solid var(--highlight);
@@ -46,7 +47,7 @@ const Header = styled.div`
 	${radius.small}
 
 	background-color: #333;
-	outline: 2px solid #ccc;
+	${outline.tertiary};
 	box-shadow: 0 0 0.3rem 0 #ccc;
 	color: #eee;
 
@@ -72,10 +73,10 @@ const ActionBar = styled.div`
 	${radius.small};
 	gap: ${spacingValue.small};
 	margin-bottom: ${spacingValue.medium};
+	${thickOutline.greyer};
 
 	width: max-content;
 
-	outline: 3px solid #aaa;
 	background-color: #eee;
 	box-shadow: 0 0.3rem 0.5rem -0.1rem #333;
 

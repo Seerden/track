@@ -1,6 +1,7 @@
 import { Unstyled } from "@/lib/theme/components/buttons";
 import { font } from "@/lib/theme/font";
 import { noBorders } from "@/lib/theme/snippets/border";
+import { border, outline, thinOutline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
@@ -35,8 +36,8 @@ const TabsPanel = styled.div`
 
 	background-color: #eee;
 	background-color: #f5f5f5;
-	outline: 2px solid #ddd;
-	border: 2px solid #fff;
+	${outline.tertiary};
+	${border.primary};
 	box-shadow: 0 0.6rem 1rem -0.5rem #999;
 
 	transform-origin: bottom center;
@@ -55,6 +56,7 @@ const Tab = styled(Unstyled)<{
 `;
 
 const TabInner = styled.div<{ $active?: boolean }>`
+	// TODO TRK-231 call this radius.tab or something
 	border-radius: 5px 5px 0 0;
 	${spacing.padding.wide({ size: 0.2, ratio: 2.5 })};
 	margin: 0 ${spacingValue.small};
@@ -154,6 +156,7 @@ const _ResetButton = styled(Unstyled)`
 	margin-bottom: ${spacingValue.medium};
 
 	&:hover {
+		/* TODO: TRK-231 - lucide.ts? */
 		svg {
 			color: orangered;
 		}
@@ -176,7 +179,7 @@ const TagChip = styled(Unstyled)<{
 }>`
 	cursor: pointer;
 
-	outline: 1px solid #ccc;
+	${thinOutline.grey};
 	padding: 0.3rem;
 	${radius.small};
 	flex: 1;

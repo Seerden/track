@@ -1,4 +1,5 @@
 import { getFontSize } from "@/lib/theme/font";
+import { outline } from "@/lib/theme/snippets/edge";
 import { inputStyle } from "@/lib/theme/snippets/input";
 import styled from "@emotion/styled";
 
@@ -9,9 +10,10 @@ const FilterInput = styled.input`
 
 	--font-size: ${(p) => getFontSize(p, 0.88)};
 	font-size: var(--font-size);
-	line-height: var(--font-size); // inputStyle does not have this
+	// inputStyle does not have this
+	line-height: var(--font-size);
 
-	outline: 2px solid #ccc;
+	${outline.grey};
 
 	&:focus {
 		outline-color: ${(p) => p.theme.colors.blue.secondary};

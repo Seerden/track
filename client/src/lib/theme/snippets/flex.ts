@@ -16,5 +16,10 @@ const column = css`
 
 export const flex = {
 	row,
-	column
+	column,
+	centered: css`
+		${flexBase};
+		justify-content: center;
+		align-items: center;
+	`
 };

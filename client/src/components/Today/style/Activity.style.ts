@@ -1,5 +1,7 @@
 import { rowHeight } from "@/components/Today/style/TimelineRow.style";
 import { getFontSize } from "@/lib/theme/font";
+import { outline } from "@/lib/theme/snippets/edge";
+import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
@@ -31,7 +33,7 @@ const ActivityCard = styled.div<{ $level: number; $offset: number }>`
 		position: absolute;
 		top: 0.2rem;
 		right: 0.2rem;
-		border-radius: 50%;
+		${radius.round};
 		background-color: #eee;
 	}
 `;
@@ -52,9 +54,9 @@ const Activity = styled.div<{
 	align-items: ${(p) => (p.$durationHours > 2 ? "flex-start" : "center")};
 	color: ${(p) => (p.$isTask ? "azure" : "black")};
 
-	outline: 2px solid #eee;
+	${outline.secondary};
 	width: var(--card-width);
-	border-radius: 3px;
+	${radius.small};
 
 	transition: all 35ms ease-in;
 

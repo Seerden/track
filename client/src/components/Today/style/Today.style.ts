@@ -2,15 +2,20 @@ import TagCardStyle from "@/components/tags/TagCard/style/TagCard.style";
 import { Action } from "@/lib/theme/components/buttons";
 import { getFontSize } from "@/lib/theme/font";
 import { column } from "@/lib/theme/snippets/column";
+import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
+import { radius } from "@/lib/theme/snippets/radius";
 import scrollbar from "@/lib/theme/snippets/scroll";
-import { spacing } from "@/lib/theme/snippets/spacing";
+import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 import styled from "@emotion/styled";
 
 const TimelineWrapper = styled.section`
 	${flex.column};
 	${spacing.padding.wide({ size: 1, ratio: 3 })};
-	gap: 1rem;
+	gap: ${spacingValue.medium};
+	${radius.large};
+	${spacing.margin.wide({ size: 0.5, ratio: 2 })};
+	${outline.secondary};
 
 	max-width: 100%;
 	min-width: 500px;
@@ -19,11 +24,8 @@ const TimelineWrapper = styled.section`
 		max-width: 1000px;
 	}
 
-	border-radius: 10px;
 	background-color: #f9f9f9;
-	${spacing.margin.wide({ size: 0.5, ratio: 2 })};
 	box-shadow: 0 0.2rem 1rem -0.3rem #ccc;
-	outline: 2px solid #eee;
 
 	height: max-content;
 	max-height: 80vh;
@@ -148,13 +150,13 @@ const Create = styled.div`
 `;
 
 const SpeedDialActions = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: 0.5rem;
-	justify-content: center;
-	padding: 0 1rem;
-	border-radius: 3px;
-	align-items: center;
+	${flex.column};
+	${flex.centered};
+
+	gap: ${spacingValue.small};
+	padding: 0 ${spacingValue.medium};
+	${radius.small};
+
 	font-size: 0.8rem;
 `;
 
@@ -163,16 +165,14 @@ const SpeedDialActions = styled.div`
 // .defaultProps, so it requires more refactoring.
 const SpeedDialButton = styled(Action.Stylized)`
 	width: calc(100% + 2rem);
-	border-radius: 5px;
+	${radius.medium}
 `;
 
 // TODO: rename this
 const Things = styled.div`
+	${flex.row};
+
 	grid-area: things;
-
-	display: flex;
-
-	flex-direction: row;
 	@media (min-width: 1280px) {
 		flex-direction: column;
 	}

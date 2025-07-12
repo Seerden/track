@@ -1,5 +1,6 @@
 import { getFontSize } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
+import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "@emotion/styled";
 
@@ -60,7 +61,7 @@ const _Tag = styled.li`
 	cursor: pointer;
 	list-style: none;
 	${spacing.padding.wide({ size: 0.3, ratio: 2 })};
-	border-radius: 3px;
+	${radius.small};
 	box-shadow: 0.3rem 0.3rem 0 -0.15rem ${(p) => p.theme.colors.blue.secondary};
 	background-color: ${(p) => p.theme.colors.blue.main};
 	width: max-content;

@@ -1,4 +1,6 @@
 import Unstyled from "@/lib/theme/components/buttons/Unstyled";
+import { outline, thinOutline } from "@/lib/theme/snippets/edge";
+import { radius } from "@/lib/theme/snippets/radius";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { CSSProperties } from "react";
@@ -25,26 +27,27 @@ const _Default = styled(Unstyled)<{
 		// an EmptyCell, keeps the JSX cleaner.
 		p.children
 			? css`
-					background-color: #f9f9f9;
-					outline: 1px solid #eee;
-					border-radius: 3px;
 					cursor: pointer;
+
+					background-color: #f9f9f9; // TODO TRK-231: theme value
+					${thinOutline.secondary};
+					${radius.small};
 
 					&:active {
 						background-color: ${highlightColor};
-						color: azure;
+						color: azure; // TODO: TRK-231: theme value
 						outline: none;
 					}
 				`
 			: css`
 					cursor: default;
 					background-color: unset;
-					border-radius: none;
+					border-radius: 0;
 					box-shadow: none;
 				`}
 
 	&:focus {
-		outline: 2px solid #ddd;
+		${outline.tertiary};
 	}
 
 	&:hover {
@@ -71,7 +74,7 @@ const _Default = styled(Unstyled)<{
 		p.$selected &&
 		css`
 			background-color: ${highlightColor};
-			color: azure;
+			color: azure; // TODO TRK-231: theme value
 			box-shadow: 0 0 0.2rem 0 #ccc;
 		`}
 `;

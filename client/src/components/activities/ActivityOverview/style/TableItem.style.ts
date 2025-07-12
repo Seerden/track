@@ -22,7 +22,7 @@ export const itemAndHeaderFieldStyle = css`
 const Item = styled.div<{ $isTask: boolean }>`
 	${radius.medium};
 
-	outline: 2px solid #f9f9f9;
+	outline: 2px solid #f9f9f9; // TODO: add this to outline, or use an existing one
 	background-color: #eee;
 
 	${itemAndHeaderStyle}
