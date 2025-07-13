@@ -60,6 +60,11 @@ export default function useFloatingProps({
 	const role = useRole(context);
 	const _hover = useHover(context, {
 		handleClose: safePolygon(),
+		// this is true by default, for some reason, so have to specify it
+		// manually. I think this changed in a recent version. Previously, I had
+		// to pass a hover object into useInteractions to enable to hover
+		// interaction.
+		enabled: !!hover,
 		...hover
 	});
 	const _click = useClick(context, click);
