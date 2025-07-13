@@ -31,10 +31,19 @@ const Filter = styled(Default)`
 	}
 `;
 
+// Some inputs need to be present in the DOM, but now visible, e.g. because we
+// render something else in place of the input (example: Checkbox.tsx).
+const Hidden = styled(Unstyled)`
+	opacity: 0;
+	width: 0;
+	height: 0;
+`;
+
 const Input = {
 	Unstyled,
 	Default,
-	Filter
+	Filter,
+	Hidden
 };
 
 export default Input;

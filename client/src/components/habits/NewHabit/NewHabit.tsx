@@ -198,7 +198,7 @@ function OccurrenceFields({
 	return (
 		<Form.CompactRow>
 			I want to do this
-			<input
+			<Input.Default
 				type="number"
 				min={1}
 				step={1}
@@ -207,7 +207,7 @@ function OccurrenceFields({
 				onChange={onChange}
 			/>{" "}
 			<S.FixedLengthString>time{habit.frequency > 1 && "s"}</S.FixedLengthString> every
-			<input
+			<Input.Default
 				name="interval"
 				onChange={onChange}
 				min={1}

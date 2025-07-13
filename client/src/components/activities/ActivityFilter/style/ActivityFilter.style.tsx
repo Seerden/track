@@ -140,18 +140,6 @@ const InputWithSelect = styled.div`
 	}
 `;
 
-// TODO: need to combine this with the regular section content, but the styling
-// is different for datetime and tags, because tags has an action bar.
-const DatetimeSectionContent = styled.div`
-	${flex.row};
-	margin-top: ${spacingValue.small};
-	gap: ${spacingValue.small};
-`;
-
-const DatetimeSectionColumn = styled.div`
-	${flex.column};
-`;
-
 const _ResetButton = styled(Unstyled)`
 	margin-bottom: ${spacingValue.medium};
 
@@ -210,8 +198,6 @@ export default {
 	Select,
 	Input,
 	InputWithSelect,
-	DatetimeSectionContent,
-	DatetimeSectionColumn,
 	ResetButton,
 	TagChip,
 	TagSelectionList

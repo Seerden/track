@@ -1,4 +1,5 @@
 import { colors } from "@/lib/theme/colors";
+import Input from "@/lib/theme/input";
 import {
 	LucideCheckSquare,
 	LucideCircle,
@@ -29,20 +30,12 @@ function CheckboxOff({ size = 27 }: CheckboxIconProps) {
 
 type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement>;
 
-export function Checkbox({ style, ...props }: CheckboxProps) {
+export function Checkbox(props: CheckboxProps) {
 	const Icon = props.checked ? CheckboxOn : CheckboxOff;
 
 	return (
 		<S.Wrapper>
-			<input
-				type="checkbox"
-				{...props}
-				style={{
-					width: 0,
-					opacity: 0,
-					...style
-				}}
-			/>
+			<Input.Hidden type="checkbox" {...props} />
 			<Icon size={props.size ?? 27} />
 		</S.Wrapper>
 	);

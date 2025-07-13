@@ -33,10 +33,6 @@ function ShowPassword(props: Parameters<typeof _ShowPassword>[0]) {
 	return <_ShowPassword {...props} type="button" />;
 }
 
-const PasswordLabel = styled(F.Label)`
-	${flex.column};
-`;
-
 // TODO: conflate styles for these submit buttons. I don't like the default
 // padding, so why not just change that instead of overriding it here?
 const Submit = styled(F.Submit)`
@@ -62,7 +58,6 @@ export default {
 	Wrapper,
 	Fields,
 	ShowPassword,
-	PasswordLabel,
 	Submit,
 	Column
 };

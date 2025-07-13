@@ -39,6 +39,13 @@ const FormTitle = styled.h1`
 	margin-bottom: ${spacingValue.medium};
 `;
 
+// these do not have styles associated with them (yet), but exporting them makes
+// it clearer that they're part of the styled form structure. Styles are
+// defined in the Label, for now.
+const Input = styled.input``;
+const TextArea = styled.textarea``;
+const Select = styled.select``;
+
 const Label = styled.label`
 	${flex.column};
 	background-color: #fff;
@@ -57,9 +64,9 @@ const Label = styled.label`
 		cursor: default;
 	}
 
-	input,
-	textarea,
-	select {
+	${Input},
+	${TextArea},
+	${Select} {
 		resize: none;
 
 		line-height: 1.5rem;
@@ -96,4 +103,4 @@ function Submit(props: Parameters<typeof _Submit>[0]) {
 	return <_Submit type="submit" {...props} />;
 }
 
-export default { Form, FormTitle, Label, Submit };
+export default { Form, FormTitle, Label, Submit, Input, TextArea, Select };

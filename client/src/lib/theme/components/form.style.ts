@@ -1,5 +1,6 @@
 import { Submit } from "@/lib/theme/components/buttons";
 import { getFontSize } from "@/lib/theme/font";
+import Input from "@/lib/theme/input";
 import { border, outline, thinBorder } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
@@ -54,11 +55,9 @@ const Row = styled.fieldset`
 const CompactRow = styled(Row)`
 	align-items: baseline;
 
-	input {
-		${inputStyle};
+	${Input.Default} {
 		line-height: 0.93rem;
 		font-size: 0.93rem;
-
 		width: 50px;
 	}
 `;

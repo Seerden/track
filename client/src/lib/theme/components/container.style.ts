@@ -55,10 +55,15 @@ const Row = styled.div<{ gap?: keyof typeof spacingValue }>`
 		`}
 `;
 
+const Column = styled.div`
+	${flex.column};
+`;
+
 const Containers = {
 	Field: FieldWrapper,
 	EmptyState,
-	Row
+	Row,
+	Column
 };
 
 export default Containers;
