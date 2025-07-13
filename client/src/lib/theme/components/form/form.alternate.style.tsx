@@ -1,4 +1,4 @@
-import { Action } from "@/lib/theme/components/buttons";
+import Buttons from "@/lib/theme/components/buttons";
 import { containers } from "@/lib/theme/components/container.style";
 import { font } from "@/lib/theme/font";
 import { thinBorder } from "@/lib/theme/snippets/edge";
@@ -87,7 +87,7 @@ const Label = styled.label`
 /**
  * @todo extract this Button to theme buttons lib? -- make note of the default margin, which I dislike
  * */
-const _Submit = styled(Action.CallToAction)`
+const _Submit = styled(Buttons.Action.CallToAction)`
 	color: black;
 	margin-top: 1rem;
 	margin-left: 0;

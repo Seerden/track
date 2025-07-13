@@ -1,4 +1,4 @@
-import { border, outline, thinOutline } from "@/lib/theme/snippets/edge";
+import { border, outline, thickOutline, thinOutline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
@@ -59,11 +59,30 @@ const Column = styled.div`
 	${flex.column};
 `;
 
+const ActionBar = styled.div`
+	${flex.row};
+	${spacing.padding.wide({ size: 0.5, ratio: 2 })}
+	${radius.small};
+	gap: ${spacingValue.small};
+	margin-bottom: ${spacingValue.medium};
+	${thickOutline.greyer};
+
+	width: max-content;
+
+	background-color: #eee;
+	box-shadow: 0 0.3rem 0.5rem -0.1rem #333;
+
+	position: sticky;
+	z-index: 2;
+	top: 1.5rem;
+`;
+
 const Containers = {
 	Field: FieldWrapper,
 	EmptyState,
 	Row,
-	Column
+	Column,
+	ActionBar
 };
 
 export default Containers;

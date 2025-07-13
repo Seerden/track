@@ -1,9 +1,9 @@
-import { Action } from "@/lib/theme/components/buttons";
+import Buttons from "@/lib/theme/components/buttons";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { CSSProperties } from "react";
 
-const _Button = styled(Action.Default)<{
+const _Button = styled(Buttons.Action.Default)<{
 	$absolute?: boolean;
 	$size?: CSSProperties["width"];
 }>`

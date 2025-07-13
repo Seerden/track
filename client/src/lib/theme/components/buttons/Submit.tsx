@@ -1,11 +1,11 @@
-import { Unstyled } from "@/lib/theme/components/buttons";
+import Buttons from "@/lib/theme/components/buttons";
 import { getFontSize } from "@/lib/theme/font";
 import { border } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "@emotion/styled";
 
-const _Default = styled(Unstyled)`
+const _Default = styled(Buttons.Unstyled)`
 	margin-bottom: -1.5rem;
 	margin-top: 0.3rem;
 

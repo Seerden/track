@@ -1,6 +1,6 @@
-import { Action } from "@/lib/theme/components/buttons";
 import styled from "@emotion/styled";
 import type { CSSProperties } from "react";
+import Action from "./Action";
 
 const LinkIconButton = styled(Action.Default)<{ $size?: CSSProperties["width"] }>`
 	display: flex;

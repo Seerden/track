@@ -3,7 +3,7 @@ import { CheckboxIcon } from "@/components/utility/Checkbox/Checkbox";
 import { formatToYearMonthDay } from "@/lib/datetime/format-date";
 import { createDate } from "@/lib/datetime/make-date";
 import modalIds from "@/lib/modal-ids";
-import { Action } from "@/lib/theme/components/buttons";
+import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import Input from "@/lib/theme/input";
 import Form from "@lib/theme/components/form.style";
@@ -58,9 +58,9 @@ export default function NewHabit() {
 				>
 					{hasEndDate && (
 						<S.ClearEndDateButtonWrapper>
-							<Action.Default $color="red" onClick={handleClearEndDate}>
+							<Buttons.Action.Default $color="red" onClick={handleClearEndDate}>
 								<LucideCalendarOff size={16} color="white" />
-							</Action.Default>
+							</Buttons.Action.Default>
 						</S.ClearEndDateButtonWrapper>
 					)}
 					<S.DateFields>

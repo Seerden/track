@@ -1,4 +1,4 @@
-import { Unstyled } from "@/lib/theme/components/buttons";
+import Buttons from "@/lib/theme/components/buttons";
 import { font } from "@/lib/theme/font";
 import { border, outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
@@ -109,7 +109,7 @@ const LinkCard = styled.span`
 	flex: 1;
 `;
 
-const TriggerButton = styled(Unstyled)`
+const TriggerButton = styled(Buttons.Unstyled)`
 	font-size: ${font.size["0.93"]};
 	padding: ${spacingValue.small};
 

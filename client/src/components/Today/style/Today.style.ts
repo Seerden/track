@@ -1,5 +1,5 @@
 import TagCardStyle from "@/components/tags/TagCard/style/TagCard.style";
-import { Action } from "@/lib/theme/components/buttons";
+import Buttons from "@/lib/theme/components/buttons";
 import { getFontSize } from "@/lib/theme/font";
 import { column } from "@/lib/theme/snippets/column";
 import { outline } from "@/lib/theme/snippets/edge";
@@ -160,10 +160,7 @@ const SpeedDialActions = styled.div`
 	font-size: 0.8rem;
 `;
 
-// TODO TRK-231: extending a component that's not a styled component doesn't
-// work. Props aren't passed down correctly. This is a remnant of moving off
-// .defaultProps, so it requires more refactoring.
-const SpeedDialButton = styled(Action.Stylized)`
+const SpeedDialButton = styled(Buttons.Action.Stylized)`
 	width: calc(100% + 2rem);
 	${radius.medium}
 `;

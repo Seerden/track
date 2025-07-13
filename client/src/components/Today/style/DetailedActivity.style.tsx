@@ -1,4 +1,4 @@
-import { Action } from "@/lib/theme/components/buttons";
+import Buttons from "@/lib/theme/components/buttons";
 import CardStyle from "@/lib/theme/components/Card.style";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
@@ -64,7 +64,7 @@ const CheckboxWrapper = styled.label`
 	}
 `;
 
-const _EditButton = styled(Action.Stylized)`
+const _EditButton = styled(Buttons.Action.Stylized)`
 	position: absolute;
 	top: -1rem;
 	right: 6rem;

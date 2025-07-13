@@ -1,4 +1,4 @@
-import { Unstyled } from "@/lib/theme/components/buttons";
+import Buttons from "@/lib/theme/components/buttons";
 import { font } from "@/lib/theme/font";
 import { noBorders } from "@/lib/theme/snippets/border";
 import { border, outline, thinOutline } from "@/lib/theme/snippets/edge";
@@ -43,7 +43,7 @@ const TabsPanel = styled.div`
 	transform-origin: bottom center;
 `;
 
-const Tab = styled(Unstyled)<{
+const Tab = styled(Buttons.Unstyled)<{
 	$active?: boolean;
 }>`
 	width: max-content;
@@ -95,7 +95,7 @@ const SectionActionBar = styled.div`
 	justify-content: center;
 `;
 
-const Toggle = styled(Unstyled)<{ $active?: boolean }>`
+const Toggle = styled(Buttons.Unstyled)<{ $active?: boolean }>`
 	display: flex;
 	${noBorders};
 	${radius.medium};
@@ -140,7 +140,7 @@ const InputWithSelect = styled.div`
 	}
 `;
 
-const _ResetButton = styled(Unstyled)`
+const _ResetButton = styled(Buttons.Unstyled)`
 	margin-bottom: ${spacingValue.medium};
 
 	&:hover {
@@ -161,7 +161,7 @@ function getTagBackgroundColor(selected?: boolean, active?: boolean) {
 	return "#fff";
 }
 
-const TagChip = styled(Unstyled)<{
+const TagChip = styled(Buttons.Unstyled)<{
 	$selected?: boolean;
 	$active?: boolean;
 }>`

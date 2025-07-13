@@ -5,6 +5,9 @@ import TableItem from "@/components/activities/ActivityOverview/TableItem";
 import useActivityOverview from "@/components/activities/ActivityOverview/useActivityOverview";
 import { filterTagsById } from "@/lib/filter-tags";
 import useFloatingProps from "@/lib/hooks/useFloatingProps";
+import Buttons from "@/lib/theme/components/buttons";
+import Containers from "@/lib/theme/components/container.style";
+import Table from "@/lib/theme/components/table";
 import {
 	LucideArrowDownWideNarrow,
 	LucideDownload,
@@ -29,27 +32,30 @@ export default function ActivityOverview() {
 
 	return (
 		<S.OverviewWrapper>
-			<S.ActionBar>
-				<S.ActionButton
+			{/* TODO: should this be floating? */}
+			<Containers.ActionBar>
+				<Buttons.Action.Alternative
+					light
 					ref={float.refs.setReference}
 					{...float.getReferenceProps()}
 					title="Filter"
 				>
 					<LucideFilter size={15} />
-				</S.ActionButton>
+				</Buttons.Action.Alternative>
 
-				<S.ActionButton disabled title="Sort (not yet implemented)">
+				{/* TODO: once implemented, set `light` to true */}
+				<Buttons.Action.Alternative disabled title="Sort (not yet implemented)">
 					<LucideArrowDownWideNarrow size={15} />
-				</S.ActionButton>
+				</Buttons.Action.Alternative>
 
-				<S.ActionButton disabled title="Export (not yet implemented)">
+				<Buttons.Action.Alternative disabled title="Export (not yet implemented)">
 					<LucideDownload size={15} />
-				</S.ActionButton>
+				</Buttons.Action.Alternative>
 
-				<S.ActionButton disabled title="Select (not yet implemented)">
+				<Buttons.Action.Alternative disabled title="Select (not yet implemented)">
 					<LucideSquareDot size={15} />
-				</S.ActionButton>
-			</S.ActionBar>
+				</Buttons.Action.Alternative>
+			</Containers.ActionBar>
 
 			<S.FloatingWrapper
 				ref={float.refs.setFloating}
@@ -63,17 +69,17 @@ export default function ActivityOverview() {
 			</S.FloatingWrapper>
 
 			<S.Wrapper>
-				<S.Header>
+				<Table.Header.Dark.Wrapper>
 					{/* TODO: these should come from a constant list. We should 
                      also use that list (and a mapper) in TableItem, so that the 
                      two are always in sync. */}
-					<S.HeaderField>Task completed?</S.HeaderField>
-					<S.HeaderField>Name</S.HeaderField>
-					<S.HeaderField>Start</S.HeaderField>
-					<S.HeaderField>End</S.HeaderField>
-					<S.HeaderField>Tags</S.HeaderField>
-					<S.HeaderField>Creation date</S.HeaderField>
-				</S.Header>
+					<Table.Header.Dark.Field>Task completed?</Table.Header.Dark.Field>
+					<Table.Header.Dark.Field>Name</Table.Header.Dark.Field>
+					<Table.Header.Dark.Field>Start</Table.Header.Dark.Field>
+					<Table.Header.Dark.Field>End</Table.Header.Dark.Field>
+					<Table.Header.Dark.Field>Tags</Table.Header.Dark.Field>
+					<Table.Header.Dark.Field>Creation date</Table.Header.Dark.Field>
+				</Table.Header.Dark.Wrapper>
 				{filteredActivities.map((activity) => (
 					<TableItem
 						key={activity.activity_id}

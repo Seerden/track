@@ -1,4 +1,4 @@
-import { Action } from "@/lib/theme/components/buttons";
+import Buttons from "@/lib/theme/components/buttons";
 import F from "@/lib/theme/components/form.style";
 import { font } from "@/lib/theme/font";
 import Input from "@/lib/theme/input";
@@ -16,7 +16,7 @@ const ClearEndDateButtonWrapper = styled.div`
 	right: var(--offset);
 `;
 
-const SetEndDateButton = styled(Action.Stylized)`
+const SetEndDateButton = styled(Buttons.Action.Stylized)`
 	${flex.row};
 
 	width: max-content;

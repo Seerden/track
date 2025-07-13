@@ -1,4 +1,4 @@
-import { Unstyled } from "@/lib/theme/components/buttons";
+import Buttons from "@/lib/theme/components/buttons";
 import { defaultCellHeight, defaultCellWidth } from "@/lib/theme/components/buttons/Cell";
 import { getFontSize } from "@/lib/theme/font";
 import { outline, thinBorder } from "@/lib/theme/snippets/edge";
@@ -8,7 +8,10 @@ import { spacingValue } from "@/lib/theme/snippets/spacing";
 import styled from "@emotion/styled";
 import type { CSSProperties } from "react";
 
+// TODO: theme value
 const gap = "0.3rem";
+// TODO: instead of doing this, define a few them.colors.highlight[order]
+// values, and use those. Easier to keep things consistent across the app.
 const highlightColor: CSSProperties["color"] = "dodgerblue";
 
 const Calendar = styled.div`
@@ -110,7 +113,7 @@ const MonthPickerActionWrapper = styled.div`
 	}
 `;
 
-const _MonthPickerAction = styled(Unstyled)<{
+const MonthPickerAction = styled(Buttons.Unstyled)<{
 	$direction: "previous" | "next";
 }>`
 	display: flex;
@@ -134,10 +137,6 @@ const _MonthPickerAction = styled(Unstyled)<{
 		}
 	}
 `;
-
-function MonthPickerAction(props: Parameters<typeof _MonthPickerAction>[0]) {
-	return <_MonthPickerAction type="button" {...props} />;
-}
 
 export default {
 	Calendar,

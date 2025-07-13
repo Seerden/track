@@ -1,3 +1,4 @@
+import { byIdAsList } from "@shared/lib/map";
 import type { TagWithIds } from "@shared/lib/schemas/tag";
 import type { ByIdMap, ID, Maybe } from "@shared/types/data/utility.types";
 
@@ -11,7 +12,7 @@ export function filterTagsById(
 ): TagWithIds[] {
 	if (!ids?.length) return [];
 
-	const tags = Object.values(tagsById);
+	const tags = byIdAsList(tagsById);
 
 	return tags.filter(({ tag_id }) => ids.includes(tag_id));
 }

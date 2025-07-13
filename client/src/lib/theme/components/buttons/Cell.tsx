@@ -9,7 +9,7 @@ const highlightColor: CSSProperties["color"] = "royalblue";
 export const defaultCellWidth = 25;
 export const defaultCellHeight = 25;
 
-const _Default = styled(Unstyled)<{
+const Default = styled(Unstyled)<{
 	$selected?: boolean;
 	$highlight?: boolean;
 	$width?: number;
@@ -19,8 +19,8 @@ const _Default = styled(Unstyled)<{
 	justify-content: center;
 	align-items: center;
 
-	width: ${(p) => p.$width}px;
-	height: ${(p) => p.$height}px;
+	width: ${(p) => p.$width ?? defaultCellWidth}px;
+	height: ${(p) => p.$height ?? defaultCellHeight}px;
 
 	${(p) =>
 		// a 'null' cell has no children, so this is nicer than using something like
@@ -78,17 +78,6 @@ const _Default = styled(Unstyled)<{
 			box-shadow: 0 0 0.2rem 0 #ccc;
 		`}
 `;
-
-function Default(props: Parameters<typeof _Default>[0]) {
-	return (
-		<_Default
-			type="button"
-			$width={defaultCellWidth}
-			$height={defaultCellHeight}
-			{...props}
-		/>
-	);
-}
 
 const CellButtons = {
 	Default

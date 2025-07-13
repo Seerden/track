@@ -4,6 +4,7 @@ import { border, outline, thinOutline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { CSSProperties } from "react";
 
@@ -40,9 +41,15 @@ function Default(props: Parameters<typeof _Default>[0]) {
 	return <_Default type="button" $color="purple" {...props} />;
 }
 
-const Alternative = styled(Unstyled)`
+const Alternative = styled(Unstyled)<{ light?: boolean }>`
 	${flex.centered};
 	${radius.round};
+
+	${(p) =>
+		p.light &&
+		css`
+			background-color: #fff;
+		`}
 
 	--size: 30px; // TODO: use size from props by default, otherwise default to 30px
 	width: var(--size);

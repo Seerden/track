@@ -1,4 +1,4 @@
-import { Submit } from "@/lib/theme/components/buttons";
+import Buttons from "@/lib/theme/components/buttons";
 import { getFontSize } from "@/lib/theme/font";
 import Input from "@/lib/theme/input";
 import { border, outline, thinBorder } from "@/lib/theme/snippets/edge";
@@ -48,6 +48,7 @@ const Row = styled.fieldset`
 	box-shadow: 0.6rem 0.6rem 0 -0.5rem #555;
 
 	&:focus-within {
+		/* TODO: use to-be-created highlight color I made a TODO about */
 		border-left-color: ${(p) => p.theme.colors.blue.main};
 	}
 `;
@@ -119,7 +120,7 @@ const formStyle = {
 	Row,
 	CompactRow,
 	Form,
-	Button: Submit.Default,
+	Button: Buttons.Submit.Default,
 	Label
 };
 

@@ -1,4 +1,4 @@
-import Buttons from "@/lib/theme/components/buttons/buttons";
+import Buttons from "@/lib/theme/components/buttons";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import styled from "@emotion/styled";

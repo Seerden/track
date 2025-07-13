@@ -1,4 +1,4 @@
-import { Unstyled } from "@/lib/theme/components/buttons";
+import Buttons from "@/lib/theme/components/buttons";
 import F from "@/lib/theme/components/form/form.alternate.style";
 import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
@@ -20,7 +20,7 @@ const Fields = styled.div`
 	gap: ${spacingValue.small};
 `;
 
-const _ShowPassword = styled(Unstyled)`
+const ShowPassword = styled(Buttons.Unstyled)`
 	position: absolute;
 	right: 1rem;
 	top: 0;
@@ -28,10 +28,6 @@ const _ShowPassword = styled(Unstyled)`
 
 	${Lucide.PasswordEye};
 `;
-
-function ShowPassword(props: Parameters<typeof _ShowPassword>[0]) {
-	return <_ShowPassword {...props} type="button" />;
-}
 
 // TODO: conflate styles for these submit buttons. I don't like the default
 // padding, so why not just change that instead of overriding it here?

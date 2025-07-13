@@ -7,7 +7,7 @@ import TagTree from "@/components/tags/TagTree/TagTree";
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
-import { Action } from "@/lib/theme/components/buttons";
+import Buttons from "@/lib/theme/components/buttons";
 import {
 	LucideChevronDown,
 	LucideChevronUp,
@@ -57,15 +57,15 @@ export default function TagSelector(p: TagSelectorProps) {
 								/>
 								{/* TODO: we show this exact thing in two different places -- make it a subcomponent, or at least a render function */}
 								{!!t.selectedTagIds.length && (
-									<Action.Alternative onClick={t.onSelectionReset}>
+									<Buttons.Action.Alternative onClick={t.onSelectionReset}>
 										<LucideFilterX size={20} color="orangered" />
-									</Action.Alternative>
+									</Buttons.Action.Alternative>
 								)}
 								{p.showNewTagButton && <NewTagButton modalId={p.modalId} />}
 
-								<Action.Alternative onClick={f.expandFilter}>
+								<Buttons.Action.Alternative onClick={f.expandFilter}>
 									<LucideChevronDown size={20} color={"darkorchid"} />
-								</Action.Alternative>
+								</Buttons.Action.Alternative>
 							</>
 						)}
 					</S.Actions>
@@ -87,20 +87,20 @@ export default function TagSelector(p: TagSelectorProps) {
 								/>
 
 								{!!t.selectedTagIds.length && (
-									<Action.Alternative onClick={t.onSelectionReset}>
+									<Buttons.Action.Alternative onClick={t.onSelectionReset}>
 										<LucideFilterX size={20} color="orangered" />
-									</Action.Alternative>
+									</Buttons.Action.Alternative>
 								)}
 
-								<Action.Alternative onClick={onModalOpen}>
+								<Buttons.Action.Alternative onClick={onModalOpen}>
 									<LucideMaximize size={20} color={"dodgerblue"} />
-								</Action.Alternative>
+								</Buttons.Action.Alternative>
 
 								{p.showNewTagButton && <NewTagButton modalId={p.modalId} />}
 
-								<Action.Alternative onClick={f.minimizeFilter}>
+								<Buttons.Action.Alternative onClick={f.minimizeFilter}>
 									<LucideChevronUp size={20} color={"forestgreen"} />
-								</Action.Alternative>
+								</Buttons.Action.Alternative>
 							</S.DropdownActions>
 
 							<S.List>

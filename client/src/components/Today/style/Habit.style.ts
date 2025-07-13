@@ -1,4 +1,4 @@
-import { Unstyled } from "@/lib/theme/components/buttons";
+import Buttons from "@/lib/theme/components/buttons";
 import ListStyle from "@/lib/theme/components/List.style";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
@@ -21,7 +21,7 @@ const CompletionWrapper = styled.div`
 	min-width: 150px;
 `;
 
-const ExpandButton = styled(Unstyled)<{ $size?: number }>`
+const ExpandButton = styled(Buttons.Unstyled)<{ $size?: number }>`
 	${flex.centered};
 	justify-self: center;
 

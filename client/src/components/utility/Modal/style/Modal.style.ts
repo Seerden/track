@@ -1,4 +1,4 @@
-import { Action } from "@/lib/theme/components/buttons";
+import Buttons from "@/lib/theme/components/buttons";
 import { thinBorder } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
 import scrollbar from "@/lib/theme/snippets/scroll";
@@ -23,7 +23,7 @@ const ModalWrapper = styled.div`
 	justify-content: center;
 `;
 
-const Close = styled(Action.Stylized)`
+const Close = styled(Buttons.Action.Stylized)`
 	position: absolute;
 	top: -0.9rem;
 	right: 1.8rem;
