@@ -2,7 +2,7 @@ import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
 import Form from "@/lib/theme/components/form.style";
-import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
+import Input from "@/lib/theme/input";
 import TagSelector from "@components/tags/TagSelector/TagSelector";
 import type { ActivityWithIds } from "@shared/lib/schemas/activity";
 import DateTimePicker from "./DateTimePicker";
@@ -45,7 +45,7 @@ export default function ActivityForm({
 				<Form.Row name="description">
 					<Form.Label>
 						<span>Activity</span>
-						<DefaultInput
+						<Input.Default
 							name="name"
 							onChange={onInputChange}
 							defaultValue={activity?.name}

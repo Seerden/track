@@ -1,6 +1,6 @@
 import { Action } from "@/lib/theme/components/buttons";
-import FilterInput from "@/lib/theme/components/input/FilterInput.style";
 import { getFontSize } from "@/lib/theme/font";
+import Input from "@/lib/theme/input";
 import { border } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
@@ -155,7 +155,7 @@ const DropdownActions = styled.div`
 		justify-content: flex-start;
 		align-items: flex-start;
 
-		& > ${FilterInput} {
+		& > ${Input.Filter} {
 			align-self: flex-start;
 		}
 	}

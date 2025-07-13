@@ -1,11 +1,21 @@
 import { getFontSize } from "@/lib/theme/font";
+import { noBorders } from "@/lib/theme/snippets/border";
 import { outline } from "@/lib/theme/snippets/edge";
 import { inputStyle } from "@/lib/theme/snippets/input";
 import styled from "@emotion/styled";
 
-const FilterInput = styled.input`
-	${inputStyle};
+const Unstyled = styled.input`
+	${noBorders};
+	background-color: transparent;
+	padding: 0;
+	margin: 0;
+`;
 
+const Default = styled.input`
+	${inputStyle};
+`;
+
+const Filter = styled(Default)`
 	max-width: 150px;
 
 	--font-size: ${(p) => getFontSize(p, 0.88)};
@@ -21,4 +31,10 @@ const FilterInput = styled.input`
 	}
 `;
 
-export default FilterInput;
+const Input = {
+	Unstyled,
+	Default,
+	Filter
+};
+
+export default Input;

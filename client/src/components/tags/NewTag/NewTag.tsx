@@ -1,6 +1,6 @@
 import type { ModalId } from "@/lib/modal-ids";
 import F from "@/lib/theme/components/form.style";
-import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
+import Input from "@/lib/theme/input";
 import { LucideTag } from "lucide-react";
 import TagSelector from "../TagSelector/TagSelector";
 import S from "./style/NewTag.style";
@@ -24,7 +24,7 @@ function NewTag({ modalId }: NewTagProps) {
 				<F.Row>
 					<F.Label>
 						<span>Name</span>
-						<DefaultInput
+						<Input.Default
 							type="text"
 							placeholder="Tag name"
 							name="name"
@@ -34,7 +34,7 @@ function NewTag({ modalId }: NewTagProps) {
 
 					<F.Label>
 						<span>Description</span>
-						<DefaultInput
+						<Input.Default
 							placeholder="Tag description"
 							type="text"
 							name="description"

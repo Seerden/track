@@ -1,5 +1,5 @@
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
-import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
+import Input from "@/lib/theme/input";
 import { LucideHelpCircle } from "lucide-react";
 import type { DateTimePickerProps } from "./datetime-picker.types";
 import S from "./style/DateTimePicker.style";
@@ -27,7 +27,7 @@ export default function DateTimePicker({ onChange, defaultValues }: DateTimePick
 				<S.Fields>
 					<S.Label>
 						<span>Date</span>
-						<DefaultInput
+						<Input.Default
 							type="date"
 							defaultValue={defaultStartDate}
 							onChange={onStartDateFieldChange}
@@ -36,7 +36,7 @@ export default function DateTimePicker({ onChange, defaultValues }: DateTimePick
 
 					<S.Label $faded={!manualEndDate}>
 						<span>End date</span>
-						<DefaultInput
+						<Input.Default
 							type="date"
 							defaultValue={defaultEndDate}
 							onChange={onEndDateFieldChange}
@@ -55,7 +55,7 @@ export default function DateTimePicker({ onChange, defaultValues }: DateTimePick
 				<S.Fields>
 					<S.Label $faded={allDay}>
 						<span>Start time</span>
-						<DefaultInput
+						<Input.Default
 							type="text"
 							onBlur={(e) => onTimeFieldChange(e, "start")}
 							defaultValue={defaultTime.start}
@@ -69,7 +69,7 @@ export default function DateTimePicker({ onChange, defaultValues }: DateTimePick
 					</S.Label>
 					<S.Label $faded={allDay}>
 						<span>End time</span>
-						<DefaultInput
+						<Input.Default
 							type="text"
 							placeholder={"HHmm"}
 							onBlur={(e) => onTimeFieldChange(e, "end")}

@@ -1,12 +1,12 @@
 import type { FilterProps } from "@/components/tags/TagSelector/tag-selector.types";
-import FilterInput from "@/lib/theme/components/input/FilterInput.style";
+import Input from "@/lib/theme/input";
 import { X } from "lucide-react";
 import S from "./style/TagSelector.style";
 
 function Filter(p: FilterProps) {
 	return (
 		<S.FilterWrapper>
-			<FilterInput
+			<Input.Filter
 				onFocus={(e) => p.onFocus?.(e)}
 				autoFocus={p.hasAutoFocus}
 				type="text"

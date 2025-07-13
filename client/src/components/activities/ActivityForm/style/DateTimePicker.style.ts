@@ -1,4 +1,4 @@
-import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
+import Input from "@/lib/theme/input";
 import { border, outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
@@ -46,7 +46,7 @@ const Label = styled.label<{ $faded?: boolean }>`
 		border-radius: 0 15px 0 0;
 	}
 
-	${DefaultInput} {
+	${Input.Default} {
 		&[type="date"] {
 			width: 120px;
 		}

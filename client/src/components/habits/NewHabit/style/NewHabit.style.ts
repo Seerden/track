@@ -1,7 +1,7 @@
 import { Action } from "@/lib/theme/components/buttons";
 import F from "@/lib/theme/components/form.style";
-import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
 import { font } from "@/lib/theme/font";
+import Input from "@/lib/theme/input";
 import { border, outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { inputStyle } from "@/lib/theme/snippets/input";
@@ -107,7 +107,7 @@ const Label = styled.label`
 		align-items: center;
 	}
 
-	${DefaultInput} {
+	${Input.Default} {
 		padding-top: 0.1rem;
 	}
 

@@ -5,7 +5,7 @@ import { createDate } from "@/lib/datetime/make-date";
 import modalIds from "@/lib/modal-ids";
 import { Action } from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
-import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
+import Input from "@/lib/theme/input";
 import Form from "@lib/theme/components/form.style";
 import { LucideCalendarOff, LucideCalendarPlus } from "lucide-react";
 import S from "./style/NewHabit.style";
@@ -99,14 +99,10 @@ function SimpleField({
 	return (
 		<Form.Label>
 			<span>{label}</span>
-			<DefaultInput type="text" onChange={onChange} name={name} required={required} />
+			<Input.Default type="text" onChange={onChange} name={name} required={required} />
 		</Form.Label>
 	);
 }
-
-// TODO TRK-231: these field subcomponents (mostly) all have the same prop type.
-// Extract it to a common type, and consider extracting the props themselves and
-// destructuring them in each subcomponent.
 
 type FieldProps = {
 	onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
@@ -117,7 +113,7 @@ function TargetField({ onChange, habit }: FieldProps) {
 	return (
 		<S.Label>
 			<span>target</span>
-			<DefaultInput
+			<Input.Default
 				style={{
 					width: "95px",
 					fontSize: "0.82rem"
@@ -141,7 +137,7 @@ function UnitField({ onChange, habit }: FieldProps) {
 			{/* TODO TRK-231: rename this Inputs.Default, 
                               then extend this in NewHabit.style with 
                               the with and font size */}
-			<DefaultInput
+			<Input.Default
 				style={{
 					width: "75px",
 					fontSize: "0.82rem"
@@ -162,7 +158,7 @@ function StartDateField({ onChange, habit }: FieldProps) {
 	return (
 		<Form.Label>
 			<span>Start date</span>
-			<DefaultInput
+			<Input.Default
 				type="date"
 				name="start_timestamp"
 				value={formatToYearMonthDay(createDate(habit.start_timestamp))}
@@ -177,7 +173,7 @@ function EndDateField({ onChange, habit }: FieldProps) {
 	return (
 		<Form.Label>
 			<span>End date</span>
-			<DefaultInput
+			<Input.Default
 				type="date"
 				name="end_timestamp"
 				value={
