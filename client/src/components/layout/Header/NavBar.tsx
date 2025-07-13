@@ -26,7 +26,7 @@ function ProfileAction() {
 
 	if (isLoggedIn) {
 		return (
-			<S.Action type="button" onClick={() => logout()} color="darkblue">
+			<S.Action type="button" onClick={() => logout()} $color="darkBlue">
 				log out
 			</S.Action>
 		);

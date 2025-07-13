@@ -1,11 +1,17 @@
-import Buttons from "@/lib/theme/components/buttons";
+import ActionButtons from "@/lib/theme/components/buttons/Action";
+import CellButtons from "@/lib/theme/components/buttons/Cell";
+import {
+	default as _UnstyledButton,
+	default as UnstyledButton
+} from "@/lib/theme/components/buttons/Unstyled";
 import { getFontSize } from "@/lib/theme/font";
 import { border } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "@emotion/styled";
 
-const _Default = styled(Buttons.Unstyled)`
+const SubmitDefault = styled(UnstyledButton)`
+	/* TODO: remove this negative bottom margin and overwrite when necessary */
 	margin-bottom: -1.5rem;
 	margin-top: 0.3rem;
 
@@ -31,12 +37,13 @@ const _Default = styled(Buttons.Unstyled)`
 	}
 `;
 
-function Default(props: Parameters<typeof _Default>[0]) {
-	return <_Default type="submit" {...props} />;
-}
-
-const SubmitButtons = {
-	Default
+const Buttons = {
+	Action: ActionButtons,
+	Cell: CellButtons,
+	Submit: {
+		Default: SubmitDefault
+	},
+	Unstyled: _UnstyledButton
 };
 
-export default SubmitButtons;
+export default Buttons;

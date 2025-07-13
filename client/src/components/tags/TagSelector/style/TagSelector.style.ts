@@ -135,10 +135,6 @@ const Actions = styled.div`
 	}
 `;
 
-const Dropdown = styled.div`
-	position: relative;
-`;
-
 const DropdownActions = styled.div`
 	${flex.row};
 	align-items: flex-end;
@@ -238,7 +234,6 @@ export default {
 	ClearFilter,
 	FilterWrapper,
 	Actions,
-	Dropdown,
 	DropdownActions,
 	DropdownContent,
 	SelectionList,

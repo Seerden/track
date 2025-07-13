@@ -39,8 +39,12 @@ export default function useNewHabit() {
 		goal: null
 	});
 
+	useEffect(() => {
+		console.log({ habit });
+	}, [habit]);
+
 	const habitWithUserIdField = useMemo(() => {
-		return Object.assign(habit, { user_id: currentUser?.user_id ?? null });
+		return Object.assign({}, habit, { user_id: currentUser?.user_id ?? null });
 	}, [habit, currentUser]);
 
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {

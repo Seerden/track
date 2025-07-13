@@ -1,4 +1,3 @@
-import Buttons from "@/lib/theme/components/buttons";
 import { getFontSize } from "@/lib/theme/font";
 import Input from "@/lib/theme/input";
 import { border, outline, thinBorder } from "@/lib/theme/snippets/edge";
@@ -120,7 +119,6 @@ const formStyle = {
 	Row,
 	CompactRow,
 	Form,
-	Button: Buttons.Submit.Default,
 	Label
 };
 

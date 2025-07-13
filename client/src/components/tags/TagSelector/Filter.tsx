@@ -1,6 +1,6 @@
 import type { FilterProps } from "@/components/tags/TagSelector/tag-selector.types";
 import Input from "@/lib/theme/input";
-import { X } from "lucide-react";
+import { LucideX } from "lucide-react";
 import S from "./style/TagSelector.style";
 
 function Filter(p: FilterProps) {
@@ -14,8 +14,8 @@ function Filter(p: FilterProps) {
 				value={p.filter}
 				onChange={p.updateFilter}
 			/>
-			<S.ClearFilter onClick={p.clearFilter} $color="themeInverted">
-				<X size={15} />
+			<S.ClearFilter type="button" onClick={p.clearFilter} $color="themeInverted">
+				<LucideX size={15} />
 			</S.ClearFilter>
 		</S.FilterWrapper>
 	);

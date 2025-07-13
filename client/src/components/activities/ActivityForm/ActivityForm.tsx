@@ -1,6 +1,7 @@
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
+import Buttons from "@/lib/theme/components/buttons";
 import Form from "@/lib/theme/components/form.style";
 import Input from "@/lib/theme/input";
 import TagSelector from "@components/tags/TagSelector/TagSelector";
@@ -70,7 +71,7 @@ export default function ActivityForm({
 					showNewTagButton
 					modalId={modalIds.tagSelector.activityForm}
 				/>
-				<Form.Button>{buttonTitle}</Form.Button>
+				<Buttons.Submit.Default>{buttonTitle}</Buttons.Submit.Default>
 			</Form.Form>
 		</Form.Wrapper>
 	);

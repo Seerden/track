@@ -8,12 +8,13 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { CSSProperties } from "react";
 
-const _Default = styled(Unstyled)<{ $color?: ColorKey }>`
+const Default = styled(Unstyled)<{ $color?: ColorKey }>`
 	${flex.centered};
 	${radius.round};
 
-	background-color: ${(p) => (p.$color ? p.theme.colors[p.$color].main : "transparent")};
-	box-shadow: 0 0 0.2rem 0 ${(p) => (p.$color ? p.theme.colors[p.$color].main : "none")};
+	--color: ${(p) => p.theme.colors[p.$color ?? "purple"].main};
+	background-color: var(--color);
+	box-shadow: 0 0 0.2rem 0 var(--color);
 
 	&:hover,
 	&:focus,
@@ -36,10 +37,6 @@ const _Default = styled(Unstyled)<{ $color?: ColorKey }>`
 		opacity: 0.5;
 	}
 `;
-
-function Default(props: Parameters<typeof _Default>[0]) {
-	return <_Default type="button" $color="purple" {...props} />;
-}
 
 const Alternative = styled(Unstyled)<{ light?: boolean }>`
 	${flex.centered};
@@ -75,7 +72,7 @@ const Alternative = styled(Unstyled)<{ light?: boolean }>`
 	}
 `;
 
-const _Stylized = styled(Unstyled)<{
+const Stylized = styled(Unstyled)<{
 	$size?: CSSProperties["width"];
 	$color: ColorKey;
 }>`
@@ -109,11 +106,7 @@ const _Stylized = styled(Unstyled)<{
 	height: ${(p) => p.$size ?? "var(--default-edit-button-size)"};
 `;
 
-function Stylized(props: Parameters<typeof _Stylized>[0]) {
-	return <_Stylized type="button" {...props} />;
-}
-
-const WithIcon = styled(_Default)`
+const WithIcon = styled(Default)`
 	display: flex;
 	width: max-content;
 	color: white;

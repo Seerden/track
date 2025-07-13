@@ -1,5 +1,4 @@
 import TagCardStyle from "@/components/tags/TagCard/style/TagCard.style";
-import Buttons from "@/lib/theme/components/buttons";
 import { getFontSize } from "@/lib/theme/font";
 import { column } from "@/lib/theme/snippets/column";
 import { outline } from "@/lib/theme/snippets/edge";
@@ -142,29 +141,6 @@ const AllDayActivityList = styled.ul`
 	padding-inline: 3rem;
 `;
 
-const Create = styled.div`
-	position: fixed;
-	bottom: 10rem;
-	right: 10rem;
-	z-index: 100;
-`;
-
-const SpeedDialActions = styled.div`
-	${flex.column};
-	${flex.centered};
-
-	gap: ${spacingValue.small};
-	padding: 0 ${spacingValue.medium};
-	${radius.small};
-
-	font-size: 0.8rem;
-`;
-
-const SpeedDialButton = styled(Buttons.Action.Stylized)`
-	width: calc(100% + 2rem);
-	${radius.medium}
-`;
-
 // TODO: rename this
 const Things = styled.div`
 	${flex.row};
@@ -187,8 +163,5 @@ export default {
 	Header,
 	Tags,
 	AllDayActivityList,
-	Create,
-	SpeedDialActions,
-	SpeedDialButton,
 	Things
 };

@@ -58,7 +58,11 @@ export default function NewHabit() {
 				>
 					{hasEndDate && (
 						<S.ClearEndDateButtonWrapper>
-							<Buttons.Action.Default $color="red" onClick={handleClearEndDate}>
+							<Buttons.Action.Default
+								type="button"
+								$color="red"
+								onClick={handleClearEndDate}
+							>
 								<LucideCalendarOff size={16} color="white" />
 							</Buttons.Action.Default>
 						</S.ClearEndDateButtonWrapper>
@@ -79,7 +83,7 @@ export default function NewHabit() {
 					showNewTagButton
 					title="Add tags"
 				/>
-				<Form.Button type="submit">Create habit</Form.Button>
+				<Buttons.Submit.Default type="submit">Create habit</Buttons.Submit.Default>
 			</Form.Form>
 		</Form.Wrapper>
 	);
@@ -120,7 +124,7 @@ function TargetField({ onChange, habit }: FieldProps) {
 				}}
 				type="number"
 				name="goal"
-				value={habit.goal ?? undefined}
+				value={habit.goal ?? ""}
 				onChange={onChange}
 				placeholder="e.g. 10.000"
 				disabled={habit.goal_type !== "goal"}
