@@ -1,7 +1,7 @@
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
-import N from "@/lib/theme/components/form.style";
+import Form from "@/lib/theme/components/form.style";
 import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
 import TagSelector from "@components/tags/TagSelector/TagSelector";
 import type { ActivityWithIds } from "@shared/lib/schemas/activity";
@@ -39,42 +39,39 @@ export default function ActivityForm({
 	});
 
 	return (
-		<N.Wrapper>
-			<N.FormTitle>{title}</N.FormTitle>
-			<N.Form onSubmit={onSubmit}>
-				<N.Row name="description">
-					<N.Label>
-						<span>Title</span>
+		<Form.Wrapper>
+			<Form.FormTitle>{title}</Form.FormTitle>
+			<Form.Form onSubmit={onSubmit}>
+				<Form.Row name="description">
+					<Form.Label>
+						<span>Activity</span>
 						<DefaultInput
 							name="name"
 							onChange={onInputChange}
-							defaultValue={activity?.name ?? ""}
+							defaultValue={activity?.name}
 							type="text"
 							required
 						/>
-					</N.Label>
+					</Form.Label>
 					<S.Task>
 						<span>Task?</span>
 						<Checkbox name="is_task" checked={isTask} onChange={onInputChange} />
 					</S.Task>
-				</N.Row>
-
-				<N.Row>
+				</Form.Row>
+				<Form.Row>
 					<DateTimePicker
 						onChange={onDateTimeChange}
 						defaultValues={defaultDateTimeValues}
 					/>
-				</N.Row>
-
+				</Form.Row>
 				<TagSelector
 					fullSize
 					title="Tags"
 					showNewTagButton
 					modalId={modalIds.tagSelector.activityForm}
 				/>
-
-				<N.Button>{buttonTitle}</N.Button>
-			</N.Form>
-		</N.Wrapper>
+				<Form.Button>{buttonTitle}</Form.Button>
+			</Form.Form>
+		</Form.Wrapper>
 	);
 }
