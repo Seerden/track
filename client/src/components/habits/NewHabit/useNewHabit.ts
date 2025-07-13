@@ -4,12 +4,15 @@ import useAuthentication from "@/lib/hooks/useAuthentication";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import { useTagSelection } from "@/lib/state/selected-tags-state";
-import type { NewHabit } from "@shared/lib/schemas/habit";
+import { newHabitSchema, type NewHabit } from "@shared/lib/schemas/habit";
 import { hasValidUserId } from "@shared/types/data/user-id.guards";
 import type { Nullable } from "@shared/types/data/utility.types";
 import { useNavigate } from "@tanstack/react-router";
 import type { Dayjs } from "dayjs";
+import { produce } from "immer";
 import { useCallback, useEffect, useMemo, useState } from "react";
+
+export type NewHabitWithoutUserId = Omit<NewHabit, "user_id">;
 
 export default function useNewHabit() {
 	const { currentUser } = useAuthentication();
@@ -17,17 +20,13 @@ export default function useNewHabit() {
 	const { selectedTagIds, resetTagSelection } = useTagSelection();
 	const navigate = useNavigate();
 	const { closeModal } = useModalState();
+	const [hasEndDate, setHasEndDate] = useState(false);
 
 	useEffect(() => {
 		resetTagSelection();
 	}, []);
 
-	function parseNewHabit(habit: Partial<NewHabit>): NewHabit {
-		// TODO: actually validate habit
-		return habit as NewHabit;
-	}
-
-	const [habit, setHabit] = useState<Omit<NewHabit, "user_id">>({
+	const [habit, setHabit] = useState<NewHabitWithoutUserId>({
 		name: "",
 		description: "",
 		start_timestamp: createDate(new Date()),
@@ -47,11 +46,13 @@ export default function useNewHabit() {
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 
-		if (!hasValidUserId(habitWithUserIdField)) return;
+		const parsed = newHabitSchema.safeParse(habitWithUserIdField);
+		// TODO: notify
+		if (!parsed.success || !hasValidUserId(habitWithUserIdField)) return;
 
 		submit(
 			{
-				habit: parseNewHabit(habitWithUserIdField),
+				habit: parsed.data,
 				tagIds: selectedTagIds
 			},
 			{
@@ -63,6 +64,7 @@ export default function useNewHabit() {
 		);
 	}
 
+	// TODO TRK-231: move this into the only field subcomponent that needs it
 	const maybePlural = useCallback(
 		(s: string) => {
 			return habit.interval === 1 ? s : s + "s";
@@ -87,19 +89,56 @@ export default function useNewHabit() {
 				parsedValue = value === "" ? null : value;
 				break;
 			case "radio":
+				// TODO TRK-231: consider a type for this union of options
+				// "checkbox" | "goal", and use it in the select field as well.
+				// Alternatively, leave this and wait for the schema validation to
+				// fail on mutation to handle any cases where `value` is not one of
+				// the allowed options.
 				parsedValue = value as "checkbox" | "goal";
 				break;
 		}
+		// using immer here would be tricky, since parsedValue has a union
+		// type and inferring that it matches the given field is not worth it.
 		setHabit((current) => ({
 			...current,
 			[e.target.name]: parsedValue
 		}));
 	}
+
+	function handleGoalTypeChange(e: React.ChangeEvent<HTMLInputElement>) {
+		onInputChange(e);
+		setHabit(
+			produce((draft) => {
+				draft.goal = null;
+				draft.goal_unit = null;
+			})
+		);
+	}
+
+	function handleClearEndDate(e: React.MouseEvent<HTMLButtonElement>) {
+		e.stopPropagation();
+		setHasEndDate(false);
+		setHabit(
+			produce((draft) => {
+				draft.end_timestamp = null;
+			})
+		);
+	}
+
+	function enableEndDate(e: React.MouseEvent<HTMLButtonElement>) {
+		e.stopPropagation();
+		setHasEndDate(true);
+	}
+
 	return {
 		habit,
 		setHabit,
 		maybePlural,
 		onInputChange,
-		onSubmit
+		handleGoalTypeChange,
+		onSubmit,
+		hasEndDate,
+		handleClearEndDate,
+		enableEndDate
 	};
 }
