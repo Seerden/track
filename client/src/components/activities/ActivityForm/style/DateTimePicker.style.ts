@@ -23,7 +23,7 @@ const Label = styled.label<{ $faded?: boolean }>`
 	${flex.column};
 	align-items: stretch;
 
-	margin: 0.5rem;
+	margin: ${spacingValue.small};
 	width: 100%;
 
 	border-radius: 0 15px 0 0;
@@ -86,18 +86,16 @@ const Fields = styled.fieldset`
 // TODO: these match the styling from Task in ActivityForm, so they should be
 // extracted to a shared snippet.
 const AllDay = styled.label`
-	cursor: pointer;
 	${flex.row};
 	${flex.centered};
+	width: max-content;
+	cursor: pointer;
 
 	gap: ${spacingValue.smallest};
 	margin: ${spacingValue.small};
 	padding: 0 ${spacingValue.medium};
-
-	width: max-content;
-
 	${border.primary};
-	${radius.round};
+	${radius.small};
 
 	background-color: #eaeaea;
 `;

@@ -45,9 +45,20 @@ const EmptyState = styled.div`
 	}
 `;
 
+// TODO TRK-231: this concept of a generic flex row is work in progress.
+const Row = styled.div<{ gap?: keyof typeof spacingValue }>`
+	${flex.row};
+	${(p) =>
+		p.gap &&
+		css`
+			gap: ${spacingValue[p.gap]};
+		`}
+`;
+
 const Containers = {
 	Field: FieldWrapper,
-	EmptyState
+	EmptyState,
+	Row
 };
 
 export default Containers;

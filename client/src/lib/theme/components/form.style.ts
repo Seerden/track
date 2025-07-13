@@ -1,19 +1,21 @@
 import { Submit } from "@/lib/theme/components/buttons";
 import { getFontSize } from "@/lib/theme/font";
-import { outline } from "@/lib/theme/snippets/edge";
+import { border, outline, thinBorder } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
-import { spacing } from "@/lib/theme/snippets/spacing";
+import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { inputStyle } from "@lib/theme/snippets/input";
 
 const Wrapper = styled.div`
 	${spacing.padding.wide({ size: 0.5, ratio: 2 })};
+	/* TODO: is there a reason this has to be 0.8, or can we use spacingValue.medium? */
 	padding-top: 0.8rem;
+	/* TODO: same note as with the top padding. */
 	margin: 1.2rem;
-	border: 2px solid #ccc;
-	box-shadow: 0 0.3rem 1.2rem -0.1rem #ddd;
+	${border.grey};
 	max-width: 500px;
+	box-shadow: 0 0.3rem 1.2rem -0.1rem #ddd;
 `;
 
 const FormTitle = styled.h1`
@@ -34,13 +36,13 @@ const FormTitle = styled.h1`
 `;
 
 const Row = styled.fieldset`
-	padding: 0.5rem;
 	${flex.row};
-	gap: 0.5rem;
+	padding: ${spacingValue.small};
+	gap: ${spacingValue.small};
 
 	width: 100%;
 	max-width: 100%;
-	border: 1px solid #ccc;
+	${thinBorder.primary};
 	justify-content: space-between;
 	box-shadow: 0.6rem 0.6rem 0 -0.5rem #555;
 
@@ -63,16 +65,14 @@ const CompactRow = styled(Row)`
 
 const Form = styled.form`
 	${flex.column};
-	gap: 1rem;
-	padding: 0 0.5rem;
+	gap: ${spacingValue.medium};
+	padding: 0 ${spacingValue.small};
 `;
 
 const Label = styled.label<{ $showWarning?: boolean }>`
-	font-size: ${(p) => getFontSize(p, 0.9)};
-
 	${flex.column};
-
 	width: 75%;
+	font-size: ${(p) => getFontSize(p, 0.9)};
 
 	&:has(textarea) {
 		width: 100%;
