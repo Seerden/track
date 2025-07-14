@@ -1,7 +1,9 @@
-import { Action } from "@/lib/theme/components/buttons";
+import Buttons from "@/lib/theme/components/buttons";
 import CardStyle from "@/lib/theme/components/Card.style";
 import { flex } from "@/lib/theme/snippets/flex";
-import styled from "styled-components";
+import { radius } from "@/lib/theme/snippets/radius";
+import { spacingValue } from "@/lib/theme/snippets/spacing";
+import styled from "@emotion/styled";
 
 const Wrapper = styled(CardStyle.Wrapper)`
 	display: grid;
@@ -21,7 +23,7 @@ const Time = styled.div`
 	grid-area: time;
 
 	${flex.column};
-	gap: 0.5rem;
+	gap: ${spacingValue.small};
 `;
 
 const Description = styled.div``;
@@ -46,7 +48,7 @@ const CheckboxWrapper = styled.label`
 	height: 30px;
 
 	svg {
-		border-radius: 50%;
+		${radius.round};
 		background-color: azure;
 
 		/* TODO: use Checked and Unchecked instead of .on and .off */
@@ -62,15 +64,15 @@ const CheckboxWrapper = styled.label`
 	}
 `;
 
-const EditButton = styled(Action.Stylized)`
+const _EditButton = styled(Buttons.Action.Stylized)`
 	position: absolute;
 	top: -1rem;
 	right: 6rem;
 `;
 
-EditButton.defaultProps = {
-	title: "Edit this activity"
-};
+function EditButton(props: Parameters<typeof _EditButton>[0]) {
+	return <_EditButton title="Edit this activity" {...props} type="button" />;
+}
 
 const StyledDetailedActivity = {
 	Wrapper,

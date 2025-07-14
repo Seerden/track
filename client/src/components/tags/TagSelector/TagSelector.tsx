@@ -7,7 +7,7 @@ import TagTree from "@/components/tags/TagTree/TagTree";
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
-import { Action } from "@/lib/theme/components/buttons";
+import Buttons from "@/lib/theme/components/buttons";
 import {
 	LucideChevronDown,
 	LucideChevronUp,
@@ -18,6 +18,8 @@ import type { MouseEvent } from "react";
 import NewTagButton from "./NewTagButton";
 import S from "./style/TagSelector.style";
 import useTagSelector from "./useTagSelector";
+
+const Button = Buttons.Action.Alternative;
 
 export default function TagSelector(p: TagSelectorProps) {
 	const t = useTagSelector({ maximum: p.maximum, tagsById: p.tagsById });
@@ -45,7 +47,7 @@ export default function TagSelector(p: TagSelectorProps) {
 					</S.Title>
 				)}
 
-				<S.Dropdown>
+				<div style={{ position: "relative" }}>
 					<S.Actions>
 						{!f.expanded && (
 							<>
@@ -57,15 +59,15 @@ export default function TagSelector(p: TagSelectorProps) {
 								/>
 								{/* TODO: we show this exact thing in two different places -- make it a subcomponent, or at least a render function */}
 								{!!t.selectedTagIds.length && (
-									<Action.Alternative onClick={t.onSelectionReset}>
+									<Button onClick={t.onSelectionReset}>
 										<LucideFilterX size={20} color="orangered" />
-									</Action.Alternative>
+									</Button>
 								)}
 								{p.showNewTagButton && <NewTagButton modalId={p.modalId} />}
 
-								<Action.Alternative onClick={f.expandFilter}>
+								<Button onClick={f.expandFilter}>
 									<LucideChevronDown size={20} color={"darkorchid"} />
-								</Action.Alternative>
+								</Button>
 							</>
 						)}
 					</S.Actions>
@@ -87,20 +89,20 @@ export default function TagSelector(p: TagSelectorProps) {
 								/>
 
 								{!!t.selectedTagIds.length && (
-									<Action.Alternative onClick={t.onSelectionReset}>
+									<Button onClick={t.onSelectionReset}>
 										<LucideFilterX size={20} color="orangered" />
-									</Action.Alternative>
+									</Button>
 								)}
 
-								<Action.Alternative onClick={onModalOpen}>
-									<LucideMaximize size={20} color={"dodgerblue"} />
-								</Action.Alternative>
+								<Button onClick={onModalOpen}>
+									<LucideMaximize size={20} color="dodgerblue" />
+								</Button>
 
 								{p.showNewTagButton && <NewTagButton modalId={p.modalId} />}
 
-								<Action.Alternative onClick={f.minimizeFilter}>
+								<Button onClick={f.minimizeFilter}>
 									<LucideChevronUp size={20} color={"forestgreen"} />
-								</Action.Alternative>
+								</Button>
 							</S.DropdownActions>
 
 							<S.List>
@@ -115,7 +117,7 @@ export default function TagSelector(p: TagSelectorProps) {
 							<Selection fullPaths tags={t.tags} selectedTags={t.selectedTags} />
 						</S.DropdownContent>
 					)}
-				</S.Dropdown>
+				</div>
 			</S.Wrapper>
 			{/* NOTE I don't think we need to conditionally render TagTree based on !!state.isOpen, 
             but if the modal ever acts weird, that's the first thing to try for a fix. */}

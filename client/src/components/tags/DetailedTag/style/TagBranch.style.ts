@@ -1,24 +1,26 @@
 import { font } from "@/lib/theme/font";
+import { thinOutline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
-import { spacing } from "@/lib/theme/snippets/spacing";
-import styled, { css } from "styled-components";
+import { radius } from "@/lib/theme/snippets/radius";
+import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
 const Branch = styled.ol`
+	${flex.column};
 	position: relative;
 
-	${flex.column};
-
-	gap: 0.5rem;
-	margin-top: 0.4rem;
+	gap: ${spacingValue.small};
+	margin-top: 0.4rem; // TODO TRK-231: theme value
 	${spacing.padding.wide({ size: 1, ratio: 1.5 })}
 	padding-top: 2rem;
 
 	width: max-content;
 
 	background-color: #f2f2f2;
-	border-radius: 5px;
+	${radius.medium};
 	box-shadow: 0 0.2rem 0.3rem 0 #ccc;
-	outline: 1px solid white;
+	${thinOutline.primary};
 `;
 
 const Node = styled.li<{ $active?: boolean }>`
@@ -29,7 +31,7 @@ const Node = styled.li<{ $active?: boolean }>`
 
 	font-size: ${font.size["0.8"]};
 	${spacing.padding.wide({ size: 0.2, ratio: 2.5 })}
-	border-radius: 3px;
+	${radius.small};
 
 	box-shadow:
 		0 0.3rem 0.3rem 0 #ddd,
@@ -38,24 +40,23 @@ const Node = styled.li<{ $active?: boolean }>`
 	${(p) =>
 		p.$active &&
 		css`
-			background-color: ${(p) => p.theme.colors.purple.main};
+			background-color: ${p.theme.colors.purple.main};
 			color: white;
 		`}
 `;
 
 const Row = styled.ul`
-	--row-gap: 0.5rem;
+	${flex.row};
+	${flex.centered};
 
 	position: relative;
 	width: 100%;
 
-	${flex.row};
-	justify-content: center;
-	padding: 0.5rem;
-	gap: var(--row-gap);
-	align-self: center;
+	--row-gap: ${spacingValue.small};
 
-	border-radius: 3px;
+	padding: ${spacingValue.small};
+	gap: var(--row-gap);
+	${radius.small};
 
 	&:not(:only-child):not(:nth-last-of-type(1))::after {
 		position: absolute;
@@ -80,14 +81,15 @@ const Title = styled.h2`
 	font-size: ${font.size["0.9"]};
 
 	${flex.row};
-	gap: 0.5rem;
 	align-items: center;
+	gap: ${spacingValue.small};
 
-	border-radius: 3px;
+	${radius.small};
 	${spacing.padding.wide({ size: 0.3, ratio: 4 })}
 
+	// TODO TRK-231: theme value
 	background-color: #e1e1e1;
-	outline: 1px solid white;
+	${thinOutline.primary};
 	box-shadow: 0 0.2rem 0.3rem 0 #ccc;
 `;
 

@@ -69,8 +69,6 @@ export default function useToday() {
 		`dddd (D MMMM${currentDate.year() !== currentYear ? " YYYY" : ""})`
 	);
 
-	const [speedDialOpen, setSpeedDialOpen] = useState(false);
-
 	return {
 		habitsById: getHabitsForTimeWindow(timeWindow),
 		activities: todayActivities,
@@ -79,8 +77,6 @@ export default function useToday() {
 		currentDate,
 		setCurrentDate,
 		title,
-		changeDay,
-		speedDialOpen,
-		setSpeedDialOpen
+		changeDay
 	} as const;
 }

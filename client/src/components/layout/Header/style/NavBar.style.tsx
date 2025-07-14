@@ -1,8 +1,9 @@
 import ActionButtons from "@/lib/theme/components/buttons/Action";
+import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
+import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import { Link } from "@tanstack/react-router";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 const NavBar = styled.nav`
 	position: fixed;
@@ -30,7 +31,7 @@ const Actions = styled.div`
 
 const Action = styled(ActionButtons.Default)`
 	margin-left: auto;
-	border-radius: 5px;
+	${radius.medium};
 
 	${spacing.padding.wide({ size: 0.5, ratio: 3 })};
 
@@ -39,19 +40,19 @@ const Action = styled(ActionButtons.Default)`
 	height: max-content;
 `;
 
-Action.defaultProps = {
-	color: "darkBlue"
-};
+/**
+ * @note this is a `span` to circumvent typing issues with styled-components and
+ * the Link component.
+ */
+const HomeLink = styled.span`
+	${flex.centered};
+	${radius.medium};
+	${outline.secondary};
 
-const HomeLink = styled(Link)`
-	border-radius: 5px;
 	min-width: 40px;
 	min-height: 35px;
-	justify-content: center;
-	align-items: center;
-	outline: 2px solid #eee;
-	display: flex;
-	background-color: #f9f9f9;
+
+	background-color: #f9f9f9; // TODO TRK-231: theme value
 	box-shadow: 0 0.3rem 0.3rem -0.1rem #bbb;
 
 	svg {
@@ -61,7 +62,7 @@ const HomeLink = styled(Link)`
 	&:hover,
 	&:active,
 	&:focus {
-		outline: 2px solid #ddd;
+		${outline.tertiary};
 		background-color: #eee;
 		box-shadow: 0 0.3rem 0.3rem -0.2rem #bbb;
 		transform: translateY(2px);
@@ -74,8 +75,8 @@ const HomeLink = styled(Link)`
 `;
 
 export default {
+	HomeLink,
 	NavBar,
 	Actions,
-	Action,
-	HomeLink
+	Action
 };

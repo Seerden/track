@@ -1,7 +1,9 @@
-import { Action } from "@/lib/theme/components/buttons";
+import Buttons from "@/lib/theme/components/buttons";
+import { thinBorder } from "@/lib/theme/snippets/edge";
+import { radius } from "@/lib/theme/snippets/radius";
 import scrollbar from "@/lib/theme/snippets/scroll";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 const ModalWrapper = styled.div`
 	--modal-offset: 5vh;
@@ -21,20 +23,19 @@ const ModalWrapper = styled.div`
 	justify-content: center;
 `;
 
-const Close = styled(Action.Stylized)`
+const Close = styled(Buttons.Action.Stylized)`
 	position: absolute;
 	top: -0.9rem;
 	right: 1.8rem;
 `;
 
 const Modal = styled.div`
-	border: 2px solid orange;
 	position: relative;
 	${spacing.padding.wide({ size: 1.2, ratio: 1.25 })}
 	background-color: #eee; // TODO: this should be a theme value
 	height: max-content;
-	border: 1px solid #444;
-	border-radius: 5px;
+	${thinBorder.darkish};
+	${radius.medium};
 	margin-top: var(--modal-offset);
 	box-shadow:
 		0.8rem 0.8rem 0.1rem -0.2rem #ddd,

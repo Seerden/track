@@ -1,4 +1,4 @@
-import Buttons from "@/lib/theme/components/buttons/buttons";
+import Buttons from "@/lib/theme/components/buttons";
 import { LucidePlus } from "lucide-react";
 import type { PropsWithChildren } from "react";
 import S from "./style/Empty.style";
@@ -12,7 +12,7 @@ export default function Empty({ children, action }: PropsWithChildren<EmptyProps
 		<S.Empty>
 			{children}
 			{!!action && (
-				<Buttons.Action.Default $color="theme" onClick={action}>
+				<Buttons.Action.Default type="button" $color="theme" onClick={action}>
 					<LucidePlus />
 				</Buttons.Action.Default>
 			)}

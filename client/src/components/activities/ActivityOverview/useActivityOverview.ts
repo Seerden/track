@@ -10,9 +10,7 @@ export default function useActivityOverview() {
 
 	if (isProbablySuspended) return { isProbablySuspended };
 
-	const activities = activitiesData
-		? byIdAsList(new Map(Object.entries(activitiesData)))
-		: [];
+	const activities = activitiesData ? byIdAsList(activitiesData.byId) : [];
 
 	return {
 		isProbablySuspended,

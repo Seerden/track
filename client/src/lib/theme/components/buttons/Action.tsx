@@ -1,24 +1,27 @@
 import { getMainColor, getSecondaryColor, type ColorKey } from "@/lib/theme/colors";
 import Unstyled from "@/lib/theme/components/buttons/Unstyled";
-import styled from "styled-components";
-import type { CSS } from "styled-components/dist/types";
+import { border, outline, thinOutline } from "@/lib/theme/snippets/edge";
+import { flex } from "@/lib/theme/snippets/flex";
+import { radius } from "@/lib/theme/snippets/radius";
+import { spacingValue } from "@/lib/theme/snippets/spacing";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import type { CSSProperties } from "react";
 
 const Default = styled(Unstyled)<{ $color?: ColorKey }>`
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	${flex.centered};
+	${radius.round};
 
-	border-radius: 50%;
-
-	background-color: ${(p) => (p.$color ? p.theme.colors[p.$color].main : "transparent")};
-	box-shadow: 0 0 0.2rem 0 ${(p) => (p.$color ? p.theme.colors[p.$color].main : "none")};
+	--color: ${(p) => p.theme.colors[p.$color ?? "purple"].main};
+	background-color: var(--color);
+	box-shadow: 0 0 0.2rem 0 var(--color);
 
 	&:hover,
 	&:focus,
 	&:active {
 		background-color: ${(p) =>
 			p.$color ? p.theme.colors[p.$color].secondary : "transparent"};
-		outline: 2px solid white;
+		${outline.primary};
 		box-shadow: 0 0 0.3rem 0 #333;
 	}
 
@@ -35,17 +38,15 @@ const Default = styled(Unstyled)<{ $color?: ColorKey }>`
 	}
 `;
 
-Default.defaultProps = {
-	type: "button",
-	$color: "purple"
-};
+const Alternative = styled(Unstyled)<{ light?: boolean }>`
+	${flex.centered};
+	${radius.round};
 
-const Alternative = styled(Unstyled)`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-	border-radius: 50%;
+	${(p) =>
+		p.light &&
+		css`
+			background-color: #fff;
+		`}
 
 	--size: 30px; // TODO: use size from props by default, otherwise default to 30px
 	width: var(--size);
@@ -56,32 +57,35 @@ const Alternative = styled(Unstyled)`
 		background-color: white;
 	}
 
+	// TODO: need this to be a generic focusOutline snippet, because buttons
+	// and inputs all need this
 	&:focus:not(:active) {
-		outline: 1px solid #ccc; // TODO: need this to be a generic focusOutline snippet, because buttons and inputs all need this
+		${thinOutline.grey};
 		background-color: #fff;
 	}
 
 	&:hover {
+		// TODO TRK-231: use a color from the theme, or add this to it
 		background-color: #fafafa;
-		outline: 2px solid #fff;
+		${outline.primary};
 		box-shadow: 0 0.1rem 0.4rem 0 #ccc;
 	}
 `;
 
 const Stylized = styled(Unstyled)<{
-	$size?: CSS.Properties["width"];
+	$size?: CSSProperties["width"];
 	$color: ColorKey;
 }>`
 	--color: ${(p) => p.$color ?? "themeInverted"};
 
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: 50%;
+	${flex.centered};
+	${radius.round};
 	color: white;
 
+	/* TODO: we're using getMainColor for the outline and background, but not the
+      border and shadow. Does that not look ugly for some $color values? */
 	outline: 2px solid ${(p) => getMainColor(p.theme, p.$color)};
-	border: 2px solid #eee;
+	${border.secondary};
 	box-shadow: 0 0.2rem 0.5rem 0 #bbb;
 	background-color: ${(p) => getMainColor(p.theme, p.$color)};
 
@@ -92,7 +96,7 @@ const Stylized = styled(Unstyled)<{
 	&:hover {
 		outline: 2px solid ${(p) => getSecondaryColor(p.theme, p.$color)};
 		background-color: ${(p) => getSecondaryColor(p.theme, p.$color)};
-		border-radius: 5px;
+		${radius.medium}
 	}
 
 	transition: all linear 50ms;
@@ -102,31 +106,26 @@ const Stylized = styled(Unstyled)<{
 	height: ${(p) => p.$size ?? "var(--default-edit-button-size)"};
 `;
 
-Stylized.defaultProps = {
-	$color: "themeInverted"
-};
-
 const WithIcon = styled(Default)`
+	display: flex;
 	width: max-content;
-	border-radius: 10px;
+	color: white;
+
+	${radius.large};
 	margin-left: 1rem;
 	padding: 1.5rem 2.5rem;
-	color: white;
-	display: flex;
-	gap: 1rem;
+	gap: ${spacingValue.medium};
 `;
 
 const CallToAction = styled(WithIcon)`
 	padding: 1.5rem 1rem;
-	border-radius: 3px;
+	${radius.small};
 	color: black;
 
-	// Regular margin
 	margin-top: -0.5rem;
 	margin-left: auto;
 	margin-right: 4rem;
 
-	// Small-screen margin
 	@media (max-width: 768px) {
 		margin: 0;
 		margin-top: 1rem;

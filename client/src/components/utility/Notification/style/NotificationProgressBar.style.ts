@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import { radius } from "@/lib/theme/snippets/radius";
+import styled from "@emotion/styled";
 
 const Bar = styled.div`
 	content: "";
@@ -15,6 +16,6 @@ const Bar = styled.div`
 	background-color: var(--contrast, #fff);
 
 	z-index: 100;
-	border-radius: 5px;
+	${radius.medium};
 `;
 export default { Bar };

@@ -9,7 +9,8 @@ import type {
 	ActivityUpdateInput,
 	ActivityWithIds,
 	TaskUpdateInput,
-} from "@shared/types/data/activity.types";
+} from "@shared/lib/schemas/activity";
+
 import type { ActivityTagRelation } from "@shared/types/data/relational.types";
 import type { ID } from "@shared/types/data/utility.types";
 import type { Dayjs } from "dayjs";
@@ -55,10 +56,11 @@ export const updateActivity: QueryFunction<
 	return sql.begin(async (q) => {
 		const { tag_ids, ...activityUpdate } = input.activity;
 
+		const { activity_id, ...update } = activityUpdate;
 		const [activity] = await sql<[Activity]>`
          UPDATE activities
-            SET ${sql(activityUpdate)}
-            WHERE activity_id = ${input.activity.activity_id}
+            SET ${sql(update)}
+            WHERE activity_id = ${activity_id}
             RETURNING *
       `;
 

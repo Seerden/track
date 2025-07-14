@@ -1,10 +1,11 @@
-import { Action } from "@/lib/theme/components/buttons";
+import Buttons from "@/lib/theme/components/buttons";
 import { containers } from "@/lib/theme/components/container.style";
 import { font } from "@/lib/theme/font";
+import { thinBorder } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 /** TODO: I implemented these styles for LogbookForm initially, but I like them
  * enough that I want to implement them as app-wide alternate form styles (in
@@ -38,6 +39,13 @@ const FormTitle = styled.h1`
 	margin-bottom: ${spacingValue.medium};
 `;
 
+// these do not have styles associated with them (yet), but exporting them makes
+// it clearer that they're part of the styled form structure. Styles are
+// defined in the Label, for now.
+const Input = styled.input``;
+const TextArea = styled.textarea``;
+const Select = styled.select``;
+
 const Label = styled.label`
 	${flex.column};
 	background-color: #fff;
@@ -56,41 +64,43 @@ const Label = styled.label`
 		cursor: default;
 	}
 
-	input,
-	textarea,
-	select {
+	${Input},
+	${TextArea},
+	${Select} {
 		resize: none;
-		margin: 0.3rem;
-		font-size: ${font.size["0.93"]};
-		border: none;
-		line-height: 1.5rem;
 
+		line-height: 1.5rem;
 		&:not(&[type="checkbox"]) {
 			height: 1.5rem;
 		}
+
 		background-color: #fff;
-		padding: 0.3rem 0.6rem;
-		border: 1px solid #ddd;
-		border-radius: 3px;
+
+		font-size: ${font.size["0.93"]};
+		margin: ${spacingValue.smaller};
+		${spacing.padding.wide({ size: 0.3, ratio: 2 })}
+		${thinBorder.tertiary};
+		${radius.small};
 	}
 `;
 
 /**
  * @todo extract this Button to theme buttons lib? -- make note of the default margin, which I dislike
  * */
-const Submit = styled(Action.CallToAction)`
+const _Submit = styled(Buttons.Action.CallToAction)`
 	color: black;
 	margin-top: 1rem;
 	margin-left: 0;
 
+	/* TODO TRK-231: lucide.ts */
 	svg {
 		color: royalblue;
 		stroke-width: 3;
 	}
 `;
 
-Submit.defaultProps = {
-	type: "submit"
-};
+function Submit(props: Parameters<typeof _Submit>[0]) {
+	return <_Submit type="submit" {...props} />;
+}
 
-export default { Form, FormTitle, Label, Submit };
+export default { Form, FormTitle, Label, Submit, Input, TextArea, Select };

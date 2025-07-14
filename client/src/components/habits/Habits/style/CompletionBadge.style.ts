@@ -1,21 +1,22 @@
-import Buttons from "@/lib/theme/components/buttons/buttons";
-import styled from "styled-components";
+import Buttons from "@/lib/theme/components/buttons";
+import { flex } from "@/lib/theme/snippets/flex";
+import { radius } from "@/lib/theme/snippets/radius";
+import styled from "@emotion/styled";
 
 // TODO: do we have any other badges? share styles 🙃
 const Badge = styled(Buttons.Unstyled)<{ $size: number; $done?: boolean }>`
+	${flex.centered};
 	position: relative;
-	border-radius: 50%;
+
+	${radius.round};
 
 	--size: ${(p) => p.$size}px;
 	width: var(--size);
 	height: var(--size);
 
-	display: flex;
-	align-items: center;
-	justify-content: center;
-
 	background-color: #fff;
 
+	/* TODO: theme value */
 	font-size: 0.9rem;
 	font-weight: 700;
 	color: ${(p) => (p.$done ? p.theme.colors.green.main : p.theme.colors.red.main)};

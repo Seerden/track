@@ -1,10 +1,12 @@
-import { Unstyled } from "@/lib/theme/components/buttons";
+import Buttons from "@/lib/theme/components/buttons";
 import { font } from "@/lib/theme/font";
 import { noBorders } from "@/lib/theme/snippets/border";
+import { border, outline, thinOutline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
-import styled, { css } from "styled-components";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
 const Wrapper = styled.div`
 	${flex.column};
@@ -34,14 +36,14 @@ const TabsPanel = styled.div`
 
 	background-color: #eee;
 	background-color: #f5f5f5;
-	outline: 2px solid #ddd;
-	border: 2px solid #fff;
+	${outline.tertiary};
+	${border.primary};
 	box-shadow: 0 0.6rem 1rem -0.5rem #999;
 
 	transform-origin: bottom center;
 `;
 
-const Tab = styled(Unstyled)<{
+const Tab = styled(Buttons.Unstyled)<{
 	$active?: boolean;
 }>`
 	width: max-content;
@@ -54,6 +56,7 @@ const Tab = styled(Unstyled)<{
 `;
 
 const TabInner = styled.div<{ $active?: boolean }>`
+	// TODO TRK-231 call this radius.tab or something
 	border-radius: 5px 5px 0 0;
 	${spacing.padding.wide({ size: 0.2, ratio: 2.5 })};
 	margin: 0 ${spacingValue.small};
@@ -76,7 +79,7 @@ const Label = styled.label<{ $active?: boolean }>`
 	${(p) =>
 		p.$active &&
 		css`
-			background-color: ${(p) => p.theme.colors.darkBlue.main};
+			background-color: ${p.theme.colors.darkBlue.main};
 			color: #fff;
 		`}
 `;
@@ -92,7 +95,7 @@ const SectionActionBar = styled.div`
 	justify-content: center;
 `;
 
-const Toggle = styled(Unstyled)<{ $active?: boolean }>`
+const Toggle = styled(Buttons.Unstyled)<{ $active?: boolean }>`
 	display: flex;
 	${noBorders};
 	${radius.medium};
@@ -105,7 +108,7 @@ const Toggle = styled(Unstyled)<{ $active?: boolean }>`
 	${(p) =>
 		p.$active &&
 		css`
-			background-color: ${(p) => p.theme.colors.darkBlue.main};
+			background-color: ${p.theme.colors.darkBlue.main};
 			color: #fff;
 		`}
 `;
@@ -137,30 +140,19 @@ const InputWithSelect = styled.div`
 	}
 `;
 
-// TODO: need to combine this with the regular section content, but the styling
-// is different for datetime and tags, because tags has an action bar.
-const DatetimeSectionContent = styled.div`
-	${flex.row};
-	margin-top: ${spacingValue.small};
-	gap: ${spacingValue.small};
-`;
-
-const DatetimeSectionColumn = styled.div`
-	${flex.column};
-`;
-
-const ResetButton = styled(Unstyled)`
+const _ResetButton = styled(Buttons.Unstyled)`
 	margin-bottom: ${spacingValue.medium};
 
 	&:hover {
+		/* TODO: TRK-231 - lucide.ts? */
 		svg {
 			color: orangered;
 		}
 	}
 `;
-ResetButton.defaultProps = {
-	type: "reset"
-};
+function ResetButton(props: Parameters<typeof _ResetButton>[0]) {
+	return <_ResetButton {...props} type="reset" />;
+}
 
 function getTagBackgroundColor(selected?: boolean, active?: boolean) {
 	if (selected && active) return "darkorange";
@@ -169,13 +161,13 @@ function getTagBackgroundColor(selected?: boolean, active?: boolean) {
 	return "#fff";
 }
 
-const TagChip = styled(Unstyled)<{
+const TagChip = styled(Buttons.Unstyled)<{
 	$selected?: boolean;
 	$active?: boolean;
 }>`
 	cursor: pointer;
 
-	outline: 1px solid #ccc;
+	${thinOutline.grey};
 	padding: 0.3rem;
 	${radius.small};
 	flex: 1;
@@ -206,8 +198,6 @@ export default {
 	Select,
 	Input,
 	InputWithSelect,
-	DatetimeSectionContent,
-	DatetimeSectionColumn,
 	ResetButton,
 	TagChip,
 	TagSelectionList

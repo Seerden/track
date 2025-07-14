@@ -1,4 +1,4 @@
-import type { MainTheme } from "@/lib/theme/theme";
+import type { MainTheme } from "@/lib/style/theme";
 
 const fontSizes = [
 	0.75, 0.8, 0.82, 0.85, 0.86, 0.88, 0.9, 0.93, 1, 1.02, 1.1, 1.2, 1.35, 1.5, 2, 3
@@ -17,6 +17,7 @@ export const font = {
 };
 
 type Props = object & { theme: MainTheme };
+
 export function getFontSize({ theme }: Props, size: keyof FontSize) {
 	return theme.font.size[size];
 }

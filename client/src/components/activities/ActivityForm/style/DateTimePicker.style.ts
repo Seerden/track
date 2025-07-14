@@ -1,7 +1,10 @@
-import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
+import Input from "@/lib/theme/input";
+import { border, outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
-import { spacing } from "@/lib/theme/snippets/spacing";
-import styled, { css } from "styled-components";
+import { radius } from "@/lib/theme/snippets/radius";
+import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
 // TODO: rename this
 const Form = styled.section`
@@ -20,7 +23,7 @@ const Label = styled.label<{ $faded?: boolean }>`
 	${flex.column};
 	align-items: stretch;
 
-	margin: 0.5rem;
+	margin: ${spacingValue.small};
 	width: 100%;
 
 	border-radius: 0 15px 0 0;
@@ -30,7 +33,7 @@ const Label = styled.label<{ $faded?: boolean }>`
 		&:not(:has(*:disabled)) {
 			outline: 2px solid ${(p) => p.theme.colors.blue.main};
 			span {
-				outline: 2px solid white;
+				${outline.primary};
 			}
 		}
 	}
@@ -43,7 +46,7 @@ const Label = styled.label<{ $faded?: boolean }>`
 		border-radius: 0 15px 0 0;
 	}
 
-	${DefaultInput} {
+	${Input.Default} {
 		&[type="date"] {
 			width: 120px;
 		}
@@ -83,19 +86,16 @@ const Fields = styled.fieldset`
 // TODO: these match the styling from Task in ActivityForm, so they should be
 // extracted to a shared snippet.
 const AllDay = styled.label`
-	cursor: pointer;
 	${flex.row};
-	align-items: center;
-	justify-content: center;
-	gap: 0.2rem;
-
-	margin: 0.5rem;
-	padding: 0 1rem;
-
+	${flex.centered};
 	width: max-content;
+	cursor: pointer;
 
-	border: 2px solid white;
-	border-radius: 3px;
+	gap: ${spacingValue.smallest};
+	margin: ${spacingValue.small};
+	padding: 0 ${spacingValue.medium};
+	${border.primary};
+	${radius.small};
 
 	background-color: #eaeaea;
 `;
@@ -103,21 +103,19 @@ const AllDay = styled.label`
 const size = "25px";
 
 const Info = styled.div`
+	${flex.centered};
+
 	position: absolute;
 	top: calc(50% -${size});
 	right: calc(-0.25 * ${size});
-
-	background-color: ${(p) => p.theme.colors.blue.main};
-	border-radius: 50%;
-	color: white;
-	outline: 2px solid white;
-
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
 	width: ${size};
 	height: ${size};
+
+	background-color: ${(p) => p.theme.colors.blue.main};
+	color: white;
+
+	${radius.round};
+	${outline.primary};
 `;
 
 export default {

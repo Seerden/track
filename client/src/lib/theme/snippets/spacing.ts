@@ -1,5 +1,5 @@
-import type { CSSProperties } from "styled-components";
-import { css } from "styled-components";
+import { css } from "@emotion/react";
+import type { CSSProperties } from "react";
 
 type SpacingRatio = 1 | 1.25 | 1.5 | 2 | 2.5 | 3 | 4 | 5;
 
@@ -28,6 +28,7 @@ function getSpacing(rule: SpacingRule, type: SpacingType, { size, ratio }: Spaci
 }
 
 export const spacingValue = {
+	smallest: "0.2rem",
 	smaller: "0.3rem",
 	small: "0.5rem",
 	medium: "1rem",

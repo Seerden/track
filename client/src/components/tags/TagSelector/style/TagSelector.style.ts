@@ -1,9 +1,12 @@
-import { Action } from "@/lib/theme/components/buttons";
-import FilterInput from "@/lib/theme/components/input/FilterInput.style";
+import Buttons from "@/lib/theme/components/buttons";
 import { getFontSize } from "@/lib/theme/font";
+import Input from "@/lib/theme/input";
+import { border } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
-import { spacing } from "@/lib/theme/snippets/spacing";
-import styled, { css } from "styled-components";
+import { radius } from "@/lib/theme/snippets/radius";
+import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
 const Wrapper = styled.div<{ $fullSize?: boolean }>`
 	position: relative;
@@ -43,7 +46,7 @@ const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
 	min-width: max-content;
 	justify-content: center;
 	border: 2px solid #ccc;
-	border-radius: 2px;
+	${radius.small};
 	box-shadow: 0.2rem 0.1rem 0 0 #ddd;
 	${spacing.padding.wide({ size: 0.2, ratio: 2.5 })};
 	font-size: ${(p) => getFontSize(p, 0.82)};
@@ -59,8 +62,8 @@ const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
 			!p.$isSelected &&
 			css`
 				background-color: #eee;
-				border-color: ${(p) => p.theme.colors.blue.main};
-				box-shadow: 0.3rem 0.3rem 0 -0.1rem ${(p) => p.theme.colors.blue.main};
+				border-color: ${p.theme.colors.blue.main};
+				box-shadow: 0.3rem 0.3rem 0 -0.1rem ${p.theme.colors.blue.main};
 			`}
 	}
 
@@ -93,11 +96,11 @@ const Title = styled.h3`
 	max-width: max-content;
 	font-size: ${(p) => getFontSize(p, 1.1)};
 
-	border-radius: 3px;
-	border: 2px solid #777;
+	${radius.small};
+	${border.tint};
 `;
 
-const ClearFilter = styled(Action.Default)`
+const ClearFilter = styled(Buttons.Action.Default)`
 	position: absolute;
 	right: 0.3rem;
 
@@ -132,10 +135,6 @@ const Actions = styled.div`
 	}
 `;
 
-const Dropdown = styled.div`
-	position: relative;
-`;
-
 const DropdownActions = styled.div`
 	${flex.row};
 	align-items: flex-end;
@@ -152,7 +151,7 @@ const DropdownActions = styled.div`
 		justify-content: flex-start;
 		align-items: flex-start;
 
-		& > ${FilterInput} {
+		& > ${Input.Filter} {
 			align-self: flex-start;
 		}
 	}
@@ -166,8 +165,9 @@ const DropdownContent = styled.div`
 	${flex.column};
 
 	background-color: #eee;
-	border: 2px solid #ddd;
-	border-radius: 4px;
+	${border.tertiary};
+	${radius.medium};
+
 	box-shadow:
 		0.2rem 0.2rem 0 0 #333,
 		0 0 0.6rem 0 #999;
@@ -194,15 +194,13 @@ const SelectionList = styled.ul`
 `;
 
 const SelectionItem = styled.li`
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	${flex.centered};
 	flex: 1;
 
 	list-style: none;
 	${spacing.padding.wide({ size: 0.3, ratio: 1.5 })};
 	min-width: max-content;
-	border-radius: 4px;
+	${radius.small};
 	background-color: ${(p) => p.theme.colors.blue.main};
 	color: white;
 	box-shadow: 0rem 0.2rem 0.2rem #ccc;
@@ -225,7 +223,7 @@ const EmptySelection = styled.div`
 	color: azure;
 	background-color: ${(p) => p.theme.colors.blue.main};
 	max-width: max-content;
-	margin-top: 0.5rem;
+	margin-top: ${spacingValue.small};
 `;
 
 export default {
@@ -236,7 +234,6 @@ export default {
 	ClearFilter,
 	FilterWrapper,
 	Actions,
-	Dropdown,
 	DropdownActions,
 	DropdownContent,
 	SelectionList,

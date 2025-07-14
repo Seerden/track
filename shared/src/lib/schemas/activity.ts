@@ -90,8 +90,8 @@ export const newActivityBaseSchema = z.object({
 	user_id: z.string(),
 	name: z.string(),
 	description: z.string(),
-	duration_milliseconds: z.number().optional(),
-	is_task: z.boolean().optional(),
+	duration_milliseconds: z.number().nullable().optional().default(null),
+	is_task: z.boolean().optional().default(false),
 });
 export type NewActivityBase = z.infer<typeof newActivityBaseSchema>;
 

@@ -1,10 +1,10 @@
-import { Unstyled } from "@/lib/theme/components/buttons";
+import Buttons from "@/lib/theme/components/buttons";
 import { font } from "@/lib/theme/font";
+import { border, outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
-import { Link as RouterLink } from "@tanstack/react-router";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 const Menu = styled.div`
 	${flex.column};
@@ -17,10 +17,10 @@ const Menu = styled.div`
 	color: #444;
 	width: max-content;
 
-	border: 2px solid #fff;
-	outline: 2px solid #ccc;
+	${border.primary};
+	${outline.grey};
 
-	background-color: #f3f3f3;
+	background-color: #f3f3f3; // TODO: TRK-231: theme value
 
 	box-shadow:
 		0 0.2rem 0.1rem 0 #bbb,
@@ -33,7 +33,8 @@ const Menu = styled.div`
 	}
 `;
 
-const Link = styled(RouterLink)`
+// TODO: TRK-231: make this a span, and render it inside a <Link /> when using it.
+const Link = styled.span`
 	${flex.row};
 	gap: ${spacingValue.medium};
 	${radius.small};
@@ -95,7 +96,7 @@ const LinkCards = styled.div`
 	flex-wrap: nowrap;
 `;
 
-const LinkCard = styled(RouterLink)`
+const LinkCard = styled.span`
 	padding: ${spacingValue.small};
 	${radius.small};
 	background-color: ${(p) => p.theme.colors.orange.main};
@@ -108,7 +109,7 @@ const LinkCard = styled(RouterLink)`
 	flex: 1;
 `;
 
-const TriggerButton = styled(Unstyled)`
+const TriggerButton = styled(Buttons.Unstyled)`
 	font-size: ${font.size["0.93"]};
 	padding: ${spacingValue.small};
 

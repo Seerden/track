@@ -1,4 +1,4 @@
-import { css } from "styled-components";
+import { css } from "@emotion/react";
 
 const flexBase = css`
 	display: flex;
@@ -16,5 +16,10 @@ const column = css`
 
 export const flex = {
 	row,
-	column
+	column,
+	centered: css`
+		${flexBase};
+		justify-content: center;
+		align-items: center;
+	`
 };

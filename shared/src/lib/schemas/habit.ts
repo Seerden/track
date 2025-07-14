@@ -4,19 +4,32 @@ import { z } from "@shared/lib/zod";
 // matches IntervalUnit
 export const intervalUnitSchema = z.enum(["day", "week", "month", "year"]);
 
-export const newHabitSchema = z.object({
-	user_id: z.string(),
-	name: z.string(),
-	description: z.string(),
-	start_timestamp: timestampSchema,
-	end_timestamp: timestampSchema.nullable(),
-	interval: z.number(),
-	frequency: z.number(),
-	interval_unit: intervalUnitSchema,
-	goal_type: z.enum(["checkbox", "goal"]),
-	goal_unit: z.string().nullable(),
-	goal: z.number().nullable(),
-});
+const goalSchema = z.discriminatedUnion("goal_type", [
+	z.object({}),
+	z.object({
+		goal_type: z.literal("checkbox"),
+		goal_unit: z.null(),
+		goal: z.null(),
+	}),
+	z.object({
+		goal_type: z.literal("goal"),
+		goal_unit: z.string().nullable(),
+		goal: z.number(),
+	}),
+]);
+
+export const newHabitSchema = z
+	.object({
+		user_id: z.string(),
+		name: z.string(),
+		description: z.string(),
+		start_timestamp: timestampSchema,
+		end_timestamp: timestampSchema.nullable(),
+		interval: z.number(),
+		frequency: z.number(),
+		interval_unit: intervalUnitSchema,
+	})
+	.and(goalSchema);
 export type NewHabit = z.infer<typeof newHabitSchema>;
 
 export const habitSchema = newHabitSchema.and(

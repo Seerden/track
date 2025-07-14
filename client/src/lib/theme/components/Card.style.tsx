@@ -1,7 +1,8 @@
 import { getFontSize } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
+import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 const Wrapper = styled.section`
 	padding-top: 1rem;
@@ -55,12 +56,12 @@ const Tags = styled.ul`
 	margin-left: auto;
 `;
 
-const Tag = styled.li`
+const _Tag = styled.li`
 	user-select: none;
 	cursor: pointer;
 	list-style: none;
 	${spacing.padding.wide({ size: 0.3, ratio: 2 })};
-	border-radius: 3px;
+	${radius.small};
 	box-shadow: 0.3rem 0.3rem 0 -0.15rem ${(p) => p.theme.colors.blue.secondary};
 	background-color: ${(p) => p.theme.colors.blue.main};
 	width: max-content;
@@ -69,9 +70,9 @@ const Tag = styled.li`
 	justify-self: flex-end;
 `;
 
-Tag.defaultProps = {
-	title: "Click to show tag details"
-};
+function Tag(props: Parameters<typeof _Tag>[0]) {
+	return <_Tag title="Click to show tag details" {...props} />;
+}
 
 const InfoLine = styled.p`
 	margin-top: 0.4rem;

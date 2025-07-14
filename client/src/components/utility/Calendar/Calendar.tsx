@@ -3,7 +3,7 @@ import { useCalendar } from "@/components/utility/Calendar/hooks/useCalendar";
 import useMonthPicker from "@/components/utility/Calendar/hooks/useMonthPicker";
 import { today } from "@/lib/datetime/make-date";
 import { daysOfWeekShort } from "@/lib/datetime/weekdays";
-import { Cell } from "@/lib/theme/components/buttons";
+import Buttons from "@/lib/theme/components/buttons";
 import { MonthPicker } from "@mantine/dates";
 import type { Maybe } from "@shared/types/data/utility.types";
 import type { Dayjs } from "dayjs";
@@ -29,7 +29,7 @@ function CalendarRow({ month, year, row, selectDate, selectedDate }: CalendarRow
 	return (
 		<S.Row>
 			{row.map((day, index) => (
-				<Cell.Default
+				<Buttons.Cell.Default
 					disabled={day === null}
 					key={index}
 					onClick={() => selectDate(day)}
@@ -37,7 +37,7 @@ function CalendarRow({ month, year, row, selectDate, selectedDate }: CalendarRow
 					$highlight={is(day, "today")}
 				>
 					{day}
-				</Cell.Default>
+				</Buttons.Cell.Default>
 			))}
 		</S.Row>
 	);
@@ -52,7 +52,7 @@ type AdjacentMonthButtonProps = {
 function AdjacentMonthButton({ direction, onClick }: AdjacentMonthButtonProps) {
 	const Icon = direction === "next" ? LucideChevronRight : LucideChevronLeft;
 	return (
-		<S.MonthPickerAction $direction={direction} onClick={onClick}>
+		<S.MonthPickerAction type="button" $direction={direction} onClick={onClick}>
 			<Icon size={22} />
 		</S.MonthPickerAction>
 	);
