@@ -71,7 +71,7 @@ export default function ActivityForm({
 					showNewTagButton
 					modalId={modalIds.tagSelector.activityForm}
 				/>
-				<Buttons.Submit.Default>{buttonTitle}</Buttons.Submit.Default>
+				<Buttons.Submit.Default type="submit">{buttonTitle}</Buttons.Submit.Default>
 			</Form.Form>
 		</Form.Wrapper>
 	);
