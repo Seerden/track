@@ -1,5 +1,6 @@
 import { createDate } from "@/lib/datetime/make-date";
 import type { TimeWindow } from "@/types/time-window.types";
+import { groupById } from "@server/lib/data/models/group-by-id";
 import type {
 	Habit,
 	HabitEntry,
@@ -77,22 +78,28 @@ export function withSyntheticHabitEntries(
 	habits: ById<HabitWithEntries>,
 	timeWindow: TimeWindow
 ): ById<HabitWithPossiblySyntheticEntries> {
-	const habitsWithSyntheticEntries = Object.values(habits).map((habit) => {
-		const expectedCount = expectedEntryCount(timeWindow, habit);
+	const habitsWithSyntheticEntries = Object.values(habits).map(
+		(habit: HabitWithEntries) => {
+			const expectedCount = expectedEntryCount(timeWindow, habit);
 
-		const entries: Array<HabitEntry | SyntheticHabitEntry> = structuredClone(
-			habit.entries
-		).filter((entry) => {
-			const shouldBeVisible =
-				createDate(entry.date).valueOf() >=
-					createDate(timeWindow.startDate).valueOf() &&
-				createDate(entry.date).valueOf() <= createDate(timeWindow.endDate).valueOf();
-			return shouldBeVisible;
-		});
+			const entries: Array<HabitEntry | SyntheticHabitEntry> = structuredClone(
+				habit.entries
+			).filter((entry) => {
+				const entryDate = createDate(entry.date);
+				const windowStart = createDate(timeWindow.startDate);
+				const windowEnd = createDate(timeWindow.endDate);
+				return !entryDate.isBefore(windowStart) && !entryDate.isAfter(windowEnd);
+			});
 
-		if (entries.length < expectedCount) {
-			let index = Math.max(0, entries.length);
-			while (index < expectedCount) {
+			const existingIndices = new Set(entries.map((e) => e.index));
+			const expectedIndices = new Set(
+				Array.from({ length: expectedCount }, (_, i) => i)
+			);
+			const missingIndices = Array.from(expectedIndices).filter(
+				(i) => !existingIndices.has(i)
+			);
+
+			for (const index of missingIndices) {
 				const syntheticEntry: SyntheticHabitEntry = makeSyntheticEntry({
 					habit,
 					index,
@@ -102,19 +109,16 @@ export function withSyntheticHabitEntries(
 					// disallow that altogether.
 					date: timeWindow.startDate
 				});
-				index += 1;
 				entries.push(syntheticEntry);
 			}
+
+			return Object.assign({}, habit, {
+				entries: entries.sort((a, b) => a.index - b.index)
+			});
 		}
+	);
 
-		return Object.assign({}, habit, { entries });
-	});
-
-	// group by id again. TODO: use helper
-	return habitsWithSyntheticEntries.reduce((acc, habit) => {
-		acc[habit.habit_id] = habit;
-		return acc;
-	}, {} as ById<HabitWithPossiblySyntheticEntries>);
+	return groupById(habitsWithSyntheticEntries, "habit_id");
 }
 
 export function syntheticToReal({
