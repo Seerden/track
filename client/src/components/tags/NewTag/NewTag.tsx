@@ -1,4 +1,5 @@
 import type { ModalId } from "@/lib/modal-ids";
+import Buttons from "@/lib/theme/components/buttons";
 import F from "@/lib/theme/components/form.style";
 import Input from "@/lib/theme/input";
 import { LucideTag } from "lucide-react";
@@ -54,9 +55,9 @@ function NewTag({ modalId }: NewTagProps) {
 						</S.Tags>
 					)}
 				</F.Row>
-				<F.Button type="submit" title="Save" onClick={onSubmit}>
+				<Buttons.Submit.Default type="submit" title="Save" onClick={onSubmit}>
 					💾
-				</F.Button>
+				</Buttons.Submit.Default>
 			</F.Form>
 		</F.Wrapper>
 	);
