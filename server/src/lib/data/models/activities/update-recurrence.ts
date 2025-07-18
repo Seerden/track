@@ -1,5 +1,5 @@
 import { sqlConnection } from "@/db/init";
-import type { Recurrence, RecurrenceInput } from "@shared/types/data/recurrence.types";
+import type { Recurrence, RecurrenceInput } from "@shared/lib/schemas/activity";
 import type { ID, Maybe } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 

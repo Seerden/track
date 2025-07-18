@@ -1,8 +1,9 @@
-import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
-import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
+import { trpc } from "@/lib/trpc";
 import { useTagSelection } from "@lib/state/selected-tags-state";
-import type { TagWithIds } from "@shared/types/data/tag.types";
+import { byIdAsList } from "@shared/lib/map";
+import type { TagWithIds } from "@shared/lib/schemas/tag";
 import type { ById, ByIdMap, ID } from "@shared/types/data/utility.types";
+import { useQuery } from "@tanstack/react-query";
 import type { ChangeEvent, MouseEvent } from "react";
 import { useMemo, useState } from "react";
 
@@ -13,7 +14,7 @@ type UseTagSelector = {
 
 // TODO: handle case where maximum > 1.
 export default function useTagSelector({ maximum, tagsById }: UseTagSelector = {}) {
-	const { data: tagsData } = useQueryTags();
+	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
 
 	const {
 		tagSelection,
@@ -53,7 +54,7 @@ export default function useTagSelector({ maximum, tagsById }: UseTagSelector = {
 		tag.name.toLowerCase().includes(filter.toLowerCase())
 	);
 	const selectedTags = useMemo(
-		() => tags.filter((tag) => selectedTagIds.includes(+tag.tag_id)),
+		() => tags.filter((tag) => selectedTagIds.includes(tag.tag_id)),
 		[tagsData, selectedTagIds]
 	);
 

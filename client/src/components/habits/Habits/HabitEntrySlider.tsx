@@ -1,14 +1,14 @@
 import { habitEntryIsDone } from "@/components/habits/Habits/entry-is-completed";
-import type { HabitEntryUpdateMutationFunction } from "@/lib/hooks/query/habits/useMutateHabitEntry";
 import { colors } from "@/lib/theme/colors";
+import type { HabitEntryUpdateMutationFunction } from "@/types/data.types";
 import type { SliderProps } from "@mantine/core";
 import { Slider } from "@mantine/core";
-import { isSynthetic } from "@shared/types/data/habit-entry.guards";
 import type {
 	HabitEntry,
 	HabitWithIds,
 	SyntheticHabitEntry
-} from "@shared/types/data/habit.types";
+} from "@shared/lib/schemas/habit";
+import { isSynthetic } from "@shared/types/data/habit-entry.guards";
 import { useState } from "react";
 
 const sliderProps: SliderProps = {

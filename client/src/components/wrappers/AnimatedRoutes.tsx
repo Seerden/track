@@ -2,24 +2,35 @@ import Header from "@/components/layout/Header/Header";
 import DetailModals from "@/components/utility/Modal/DetailModals";
 import PageWrapper from "@/lib/theme/snippets/page";
 import { ErrorBoundary } from "@sentry/react";
-import { AnimatePresence } from "framer-motion";
-import { Fragment, useState } from "react";
-import { useLocation, useOutlet } from "react-router";
+import { getRouterContext, Outlet, useLocation } from "@tanstack/react-router";
+import { AnimatePresence, motion, useIsPresent } from "framer-motion";
+import { forwardRef, Fragment, useContext, useRef } from "react";
 
 /**
  * @see https://stackoverflow.com/questions/74190609/exit-animations-with-animatepresence-framer-motion-and-createbrowserrouter-r
+ * @see https://github.com/TanStack/router/discussions/823#discussioncomment-8535087
  */
-function AnimatedOutlet() {
-	const outlet = useOutlet();
-	const [outletState] = useState(outlet);
+const AnimatedOutlet = forwardRef<HTMLDivElement>((_, ref) => {
+	const RouterContext = getRouterContext();
+	const routerContext = useContext(RouterContext);
+	const renderedContext = useRef(routerContext);
+	const isPresent = useIsPresent();
+
+	if (isPresent) {
+		renderedContext.current = routerContext;
+	}
 
 	return (
-		<ErrorBoundary fallback={<p>An error occurred.</p>} showDialog>
-			{outletState}
-			<DetailModals />
-		</ErrorBoundary>
+		<motion.div ref={ref}>
+			<ErrorBoundary fallback={<p>An error occurred</p>}>
+				<RouterContext.Provider value={renderedContext.current}>
+					<Outlet />
+					<DetailModals />
+				</RouterContext.Provider>
+			</ErrorBoundary>
+		</motion.div>
 	);
-}
+});
 
 export default function AnimatedRoutes() {
 	const location = useLocation();

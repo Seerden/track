@@ -1,10 +1,13 @@
-import { Action } from "@/lib/theme/components/buttons";
+import Buttons from "@/lib/theme/components/buttons";
 import F from "@/lib/theme/components/form.style";
-import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
 import { font } from "@/lib/theme/font";
+import Input from "@/lib/theme/input";
+import { border, outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { inputStyle } from "@/lib/theme/snippets/input";
-import styled from "styled-components";
+import { radius } from "@/lib/theme/snippets/radius";
+import { spacingValue } from "@/lib/theme/snippets/spacing";
+import styled from "@emotion/styled";
 
 const ClearEndDateButtonWrapper = styled.div`
 	position: absolute;
@@ -13,12 +16,15 @@ const ClearEndDateButtonWrapper = styled.div`
 	right: var(--offset);
 `;
 
-const SetEndDateButton = styled(Action.Stylized)`
+const SetEndDateButton = styled(Buttons.Action.Stylized)`
 	${flex.row};
-	gap: 1rem;
+
 	width: max-content;
-	border-radius: 3px;
-	padding: 0.5rem;
+
+	gap: ${spacingValue.medium};
+	${radius.small};
+	padding: ${spacingValue.small};
+
 	color: black;
 	svg {
 		color: black;
@@ -33,28 +39,28 @@ const RadioButton = styled.input`
 
 const RadioField = styled.fieldset`
 	${flex.row};
-	gap: 1rem;
+	gap: ${spacingValue.medium};
 	padding: 0;
 `;
 
 const RadioLabelText = styled.span`
 	// needs to be a span because a parent element styles this
-	gap: 0.3rem;
+	gap: ${spacingValue.smaller};
 	align-items: center;
 `;
 
 const RadioOption = styled.label`
-	font-size: 0.8rem;
+	font-size: 0.8rem; // TODO: theme value
 	width: 50%;
-	padding: 0.5rem;
-	border-radius: 2px;
-	border: 2px solid #eee;
-	outline: 2px solid white;
+	padding: ${spacingValue.small};
+	${radius.small};
+	${border.secondary};
+	${outline.primary};
 	background-color: #eee;
 	box-shadow: 0 0.4rem 0.5rem 0 #e1e1e1;
 
 	${RadioLabelText} {
-		font-size: 0.85rem;
+		font-size: 0.85rem; // TODO: Theme value
 		font-weight: 500;
 
 		box-shadow: 0 0.5rem 0 -0.3rem white;
@@ -101,7 +107,7 @@ const Label = styled.label`
 		align-items: center;
 	}
 
-	${DefaultInput} {
+	${Input.Default} {
 		padding-top: 0.1rem;
 	}
 
@@ -116,11 +122,14 @@ const Label = styled.label`
 
 const ProgressionFieldset = styled.fieldset`
 	${flex.column};
-	background-color: white;
-	border-radius: 3px;
-	box-shadow: 0 0 0.3rem 0 #aaa;
-	outline: 2px solid white;
+	${radius.small};
+	${outline.primary};
+
+	// TODO TRK-231: theme value
 	padding: 1.2rem;
+
+	background-color: white;
+	box-shadow: 0 0 0.3rem 0 #aaa;
 `;
 
 const ProgressionTitle = styled.div`

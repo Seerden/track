@@ -5,14 +5,15 @@ import type {
 } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import { defaultFilter } from "@/components/activities/ActivityFilter/lib/constants";
 import useActivityFilterActions from "@/components/activities/ActivityFilter/useActivityFilterActions";
-import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
-import useQueryTagsTree from "@/lib/hooks/query/tags/useQueryTagsTree";
+import { trpc } from "@/lib/trpc";
+import { byIdAsList } from "@shared/lib/map";
 import type { ID } from "@shared/types/data/utility.types";
+import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 export default function useActivityFilter({ onChange }: ActivityFilterProps) {
-	const { data: tagsData } = useQueryTags();
-	const { data: tagsTreeData } = useQueryTagsTree();
+	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
+	const { data: tagsTreeData } = useQuery(trpc.tags.tree.queryOptions());
 	const [filter, setFilter] = useState<ActivityFilterWithValues>(defaultFilter);
 	const [wholeTree, setWholeTree] = useState(false);
 	const [activeTagIds, setActiveTagIds] = useState<ID[]>([]);
@@ -45,20 +46,20 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 		[filter.tags.value]
 	);
 
-	const _tags = Object.values(tagsData?.byId ?? {});
+	const tagsList = byIdAsList(tagsData?.byId);
 	const tags = useMemo(() => {
 		// The tags we display are the ones that match the search query, but
 		// selected tags are always displayed regardless of the search query.
 		// TODO: do we display the selected tags separately from the search results?
-		return _tags.filter(
+		return tagsList.filter(
 			(tag) =>
 				tag.name.toLowerCase().includes(filter.tags.search.toLowerCase()) ||
 				filter.tags.value?.includes(tag.tag_id)
 		);
-	}, [_tags, filter.tags.search, filter.tags.value]);
+	}, [tagsList, filter.tags.search, filter.tags.value]);
 
 	const noTagsFound =
-		tags.length === 0 && filter.tags.search.length > 0 && _tags.length > 0;
+		tags.length === 0 && filter.tags.search.length > 0 && tagsList.length > 0;
 
 	if (isProbablySuspended) return { isProbablySuspended };
 

@@ -1,6 +1,7 @@
 import { getFontSize } from "@/lib/theme/font";
+import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 const ItemList = styled.ul`
 	gap: 0.6rem;
@@ -27,7 +28,7 @@ const Item = styled.li`
 		gap: 2rem;
 	}
 
-	border-radius: 3px;
+	${radius.small};
 	background-color: #ddd; // TODO: apply some style for completed tasks
 	width: 100%;
 	min-width: max-content;
@@ -50,7 +51,7 @@ const ItemName = styled.div`
 	color: #333;
 	background-color: #eee;
 	${spacing.padding.wide({ size: 0.3, ratio: 2.5 })};
-	border-radius: 4px;
+	${radius.small};
 	box-shadow: 0 0.1rem 0.2rem 0 #bbb;
 
 	flex-grow: 1;
@@ -59,7 +60,7 @@ const ItemName = styled.div`
 const Info = styled.div`
 	color: #111;
 	${spacing.padding.wide({ size: 0.3, ratio: 3 })};
-	border-radius: 4px;
+	${radius.small};
 	font-size: 0.82rem;
 `;
 

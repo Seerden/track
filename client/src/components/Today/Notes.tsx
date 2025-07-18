@@ -1,18 +1,18 @@
 import Empty from "@/components/Today/Empty";
 import { createDate } from "@/lib/datetime/make-date";
 import { filterTagsById } from "@/lib/filter-tags";
-import useQueryNotes from "@/lib/hooks/query/notes/useQueryNotes";
-import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
-import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
+import { trpc } from "@/lib/trpc";
 import { isToday } from "@lib/datetime/compare";
+import { byIdAsList } from "@shared/lib/map";
+import { useQuery } from "@tanstack/react-query";
 import { Note } from "./Note";
 import S from "./style/Today.style";
 
 export default function Notes() {
-	const { data: notesData } = useQueryNotes();
-	const { data: tagsData } = useQueryTags();
+	const { data: notesData } = useQuery(trpc.notes.all.queryOptions());
+	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
 	const { openModal } = useModalState();
 
 	if (!notesData || !tagsData) return null; // TODO: use isProbablySuspended

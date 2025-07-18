@@ -20,7 +20,12 @@ export default function NewTagButton({ modalId, size = 16 }: NewTagButtonProps) 
 
 	return (
 		<>
-			<S.Button title="Make a new tag" onClick={(e) => handleOpen(e)} color="yellow">
+			<S.Button
+				type="button"
+				title="Create a tag"
+				onClick={handleOpen}
+				$color="purple"
+			>
 				<Tags size={size} />
 			</S.Button>
 

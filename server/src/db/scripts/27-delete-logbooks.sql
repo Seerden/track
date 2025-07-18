@@ -1,0 +1,11 @@
+begin;
+drop table if exists logbooks cascade;
+drop table if exists item_rows cascade;
+drop table if exists items cascade;
+drop table if exists item_templates cascade;
+drop table if exists log_templates cascade;
+drop table if exists logs cascade; 
+drop table if exists logbooks_tags cascade; 
+drop table if exists field_templates cascade; 
+drop table if exists field_values cascade; 
+commit;

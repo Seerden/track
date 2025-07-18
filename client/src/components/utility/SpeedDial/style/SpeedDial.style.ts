@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 const SpeedDialWrapper = styled.div`
 	position: relative;

@@ -14,7 +14,7 @@ function Register() {
 				<S.Fields>
 					<F.Label>
 						<span>username</span>
-						<input
+						<F.Input
 							onChange={handleInputChange}
 							type="text"
 							required
@@ -24,7 +24,7 @@ function Register() {
 					</F.Label>
 					<F.Label>
 						<span>email</span>
-						<input onChange={handleInputChange} type="email" name="email" />
+						<F.Input onChange={handleInputChange} type="email" name="email" />
 					</F.Label>
 					{/* TODO: instead of using a label, use a fieldset, and try the 
                   styling from ItemTemplateForm  */}
@@ -36,10 +36,10 @@ function Register() {
 								gap: "0.5rem"
 							}}
 						>
-							<S.PasswordLabel>
+							<F.Label>
 								<span>password</span>
 								<div style={{ position: "relative" }}>
-									<input
+									<F.Input
 										onChange={handleInputChange}
 										type={passwordVisible ? "text" : "password"}
 										required
@@ -58,11 +58,11 @@ function Register() {
 										)}
 									</S.ShowPassword>
 								</div>
-							</S.PasswordLabel>
-							<S.PasswordLabel>
+							</F.Label>
+							<F.Label>
 								<span>confirm password</span>
 								<div style={{ position: "relative" }}>
-									<input
+									<F.Input
 										onChange={handleInputChange}
 										type={passwordVisible ? "text" : "password"}
 										required
@@ -81,7 +81,7 @@ function Register() {
 										)}
 									</S.ShowPassword>
 								</div>
-							</S.PasswordLabel>
+							</F.Label>
 						</div>
 					</S.Column>
 				</S.Fields>

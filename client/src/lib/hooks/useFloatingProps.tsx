@@ -1,4 +1,4 @@
-import { offsetIfOverflowing } from "@/components/layout/Header/LogbookMenu/floating-middleware";
+import { offsetIfOverflowing } from "@/lib/floating-middleware";
 import type { Middleware, UseClickProps, UseHoverProps } from "@floating-ui/react";
 import {
 	arrow,
@@ -49,7 +49,6 @@ export default function useFloatingProps({
 
 			offsetIfOverflowing(),
 			// TODO: only use arrow if it's needed -- determine it through props
-			// eslint-disable-next-line react-compiler/react-compiler
 			arrow({
 				element: arrowRef
 			})
@@ -62,8 +61,12 @@ export default function useFloatingProps({
 	const role = useRole(context);
 	const _hover = useHover(context, {
 		handleClose: safePolygon(),
-		...hover,
-		enabled: !!hover
+		// this is true by default, for some reason, so have to specify it
+		// manually. I think this changed in a recent version. Previously, I had
+		// to pass a hover object into useInteractions to enable to hover
+		// interaction.
+		enabled: !!hover,
+		...hover
 	});
 	const _click = useClick(context, click);
 	const focus = useFocus(context);

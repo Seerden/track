@@ -1,7 +1,8 @@
 import Notification from "@/components/utility/Notification/Notification";
+import Containers from "@/lib/theme/components/container.style";
 import F from "@/lib/theme/components/form/form.alternate.style";
+import { Link } from "@tanstack/react-router";
 import { LucideArrowRight, LucideEye, LucideEyeOff } from "lucide-react";
-import { Link } from "react-router-dom";
 import S from "../style/auth.style";
 import useLogin from "./useLogin";
 
@@ -27,17 +28,17 @@ function Login() {
 				<S.Fields>
 					<F.Label>
 						<span>username</span>
-						<input
+						<F.Input
 							onChange={handleInputChange}
 							type="text"
 							required
 							name="username"
 						/>
 					</F.Label>
-					<S.PasswordLabel>
+					<F.Label>
 						<span>password</span>
 						<div style={{ position: "relative" }}>
-							<input
+							<F.Input
 								onChange={handleInputChange}
 								type={passwordVisible ? "text" : "password"}
 								required
@@ -56,12 +57,10 @@ function Login() {
 								)}
 							</S.ShowPassword>
 						</div>
-					</S.PasswordLabel>
+					</F.Label>
 				</S.Fields>
-				<div
+				<Containers.Row
 					style={{
-						display: "flex",
-						flexDirection: "row",
 						justifyContent: "space-between",
 						alignItems: "center"
 					}}
@@ -77,7 +76,7 @@ function Login() {
 					>
 						register
 					</Link>
-				</div>
+				</Containers.Row>
 			</F.Form>
 		</S.Wrapper>
 	);

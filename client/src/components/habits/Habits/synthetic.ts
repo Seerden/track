@@ -1,14 +1,16 @@
 import { createDate } from "@/lib/datetime/make-date";
 import type { TimeWindow } from "@/types/time-window.types";
+import { groupById } from "@server/lib/data/models/group-by-id";
 import type {
 	Habit,
 	HabitEntry,
+	HabitEntryInput,
 	HabitWithEntries,
 	HabitWithPossiblySyntheticEntries,
-	NewHabitEntry,
 	SyntheticHabitEntry
-} from "@shared/types/data/habit.types";
-import type { ById, Datelike, ID } from "@shared/types/data/utility.types";
+} from "@shared/lib/schemas/habit";
+import type { Datelike } from "@shared/lib/schemas/timestamp";
+import type { ById, ID } from "@shared/types/data/utility.types";
 
 export function daysInInterval(interval: TimeWindow["intervalUnit"]) {
 	switch (interval) {
@@ -67,31 +69,33 @@ function makeSyntheticEntry({
  * For UI purposes, this function adds synthetic habit entries to each habit in
  * `habits`, if there are not enough actual entries (yet) for the given habit
  * and timescale.
- * @todo currently, the order is [...real, ...synthetic], but the order should
- * be done by index, since a user can turn e.g. synthetic entries 1, 3 and 5
- * into real ones, while not touching 2 and 4. In our UI, now, the real entries shift
- * to the start of the list, while they should stay in their actual order.
  */
 export function withSyntheticHabitEntries(
 	habits: ById<HabitWithEntries>,
 	timeWindow: TimeWindow
 ): ById<HabitWithPossiblySyntheticEntries> {
-	const habitsWithSyntheticEntries = Object.values(habits).map((habit) => {
-		const expectedCount = expectedEntryCount(timeWindow, habit);
+	const habitsWithSyntheticEntries = Object.values(habits).map(
+		(habit: HabitWithEntries) => {
+			const expectedCount = expectedEntryCount(timeWindow, habit);
 
-		const entries: Array<HabitEntry | SyntheticHabitEntry> = structuredClone(
-			habit.entries
-		).filter((entry) => {
-			const shouldBeVisible =
-				createDate(entry.date).valueOf() >=
-					createDate(timeWindow.startDate).valueOf() &&
-				createDate(entry.date).valueOf() <= createDate(timeWindow.endDate).valueOf();
-			return shouldBeVisible;
-		});
+			const entries: Array<HabitEntry | SyntheticHabitEntry> = structuredClone(
+				habit.entries
+			).filter((entry) => {
+				const entryDate = createDate(entry.date);
+				const windowStart = createDate(timeWindow.startDate);
+				const windowEnd = createDate(timeWindow.endDate);
+				return !entryDate.isBefore(windowStart) && !entryDate.isAfter(windowEnd);
+			});
 
-		if (entries.length < expectedCount) {
-			let index = Math.max(0, entries.length);
-			while (index < expectedCount) {
+			const existingIndices = new Set(entries.map((e) => e.index));
+			const expectedIndices = new Set(
+				Array.from({ length: expectedCount }, (_, i) => i)
+			);
+			const missingIndices = Array.from(expectedIndices).filter(
+				(i) => !existingIndices.has(i)
+			);
+
+			for (const index of missingIndices) {
 				const syntheticEntry: SyntheticHabitEntry = makeSyntheticEntry({
 					habit,
 					index,
@@ -101,19 +105,16 @@ export function withSyntheticHabitEntries(
 					// disallow that altogether.
 					date: timeWindow.startDate
 				});
-				index += 1;
 				entries.push(syntheticEntry);
 			}
+
+			return Object.assign({}, habit, {
+				entries: entries.sort((a, b) => a.index - b.index)
+			});
 		}
+	);
 
-		return Object.assign({}, habit, { entries });
-	});
-
-	// group by id again. TODO: use helper
-	return habitsWithSyntheticEntries.reduce((acc, habit) => {
-		acc[habit.habit_id] = habit;
-		return acc;
-	}, {} as ById<HabitWithPossiblySyntheticEntries>);
+	return groupById(habitsWithSyntheticEntries, "habit_id");
 }
 
 export function syntheticToReal({
@@ -122,9 +123,9 @@ export function syntheticToReal({
 	user_id
 }: {
 	entry: SyntheticHabitEntry;
-	value: NewHabitEntry["value"];
+	value: HabitEntryInput["value"];
 	user_id: ID;
-}): NewHabitEntry {
+}): HabitEntryInput {
 	return {
 		date: entry.date,
 		habit_id: entry.habit_id,

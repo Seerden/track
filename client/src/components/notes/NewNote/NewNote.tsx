@@ -1,7 +1,8 @@
 import TagSelector from "@/components/tags/TagSelector/TagSelector";
 import modalIds from "@/lib/modal-ids";
+import Buttons from "@/lib/theme/components/buttons";
 import F from "@/lib/theme/components/form.style";
-import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
+import Input from "@/lib/theme/input";
 import useNewNote from "./useNewNote";
 
 function NewNote() {
@@ -20,7 +21,7 @@ function NewNote() {
 				<F.Row>
 					<F.Label>
 						<span>Title</span>
-						<DefaultInput
+						<Input.Default
 							type="text"
 							name="title"
 							placeholder="Scruffy's meals"
@@ -46,7 +47,7 @@ function NewNote() {
 						modalId={modalIds.tagSelector.newNote}
 					/>
 				</F.Row>
-				<F.Button type="submit">Create note</F.Button>
+				<Buttons.Submit.Default type="submit">Create note</Buttons.Submit.Default>
 			</F.Form>
 		</F.Wrapper>
 	);

@@ -1,5 +1,5 @@
 import type { ID } from "@shared/types/data/utility.types";
-import { atom } from "recoil";
+import { atom } from "jotai";
 
 type PossiblyActiveItem = {
 	activeId: ID | null;
@@ -17,7 +17,4 @@ const defaultActiveItemState: ActiveItemState = {
 	habit: inactive
 } as const;
 
-export const activeItemState = atom<ActiveItemState>({
-	key: "activeItemState",
-	default: defaultActiveItemState
-});
+export const activeItemAtom = atom<ActiveItemState>(defaultActiveItemState);

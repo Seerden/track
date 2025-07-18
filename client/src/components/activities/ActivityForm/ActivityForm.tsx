@@ -2,10 +2,11 @@ import RecurrenceForm from "@/components/activities/ActivityForm/RecurrenceForm/
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
-import N from "@/lib/theme/components/form.style";
-import DefaultInput from "@/lib/theme/components/input/DefaultInput.style";
+import Buttons from "@/lib/theme/components/buttons";
+import Form from "@/lib/theme/components/form.style";
+import Input from "@/lib/theme/input";
 import TagSelector from "@components/tags/TagSelector/TagSelector";
-import type { ActivityWithIds } from "@shared/types/data/activity.types";
+import type { ActivityWithIds } from "@shared/lib/schemas/activity";
 import DateTimePicker from "./DateTimePicker";
 import S from "./style/ActivityForm.style";
 import useActivityForm from "./useActivityForm";
@@ -40,46 +41,43 @@ export default function ActivityForm({
 	});
 
 	return (
-		<N.Wrapper>
-			<N.FormTitle>{title}</N.FormTitle>
-			<N.Form onSubmit={onSubmit}>
-				<N.Row name="description">
-					<N.Label>
-						<span>Title</span>
-						<DefaultInput
+		<Form.Wrapper>
+			<Form.FormTitle>{title}</Form.FormTitle>
+			<Form.Form onSubmit={onSubmit}>
+				<Form.Row name="description">
+					<Form.Label>
+						<span>Activity</span>
+						<Input.Default
 							name="name"
 							onChange={onInputChange}
-							defaultValue={activity?.name ?? ""}
+							defaultValue={activity?.name}
 							type="text"
 							required
 						/>
-					</N.Label>
+					</Form.Label>
 					<S.Task>
 						<span>Task?</span>
 						<Checkbox name="is_task" checked={isTask} onChange={onInputChange} />
 					</S.Task>
-				</N.Row>
-
-				<N.Row>
+				</Form.Row>
+				<Form.Row>
 					<DateTimePicker
 						onChange={onDateTimeChange}
 						defaultValues={defaultDateTimeValues}
 					/>
-				</N.Row>
+				</Form.Row>
 
-				<N.Row>
+				<Form.Row>
 					<RecurrenceForm />
-				</N.Row>
-
+				</Form.Row>
 				<TagSelector
 					fullSize
 					title="Tags"
 					showNewTagButton
 					modalId={modalIds.tagSelector.activityForm}
 				/>
-
-				<N.Button>{buttonTitle}</N.Button>
-			</N.Form>
-		</N.Wrapper>
+				<Buttons.Submit.Default type="submit">{buttonTitle}</Buttons.Submit.Default>
+			</Form.Form>
+		</Form.Wrapper>
 	);
 }

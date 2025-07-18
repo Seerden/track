@@ -1,5 +1,5 @@
+import type { TagWithId, TagWithIds } from "@shared/lib/schemas/tag";
 import type { TagTagRelation } from "@shared/types/data/relational.types";
-import type { TagWithId, TagWithIds } from "@shared/types/data/tag.types";
 import type { ById, ID } from "@shared/types/data/utility.types";
 import { queryTagsAndRelations } from "./query-tags";
 
@@ -45,11 +45,11 @@ export function createTagTreeMap(tagsById: ById<TagWithIds>) {
 	const treeIdMap = {} as ById<{ members: ID[] }>;
 
 	for (const tag_id in tagsById) {
-		const root_id = findRootTag(+tag_id, tagsById);
+		const root_id = findRootTag(tag_id, tagsById);
 		if (!treeIdMap[root_id]) {
 			treeIdMap[root_id] = { members: [] };
 		}
-		treeIdMap[root_id].members.push(+tag_id);
+		treeIdMap[root_id].members.push(tag_id);
 	}
 
 	return treeIdMap;

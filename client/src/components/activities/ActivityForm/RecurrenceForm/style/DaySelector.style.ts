@@ -1,9 +1,10 @@
-import Buttons from "@/lib/theme/components/buttons/buttons";
 import formStyle from "@/lib/theme/components/form.style";
-import UnstyledInput from "@/lib/theme/components/input/UnstyledInput.style";
 import { noBorders } from "@/lib/theme/snippets/border";
 
-import styled, { css } from "styled-components";
+import Buttons from "@/lib/theme/components/buttons";
+import Input from "@/lib/theme/input";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
 const activeStyle = css`
 	outline: 2px solid deepskyblue;
@@ -66,7 +67,7 @@ const FloatingWrapper = styled.div`
 	border-radius: 5px;
 `;
 
-const NumberInput = styled(UnstyledInput)`
+const NumberInput = styled(Input.Unstyled)`
 	display: flex;
 	border-bottom: 1px solid #555;
 	margin-bottom: -1px;
@@ -82,11 +83,6 @@ const NumberInput = styled(UnstyledInput)`
 		margin: 0;
 	}
 `;
-NumberInput.defaultProps = {
-	type: "number",
-	min: 1,
-	step: 1
-};
 
 const Select = styled.select`
 	${noBorders};

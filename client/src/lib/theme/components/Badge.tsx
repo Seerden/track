@@ -1,11 +1,10 @@
-import type { PropsWithChildren } from "react";
-import type { CSS } from "styled-components/dist/types";
+import type { CSSProperties, PropsWithChildren } from "react";
 import S from "./Badge.style";
 
 type BadgeProps = {
 	title?: string;
-	color?: CSS.Properties["color"];
-	height?: CSS.Properties["height"];
+	color?: CSSProperties["color"];
+	height?: CSSProperties["height"];
 };
 
 export default function Badge({

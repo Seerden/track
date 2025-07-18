@@ -1,5 +1,5 @@
 import { flex } from "@/lib/theme/snippets/flex";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 const List = styled.ul`
 	${flex.row};

@@ -1,7 +1,8 @@
-import { Action } from "@/lib/theme/components/buttons";
-import { styled } from "styled-components";
+import Buttons from "@/lib/theme/components/buttons";
+import { spacingValue } from "@/lib/theme/snippets/spacing";
+import styled from "@emotion/styled";
 
-const ChangeDayButton = styled(Action.Default)<{
+const ChangeDayButton = styled(Buttons.Action.Default)<{
 	$size: number;
 	$direction: "left" | "right";
 }>`
@@ -11,7 +12,7 @@ const ChangeDayButton = styled(Action.Default)<{
 	min-width: var(--size);
 	min-height: var(--size);
 
-	margin-top: 0.2rem; // slight offset makes it look more centered than actually centering it with the text
+	margin-top: ${spacingValue.smallest}; // slight offset makes it look more centered than actually centering it with the text
 
 	&:hover,
 	&:focus,

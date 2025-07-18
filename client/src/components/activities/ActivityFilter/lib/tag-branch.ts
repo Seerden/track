@@ -1,5 +1,4 @@
-import type { TagsTreeData } from "@/types/data.types";
-import type { TagWithIds } from "@shared/types/data/tag.types";
+import type { TagTreeById, TagWithIds } from "@shared/lib/schemas/tag";
 import type { ByIdMap, ID } from "@shared/types/data/utility.types";
 
 // TODO: on the server, we have a findRootTag function. Put it in shared and use
@@ -15,7 +14,7 @@ export function getRootTagId(tag_id: ID, tagsById: ByIdMap<TagWithIds>) {
 export function getTreeMembers(
 	tag_id: ID,
 	tagsById: ByIdMap<TagWithIds>,
-	tagTree: ByIdMap<TagsTreeData["byId"][number]>
+	tagTree: TagTreeById
 ): ID[] {
 	const rootTagId = getRootTagId(tag_id, tagsById);
 	if (!rootTagId) return [];

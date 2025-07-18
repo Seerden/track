@@ -1,15 +1,15 @@
 import { withSyntheticHabitEntries } from "@/components/habits/Habits/synthetic";
-import useQueryHabitEntries from "@/lib/hooks/query/habits/useQueryHabitEntries";
-import useQueryHabits from "@/lib/hooks/query/habits/useQueryHabits";
-import { byIdAsList } from "@/lib/hooks/query/select-map-by-id";
+import { trpc } from "@/lib/trpc";
 import type { TimeWindow } from "@/types/time-window.types";
-import type { Habit, HabitWithEntries } from "@shared/types/data/habit.types";
+import { byIdAsList } from "@shared/lib/map";
+import type { Habit, HabitWithEntries } from "@shared/lib/schemas/habit";
 import type { ById } from "@shared/types/data/utility.types";
+import { useQuery } from "@tanstack/react-query";
 import { useCallback, useMemo } from "react";
 
 export default function useHabitsData() {
-	const { data: habitsData } = useQueryHabits();
-	const { data: habitEntriesData } = useQueryHabitEntries();
+	const { data: habitsData } = useQuery(trpc.habits.all.queryOptions());
+	const { data: habitEntriesData } = useQuery(trpc.habits.entries.queryOptions());
 
 	const habitsWithEntriesById = useMemo(() => {
 		if (!habitsData || !habitEntriesData) return {};

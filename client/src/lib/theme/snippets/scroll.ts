@@ -1,4 +1,6 @@
-import { css } from "styled-components";
+import { outline } from "@/lib/theme/snippets/edge";
+import { radius } from "@/lib/theme/snippets/radius";
+import { css } from "@emotion/react";
 
 /** Visually hides scrollbar, but keeps the scrollability of the element the way
  * it was. */
@@ -22,7 +24,7 @@ const customScrollbar = css`
 
 	&::-webkit-scrollbar-thumb {
 		background-color: dodgerblue;
-		outline: 2px solid #fff;
+		${outline.primary};
 		outline-offset: -2px;
 
 		&:hover {
@@ -41,7 +43,7 @@ const customVerticalScrollbar = css`
 		background-color: transparent;
 	}
 	&::-webkit-scrollbar-thumb {
-		border-radius: 8px;
+		${radius.largish};
 	}
 `;
 

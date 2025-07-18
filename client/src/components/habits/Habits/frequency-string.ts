@@ -1,4 +1,4 @@
-import type { HabitWithIds } from "@shared/types/data/habit.types";
+import type { HabitWithIds } from "@shared/lib/schemas/habit";
 
 /**
  * Generates humanized string to display a habit's repetition settings, like "3

@@ -66,6 +66,9 @@ export default function RecurrenceForm() {
 						<S.IntervalContainer>
 							<span>every</span>
 							<SharedStyle.NumberInput
+								type="number"
+								step={1}
+								min={1}
 								value={recurrence.interval}
 								onChange={(e) =>
 									updateRecurrence({ type: "interval", value: +e.target.value })
@@ -111,6 +114,9 @@ export default function RecurrenceForm() {
 						<S.IntervalContainer>
 							<span>every</span>
 							<SharedStyle.NumberInput
+								type="number"
+								step={1}
+								min={1}
 								value={recurrence.interval}
 								onChange={(e) =>
 									updateRecurrence({ type: "interval", value: +e.target.value })

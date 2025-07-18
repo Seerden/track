@@ -5,7 +5,7 @@ import type {
 	HabitEntry,
 	HabitWithIds,
 	SyntheticHabitEntry
-} from "@shared/types/data/habit.types";
+} from "@shared/lib/schemas/habit";
 
 type CompletionInstanceProps = {
 	entry: HabitEntry | SyntheticHabitEntry;

@@ -6,12 +6,13 @@ import { designateDateFields } from "@/components/activities/ActivityForm/used-a
 import { isToday, sameDay } from "@/lib/datetime/compare";
 import { formatToHHmm, formatToYearMonthDay } from "@/lib/datetime/format-date";
 import useCurrentTime from "@/lib/hooks/useCurrentTime";
-import { selectedTimeWindowState } from "@/lib/state/selected-time-window-state";
+import { timeWindowAtom } from "@/lib/state/time-window.state";
 import { createDate } from "@lib/datetime/make-date";
 import { parseTimeString } from "@lib/datetime/parse-string";
 import type { Maybe, StartAndEnd } from "@shared/types/data/utility.types";
+import { produce } from "immer";
+import { useAtomValue } from "jotai";
 import { useEffect, useMemo, useState } from "react";
-import { useRecoilValue } from "recoil";
 import type { DateTimePickerProps } from "./datetime-picker.types";
 
 type UseDateTimePickerDefaults = {
@@ -19,7 +20,7 @@ type UseDateTimePickerDefaults = {
 };
 
 function useDateTimePickerDefaults({ defaultStartAndEnd }: UseDateTimePickerDefaults) {
-	const timeWindow = useRecoilValue(selectedTimeWindowState);
+	const timeWindow = useAtomValue(timeWindowAtom);
 	const currentTime = useCurrentTime(30 * 1000); // 30 second poll interval
 
 	const defaultTime = useMemo(() => {
@@ -68,10 +69,11 @@ export default function useDateTimePicker({
 		defaultStartAndEnd
 	});
 	const [allDay, setAllDay] = useState(isAllDay(defaultValues));
-	const dateFields = useMemo(() => designateDateFields(allDay), [allDay]);
-	const [manualEndDate, setManualEndDate] = useState(defaultManualEndDate);
 	const [date, setDate] = useState(defaultDate);
 	const [time, setTime] = useState(defaultTime);
+	const [manualEndDate, setManualEndDate] = useState(defaultManualEndDate);
+
+	const dateFields = useMemo(() => designateDateFields(allDay), [allDay]);
 	const dateTime = useMemo(
 		() => ({
 			start: createDate(allDay ? date.start : `${date.start}T${time.start}`),
@@ -88,10 +90,11 @@ export default function useDateTimePicker({
 	}, [dateFields, dateTime]);
 
 	function handleDateChange(value: string, field: "start" | "end") {
-		setDate((current) => ({
-			...current,
-			[field]: value
-		}));
+		setDate(
+			produce((draft) => {
+				draft[field] = value;
+			})
+		);
 	}
 
 	function onStartDateFieldChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -102,14 +105,9 @@ export default function useDateTimePicker({
 	}
 
 	function onEndDateFieldChange(e: React.ChangeEvent<HTMLInputElement>) {
-		if (e.target.value) {
-			handleDateChange(e.target.value, "end");
-			setManualEndDate(true);
-		} else {
-			setManualEndDate(false);
-			handleDateChange(date.start, "end");
-			e.currentTarget.blur();
-		}
+		handleDateChange(e.target.value ?? date.start, "end");
+		setManualEndDate(!!e.target.value);
+		if (!e.target.value) e.currentTarget.blur();
 	}
 
 	function onAllDayFieldChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -126,25 +124,22 @@ export default function useDateTimePicker({
 
 		if (!parsedValue) return;
 
-		setTime((current) => ({
-			...current,
-			[field]: parsedValue
-		}));
+		setTime(
+			produce((draft) => {
+				draft[field] = parsedValue;
+			})
+		);
 	}
-
-	const defaultStartDate = defaultStartAndEnd?.start
-		? formatToYearMonthDay(defaultStartAndEnd.start)
-		: date.start;
-
-	const defaultEndDate = defaultStartAndEnd?.end
-		? formatToYearMonthDay(defaultStartAndEnd.end)
-		: date.end;
 
 	return {
 		allDay,
 		manualEndDate,
-		defaultStartDate,
-		defaultEndDate,
+		defaultStartDate: defaultStartAndEnd?.start
+			? formatToYearMonthDay(defaultStartAndEnd.start)
+			: date.start,
+		defaultEndDate: defaultStartAndEnd?.end
+			? formatToYearMonthDay(defaultStartAndEnd.end)
+			: date.end,
 		defaultTime,
 		onAllDayFieldChange,
 		onStartDateFieldChange,

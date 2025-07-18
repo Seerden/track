@@ -1,21 +1,16 @@
-import router from "@/lib/router";
+import { baseUrl } from "@/lib/fetch/fetch-constants";
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
-import React, { useEffect } from "react";
+import * as Sentry from "@sentry/react";
+import { RouterProvider } from "@tanstack/react-router";
+import React from "react";
 import ReactDOM from "react-dom/client";
-import {
-	createRoutesFromChildren,
-	matchRoutes,
-	RouterProvider,
-	useLocation,
-	useNavigationType
-} from "react-router-dom";
 import "./index.scss";
-import { worker } from "./mocks/browser";
 import "./normalize.css";
 
-import { baseUrl } from "@/lib/fetch/fetch-constants";
-import * as Sentry from "@sentry/react";
+import { createRouter } from "@/router";
+
+export const router = createRouter();
 
 Sentry.init({
 	// Note: we could also use an environment variable, but the DSN is public
@@ -25,13 +20,7 @@ Sentry.init({
 	integrations: [
 		// See docs for support of different versions of variation of react router
 		// https://docs.sentry.io/platforms/javascript/guides/react/configuration/integrations/react-router/
-		Sentry.reactRouterV6BrowserTracingIntegration({
-			useEffect,
-			useLocation,
-			useNavigationType,
-			createRoutesFromChildren,
-			matchRoutes
-		})
+		Sentry.tanstackRouterBrowserTracingIntegration(router)
 	],
 	// Tracing
 	tracesSampleRate: 1.0, //  Capture 100% of the transactions
@@ -44,9 +33,9 @@ Sentry.init({
 });
 
 if (process.env.NODE_ENV === "development") {
-	await worker.start({
-		onUnhandledRequest: "bypass"
-	});
+	// await worker.start({
+	// 	onUnhandledRequest: "bypass"
+	// });
 }
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

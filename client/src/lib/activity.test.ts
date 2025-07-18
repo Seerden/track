@@ -1,6 +1,6 @@
 import { activityFallsOnDay } from "@/lib/activity";
 import { createDate } from "@/lib/datetime/make-date";
-import type { ActivityWithIds } from "@shared/types/data/activity.types";
+import type { ActivityWithIds } from "@shared/lib/schemas/activity";
 
 describe("activityFallsOnDay", () => {
 	const mockActivity: ActivityWithIds = {
@@ -8,11 +8,11 @@ describe("activityFallsOnDay", () => {
 		end_date: "2024-01-02",
 		started_at: null,
 		ended_at: null,
-		activity_id: 0,
+		activity_id: "0",
 		created_at: new Date(),
 		description: "",
 		name: "test",
-		user_id: 0,
+		user_id: "0",
 		is_task: false,
 		tag_ids: [],
 		occurrence: null,

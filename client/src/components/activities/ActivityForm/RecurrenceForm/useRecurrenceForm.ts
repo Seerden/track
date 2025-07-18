@@ -3,12 +3,10 @@ import {
 	INTERVAL_UNIT,
 	type FREQUENCY
 } from "@/components/activities/ActivityForm/RecurrenceForm/constants";
-import type { NewRecurrenceInput } from "@shared/types/data/recurrence.types";
+import type { NewRecurrenceInput } from "@shared/lib/schemas/activity";
 import type { DayOfWeek, IntervalUnit } from "@shared/types/data/utility.types";
 import { produce } from "immer";
 import { useState } from "react";
-
-export type NewRecurrenceState = NewRecurrenceInput["newRecurrence"];
 
 type UpdateRecurrencePayload =
 	| {
@@ -30,7 +28,7 @@ type SetRecurrenceSelection =
 
 export default function useRecurrenceForm() {
 	const [isRecurring, setIsRecurring] = useState(false);
-	const [recurrence, setRecurrence] = useState<NewRecurrenceState>(defaultRecurrence);
+	const [recurrence, setRecurrence] = useState<NewRecurrenceInput>(defaultRecurrence);
 	const intervalUnitSuffix = recurrence.interval > 1 ? "s" : "";
 
 	function resetSelection() {

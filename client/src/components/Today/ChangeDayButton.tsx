@@ -15,6 +15,7 @@ export default function ChangeDayButton({
 
 	return (
 		<S.ChangeDayButton
+			type="button"
 			$color={"themeInverted"}
 			$size={size}
 			$direction={type === "next" ? "right" : "left"}

@@ -1,12 +1,12 @@
-import useMutateLogin from "@/lib/hooks/query/user/useMutateLogin";
+import { useLoginMutation } from "@/lib/hooks/query/user/login.mutation";
 import useAuthentication from "@/lib/hooks/useAuthentication";
-import useRouteProps from "@/lib/hooks/useRouteProps";
 import { localUser } from "@/lib/user-storage";
-import { type UserLogin } from "@shared/types/data/user.types";
+import { type NewUser } from "@shared/lib/schemas/user";
+import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 export default function useLogin() {
-	const { navigate } = useRouteProps();
+	const navigate = useNavigate();
 	const [passwordVisible, setPasswordVisible] = useState(false);
 	function togglePasswordVisible() {
 		setPasswordVisible((current) => !current);
@@ -15,12 +15,12 @@ export default function useLogin() {
 
 	useEffect(() => {
 		if (isLoggedIn) {
-			navigate("/");
+			navigate({ to: "/" });
 		}
 	}, [isLoggedIn]);
 
-	const [userLogin, setUserLogin] = useState<UserLogin>({ username: "", password: "" });
-	const { mutate: login, isError } = useMutateLogin();
+	const [userLogin, setUserLogin] = useState<NewUser>({ username: "", password: "" });
+	const { mutate: login, isError } = useLoginMutation();
 
 	const isValidLogin = !!userLogin.username.length && !!userLogin.password.length;
 
@@ -45,7 +45,7 @@ export default function useLogin() {
 				// modal. probably we redirect to the user's home page, because I
 				// expect almost everyting will be behind a login wall.
 				localUser.set(user);
-				navigate("/");
+				navigate({ to: "/" });
 			}
 		});
 	}

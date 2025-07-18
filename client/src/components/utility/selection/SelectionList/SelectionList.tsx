@@ -1,9 +1,9 @@
 import Badge from "@/lib/theme/components/Badge";
+import type { CSSProperties } from "react";
 import { useState } from "react";
-import type { CSS } from "styled-components/dist/types";
 import S from "./SelectionList.style";
 
-export type ItemValue = string | number;
+export type ItemValue = string;
 
 export type Item = {
 	label: string;
@@ -13,7 +13,7 @@ export type Item = {
 type SelectionListProps = {
 	multiple?: boolean;
 	items: Item[];
-	highlightColor?: CSS.Properties["color"];
+	highlightColor?: CSSProperties["color"];
 	onChange: (values: ItemValue[]) => void;
 };
 

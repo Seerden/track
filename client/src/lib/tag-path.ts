@@ -1,4 +1,4 @@
-import type { TagWithIds } from "@shared/types/data/tag.types";
+import type { TagWithIds } from "@shared/lib/schemas/tag";
 import type { Maybe } from "@shared/types/data/utility.types";
 
 /** Given a `tag`, and `tags` which is assumed to be the complete list of a

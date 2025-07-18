@@ -2,7 +2,8 @@ import ListStyle from "@/lib/theme/components/List.style";
 import { getFontSize } from "@/lib/theme/font";
 import { column } from "@/lib/theme/snippets/column";
 import { flex } from "@/lib/theme/snippets/flex";
-import styled, { css } from "styled-components";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
 // TODO: make this shared with Notes for now since they are currently the same
 const TasksWrapper = styled.section`
@@ -31,7 +32,7 @@ const Task = styled(ListStyle.Item)<{ $completed?: boolean }>`
 		css`
 			opacity: 0.6;
 			background-color: #eee;
-			outline: 2px solid #e9e9e9;
+			outline: 2px solid #e9e9e9; // TODO TRK-231: add this to outline, or use an existing one
 		`}// TODO: this opacity is the same for completed tasks in all their implementations, so generalize it.
 `;
 

@@ -106,7 +106,7 @@ export default function DaySelector<T extends Option>({
 					{isNestedArray(options) ? (
 						<>
 							{options.map((week, index) => (
-								<Containers.Utility.FlexRow key={index}>
+								<Containers.Row key={index}>
 									{week.map((day) => (
 										<S.Cell
 											$active={isActive(day)}
@@ -116,11 +116,11 @@ export default function DaySelector<T extends Option>({
 											{day}
 										</S.Cell>
 									))}
-								</Containers.Utility.FlexRow>
+								</Containers.Row>
 							))}
 						</>
 					) : (
-						<Containers.Utility.FlexRow>
+						<Containers.Row>
 							{options.map((option, index) => (
 								<S.Cell
 									key={option}
@@ -130,7 +130,7 @@ export default function DaySelector<T extends Option>({
 									{optionLabels?.[index] ?? option}
 								</S.Cell>
 							))}
-						</Containers.Utility.FlexRow>
+						</Containers.Row>
 					)}
 				</S.FloatingWrapper>
 			</FloatingFocusManager>

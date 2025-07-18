@@ -1,6 +1,6 @@
 import type { SelectionProps } from "@/components/tags/TagSelector/tag-selector.types";
 import { makePath } from "@/lib/tag-path";
-import type { TagWithIds } from "@shared/types/data/tag.types";
+import type { TagWithIds } from "@shared/lib/schemas/tag";
 import { Fragment } from "react/jsx-runtime";
 import S from "./style/TagSelector.style";
 

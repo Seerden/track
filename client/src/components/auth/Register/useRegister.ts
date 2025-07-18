@@ -1,9 +1,9 @@
-import useMutateRegister from "@/lib/hooks/query/user/useMutateRegister";
-import type { NewUser } from "@shared/types/data/user.types";
+import { useRegisterMutation } from "@/lib/hooks/query/user/register.mutation";
+import type { NewUser } from "@shared/lib/schemas/user";
 import { useState } from "react";
 
 export default function useRegister() {
-	const { mutate: register } = useMutateRegister();
+	const { mutate: register } = useRegisterMutation();
 
 	const [newUser, setNewUser] = useState<NewUser>({
 		username: "",

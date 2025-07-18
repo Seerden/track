@@ -1,26 +1,12 @@
 import useAuthentication from "@/lib/hooks/useAuthentication";
-import useRouteProps from "@/lib/hooks/useRouteProps";
 import type { PropsWithChildren } from "react";
 import Login from "../auth/Login/Login";
 
 export default function Protected({ children }: PropsWithChildren) {
-	const { isLoggedIn, currentUser, data } = useAuthentication();
-	const { params } = useRouteProps();
+	const { isLoggedIn, data } = useAuthentication();
 
 	if (!data) {
 		return <></>;
-	}
-
-	// If a route/component is user-specific, do this.
-	if (params.username) {
-		if (params.username !== currentUser?.username) {
-			return (
-				<div>
-					If that user exists, you must be logged in as {params.username} to view
-					this component.
-				</div>
-			);
-		}
 	}
 
 	// If a route isn't user-specific, but still requires someone to be logged

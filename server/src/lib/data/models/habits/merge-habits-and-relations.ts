@@ -1,4 +1,4 @@
-import type { Habit, HabitEntry, HabitWithIds } from "@shared/types/data/habit.types";
+import type { Habit, HabitEntry, HabitWithIds } from "@shared/lib/schemas/habit";
 import type { HabitTagRelation } from "@shared/types/data/relational.types";
 import type { ById } from "@shared/types/data/utility.types";
 

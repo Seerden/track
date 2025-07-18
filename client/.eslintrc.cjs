@@ -5,12 +5,11 @@ module.exports = {
 		node: true
 	},
 	extends: [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:@typescript-eslint/strict",
-        "prettier",
-        "plugin:storybook/recommended"
-    ],
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"plugin:@typescript-eslint/strict",
+		"prettier"
+	],
 	parser: "@typescript-eslint/parser",
 	parserOptions: {
 		ecmaFeatures: {
@@ -19,7 +18,7 @@ module.exports = {
 		ecmaVersion: 12,
 		sourceType: "module"
 	},
-	plugins: ["react", "@typescript-eslint", "eslint-plugin-react-compiler", "track"],
+	plugins: ["react", "@typescript-eslint", "@tanstack/query"],
 	root: true,
 	ignorePatterns: ["node_modules", "build", "dist"],
 	settings: {
@@ -37,9 +36,7 @@ module.exports = {
 	},
 	rules: {
 		"react/react-in-jsx-scope": "off",
-		"react-compiler/react-compiler": "error",
 		"@typescript-eslint/consistent-type-imports": "error",
-		"track/no-direct-styled-import": "error",
 		"no-restricted-imports": [
 			"error",
 			{

@@ -1,63 +1,53 @@
 import type { ById, ID } from "@shared/types/data/utility.types";
-import {
-	atom,
-	atomFamily,
-	selector,
-	useRecoilState,
-	useRecoilValue,
-	useResetRecoilState
-} from "recoil";
+import { produce } from "immer";
+import { atom, useAtom, useAtomValue } from "jotai";
+import { useCallback } from "react";
 
-// TODO: we might want to use an atom famiy here to allow for multiple tag
-// selection states
-export const tagSelectionState = atom<ById<boolean>>({
-	default: {},
-	key: "selectedTags"
-});
+interface TagSelectionState {
+	tagSelection: ById<boolean>;
+	selectedTagIds: ID[];
+	toggleTagSelection: (tag_id: ID) => void;
+	setTagSelection: (selection: ById<boolean>) => void;
+	resetTagSelection: () => void;
+	setTagSelectionFromList: (ids: ID[]) => void;
+}
 
-// TODO: this is WIP -- have to see if it works as I expect and also implement
-// it for all current use-cases of the regular tagSelectionState. Also have to
-// tweak selectedTagIdsSelector to use this atomFamily instead of the regular
-// atom. See #64.
-export const tagSelectionFamilyState = atomFamily<ById<boolean>, string>({
-	key: "selectedTagsFamily",
-	default: () => ({})
-});
+const tagSelectionAtom = atom<TagSelectionState["tagSelection"]>({});
 
-export const selectedTagIdsSelector = selector({
-	get: ({ get }) => {
-		const selectedTags = get(tagSelectionState);
-		return Object.keys(selectedTags)
-			.filter((tagId) => selectedTags[+tagId])
-			.map((id) => +id);
-	},
-	key: "selectedTagIds"
+const selectedTagIdsAtom = atom((get) => {
+	const tagSelection = get(tagSelectionAtom);
+	return Object.keys(tagSelection).filter((tagId) => tagSelection[tagId]);
 });
 
 export function useTagSelection() {
-	const [tagSelection, setTagSelection] = useRecoilState(tagSelectionState);
-	const resetTagSelection = useResetRecoilState(tagSelectionState);
-	const selectedTagIds = useRecoilValue(selectedTagIdsSelector);
+	const selectedTagIds = useAtomValue(selectedTagIdsAtom);
+	const [tagSelection, setTagSelection] = useAtom(tagSelectionAtom);
 
-	function toggleTagSelection(tag_id: ID) {
-		setTagSelection((current) => {
-			return { ...current, [tag_id]: !current[tag_id] } as ById<boolean>;
-		});
-	}
+	const toggleTagSelection = useCallback(
+		(tag_id: ID) => {
+			setTagSelection(
+				produce((state) => {
+					state[tag_id] = !state[tag_id];
+				})
+			);
+		},
+		[setTagSelection]
+	);
 
-	function setTagSelectionFromList(ids: ID[]) {
+	const resetTagSelection = () => setTagSelection({});
+
+	const setTagSelectionFromList = (ids: ID[]) => {
 		const newSelection = ids.reduce((acc, id) => {
 			acc[id] = true;
 			return acc;
 		}, {} as ById<boolean>);
-
 		setTagSelection(newSelection);
-	}
+	};
 
 	return {
 		tagSelection,
-		toggleTagSelection,
 		selectedTagIds,
+		toggleTagSelection,
 		setTagSelection,
 		resetTagSelection,
 		setTagSelectionFromList

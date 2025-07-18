@@ -1,16 +1,14 @@
 import type { ModalId } from "@/lib/modal-ids";
-import { activeItemState } from "@/lib/state/active-item-state";
+import { activeItemAtom } from "@/lib/state/active-item-state";
+import { produce } from "immer";
+import { atom, useAtom, useSetAtom } from "jotai";
 import { useCallback } from "react";
-import { atom, useRecoilState, useSetRecoilState } from "recoil";
 
-export const modalIdsState = atom<ModalId[]>({
-	key: "modalIdsState",
-	default: []
-});
+const modalAtom = atom<ModalId[]>([]);
 
 export function useModalState() {
-	const [modalIds, setModalIds] = useRecoilState(modalIdsState);
-	const setActiveItem = useSetRecoilState(activeItemState);
+	const [modalIds, setModalIds] = useAtom(modalAtom);
+	const setActiveItem = useSetAtom(activeItemAtom);
 
 	function maybeClearActiveItemState(modalId: ModalId) {
 		if (!modalId.includes("detailed")) return;
@@ -24,10 +22,14 @@ export function useModalState() {
 	}
 
 	function openModal(modalId: ModalId) {
-		setModalIds((current) => {
-			if (current.includes(modalId)) return current;
-			return [...current, modalId];
-		});
+		setModalIds(
+			produce((current) => {
+				if (!current.includes(modalId)) {
+					console.log({ current });
+					current.push(modalId);
+				}
+			})
+		);
 	}
 
 	function closeModal(modalId: ModalId) {

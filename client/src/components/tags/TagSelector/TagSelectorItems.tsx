@@ -2,8 +2,9 @@ import type {
 	TagSelectorItemProps,
 	TagSelectorItemsProps
 } from "@/components/tags/TagSelector/tag-selector.types";
-import useQueryTags from "@/lib/hooks/query/tags/useQueryTags";
 import { useModalState } from "@/lib/state/modal-state";
+import { trpc } from "@/lib/trpc";
+import { useQuery } from "@tanstack/react-query";
 import S from "./style/TagSelector.style";
 
 function TagSelectorItem(p: TagSelectorItemProps) {
@@ -15,7 +16,7 @@ function TagSelectorItem(p: TagSelectorItemProps) {
 			$hasParent={hasParent}
 			$isSelected={isSelected}
 			key={p.tag.tag_id}
-			onClick={() => p.updateTagSelection(+p.tag.tag_id)}
+			onClick={() => p.updateTagSelection(p.tag.tag_id)}
 		>
 			{p.tag.name}
 		</S.ListItem>
@@ -26,7 +27,7 @@ function TagSelectorItem(p: TagSelectorItemProps) {
 // isProbablySuspended pattern.
 function TagSelectorItems(p: TagSelectorItemsProps) {
 	const { openModal } = useModalState();
-	const { data: tagsData } = useQueryTags();
+	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
 
 	if (!tagsData?.byId) return null;
 

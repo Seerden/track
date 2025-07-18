@@ -1,45 +1,17 @@
-import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
-import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
-import styled, { css } from "styled-components";
+import { subgridItem } from "@/lib/theme/snippets/subgrid";
+import styled from "@emotion/styled";
 
-// shared styles between the items and the header
-export const itemAndHeaderStyle = css`
-	display: grid;
-	grid-template-columns: subgrid;
-	grid-column: 1 / -1;
-`;
-
-export const itemAndHeaderFieldStyle = css`
-	${spacing.padding.wide({ size: 0.5, ratio: 2 })}
-
-	@media (max-width: 768px) {
-		${spacing.padding.wide({ size: 0.2, ratio: 1 })}
-	}
-`;
-
+// TODO: I'm keeping this here instead of extracting it to lib/theme because of
+// the `$isTask` prop. Perhaps we can still put it in lib/theme as
+// Table.Row/Table.Item and extend it as needed.
 const Item = styled.div<{ $isTask: boolean }>`
-	${radius.medium};
+	${subgridItem}
+	${radius.small};
 
-	outline: 2px solid #f9f9f9;
-	background-color: #eee;
-
-	${itemAndHeaderStyle}
-`;
-
-const Column = styled.div`
-	${itemAndHeaderFieldStyle}
-	${flex.row};
-
-	&:nth-of-type(1) {
-		padding-left: ${spacingValue.medium};
-	}
-	&:nth-last-of-type(1) {
-		padding-right: ${spacingValue.medium};
-	}
+	background-color: #f7f7f7;
 `;
 
 export default {
-	Item,
-	Column
+	Item
 };
