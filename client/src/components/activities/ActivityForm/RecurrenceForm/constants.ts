@@ -1,5 +1,5 @@
-import type { NewRecurrenceState } from "@/components/activities/ActivityForm/RecurrenceForm/useRecurrenceForm";
-import day from "@/lib/dayjs";
+import day from "@shared/lib/day";
+import type { NewRecurrenceInput } from "@shared/lib/schemas/activity";
 import type { DayOfWeek } from "@shared/types/data/utility.types";
 
 /** ["Sunday", "Monday", ...] */
@@ -33,7 +33,7 @@ export enum INTERVAL_UNIT {
 
 export const frequencyOptions: `${FREQUENCY}`[] = ["numeric", "calendar"];
 
-export const defaultRecurrence: NewRecurrenceState = {
+export const defaultRecurrence: NewRecurrenceInput = {
 	start_timestamp: new Date().toISOString(),
 	interval: 1,
 	interval_unit: "day",
