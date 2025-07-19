@@ -26,7 +26,7 @@ type DaySelectorOptionsBase<T extends Option> =
 
 type DaySelectorProps<T extends Option> = {
 	/** State passed to this by RecurrenceForm. */
-	selection: T[];
+	selection: T[] | null;
 	/** State setter passed to this by RecurrenceForm. */
 	setSelection: (value: T) => void;
 	resetSelection: () => void;
@@ -60,7 +60,7 @@ export default function DaySelector<T extends Option>({
 		setOpen: setIsOpen
 	});
 
-	const isActive = (day: T) => selection.includes(day);
+	const isActive = (day: T) => selection?.includes(day);
 
 	if (!isOpen) {
 		return (
@@ -96,7 +96,7 @@ export default function DaySelector<T extends Option>({
 					/>
 					<S.ActionBar>
 						<S.ClearButton
-							disabled={selection.length === 0}
+							disabled={selection?.length === 0}
 							title="Clear selection"
 							onClick={resetSelection}
 						>
