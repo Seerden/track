@@ -15,12 +15,6 @@ import { useEffect, useMemo, useState } from "react";
 import { defaultRecurrence, FREQUENCY, INTERVAL_UNIT } from "./RecurrenceForm/constants";
 import { useSubmitNewActivity, useSubmitUpdatedActivity } from "./useSubmit";
 
-type UseActivityFormArgs = {
-	initialIsTask?: boolean;
-	modalId?: ModalId;
-	activity?: ActivityWithIds;
-};
-
 type ActivityState = Partial<NewActivity> | Partial<ActivityWithIds>;
 
 type UpdateRecurrencePayload =
@@ -45,7 +39,11 @@ export default function useActivityForm({
 	initialIsTask = false,
 	modalId,
 	activity: existingActivity
-}: UseActivityFormArgs) {
+}: {
+	initialIsTask?: boolean;
+	modalId?: ModalId;
+	activity?: ActivityWithIds;
+}) {
 	const { currentUser } = useAuthentication();
 	const { resetTagSelection, setTagSelectionFromList } = useTagSelection();
 
@@ -53,6 +51,9 @@ export default function useActivityForm({
 
 	// TODO: this should not be Partial, but the full type. We can't do that
 	// until TRK-83 is implemented.
+	// ^ TODO (TRK-204): to implement the above TODO, we should use
+	// z.input<typeof newActivitySchema>. It would require removing the user_id
+	// property from here, then adding it in the submit hook or on the server.
 	const defaultNewActivity: Partial<NewActivity> = {
 		name: "",
 		description: "",
