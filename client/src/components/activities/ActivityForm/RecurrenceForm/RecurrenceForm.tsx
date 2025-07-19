@@ -8,6 +8,8 @@ import {
 import DaySelector from "@/components/activities/ActivityForm/RecurrenceForm/DaySelector";
 import SharedStyle from "@/components/activities/ActivityForm/RecurrenceForm/style/DaySelector.style";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
+import Containers from "@/lib/theme/components/container.style";
+import { spacingValue } from "@/lib/theme/snippets/spacing";
 import { Tooltip } from "@mantine/core";
 import type { IntervalUnit } from "@shared/types/data/utility.types";
 import { LucideAlertCircle } from "lucide-react";
@@ -37,7 +39,7 @@ export default function RecurrenceForm({
 	if (!isRecurring) {
 		return (
 			<S.Container>
-				<S.CheckboxWrapper style={{ maxWidth: "max-content" }}>
+				<S.CheckboxWrapper>
 					<span>Recurring activity?</span>
 					<Checkbox checked={isRecurring} onChange={toggleRecurring} />
 				</S.CheckboxWrapper>
@@ -48,7 +50,13 @@ export default function RecurrenceForm({
 	return (
 		<S.Container style={{ position: "relative" }}>
 			{!validRecurrence && (
-				<span style={{ position: "absolute", top: 0, right: 0 }}>
+				<span
+					style={{
+						position: "absolute",
+						top: spacingValue.smaller,
+						right: spacingValue.smaller
+					}}
+				>
 					<Tooltip
 						label={
 							<div
@@ -70,11 +78,11 @@ export default function RecurrenceForm({
 					</Tooltip>
 				</span>
 			)}
-			<S.CheckboxWrapper style={{ maxWidth: "max-content" }}>
+			<S.CheckboxWrapper>
 				<span>Recurring activity?</span>
 				<Checkbox checked={isRecurring} onChange={toggleRecurring} />
 			</S.CheckboxWrapper>
-			<S.RecurrenceWrapper>
+			<Containers.Row gap="medium" padding="medium">
 				<S.Column>
 					{frequencyOptions.map((frequency) => (
 						<S.Label key={frequency} $active={recurrence.frequency === frequency}>
@@ -98,7 +106,7 @@ export default function RecurrenceForm({
 				{/* fixed date (= "calendar" frequency) */}
 				{recurrence.frequency === FREQUENCY.CALENDAR ? (
 					<S.Column>
-						<S.IntervalContainer>
+						<Containers.Row gap="small">
 							<span>every</span>
 							<SharedStyle.NumberInput
 								type="number"
@@ -124,7 +132,7 @@ export default function RecurrenceForm({
 								<option value="week">week{intervalUnitSuffix}</option>
 								<option value="month">month{intervalUnitSuffix}</option>
 							</SharedStyle.Select>
-						</S.IntervalContainer>
+						</Containers.Row>
 						<div>
 							{recurrence.interval_unit === INTERVAL_UNIT.WEEK ? (
 								<DaySelector
@@ -149,7 +157,7 @@ export default function RecurrenceForm({
 				) : (
 					/* interval (= "numeric" frequency) */
 					<S.Column>
-						<S.IntervalContainer>
+						<Containers.Row gap="small">
 							<span>every</span>
 							<SharedStyle.NumberInput
 								type="number"
@@ -164,10 +172,10 @@ export default function RecurrenceForm({
 								}
 							/>
 							<span>day{intervalUnitSuffix}</span>
-						</S.IntervalContainer>
+						</Containers.Row>
 					</S.Column>
 				)}
-			</S.RecurrenceWrapper>
+			</Containers.Row>
 		</S.Container>
 	);
 }

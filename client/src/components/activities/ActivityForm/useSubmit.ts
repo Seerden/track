@@ -27,9 +27,7 @@ export function useSubmitUpdatedActivity(
 	const { selectedTagIds } = useTagSelection();
 	const { closeModal } = useModalState();
 
-	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-		e.preventDefault();
-
+	function onSubmit() {
 		const _activity = parseUpdatedActivity(activity);
 		if (!_activity) return; // TODO: actually throw an error or provide UI feedback
 
@@ -83,9 +81,7 @@ export function useSubmitNewActivity({
 		}
 	}
 
-	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-		e.preventDefault();
-
+	function onSubmit() {
 		if (isRecurring) {
 			const parsedActivity = newActivitySchema.safeParse(activity);
 			const parsedRecurrence = newRecurrenceInputSchema.safeParse(recurrence);

@@ -76,6 +76,9 @@ export const outline = {
 	`,
 	blue: css`
 		outline: 2px solid ${colors.blue.main};
+	`,
+	blueSecondary: css`
+		outline: 2px solid ${colors.blue.secondary};
 	`
 };
 

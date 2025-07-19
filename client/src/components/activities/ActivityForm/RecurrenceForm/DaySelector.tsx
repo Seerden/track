@@ -1,4 +1,5 @@
 import useFloatingProps from "@/lib/hooks/useFloatingProps";
+import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import { FloatingArrow, FloatingFocusManager } from "@floating-ui/react";
 import { LucideXCircle } from "lucide-react";
@@ -34,7 +35,7 @@ type DaySelectorProps<T extends Option> = {
 	triggerLabel: string;
 } & DaySelectorOptionsBase<T>;
 
-/** Type guard for  */
+/** Type guard to distinguish between daysOfWeek and daysOfMonth. */
 function isNestedArray<TOption>(
 	options: TOption[] | TOption[][]
 ): options is TOption[][] {
@@ -108,13 +109,13 @@ export default function DaySelector<T extends Option>({
 							{options.map((week, index) => (
 								<Containers.Row key={index}>
 									{week.map((day) => (
-										<S.Cell
+										<Buttons.Cell.DaySelector
 											$active={isActive(day)}
 											onClick={() => setSelection(day)}
 											key={day}
 										>
 											{day}
-										</S.Cell>
+										</Buttons.Cell.DaySelector>
 									))}
 								</Containers.Row>
 							))}
@@ -122,13 +123,13 @@ export default function DaySelector<T extends Option>({
 					) : (
 						<Containers.Row>
 							{options.map((option, index) => (
-								<S.Cell
+								<Buttons.Cell.DaySelector
 									key={option}
 									$active={isActive(option)}
 									onClick={() => setSelection(option)}
 								>
 									{optionLabels?.[index] ?? option}
-								</S.Cell>
+								</Buttons.Cell.DaySelector>
 							))}
 						</Containers.Row>
 					)}

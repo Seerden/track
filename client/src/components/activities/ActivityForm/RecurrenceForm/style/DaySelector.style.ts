@@ -1,42 +1,9 @@
-import formStyle from "@/lib/theme/components/form.style";
-import { noBorders } from "@/lib/theme/snippets/border";
-
 import Buttons from "@/lib/theme/components/buttons";
+import formStyle from "@/lib/theme/components/form.style";
 import Input from "@/lib/theme/input";
-import { css } from "@emotion/react";
+import Active from "@/lib/theme/snippets/active";
+import { noBorders } from "@/lib/theme/snippets/border";
 import styled from "@emotion/styled";
-
-const activeStyle = css`
-	outline: 2px solid deepskyblue;
-`;
-
-export const active = css`
-	&:active,
-	&:focus {
-		${activeStyle};
-	}
-`;
-
-const Cell = styled(Buttons.Unstyled)<{ $active?: boolean }>`
-	font-size: 0.85rem;
-	display: flex;
-	width: 22px;
-	height: 22px;
-	margin: 4px;
-	justify-content: center;
-	align-items: center;
-	border-radius: 3px;
-	background-color: #dfdfdf;
-
-	${(p) =>
-		p.$active &&
-		css`
-			background-color: ${p.theme.colors.blue.main};
-			color: #fff;
-		`}
-
-	${active};
-`;
 
 const Trigger = styled(Buttons.Unstyled)`
 	padding: 0.4rem 0.5rem;
@@ -53,7 +20,7 @@ const Trigger = styled(Buttons.Unstyled)`
 		transform: translateY(2px);
 	}
 
-	${active};
+	${Active.default};
 `;
 
 // TODO: put this in floating.style.ts!
@@ -95,7 +62,7 @@ const Select = styled.select`
 		outline: none;
 	}
 
-	${active};
+	${Active.default};
 `;
 
 const ActionBar = styled.div`
@@ -126,15 +93,14 @@ const ClearButton = styled(Buttons.Unstyled)`
 		}
 	}
 
-	${active};
+	${Active.default};
 `;
 
 const Label = styled(formStyle.Label)`
-	${active};
+	${Active.default};
 `;
 
 export default {
-	Cell,
 	Trigger,
 	FloatingWrapper,
 	NumberInput,

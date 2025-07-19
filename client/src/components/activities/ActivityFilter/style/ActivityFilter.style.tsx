@@ -8,6 +8,9 @@ import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
+// TODO TRK-204: combine the styling for this and RecurrenceForm.style.ts
+// see https://github.com/Seerden/track/pull/327#discussion_r2205902835
+
 const Wrapper = styled.div`
 	${flex.column};
 	font-size: ${font.size["0.9"]};

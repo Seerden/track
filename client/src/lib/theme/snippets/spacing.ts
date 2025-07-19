@@ -42,6 +42,9 @@ const margin = {
 	small: css`
 		margin: ${spacingValue.small};
 	`,
+	smaller: css`
+		margin: ${spacingValue.smaller};
+	`,
 	medium: css`
 		margin: ${spacingValue.medium};
 	`,

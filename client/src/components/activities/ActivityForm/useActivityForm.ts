@@ -11,9 +11,33 @@ import {
 } from "@shared/lib/schemas/activity";
 import type { DayOfWeek, IntervalUnit } from "@shared/types/data/utility.types";
 import { produce } from "immer";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { defaultRecurrence, FREQUENCY, INTERVAL_UNIT } from "./RecurrenceForm/constants";
 import { useSubmitNewActivity, useSubmitUpdatedActivity } from "./useSubmit";
+
+function createDefaultActivity({
+	user_id,
+	is_task
+}: {
+	user_id?: string;
+	is_task?: boolean;
+}) {
+	// TODO: this should not be Partial, but the full type. We can't do that
+	// until TRK-83 is implemented.
+	// ^ TODO (TRK-204): to implement the above TODO, we should use
+	// z.input<typeof newActivitySchema>. It would require removing the user_id
+	// property from here, then adding it in the submit hook or on the server.
+	const defaultNewActivity: Partial<NewActivity> = {
+		name: "",
+		description: "",
+		user_id,
+		is_task,
+		occurrence: null,
+		recurrence_id: null
+	};
+
+	return defaultNewActivity;
+}
 
 type ActivityState = Partial<NewActivity> | Partial<ActivityWithIds>;
 
@@ -44,67 +68,9 @@ export default function useActivityForm({
 	modalId?: ModalId;
 	activity?: ActivityWithIds;
 }) {
-	const { currentUser } = useAuthentication();
-	const { resetTagSelection, setTagSelectionFromList } = useTagSelection();
-
 	const isEditing = !!existingActivity;
-
-	// TODO: this should not be Partial, but the full type. We can't do that
-	// until TRK-83 is implemented.
-	// ^ TODO (TRK-204): to implement the above TODO, we should use
-	// z.input<typeof newActivitySchema>. It would require removing the user_id
-	// property from here, then adding it in the submit hook or on the server.
-	const defaultNewActivity: Partial<NewActivity> = {
-		name: "",
-		description: "",
-		user_id: currentUser?.user_id,
-		is_task: initialIsTask,
-		occurrence: null,
-		recurrence_id: null
-	};
-
-	const [activity, setActivity] = useState<ActivityState>(
-		existingActivity ?? defaultNewActivity
-	);
-	const [recurrence, setRecurrence] = useState<NewRecurrenceInput>(defaultRecurrence);
-
-	const { onSubmit: handleSubmit } = useSubmitNewActivity({
-		activity,
-		modalId,
-		recurrence
-	});
-	const { onSubmit: onUpdateSubmit } = useSubmitUpdatedActivity(activity, modalId);
-
-	// TODO: the two useSubmit hooks have identical onSuccess callbacks. Maybe we
-	// should define it in here, and pass it to the hooks as an argument.
-	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-		return isEditing ? onUpdateSubmit(e) : handleSubmit(e);
-	}
-
-	useEffect(() => {
-		if (!isEditing) resetTagSelection();
-		else setTagSelectionFromList(existingActivity.tag_ids);
-	}, []);
-
-	function onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-		const { type, name, value } = e.target;
-
-		setActivity((current) => ({
-			...current,
-			[name]: type === "checkbox" ? !current.is_task : value
-		}));
-	}
-
-	const onDateTimeChange: DateTimeStateSetter = ({ name, value }) => {
-		setActivity((current) => ({
-			...current,
-			[name]: value
-		}));
-	};
-
 	const title = existingActivity ? "Edit activity" : "Create an activity";
 	const buttonTitle = existingActivity ? "Update activity" : "Create activity";
-
 	const defaultDateTimeValues = existingActivity
 		? ({
 				started_at: existingActivity.started_at,
@@ -114,16 +80,58 @@ export default function useActivityForm({
 			} as WithDates | WithTimestamps)
 		: undefined;
 
-	// stuff that was previously in useRecurrenceForm
-
+	const { currentUser } = useAuthentication();
+	const { resetTagSelection, setTagSelectionFromList } = useTagSelection();
 	const [isRecurring, setIsRecurring] = useState(false);
+	const [activity, setActivity] = useState<ActivityState>(
+		existingActivity ??
+			createDefaultActivity({ user_id: currentUser?.user_id, is_task: initialIsTask })
+	);
+	const [recurrence, setRecurrence] = useState<NewRecurrenceInput>(defaultRecurrence);
+	const intervalUnitSuffix = recurrence.interval > 1 ? "s" : "";
+	const validRecurrence =
+		recurrence.frequency === FREQUENCY.NUMERIC ||
+		(recurrence.frequency === FREQUENCY.CALENDAR &&
+			Boolean(recurrence.monthdays?.length || !!recurrence.weekdays?.length));
 
-	// TODO (TRK-204): remove this
+	const { onSubmit: onUpdateSubmit } = useSubmitUpdatedActivity(activity, modalId);
+	const { onSubmit: handleSubmit } = useSubmitNewActivity({
+		activity,
+		modalId,
+		recurrence
+	});
+
 	useEffect(() => {
-		console.log({ recurrence });
-	}, [recurrence]);
+		if (!isEditing) resetTagSelection();
+		else setTagSelectionFromList(existingActivity.tag_ids);
+	}, []);
 
-	function resetSelection() {
+	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+		e.preventDefault();
+
+		return isEditing ? onUpdateSubmit() : handleSubmit();
+	}
+
+	function onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+		const { type, name, value } = e.target;
+
+		// TODO: I would like to use immer here, but it requires validation on
+		// `name`.
+		setActivity((current) => ({
+			...current,
+			[name]: type === "checkbox" ? !current.is_task : value
+		}));
+	}
+
+	const onDateTimeChange: DateTimeStateSetter = ({ name, value }) => {
+		setActivity(
+			produce((draft) => {
+				draft[name] = value;
+			})
+		);
+	};
+
+	function resetRecurrenceSelection() {
 		setRecurrence(
 			produce((draft) => {
 				draft.weekdays = null;
@@ -132,7 +140,7 @@ export default function useActivityForm({
 		);
 	}
 
-	function setSelection<T extends SetRecurrenceSelection["type"]>(type: T) {
+	function setRecurrenceSelection<T extends SetRecurrenceSelection["type"]>(type: T) {
 		return (value: Extract<SetRecurrenceSelection, { type: T }>["value"] | null) =>
 			setRecurrence(
 				produce((draft) => {
@@ -176,7 +184,9 @@ export default function useActivityForm({
 						draft.interval_unit = value;
 					})
 				);
-				return resetSelection(); // for all these cases, we return the final statement so we don't have to call break manually
+				// for all these cases, we return the final statement so we don't
+				// have to call break manually
+				return resetRecurrenceSelection();
 			case "frequency":
 				setRecurrence(
 					produce((draft) => {
@@ -190,7 +200,7 @@ export default function useActivityForm({
 						draft.frequency = value;
 					})
 				);
-				return resetSelection();
+				return resetRecurrenceSelection();
 			case "interval":
 				return setRecurrence(
 					produce((draft) => {
@@ -199,20 +209,6 @@ export default function useActivityForm({
 				);
 		}
 	}
-
-	const intervalUnitSuffix = recurrence.interval > 1 ? "s" : "";
-
-	// TODO TRK-204: before submitting, check if the recurrence makes sense. A
-	// calendar (fixed date) recurrence needs at least 1 weekday or monthday, and
-	// a numeric (interval) recurrence needs a valid interval.
-
-	const validRecurrence = useMemo(() => {
-		return (
-			recurrence.frequency === FREQUENCY.NUMERIC ||
-			(recurrence.frequency === FREQUENCY.CALENDAR &&
-				Boolean(recurrence.monthdays?.length || !!recurrence.weekdays?.length))
-		);
-	}, [recurrence]);
 
 	return {
 		onSubmit,
@@ -227,8 +223,8 @@ export default function useActivityForm({
 		intervalUnitSuffix,
 		toggleRecurring,
 		updateRecurrence,
-		setSelection,
-		resetSelection,
+		setSelection: setRecurrenceSelection,
+		resetSelection: resetRecurrenceSelection,
 		validRecurrence
 	};
 }
