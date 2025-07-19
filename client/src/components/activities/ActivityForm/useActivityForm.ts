@@ -1,154 +1,76 @@
 import type { DateTimeStateSetter } from "@/components/activities/ActivityForm/datetime-picker.types";
-import { useMutateNewActivity } from "@/lib/hooks/query/activities/useMutateNewActivity";
 import type { ModalId } from "@/lib/modal-ids";
-import { queryClient } from "@/lib/query-client";
-import { useModalState } from "@/lib/state/modal-state";
-import { trpc } from "@/lib/trpc";
 import useAuthentication from "@lib/hooks/useAuthentication";
 import { useTagSelection } from "@lib/state/selected-tags-state";
-import type {
-	ActivityWithIds,
-	NewActivity,
-	WithDates,
-	WithTimestamps
+import {
+	type ActivityWithIds,
+	type NewActivity,
+	type NewRecurrenceInput,
+	type WithDates,
+	type WithTimestamps
 } from "@shared/lib/schemas/activity";
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "@tanstack/react-router";
+import type { DayOfWeek, IntervalUnit } from "@shared/types/data/utility.types";
+import { produce } from "immer";
 import { useEffect, useState } from "react";
-import { parseNewActivity, parseUpdatedActivity } from "./parse-activity";
+import { defaultRecurrence, FREQUENCY, INTERVAL_UNIT } from "./RecurrenceForm/constants";
+import { useSubmitNewActivity, useSubmitUpdatedActivity } from "./useSubmit";
 
-function useSubmitNewActivity(newActivity: Partial<NewActivity>, modalId?: ModalId) {
-	const { mutate: submit } = useMutateNewActivity();
-	const navigate = useNavigate();
-	const { selectedTagIds } = useTagSelection();
-	const { closeModal } = useModalState();
+function createDefaultActivity({
+	user_id,
+	is_task
+}: {
+	user_id?: string;
+	is_task?: boolean;
+}) {
+	// TODO: this should not be Partial, but the full type. We can't do that
+	// until TRK-83 is implemented.
+	// ^ TODO (TRK-204): to implement the above TODO, we should use
+	// z.input<typeof newActivitySchema>. It would require removing the user_id
+	// property from here, then adding it in the submit hook or on the server.
+	const defaultNewActivity: Partial<NewActivity> = {
+		name: "",
+		description: "",
+		user_id,
+		is_task,
+		occurrence: null,
+		recurrence_id: null
+	};
 
-	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-		e.preventDefault();
-
-		submit(
-			{ activity: parseNewActivity(newActivity), tagIds: selectedTagIds },
-			{
-				onSuccess: () => {
-					queryClient.invalidateQueries({
-						queryKey: trpc.activities.all.queryKey()
-					});
-
-					if (modalId) {
-						closeModal(modalId);
-					} else {
-						navigate({ to: "/today" });
-					}
-				}
-			}
-		);
-	}
-
-	return { onSubmit };
+	return defaultNewActivity;
 }
-
-function useSubmitUpdatedActivity(activity: Partial<ActivityWithIds>, modalId?: ModalId) {
-	const { mutate: submit } = useMutation(trpc.activities.update.mutationOptions());
-	const navigate = useNavigate();
-	const { selectedTagIds } = useTagSelection();
-	const { closeModal } = useModalState();
-
-	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-		e.preventDefault();
-
-		const _activity = parseUpdatedActivity(activity);
-		if (!_activity) return; // TODO: actually throw an error or provide UI feedback
-
-		submit(
-			{
-				activity: _activity,
-				tag_ids: selectedTagIds
-			},
-			{
-				onSuccess: () => {
-					queryClient.invalidateQueries({
-						queryKey: trpc.activities.all.queryKey()
-					});
-
-					if (modalId) {
-						closeModal(modalId);
-					} else {
-						navigate({ to: "/today" });
-					}
-				}
-			}
-		);
-	}
-
-	return { onSubmit };
-}
-
-type UseActivityFormArgs = {
-	initialIsTask?: boolean;
-	modalId?: ModalId;
-	activity?: ActivityWithIds;
-};
 
 type ActivityState = Partial<NewActivity> | Partial<ActivityWithIds>;
+
+type UpdateRecurrencePayload =
+	| {
+			type: "intervalUnit";
+			value: IntervalUnit;
+	  }
+	| {
+			type: "frequency";
+			value: `${FREQUENCY}`;
+	  }
+	| {
+			type: "interval";
+			value: number;
+	  };
+
+type SetRecurrenceSelection =
+	| { type: "weekdays"; value: DayOfWeek }
+	| { type: "monthdays"; value: number };
 
 export default function useActivityForm({
 	initialIsTask = false,
 	modalId,
 	activity: existingActivity
-}: UseActivityFormArgs) {
-	const { currentUser } = useAuthentication();
-	const { resetTagSelection, setTagSelectionFromList } = useTagSelection();
-
+}: {
+	initialIsTask?: boolean;
+	modalId?: ModalId;
+	activity?: ActivityWithIds;
+}) {
 	const isEditing = !!existingActivity;
-
-	// TODO: this should not be Partial, but the full type. We can't do that
-	// until TRK-83 is implemented.
-	const defaultNewActivity: Partial<NewActivity> = {
-		name: "",
-		description: "",
-		user_id: currentUser?.user_id,
-		is_task: initialIsTask,
-		occurrence: null,
-		recurrence_id: null
-	};
-
-	const [activity, setActivity] = useState<ActivityState>(
-		existingActivity ?? defaultNewActivity
-	);
-
-	const { onSubmit: onNewSubmit } = useSubmitNewActivity(activity, modalId);
-	const { onSubmit: onUpdateSubmit } = useSubmitUpdatedActivity(activity, modalId);
-
-	// TODO: the two useSubmit hooks have identical onSuccess callbacks. Maybe we
-	// should define it in here, and pass it to the hooks as an argument.
-	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-		return isEditing ? onUpdateSubmit(e) : onNewSubmit(e);
-	}
-
-	useEffect(() => {
-		if (!isEditing) resetTagSelection();
-		else setTagSelectionFromList(existingActivity.tag_ids);
-	}, []);
-
-	function onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-		const { type, name, value } = e.target;
-
-		setActivity((current) => ({
-			...current,
-			[name]: type === "checkbox" ? !current.is_task : value
-		}));
-	}
-
-	const onDateTimeChange: DateTimeStateSetter = ({ name, value }) => {
-		setActivity((current) => ({
-			...current,
-			[name]: value
-		}));
-	};
-
 	const title = existingActivity ? "Edit activity" : "Create an activity";
 	const buttonTitle = existingActivity ? "Update activity" : "Create activity";
-
 	const defaultDateTimeValues = existingActivity
 		? ({
 				started_at: existingActivity.started_at,
@@ -158,6 +80,136 @@ export default function useActivityForm({
 			} as WithDates | WithTimestamps)
 		: undefined;
 
+	const { currentUser } = useAuthentication();
+	const { resetTagSelection, setTagSelectionFromList } = useTagSelection();
+	const [isRecurring, setIsRecurring] = useState(false);
+	const [activity, setActivity] = useState<ActivityState>(
+		existingActivity ??
+			createDefaultActivity({ user_id: currentUser?.user_id, is_task: initialIsTask })
+	);
+	const [recurrence, setRecurrence] = useState<NewRecurrenceInput>(defaultRecurrence);
+	const intervalUnitSuffix = recurrence.interval > 1 ? "s" : "";
+	const validRecurrence =
+		recurrence.frequency === FREQUENCY.NUMERIC ||
+		(recurrence.frequency === FREQUENCY.CALENDAR &&
+			Boolean(recurrence.monthdays?.length || !!recurrence.weekdays?.length));
+
+	const { onSubmit: onUpdateSubmit } = useSubmitUpdatedActivity(activity, modalId);
+	const { onSubmit: handleSubmit } = useSubmitNewActivity({
+		activity,
+		modalId,
+		recurrence
+	});
+
+	useEffect(() => {
+		if (!isEditing) resetTagSelection();
+		else setTagSelectionFromList(existingActivity.tag_ids);
+	}, []);
+
+	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+		e.preventDefault();
+
+		return isEditing ? onUpdateSubmit() : handleSubmit();
+	}
+
+	function onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+		const { type, name, value } = e.target;
+
+		// TODO: I would like to use immer here, but it requires validation on
+		// `name`.
+		setActivity((current) => ({
+			...current,
+			[name]: type === "checkbox" ? !current.is_task : value
+		}));
+	}
+
+	const onDateTimeChange: DateTimeStateSetter = ({ name, value }) => {
+		setActivity(
+			produce((draft) => {
+				draft[name] = value;
+			})
+		);
+	};
+
+	function resetRecurrenceSelection() {
+		setRecurrence(
+			produce((draft) => {
+				draft.weekdays = null;
+				draft.monthdays = null;
+			})
+		);
+	}
+
+	function setRecurrenceSelection<T extends SetRecurrenceSelection["type"]>(type: T) {
+		return (value: Extract<SetRecurrenceSelection, { type: T }>["value"] | null) =>
+			setRecurrence(
+				produce((draft) => {
+					// The logic for these cases is basically the same, but the
+					// typing is different, so it's easier to write it out twice.
+					if (type === "weekdays") {
+						const v = value as DayOfWeek;
+						draft.monthdays = null;
+
+						draft.weekdays ??= [];
+						if (draft.weekdays.includes(v)) {
+							draft.weekdays.splice(draft.weekdays.indexOf(v), 1);
+						} else {
+							draft.weekdays.push(v);
+						}
+					} else {
+						const v = value as number;
+						draft.monthdays ??= [];
+
+						if (draft.monthdays.includes(v)) {
+							draft.monthdays.splice(draft.monthdays.indexOf(v), 1);
+						} else {
+							draft.monthdays.push(v);
+						}
+
+						draft.weekdays = null;
+					}
+				})
+			);
+	}
+
+	function toggleRecurring() {
+		setIsRecurring((current) => !current);
+	}
+
+	function updateRecurrence({ type, value }: UpdateRecurrencePayload) {
+		switch (type) {
+			case "intervalUnit":
+				setRecurrence(
+					produce((draft) => {
+						draft.interval_unit = value;
+					})
+				);
+				// for all these cases, we return the final statement so we don't
+				// have to call break manually
+				return resetRecurrenceSelection();
+			case "frequency":
+				setRecurrence(
+					produce((draft) => {
+						draft.interval = 1;
+
+						draft.interval_unit =
+							draft.interval_unit === INTERVAL_UNIT.DAY
+								? INTERVAL_UNIT.WEEK
+								: INTERVAL_UNIT.DAY;
+
+						draft.frequency = value;
+					})
+				);
+				return resetRecurrenceSelection();
+			case "interval":
+				return setRecurrence(
+					produce((draft) => {
+						draft.interval = value;
+					})
+				);
+		}
+	}
+
 	return {
 		onSubmit,
 		onInputChange,
@@ -165,6 +217,14 @@ export default function useActivityForm({
 		isTask: !!activity.is_task,
 		title,
 		buttonTitle,
-		defaultDateTimeValues
+		defaultDateTimeValues,
+		isRecurring,
+		recurrence,
+		intervalUnitSuffix,
+		toggleRecurring,
+		updateRecurrence,
+		setSelection: setRecurrenceSelection,
+		resetSelection: resetRecurrenceSelection,
+		validRecurrence
 	};
 }

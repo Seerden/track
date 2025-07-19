@@ -59,21 +59,21 @@ export const createRecurringActivity: QueryFunction<
 		tag_ids?: ID[];
 	} & NewRecurrenceInput,
 	Promise<{ activity: ActivityWithIds; recurrence: RecurrenceWithIds }>
-> = async ({ sql = sqlConnection, newActivity, newRecurrence, tag_ids }) => {
-	return sql.begin(async (q) => {
-		const activity = await insertActivityWithTags({
-			sql: q,
-			activity: newActivity,
-			tag_ids: tag_ids,
-		});
-
-		const recurrence = await createRecurrence({
-			sql: q,
-			newRecurrence,
-			activity_id: activity.activity_id,
-			user_id: activity.user_id,
-		});
-
-		return { activity, recurrence };
+> = async ({ sql = sqlConnection, newActivity, tag_ids, ...recurrence }) => {
+	// TODO: I'm currently not using a a transaction here, because nesting
+	// transactions doesn't work.
+	const activity = await insertActivityWithTags({
+		sql,
+		activity: newActivity,
+		tag_ids: tag_ids,
 	});
+
+	const createdRecurrence = await createRecurrence({
+		sql,
+		activity_id: activity.activity_id,
+		user_id: activity.user_id,
+		...recurrence,
+	});
+
+	return { activity, recurrence: createdRecurrence };
 };

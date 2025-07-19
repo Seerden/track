@@ -1,5 +1,5 @@
+import { z } from "@shared/lib/zod";
 import type { Dayjs } from "dayjs";
-
 /** ids are serial and auto-incrementing */
 export type ID = string;
 
@@ -47,6 +47,18 @@ export type OmitStrict<T, K extends keyof T> = T extends any
 	: never;
 
 export type IntervalUnit = "day" | "week" | "month" | "year";
+
+export const dayOfWeekSchema = z.enum([
+	"Sunday",
+	"Monday",
+	"Tuesday",
+	"Wednesday",
+	"Thursday",
+	"Friday",
+	"Saturday",
+]);
+
+export type DayOfWeek = z.infer<typeof dayOfWeekSchema>;
 
 export type Prettify<T> = {
 	[K in keyof T]: T[K];

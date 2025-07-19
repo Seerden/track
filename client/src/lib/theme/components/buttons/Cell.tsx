@@ -1,14 +1,21 @@
-import Unstyled from "@/lib/theme/components/buttons/Unstyled";
+import {
+	default as Unstyled,
+	default as UnstyledButton
+} from "@/lib/theme/components/buttons/Unstyled";
 import { outline, thinOutline } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { CSSProperties } from "react";
+import Active from "../../snippets/active";
+import { flex } from "../../snippets/flex";
+import { spacing } from "../../snippets/spacing";
 
 const highlightColor: CSSProperties["color"] = "royalblue";
 export const defaultCellWidth = 25;
 export const defaultCellHeight = 25;
 
+/** This Default Cell is used for Calendar buttons. */
 const Default = styled(Unstyled)<{
 	$selected?: boolean;
 	$highlight?: boolean;
@@ -79,8 +86,30 @@ const Default = styled(Unstyled)<{
 		`}
 `;
 
+const DaySelector = styled(UnstyledButton)<{ $active?: boolean }>`
+	${flex.centered};
+	font-size: 0.85rem;
+
+	--cell-size: 22px;
+	width: var(--cell-size);
+	height: var(--cell-size);
+	${spacing.margin.smaller}
+	${radius.small};
+	background-color: #dfdfdf; // TODO: theme value
+
+	${(p) =>
+		p.$active &&
+		css`
+			background-color: ${p.theme.colors.blue.main};
+			color: #fff;
+		`}
+
+	${Active.default};
+`;
+
 const CellButtons = {
-	Default
+	Default,
+	DaySelector
 };
 
 export default CellButtons;

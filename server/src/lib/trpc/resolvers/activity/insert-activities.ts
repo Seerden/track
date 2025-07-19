@@ -16,10 +16,10 @@ export const createActivity = authenticatedProcedure
 
 export const createRecurringActivity = authenticatedProcedure
 	.input(recurringActivityInputSchema)
-	.mutation(async ({ input: { activity, tagIds, newRecurrence } }) => {
+	.mutation(async ({ input: { activity, tagIds, recurrence } }) => {
 		return await _createRecurringActivity({
 			newActivity: activity,
 			tag_ids: tagIds,
-			newRecurrence,
+			...recurrence,
 		});
 	});

@@ -13,3 +13,18 @@ export function useMutateNewActivity() {
 		})
 	);
 }
+
+export function useMutateNewRecurringActivity() {
+	return useMutation(
+		trpc.activities.createRecurring.mutationOptions({
+			onSuccess: () => {
+				queryClient.invalidateQueries({
+					queryKey: trpc.activities.all.queryKey()
+				});
+				queryClient.invalidateQueries({
+					queryKey: trpc.activities.recurrences.queryByUser.queryKey()
+				});
+			}
+		})
+	);
+}

@@ -1,3 +1,4 @@
+import RecurrenceForm from "@/components/activities/ActivityForm/RecurrenceForm/RecurrenceForm";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
@@ -26,13 +27,21 @@ export default function ActivityForm({
 	modalId
 }: ActivityFormProps) {
 	const {
-		onInputChange,
 		onSubmit,
+		onInputChange,
 		onDateTimeChange,
 		isTask,
 		title,
 		buttonTitle,
-		defaultDateTimeValues
+		defaultDateTimeValues,
+		isRecurring,
+		recurrence,
+		intervalUnitSuffix,
+		toggleRecurring,
+		updateRecurrence,
+		setSelection,
+		resetSelection,
+		validRecurrence
 	} = useActivityForm({
 		initialIsTask,
 		modalId,
@@ -65,12 +74,27 @@ export default function ActivityForm({
 						defaultValues={defaultDateTimeValues}
 					/>
 				</Form.Row>
+
+				<Form.Row>
+					<RecurrenceForm
+						isRecurring={isRecurring}
+						recurrence={recurrence}
+						intervalUnitSuffix={intervalUnitSuffix}
+						resetSelection={resetSelection}
+						toggleRecurring={toggleRecurring}
+						updateRecurrence={updateRecurrence}
+						setSelection={setSelection}
+						validRecurrence={validRecurrence}
+					/>
+				</Form.Row>
 				<TagSelector
 					fullSize
 					title="Tags"
 					showNewTagButton
 					modalId={modalIds.tagSelector.activityForm}
 				/>
+				{/* TODO: disable the button until everything is valid (activity fields, 
+               recurrence fields, etc.) */}
 				<Buttons.Submit.Default type="submit">{buttonTitle}</Buttons.Submit.Default>
 			</Form.Form>
 		</Form.Wrapper>

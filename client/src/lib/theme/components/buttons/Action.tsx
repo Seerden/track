@@ -7,6 +7,7 @@ import { spacingValue } from "@/lib/theme/snippets/spacing";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { CSSProperties } from "react";
+import Active from "../../snippets/active";
 
 const Default = styled(Unstyled)<{ $color?: ColorKey }>`
 	${flex.centered};
@@ -132,12 +133,32 @@ const CallToAction = styled(WithIcon)`
 	}
 `;
 
+const Clear = styled(Unstyled)`
+	${radius.round};
+	${flex.centered};
+
+	.lucide {
+		color: orangered;
+	}
+
+	&:disabled {
+		cursor: unset;
+
+		.lucide {
+			color: #ccc;
+		}
+	}
+
+	${Active.default};
+`;
+
 const ActionButtons = {
 	Default,
 	Alternative,
 	Stylized,
 	WithIcon,
-	CallToAction
+	CallToAction,
+	Clear
 };
 
 export default ActionButtons;

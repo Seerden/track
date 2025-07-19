@@ -1,14 +1,36 @@
 import { intervalUnitSchema } from "@shared/lib/schemas/habit";
 import { timestampSchema } from "@shared/lib/schemas/timestamp";
 import { z } from "@shared/lib/zod";
+import { dayOfWeekSchema } from "@shared/types/data/utility.types";
 
-export const newRecurrenceInputSchema = z.object({
-	interval: z.number(),
-	interval_unit: intervalUnitSchema,
-	frequency: z.number(),
-	start_timestamp: timestampSchema,
-	end_timestamp: timestampSchema.nullable(),
-});
+export const recurrenceIntervalBaseSchema = z.union([
+	z.object({
+		frequency: z.literal("numeric"),
+		interval_unit: intervalUnitSchema,
+		weekdays: z.null(),
+		monthdays: z.null(),
+	}),
+	z.object({
+		frequency: z.literal("calendar"),
+		interval_unit: z.literal("week"),
+		weekdays: z.array(dayOfWeekSchema),
+		monthdays: z.null(),
+	}),
+	z.object({
+		frequency: z.literal("calendar"),
+		interval_unit: z.literal("month"),
+		weekdays: z.null(),
+		monthdays: z.array(z.number()),
+	}),
+]);
+
+export const newRecurrenceInputSchema = z
+	.object({
+		interval: z.number(),
+		start_timestamp: timestampSchema,
+		end_timestamp: timestampSchema.nullable(),
+	})
+	.and(recurrenceIntervalBaseSchema);
 export type NewRecurrenceInput = z.infer<typeof newRecurrenceInputSchema>;
 
 /**
@@ -153,7 +175,7 @@ export type ActivityInput = z.infer<typeof activityInputSchema>;
 
 export const recurringActivityInputSchema = activityInputSchema.and(
 	z.object({
-		newRecurrence: newRecurrenceInputSchema,
+		recurrence: newRecurrenceInputSchema,
 	}),
 );
 
