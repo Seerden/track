@@ -3,7 +3,7 @@ import { timestampSchema } from "@shared/lib/schemas/timestamp";
 import { z } from "@shared/lib/zod";
 import { dayOfWeekSchema } from "@shared/types/data/utility.types";
 
-export const recurrenceIntervalBaseSchema = z.discriminatedUnion("frequency", [
+export const recurrenceIntervalBaseSchema = z.union([
 	z.object({
 		frequency: z.literal("numeric"),
 		interval_unit: intervalUnitSchema,
