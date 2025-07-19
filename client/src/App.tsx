@@ -5,16 +5,15 @@ import "./App.scss";
 
 function App() {
 	return (
-		<Suspense fallback={<>Loading...</>}>
-			<head>
-				<HeadContent />
-				<Scripts />
-			</head>
-
-			<main>
-				<AnimatedRoutes />
-			</main>
-		</Suspense>
+		<>
+			<HeadContent />
+			<Scripts />
+			<Suspense fallback={<>Loading...</>}>
+				<main>
+					<AnimatedRoutes />
+				</main>
+			</Suspense>
+		</>
 	);
 }
 

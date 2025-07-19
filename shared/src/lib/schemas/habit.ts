@@ -5,7 +5,6 @@ import { z } from "@shared/lib/zod";
 export const intervalUnitSchema = z.enum(["day", "week", "month", "year"]);
 
 const goalSchema = z.discriminatedUnion("goal_type", [
-	z.object({}),
 	z.object({
 		goal_type: z.literal("checkbox"),
 		goal_unit: z.null(),

@@ -13,7 +13,7 @@ import type { QueryFunction } from "types/sql.types";
 const insertRecurrence: QueryFunction<
 	NewRecurrenceInput & { user_id: ID },
 	Promise<Recurrence>
-> = async ({ sql = sqlConnection, newRecurrence, user_id }) => {
+> = async ({ sql = sqlConnection, user_id, ...newRecurrence }) => {
 	const withUserId = { ...newRecurrence, user_id };
 
 	const [recurrence] = await sql<[Recurrence]>`
@@ -28,14 +28,13 @@ const insertRecurrence: QueryFunction<
 export const createRecurrence: QueryFunction<
 	CreateRecurrenceInput & { user_id: ID },
 	Promise<RecurrenceWithIds>
-> = async ({ sql = sqlConnection, newRecurrence, user_id, activity_id }) => {
+> = async ({ sql = sqlConnection, user_id, activity_id, ...newRecurrence }) => {
 	return sql.begin(async (q) => {
 		const withUserId = { ...newRecurrence, user_id };
 
 		const recurrence = await insertRecurrence({
 			sql: q,
-			newRecurrence: withUserId,
-			user_id,
+			...withUserId,
 		});
 
 		const updatedActivity = await updateActivityRecurrence({

@@ -6,7 +6,7 @@ import type { QueryFunction } from "types/sql.types";
 export const insertOccurrence: QueryFunction<
 	NewOccurrenceInput & { user_id: ID },
 	Promise<Occurrence>
-> = async ({ sql = sqlConnection, newOccurrence, user_id }) => {
+> = async ({ sql = sqlConnection, user_id, ...newOccurrence }) => {
 	const withUserId = { ...newOccurrence, user_id };
 
 	const [occurence] = await sql<[Occurrence]>`

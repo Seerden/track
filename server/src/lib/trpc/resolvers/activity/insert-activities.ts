@@ -20,6 +20,6 @@ export const createRecurringActivity = authenticatedProcedure
 		return await _createRecurringActivity({
 			newActivity: activity,
 			tag_ids: tagIds,
-			newRecurrence,
+			...newRecurrence,
 		});
 	});

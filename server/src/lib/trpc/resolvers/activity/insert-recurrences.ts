@@ -9,11 +9,15 @@ import {
 export const createOccurrence = authenticatedProcedure
 	.input(newOccurrenceInputSchema)
 	.mutation(async ({ input, ctx: { req } }) => {
-		insertOccurrence({ newOccurrence: input, user_id: req.session.user.user_id });
+		insertOccurrence({ ...input, user_id: req.session.user.user_id });
 	});
 
 export const _createRecurrence = authenticatedProcedure
 	.input(createRecurrenceInputSchema)
 	.mutation(async ({ ctx: { req }, input: { activity_id, ...newRecurrence } }) => {
-		createRecurrence({ newRecurrence, activity_id, user_id: req.session.user.user_id });
+		createRecurrence({
+			...newRecurrence,
+			activity_id,
+			user_id: req.session.user.user_id,
+		});
 	});
