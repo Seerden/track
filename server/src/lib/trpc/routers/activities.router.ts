@@ -2,7 +2,10 @@ import {
 	deleteOccurrenceById,
 	deleteRecurrenceById,
 } from "@/lib/trpc/resolvers/activity/delete-recurrences";
-import { createActivity } from "@/lib/trpc/resolvers/activity/insert-activities";
+import {
+	createActivity,
+	createRecurringActivity,
+} from "@/lib/trpc/resolvers/activity/insert-activities";
 import {
 	_createRecurrence,
 	createOccurrence,
@@ -27,6 +30,7 @@ import { t } from "@/lib/trpc/trpc-context";
 export const activityRouter = t.router({
 	all: queryActivities,
 	create: createActivity,
+	createRecurring: createRecurringActivity,
 	update: updateActivity,
 	updateCompletion: updateTaskCompletion,
 	recurrences: {
