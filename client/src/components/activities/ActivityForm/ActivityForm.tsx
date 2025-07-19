@@ -27,13 +27,21 @@ export default function ActivityForm({
 	modalId
 }: ActivityFormProps) {
 	const {
-		onInputChange,
 		onSubmit,
+		onInputChange,
 		onDateTimeChange,
 		isTask,
 		title,
 		buttonTitle,
-		defaultDateTimeValues
+		defaultDateTimeValues,
+		isRecurring,
+		recurrence,
+		intervalUnitSuffix,
+		toggleRecurring,
+		updateRecurrence,
+		setSelection,
+		resetSelection,
+		validRecurrence
 	} = useActivityForm({
 		initialIsTask,
 		modalId,
@@ -68,7 +76,16 @@ export default function ActivityForm({
 				</Form.Row>
 
 				<Form.Row>
-					<RecurrenceForm />
+					<RecurrenceForm
+						isRecurring={isRecurring}
+						recurrence={recurrence}
+						intervalUnitSuffix={intervalUnitSuffix}
+						resetSelection={resetSelection}
+						toggleRecurring={toggleRecurring}
+						updateRecurrence={updateRecurrence}
+						setSelection={setSelection}
+						validRecurrence={validRecurrence}
+					/>
 				</Form.Row>
 				<TagSelector
 					fullSize

@@ -12,6 +12,10 @@ const Container = styled.div`
 const CheckboxWrapper = styled.label`
 	${flex.row};
 	gap: 0.5rem;
+
+	span {
+		${flex.centered}
+	}
 `;
 
 const RecurrenceWrapper = styled.div`

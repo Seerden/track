@@ -1,87 +1,19 @@
 import type { DateTimeStateSetter } from "@/components/activities/ActivityForm/datetime-picker.types";
-import { useMutateNewActivity } from "@/lib/hooks/query/activities/useMutateNewActivity";
 import type { ModalId } from "@/lib/modal-ids";
-import { queryClient } from "@/lib/query-client";
-import { useModalState } from "@/lib/state/modal-state";
-import { trpc } from "@/lib/trpc";
 import useAuthentication from "@lib/hooks/useAuthentication";
 import { useTagSelection } from "@lib/state/selected-tags-state";
-import type {
-	ActivityWithIds,
-	NewActivity,
-	WithDates,
-	WithTimestamps
+import {
+	type ActivityWithIds,
+	type NewActivity,
+	type NewRecurrenceInput,
+	type WithDates,
+	type WithTimestamps
 } from "@shared/lib/schemas/activity";
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { parseNewActivity, parseUpdatedActivity } from "./parse-activity";
-
-function useSubmitNewActivity(newActivity: Partial<NewActivity>, modalId?: ModalId) {
-	const { mutate: submit } = useMutateNewActivity();
-	const navigate = useNavigate();
-	const { selectedTagIds } = useTagSelection();
-	const { closeModal } = useModalState();
-
-	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-		e.preventDefault();
-
-		submit(
-			{ activity: parseNewActivity(newActivity), tagIds: selectedTagIds },
-			{
-				onSuccess: () => {
-					queryClient.invalidateQueries({
-						queryKey: trpc.activities.all.queryKey()
-					});
-
-					if (modalId) {
-						closeModal(modalId);
-					} else {
-						navigate({ to: "/today" });
-					}
-				}
-			}
-		);
-	}
-
-	return { onSubmit };
-}
-
-function useSubmitUpdatedActivity(activity: Partial<ActivityWithIds>, modalId?: ModalId) {
-	const { mutate: submit } = useMutation(trpc.activities.update.mutationOptions());
-	const navigate = useNavigate();
-	const { selectedTagIds } = useTagSelection();
-	const { closeModal } = useModalState();
-
-	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-		e.preventDefault();
-
-		const _activity = parseUpdatedActivity(activity);
-		if (!_activity) return; // TODO: actually throw an error or provide UI feedback
-
-		submit(
-			{
-				activity: _activity,
-				tag_ids: selectedTagIds
-			},
-			{
-				onSuccess: () => {
-					queryClient.invalidateQueries({
-						queryKey: trpc.activities.all.queryKey()
-					});
-
-					if (modalId) {
-						closeModal(modalId);
-					} else {
-						navigate({ to: "/today" });
-					}
-				}
-			}
-		);
-	}
-
-	return { onSubmit };
-}
+import type { DayOfWeek, IntervalUnit } from "@shared/types/data/utility.types";
+import { produce } from "immer";
+import { useEffect, useMemo, useState } from "react";
+import { defaultRecurrence, FREQUENCY, INTERVAL_UNIT } from "./RecurrenceForm/constants";
+import { useSubmitNewActivity, useSubmitUpdatedActivity } from "./useSubmit";
 
 type UseActivityFormArgs = {
 	initialIsTask?: boolean;
@@ -90,6 +22,24 @@ type UseActivityFormArgs = {
 };
 
 type ActivityState = Partial<NewActivity> | Partial<ActivityWithIds>;
+
+type UpdateRecurrencePayload =
+	| {
+			type: "intervalUnit";
+			value: IntervalUnit;
+	  }
+	| {
+			type: "frequency";
+			value: `${FREQUENCY}`;
+	  }
+	| {
+			type: "interval";
+			value: number;
+	  };
+
+type SetRecurrenceSelection =
+	| { type: "weekdays"; value: DayOfWeek }
+	| { type: "monthdays"; value: number };
 
 export default function useActivityForm({
 	initialIsTask = false,
@@ -115,14 +65,19 @@ export default function useActivityForm({
 	const [activity, setActivity] = useState<ActivityState>(
 		existingActivity ?? defaultNewActivity
 	);
+	const [recurrence, setRecurrence] = useState<NewRecurrenceInput>(defaultRecurrence);
 
-	const { onSubmit: onNewSubmit } = useSubmitNewActivity(activity, modalId);
+	const { onSubmit: handleSubmit } = useSubmitNewActivity({
+		activity,
+		modalId,
+		recurrence
+	});
 	const { onSubmit: onUpdateSubmit } = useSubmitUpdatedActivity(activity, modalId);
 
 	// TODO: the two useSubmit hooks have identical onSuccess callbacks. Maybe we
 	// should define it in here, and pass it to the hooks as an argument.
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-		return isEditing ? onUpdateSubmit(e) : onNewSubmit(e);
+		return isEditing ? onUpdateSubmit(e) : handleSubmit(e);
 	}
 
 	useEffect(() => {
@@ -158,6 +113,106 @@ export default function useActivityForm({
 			} as WithDates | WithTimestamps)
 		: undefined;
 
+	// stuff that was previously in useRecurrenceForm
+
+	const [isRecurring, setIsRecurring] = useState(false);
+
+	// TODO (TRK-204): remove this
+	useEffect(() => {
+		console.log({ recurrence });
+	}, [recurrence]);
+
+	function resetSelection() {
+		setRecurrence(
+			produce((draft) => {
+				draft.weekdays = null;
+				draft.monthdays = null;
+			})
+		);
+	}
+
+	function setSelection<T extends SetRecurrenceSelection["type"]>(type: T) {
+		return (value: Extract<SetRecurrenceSelection, { type: T }>["value"] | null) =>
+			setRecurrence(
+				produce((draft) => {
+					// The logic for these cases is basically the same, but the
+					// typing is different, so it's easier to write it out twice.
+					if (type === "weekdays") {
+						const v = value as DayOfWeek;
+						draft.monthdays = null;
+
+						draft.weekdays ??= [];
+						if (draft.weekdays.includes(v)) {
+							draft.weekdays.splice(draft.weekdays.indexOf(v), 1);
+						} else {
+							draft.weekdays.push(v);
+						}
+					} else {
+						const v = value as number;
+						draft.monthdays ??= [];
+
+						if (draft.monthdays.includes(v)) {
+							draft.monthdays.splice(draft.monthdays.indexOf(v), 1);
+						} else {
+							draft.monthdays.push(v);
+						}
+
+						draft.weekdays = null;
+					}
+				})
+			);
+	}
+
+	function toggleRecurring() {
+		setIsRecurring((current) => !current);
+	}
+
+	function updateRecurrence({ type, value }: UpdateRecurrencePayload) {
+		switch (type) {
+			case "intervalUnit":
+				setRecurrence(
+					produce((draft) => {
+						draft.interval_unit = value;
+					})
+				);
+				return resetSelection(); // for all these cases, we return the final statement so we don't have to call break manually
+			case "frequency":
+				setRecurrence(
+					produce((draft) => {
+						draft.interval = 1;
+
+						draft.interval_unit =
+							draft.interval_unit === INTERVAL_UNIT.DAY
+								? INTERVAL_UNIT.WEEK
+								: INTERVAL_UNIT.DAY;
+
+						draft.frequency = value;
+					})
+				);
+				return resetSelection();
+			case "interval":
+				return setRecurrence(
+					produce((draft) => {
+						draft.interval = value;
+					})
+				);
+		}
+	}
+
+	const intervalUnitSuffix = recurrence.interval > 1 ? "s" : "";
+
+	// TODO TRK-204: before submitting, check if the recurrence makes sense. A
+	// calendar (fixed date) recurrence needs at least 1 weekday or monthday, and
+	// a numeric (interval) recurrence needs a valid interval.
+
+	const validRecurrence = useMemo(() => {
+		return (
+			recurrence.frequency === FREQUENCY.NUMERIC ||
+			(recurrence.frequency === FREQUENCY.CALENDAR &&
+				Boolean(recurrence.monthdays?.length || !!recurrence.weekdays?.length))
+		);
+	}, [recurrence]);
+
 	return {
 		onSubmit,
 		onInputChange,
@@ -165,6 +220,14 @@ export default function useActivityForm({
 		isTask: !!activity.is_task,
 		title,
 		buttonTitle,
-		defaultDateTimeValues
+		defaultDateTimeValues,
+		isRecurring,
+		recurrence,
+		intervalUnitSuffix,
+		toggleRecurring,
+		updateRecurrence,
+		setSelection,
+		resetSelection,
+		validRecurrence
 	};
 }

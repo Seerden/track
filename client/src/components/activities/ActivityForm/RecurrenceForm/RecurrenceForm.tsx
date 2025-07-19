@@ -7,26 +7,37 @@ import {
 } from "@/components/activities/ActivityForm/RecurrenceForm/constants";
 import DaySelector from "@/components/activities/ActivityForm/RecurrenceForm/DaySelector";
 import SharedStyle from "@/components/activities/ActivityForm/RecurrenceForm/style/DaySelector.style";
-import useRecurrenceForm from "@/components/activities/ActivityForm/RecurrenceForm/useRecurrenceForm";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
+import { Tooltip } from "@mantine/core";
 import type { IntervalUnit } from "@shared/types/data/utility.types";
+import { LucideAlertCircle } from "lucide-react";
+import type useActivityForm from "../useActivityForm";
 import S from "./style/RecurrenceForm.style";
 
-export default function RecurrenceForm() {
-	const {
-		isRecurring,
-		recurrence,
-		intervalUnitSuffix,
-		toggleRecurring,
-		updateRecurrence,
-		setSelection,
-		resetSelection
-	} = useRecurrenceForm();
-
+export default function RecurrenceForm({
+	recurrence,
+	isRecurring,
+	intervalUnitSuffix,
+	toggleRecurring,
+	updateRecurrence,
+	setSelection,
+	resetSelection,
+	validRecurrence
+}: Pick<
+	ReturnType<typeof useActivityForm>,
+	| "recurrence"
+	| "isRecurring"
+	| "intervalUnitSuffix"
+	| "toggleRecurring"
+	| "updateRecurrence"
+	| "setSelection"
+	| "resetSelection"
+	| "validRecurrence"
+>) {
 	if (!isRecurring) {
 		return (
 			<S.Container>
-				<S.CheckboxWrapper>
+				<S.CheckboxWrapper style={{ maxWidth: "max-content" }}>
 					<span>Recurring activity?</span>
 					<Checkbox checked={isRecurring} onChange={toggleRecurring} />
 				</S.CheckboxWrapper>
@@ -35,8 +46,31 @@ export default function RecurrenceForm() {
 	}
 
 	return (
-		<S.Container>
-			<S.CheckboxWrapper>
+		<S.Container style={{ position: "relative" }}>
+			{!validRecurrence && (
+				<span style={{ position: "absolute", top: 0, right: 0 }}>
+					<Tooltip
+						label={
+							<div
+								style={{
+									display: "flex",
+									width: "250px",
+									textWrap: "wrap"
+								}}
+							>
+								A fixed date recurrence needs at least 1 weekday or monthday, and
+								a numeric recurrence needs a valid interval.
+							</div>
+						}
+						position="top"
+						color="orangered"
+						withArrow
+					>
+						<LucideAlertCircle color="orangered" />
+					</Tooltip>
+				</span>
+			)}
+			<S.CheckboxWrapper style={{ maxWidth: "max-content" }}>
 				<span>Recurring activity?</span>
 				<Checkbox checked={isRecurring} onChange={toggleRecurring} />
 			</S.CheckboxWrapper>
@@ -44,6 +78,7 @@ export default function RecurrenceForm() {
 				<S.Column>
 					{frequencyOptions.map((frequency) => (
 						<S.Label key={frequency} $active={recurrence.frequency === frequency}>
+							{/* TODO: Input.Hidden */}
 							<input
 								style={{ width: 0 }}
 								type="radio"
@@ -71,7 +106,10 @@ export default function RecurrenceForm() {
 								min={1}
 								value={recurrence.interval}
 								onChange={(e) =>
-									updateRecurrence({ type: "interval", value: +e.target.value })
+									updateRecurrence({
+										type: "interval",
+										value: Math.max(+e.target.value, 1)
+									})
 								}
 							/>
 							<SharedStyle.Select
@@ -119,7 +157,10 @@ export default function RecurrenceForm() {
 								min={1}
 								value={recurrence.interval}
 								onChange={(e) =>
-									updateRecurrence({ type: "interval", value: +e.target.value })
+									updateRecurrence({
+										type: "interval",
+										value: Math.max(+e.target.value, 1)
+									})
 								}
 							/>
 							<span>day{intervalUnitSuffix}</span>
@@ -127,7 +168,6 @@ export default function RecurrenceForm() {
 					</S.Column>
 				)}
 			</S.RecurrenceWrapper>
-			Preview: ...
 		</S.Container>
 	);
 }

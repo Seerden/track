@@ -2,6 +2,7 @@ import { sqlConnection } from "@/db/init";
 import type { Recurrence } from "@shared/lib/schemas/activity";
 import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
+import { TABLES } from "types/tables";
 
 // TODO: business logic
 export const removeRecurrenceById: QueryFunction<
@@ -12,7 +13,7 @@ export const removeRecurrenceById: QueryFunction<
 	Promise<Pick<Recurrence, "recurrence_id">>
 > = async ({ sql = sqlConnection, recurrence_id, user_id }) => {
 	const [deleted] = await sql<[Pick<Recurrence, "recurrence_id">]>`
-      DELETE FROM recurrences
+      DELETE FROM ${TABLES.RECURRENCES}
       WHERE recurrence_id = ${recurrence_id}
       AND user_id = ${user_id}
       RETURNING recurrence_id
