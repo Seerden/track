@@ -6,7 +6,6 @@ import {
 	INTERVAL_UNIT
 } from "@/components/activities/ActivityForm/RecurrenceForm/constants";
 import DaySelector from "@/components/activities/ActivityForm/RecurrenceForm/DaySelector";
-import SharedStyle from "@/components/activities/ActivityForm/RecurrenceForm/style/DaySelector.style";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import Containers from "@/lib/theme/components/container.style";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
@@ -59,13 +58,7 @@ export default function RecurrenceForm({
 				>
 					<Tooltip
 						label={
-							<div
-								style={{
-									display: "flex",
-									width: "250px",
-									textWrap: "wrap"
-								}}
-							>
+							<div style={{ display: "flex", width: "250px", textWrap: "wrap" }}>
 								A fixed date recurrence needs at least 1 weekday or monthday, and
 								a numeric recurrence needs a valid interval.
 							</div>
@@ -108,7 +101,7 @@ export default function RecurrenceForm({
 					<S.Column>
 						<Containers.Row gap="small">
 							<span>every</span>
-							<SharedStyle.NumberInput
+							<S.DaySelector.NumberInput
 								type="number"
 								step={1}
 								min={1}
@@ -120,7 +113,7 @@ export default function RecurrenceForm({
 									})
 								}
 							/>
-							<SharedStyle.Select
+							<S.DaySelector.Select
 								value={recurrence.interval_unit}
 								onChange={(e) =>
 									updateRecurrence({
@@ -131,7 +124,7 @@ export default function RecurrenceForm({
 							>
 								<option value="week">week{intervalUnitSuffix}</option>
 								<option value="month">month{intervalUnitSuffix}</option>
-							</SharedStyle.Select>
+							</S.DaySelector.Select>
 						</Containers.Row>
 						<div>
 							{recurrence.interval_unit === INTERVAL_UNIT.WEEK ? (
@@ -141,6 +134,8 @@ export default function RecurrenceForm({
 									resetSelection={resetSelection}
 									options={daysOfWeek}
 									optionLabels={daysOfWeek.map((d) => d[0])}
+									// TODO: if a selection is present, render that as a
+									// list, or a badge if the list is long
 									triggerLabel={"pick days of week"}
 								/>
 							) : (
@@ -149,6 +144,8 @@ export default function RecurrenceForm({
 									setSelection={setSelection("monthdays")}
 									resetSelection={resetSelection}
 									options={daysOfMonth}
+									// TODO: if a selection is present, render that as a
+									// list, or a badge if the list is long
 									triggerLabel={"pick days of month"}
 								/>
 							)}
@@ -159,7 +156,7 @@ export default function RecurrenceForm({
 					<S.Column>
 						<Containers.Row gap="small">
 							<span>every</span>
-							<SharedStyle.NumberInput
+							<S.DaySelector.NumberInput
 								type="number"
 								step={1}
 								min={1}

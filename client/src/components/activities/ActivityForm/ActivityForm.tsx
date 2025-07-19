@@ -93,6 +93,8 @@ export default function ActivityForm({
 					showNewTagButton
 					modalId={modalIds.tagSelector.activityForm}
 				/>
+				{/* TODO: disable the button until everything is valid (activity fields, 
+               recurrence fields, etc.) */}
 				<Buttons.Submit.Default type="submit">{buttonTitle}</Buttons.Submit.Default>
 			</Form.Form>
 		</Form.Wrapper>

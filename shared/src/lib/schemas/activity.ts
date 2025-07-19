@@ -175,7 +175,7 @@ export type ActivityInput = z.infer<typeof activityInputSchema>;
 
 export const recurringActivityInputSchema = activityInputSchema.and(
 	z.object({
-		newRecurrence: newRecurrenceInputSchema,
+		recurrence: newRecurrenceInputSchema,
 	}),
 );
 

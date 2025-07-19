@@ -3,6 +3,7 @@ import Containers from "@/lib/theme/components/container.style";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 import styled from "@emotion/styled";
+import D from "../style/DaySelector.style";
 
 const Container = styled.div`
 	padding: ${spacingValue.small};
@@ -32,5 +33,6 @@ export default {
 	Container,
 	CheckboxWrapper,
 	Column,
-	Label
+	Label,
+	DaySelector: D
 };

@@ -63,78 +63,71 @@ export default function DaySelector<T extends Option>({
 
 	const isActive = (day: T) => selection?.includes(day);
 
-	if (!isOpen) {
-		return (
-			<S.Trigger ref={float.refs.setReference} {...float.getReferenceProps()}>
-				{triggerLabel}
-			</S.Trigger>
-		);
-	}
-
 	return (
 		<>
 			<S.Trigger ref={float.refs.setReference} {...float.getReferenceProps()}>
 				{triggerLabel}
 			</S.Trigger>
 
-			<FloatingFocusManager context={float.context}>
-				<S.FloatingWrapper
-					ref={float.refs.setFloating}
-					style={{
-						...float.floatingStyles
-					}}
-					{...float.getFloatingProps()}
-				>
-					<FloatingArrow
-						ref={float.arrowRef}
-						context={float.context}
-						width={15}
-						height={5}
-						fill={"#ccc"}
+			{isOpen && (
+				<FloatingFocusManager context={float.context}>
+					<S.FloatingWrapper
+						ref={float.refs.setFloating}
 						style={{
-							marginBottom: "1px"
+							...float.floatingStyles
 						}}
-					/>
-					<S.ActionBar>
-						<S.ClearButton
-							disabled={selection?.length === 0}
-							title="Clear selection"
-							onClick={resetSelection}
-						>
-							<LucideXCircle size={20} strokeWidth={2} />
-						</S.ClearButton>
-					</S.ActionBar>
-					{isNestedArray(options) ? (
-						<>
-							{options.map((week, index) => (
-								<Containers.Row key={index}>
-									{week.map((day) => (
-										<Buttons.Cell.DaySelector
-											$active={isActive(day)}
-											onClick={() => setSelection(day)}
-											key={day}
-										>
-											{day}
-										</Buttons.Cell.DaySelector>
-									))}
-								</Containers.Row>
-							))}
-						</>
-					) : (
-						<Containers.Row>
-							{options.map((option, index) => (
-								<Buttons.Cell.DaySelector
-									key={option}
-									$active={isActive(option)}
-									onClick={() => setSelection(option)}
-								>
-									{optionLabels?.[index] ?? option}
-								</Buttons.Cell.DaySelector>
-							))}
-						</Containers.Row>
-					)}
-				</S.FloatingWrapper>
-			</FloatingFocusManager>
+						{...float.getFloatingProps()}
+					>
+						<FloatingArrow
+							ref={float.arrowRef}
+							context={float.context}
+							width={15}
+							height={5}
+							fill={"#ccc"}
+							style={{ marginBottom: "1px" }}
+						/>
+						<S.ActionBar>
+							<Buttons.Action.Clear
+								type="button"
+								disabled={!selection?.length}
+								title="Clear selection"
+								onClick={resetSelection}
+							>
+								<LucideXCircle size={20} strokeWidth={2} />
+							</Buttons.Action.Clear>
+						</S.ActionBar>
+						{isNestedArray(options) ? (
+							<>
+								{options.map((week, index) => (
+									<Containers.Row key={index}>
+										{week.map((day) => (
+											<Buttons.Cell.DaySelector
+												$active={isActive(day)}
+												onClick={() => setSelection(day)}
+												key={day}
+											>
+												{day}
+											</Buttons.Cell.DaySelector>
+										))}
+									</Containers.Row>
+								))}
+							</>
+						) : (
+							<Containers.Row>
+								{options.map((option, index) => (
+									<Buttons.Cell.DaySelector
+										key={option}
+										$active={isActive(option)}
+										onClick={() => setSelection(option)}
+									>
+										{optionLabels?.[index] ?? option}
+									</Buttons.Cell.DaySelector>
+								))}
+							</Containers.Row>
+						)}
+					</S.FloatingWrapper>
+				</FloatingFocusManager>
+			)}
 		</>
 	);
 }

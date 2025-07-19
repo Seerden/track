@@ -41,6 +41,9 @@ export function useSubmitUpdatedActivity(
 					queryClient.invalidateQueries({
 						queryKey: trpc.activities.all.queryKey()
 					});
+					queryClient.invalidateQueries({
+						queryKey: trpc.activities.recurrences.queryByUser.queryKey()
+					});
 
 					if (modalId) {
 						closeModal(modalId);
@@ -74,11 +77,11 @@ export function useSubmitNewActivity({
 
 	function handleSuccess() {
 		queryClient.invalidateQueries({ queryKey: trpc.activities.all.queryKey() });
-		if (modalId) {
-			closeModal(modalId);
-		} else {
-			navigate({ to: "/today" });
-		}
+		queryClient.invalidateQueries({
+			queryKey: trpc.activities.recurrences.queryByUser.queryKey()
+		});
+		if (modalId) closeModal(modalId);
+		else navigate({ to: "/today" });
 	}
 
 	function onSubmit() {
@@ -87,7 +90,7 @@ export function useSubmitNewActivity({
 			const parsedRecurrence = newRecurrenceInputSchema.safeParse(recurrence);
 
 			if (!parsedActivity.success || !parsedRecurrence.success) {
-				// notify
+				// TODO: notify (TRK-235?)
 				console.log({
 					error: "Invalid activity or recurrence data",
 					activityError: parsedActivity.error,
@@ -97,24 +100,13 @@ export function useSubmitNewActivity({
 			}
 
 			submitNewRecurringActivity(
-				{
-					activity: parsedActivity.data,
-					newRecurrence: parsedRecurrence.data
-				},
-				{
-					onSuccess: () => {
-						handleSuccess();
-					}
-				}
+				{ activity: parsedActivity.data, recurrence: parsedRecurrence.data },
+				{ onSuccess: handleSuccess }
 			);
 		} else {
 			submit(
 				{ activity: parseNewActivity(activity), tagIds: selectedTagIds },
-				{
-					onSuccess: () => {
-						handleSuccess();
-					}
-				}
+				{ onSuccess: handleSuccess }
 			);
 		}
 	}

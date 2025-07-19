@@ -3,17 +3,20 @@ import formStyle from "@/lib/theme/components/form.style";
 import Input from "@/lib/theme/input";
 import Active from "@/lib/theme/snippets/active";
 import { noBorders } from "@/lib/theme/snippets/border";
+import { border, outline } from "@/lib/theme/snippets/edge";
+import { radius } from "@/lib/theme/snippets/radius";
+import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 import styled from "@emotion/styled";
 
 const Trigger = styled(Buttons.Unstyled)`
-	padding: 0.4rem 0.5rem;
+	${spacing.padding.small};
+	${border.tertiary};
+	${radius.largish};
+	margin-top: ${spacingValue.smaller};
 
 	background-color: #fff;
-	border: 2px solid #ddd;
-	border-radius: 8px;
-	margin-top: 0.3rem;
-
 	box-shadow: 0 0.2rem 0.2rem 0 #ccc;
+
 	&:hover,
 	&:focus {
 		box-shadow: none;
@@ -25,15 +28,18 @@ const Trigger = styled(Buttons.Unstyled)`
 
 // TODO: put this in floating.style.ts!
 const FloatingWrapper = styled.div`
+	${spacing.padding.small};
+	${outline.grey};
+	margin-top: ${spacingValue.small};
+	${radius.medium};
+
 	background-color: #eee;
-	padding: 1rem;
-	outline: 2px solid #ccc;
 	box-shadow: 0 0.2rem 0.5rem -0.1rem #aaa;
+
 	z-index: 10;
-	margin-top: 0.8rem;
-	border-radius: 5px;
 `;
 
+// TODO: put this in input.style
 const NumberInput = styled(Input.Unstyled)`
 	display: flex;
 	border-bottom: 1px solid #555;
@@ -53,7 +59,7 @@ const NumberInput = styled(Input.Unstyled)`
 
 const Select = styled.select`
 	${noBorders};
-	border-radius: 5px;
+	${radius.medium};
 	background-color: #eee;
 
 	option {
@@ -65,35 +71,17 @@ const Select = styled.select`
 	${Active.default};
 `;
 
+// TODO: put all action bars in containers.style
 const ActionBar = styled.div`
-	background-color: #fff;
-	outline: 2px solid #e9e9e9;
-	padding: 0.3rem;
-	margin: 0.2rem;
-	margin-bottom: 0.5rem;
-	border-radius: 5px;
-
 	width: max-content;
-`;
 
-const ClearButton = styled(Buttons.Unstyled)`
-	border-radius: 50%;
-	display: flex;
-	align-items: center;
+	padding: ${spacingValue.smaller};
+	margin: ${spacingValue.smallest};
+	margin-bottom: ${spacingValue.small};
+	${radius.medium}
 
-	.lucide {
-		color: orangered;
-	}
-
-	&:disabled {
-		cursor: unset;
-
-		.lucide {
-			color: #ccc;
-		}
-	}
-
-	${Active.default};
+	background-color: #fff;
+	outline: 2px solid #e9e9e9; // TODO: theme value
 `;
 
 const Label = styled(formStyle.Label)`
@@ -106,6 +94,5 @@ export default {
 	NumberInput,
 	Select,
 	ActionBar,
-	ClearButton,
 	Label
 };

@@ -55,9 +55,12 @@ const margin = {
 
 const padding = {
 	wide: ({ size, ratio }: SpacingArgs) => getSpacing("padding", "wide", { size, ratio }),
-	tall: ({ size, ratio }: SpacingArgs) => getSpacing("padding", "wide", { size, ratio }),
+	tall: ({ size, ratio }: SpacingArgs) => getSpacing("padding", "tall", { size, ratio }),
 	small: css`
 		padding: ${spacingValue.small};
+	`,
+	smaller: css`
+		padding: ${spacingValue.smaller};
 	`,
 	medium: css`
 		padding: ${spacingValue.medium};
