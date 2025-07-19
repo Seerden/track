@@ -30,7 +30,6 @@ export const insertActivityWithTags: QueryFunction<
 	},
 	Promise<ActivityWithIds>
 > = async ({ sql = sqlConnection, activity, tag_ids }) => {
-	console.log({ sql, a: 1 });
 	return await sql.begin(async (q) => {
 		const insertedActivity = await insertActivity({ sql: q, activity });
 		let linkedTagIds: ID[] = [];
