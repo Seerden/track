@@ -152,7 +152,9 @@ export const activityOccurrenceBaseSchema = z.union([
 		recurrence_id: z.null(),
 	}),
 	z.object({
-		occurrence: z.number(),
+		/** @note only recurring instances have an `occurrence` number. The
+		 * original activity does not. */
+		occurrence: z.number().nullable(),
 		recurrence_id: z.string(),
 	}),
 ]);
@@ -160,9 +162,8 @@ export type ActivityOccurrenceBase = z.infer<
 	typeof activityOccurrenceBaseSchema
 >;
 
-export const newActivitySchema = z.intersection(
+export const newActivitySchema = activityOccurrenceBaseSchema.and(
 	z.union([activityWithTimestampsSchema, activityWithDatesSchema]),
-	activityOccurrenceBaseSchema,
 );
 
 export type NewActivity = z.infer<typeof newActivitySchema>;
