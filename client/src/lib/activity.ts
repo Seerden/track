@@ -1,19 +1,20 @@
 import { getLocalHour } from "@/lib/datetime/local";
 import { createDate, now } from "@/lib/datetime/make-date";
+import type { ActivityWithIds } from "@shared/lib/schemas/activity";
 import type { ID } from "@shared/types/data/utility.types";
 import type { Dayjs } from "dayjs";
 import { sameDay } from "./datetime/compare";
-import type { ActivityWithIds } from "@shared/lib/schemas/activity";
+import type { SyntheticActivity } from "./recurrence";
 
 /** Gets the `start` of an activity, which is either a timestamp or
  * year-month-date string. */
-export function activityStart(activity: ActivityWithIds) {
+export function activityStart(activity: ActivityWithIds | SyntheticActivity) {
 	return createDate(activity.start_date ?? activity.started_at);
 }
 
 /** Gets the `end` of an activity, which is either a timestamp or
  * year-month-date string. */
-export function activityEnd(activity: ActivityWithIds) {
+export function activityEnd(activity: ActivityWithIds | SyntheticActivity) {
 	return createDate(activity.end_date ?? activity.ended_at);
 }
 
