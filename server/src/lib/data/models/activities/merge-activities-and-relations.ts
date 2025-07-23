@@ -1,5 +1,5 @@
 import { groupById } from "@/lib/data/models/group-by-id";
-import type { Activity, ActivityWithIds } from "@shared/types/data/activity.types";
+import type { Activity, ActivityWithIds } from "@shared/lib/schemas/activity";
 import type { ActivityTagRelation } from "@shared/types/data/relational.types";
 import type { ById } from "@shared/types/data/utility.types";
 
