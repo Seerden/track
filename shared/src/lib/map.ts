@@ -1,5 +1,5 @@
 import { DataById, MappedData } from "@shared/types/data/map";
-import { ID } from "@shared/types/data/utility.types";
+import { ID, type ById, type ByIdMap } from "@shared/types/data/utility.types";
 
 /** Transform the byId object of a DataById object to a Map.
  * @note the solution above means we don't have to cast the return value, but
@@ -21,4 +21,26 @@ export function transformByIdToMap<T extends DataById<unknown>>(
 export function byIdAsList<T>(map?: Map<ID, T>): T[] {
 	if (!map) return [];
 	return [...map.values()];
+}
+
+// TODO TRK-206: I thought I already had this in @shared, but apparently not.
+// Use this shared one in all existing use cases, instead of the one in @server
+// (or @client, if I also have it defined there).
+type IdFieldUnion<T> = {
+	[K in keyof T]: K extends `${string}_id` ? K : never;
+}[keyof T];
+
+/** Reduces a list of objects that share an *_id field into a Record<ID,
+ * object>. */
+export function groupById<T extends object>(
+	data: T[],
+	idField: IdFieldUnion<T>,
+): ById<T> {
+	const byIdMap = data.reduce((acc, cur) => {
+		const id = cur[idField];
+		acc.set(id as string, cur);
+		return acc;
+	}, new Map() as ByIdMap<T>);
+
+	return Object.fromEntries(byIdMap.entries()) as ById<T>;
 }
