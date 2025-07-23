@@ -10,3 +10,12 @@ export const queryActivities = authenticatedProcedure.query(async ({ ctx }) => {
 		byId: activities,
 	});
 });
+
+export const queryRecurringActivities = authenticatedProcedure.query(async ({ ctx }) => {
+	return transformByIdToMap({
+		byId: await queryActivitiesAndRelations({
+			user_id: ctx.req.session.user.user_id,
+			recurring: true,
+		}),
+	});
+});
