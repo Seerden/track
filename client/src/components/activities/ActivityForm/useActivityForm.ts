@@ -98,7 +98,8 @@ export default function useActivityForm({
 	const { onSubmit: handleSubmit } = useSubmitNewActivity({
 		activity,
 		modalId,
-		recurrence
+		recurrence,
+		isRecurring
 	});
 
 	useEffect(() => {
