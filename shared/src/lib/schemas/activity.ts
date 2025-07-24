@@ -220,3 +220,16 @@ export const taskUpdateInputSchema = z.intersection(
 );
 
 export type TaskUpdateInput = z.infer<typeof taskUpdateInputSchema>;
+
+// TODO TRK-206: this needs some work
+export const syntheticActivitySchema = activityWithIdsSchema
+	.and(
+		z.object({
+			synthetic: z.literal(true),
+		}),
+	)
+	// TODO: synthetic activities should not have an ID. It should be
+	// appended to the activity on submission (i.e. when it becomes
+	// non-synthetic). Check how I did this for habits.
+	.transform((activity) => ({ ...activity, activity_id: null }));
+export type SyntheticActivity = z.infer<typeof syntheticActivitySchema>;
