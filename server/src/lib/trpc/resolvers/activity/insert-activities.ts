@@ -9,6 +9,7 @@ import {
 	newActivitySchema,
 	recurringActivityInputSchema,
 	syntheticActivitySchema,
+	type NewActivity,
 } from "@shared/lib/schemas/activity";
 
 /** A synthetic activity, as of writing this, is an entry in a recurrence
@@ -31,15 +32,28 @@ export const createRealSyntheticActivity = authenticatedProcedure
 
 export const createActivity = authenticatedProcedure
 	.input(activityInputSchema)
-	.mutation(async ({ input: { activity, tagIds } }) => {
-		return await insertActivityWithTags({ activity, tag_ids: tagIds });
+	.mutation(async ({ input: { activity, tagIds }, ctx }) => {
+		const activityWithUserId: NewActivity = {
+			...activity,
+			user_id: ctx.req.session.user.user_id,
+		};
+
+		return await insertActivityWithTags({
+			activity: activityWithUserId,
+			tag_ids: tagIds,
+		});
 	});
 
 export const createRecurringActivity = authenticatedProcedure
 	.input(recurringActivityInputSchema)
-	.mutation(async ({ input: { activity, tagIds, recurrence } }) => {
+	.mutation(async ({ input: { activity, tagIds, recurrence }, ctx }) => {
+		const activityWithUserId: NewActivity = {
+			...activity,
+			user_id: ctx.req.session.user.user_id,
+		};
+
 		return await _createRecurringActivity({
-			newActivity: activity,
+			newActivity: activityWithUserId,
 			tag_ids: tagIds,
 			...recurrence,
 		});

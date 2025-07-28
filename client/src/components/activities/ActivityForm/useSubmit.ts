@@ -8,32 +8,40 @@ import { useModalState } from "@/lib/state/modal-state";
 import { useTagSelection } from "@/lib/state/selected-tags-state";
 import { trpc } from "@/lib/trpc";
 import {
-	newActivitySchema,
+	activitySchema,
+	newActivityInputSchema,
 	newRecurrenceInputSchema,
 	type ActivityWithIds,
 	type NewActivity,
+	type NewActivityInput,
 	type NewRecurrenceInput
 } from "@shared/lib/schemas/activity";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { parseNewActivity, parseUpdatedActivity } from "./parse-activity";
+import type { ActivityState } from "./useActivityForm";
 
-export function useSubmitUpdatedActivity(
-	activity: Partial<ActivityWithIds>,
-	modalId?: ModalId
-) {
+export function useSubmitUpdatedActivity({
+	activity,
+	modalId
+}: {
+	activity: ActivityState;
+	modalId?: ModalId;
+}) {
 	const { mutate: submit } = useMutation(trpc.activities.update.mutationOptions());
 	const navigate = useNavigate();
 	const { selectedTagIds } = useTagSelection();
 	const { closeModal } = useModalState();
 
-	function onSubmit() {
-		const _activity = parseUpdatedActivity(activity);
-		if (!_activity) return; // TODO: actually throw an error or provide UI feedback
+	function handleSubmit() {
+		if (!isExistingActivity(activity)) return;
+
+		const parsedActivity = parseUpdatedActivity(activity);
+		if (!parsedActivity) return; // TODO: actually throw an error or provide UI feedback
 
 		submit(
 			{
-				activity: _activity,
+				activity: parsedActivity,
 				tag_ids: selectedTagIds
 			},
 			{
@@ -55,7 +63,11 @@ export function useSubmitUpdatedActivity(
 		);
 	}
 
-	return { onSubmit };
+	return { handleSubmit };
+}
+
+function isExistingActivity(activity: ActivityState): activity is ActivityWithIds {
+	return activitySchema.safeParse(activity).success;
 }
 
 export function useSubmitNewActivity({
@@ -64,7 +76,12 @@ export function useSubmitNewActivity({
 	recurrence,
 	isRecurring
 }: {
-	activity: Partial<NewActivity>;
+	/**
+	 * @note For the polymorphy of `activity` in useActivityForm, we type it as
+	 * `ActivityState`, however, the submit handler defined in this function
+	 * requires it to be a new activity. We check for this inside the `onSubmit`
+	 * definition. */
+	activity: ActivityState;
 	modalId?: ModalId;
 	recurrence?: NewRecurrenceInput;
 	isRecurring?: boolean;
@@ -84,9 +101,11 @@ export function useSubmitNewActivity({
 		else navigate({ to: "/today" });
 	}
 
-	function onSubmit() {
+	function handleSubmit() {
+		if (isExistingActivity(activity)) return;
+
 		if (isRecurring) {
-			const parsedActivity = newActivitySchema.safeParse({
+			const parsedActivity = newActivityInputSchema.safeParse({
 				...activity,
 				will_recur: true
 			} as NewActivity);
@@ -112,11 +131,17 @@ export function useSubmitNewActivity({
 			);
 		} else {
 			submit(
-				{ activity: parseNewActivity(activity), tagIds: selectedTagIds },
+				{
+					// NOTE: the isExistingActivity check ensures that activity is
+					// `NewActivityInput`, but typescript isn't smart enough to not
+					// have to type-cast this here.
+					activity: parseNewActivity(activity as NewActivityInput),
+					tagIds: selectedTagIds
+				},
 				{ onSuccess: handleSuccess }
 			);
 		}
 	}
 
-	return { onSubmit };
+	return { handleSubmit };
 }

@@ -27,7 +27,7 @@ export default function ActivityForm({
 	modalId
 }: ActivityFormProps) {
 	const {
-		onSubmit,
+		handleSubmit,
 		onInputChange,
 		onDateTimeChange,
 		isTask,
@@ -51,7 +51,7 @@ export default function ActivityForm({
 	return (
 		<Form.Wrapper>
 			<Form.FormTitle>{title}</Form.FormTitle>
-			<Form.Form onSubmit={onSubmit}>
+			<Form.Form onSubmit={handleSubmit}>
 				<Form.Row name="description">
 					<Form.Label>
 						<span>Activity</span>
