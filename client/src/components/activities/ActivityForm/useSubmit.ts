@@ -86,7 +86,10 @@ export function useSubmitNewActivity({
 
 	function onSubmit() {
 		if (isRecurring) {
-			const parsedActivity = newActivitySchema.safeParse(activity);
+			const parsedActivity = newActivitySchema.safeParse({
+				...activity,
+				will_recur: true
+			} as NewActivity);
 			const parsedRecurrence = newRecurrenceInputSchema.safeParse(recurrence);
 
 			if (!parsedActivity.success || !parsedRecurrence.success) {

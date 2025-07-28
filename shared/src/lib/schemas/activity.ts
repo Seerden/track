@@ -114,6 +114,7 @@ export const newActivityBaseSchema = z.object({
 	description: z.string(),
 	duration_milliseconds: z.number().nullable().optional().default(null),
 	is_task: z.boolean().optional().default(false),
+	will_recur: z.boolean().nullable().optional().default(false),
 });
 export type NewActivityBase = z.infer<typeof newActivityBaseSchema>;
 
@@ -226,6 +227,7 @@ export const syntheticActivitySchema = activityWithIdsSchema
 	.and(
 		z.object({
 			synthetic: z.literal(true),
+			synthetic_id: z.string(),
 		}),
 	)
 	// TODO: synthetic activities should not have an ID. It should be
