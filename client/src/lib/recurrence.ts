@@ -3,18 +3,27 @@ import {
 	activityWithIdsSchema,
 	syntheticActivitySchema,
 	type ActivityWithIds,
+	type PossiblySyntheticActivity,
 	type Recurrence,
 	type SyntheticActivity
 } from "@shared/lib/schemas/activity";
 import type { DayOfWeek } from "@shared/types/data/utility.types";
 import { type Dayjs } from "dayjs";
+import { v7 as uuid } from "uuid";
 import { activityEnd, activityStart, isAllDayActivityOnDate } from "./activity";
 import { createDate } from "./datetime/make-date";
+
+export function isSyntheticActivity(
+	activity: PossiblySyntheticActivity
+): activity is SyntheticActivity {
+	return "synthetic" in activity && activity.synthetic === true;
+}
 
 function createSyntheticActivity(activity: ActivityWithIds): SyntheticActivity {
 	return syntheticActivitySchema.parse({
 		...activity,
-		synthetic: true
+		synthetic: true,
+		synthetic_id: `${activity.activity_id}-${activity.recurrence_id}-${uuid()}`
 		// TODO: when converting a synthetic activity to a real one, update
 		// created_at.
 	});
@@ -81,6 +90,9 @@ const createSyntheticsForNumericRecurrence: CreateSynthetics = ({
 	start,
 	end
 }) => {
+	// if an activity starts as all-day, then all of its recurrences should be
+	// all-day, too
+	const isAllDay = isAllDayActivityOnDate(activity, start);
 	const synthetics: SyntheticActivity[] = [];
 	let recurrenceStart = createDate(recurrence.start_timestamp);
 	let iteration = 0;
@@ -91,11 +103,8 @@ const createSyntheticsForNumericRecurrence: CreateSynthetics = ({
 			(recurrence.end_timestamp &&
 				!recurrenceStart.isAfter(createDate(recurrence.end_timestamp))))
 	) {
-		const isAllDay = isAllDayActivityOnDate(activity, recurrenceStart);
-
 		const syntheticStart = nextDate(start, iteration, recurrence);
 		const syntheticEnd = nextDate(end, iteration, recurrence);
-
 		const syntheticActivity = createSyntheticActivity(
 			activityWithIdsSchema.parse({
 				...activity,
@@ -121,7 +130,6 @@ const createSyntheticsForNumericRecurrence: CreateSynthetics = ({
 			recurrence.interval,
 			recurrence.interval_unit
 		);
-
 		iteration++;
 	}
 
@@ -151,10 +159,10 @@ const createSyntheticsForCalendarRecurrence: CreateSynthetics = ({
 	const isAllDayActivity = isAllDayActivityOnDate(activity, recurrenceStart);
 	const synthetics: SyntheticActivity[] = [];
 	let iteration = 0;
-	// For numeric recurrences, we iterated in steps of recurrence.interval,
+	// for numeric recurrences, we iterated in steps of recurrence.interval,
 	// but here we have to check each day in the time window individually,
 	// because calendar recurrences are irregular. Use this variable to iterate
-	// over the days in the time window.
+	// over the days in the time window
 	let rollingStart = createDate(timeWindow.startDate);
 	// we need this fixed offset between the start of the time window and the
 	// start date of the activity to determine the start and end dates of the
