@@ -23,9 +23,6 @@ export function byIdAsList<T>(map?: Map<ID, T>): T[] {
 	return [...map.values()];
 }
 
-// TODO TRK-206: I thought I already had this in @shared, but apparently not.
-// Use this shared one in all existing use cases, instead of the one in @server
-// (or @client, if I also have it defined there).
 type IdFieldUnion<T> = {
 	[K in keyof T]: K extends `${string}_id` ? K : never;
 }[keyof T];
