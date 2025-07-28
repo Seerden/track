@@ -28,3 +28,18 @@ export function useMutateNewRecurringActivity() {
 		})
 	);
 }
+
+export function useMutateNewSyntheticActivity() {
+	return useMutation(
+		trpc.activities.createFromSynthetic.mutationOptions({
+			onSuccess: () => {
+				queryClient.invalidateQueries({
+					queryKey: trpc.activities.all.queryKey()
+				});
+				queryClient.invalidateQueries({
+					queryKey: trpc.activities.recurrences.queryByUser.queryKey()
+				});
+			}
+		})
+	);
+}

@@ -6,7 +6,7 @@ import Buttons from "@/lib/theme/components/buttons";
 import Form from "@/lib/theme/components/form.style";
 import Input from "@/lib/theme/input";
 import TagSelector from "@components/tags/TagSelector/TagSelector";
-import type { ActivityWithIds } from "@shared/lib/schemas/activity";
+import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import DateTimePicker from "./DateTimePicker";
 import S from "./style/ActivityForm.style";
 import useActivityForm from "./useActivityForm";
@@ -14,7 +14,7 @@ import useActivityForm from "./useActivityForm";
 type ActivityFormProps = {
 	isTask?: boolean;
 	modalId?: ModalId;
-	activity?: ActivityWithIds;
+	activity?: PossiblySyntheticActivity;
 };
 
 /** This component functions as a form to create a new activity, or to update an

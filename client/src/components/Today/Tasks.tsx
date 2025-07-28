@@ -3,14 +3,14 @@ import { filterTagsById } from "@/lib/filter-tags";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import { trpc } from "@/lib/trpc";
-import type { ActivityWithIds } from "@shared/lib/schemas/activity";
+import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import { useQuery } from "@tanstack/react-query";
 import Task from "./Task";
 import T from "./style/Tasks.style";
 import S from "./style/Today.style";
 
 type TasksProps = {
-	activities: ActivityWithIds[];
+	activities: PossiblySyntheticActivity[];
 };
 
 export default function Tasks({ activities }: TasksProps) {
@@ -24,7 +24,7 @@ export default function Tasks({ activities }: TasksProps) {
 				<T.Tasks>
 					{activities.map((a) => (
 						<Task
-							key={a.activity_id}
+							key={a.activity_id ?? a.synthetic_id}
 							activity={a}
 							tags={filterTagsById(a.tag_ids, tagsData?.byId)}
 						/>

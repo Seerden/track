@@ -59,7 +59,9 @@ export const queryActivityByIdWithRelations: QueryFunction<
 /** Fetch all of a user's activities, all the activityTagRelations, and for each
  * activity, merge the tags into activity.tags.
  * @todo TRK-206: consider implementing an optional parameter, `recurring`, that
- * when specified only fetches recurring activities. */
+ * when specified only fetches recurring activities.
+ * @todo TRK-206: recurring activities will all use the same tags (those from
+ * the original activity). Expand this function to include pass those tags to the */
 export const queryActivitiesAndRelations: QueryFunction<
 	{ user_id: ID; recurring?: boolean },
 	Promise<ById<ActivityWithIds>>

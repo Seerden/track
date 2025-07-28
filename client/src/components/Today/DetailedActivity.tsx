@@ -10,13 +10,13 @@ import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import CardStyle from "@/lib/theme/components/Card.style";
 import { trpc } from "@/lib/trpc";
-import type { ActivityWithIds } from "@shared/lib/schemas/activity";
+import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { Datelike } from "@shared/lib/schemas/timestamp";
 import { useQuery } from "@tanstack/react-query";
 import { PenLine } from "lucide-react";
 
 type DetailedActivityProps = {
-	activity: ActivityWithIds;
+	activity: PossiblySyntheticActivity;
 };
 
 // TODO: instead of this, do time (humanizedDate), with a tooltip on

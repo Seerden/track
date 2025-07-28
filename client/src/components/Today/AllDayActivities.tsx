@@ -1,9 +1,9 @@
 import AllDayActivity from "@/components/Today/AllDayActivity";
-import type { ActivityWithIds } from "@shared/lib/schemas/activity";
+import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import S from "./style/Today.style";
 
 type AllDayActivitiesProps = {
-	activities: ActivityWithIds[];
+	activities: PossiblySyntheticActivity[];
 };
 
 export default function AllDayActivities({ activities }: AllDayActivitiesProps) {

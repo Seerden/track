@@ -4,6 +4,7 @@ import {
 } from "@/lib/trpc/resolvers/activity/delete-recurrences";
 import {
 	createActivity,
+	createRealSyntheticActivity,
 	createRecurringActivity,
 } from "@/lib/trpc/resolvers/activity/insert-activities";
 import {
@@ -35,6 +36,7 @@ export const activityRouter = t.router({
 	recurring: queryRecurringActivities,
 	create: createActivity,
 	createRecurring: createRecurringActivity,
+	createFromSynthetic: createRealSyntheticActivity,
 	update: updateActivity,
 	updateCompletion: updateTaskCompletion,
 	recurrences: {
