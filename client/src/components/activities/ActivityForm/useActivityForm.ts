@@ -28,16 +28,14 @@ function createDefaultActivity({
 	// ^ TODO (TRK-204): to implement the above TODO, we should use
 	// z.input<typeof newActivitySchema>. It would require removing the user_id
 	// property from here, then adding it in the submit hook or on the server.
-	const defaultNewActivity: Partial<NewActivity> = {
+	return {
 		name: "",
 		description: "",
 		user_id,
 		is_task,
 		occurrence: null,
 		recurrence_id: null
-	};
-
-	return defaultNewActivity;
+	} satisfies Partial<NewActivity>;
 }
 
 type ActivityState = Partial<NewActivity> | Partial<ActivityWithIds>;
