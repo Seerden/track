@@ -39,10 +39,7 @@ export default function AllDayActivity({ activity }: AllDayActivityProps) {
 				if (checkboxRef.current?.contains(e.target as Node)) return;
 
 				e.stopPropagation();
-				// TODO TRK-206: if it's synthetic, we use recurrence_id, but that's not
-				// enough, I think. Maybe we should give each synthetic activity a
-				// temporary unique ID?
-				openDetailedItemModal(activity.activity_id ?? `${activity.synthetic_id}`);
+				openDetailedItemModal(activity.activity_id ?? activity.synthetic_id);
 			}}
 		>
 			<p title="This activity lasts all day">
