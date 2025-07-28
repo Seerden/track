@@ -47,9 +47,7 @@ export function createSyntheticActivitiesForTimeWindow({
 
 	// For activities that start after the time window, we don't need synthetics,
 	// because they won't be visible anyway.
-	if (start.isAfter(timeWindow.endDate)) {
-		return [];
-	}
+	if (start.isAfter(timeWindow.endDate)) return [];
 
 	const createSyntheticsArgs = {
 		recurrence,
@@ -185,7 +183,7 @@ const createSyntheticsForCalendarRecurrence: CreateSynthetics = ({
 		) {
 			// TODO: does dayjs ensure that this then always is set to the
 			// start of the day, or does it do something like add 24 hours
-			// and pretend it's shifted it a single day (relevant for e.g.
+			// and pretend it's shifted it a single day? (relevant for e.g.
 			// daylight savings, since then the isAllDay check on the
 			// synthetic activity could fail, even if it shouldn't)
 			const newStart = start.add(offset + iteration, "day");
@@ -207,13 +205,12 @@ const createSyntheticsForCalendarRecurrence: CreateSynthetics = ({
 			);
 
 			if (
-				// check if the synthetic falls in the time window
+				// only push if synthetic falls inside the time window
 				!activityStart(synthetic).isAfter(timeWindow.endDate) &&
 				!activityEnd(synthetic).isBefore(timeWindow.startDate) &&
 				// if the synthetic activity is identical to the original, discard it
 				offset + iteration > 0
 			) {
-				// maybe push synthetic
 				synthetics.push(synthetic);
 			}
 		}

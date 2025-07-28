@@ -16,6 +16,11 @@ export function useQueryActivities() {
 
 	useEffect(() => {
 		const activities = byIdAsList(query.data?.byId);
+		// TODO: we could use the activities.recurring query instead to map over,
+		// which would be slightly more efficient, but that would require proper
+		// implementation of the query keys (resetting activities.all should also
+		// reset activities.recurring, but I don't think the trpc wrapper does
+		// that by default
 		const syntheticActivities = activities
 			.map((activity) => {
 				if (!recurrences || !activity.recurrence_id) return null;
