@@ -25,7 +25,10 @@ function format(date: Datelike) {
 	return createDate(date).format("HH:mm (YYYY/MM/DD)");
 }
 
-export default function DetailedActivity({ activity }: DetailedActivityProps) {
+export default function DetailedActivity({
+	activity,
+	DEBUG
+}: DetailedActivityProps & { DEBUG?: boolean }) {
 	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
 	const putCompletion = usePutTaskCompletion(activity);
 	const humanizedStart = `${startsInFuture(activity) ? "starts" : "started"} ${activityStart(activity).fromNow()}`;
@@ -120,6 +123,19 @@ export default function DetailedActivity({ activity }: DetailedActivityProps) {
 			<Modal modalId={modalIds.activities.form}>
 				<ActivityForm activity={activity} modalId={modalIds.activities.form} />
 			</Modal>
+
+			{DEBUG && (
+				<span
+					style={{
+						position: "absolute",
+						bottom: "0.5rem",
+						right: "1.5rem",
+						opacity: 0.3
+					}}
+				>
+					ID {activity.activity_id ?? activity.synthetic_id}
+				</span>
+			)}
 		</S.Wrapper>
 	);
 }
