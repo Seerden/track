@@ -40,7 +40,7 @@ export const activityRouter = t.router({
 	update: updateActivity,
 	updateCompletion: updateTaskCompletion,
 	recurrences: {
-		queryByUser: _getRecurrencesByUser,
+		all: _getRecurrencesByUser,
 		queryByActivity: _getRecurrenceByActivity,
 		create: _createRecurrence,
 		delete: deleteRecurrenceById,

@@ -22,13 +22,14 @@ export function useMutateNewRecurringActivity() {
 					queryKey: trpc.activities.all.queryKey()
 				});
 				queryClient.invalidateQueries({
-					queryKey: trpc.activities.recurrences.queryByUser.queryKey()
+					queryKey: trpc.activities.recurrences.all.queryKey()
 				});
 			}
 		})
 	);
 }
 
+/** Mutation hook that turns a synthetic activity into a real one. */
 export function useMutateNewSyntheticActivity() {
 	return useMutation(
 		trpc.activities.createFromSynthetic.mutationOptions({
@@ -37,7 +38,7 @@ export function useMutateNewSyntheticActivity() {
 					queryKey: trpc.activities.all.queryKey()
 				});
 				queryClient.invalidateQueries({
-					queryKey: trpc.activities.recurrences.queryByUser.queryKey()
+					queryKey: trpc.activities.recurrences.all.queryKey()
 				});
 			}
 		})

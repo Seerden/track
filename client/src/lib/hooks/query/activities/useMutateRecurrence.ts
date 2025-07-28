@@ -1,13 +1,14 @@
 import { queryClient } from "@/lib/query-client";
 import { trpc } from "@/lib/trpc";
 import { useMutation } from "@tanstack/react-query";
+import { invalidateActivities } from "../invalidate";
 
 export const useMutateNewRecurrence = () =>
 	useMutation(
 		trpc.activities.recurrences.create.mutationOptions({
 			onSuccess: () => {
 				queryClient.invalidateQueries({
-					queryKey: trpc.activities.recurrences.queryByUser.queryKey()
+					queryKey: trpc.activities.recurrences.all.queryKey()
 				});
 			}
 		})
@@ -28,12 +29,7 @@ export const useMutateUpdateRecurrence = () => {
 	return useMutation(
 		trpc.activities.recurrences.update.mutationOptions({
 			onSuccess: () => {
-				queryClient.invalidateQueries({
-					queryKey: trpc.activities.all.queryKey()
-				});
-				queryClient.invalidateQueries({
-					queryKey: trpc.activities.recurrences.queryByUser.queryKey()
-				});
+				invalidateActivities();
 			}
 		})
 	);
@@ -58,12 +54,7 @@ export const useMutateDeleteRecurrence = () => {
 	return useMutation(
 		trpc.activities.recurrences.delete.mutationOptions({
 			onSuccess: () => {
-				queryClient.invalidateQueries({
-					queryKey: trpc.activities.recurrences.queryByUser.queryKey()
-				});
-				queryClient.invalidateQueries({
-					queryKey: trpc.activities.all.queryKey()
-				});
+				invalidateActivities();
 			}
 		})
 	);

@@ -42,7 +42,7 @@ export function useSubmitUpdatedActivity(
 						queryKey: trpc.activities.all.queryKey()
 					});
 					queryClient.invalidateQueries({
-						queryKey: trpc.activities.recurrences.queryByUser.queryKey()
+						queryKey: trpc.activities.recurrences.all.queryKey()
 					});
 
 					if (modalId) {
@@ -78,7 +78,7 @@ export function useSubmitNewActivity({
 	function handleSuccess() {
 		queryClient.invalidateQueries({ queryKey: trpc.activities.all.queryKey() });
 		queryClient.invalidateQueries({
-			queryKey: trpc.activities.recurrences.queryByUser.queryKey()
+			queryKey: trpc.activities.recurrences.all.queryKey()
 		});
 		if (modalId) closeModal(modalId);
 		else navigate({ to: "/today" });

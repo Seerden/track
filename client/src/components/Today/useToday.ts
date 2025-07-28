@@ -16,9 +16,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 /** Functionality hook for the Today component. */
 export default function useToday() {
 	const { data: activitiesData } = useQueryActivities();
-	const { data: recurrences } = useQuery(
-		trpc.activities.recurrences.queryByUser.queryOptions()
-	);
+	const { data: recurrences } = useQuery(trpc.activities.recurrences.all.queryOptions());
 	const syntheticActivities = useAtomValue(syntheticActivitiesAtom);
 	const { getHabitsForTimeWindow } = useHabitsData();
 	const [currentDate, setCurrentDate] = useState<Dayjs>(() => today());

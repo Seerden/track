@@ -10,9 +10,7 @@ import { useEffect } from "react";
 
 export function useQueryActivities() {
 	const query = useQuery(trpc.activities.all.queryOptions());
-	const { data: recurrences } = useQuery(
-		trpc.activities.recurrences.queryByUser.queryOptions()
-	);
+	const { data: recurrences } = useQuery(trpc.activities.recurrences.all.queryOptions());
 	const timeWindow = useAtomValue(timeWindowAtom);
 	const setSyntheticActivities = useSetAtom(syntheticActivitiesAtom);
 
