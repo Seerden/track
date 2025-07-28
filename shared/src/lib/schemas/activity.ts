@@ -114,6 +114,7 @@ export const newActivityBaseSchema = z.object({
 	description: z.string(),
 	duration_milliseconds: z.number().nullable().optional().default(null),
 	is_task: z.boolean().optional().default(false),
+	will_recur: z.boolean().nullable().optional().default(false),
 });
 export type NewActivityBase = z.infer<typeof newActivityBaseSchema>;
 
@@ -152,7 +153,9 @@ export const activityOccurrenceBaseSchema = z.union([
 		recurrence_id: z.null(),
 	}),
 	z.object({
-		occurrence: z.number(),
+		/** @note only recurring instances have an `occurrence` number. The
+		 * original activity does not. */
+		occurrence: z.number().nullable(),
 		recurrence_id: z.string(),
 	}),
 ]);
@@ -160,9 +163,8 @@ export type ActivityOccurrenceBase = z.infer<
 	typeof activityOccurrenceBaseSchema
 >;
 
-export const newActivitySchema = z.intersection(
+export const newActivitySchema = activityOccurrenceBaseSchema.and(
 	z.union([activityWithTimestampsSchema, activityWithDatesSchema]),
-	activityOccurrenceBaseSchema,
 );
 
 export type NewActivity = z.infer<typeof newActivitySchema>;
@@ -219,3 +221,23 @@ export const taskUpdateInputSchema = z.intersection(
 );
 
 export type TaskUpdateInput = z.infer<typeof taskUpdateInputSchema>;
+
+// TODO TRK-206: this needs some work
+export const syntheticActivitySchema = activityWithIdsSchema
+	.and(
+		z.object({
+			synthetic: z.literal(true),
+			synthetic_id: z.string(),
+		}),
+	)
+	// TODO: synthetic activities should not have an ID. It should be
+	// appended to the activity on submission (i.e. when it becomes
+	// non-synthetic). Check how I did this for habits.
+	.transform((activity) => ({ ...activity, activity_id: null }));
+export type SyntheticActivity = z.infer<typeof syntheticActivitySchema>;
+
+/**
+ * @note client only, since the concept of a synthetic activity lives only in
+ * the client. Should probably move it to the client, too.
+ */
+export type PossiblySyntheticActivity = ActivityWithIds | SyntheticActivity;

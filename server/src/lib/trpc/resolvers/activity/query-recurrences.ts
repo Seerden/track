@@ -6,8 +6,8 @@ import {
 	queryRecurrenceByActivity,
 	queryRecurrencesByUser,
 } from "@/lib/data/models/activities/query-recurrences";
-import { groupById } from "@/lib/data/models/group-by-id";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
+import { groupById } from "@shared/lib/map";
 import { z } from "@shared/lib/zod";
 
 export const _queryOccurrencesByUser = authenticatedProcedure.query(

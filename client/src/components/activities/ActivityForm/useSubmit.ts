@@ -42,7 +42,7 @@ export function useSubmitUpdatedActivity(
 						queryKey: trpc.activities.all.queryKey()
 					});
 					queryClient.invalidateQueries({
-						queryKey: trpc.activities.recurrences.queryByUser.queryKey()
+						queryKey: trpc.activities.recurrences.all.queryKey()
 					});
 
 					if (modalId) {
@@ -78,7 +78,7 @@ export function useSubmitNewActivity({
 	function handleSuccess() {
 		queryClient.invalidateQueries({ queryKey: trpc.activities.all.queryKey() });
 		queryClient.invalidateQueries({
-			queryKey: trpc.activities.recurrences.queryByUser.queryKey()
+			queryKey: trpc.activities.recurrences.all.queryKey()
 		});
 		if (modalId) closeModal(modalId);
 		else navigate({ to: "/today" });
@@ -86,7 +86,10 @@ export function useSubmitNewActivity({
 
 	function onSubmit() {
 		if (isRecurring) {
-			const parsedActivity = newActivitySchema.safeParse(activity);
+			const parsedActivity = newActivitySchema.safeParse({
+				...activity,
+				will_recur: true
+			} as NewActivity);
 			const parsedRecurrence = newRecurrenceInputSchema.safeParse(recurrence);
 
 			if (!parsedActivity.success || !parsedRecurrence.success) {
@@ -100,7 +103,11 @@ export function useSubmitNewActivity({
 			}
 
 			submitNewRecurringActivity(
-				{ activity: parsedActivity.data, recurrence: parsedRecurrence.data },
+				{
+					activity: parsedActivity.data,
+					recurrence: parsedRecurrence.data,
+					tagIds: selectedTagIds
+				},
 				{ onSuccess: handleSuccess }
 			);
 		} else {

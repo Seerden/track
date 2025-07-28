@@ -1,12 +1,12 @@
 import CurrentTimeMark from "@/components/Today/CurrentTimeMark";
 import { isToday } from "@/lib/datetime/compare";
 import useCurrentTime from "@/lib/hooks/useCurrentTime";
+import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { ID } from "@shared/types/data/utility.types";
 import type { Dayjs } from "dayjs";
 import Activity from "./Activity";
 import HourMark from "./HourMark";
 import R from "./style/TimelineRow.style";
-import type { ActivityWithIds } from "@shared/lib/schemas/activity";
 
 type RowProps = {
 	date: Dayjs;
@@ -14,7 +14,7 @@ type RowProps = {
 	 * refers to midnight of the following day and is only there for display
 	 * purposes. */
 	index: number;
-	activities: ActivityWithIds[];
+	activities: PossiblySyntheticActivity[];
 	indentation: Map<ID, number>;
 };
 
@@ -33,10 +33,10 @@ export default function TimelineRow({ date, index, activities, indentation }: Ro
 
 			{activities.map((a) => (
 				<Activity
-					key={a.activity_id}
+					key={a.activity_id ?? a.synthetic_id}
 					date={date}
 					activity={a}
-					level={indentation.get(a.activity_id) ?? 0}
+					level={indentation.get(a.activity_id ?? a.synthetic_id) ?? 0}
 				/>
 			))}
 		</R.Row>

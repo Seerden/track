@@ -1,19 +1,19 @@
 import { getLocalHour } from "@/lib/datetime/local";
 import { createDate, now } from "@/lib/datetime/make-date";
+import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { ID } from "@shared/types/data/utility.types";
 import type { Dayjs } from "dayjs";
 import { sameDay } from "./datetime/compare";
-import type { ActivityWithIds } from "@shared/lib/schemas/activity";
 
 /** Gets the `start` of an activity, which is either a timestamp or
  * year-month-date string. */
-export function activityStart(activity: ActivityWithIds) {
+export function activityStart(activity: PossiblySyntheticActivity) {
 	return createDate(activity.start_date ?? activity.started_at);
 }
 
 /** Gets the `end` of an activity, which is either a timestamp or
  * year-month-date string. */
-export function activityEnd(activity: ActivityWithIds) {
+export function activityEnd(activity: PossiblySyntheticActivity) {
 	return createDate(activity.end_date ?? activity.ended_at);
 }
 
@@ -22,7 +22,7 @@ export function activityEnd(activity: ActivityWithIds) {
  * but if the activity only takes place on `date`, this returns the actual start
  * of the activity. If the activity doesn't fall on `date` at all, this returns
  * null. */
-export function activityStartOnDate(activity: ActivityWithIds, date: Dayjs) {
+export function activityStartOnDate(activity: PossiblySyntheticActivity, date: Dayjs) {
 	if (!activityFallsOnDay(activity, date)) return null;
 
 	const _date = date.startOf("day");
@@ -31,7 +31,7 @@ export function activityStartOnDate(activity: ActivityWithIds, date: Dayjs) {
 }
 
 /** Analogous to `activityStartOnDate`. */
-export function activityEndOnDate(activity: ActivityWithIds, date: Dayjs) {
+export function activityEndOnDate(activity: PossiblySyntheticActivity, date: Dayjs) {
 	if (!activityFallsOnDay(activity, date)) return null;
 	const _date = date.endOf("day");
 	const end = activityEnd(activity);
@@ -39,7 +39,7 @@ export function activityEndOnDate(activity: ActivityWithIds, date: Dayjs) {
 }
 
 /** Checks if any part of `activity` falls on `date`. */
-export function activityFallsOnDay(activity: ActivityWithIds, date: Dayjs) {
+export function activityFallsOnDay(activity: PossiblySyntheticActivity, date: Dayjs) {
 	const start = activityStart(activity);
 	const end = activityEnd(activity);
 
@@ -54,7 +54,7 @@ export function activityFallsOnDay(activity: ActivityWithIds, date: Dayjs) {
  * Note that for e.g. Today, we limit the activity visually to end at 23:59.
  * This is done in the Today component though, so we don't have to worry about
  * it here. */
-export function activityDurationOnDate(activity: ActivityWithIds, date: Dayjs) {
+export function activityDurationOnDate(activity: PossiblySyntheticActivity, date: Dayjs) {
 	const [start, end] = [
 		activityStartOnDate(activity, date),
 		activityEndOnDate(activity, date)
@@ -70,7 +70,10 @@ export function activityDurationOnDate(activity: ActivityWithIds, date: Dayjs) {
  * `date`.
  *
  * @usage this  allows us to render activities in the correct hour row in the UI. */
-export function activityStartHourOnDate(activity: ActivityWithIds, date: Dayjs) {
+export function activityStartHourOnDate(
+	activity: PossiblySyntheticActivity,
+	date: Dayjs
+) {
 	if (!activityFallsOnDay(activity, date)) {
 		return -1;
 	}
@@ -80,7 +83,10 @@ export function activityStartHourOnDate(activity: ActivityWithIds, date: Dayjs) 
 }
 
 /** Checks if two activities (partially) occur at the same time. */
-export function isSimultaneousActivity(one: ActivityWithIds, two: ActivityWithIds) {
+export function isSimultaneousActivity(
+	one: PossiblySyntheticActivity,
+	two: PossiblySyntheticActivity
+) {
 	const [startOne, endOne] = [activityStart(one), activityEnd(one)];
 	const [startTwo, endTwo] = [activityStart(two), activityEnd(two)];
 
@@ -92,7 +98,7 @@ export function isSimultaneousActivity(one: ActivityWithIds, two: ActivityWithId
 
 /** Checks if an activity is a single-day all-day activity, i.e. starts at
  * midnight on a day, and ends at 23:59 (midnight) on the same day. */
-export function isAllDaySingleDayActivity(activity: ActivityWithIds) {
+export function isAllDaySingleDayActivity(activity: PossiblySyntheticActivity) {
 	const [start, end] = [activityStart(activity), activityEnd(activity)];
 	const [startDay, endDay] = [start.startOf("day"), end.endOf("day")];
 	return (
@@ -106,7 +112,7 @@ export function isAllDaySingleDayActivity(activity: ActivityWithIds) {
 /** Checks if an an `activity` lasts all day on the given `date`.
  * TODO: `isAllDaySingleDayActivity()` is not necessary if we use this one properly
  * instead. */
-export function isAllDayActivityOnDate(activity: ActivityWithIds, date: Dayjs) {
+export function isAllDayActivityOnDate(activity: PossiblySyntheticActivity, date: Dayjs) {
 	const [startOfDay, endOfDay] = [date.startOf("day"), date.endOf("day")];
 	const [startActivity, endActivity] = [activityStart(activity), activityEnd(activity)];
 	return !startOfDay.isBefore(startActivity) && !endOfDay.isAfter(endActivity);
@@ -115,7 +121,10 @@ export function isAllDayActivityOnDate(activity: ActivityWithIds, date: Dayjs) {
 /** Given a list of `activities` and a `date`, this finds all the unique
  * (unix) timestamps at which at least one activity starts, or at least one
  * activity ends. */
-export function getAllStartAndEndTimesOnDate(activities: ActivityWithIds[], date: Dayjs) {
+export function getAllStartAndEndTimesOnDate(
+	activities: PossiblySyntheticActivity[],
+	date: Dayjs
+) {
 	const times = new Set<number>();
 
 	const startOfDay = date.startOf("day");
@@ -141,7 +150,10 @@ export function getAllStartAndEndTimesOnDate(activities: ActivityWithIds[], date
 }
 
 /** Check if `activity` occurs on `timestamp` (unix timestamp). */
-function activityOccursOnTimestamp(activity: ActivityWithIds, timestamp: number) {
+function activityOccursOnTimestamp(
+	activity: PossiblySyntheticActivity,
+	timestamp: number
+) {
 	const [start, end] = [activityStart(activity), activityEnd(activity)];
 	return (
 		// Note that `end` is exclusive (so only in `start` do we check for
@@ -172,7 +184,7 @@ function activityOccursOnTimestamp(activity: ActivityWithIds, timestamp: number)
  *
  * */
 export function assignIndentationLevelToActivities(
-	activities: ActivityWithIds[],
+	activities: PossiblySyntheticActivity[],
 	date: Dayjs
 ) {
 	const timestamps = getAllStartAndEndTimesOnDate(activities, date);
@@ -186,9 +198,12 @@ export function assignIndentationLevelToActivities(
 		const sortedByStartAndEnd = sortActivitiesByTime(activitiesAtTimestamp);
 
 		for (const [index, value] of sortedByStartAndEnd.entries()) {
-			const newLevel = Math.max(index, indentation.get(value.activity_id) ?? 0);
+			const newLevel = Math.max(
+				index,
+				indentation.get(value.activity_id ?? value.synthetic_id) ?? 0
+			);
 
-			indentation.set(value.activity_id, newLevel);
+			indentation.set(value.activity_id ?? value.synthetic_id, newLevel);
 		}
 	}
 
@@ -202,7 +217,10 @@ export function assignIndentationLevelToActivities(
 	// overlaps and then first handle the one that start first, etc.
 	let newLevel = 0;
 	while (activityToOffset) {
-		indentation.set(activityToOffset.activity_id, newLevel++);
+		indentation.set(
+			activityToOffset.activity_id ?? activityToOffset.synthetic_id,
+			newLevel++
+		);
 		activityToOffset = firstOverlappingActivity(activities, indentation);
 	}
 
@@ -211,7 +229,7 @@ export function assignIndentationLevelToActivities(
 
 /** Sort a list of `activities` in order of ascending time. If two activities
  * start at the same time, the one that lasts longer goes first. */
-function sortActivitiesByTime(activities: ActivityWithIds[]) {
+function sortActivitiesByTime(activities: PossiblySyntheticActivity[]) {
 	return activities.sort((a, b) => {
 		const [startA, endA] = [activityStart(a), activityEnd(a)];
 		const [startB, endB] = [activityStart(b), activityEnd(b)];
@@ -226,7 +244,7 @@ function sortActivitiesByTime(activities: ActivityWithIds[]) {
  * with the same indentation level)
  */
 function firstOverlappingActivity(
-	activities: ActivityWithIds[],
+	activities: PossiblySyntheticActivity[],
 	indentation: Map<ID, number>
 ) {
 	const grouped = Array.from(
@@ -254,12 +272,12 @@ function firstOverlappingActivity(
 
 /** Checks if an `activity` starts after the point in time at which this function
  * is called. */
-export function startsInFuture(activity: ActivityWithIds) {
+export function startsInFuture(activity: PossiblySyntheticActivity) {
 	return activityStart(activity).isAfter(now());
 }
 
 /** Checks if an `activity` ends after the point in time at which this function is
  *called. */
-export function hasNotEnded(activity: ActivityWithIds) {
+export function hasNotEnded(activity: PossiblySyntheticActivity) {
 	return activityEnd(activity).isAfter(now());
 }

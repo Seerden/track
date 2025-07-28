@@ -1,6 +1,6 @@
 import { createDate } from "@/lib/datetime/make-date";
 import type { TimeWindow } from "@/types/time-window.types";
-import { groupById } from "@server/lib/data/models/group-by-id";
+import { groupById } from "@shared/lib/map";
 import type {
 	Habit,
 	HabitEntry,

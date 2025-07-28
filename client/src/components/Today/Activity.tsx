@@ -1,11 +1,11 @@
 import { activityDurationOnDate, activityStartOnDate } from "@/lib/activity";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import modalIds from "@/lib/modal-ids";
-import type { ActivityWithIds } from "@shared/lib/schemas/activity";
+import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { Dayjs } from "dayjs";
 import T from "./style/Activity.style";
 
-function useActivity(activity: ActivityWithIds, date: Dayjs) {
+function useActivity(activity: PossiblySyntheticActivity, date: Dayjs) {
 	const start = activityStartOnDate(activity, date);
 	const offset = !start ? 0 : start.minute() / 60;
 	const { openDetailedItemModal } = useDetailedItemModal(
@@ -25,7 +25,7 @@ function useActivity(activity: ActivityWithIds, date: Dayjs) {
 }
 
 export type ActivityProps = {
-	activity: ActivityWithIds;
+	activity: PossiblySyntheticActivity;
 	level: number;
 	date: Dayjs;
 };
@@ -43,7 +43,7 @@ export default function Activity({ activity, level, date }: ActivityProps) {
 			$offset={offset}
 			onClick={(e) => {
 				e.stopPropagation();
-				openDetailedItemModal(activity.activity_id);
+				openDetailedItemModal(activity.activity_id ?? activity.synthetic_id);
 			}}
 		>
 			{/* TODO: on mouseover, display a short humanized time string */}

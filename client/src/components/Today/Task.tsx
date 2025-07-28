@@ -2,14 +2,14 @@ import { useTask } from "@/components/Today/useTask";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import { formatToHHmm } from "@/lib/datetime/format-date";
 import { activityEnd, activityStart } from "@lib/activity";
-import type { ActivityWithIds } from "@shared/lib/schemas/activity";
+import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { TagWithIds } from "@shared/lib/schemas/tag";
 import TagCard from "../tags/TagCard/TagCard";
 import T from "./style/Tasks.style";
 import S from "./style/Today.style";
 
 type TaskProps = {
-	activity: ActivityWithIds;
+	activity: PossiblySyntheticActivity;
 	tags?: TagWithIds[];
 };
 

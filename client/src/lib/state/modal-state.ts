@@ -25,7 +25,6 @@ export function useModalState() {
 		setModalIds(
 			produce((current) => {
 				if (!current.includes(modalId)) {
-					console.log({ current });
 					current.push(modalId);
 				}
 			})

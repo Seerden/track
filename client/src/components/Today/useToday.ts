@@ -1,18 +1,23 @@
 import { activityFallsOnDay, isAllDayActivityOnDate } from "@/lib/activity";
 import { formatDate } from "@/lib/datetime/format-date";
 import { today } from "@/lib/datetime/make-date";
+import { useQueryActivities } from "@/lib/hooks/query/activities/useQueryActivities";
 import useHabitsData from "@/lib/hooks/useHabitsData";
+import { syntheticActivitiesAtom } from "@/lib/state/synthetic-activity-state";
 import { timeWindowAtom } from "@/lib/state/time-window.state";
 import { trpc } from "@/lib/trpc";
 import { byIdAsList } from "@shared/lib/map";
+import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import { useQuery } from "@tanstack/react-query";
 import type { Dayjs } from "dayjs";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 /** Functionality hook for the Today component. */
 export default function useToday() {
-	const { data: activitiesData } = useQuery(trpc.activities.all.queryOptions());
+	const { data: activitiesData } = useQueryActivities();
+	const { data: recurrences } = useQuery(trpc.activities.recurrences.all.queryOptions());
+	const syntheticActivities = useAtomValue(syntheticActivitiesAtom);
 	const { getHabitsForTimeWindow } = useHabitsData();
 	const [currentDate, setCurrentDate] = useState<Dayjs>(() => today());
 	const [timeWindow, setTimeWindow] = useAtom(timeWindowAtom);
@@ -45,8 +50,17 @@ export default function useToday() {
 		}, 25);
 	}
 
-	// TODO: check if this needs to be a memo
-	const activities = byIdAsList(activitiesData?.byId);
+	const activities = useMemo(() => {
+		const activities = byIdAsList(activitiesData?.byId);
+
+		const allActivities: PossiblySyntheticActivity[] =
+			// @ts-expect-error: Concat is faster than destructuring both. We don't
+			// care that concat expects the same type.
+			activities.concat(syntheticActivities);
+
+		return allActivities;
+	}, [activitiesData?.byId, timeWindow, recurrences, syntheticActivities]);
+
 	const todayActivities = useMemo(() => {
 		return activities.filter((activity) => {
 			return activityFallsOnDay(activity, currentDate);

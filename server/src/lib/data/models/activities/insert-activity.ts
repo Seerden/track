@@ -11,7 +11,7 @@ import type {
 import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 
-const insertActivity: QueryFunction<
+export const insertActivity: QueryFunction<
 	{ activity: NewActivity },
 	Promise<Activity>
 > = async ({ sql = sqlConnection, activity }) => {

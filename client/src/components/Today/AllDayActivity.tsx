@@ -2,13 +2,13 @@ import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
-import type { ActivityWithIds } from "@shared/lib/schemas/activity";
+import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import { LucideHistory } from "lucide-react";
 import { useRef } from "react";
 import T from "./style/AllDayActivity.style";
 import S from "./style/Today.style";
 
-function useAllDayActivity(activity: ActivityWithIds) {
+function useAllDayActivity(activity: PossiblySyntheticActivity) {
 	const { openDetailedItemModal } = useDetailedItemModal(
 		"activity",
 		modalIds.detailedActivity
@@ -24,7 +24,7 @@ function useAllDayActivity(activity: ActivityWithIds) {
 }
 
 type AllDayActivityProps = {
-	activity: ActivityWithIds;
+	activity: PossiblySyntheticActivity;
 };
 
 export default function AllDayActivity({ activity }: AllDayActivityProps) {
@@ -39,7 +39,7 @@ export default function AllDayActivity({ activity }: AllDayActivityProps) {
 				if (checkboxRef.current?.contains(e.target as Node)) return;
 
 				e.stopPropagation();
-				openDetailedItemModal(activity.activity_id);
+				openDetailedItemModal(activity.activity_id ?? activity.synthetic_id);
 			}}
 		>
 			<p title="This activity lasts all day">

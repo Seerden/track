@@ -6,6 +6,7 @@ import {
 	type ActivityWithIds,
 	type NewActivity,
 	type NewRecurrenceInput,
+	type PossiblySyntheticActivity,
 	type WithDates,
 	type WithTimestamps
 } from "@shared/lib/schemas/activity";
@@ -66,7 +67,7 @@ export default function useActivityForm({
 }: {
 	initialIsTask?: boolean;
 	modalId?: ModalId;
-	activity?: ActivityWithIds;
+	activity?: PossiblySyntheticActivity;
 }) {
 	const isEditing = !!existingActivity;
 	const title = existingActivity ? "Edit activity" : "Create an activity";
@@ -98,7 +99,8 @@ export default function useActivityForm({
 	const { onSubmit: handleSubmit } = useSubmitNewActivity({
 		activity,
 		modalId,
-		recurrence
+		recurrence,
+		isRecurring
 	});
 
 	useEffect(() => {

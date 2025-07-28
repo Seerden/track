@@ -4,13 +4,17 @@ import {
 } from "@/lib/trpc/resolvers/activity/delete-recurrences";
 import {
 	createActivity,
+	createRealSyntheticActivity,
 	createRecurringActivity,
 } from "@/lib/trpc/resolvers/activity/insert-activities";
 import {
 	_createRecurrence,
 	createOccurrence,
 } from "@/lib/trpc/resolvers/activity/insert-recurrences";
-import { queryActivities } from "@/lib/trpc/resolvers/activity/query-activities";
+import {
+	queryActivities,
+	queryRecurringActivities,
+} from "@/lib/trpc/resolvers/activity/query-activities";
 import {
 	_getRecurrenceByActivity,
 	_getRecurrencesByUser,
@@ -29,12 +33,14 @@ import { t } from "@/lib/trpc/trpc-context";
 
 export const activityRouter = t.router({
 	all: queryActivities,
+	recurring: queryRecurringActivities,
 	create: createActivity,
 	createRecurring: createRecurringActivity,
+	createFromSynthetic: createRealSyntheticActivity,
 	update: updateActivity,
 	updateCompletion: updateTaskCompletion,
 	recurrences: {
-		queryByUser: _getRecurrencesByUser,
+		all: _getRecurrencesByUser,
 		queryByActivity: _getRecurrenceByActivity,
 		create: _createRecurrence,
 		delete: deleteRecurrenceById,

@@ -4,6 +4,7 @@ import DetailedActivity from "@/components/Today/DetailedActivity";
 import Modal from "@/components/utility/Modal/Modal";
 import modalIds from "@/lib/modal-ids";
 import { activeItemAtom } from "@/lib/state/active-item-state";
+import { syntheticActivitiesAtom } from "@/lib/state/synthetic-activity-state";
 import { trpc } from "@/lib/trpc";
 import { useQuery } from "@tanstack/react-query";
 import { useAtomValue } from "jotai";
@@ -12,7 +13,7 @@ export default function DetailModals() {
 	const { data: tags } = useQuery(trpc.tags.all.queryOptions());
 	const { data: activities } = useQuery(trpc.activities.all.queryOptions());
 	const { data: habits } = useQuery(trpc.habits.all.queryOptions());
-
+	const syntheticActivities = useAtomValue(syntheticActivitiesAtom);
 	const { tag, habit, activity } = useAtomValue(activeItemAtom);
 
 	// TODO: because not all ids are bigints parsed to strings, and we manually
@@ -22,7 +23,8 @@ export default function DetailModals() {
 	// ids to be strings everywhere.
 	const activeTag = tag.activeId ? tags?.byId.get(String(tag.activeId)) : null;
 	const activeActivity = activity.activeId
-		? activities?.byId.get(String(activity.activeId))
+		? (activities?.byId.get(String(activity.activeId)) ??
+			syntheticActivities.find((a) => a.synthetic_id === activity.activeId))
 		: null;
 	const activeHabit = habit.activeId ? habits?.byId.get(String(habit.activeId)) : null;
 
