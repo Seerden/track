@@ -103,7 +103,11 @@ export function useSubmitNewActivity({
 			}
 
 			submitNewRecurringActivity(
-				{ activity: parsedActivity.data, recurrence: parsedRecurrence.data },
+				{
+					activity: parsedActivity.data,
+					recurrence: parsedRecurrence.data,
+					tagIds: selectedTagIds
+				},
 				{ onSuccess: handleSuccess }
 			);
 		} else {
