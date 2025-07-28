@@ -235,3 +235,9 @@ export const syntheticActivitySchema = activityWithIdsSchema
 	// non-synthetic). Check how I did this for habits.
 	.transform((activity) => ({ ...activity, activity_id: null }));
 export type SyntheticActivity = z.infer<typeof syntheticActivitySchema>;
+
+/**
+ * @note client only, since the concept of a synthetic activity lives only in
+ * the client. Should probably move it to the client, too.
+ */
+export type PossiblySyntheticActivity = ActivityWithIds | SyntheticActivity;
