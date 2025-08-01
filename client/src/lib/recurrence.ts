@@ -22,6 +22,7 @@ export function isSyntheticActivity(
 function createSyntheticActivity(activity: ActivityWithIds): SyntheticActivity {
 	return syntheticActivitySchema.parse({
 		...activity,
+		completed: false,
 		synthetic: true,
 		synthetic_id: `${activity.activity_id}-${activity.recurrence_id}-${uuid()}`
 		// TODO: when converting a synthetic activity to a real one, update

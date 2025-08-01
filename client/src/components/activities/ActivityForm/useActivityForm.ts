@@ -1,10 +1,8 @@
 import type { DateTimeStateSetter } from "@/components/activities/ActivityForm/datetime-picker.types";
 import type { ModalId } from "@/lib/modal-ids";
-import useAuthentication from "@lib/hooks/useAuthentication";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import {
-	type ActivityWithIds,
-	type NewActivity,
+	newActivityInputSchema,
 	type NewRecurrenceInput,
 	type PossiblySyntheticActivity,
 	type WithDates,
@@ -12,35 +10,11 @@ import {
 } from "@shared/lib/schemas/activity";
 import type { DayOfWeek, IntervalUnit } from "@shared/types/data/utility.types";
 import { produce } from "immer";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import type { ActivityState } from "./activity-state.types";
+import { createDefaultActivity } from "./create-default-activity";
 import { defaultRecurrence, FREQUENCY, INTERVAL_UNIT } from "./RecurrenceForm/constants";
 import { useSubmitNewActivity, useSubmitUpdatedActivity } from "./useSubmit";
-
-function createDefaultActivity({
-	user_id,
-	is_task
-}: {
-	user_id?: string;
-	is_task?: boolean;
-}) {
-	// TODO: this should not be Partial, but the full type. We can't do that
-	// until TRK-83 is implemented.
-	// ^ TODO (TRK-204): to implement the above TODO, we should use
-	// z.input<typeof newActivitySchema>. It would require removing the user_id
-	// property from here, then adding it in the submit hook or on the server.
-	const defaultNewActivity: Partial<NewActivity> = {
-		name: "",
-		description: "",
-		user_id,
-		is_task,
-		occurrence: null,
-		recurrence_id: null
-	};
-
-	return defaultNewActivity;
-}
-
-type ActivityState = Partial<NewActivity> | Partial<ActivityWithIds>;
 
 type UpdateRecurrencePayload =
 	| {
@@ -81,22 +55,27 @@ export default function useActivityForm({
 			} as WithDates | WithTimestamps)
 		: undefined;
 
-	const { currentUser } = useAuthentication();
 	const { resetTagSelection, setTagSelectionFromList } = useTagSelection();
 	const [isRecurring, setIsRecurring] = useState(false);
 	const [activity, setActivity] = useState<ActivityState>(
-		existingActivity ??
-			createDefaultActivity({ user_id: currentUser?.user_id, is_task: initialIsTask })
+		existingActivity ?? createDefaultActivity({ is_task: initialIsTask })
 	);
+	const validActivity = useMemo(() => {
+		return newActivityInputSchema.safeParse(activity).success;
+	}, [activity]);
 	const [recurrence, setRecurrence] = useState<NewRecurrenceInput>(defaultRecurrence);
 	const intervalUnitSuffix = recurrence.interval > 1 ? "s" : "";
+	// TODO: this should just be a validation using one of the recurrence schemas, no?
 	const validRecurrence =
 		recurrence.frequency === FREQUENCY.NUMERIC ||
 		(recurrence.frequency === FREQUENCY.CALENDAR &&
 			Boolean(recurrence.monthdays?.length || !!recurrence.weekdays?.length));
 
-	const { onSubmit: onUpdateSubmit } = useSubmitUpdatedActivity(activity, modalId);
-	const { onSubmit: handleSubmit } = useSubmitNewActivity({
+	const { handleSubmit: handleSubmitUpdateActivity } = useSubmitUpdatedActivity({
+		activity,
+		modalId
+	});
+	const { handleSubmit: handleSubmitCreateActivity } = useSubmitNewActivity({
 		activity,
 		modalId,
 		recurrence,
@@ -104,17 +83,16 @@ export default function useActivityForm({
 	});
 
 	useEffect(() => {
-		if (!isEditing) resetTagSelection();
-		else setTagSelectionFromList(existingActivity.tag_ids);
+		isEditing ? setTagSelectionFromList(existingActivity.tag_ids) : resetTagSelection();
 	}, []);
 
-	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 
-		return isEditing ? onUpdateSubmit() : handleSubmit();
+		return isEditing ? handleSubmitUpdateActivity() : handleSubmitCreateActivity();
 	}
 
-	function onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+	function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const { type, name, value } = e.target;
 
 		// TODO: I would like to use immer here, but it requires validation on
@@ -125,7 +103,7 @@ export default function useActivityForm({
 		}));
 	}
 
-	const onDateTimeChange: DateTimeStateSetter = ({ name, value }) => {
+	const handleDateTimeChange: DateTimeStateSetter = ({ name, value }) => {
 		setActivity(
 			produce((draft) => {
 				draft[name] = value;
@@ -213,9 +191,9 @@ export default function useActivityForm({
 	}
 
 	return {
-		onSubmit,
-		onInputChange,
-		onDateTimeChange,
+		handleSubmit,
+		handleInputChange,
+		handleDateTimeChange,
 		isTask: !!activity.is_task,
 		title,
 		buttonTitle,
@@ -227,6 +205,7 @@ export default function useActivityForm({
 		updateRecurrence,
 		setSelection: setRecurrenceSelection,
 		resetSelection: resetRecurrenceSelection,
+		validActivity,
 		validRecurrence
 	};
 }
