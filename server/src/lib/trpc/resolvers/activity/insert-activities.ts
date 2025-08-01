@@ -22,6 +22,7 @@ export const createRealSyntheticActivity = authenticatedProcedure
 		const parsedSyntheticActivity = newActivitySchema.safeParse(input);
 
 		if (!parsedSyntheticActivity.success) {
+			// TODO: throw trpc error, since this is a resolver function
 			return console.error(parsedSyntheticActivity.error);
 		}
 
