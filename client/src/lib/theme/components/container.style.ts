@@ -64,8 +64,23 @@ const Row = styled.div<{
 		`}
 `;
 
-const Column = styled.div`
+const Column = styled.div<{
+	gap?: keyof typeof spacingValue;
+	padding?: keyof typeof spacingValue;
+}>`
 	${flex.column};
+
+	${(p) =>
+		p.gap &&
+		css`
+			gap: ${spacingValue[p.gap]};
+		`}
+
+	${(p) =>
+		p.padding &&
+		css`
+			padding: ${spacingValue[p.padding]};
+		`}
 `;
 
 const ActionBar = styled.div`
