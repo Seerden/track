@@ -39,6 +39,7 @@ export default function useNewHabit() {
 		goal: null
 	});
 
+	// TODO: clean this up
 	useEffect(() => {
 		console.log({ habit });
 	}, [habit]);
@@ -52,6 +53,7 @@ export default function useNewHabit() {
 
 		const parsed = newHabitSchema.safeParse(habitWithUserIdField);
 		// TODO: notify
+		// TODO: remove hasValidUserId from here, append it on the server
 		if (!parsed.success || !hasValidUserId(habitWithUserIdField)) return;
 
 		submit(
