@@ -58,7 +58,7 @@ const CheckboxWrapper = styled.label`
 
 const Header = styled.header`
 	padding: 1rem 0;
-	max-width: 500px;
+	width: 100%;
 
 	// this is the element that displays the date
 	h1 {

@@ -2,7 +2,6 @@ import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
 import NewHabit from "@/components/habits/NewHabit/NewHabit";
 import NewNote from "@/components/notes/NewNote/NewNote";
 import AllDayActivities from "@/components/Today/AllDayActivities";
-import ChangeDayButton from "@/components/Today/ChangeDayButton";
 import Create from "@/components/Today/Create";
 import Habits from "@/components/Today/Habits";
 import TimelineRows from "@/components/Today/TimelineRows";
@@ -10,6 +9,8 @@ import useToday from "@/components/Today/useToday";
 import Calendar from "@/components/utility/Calendar/Calendar";
 import Modal from "@/components/utility/Modal/Modal";
 import modalIds from "@/lib/modal-ids";
+import Buttons from "@/lib/theme/components/buttons";
+import Containers from "@/lib/theme/components/container.style";
 import Notes from "./Notes";
 import S from "./style/Today.style";
 import Tasks from "./Tasks";
@@ -38,12 +39,17 @@ export default function Today() {
 				<S.TimelineWrapper style={{ gridArea: "timeline" }}>
 					<S.Header style={{ gridArea: "header" }}>
 						<h1>
-							<ChangeDayButton
-								type="previous"
-								onClick={() => changeDay("previous")}
-							/>
 							{title}
-							<ChangeDayButton type="next" onClick={() => changeDay("next")} />
+							<Containers.Row gap="small">
+								<Buttons.Action.Direction
+									direction="previous"
+									onClick={() => changeDay("previous")}
+								/>
+								<Buttons.Action.Direction
+									direction="next"
+									onClick={() => changeDay("next")}
+								/>
+							</Containers.Row>
 						</h1>
 					</S.Header>
 					{!!allDayActivities.length && (

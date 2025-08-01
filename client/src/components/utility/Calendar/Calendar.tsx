@@ -7,7 +7,6 @@ import Buttons from "@/lib/theme/components/buttons";
 import { MonthPicker } from "@mantine/dates";
 import type { Maybe } from "@shared/types/data/utility.types";
 import type { Dayjs } from "dayjs";
-import { LucideChevronLeft, LucideChevronRight } from "lucide-react";
 import S from "./style/Calendar.style";
 
 type CalendarRowProps = {
@@ -40,21 +39,6 @@ function CalendarRow({ month, year, row, selectDate, selectedDate }: CalendarRow
 				</Buttons.Cell.Default>
 			))}
 		</S.Row>
-	);
-}
-
-type AdjacentMonthButtonProps = {
-	direction: "previous" | "next";
-	onClick: () => void;
-	size?: number;
-};
-
-function AdjacentMonthButton({ direction, onClick }: AdjacentMonthButtonProps) {
-	const Icon = direction === "next" ? LucideChevronRight : LucideChevronLeft;
-	return (
-		<S.MonthPickerAction type="button" $direction={direction} onClick={onClick}>
-			<Icon size={22} />
-		</S.MonthPickerAction>
 	);
 }
 
@@ -94,11 +78,11 @@ export default function Calendar({
 			)}
 			<S.TitleWrapper>
 				<S.MonthPickerActionWrapper>
-					<AdjacentMonthButton
+					<Buttons.Action.Direction
 						direction="previous"
 						onClick={() => handleArrowClick("previous")}
 					/>
-					<AdjacentMonthButton
+					<Buttons.Action.Direction
 						direction="next"
 						onClick={() => handleArrowClick("next")}
 					/>
