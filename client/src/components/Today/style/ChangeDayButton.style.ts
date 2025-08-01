@@ -17,7 +17,9 @@ const ChangeDayButton = styled(Buttons.Action.Default)<{
 	&:hover,
 	&:focus,
 	&:active {
-		transform: translateX(${(p) => (p.$direction === "left" ? "-0.3rem" : "0.3rem")});
+		--offset: ${spacingValue.smaller};
+		--sign: ${(p) => (p.$direction === "left" ? -1 : 1)};
+		transform: translateX(calc(var(--sign) * var(--offset)));
 	}
 `;
 
