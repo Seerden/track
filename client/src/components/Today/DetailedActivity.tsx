@@ -60,7 +60,7 @@ export default function DetailedActivity({
 				<PenLine size={20} />
 			</S.EditButton>
 
-			{!!activity.description.length && (
+			{!!activity.description?.length && (
 				<S.Description>{activity.description}</S.Description>
 			)}
 
