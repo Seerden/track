@@ -1,6 +1,7 @@
 import { useTask } from "@/components/Today/useTask";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import { formatToHHmm } from "@/lib/datetime/format-date";
+import Buttons from "@/lib/theme/components/buttons";
 import { activityEnd, activityStart } from "@lib/activity";
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { TagWithIds } from "@shared/lib/schemas/tag";
@@ -17,7 +18,7 @@ export default function Task({ activity, tags = [] }: TaskProps) {
 	const { handleModalOpen, putCompletion } = useTask(activity);
 
 	return (
-		<T.Task $completed={activity.completed ?? false} onClick={handleModalOpen}>
+		<T.Task $completed={activity.completed ?? false}>
 			<S.CheckboxWrapper
 				onClick={(e) => {
 					// This prevents the task from being opened when the checkbox is
@@ -31,7 +32,11 @@ export default function Task({ activity, tags = [] }: TaskProps) {
 				<span>from {formatToHHmm(activityStart(activity))}</span>
 				<span>to {formatToHHmm(activityEnd(activity))}</span>
 			</T.Times>
-			<T.TaskName>{activity.name}</T.TaskName>
+			{/* TODO: like with Habit, need a tooltip or something that indicates that 
+            clicking the name opens the detailed modal */}
+			<Buttons.Unstyled onClick={handleModalOpen}>
+				<T.TaskName>{activity.name}</T.TaskName>
+			</Buttons.Unstyled>
 			{!!tags.length && (
 				// TODO: make sure the styling of the component doesn't do anything
 				// weird when Tags isn't rendered

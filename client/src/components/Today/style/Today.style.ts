@@ -1,4 +1,5 @@
 import TagCardStyle from "@/components/tags/TagCard/style/TagCard.style";
+import Containers from "@/lib/theme/components/container.style";
 import { getFontSize } from "@/lib/theme/font";
 import { column } from "@/lib/theme/snippets/column";
 import { outline } from "@/lib/theme/snippets/edge";
@@ -95,16 +96,23 @@ const Columns = styled.div`
 	display: grid;
 
 	grid-template-areas:
-		"calendar timeline timeline"
-		". timeline timeline"
-		"things things things";
+		"calendar timeline things"
+		". timeline things"
+		". timeline things"
+		". timeline things";
 
-	@media (min-width: 1280px) {
+	@media (width < 1320px) {
 		grid-template-areas:
-			"calendar timeline things"
-			". timeline things"
-			". timeline things"
-			". timeline things";
+			"calendar timeline timeline"
+			". timeline timeline"
+			". things things";
+	}
+
+	@media (width < 880px) {
+		grid-template-areas:
+			"calendar calendar calendar"
+			"timeline timeline timeline"
+			"things things things";
 	}
 
 	grid-template-columns: auto 1fr 1fr;
@@ -142,12 +150,15 @@ const AllDayActivityList = styled.ul`
 `;
 
 // TODO: rename this
-const Things = styled.div`
-	${flex.row};
+const Things = styled(Containers.Column)`
+	${flex.column};
 
 	grid-area: things;
 	@media (min-width: 1280px) {
 		flex-direction: column;
+	}
+
+	@media (width < 1280px) {
 	}
 
 	gap: 1rem;

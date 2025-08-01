@@ -4,12 +4,13 @@ import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "@emotion/styled";
 
 const ItemList = styled.ul`
-	gap: 0.6rem;
+	gap: 0.6rem; // TODO: theem value;
 	overflow-x: visible;
-	max-width: 720px;
 	padding: 0.5rem;
 
 	display: grid;
+
+	outline: 2px solid red;
 `;
 
 const Item = styled.li`
@@ -28,14 +29,14 @@ const Item = styled.li`
 		gap: 2rem;
 	}
 
-	${radius.small};
+	${radius.medium};
 	background-color: #ddd; // TODO: apply some style for completed tasks
 	width: 100%;
 	min-width: max-content;
 	${spacing.padding.wide({ size: 0.5, ratio: 2 })};
 	align-items: center;
 	max-height: 90px;
-	box-shadow: 0.55rem 0.55rem 0.2rem -0.3rem #ccc;
+	box-shadow: 0.25rem 0.25rem 0.2rem -0.1rem #ccc;
 
 	max-width: 720px; // TODO: this is temporary, but we do want to limit size
 `;

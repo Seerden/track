@@ -62,7 +62,11 @@ export default function Today() {
 					/>
 				</S.TimelineWrapper>
 
-				<S.Things>
+				{/* TODO: at small viewports, put these in a modal or something. Do not always render the list. 
+               Keeps the page more compact: I'd prefer not having to scroll to see these things, but they 
+               don't fit in the viewport with the timeline, so either they need to be more compact somehow,
+               or the timeline needs to shrink, or we do something like a modal. */}
+				<S.Things padding="medium">
 					<Habits habitsById={habitsById} />
 					<Tasks activities={activities.filter((a) => a.is_task)} />
 					<Notes />
