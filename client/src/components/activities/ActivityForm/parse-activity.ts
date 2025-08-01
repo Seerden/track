@@ -6,7 +6,7 @@ import {
 	type NewActivityInput
 } from "@shared/lib/schemas/activity";
 import { activityGuards } from "@shared/types/data/activity.guards";
-import type { ActivityState } from "./useActivityForm";
+import type { ActivityState } from "./activity-state.types";
 
 /** If `activity` is an all-day activity (which we determine by seeing if it's
  * an activity withDates), set end_date to the end of that day.

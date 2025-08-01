@@ -2,7 +2,6 @@ import type { DateTimeStateSetter } from "@/components/activities/ActivityForm/d
 import type { ModalId } from "@/lib/modal-ids";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import {
-	type ActivityWithIds,
 	type NewActivityInput,
 	type NewRecurrenceInput,
 	type PossiblySyntheticActivity,
@@ -16,15 +15,11 @@ import type {
 } from "@shared/types/data/utility.types";
 import { produce } from "immer";
 import { useEffect, useState } from "react";
+import type { ActivityState } from "./activity-state.types";
 import { defaultRecurrence, FREQUENCY, INTERVAL_UNIT } from "./RecurrenceForm/constants";
 import { useSubmitNewActivity, useSubmitUpdatedActivity } from "./useSubmit";
 
 function createDefaultActivity({ is_task = false }: { is_task?: boolean }) {
-	// TODO: this should not be Partial, but the full type. We can't do that
-	// until TRK-83 is implemented.
-	// ^ TODO (TRK-204): to implement the above TODO, we should use
-	// z.input<typeof newActivitySchema>. It would require removing the user_id
-	// property from here, then adding it in the submit hook or on the server.
 	return {
 		name: "",
 		description: "",
@@ -38,8 +33,6 @@ function createDefaultActivity({ is_task = false }: { is_task?: boolean }) {
 		"started_at" | "ended_at" | "start_date" | "end_date"
 	>;
 }
-
-export type ActivityState = NewActivityInput | Partial<ActivityWithIds>;
 
 type UpdateRecurrencePayload =
 	| {

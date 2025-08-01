@@ -18,8 +18,8 @@ import {
 } from "@shared/lib/schemas/activity";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
+import type { ActivityState } from "./activity-state.types";
 import { parseNewActivity, parseUpdatedActivity } from "./parse-activity";
-import type { ActivityState } from "./useActivityForm";
 
 export function useSubmitUpdatedActivity({
 	activity,
