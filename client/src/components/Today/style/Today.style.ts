@@ -1,5 +1,4 @@
 import TagCardStyle from "@/components/tags/TagCard/style/TagCard.style";
-import Containers from "@/lib/theme/components/container.style";
 import { getFontSize } from "@/lib/theme/font";
 import { column } from "@/lib/theme/snippets/column";
 import { outline } from "@/lib/theme/snippets/edge";
@@ -63,13 +62,13 @@ const Header = styled.header`
 
 	// this is the element that displays the date
 	h1 {
-		--font-size: ${(p) => getFontSize(p, 1.1)};
+		--font-size: ${(p) => getFontSize(p, 1.5)};
 		font-size: var(--font-size);
 		line-height: var(--font-size);
 
 		gap: 1rem;
 
-		@media (min-width: 1440px) {
+		@media (min-width: 1320px) {
 			// this needs to be the same breakpoint as the one in columns
 			padding: 0 2rem;
 		}
@@ -87,7 +86,6 @@ const Header = styled.header`
 		/* These flex styles are there to keep space between the title and the
       day-change buttons. */
 		display: flex;
-		justify-content: space-between;
 		align-items: center;
 	}
 `; // is a header the right tag, semantically?
@@ -149,21 +147,6 @@ const AllDayActivityList = styled.ul`
 	padding-inline: 3rem;
 `;
 
-// TODO: rename this
-const Things = styled(Containers.Column)`
-	${flex.column};
-
-	grid-area: things;
-	@media (min-width: 1280px) {
-		flex-direction: column;
-	}
-
-	@media (width < 1280px) {
-	}
-
-	gap: 1rem;
-`;
-
 export default {
 	TimelineWrapper,
 	NotesWrapper,
@@ -173,6 +156,5 @@ export default {
 	Columns,
 	Header,
 	Tags,
-	AllDayActivityList,
-	Things
+	AllDayActivityList
 };

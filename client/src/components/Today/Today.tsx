@@ -39,7 +39,6 @@ export default function Today() {
 				<S.TimelineWrapper style={{ gridArea: "timeline" }}>
 					<S.Header style={{ gridArea: "header" }}>
 						<h1>
-							{title}
 							<Containers.Row gap="small">
 								<Buttons.Action.Direction
 									direction="previous"
@@ -50,6 +49,7 @@ export default function Today() {
 									onClick={() => changeDay("next")}
 								/>
 							</Containers.Row>
+							{title}
 						</h1>
 					</S.Header>
 					{!!allDayActivities.length && (
@@ -66,11 +66,15 @@ export default function Today() {
                Keeps the page more compact: I'd prefer not having to scroll to see these things, but they 
                don't fit in the viewport with the timeline, so either they need to be more compact somehow,
                or the timeline needs to shrink, or we do something like a modal. */}
-				<S.Things padding="medium">
+				<Containers.Column
+					padding="medium"
+					gap="medium"
+					style={{ gridArea: "things" }}
+				>
 					<Habits habitsById={habitsById} />
 					<Tasks activities={activities.filter((a) => a.is_task)} />
 					<Notes />
-				</S.Things>
+				</Containers.Column>
 			</S.Columns>
 
 			{/* TODO: see modal rework issue (TRK-211) */}
