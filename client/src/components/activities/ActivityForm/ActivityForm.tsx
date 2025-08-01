@@ -6,16 +6,13 @@ import Buttons from "@/lib/theme/components/buttons";
 import Form from "@/lib/theme/components/form.style";
 import Input from "@/lib/theme/input";
 import TagSelector from "@components/tags/TagSelector/TagSelector";
-import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
+import type {
+	NewActivityInput,
+	PossiblySyntheticActivity
+} from "@shared/lib/schemas/activity";
 import DateTimePicker from "./DateTimePicker";
 import S from "./style/ActivityForm.style";
 import useActivityForm from "./useActivityForm";
-
-type ActivityFormProps = {
-	isTask?: boolean;
-	modalId?: ModalId;
-	activity?: PossiblySyntheticActivity;
-};
 
 /** This component functions as a form to create a new activity, or to update an
  * existing one. As such, when you pass `activity` as a prop, this indicates you
@@ -25,11 +22,15 @@ export default function ActivityForm({
 	activity,
 	isTask: initialIsTask,
 	modalId
-}: ActivityFormProps) {
+}: {
+	isTask?: boolean;
+	modalId?: ModalId;
+	activity?: PossiblySyntheticActivity;
+}) {
 	const {
 		handleSubmit,
-		onInputChange,
-		onDateTimeChange,
+		handleInputChange,
+		handleDateTimeChange,
 		isTask,
 		title,
 		buttonTitle,
@@ -41,6 +42,7 @@ export default function ActivityForm({
 		updateRecurrence,
 		setSelection,
 		resetSelection,
+		validActivity,
 		validRecurrence
 	} = useActivityForm({
 		initialIsTask,
@@ -52,12 +54,12 @@ export default function ActivityForm({
 		<Form.Wrapper>
 			<Form.FormTitle>{title}</Form.FormTitle>
 			<Form.Form onSubmit={handleSubmit}>
-				<Form.Row name="description">
+				<Form.Row>
 					<Form.Label>
 						<span>Activity</span>
 						<Input.Default
-							name="name"
-							onChange={onInputChange}
+							name={"name" satisfies keyof NewActivityInput}
+							onChange={handleInputChange}
 							defaultValue={activity?.name}
 							type="text"
 							required
@@ -65,12 +67,16 @@ export default function ActivityForm({
 					</Form.Label>
 					<S.Task>
 						<span>Task?</span>
-						<Checkbox name="is_task" checked={isTask} onChange={onInputChange} />
+						<Checkbox
+							name={"is_task" satisfies keyof NewActivityInput}
+							checked={isTask}
+							onChange={handleInputChange}
+						/>
 					</S.Task>
 				</Form.Row>
 				<Form.Row>
 					<DateTimePicker
-						onChange={onDateTimeChange}
+						onChange={handleDateTimeChange}
 						defaultValues={defaultDateTimeValues}
 					/>
 				</Form.Row>
@@ -95,7 +101,12 @@ export default function ActivityForm({
 				/>
 				{/* TODO: disable the button until everything is valid (activity fields, 
                recurrence fields, etc.) */}
-				<Buttons.Submit.Default type="submit">{buttonTitle}</Buttons.Submit.Default>
+				<Buttons.Submit.Default
+					type="submit"
+					disabled={!(validActivity && (validRecurrence || !isRecurring))}
+				>
+					{buttonTitle}
+				</Buttons.Submit.Default>
 			</Form.Form>
 		</Form.Wrapper>
 	);

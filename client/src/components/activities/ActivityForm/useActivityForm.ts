@@ -2,37 +2,19 @@ import type { DateTimeStateSetter } from "@/components/activities/ActivityForm/d
 import type { ModalId } from "@/lib/modal-ids";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import {
-	type NewActivityInput,
+	newActivityInputSchema,
 	type NewRecurrenceInput,
 	type PossiblySyntheticActivity,
 	type WithDates,
 	type WithTimestamps
 } from "@shared/lib/schemas/activity";
-import type {
-	DayOfWeek,
-	IntervalUnit,
-	OmitStrict
-} from "@shared/types/data/utility.types";
+import type { DayOfWeek, IntervalUnit } from "@shared/types/data/utility.types";
 import { produce } from "immer";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { ActivityState } from "./activity-state.types";
+import { createDefaultActivity } from "./create-default-activity";
 import { defaultRecurrence, FREQUENCY, INTERVAL_UNIT } from "./RecurrenceForm/constants";
 import { useSubmitNewActivity, useSubmitUpdatedActivity } from "./useSubmit";
-
-function createDefaultActivity({ is_task = false }: { is_task?: boolean }) {
-	return {
-		name: "",
-		description: "",
-		is_task,
-		occurrence: null,
-		recurrence_id: null,
-		duration_milliseconds: null,
-		will_recur: false
-	} satisfies OmitStrict<
-		NewActivityInput,
-		"started_at" | "ended_at" | "start_date" | "end_date"
-	>;
-}
 
 type UpdateRecurrencePayload =
 	| {
@@ -78,18 +60,22 @@ export default function useActivityForm({
 	const [activity, setActivity] = useState<ActivityState>(
 		existingActivity ?? createDefaultActivity({ is_task: initialIsTask })
 	);
+	const validActivity = useMemo(() => {
+		return newActivityInputSchema.safeParse(activity).success;
+	}, [activity]);
 	const [recurrence, setRecurrence] = useState<NewRecurrenceInput>(defaultRecurrence);
 	const intervalUnitSuffix = recurrence.interval > 1 ? "s" : "";
+	// TODO: this should just be a validation using one of the recurrence schemas, no?
 	const validRecurrence =
 		recurrence.frequency === FREQUENCY.NUMERIC ||
 		(recurrence.frequency === FREQUENCY.CALENDAR &&
 			Boolean(recurrence.monthdays?.length || !!recurrence.weekdays?.length));
 
-	const { handleSubmit: handleUpdateActivitySubmit } = useSubmitUpdatedActivity({
+	const { handleSubmit: handleSubmitUpdateActivity } = useSubmitUpdatedActivity({
 		activity,
 		modalId
 	});
-	const { handleSubmit: handleCreateActivitySubmit } = useSubmitNewActivity({
+	const { handleSubmit: handleSubmitCreateActivity } = useSubmitNewActivity({
 		activity,
 		modalId,
 		recurrence,
@@ -97,17 +83,16 @@ export default function useActivityForm({
 	});
 
 	useEffect(() => {
-		if (!isEditing) resetTagSelection();
-		else setTagSelectionFromList(existingActivity.tag_ids);
+		isEditing ? setTagSelectionFromList(existingActivity.tag_ids) : resetTagSelection();
 	}, []);
 
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 
-		return isEditing ? handleUpdateActivitySubmit() : handleCreateActivitySubmit();
+		return isEditing ? handleSubmitUpdateActivity() : handleSubmitCreateActivity();
 	}
 
-	function onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+	function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const { type, name, value } = e.target;
 
 		// TODO: I would like to use immer here, but it requires validation on
@@ -118,7 +103,7 @@ export default function useActivityForm({
 		}));
 	}
 
-	const onDateTimeChange: DateTimeStateSetter = ({ name, value }) => {
+	const handleDateTimeChange: DateTimeStateSetter = ({ name, value }) => {
 		setActivity(
 			produce((draft) => {
 				draft[name] = value;
@@ -207,8 +192,8 @@ export default function useActivityForm({
 
 	return {
 		handleSubmit,
-		onInputChange,
-		onDateTimeChange,
+		handleInputChange,
+		handleDateTimeChange,
 		isTask: !!activity.is_task,
 		title,
 		buttonTitle,
@@ -220,6 +205,7 @@ export default function useActivityForm({
 		updateRecurrence,
 		setSelection: setRecurrenceSelection,
 		resetSelection: resetRecurrenceSelection,
+		validActivity,
 		validRecurrence
 	};
 }
