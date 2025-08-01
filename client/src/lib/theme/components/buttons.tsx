@@ -23,9 +23,11 @@ const SubmitDefault = styled(UnstyledButton)`
 	${border.grey};
 	${spacing.padding.wide({ size: 0.6, ratio: 2.5 })};
 
-	box-shadow:
-		0.1rem 0.1rem 0 0 white,
-		0.5rem 0.5rem 0 0 ${(p) => p.theme.colors.blue.main};
+	&:not(&:disabled) {
+		box-shadow:
+			0.1rem 0.1rem 0 0 white,
+			0.5rem 0.5rem 0 0 ${(p) => p.theme.colors.blue.main};
+	}
 
 	&:hover,
 	&:focus,
