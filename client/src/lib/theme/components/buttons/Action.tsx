@@ -8,8 +8,9 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { CSSProperties } from "react";
 import Active from "../../snippets/active";
+import { DirectionButton } from "./Direction";
 
-const Default = styled(Unstyled)<{ $color?: ColorKey }>`
+export const Default = styled(Unstyled)<{ $color?: ColorKey }>`
 	${flex.centered};
 	${radius.round};
 
@@ -158,7 +159,8 @@ const ActionButtons = {
 	Stylized,
 	WithIcon,
 	CallToAction,
-	Clear
+	Clear,
+	Direction: DirectionButton
 };
 
 export default ActionButtons;

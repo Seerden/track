@@ -58,17 +58,17 @@ const CheckboxWrapper = styled.label`
 
 const Header = styled.header`
 	padding: 1rem 0;
-	max-width: 500px;
+	width: 100%;
 
 	// this is the element that displays the date
 	h1 {
-		--font-size: ${(p) => getFontSize(p, 1.1)};
+		--font-size: ${(p) => getFontSize(p, 1.5)};
 		font-size: var(--font-size);
 		line-height: var(--font-size);
 
 		gap: 1rem;
 
-		@media (min-width: 1440px) {
+		@media (min-width: 1320px) {
 			// this needs to be the same breakpoint as the one in columns
 			padding: 0 2rem;
 		}
@@ -86,7 +86,6 @@ const Header = styled.header`
 		/* These flex styles are there to keep space between the title and the
       day-change buttons. */
 		display: flex;
-		justify-content: space-between;
 		align-items: center;
 	}
 `; // is a header the right tag, semantically?
@@ -95,16 +94,23 @@ const Columns = styled.div`
 	display: grid;
 
 	grid-template-areas:
-		"calendar timeline timeline"
-		". timeline timeline"
-		"things things things";
+		"calendar timeline things"
+		". timeline things"
+		". timeline things"
+		". timeline things";
 
-	@media (min-width: 1280px) {
+	@media (width < 1320px) {
 		grid-template-areas:
-			"calendar timeline things"
-			". timeline things"
-			". timeline things"
-			". timeline things";
+			"calendar timeline timeline"
+			". timeline timeline"
+			". things things";
+	}
+
+	@media (width < 880px) {
+		grid-template-areas:
+			"calendar calendar calendar"
+			"timeline timeline timeline"
+			"things things things";
 	}
 
 	grid-template-columns: auto 1fr 1fr;
@@ -141,18 +147,6 @@ const AllDayActivityList = styled.ul`
 	padding-inline: 3rem;
 `;
 
-// TODO: rename this
-const Things = styled.div`
-	${flex.row};
-
-	grid-area: things;
-	@media (min-width: 1280px) {
-		flex-direction: column;
-	}
-
-	gap: 1rem;
-`;
-
 export default {
 	TimelineWrapper,
 	NotesWrapper,
@@ -162,6 +156,5 @@ export default {
 	Columns,
 	Header,
 	Tags,
-	AllDayActivityList,
-	Things
+	AllDayActivityList
 };

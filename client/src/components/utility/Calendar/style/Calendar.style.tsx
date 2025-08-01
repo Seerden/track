@@ -1,4 +1,3 @@
-import Buttons from "@/lib/theme/components/buttons";
 import { defaultCellHeight, defaultCellWidth } from "@/lib/theme/components/buttons/Cell";
 import { getFontSize } from "@/lib/theme/font";
 import { outline, thinBorder } from "@/lib/theme/snippets/edge";
@@ -113,31 +112,6 @@ const MonthPickerActionWrapper = styled.div`
 	}
 `;
 
-const MonthPickerAction = styled(Buttons.Unstyled)<{
-	$direction: "previous" | "next";
-}>`
-	display: flex;
-	align-items: center;
-	transition: transform 50ms ease-out;
-
-	border-bottom: 2px solid transparent;
-
-	&:hover,
-	&:active,
-	&:focus {
-		border-bottom-color: ${highlightColor};
-
-		transform: translateX(
-				${(p) => (p.$direction === "previous" ? "-0.1rem" : "0.1rem")}
-			)
-			scaleX(1.05);
-
-		svg {
-			color: ${highlightColor};
-		}
-	}
-`;
-
 export default {
 	Calendar,
 	TitleWrapper,
@@ -147,6 +121,5 @@ export default {
 	Day,
 	Rows,
 	Row,
-	MonthPickerActionWrapper,
-	MonthPickerAction
+	MonthPickerActionWrapper
 };
