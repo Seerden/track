@@ -123,7 +123,7 @@ export function useSubmitNewActivity({
 
 			submitNewRecurringActivity(
 				{
-					activity: parsedActivity.data,
+					activity: parseNewActivity(parsedActivity.data),
 					recurrence: parsedRecurrence.data,
 					tagIds: selectedTagIds
 				},
