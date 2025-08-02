@@ -23,7 +23,10 @@ export function useQueryActivities() {
 		// that by default
 		const syntheticActivities = activities
 			.map((activity) => {
-				if (!recurrences || !activity.recurrence_id) return null;
+				if (!recurrences || !activity.recurrence_id || !activity.will_recur) {
+					return null;
+				}
+
 				return createSyntheticActivitiesForTimeWindow({
 					activity,
 					recurrence: recurrences[activity.recurrence_id],
