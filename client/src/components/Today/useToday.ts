@@ -1,4 +1,9 @@
-import { activityFallsOnDay, isAllDayActivityOnDate } from "@/lib/activity";
+import {
+	activityEnd,
+	activityFallsOnDay,
+	activityStart,
+	isAllDayActivityOnDate
+} from "@/lib/activity";
 import { formatDate } from "@/lib/datetime/format-date";
 import { today } from "@/lib/datetime/make-date";
 import { useQueryActivities } from "@/lib/hooks/query/activities/useQueryActivities";
@@ -53,10 +58,20 @@ export default function useToday() {
 	const activities = useMemo(() => {
 		const activities = byIdAsList(activitiesData?.byId);
 
-		const allActivities: PossiblySyntheticActivity[] =
+		const allActivities: PossiblySyntheticActivity[] = activities.concat(
 			// @ts-expect-error: Concat is faster than destructuring both. We don't
 			// care that concat expects the same type.
-			activities.concat(syntheticActivities);
+			syntheticActivities.filter((synthetic) => {
+				// filter out the synthetic activities that correspond to real ones
+				// (presumably from synthetics turned real in the past)
+				return !activities.some(
+					(activity) =>
+						activity.recurrence_id === synthetic.recurrence_id &&
+						(activityStart(activity).isSame(activityStart(synthetic)) ||
+							activityEnd(activity).isSame(activityEnd(synthetic)))
+				);
+			})
+		);
 
 		return allActivities;
 	}, [activitiesData?.byId, timeWindow, recurrences, syntheticActivities]);
