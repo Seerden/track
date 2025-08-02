@@ -19,16 +19,22 @@ import {
 export const createRealSyntheticActivity = authenticatedProcedure
 	.input(syntheticActivitySchema)
 	.mutation(async ({ input }) => {
-		const parsedSyntheticActivity = newActivitySchema.safeParse(input);
+		try {
+			// TODO TRK-244: will_recur is set to false here by default, but this
+			// might need to change when we start adding occurrences to the mix.
+			const parsedSyntheticActivity = newActivitySchema.parse({
+				...input,
+				will_recur: false,
+			});
 
-		if (!parsedSyntheticActivity.success) {
+			return await insertActivity({
+				activity: parsedSyntheticActivity,
+			});
+		} catch (error) {
 			// TODO: throw trpc error, since this is a resolver function
-			return console.error(parsedSyntheticActivity.error);
+			console.error("Error creating synthetic activity:", error);
+			throw error;
 		}
-
-		return await insertActivity({
-			activity: parsedSyntheticActivity.data,
-		});
 	});
 
 export const createActivity = authenticatedProcedure
