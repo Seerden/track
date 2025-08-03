@@ -21,20 +21,18 @@ export function useQueryActivities() {
 		// implementation of the query keys (resetting activities.all should also
 		// reset activities.recurring, but I don't think the trpc wrapper does
 		// that by default
-		const syntheticActivities = activities
-			.map((activity) => {
-				if (!recurrences || !activity.recurrence_id || !activity.will_recur) {
-					return null;
-				}
-
-				return createSyntheticActivitiesForTimeWindow({
-					activity,
-					recurrence: recurrences[activity.recurrence_id],
+		const syntheticActivities = activities.reduce((acc, cur) => {
+			if (!recurrences || !cur.recurrence_id || !cur.will_recur) {
+				return acc;
+			}
+			return acc.concat(
+				createSyntheticActivitiesForTimeWindow({
+					activity: cur,
+					recurrence: recurrences[cur.recurrence_id],
 					timeWindow
-				});
-			})
-			.filter(Boolean)
-			.flat() as Array<SyntheticActivity>;
+				})
+			);
+		}, [] as SyntheticActivity[]);
 
 		setSyntheticActivities(syntheticActivities);
 	}, [query.data?.byId, recurrences, timeWindow]);
