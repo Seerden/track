@@ -22,6 +22,7 @@ export function isSyntheticActivity(
 function createSyntheticActivity(activity: ActivityWithIds): SyntheticActivity {
 	return syntheticActivitySchema.parse({
 		...activity,
+		activity_id: null,
 		completed: false,
 		synthetic: true,
 		synthetic_id: `${activity.activity_id}-${activity.recurrence_id}-${uuid()}`

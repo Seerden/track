@@ -115,6 +115,10 @@ export const newActivityBaseSchema = z.object({
 	duration_milliseconds: z.number().nullable().optional().default(null),
 	is_task: z.boolean().optional().default(false),
 	will_recur: z.boolean().nullable().optional().default(false),
+	/** This is really just there for when we want to turn a synthetic activity
+	 * into a real one through `putCompletion`. Regular new activities will
+	 * always start with falsy `completed`. */
+	completed: z.boolean().nullable().optional().default(false),
 });
 export type NewActivityBase = z.infer<typeof newActivityBaseSchema>;
 
@@ -209,6 +213,27 @@ export const activitySchema = newActivitySchema
 	.and(activityBaseSchema);
 export type Activity = z.infer<typeof activitySchema>;
 
+const syntheticActivityBaseSchema = activityBaseSchema
+	.omit({ activity_id: true })
+	.and(z.object({ activity_id: z.null().optional() }));
+const syntheticActivityWithoutIdsSchema = newActivitySchema
+	.and(taskUpdateSchema)
+	.and(syntheticActivityBaseSchema);
+export const syntheticActivitySchema = syntheticActivityWithoutIdsSchema
+	.and(
+		z.object({
+			tag_ids: z.array(z.string()),
+		}),
+	)
+	.and(
+		z.object({
+			synthetic: z.literal(true),
+			synthetic_id: z.string(),
+		}),
+	);
+
+export type SyntheticActivity = z.infer<typeof syntheticActivitySchema>;
+
 export const activityWithIdsSchema = activitySchema.and(
 	z.object({
 		tag_ids: z.array(z.string()),
@@ -231,20 +256,6 @@ export const taskUpdateInputSchema = z.intersection(
 );
 
 export type TaskUpdateInput = z.infer<typeof taskUpdateInputSchema>;
-
-// TODO TRK-206: this needs some work
-export const syntheticActivitySchema = activityWithIdsSchema
-	.and(
-		z.object({
-			synthetic: z.literal(true),
-			synthetic_id: z.string(),
-		}),
-	)
-	// TODO: synthetic activities should not have an ID. It should be
-	// appended to the activity on submission (i.e. when it becomes
-	// non-synthetic). Check how I did this for habits.
-	.transform((activity) => ({ ...activity, activity_id: null }));
-export type SyntheticActivity = z.infer<typeof syntheticActivitySchema>;
 
 /**
  * @note client only, since the concept of a synthetic activity lives only in
