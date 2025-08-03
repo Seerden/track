@@ -281,3 +281,8 @@ export function startsInFuture(activity: PossiblySyntheticActivity) {
 export function hasNotEnded(activity: PossiblySyntheticActivity) {
 	return activityEnd(activity).isAfter(now());
 }
+
+/** Check if an activity is an overdue task. */
+export function isOverdueTask(activity: PossiblySyntheticActivity) {
+	return activity.is_task && !activity.completed && !hasNotEnded(activity);
+}

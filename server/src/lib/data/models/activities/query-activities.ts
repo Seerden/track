@@ -1,19 +1,36 @@
 import { sqlConnection } from "@/db/init";
 import type { Activity, ActivityWithIds } from "@shared/lib/schemas/activity";
+import type { Timestamp } from "@shared/lib/schemas/timestamp";
 import type { ActivityTagRelation } from "@shared/types/data/relational.types";
 import type { ById, ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 import { mergeActivitiesAndRelations } from "./merge-activities-and-relations";
 
 export const queryActivitiesByUser: QueryFunction<
-	{ user_id: ID; recurring?: boolean },
+	{ user_id: ID; recurring?: boolean; tasks?: boolean; to?: Timestamp },
 	Promise<Activity[]>
-> = async ({ sql = sqlConnection, user_id, recurring }) => {
+> = async ({ sql = sqlConnection, user_id, recurring, tasks, to }) => {
 	const recurringSql = recurring ? sql`and recurrence_id is not null` : sql``;
+	const taskSql = tasks ? sql`and is_task = true and completed is not true` : sql``;
+
+	const toSql = !to
+		? sql``
+		: sql`
+         and (
+            end_date is null 
+            and ended_at <= ${to.valueOf()}
+         ) or (
+            ended_at is null
+            and end_date <= ${to.valueOf()}
+         )
+      `;
+
 	return sql<Activity[]>`
       select * from activities 
       where user_id = ${user_id} 
       ${recurringSql}
+      ${taskSql}
+      ${toSql}
    `;
 };
 
@@ -63,10 +80,10 @@ export const queryActivityByIdWithRelations: QueryFunction<
  * @todo TRK-206: recurring activities will all use the same tags (those from
  * the original activity). Expand this function to include pass those tags to the */
 export const queryActivitiesAndRelations: QueryFunction<
-	{ user_id: ID; recurring?: boolean },
+	{ user_id: ID; recurring?: boolean; tasks?: boolean; to?: Timestamp },
 	Promise<ById<ActivityWithIds>>
-> = async ({ sql = sqlConnection, user_id, recurring }) => {
-	const activities = await queryActivitiesByUser({ sql, user_id, recurring });
+> = async ({ sql = sqlConnection, user_id, recurring, tasks, to }) => {
+	const activities = await queryActivitiesByUser({ sql, user_id, recurring, tasks, to });
 	const activityTagRelations = await queryActivityTagsByUser({ sql, user_id });
 
 	return mergeActivitiesAndRelations(activities, activityTagRelations);

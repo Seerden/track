@@ -30,6 +30,7 @@ import {
 	_updateRecurrence,
 } from "@/lib/trpc/resolvers/activity/update-recurrences";
 import { t } from "@/lib/trpc/trpc-context";
+import { queryOverdueTasks } from "../resolvers/activity/query-tasks";
 
 export const activityRouter = t.router({
 	all: queryActivities,
@@ -52,5 +53,8 @@ export const activityRouter = t.router({
 		create: createOccurrence,
 		delete: deleteOccurrenceById,
 		update: _updateOccurrence,
+	},
+	tasks: {
+		overdue: queryOverdueTasks,
 	},
 });
