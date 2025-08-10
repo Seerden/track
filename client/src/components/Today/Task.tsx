@@ -47,8 +47,8 @@ export default function Task({ activity }: TaskProps) {
 					<Popover opened={opened}>
 						<Popover.Target>
 							<Icons.InBadge
-								$color={colors.orange.secondary}
-								size={"25px"}
+								$color={colors.red.secondary}
+								size={"23px"}
 								onMouseEnter={open}
 								onMouseLeave={close}
 							>

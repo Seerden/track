@@ -31,7 +31,7 @@ export function OverdueTasksIndicator({
 		>
 			<Tooltip label={`You have ${taskCount} overdue tasks`} position="top" withArrow>
 				<Icons.InBadge
-					$color={colors.orange.secondary}
+					$color={colors.red.secondary}
 					invert
 					size={`${Math.floor(size)}px`}
 				>
