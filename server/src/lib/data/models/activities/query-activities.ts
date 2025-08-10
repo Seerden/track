@@ -1,14 +1,11 @@
 import { sqlConnection } from "@/db/init";
+import { isNullish } from "@shared/lib/is-nullish";
 import type { Activity, ActivityWithIds } from "@shared/lib/schemas/activity";
 import type { Timestamp } from "@shared/lib/schemas/timestamp";
 import type { ActivityTagRelation } from "@shared/types/data/relational.types";
 import type { ById, ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 import { mergeActivitiesAndRelations } from "./merge-activities-and-relations";
-
-function isNullish(value: any): value is null | undefined {
-	return value === null || value === undefined;
-}
 
 export const queryActivitiesByUser: QueryFunction<
 	{
