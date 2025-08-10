@@ -14,11 +14,13 @@ import { colors } from "@/lib/theme/colors";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import Icons from "@/lib/theme/components/icons";
+import { spacingValue } from "@/lib/theme/snippets/spacing";
 import { Tooltip } from "@mantine/core";
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import { LucideClockAlert } from "lucide-react";
 import Notes from "./Notes";
 import S from "./style/Today.style";
+import Task from "./Task";
 import Tasks from "./Tasks";
 
 function OverdueTasksIndicator({
@@ -89,14 +91,11 @@ export default function Today() {
 						</h1>
 						<OverdueTasksIndicator overdueTasks={overdueTasks} />
 					</S.Header>
-					{(!!allDayActivities.length || !!overdueTasks?.length) && (
+					{!!allDayActivities.length && (
 						// TODO: rename AllDayActivities to PinnedActivities or
-						// similar. Change the condition above to include the case
-						// where there are overdue tasks.
-						<AllDayActivities
-							activities={allDayActivities}
-							overdueTasks={overdueTasks}
-						/>
+						// similar, once we start adding other things to the list than
+						// just all-day activities.
+						<AllDayActivities activities={allDayActivities} />
 					)}
 
 					<TimelineRows
@@ -119,6 +118,36 @@ export default function Today() {
 					<Notes />
 				</Containers.Column>
 			</S.Columns>
+
+			<Modal
+				modalId={modalIds.activities.tasks.overdue}
+				initialOpen={false}
+				scrollbarVisible
+			>
+				<h1
+					style={{
+						padding: 0,
+						paddingBottom: spacingValue.small,
+						margin: 0,
+						marginTop: spacingValue.medium
+					}}
+				>
+					Overdue tasks
+				</h1>
+				<Containers.Column
+					gap="small"
+					padding="medium"
+					style={{
+						paddingTop: spacingValue.small,
+						minWidth: "500px",
+						maxHeight: "50vh",
+						overflowY: "auto"
+					}}
+				>
+					{!!overdueTasks?.length &&
+						overdueTasks.map((t) => <Task activity={t} key={t.activity_id} />)}
+				</Containers.Column>
+			</Modal>
 
 			{/* TODO: see modal rework issue (TRK-211) */}
 			<Modal initialOpen={false} modalId={modalIds.activities.form}>
