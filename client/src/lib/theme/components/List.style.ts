@@ -44,10 +44,10 @@ const Item = styled.li`
 // TODO: I don't like that this is a div
 const ItemName = styled.div`
 	display: flex;
-	/* max-width: 200px; */
 	white-space: normal;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	text-align: start;
 
 	color: #333;
 	background-color: #eee;

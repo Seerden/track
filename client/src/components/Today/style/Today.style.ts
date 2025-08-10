@@ -57,6 +57,8 @@ const CheckboxWrapper = styled.label`
 `;
 
 const Header = styled.header`
+	/* this is here so we can absolutely position the overdue tasks indicator */
+	position: relative;
 	padding: 1rem 0;
 	width: 100%;
 
@@ -141,10 +143,15 @@ const Tags = styled.div`
 `;
 
 const AllDayActivityList = styled.ul`
-	${flex.column};
-	gap: 0.7rem;
+	${flex.row};
+	flex-wrap: wrap;
+
+	gap: ${spacingValue.small};
 	width: max-content;
+	max-width: 100%;
 	padding-inline: 3rem;
+
+	justify-content: flex-start;
 `;
 
 export default {
