@@ -8,8 +8,12 @@ import styled from "@emotion/styled";
 const ModalWrapper = styled.div`
 	--modal-offset: 5vh;
 	@media (min-height: 1080px) {
-		--modal-offset: 25vh;
+		--modal-offset: 15vh;
 	}
+	@media (min-height: 1440px) {
+		--modal-offset: 20vh;
+	}
+
 	overflow: hidden;
 	z-index: 100; // TODO: should put these indexes somewhere so we can reason about them
 	position: fixed;
@@ -42,9 +46,9 @@ const Modal = styled.div`
 		1.1rem -0.5rem 0.1rem -0.2rem ${(p) => p.theme.colors.blue.main};
 `;
 
-const ModalChildWrapper = styled.div`
+const ModalChildWrapper = styled.div<{ scrollbarVisible?: boolean }>`
 	overflow-y: auto;
-	${scrollbar.hidden};
+	${(p) => !p.scrollbarVisible && scrollbar.hidden}
 	max-height: calc(90vh - var(--modal-offset));
 `;
 
