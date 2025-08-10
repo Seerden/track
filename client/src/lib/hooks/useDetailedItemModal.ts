@@ -3,6 +3,7 @@ import type { ActiveItemState } from "@/lib/state/active-item-state";
 import { activeItemAtom } from "@/lib/state/active-item-state";
 import { useModalState } from "@/lib/state/modal-state";
 import type { ID } from "@shared/types/data/utility.types";
+import { produce } from "immer";
 import { useAtom } from "jotai";
 
 /**
@@ -18,12 +19,11 @@ export default function useDetailedItemModal(
 	const { openModal } = useModalState();
 
 	function openDetailedItemModal(id: ID) {
-		setActiveItem((current) => ({
-			...current,
-			[type]: {
-				activeId: id
-			}
-		}));
+		setActiveItem(
+			produce((draft) => {
+				draft[type].activeId = id;
+			})
+		);
 
 		openModal(modalId);
 	}

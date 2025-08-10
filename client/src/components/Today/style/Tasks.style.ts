@@ -12,8 +12,6 @@ const TasksWrapper = styled.section`
 	${column};
 `;
 
-const TaskName = styled(ListStyle.ItemName)``;
-
 const Times = styled.div`
 	width: max-content;
 	${flex.column};
@@ -27,12 +25,13 @@ const Tasks = styled(Containers.Column)`
 	gap: ${spacingValue.medium}; // same as Habits
 `;
 
-const Task = styled(ListStyle.Item)<{ $completed?: boolean }>`
+const Task = styled(ListStyle.Item)<{ $completed?: boolean; overdue?: boolean }>`
 	cursor: unset;
 	max-width: 500px; // same as Habit
 	display: grid;
 	gap: 1rem;
-	grid-template-columns: 30px 10ch 175px 1fr;
+	grid-template-columns: 30px ${(p) => (p.overdue ? "max-content" : "10ch")} ${(p) =>
+			p.overdue ? "210px" : "175px"} 1fr;
 
 	${(p) =>
 		p.$completed &&
@@ -45,7 +44,6 @@ const Task = styled(ListStyle.Item)<{ $completed?: boolean }>`
 
 export default {
 	TasksWrapper,
-	TaskName,
 	Times,
 	Tasks,
 	Task

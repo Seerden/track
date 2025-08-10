@@ -7,9 +7,11 @@ import {
 import { produce } from "immer";
 import { useAtom, useSetAtom } from "jotai";
 import { useCallback } from "react";
+import { queryClient } from "../query-client";
 import { isSyntheticActivity } from "../recurrence";
 import { activeItemAtom } from "../state/active-item-state";
 import { syntheticActivitiesAtom } from "../state/synthetic-activity-state";
+import { trpc } from "../trpc";
 import { useMutateNewSyntheticActivity } from "./query/activities/useMutateNewActivity";
 
 /**
@@ -57,11 +59,24 @@ export default function usePutTaskCompletion(task: PossiblySyntheticActivity) {
 								})
 							);
 						}
+
+						queryClient.invalidateQueries({
+							queryKey: trpc.activities.tasks.overdue.queryKey()
+						});
 					}
 				}
 			);
 		} else {
-			mutate({ ...task, completed: !task.completed });
+			mutate(
+				{ ...task, completed: !task.completed },
+				{
+					onSuccess: () => {
+						queryClient.invalidateQueries({
+							queryKey: trpc.activities.tasks.overdue.queryKey()
+						});
+					}
+				}
+			);
 		}
 	}, [task, mutate, mutateSynthetic]);
 

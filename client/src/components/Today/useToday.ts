@@ -4,7 +4,6 @@ import {
 	activityStart,
 	isAllDayActivityOnDate
 } from "@/lib/activity";
-import { formatDate } from "@/lib/datetime/format-date";
 import { today } from "@/lib/datetime/make-date";
 import { useQueryActivities } from "@/lib/hooks/query/activities/useQueryActivities";
 import useHabitsData from "@/lib/hooks/useHabitsData";
@@ -27,9 +26,9 @@ export default function useToday() {
 	const [currentDate, setCurrentDate] = useState<Dayjs>(() => today());
 	const [timeWindow, setTimeWindow] = useAtom(timeWindowAtom);
 	const changeDayTimeout = useRef<NodeJS.Timeout | null>(null);
-	const currentDateString = useMemo(() => {
-		return formatDate(currentDate);
-	}, [currentDate]);
+	const { data: overdueTasksData } = useQuery(
+		trpc.activities.tasks.overdue.queryOptions()
+	);
 
 	useEffect(() => {
 		return () => {
@@ -76,22 +75,36 @@ export default function useToday() {
 		return allActivities;
 	}, [activitiesData?.byId, timeWindow, recurrences, syntheticActivities]);
 
+	// TODO: todayActivities, allDayActivities, timestampedActivities are all
+	// memoized off the same variables, so we could combine them into a single
+	// activities object that has all three properties.
+
+	// TODO: render these separately from AllDayActivities, but in the same place
+	// (above the timeline). Maybe as a badge + modal combination. Need to
+	// display datetime or humanized date, since they're all in the past.
+	const overdueTasks = useMemo(() => {
+		if (!overdueTasksData) return [];
+
+		return byIdAsList(overdueTasksData.byId);
+	}, [overdueTasksData]);
+
 	const todayActivities = useMemo(() => {
 		return activities.filter((activity) => {
 			return activityFallsOnDay(activity, currentDate);
 		});
-	}, [activities, currentDateString]);
+	}, [activities, currentDate]);
+
 	const allDayActivities = useMemo(() => {
 		return activities.filter((activity) =>
 			isAllDayActivityOnDate(activity, currentDate)
 		);
-	}, [activities, currentDateString]);
+	}, [activities, currentDate]);
 
 	const timestampedActivities = useMemo(() => {
 		return activities.filter(
 			(activity) => !isAllDayActivityOnDate(activity, currentDate)
 		);
-	}, [activities, currentDateString]);
+	}, [activities, currentDate]);
 
 	const currentYear = today().year(); // TODO: edge case: make this reactive so it updates on New Year's
 	const title = currentDate.format(
@@ -102,6 +115,7 @@ export default function useToday() {
 		habitsById: getHabitsForTimeWindow(timeWindow),
 		activities: todayActivities,
 		allDayActivities,
+		overdueTasks,
 		timestampedActivities,
 		currentDate,
 		setCurrentDate,

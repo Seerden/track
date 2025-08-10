@@ -7,12 +7,15 @@ import S from "./style/Modal.style";
 type ModalProps = {
 	modalId: ModalId;
 	initialOpen?: boolean;
+	/** whether the modal children have a visible scrollbar when overflowing */
+	scrollbarVisible?: boolean;
 };
 
 export default function Modal({
 	children,
 	modalId,
-	initialOpen
+	initialOpen,
+	scrollbarVisible = false
 }: PropsWithChildren<ModalProps>) {
 	const modalRef = useRef(null);
 	const { closeModal, isOpen } = useModal(modalRef, {
@@ -40,7 +43,9 @@ export default function Modal({
 		>
 			<S.Modal ref={modalRef} data-modal-id={modalId}>
 				<S.Close onClick={handleModalClose} $color="red" />
-				<S.ModalChildWrapper>{children}</S.ModalChildWrapper>
+				<S.ModalChildWrapper scrollbarVisible={scrollbarVisible}>
+					{children}
+				</S.ModalChildWrapper>
 			</S.Modal>
 		</S.ModalWrapper>
 	);

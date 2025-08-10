@@ -1,5 +1,6 @@
 import { getLocalHour } from "@/lib/datetime/local";
 import { createDate, now } from "@/lib/datetime/make-date";
+import type { TimeWindow } from "@/types/time-window.types";
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { ID } from "@shared/types/data/utility.types";
 import type { Dayjs } from "dayjs";
@@ -282,7 +283,27 @@ export function hasNotEnded(activity: PossiblySyntheticActivity) {
 	return activityEnd(activity).isAfter(now());
 }
 
-/** Check if an activity is an overdue task. */
-export function isOverdueTask(activity: PossiblySyntheticActivity) {
-	return activity.is_task && !activity.completed && !hasNotEnded(activity);
+/** Check if an activity occurs at least partially within a time window. */
+export function activityFallsInTimeWindow(
+	activity: PossiblySyntheticActivity,
+	timeWindow: TimeWindow
+) {
+	return (
+		!timeWindow.startDate.isAfter(activityEnd(activity)) &&
+		!timeWindow.endDate.isBefore(activityStart(activity))
+	);
+}
+
+/** Check if an activity is an uncompleted overdue task. */
+export function isOverdueTask(
+	activity: PossiblySyntheticActivity,
+	/* if `timeWindow` is passed, an activity can only be regarded as overdue if
+	it falls outside of `timeWindow`. */
+	timeWindow?: TimeWindow
+) {
+	const isOverdue = activity.is_task && !activity.completed && !hasNotEnded(activity);
+
+	if (!timeWindow) return isOverdue;
+
+	return isOverdue && !activityFallsInTimeWindow(activity, timeWindow);
 }

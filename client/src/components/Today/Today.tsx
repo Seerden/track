@@ -11,14 +11,18 @@ import Modal from "@/components/utility/Modal/Modal";
 import modalIds from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
+import { spacingValue } from "@/lib/theme/snippets/spacing";
 import Notes from "./Notes";
+import { OverdueTasksIndicator } from "./OverdueTasksIndicator";
 import S from "./style/Today.style";
+import Task from "./Task";
 import Tasks from "./Tasks";
 
 export default function Today() {
 	const {
 		activities,
 		allDayActivities,
+		overdueTasks,
 		currentDate,
 		habitsById,
 		timestampedActivities,
@@ -51,8 +55,13 @@ export default function Today() {
 							</Containers.Row>
 							{title}
 						</h1>
+						<OverdueTasksIndicator taskCount={overdueTasks?.length ?? 0} />
 					</S.Header>
+
 					{!!allDayActivities.length && (
+						// TODO: rename AllDayActivities to PinnedActivities or
+						// similar, once we start adding other things to the list than
+						// just all-day activities.
 						<AllDayActivities activities={allDayActivities} />
 					)}
 
@@ -76,6 +85,36 @@ export default function Today() {
 					<Notes />
 				</Containers.Column>
 			</S.Columns>
+
+			<Modal
+				modalId={modalIds.activities.tasks.overdue}
+				initialOpen={false}
+				scrollbarVisible
+			>
+				<h1
+					style={{
+						padding: 0,
+						paddingBottom: spacingValue.small,
+						margin: 0,
+						marginTop: spacingValue.medium
+					}}
+				>
+					Overdue tasks
+				</h1>
+				<Containers.Column
+					gap="small"
+					padding="medium"
+					style={{
+						paddingTop: spacingValue.small,
+						minWidth: "500px",
+						maxHeight: "50vh",
+						overflowY: "auto"
+					}}
+				>
+					{!!overdueTasks?.length &&
+						overdueTasks.map((t) => <Task activity={t} key={t.activity_id} />)}
+				</Containers.Column>
+			</Modal>
 
 			{/* TODO: see modal rework issue (TRK-211) */}
 			<Modal initialOpen={false} modalId={modalIds.activities.form}>

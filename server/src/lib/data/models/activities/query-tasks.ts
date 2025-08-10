@@ -16,6 +16,7 @@ export const queryOverdueTasksByUser: QueryFunction<
 		user_id,
 		tasks: true,
 		to: now,
+		completed: false,
 	});
 
 	return overdueTasks;
