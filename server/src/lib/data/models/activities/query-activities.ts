@@ -37,7 +37,6 @@ export const queryActivitiesByUser: QueryFunction<
             ) or (
                ended_at is null
                and end_date <= ${to.valueOf()}
-
             )
          ) 
       `;
