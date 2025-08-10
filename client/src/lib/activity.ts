@@ -283,19 +283,27 @@ export function hasNotEnded(activity: PossiblySyntheticActivity) {
 	return activityEnd(activity).isAfter(now());
 }
 
+/** Check if an activity occurs at least partially within a time window. */
+export function activityFallsInTimeWindow(
+	activity: PossiblySyntheticActivity,
+	timeWindow: TimeWindow
+) {
+	return (
+		!timeWindow.startDate.isAfter(activityEnd(activity)) &&
+		!timeWindow.endDate.isBefore(activityStart(activity))
+	);
+}
+
 /** Check if an activity is an uncompleted overdue task. */
 export function isOverdueTask(
 	activity: PossiblySyntheticActivity,
-	/* @note if a `timeWindow` is passed, it will also check if the activity falls
-	 * outside of it, otherwise doesn't consider it overdue. */
+	/* if `timeWindow` is passed, an activity can only be regarded as overdue if
+	it falls outside of `timeWindow`. */
 	timeWindow?: TimeWindow
 ) {
 	const isOverdue = activity.is_task && !activity.completed && !hasNotEnded(activity);
+
 	if (!timeWindow) return isOverdue;
 
-	// TODO: make this a helper
-	const isInsideTimeWindow =
-		!timeWindow.startDate.isAfter(activityEnd(activity)) &&
-		!timeWindow.endDate.isBefore(activityStart(activity));
-	return isOverdue && !isInsideTimeWindow;
+	return isOverdue && !activityFallsInTimeWindow(activity, timeWindow);
 }
