@@ -30,6 +30,11 @@ type TagBranchProps = {
  * parent, its parent, and so on), the tag itself, and direct children. We could
  * expand it to show all descendants, siblings, and siblings of ancestors (i.e.
  * the whole family tree for this parent's branch traced back to the root).
+ * @todo make sure to display things in the right order. Right now, I have e.g.
+ * household -> laundry -> wash as a tag branch, but it is displayed as laundry
+ * -> household -> wash (when viewing the DetailedTag for wash). I think if we
+ * order tags in here by their level in the tree (see TagTree), it should be
+ * fixed.
  */
 export default function TagBranch({ tag }: TagBranchProps) {
 	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
