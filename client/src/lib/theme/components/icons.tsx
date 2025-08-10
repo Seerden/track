@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { CSSProperties } from "react";
+import { outline } from "../snippets/edge";
 import { flex } from "../snippets/flex";
 import { radius } from "../snippets/radius";
 
@@ -35,8 +36,7 @@ const InBadge = styled.span<{
 						color: white;
 					}
 
-					/* outline: 2px solid var(--badge-icon-color); */
-					outline: 2px solid white;
+					${outline.primary}
 					background-color: var(--badge-icon-color);
 					box-shadow: 0 0 0.3rem 0 #ddd;
 				`}
