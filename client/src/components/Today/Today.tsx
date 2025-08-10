@@ -9,48 +9,14 @@ import useToday from "@/components/Today/useToday";
 import Calendar from "@/components/utility/Calendar/Calendar";
 import Modal from "@/components/utility/Modal/Modal";
 import modalIds from "@/lib/modal-ids";
-import { useModalState } from "@/lib/state/modal-state";
-import { colors } from "@/lib/theme/colors";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
-import Icons from "@/lib/theme/components/icons";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import { Tooltip } from "@mantine/core";
-import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
-import { LucideClockAlert } from "lucide-react";
 import Notes from "./Notes";
+import { OverdueTasksIndicator } from "./OverdueTasksIndicator";
 import S from "./style/Today.style";
 import Task from "./Task";
 import Tasks from "./Tasks";
-
-function OverdueTasksIndicator({
-	overdueTasks
-}: {
-	overdueTasks?: PossiblySyntheticActivity[];
-}) {
-	const { openModal } = useModalState();
-
-	return (
-		<Buttons.Unstyled
-			onClick={() => openModal(modalIds.activities.tasks.overdue)}
-			style={{
-				position: "absolute",
-				right: "1rem",
-				top: "15px" // size is 30px, so this centers it vertically
-			}}
-		>
-			<Tooltip
-				label={`You have ${overdueTasks?.length} overdue tasks`}
-				position="top"
-				withArrow
-			>
-				<Icons.InBadge $color={colors.orange.secondary} invert size={"30px"}>
-					<LucideClockAlert strokeWidth={2} size={22} />
-				</Icons.InBadge>
-			</Tooltip>
-		</Buttons.Unstyled>
-	);
-}
 
 export default function Today() {
 	const {
@@ -89,8 +55,9 @@ export default function Today() {
 							</Containers.Row>
 							{title}
 						</h1>
-						<OverdueTasksIndicator overdueTasks={overdueTasks} />
+						<OverdueTasksIndicator taskCount={overdueTasks?.length ?? 0} />
 					</S.Header>
+
 					{!!allDayActivities.length && (
 						// TODO: rename AllDayActivities to PinnedActivities or
 						// similar, once we start adding other things to the list than
