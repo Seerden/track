@@ -2,30 +2,20 @@ import { useTask } from "@/components/Today/useTask";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import { formatToHHmm } from "@/lib/datetime/format-date";
 import { now } from "@/lib/datetime/make-date";
-import { filterTagsById } from "@/lib/filter-tags";
+import { useQueryTagsByActivity } from "@/lib/hooks/query/tags/useQueryTagsByActivity";
 import { colors } from "@/lib/theme/colors";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import Icons from "@/lib/theme/components/icons";
 import List from "@/lib/theme/components/List.style";
-import { trpc } from "@/lib/trpc";
 import { activityEnd, activityStart, isOverdueTask } from "@lib/activity";
 import { Popover } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
-import { useQuery } from "@tanstack/react-query";
 import { LucideClockAlert } from "lucide-react";
 import TagCard from "../tags/TagCard/TagCard";
 import T from "./style/Tasks.style";
 import S from "./style/Today.style";
-
-// TODO TRK-248: move this to lib/query
-function useQueryTagsByActivity(activity: PossiblySyntheticActivity) {
-	// TODO: use another query to get tags by activity. Don't forget that
-	// synthetic tags will always use the tags from activity they are based on.
-	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
-	return filterTagsById(activity.tag_ids, tagsData?.byId);
-}
 
 type TaskProps = {
 	activity: PossiblySyntheticActivity;
