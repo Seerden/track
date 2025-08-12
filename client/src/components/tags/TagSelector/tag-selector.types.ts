@@ -1,6 +1,6 @@
 import type { ModalId } from "@/lib/modal-ids";
-import type { TagWithIds } from "@shared/lib/schemas/tag";
-import type { ByIdMap, ID } from "@shared/types/data/utility.types";
+import type { TagsInTree, TagWithIds } from "@shared/lib/schemas/tag";
+import type { ID } from "@shared/types/data/utility.types";
 import type { FocusEvent, MouseEvent } from "react";
 
 // These are passed from TagSelector > TagSelectorItems > TagSelectorItem
@@ -34,7 +34,7 @@ export type SelectionProps = {
 
 export type TagSelectorProps = {
 	title?: string;
-	tagsById?: ByIdMap<TagWithIds>;
+	tags?: TagsInTree;
 	fullSize?: boolean;
 	maximum?: number;
 	showNewTagButton?: boolean;

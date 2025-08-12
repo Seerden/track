@@ -6,9 +6,7 @@ import Input from "@/lib/theme/input";
 import useNewNote from "./useNewNote";
 
 function NewNote() {
-	const { onInputChange, onSubmit, tagsData } = useNewNote();
-
-	const tagsById = tagsData?.byId;
+	const { onInputChange, onSubmit, tags } = useNewNote();
 
 	return (
 		<F.Wrapper
@@ -42,7 +40,7 @@ function NewNote() {
 				<F.Row>
 					<TagSelector
 						title="Tags"
-						tagsById={tagsById}
+						tags={tags}
 						showNewTagButton
 						modalId={modalIds.tagSelector.newNote}
 					/>

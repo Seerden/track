@@ -8,11 +8,11 @@ import type { ByIdMap, ID, Maybe } from "@shared/types/data/utility.types";
  */
 export function filterTagsById(
 	ids: Maybe<ID[]>,
-	tagsById: ByIdMap<TagWithIds> = new Map()
+	tags: ByIdMap<TagWithIds> = new Map()
 ): TagWithIds[] {
 	if (!ids?.length) return [];
 
-	const tags = byIdAsList(tagsById);
+	const tagsList = byIdAsList(tags);
 
-	return tags.filter(({ tag_id }) => ids.includes(tag_id));
+	return tagsList.filter(({ tag_id }) => ids.includes(tag_id));
 }

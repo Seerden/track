@@ -12,13 +12,13 @@ import { Note } from "./Note";
 import S from "./style/Today.style";
 
 export default function Notes() {
-	const { data: notesData } = useQuery(trpc.notes.all.queryOptions());
-	const { data: tagsData } = useQueryTags();
+	const { data: notes } = useQuery(trpc.notes.all.queryOptions());
+	const { data: tags } = useQueryTags();
 	const { openModal } = useModalState();
 
-	if (!notesData || !tagsData) return null; // TODO: use isProbablySuspended
+	if (!notes || !tags) return null; // TODO: use isProbablySuspended
 
-	const notes = byIdAsList(notesData.byId).filter((note) =>
+	const notesList = byIdAsList(notes.byId).filter((note) =>
 		// TODO: note.date is not a field in the client when creating a new note,
 		// so it will always be undefined currently, so using created_at is a
 		// temporary solution.
@@ -28,17 +28,13 @@ export default function Notes() {
 		<S.NotesWrapper style={{ gridArea: "notes" }}>
 			{/* need list style for padding, like tasks */}
 			<S.BlockTitle>Notes</S.BlockTitle>
-			{!notes.length && (
+			{!notesList.length && (
 				<Empty action={() => openModal(modalIds.notes.new)}>
 					<span>No notes found for today.</span>
 				</Empty>
 			)}
-			{notes.map((n) => (
-				<Note
-					key={n.note_id}
-					note={n}
-					tags={filterTagsById(n.tag_ids, tagsData?.byId)}
-				/>
+			{notesList.map((n) => (
+				<Note key={n.note_id} note={n} tags={filterTagsById(n.tag_ids, tags)} />
 			))}
 		</S.NotesWrapper>
 	);

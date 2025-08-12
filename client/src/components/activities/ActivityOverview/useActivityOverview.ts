@@ -5,9 +5,9 @@ import { useQuery } from "@tanstack/react-query";
 
 export default function useActivityOverview() {
 	const { data: activitiesData } = useQuery(trpc.activities.all.queryOptions());
-	const { data: tagsData } = useQueryTags();
+	const { data: tags } = useQueryTags();
 
-	const isProbablySuspended = !activitiesData || !tagsData;
+	const isProbablySuspended = !activitiesData || !tags;
 
 	if (isProbablySuspended) return { isProbablySuspended };
 
@@ -16,6 +16,6 @@ export default function useActivityOverview() {
 	return {
 		isProbablySuspended,
 		activities,
-		tagsData
+		tags
 	};
 }

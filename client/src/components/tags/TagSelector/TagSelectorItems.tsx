@@ -26,11 +26,11 @@ function TagSelectorItem(p: TagSelectorItemProps) {
 // isProbablySuspended pattern.
 function TagSelectorItems(p: TagSelectorItemsProps) {
 	const { openModal } = useModalState();
-	const { data: tagsData } = useQueryTags();
+	const { data: tags } = useQueryTags();
 
-	if (!tagsData) return null;
+	if (!tags) return null;
 
-	const tagIds = [...tagsData.keys()];
+	const tagIds = [...tags.keys()];
 	const hasTags = tagIds.length > 0;
 
 	if (hasTags && p.tags.length === 0) {

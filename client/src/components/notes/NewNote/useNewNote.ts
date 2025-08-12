@@ -9,7 +9,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 export default function useNewNote() {
-	const { data: tagsData } = useQueryTags();
+	const { data: tags } = useQueryTags();
 	const navigate = useNavigate();
 	const { currentUser } = useAuthentication();
 	const { mutate } = useMutateNewNote();
@@ -76,6 +76,6 @@ export default function useNewNote() {
 		note,
 		onInputChange,
 		onSubmit,
-		tagsData
+		tags
 	};
 }

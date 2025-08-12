@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 
 export default function useNewTag() {
 	const { currentUser } = useAuthentication();
-	const { data: tagsData } = useQueryTags();
+	const { data: tags } = useQueryTags();
 	const { mutate: submit } = useMutateNewTag();
 
 	const [newTag, setNewTag] = useState<NewTag>({
@@ -54,6 +54,6 @@ export default function useNewTag() {
 	return {
 		onInputChange,
 		onSubmit,
-		tagsData
+		tags
 	};
 }

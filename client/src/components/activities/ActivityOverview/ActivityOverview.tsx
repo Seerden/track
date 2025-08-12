@@ -18,7 +18,7 @@ import { useMemo, useState } from "react";
 import S from "./style/ActivityOverview.style";
 
 export default function ActivityOverview() {
-	const { isProbablySuspended, activities, tagsData } = useActivityOverview();
+	const { isProbablySuspended, activities, tags } = useActivityOverview();
 	const float = useFloatingProps({ click: {} });
 	const [filter, setFilter] = useState<ActivityFilterWithValues>();
 
@@ -84,7 +84,7 @@ export default function ActivityOverview() {
 					<TableItem
 						key={activity.activity_id}
 						activity={activity}
-						tags={filterTagsById(activity.tag_ids, tagsData.byId)}
+						tags={filterTagsById(activity.tag_ids, tags)}
 					/>
 				))}
 			</S.Wrapper>

@@ -21,13 +21,20 @@ import useTagSelector from "./useTagSelector";
 
 const Button = Buttons.Action.Alternative;
 
-export default function TagSelector(p: TagSelectorProps) {
-	const t = useTagSelector({ maximum: p.maximum, tagsById: p.tagsById });
+export default function TagSelector({
+	modalId,
+	fullSize,
+	maximum,
+	showNewTagButton,
+	tags,
+	title
+}: TagSelectorProps) {
+	const t = useTagSelector({ maximum, tags });
 	const f = useTagSelectorFilter();
 
 	// NOTE: tagTreeModalId has to depend on `modalId` because we can have
 	// multiple TagSelectors on the same page.
-	const tagTreeModalId = `${modalIds.tagTree.tagSelector}-${p.modalId}` as ModalId;
+	const tagTreeModalId = `${modalIds.tagTree.tagSelector}-${modalId}` as ModalId;
 	const { openModal } = useModalState();
 
 	function onModalOpen(e: MouseEvent) {
@@ -37,13 +44,11 @@ export default function TagSelector(p: TagSelectorProps) {
 
 	return (
 		<>
-			<S.Wrapper $fullSize={p.fullSize}>
+			<S.Wrapper $fullSize={fullSize}>
 				{/* TODO: the info tooltip should be in a little info block, not a title on a random element */}
-				{!!p.title && (
-					<S.Title
-						{...(p.maximum && { title: `Choose at most ${p.maximum} tag(s)` })}
-					>
-						{p.title}
+				{!!title && (
+					<S.Title {...(maximum && { title: `Choose at most ${maximum} tag(s)` })}>
+						{title}
 					</S.Title>
 				)}
 
@@ -63,7 +68,7 @@ export default function TagSelector(p: TagSelectorProps) {
 										<LucideFilterX size={20} color="orangered" />
 									</Button>
 								)}
-								{p.showNewTagButton && <NewTagButton modalId={p.modalId} />}
+								{showNewTagButton && <NewTagButton modalId={modalId} />}
 
 								<Button onClick={f.expandFilter}>
 									<LucideChevronDown size={20} color={"darkorchid"} />
@@ -98,7 +103,7 @@ export default function TagSelector(p: TagSelectorProps) {
 									<LucideMaximize size={20} color="dodgerblue" />
 								</Button>
 
-								{p.showNewTagButton && <NewTagButton modalId={p.modalId} />}
+								{showNewTagButton && <NewTagButton modalId={modalId} />}
 
 								<Button onClick={f.minimizeFilter}>
 									<LucideChevronUp size={20} color={"forestgreen"} />
@@ -107,7 +112,7 @@ export default function TagSelector(p: TagSelectorProps) {
 
 							<S.List>
 								<TagSelectorItems
-									modalId={p.modalId}
+									modalId={modalId}
 									tags={t.tagsToDisplay}
 									tagSelection={t.tagSelection}
 									updateTagSelection={t.updateTagSelection}

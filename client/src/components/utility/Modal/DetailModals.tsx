@@ -22,7 +22,7 @@ export default function DetailModals() {
 	// as numbers, whereas the byId Maps usually expect strings. This is why I'm
 	// casting the ids to strings. We can get rid of this when we homogeneize the
 	// ids to be strings everywhere.
-	const activeTag = tag.activeId ? tags?.byId.get(String(tag.activeId)) : null;
+	const activeTag = tag.activeId ? tags?.get(tag.activeId) : null;
 	const activeActivity = activity.activeId
 		? (activities?.byId.get(String(activity.activeId)) ??
 			syntheticActivities.find((a) => a.synthetic_id === activity.activeId))

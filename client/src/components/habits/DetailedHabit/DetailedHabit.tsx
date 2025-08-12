@@ -12,7 +12,7 @@ type DetailedHabitProps = {
 };
 
 export default function DetailedHabit({ habit }: PropsWithChildren<DetailedHabitProps>) {
-	const { data: tagsData } = useQueryTags();
+	const { data: tags } = useQueryTags();
 	const { openDetailedItemModal } = useDetailedItemModal("tag", modalIds.tags.detailed);
 
 	const humanizedStart = createDate(habit.start_timestamp).fromNow();
@@ -50,7 +50,7 @@ export default function DetailedHabit({ habit }: PropsWithChildren<DetailedHabit
 				{habit.end_timestamp && <span>Tracking ends {humanizedEnd}</span>}
 			</C.Datetime>
 
-			{tagsData?.byId && (
+			{tags && (
 				<C.Tags>
 					{habit.tag_ids.map((id) => (
 						<C.Tag
@@ -61,7 +61,7 @@ export default function DetailedHabit({ habit }: PropsWithChildren<DetailedHabit
 							}}
 						>
 							{/* TODO: See #176 */}
-							{tagsData.byId.get(String(id))?.name}
+							{tags.get(String(id))?.name}
 						</C.Tag>
 					))}
 				</C.Tags>

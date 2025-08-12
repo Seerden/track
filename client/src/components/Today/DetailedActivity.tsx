@@ -28,7 +28,7 @@ export default function DetailedActivity({
 	activity,
 	DEBUG
 }: DetailedActivityProps & { DEBUG?: boolean }) {
-	const { data: tagsData } = useQueryTags();
+	const { data: tags } = useQueryTags();
 	const putCompletion = usePutTaskCompletion(activity);
 	const humanizedStart = `${startsInFuture(activity) ? "starts" : "started"} ${activityStart(activity).fromNow()}`;
 	const showHumanizedStart = hasNotEnded(activity);
@@ -94,14 +94,14 @@ export default function DetailedActivity({
 				</S.Task>
 			)}
 
-			{tagsData?.byId && (
+			{tags && (
 				<S.Tags
 					style={{
 						gridArea: "tags"
 					}}
 				>
 					{activity.tag_ids.map((id) => {
-						const tag = tagsData.byId.get(String(id));
+						const tag = tags.get(String(id));
 						if (!tag) return null;
 						return (
 							<S.Tag

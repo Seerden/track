@@ -25,12 +25,12 @@ type TagBranchProps = {
  * expand it to show all descendants, siblings, and siblings of ancestors (i.e.
  * the whole family tree for this parent's branch traced back to the root). */
 export default function TagBranch({ tag }: TagBranchProps) {
-	const { data: tagsData } = useQueryTags();
+	const { data: tags } = useQueryTags();
 
-	if (!tagsData) return null;
+	if (!tags) return null;
 
-	const children = findChildren({ tag, tagsById: tagsData });
-	const ancestors = findAncestors({ tag, tagsById: tagsData });
+	const children = findChildren({ tag, tags });
+	const ancestors = findAncestors({ tag, tags });
 
 	const branch = [
 		...ancestors.sort(
