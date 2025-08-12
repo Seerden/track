@@ -14,7 +14,7 @@ export type TagSelectorItemProps = SubcomponentProps & {
 };
 
 export type TagSelectorItemsProps = SubcomponentProps & {
-	tags: TagWithIds[];
+	filteredTags: TagWithIds[];
 	modalId: ModalId;
 };
 

@@ -226,6 +226,25 @@ const EmptySelection = styled.div`
 	margin-top: ${spacingValue.small};
 `;
 
+const CreateTagButton = styled(Buttons.Unstyled)`
+	${flex.column};
+	justify-content: center;
+	align-items: center;
+
+	gap: ${spacingValue.medium};
+	padding: ${spacingValue.small};
+
+	width: 100%;
+	height: max-content;
+
+	text-decoration: underline;
+
+	background-color: ${(p) => p.theme.colors.blue.main};
+	color: white;
+
+	border: none;
+`;
+
 export default {
 	Wrapper,
 	List,
@@ -239,5 +258,6 @@ export default {
 	SelectionList,
 	SelectionItem,
 	PathPart,
-	EmptySelection
+	EmptySelection,
+	CreateTagButton
 };

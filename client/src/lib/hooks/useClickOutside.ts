@@ -2,7 +2,7 @@ import { findNearestParentModal } from "@/lib/nearest-modal";
 import type { RefObject } from "react";
 import { useEffect, useState } from "react";
 
-export default function useClickOutside<T extends HTMLElement>(
+export default function useClickOutside<T extends HTMLElement | null>(
 	ref: RefObject<T>,
 	{
 		handler,

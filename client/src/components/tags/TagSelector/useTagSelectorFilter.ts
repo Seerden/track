@@ -19,7 +19,6 @@ export default function useTagSelectorFilter() {
 	return {
 		dropdownRef,
 		expanded,
-		setExpanded,
 		expandFilter,
 		minimizeFilter
 	};
