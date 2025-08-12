@@ -34,7 +34,7 @@ export function mergeTagsAndRelations({
 	return tagMap;
 }
 
-/** Gets all of a user's tags and tag relations and puts them into a tagsById object. */
+/** Gets all of a user's tags and tag relations and puts them into a map (by id). */
 export async function getTagsWithRelations({ user_id }: { user_id: ID }) {
 	const { tags, relations } = await queryTagsAndRelations({ user_id });
 
@@ -45,11 +45,11 @@ export async function getTagsWithRelations({ user_id }: { user_id: ID }) {
  * their top-level ancestor.
  * @note each root tag is part of its own tree by definition, so if id 1
  * represents a root tag, then treeIdMap.get(`1`) includes `1`. */
-export function createTagTreeMap(tagsById: ByIdMap<TagWithIds>) {
+export function createTagTreeMap(tags: ByIdMap<TagWithIds>) {
 	const treeIdMap: TagsTree = new Map();
 
-	for (const tag_id in tagsById) {
-		const root_id = findRootTag(tag_id, tagsById);
+	for (const tag_id of tags.keys()) {
+		const root_id = findRootTag(tag_id, tags);
 		if (!root_id) {
 			throw new Error(`Root tag not found for tag_id ${tag_id}`);
 		}
@@ -61,14 +61,17 @@ export function createTagTreeMap(tagsById: ByIdMap<TagWithIds>) {
 }
 
 /** Given a tag_id, find the tag_id of the root parent tag (i.e. its top-level ancestor) */
-export function findRootTag(tag_id: ID, tagsById: ByIdMap<TagWithIds>) {
-	let currentTag = tagsById.get(tag_id);
+export function findRootTag(tag_id: ID, tags: ByIdMap<TagWithIds>) {
+	let currentTag = tags.get(tag_id);
 	if (!currentTag) {
-		throw new Error(`Tag with id ${tag_id} not found in tagsById map.`);
+		throw new Error(`Tag with id ${tag_id} not found in tags map.`);
 	}
 
 	while (currentTag?.parent_id) {
-		currentTag = tagsById.get(currentTag!.parent_id);
+		currentTag = tags.get(currentTag.parent_id);
+		if (currentTag && !currentTag.parent_id) {
+			return currentTag.tag_id;
+		}
 	}
 
 	return currentTag?.tag_id;
