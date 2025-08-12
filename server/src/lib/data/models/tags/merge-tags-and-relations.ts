@@ -17,7 +17,6 @@ export function mergeTagsAndRelations({
 	tags: TagWithId[];
 	relations: TagTagRelation[];
 }): ByIdMap<TagWithIds> {
-	// TODO TRK-249: use a map instead of a ById object
 	const tagMap: Map<TagWithIds["tag_id"], TagWithIds> = new Map();
 
 	for (const tag of tags) {
