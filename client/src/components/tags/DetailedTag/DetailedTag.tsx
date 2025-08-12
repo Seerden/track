@@ -12,8 +12,6 @@ type DetailedTagProps = {
 export default function DetailedTag({ tag }: DetailedTagProps) {
 	const humanizedCreatedAt = createDate(tag.created_at).fromNow();
 
-	console.log({ loc: "DetailedTag", tag });
-
 	return (
 		<S.Wrapper>
 			<C.Title>{tag.name}</C.Title>
