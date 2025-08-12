@@ -1,6 +1,6 @@
-import type { TagWithId, TagWithIds } from "@shared/lib/schemas/tag";
+import type { TagsTree, TagWithId, TagWithIds } from "@shared/lib/schemas/tag";
 import type { TagTagRelation } from "@shared/types/data/relational.types";
-import type { ById, ID } from "@shared/types/data/utility.types";
+import type { ByIdMap, ID } from "@shared/types/data/utility.types";
 import { queryTagsAndRelations } from "./query-tags";
 
 /**
@@ -16,50 +16,60 @@ export function mergeTagsAndRelations({
 }: {
 	tags: TagWithId[];
 	relations: TagTagRelation[];
-}) {
-	const tagsById = {} as ById<TagWithIds>;
+}): ByIdMap<TagWithIds> {
+	// TODO TRK-249: use a map instead of a ById object
+	const tagMap: Map<TagWithIds["tag_id"], TagWithIds> = new Map();
+
 	for (const tag of tags) {
-		tagsById[tag.tag_id] = { ...tag, child_ids: [], parent_id: null };
+		tagMap.set(tag.tag_id, { ...tag, child_ids: [], parent_id: null });
 	}
 
 	for (const { child_id, parent_id } of relations) {
-		tagsById[parent_id]?.child_ids?.push(child_id);
-		(tagsById[child_id] ?? {}).parent_id = parent_id;
+		const tag = tagMap.get(parent_id);
+		if (!tag) continue; // TODO TRK-249: throw
+		tag.child_ids?.push(child_id);
+		tagMap.set(child_id, { ...tagMap.get(child_id)!, parent_id });
 	}
 
-	return tagsById;
+	return tagMap;
 }
 
 /** Gets all of a user's tags and tag relations and puts them into a tagsById object. */
 export async function getTagsWithRelations({ user_id }: { user_id: ID }) {
 	const { tags, relations } = await queryTagsAndRelations({ user_id });
 
-	if (!tags.length) return {};
-
 	return mergeTagsAndRelations({ tags, relations });
 }
 
-/** Given a tagsById object, create a hashmap that groups the tags by the id of
- * their top-level ancestor. */
-export function createTagTreeMap(tagsById: ById<TagWithIds>) {
-	const treeIdMap = {} as ById<{ members: ID[] }>;
+/** Given a tagsById object, create a map that groups the tags by the id of
+ * their top-level ancestor.
+ * @note each root tag is part of its own tree by definition, so if id 1
+ * represents a root tag, then treeIdMap.get(`1`) includes `1`. */
+export function createTagTreeMap(tagsById: ByIdMap<TagWithIds>) {
+	const treeIdMap: TagsTree = new Map();
 
 	for (const tag_id in tagsById) {
 		const root_id = findRootTag(tag_id, tagsById);
-		if (!treeIdMap[root_id]) {
-			treeIdMap[root_id] = { members: [] };
+		if (!root_id) {
+			throw new Error(`Root tag not found for tag_id ${tag_id}`);
 		}
-		treeIdMap[root_id].members.push(tag_id);
+
+		treeIdMap.set(root_id, (treeIdMap.get(root_id) ?? []).concat(tag_id));
 	}
 
 	return treeIdMap;
 }
 
 /** Given a tag_id, find the tag_id of the root parent tag (i.e. its top-level ancestor) */
-function findRootTag(tag_id: ID, tagsById: ById<TagWithIds>) {
-	let currentTag = tagsById[tag_id];
-	while (currentTag.parent_id) {
-		currentTag = tagsById[currentTag.parent_id];
+export function findRootTag(tag_id: ID, tagsById: ByIdMap<TagWithIds>) {
+	let currentTag = tagsById.get(tag_id);
+	if (!currentTag) {
+		throw new Error(`Tag with id ${tag_id} not found in tagsById map.`);
 	}
-	return currentTag.tag_id;
+
+	while (currentTag?.parent_id) {
+		currentTag = tagsById.get(currentTag!.parent_id);
+	}
+
+	return currentTag?.tag_id;
 }

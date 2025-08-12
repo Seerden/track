@@ -1,20 +1,19 @@
-import { trpc } from "@/lib/trpc";
+import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import { byIdAsList } from "@shared/lib/map";
-import type { TagWithIds } from "@shared/lib/schemas/tag";
-import type { ById, ByIdMap, ID } from "@shared/types/data/utility.types";
-import { useQuery } from "@tanstack/react-query";
+import type { TagsInTree } from "@shared/lib/schemas/tag";
+import type { ById, ID } from "@shared/types/data/utility.types";
 import type { ChangeEvent, MouseEvent } from "react";
 import { useMemo, useState } from "react";
 
 type UseTagSelector = {
 	maximum?: number;
-	tagsById?: ByIdMap<TagWithIds>;
+	tagsById?: TagsInTree;
 };
 
 // TODO: handle case where maximum > 1.
 export default function useTagSelector({ maximum, tagsById }: UseTagSelector = {}) {
-	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
+	const { data: tagsData } = useQueryTags();
 
 	const {
 		tagSelection,
@@ -49,7 +48,7 @@ export default function useTagSelector({ maximum, tagsById }: UseTagSelector = {
 
 	// TODO: If tags are passed through props (=p.tagsById), they take priority over all the
 	// user's tags (=t.tags.tagsById), We need to rename the variables to make that clear.
-	const tags = byIdAsList(tagsById ?? tagsData?.byId);
+	const tags = byIdAsList(tagsById ?? tagsData);
 	const tagsToDisplay = tags.filter((tag) =>
 		tag.name.toLowerCase().includes(filter.toLowerCase())
 	);

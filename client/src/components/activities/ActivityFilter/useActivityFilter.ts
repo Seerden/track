@@ -5,6 +5,7 @@ import type {
 } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import { defaultFilter } from "@/components/activities/ActivityFilter/lib/constants";
 import useActivityFilterActions from "@/components/activities/ActivityFilter/useActivityFilterActions";
+import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import { trpc } from "@/lib/trpc";
 import { byIdAsList } from "@shared/lib/map";
 import type { ID } from "@shared/types/data/utility.types";
@@ -12,7 +13,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 export default function useActivityFilter({ onChange }: ActivityFilterProps) {
-	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
+	const { data: tagsData } = useQueryTags();
 	const { data: tagsTreeData } = useQuery(trpc.tags.tree.queryOptions());
 	const [filter, setFilter] = useState<ActivityFilterWithValues>(defaultFilter);
 	const [wholeTree, setWholeTree] = useState(false);
@@ -31,8 +32,8 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 	const actions = useActivityFilterActions({
 		setActiveTagIds,
 		wholeTree,
-		tagsById: tagsData?.byId,
-		tagsTreeById: tagsTreeData?.byId,
+		tagsById: tagsData,
+		tagsTreeById: tagsTreeData,
 		setFilter
 	});
 
@@ -46,7 +47,7 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 		[filter.tags.value]
 	);
 
-	const tagsList = byIdAsList(tagsData?.byId);
+	const tagsList = byIdAsList(tagsData);
 	const tags = useMemo(() => {
 		// The tags we display are the ones that match the search query, but
 		// selected tags are always displayed regardless of the search query.

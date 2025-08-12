@@ -1,4 +1,5 @@
 import Modal from "@/components/utility/Modal/Modal";
+import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
 import Badge from "@/lib/theme/components/Badge";
@@ -23,16 +24,14 @@ export default function TagTree({
 	initialOpen = false
 }: TagTreeProps) {
 	const { data: tagTreeData } = useQuery(trpc.tags.tree.queryOptions());
-	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
+	const { data: tagsData } = useQueryTags();
 
 	if (!tagTreeData || !tagsData) return null;
 
-	const rootTagIds = [...tagTreeData.byId.keys()];
-	const rootTags = rootTagIds
-		.map((id) => tagsData.byId.get(String(id)))
-		.filter((tag) => !!tag);
+	const rootTagIds = [...tagTreeData.keys()];
+	const rootTags = rootTagIds.map((id) => tagsData.get(id)).filter((tag) => !!tag);
 
-	if (!byIdAsList(tagsData.byId).length) return null;
+	if (!byIdAsList(tagsData).length) return null;
 
 	return (
 		<Modal modalId={modalId} initialOpen={initialOpen}>
@@ -66,7 +65,7 @@ function getTag(tag_id: ID, tagsById: ByIdMap<TagWithIds>) {
 }
 
 function Tag({ tag, level }: TagProps) {
-	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
+	const { data: tagsData } = useQueryTags();
 	const [collapsed, setCollapsed] = useState(false);
 
 	if (!tagsData) {
@@ -74,7 +73,7 @@ function Tag({ tag, level }: TagProps) {
 	}
 
 	const children = tag.child_ids
-		?.map((id) => getTag(id, tagsData.byId))
+		?.map((id) => getTag(id, tagsData))
 		.filter((tag) => !!tag);
 
 	return (

@@ -8,6 +8,7 @@ import { ID, type ById, type ByIdMap } from "@shared/types/data/utility.types";
  * because I think it's a cool example of `infer`.
  * @todo TRK-228: we don't use the DataById type expicitly anywhere anymore,
  * same goes for MappedData, so we can hardcode them here.
+ * @deprecated @todo TRK-249 just use the map, don't nest it under .byId
  */
 export function transformByIdToMap<T extends DataById<unknown>>(
 	data: T,
