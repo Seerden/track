@@ -16,7 +16,6 @@ export const queryTags = authenticatedProcedure.query(async ({ ctx }) => {
 	for (const tag of tags.values()) {
 		const rootId = findRootTag(tag.tag_id, tags);
 		if (!rootId) {
-			// TODO: this occurs when a tag has no parent, but it shouldn't
 			throw new Error(`Root tag not found for tag_id ${tag.tag_id}`);
 		} else {
 			tagsInTree.set(tag.tag_id, {
