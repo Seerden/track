@@ -1,20 +1,22 @@
-import { trpc } from "@/lib/trpc";
+import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import { byIdAsList } from "@shared/lib/map";
-import type { TagWithIds } from "@shared/lib/schemas/tag";
-import type { ById, ByIdMap, ID } from "@shared/types/data/utility.types";
-import { useQuery } from "@tanstack/react-query";
+import type { TagsInTree } from "@shared/lib/schemas/tag";
+import type { ById, ID } from "@shared/types/data/utility.types";
 import type { ChangeEvent, MouseEvent } from "react";
 import { useMemo, useState } from "react";
 
 type UseTagSelector = {
 	maximum?: number;
-	tagsById?: ByIdMap<TagWithIds>;
+	tags?: TagsInTree;
 };
 
 // TODO: handle case where maximum > 1.
-export default function useTagSelector({ maximum, tagsById }: UseTagSelector = {}) {
-	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
+export default function useTagSelector({
+	maximum,
+	tags: initialTags
+}: UseTagSelector = {}) {
+	const { data: tags } = useQueryTags();
 
 	const {
 		tagSelection,
@@ -48,14 +50,14 @@ export default function useTagSelector({ maximum, tagsById }: UseTagSelector = {
 	}
 
 	// TODO: If tags are passed through props (=p.tagsById), they take priority over all the
-	// user's tags (=t.tags.tagsById), We need to rename the variables to make that clear.
-	const tags = byIdAsList(tagsById ?? tagsData?.byId);
-	const tagsToDisplay = tags.filter((tag) =>
+	// user's tags (=t.tags.tags), We need to rename the variables to make that clear.
+	const tagList = byIdAsList(initialTags ?? tags);
+	const filteredTags = tagList.filter((tag) =>
 		tag.name.toLowerCase().includes(filter.toLowerCase())
 	);
 	const selectedTags = useMemo(
-		() => tags.filter((tag) => selectedTagIds.includes(tag.tag_id)),
-		[tagsData, selectedTagIds]
+		() => tagList.filter((tag) => selectedTagIds.includes(tag.tag_id)),
+		[tags, selectedTagIds]
 	);
 
 	return {
@@ -65,10 +67,9 @@ export default function useTagSelector({ maximum, tagsById }: UseTagSelector = {
 		updateFilter,
 		clearFilter,
 		selectedTagIds,
-		resetTagSelection,
 		onSelectionReset,
-		tagsToDisplay,
+		filteredTags,
 		selectedTags,
-		tags
+		tags: tagList
 	};
 }

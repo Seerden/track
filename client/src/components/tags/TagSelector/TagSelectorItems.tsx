@@ -2,9 +2,8 @@ import type {
 	TagSelectorItemProps,
 	TagSelectorItemsProps
 } from "@/components/tags/TagSelector/tag-selector.types";
+import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import { useModalState } from "@/lib/state/modal-state";
-import { trpc } from "@/lib/trpc";
-import { useQuery } from "@tanstack/react-query";
 import S from "./style/TagSelector.style";
 
 function TagSelectorItem(p: TagSelectorItemProps) {
@@ -25,54 +24,42 @@ function TagSelectorItem(p: TagSelectorItemProps) {
 
 // TODO: put logic in a component hook, extract inline styles, use
 // isProbablySuspended pattern.
-function TagSelectorItems(p: TagSelectorItemsProps) {
+export function TagSelectorItems({
+	modalId,
+	filteredTags,
+	tagSelection,
+	updateTagSelection
+}: TagSelectorItemsProps) {
 	const { openModal } = useModalState();
-	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
+	const { data: tags } = useQueryTags();
+	const tagCount = tags?.size;
 
-	if (!tagsData?.byId) return null;
+	if (!tags) return null;
 
-	const tagIds = [...tagsData.byId.keys()];
-	const hasTags = tagIds.length > 0;
+	if (tagCount) {
+		return filteredTags.map((tag) => (
+			<TagSelectorItem
+				tagSelection={tagSelection}
+				updateTagSelection={updateTagSelection}
+				key={tag.tag_id}
+				tag={tag}
+			/>
+		));
+	}
 
-	if (hasTags && p.tags.length === 0) {
+	if (filteredTags.length === 0) {
 		return <p>No tags found for selected filter.</p>;
 	}
 
-	if (tagIds.length === 0)
-		return (
-			<button
-				type="button"
-				onClick={(e) => {
-					openModal(p.modalId);
-					e.stopPropagation();
-				}}
-				style={{
-					display: "flex",
-					flexDirection: "column",
-					gap: "1rem",
-					width: "100%",
-					justifyContent: "center",
-					textDecoration: "underline",
-					backgroundColor: "dodgerblue",
-					color: "white",
-					border: "none",
-					alignItems: "center",
-					padding: "0.5rem",
-					height: "max-content"
-				}}
-			>
-				You do not have any tags yet. Click to add one.
-			</button>
-		);
-
-	return p.tags.map((tag) => (
-		<TagSelectorItem
-			tagSelection={p.tagSelection}
-			updateTagSelection={p.updateTagSelection}
-			key={tag.tag_id}
-			tag={tag}
-		/>
-	));
+	return (
+		<S.CreateTagButton
+			type="button"
+			onClick={(e) => {
+				openModal(modalId);
+				e.stopPropagation();
+			}}
+		>
+			You do not have any tags yet. Click to add one.
+		</S.CreateTagButton>
+	);
 }
-
-export default TagSelectorItems;

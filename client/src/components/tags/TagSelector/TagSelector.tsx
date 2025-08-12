@@ -1,7 +1,7 @@
 import Filter from "@/components/tags/TagSelector/Filter";
 import Selection from "@/components/tags/TagSelector/Selection";
 import type { TagSelectorProps } from "@/components/tags/TagSelector/tag-selector.types";
-import TagSelectorItems from "@/components/tags/TagSelector/TagSelectorItems";
+import { TagSelectorItems } from "@/components/tags/TagSelector/TagSelectorItems";
 import useTagSelectorFilter from "@/components/tags/TagSelector/useTagSelectorFilter";
 import TagTree from "@/components/tags/TagTree/TagTree";
 import type { ModalId } from "@/lib/modal-ids";
@@ -21,13 +21,31 @@ import useTagSelector from "./useTagSelector";
 
 const Button = Buttons.Action.Alternative;
 
-export default function TagSelector(p: TagSelectorProps) {
-	const t = useTagSelector({ maximum: p.maximum, tagsById: p.tagsById });
-	const f = useTagSelectorFilter();
+export default function TagSelector({
+	modalId,
+	fullSize,
+	maximum,
+	showNewTagButton,
+	tags,
+	title
+}: TagSelectorProps) {
+	const {
+		clearFilter,
+		filter,
+		onSelectionReset,
+		selectedTagIds,
+		selectedTags,
+		tagSelection,
+		tags: selectorTags,
+		filteredTags,
+		updateFilter,
+		updateTagSelection
+	} = useTagSelector({ maximum, tags });
+	const { dropdownRef, expandFilter, expanded, minimizeFilter } = useTagSelectorFilter();
 
 	// NOTE: tagTreeModalId has to depend on `modalId` because we can have
 	// multiple TagSelectors on the same page.
-	const tagTreeModalId = `${modalIds.tagTree.tagSelector}-${p.modalId}` as ModalId;
+	const tagTreeModalId = `${modalIds.tagTree.tagSelector}-${modalId}` as ModalId;
 	const { openModal } = useModalState();
 
 	function onModalOpen(e: MouseEvent) {
@@ -37,59 +55,57 @@ export default function TagSelector(p: TagSelectorProps) {
 
 	return (
 		<>
-			<S.Wrapper $fullSize={p.fullSize}>
+			<S.Wrapper $fullSize={fullSize}>
 				{/* TODO: the info tooltip should be in a little info block, not a title on a random element */}
-				{!!p.title && (
-					<S.Title
-						{...(p.maximum && { title: `Choose at most ${p.maximum} tag(s)` })}
-					>
-						{p.title}
+				{!!title && (
+					<S.Title {...(maximum && { title: `Choose at most ${maximum} tag(s)` })}>
+						{title}
 					</S.Title>
 				)}
 
 				<div style={{ position: "relative" }}>
 					<S.Actions>
-						{!f.expanded && (
+						{!expanded && (
 							<>
 								<Filter
-									filter={t.filter}
-									updateFilter={t.updateFilter}
-									clearFilter={t.clearFilter}
-									onFocus={f.expandFilter}
+									filter={filter}
+									updateFilter={updateFilter}
+									clearFilter={clearFilter}
+									onFocus={expandFilter}
 								/>
 								{/* TODO: we show this exact thing in two different places -- make it a subcomponent, or at least a render function */}
-								{!!t.selectedTagIds.length && (
-									<Button onClick={t.onSelectionReset}>
+								{!!selectedTagIds.length && (
+									<Button onClick={onSelectionReset}>
 										<LucideFilterX size={20} color="orangered" />
 									</Button>
 								)}
-								{p.showNewTagButton && <NewTagButton modalId={p.modalId} />}
+								{showNewTagButton && <NewTagButton modalId={modalId} />}
 
-								<Button onClick={f.expandFilter}>
+								<Button onClick={expandFilter}>
 									<LucideChevronDown size={20} color={"darkorchid"} />
 								</Button>
 							</>
 						)}
 					</S.Actions>
 
-					{!t.selectedTags.length ? (
+					{!selectedTags.length ? (
 						<S.EmptySelection>You haven't selected any tags yet.</S.EmptySelection>
 					) : (
-						<Selection tags={t.tags} selectedTags={t.selectedTags} />
+						<Selection tags={selectorTags} selectedTags={selectedTags} />
 					)}
 
-					{f.expanded && (
-						<S.DropdownContent ref={f.dropdownRef}>
+					{expanded && (
+						<S.DropdownContent ref={dropdownRef}>
 							<S.DropdownActions>
 								<Filter
-									filter={t.filter}
-									clearFilter={t.clearFilter}
-									updateFilter={t.updateFilter}
+									filter={filter}
+									clearFilter={clearFilter}
+									updateFilter={updateFilter}
 									hasAutoFocus
 								/>
 
-								{!!t.selectedTagIds.length && (
-									<Button onClick={t.onSelectionReset}>
+								{!!selectedTagIds.length && (
+									<Button onClick={onSelectionReset}>
 										<LucideFilterX size={20} color="orangered" />
 									</Button>
 								)}
@@ -98,23 +114,27 @@ export default function TagSelector(p: TagSelectorProps) {
 									<LucideMaximize size={20} color="dodgerblue" />
 								</Button>
 
-								{p.showNewTagButton && <NewTagButton modalId={p.modalId} />}
+								{showNewTagButton && <NewTagButton modalId={modalId} />}
 
-								<Button onClick={f.minimizeFilter}>
+								<Button onClick={minimizeFilter}>
 									<LucideChevronUp size={20} color={"forestgreen"} />
 								</Button>
 							</S.DropdownActions>
 
 							<S.List>
 								<TagSelectorItems
-									modalId={p.modalId}
-									tags={t.tagsToDisplay}
-									tagSelection={t.tagSelection}
-									updateTagSelection={t.updateTagSelection}
+									modalId={modalId}
+									filteredTags={filteredTags}
+									tagSelection={tagSelection}
+									updateTagSelection={updateTagSelection}
 								/>
 							</S.List>
 
-							<Selection fullPaths tags={t.tags} selectedTags={t.selectedTags} />
+							<Selection
+								fullPaths
+								tags={selectorTags}
+								selectedTags={selectedTags}
+							/>
 						</S.DropdownContent>
 					)}
 				</div>

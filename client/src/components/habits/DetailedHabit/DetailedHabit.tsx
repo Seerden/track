@@ -1,10 +1,9 @@
 import { createDate } from "@/lib/datetime/make-date";
+import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import modalIds from "@/lib/modal-ids";
 import C from "@/lib/theme/components/Card.style";
-import { trpc } from "@/lib/trpc";
 import type { HabitWithIds } from "@shared/lib/schemas/habit";
-import { useQuery } from "@tanstack/react-query";
 import type { PropsWithChildren } from "react";
 import S from "./style/DetailedHabit.style";
 
@@ -13,7 +12,7 @@ type DetailedHabitProps = {
 };
 
 export default function DetailedHabit({ habit }: PropsWithChildren<DetailedHabitProps>) {
-	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
+	const { data: tags } = useQueryTags();
 	const { openDetailedItemModal } = useDetailedItemModal("tag", modalIds.tags.detailed);
 
 	const humanizedStart = createDate(habit.start_timestamp).fromNow();
@@ -51,7 +50,7 @@ export default function DetailedHabit({ habit }: PropsWithChildren<DetailedHabit
 				{habit.end_timestamp && <span>Tracking ends {humanizedEnd}</span>}
 			</C.Datetime>
 
-			{tagsData?.byId && (
+			{tags && (
 				<C.Tags>
 					{habit.tag_ids.map((id) => (
 						<C.Tag
@@ -62,7 +61,7 @@ export default function DetailedHabit({ habit }: PropsWithChildren<DetailedHabit
 							}}
 						>
 							{/* TODO: See #176 */}
-							{tagsData.byId.get(String(id))?.name}
+							{tags.get(String(id))?.name}
 						</C.Tag>
 					))}
 				</C.Tags>

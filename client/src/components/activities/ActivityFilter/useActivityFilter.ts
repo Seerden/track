@@ -5,6 +5,7 @@ import type {
 } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import { defaultFilter } from "@/components/activities/ActivityFilter/lib/constants";
 import useActivityFilterActions from "@/components/activities/ActivityFilter/useActivityFilterActions";
+import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import { trpc } from "@/lib/trpc";
 import { byIdAsList } from "@shared/lib/map";
 import type { ID } from "@shared/types/data/utility.types";
@@ -12,8 +13,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 export default function useActivityFilter({ onChange }: ActivityFilterProps) {
-	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
-	const { data: tagsTreeData } = useQuery(trpc.tags.tree.queryOptions());
+	const { data: tags } = useQueryTags();
+	const { data: tagsTree } = useQuery(trpc.tags.tree.queryOptions());
 	const [filter, setFilter] = useState<ActivityFilterWithValues>(defaultFilter);
 	const [wholeTree, setWholeTree] = useState(false);
 	const [activeTagIds, setActiveTagIds] = useState<ID[]>([]);
@@ -22,7 +23,7 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 		setWholeTree((current) => !current);
 	}
 
-	const isProbablySuspended = !tagsData || !tagsTreeData;
+	const isProbablySuspended = !tags || !tagsTree;
 
 	useEffect(() => {
 		onChange(filter);
@@ -31,8 +32,8 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 	const actions = useActivityFilterActions({
 		setActiveTagIds,
 		wholeTree,
-		tagsById: tagsData?.byId,
-		tagsTreeById: tagsTreeData?.byId,
+		tags,
+		tagsTreeById: tagsTree,
 		setFilter
 	});
 
@@ -46,8 +47,8 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 		[filter.tags.value]
 	);
 
-	const tagsList = byIdAsList(tagsData?.byId);
-	const tags = useMemo(() => {
+	const tagsList = byIdAsList(tags);
+	const filteredTags = useMemo(() => {
 		// The tags we display are the ones that match the search query, but
 		// selected tags are always displayed regardless of the search query.
 		// TODO: do we display the selected tags separately from the search results?
@@ -59,7 +60,7 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 	}, [tagsList, filter.tags.search, filter.tags.value]);
 
 	const noTagsFound =
-		tags.length === 0 && filter.tags.search.length > 0 && tagsList.length > 0;
+		filteredTags.length === 0 && filter.tags.search.length > 0 && tagsList.length > 0;
 
 	if (isProbablySuspended) return { isProbablySuspended };
 
@@ -67,7 +68,7 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 		isProbablySuspended,
 		filter,
 		noTagsFound,
-		tags,
+		tags: filteredTags,
 		actions,
 		wholeTree,
 		toggleWholeTree,

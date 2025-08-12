@@ -1,11 +1,11 @@
 import Modal from "@/components/utility/Modal/Modal";
+import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
 import Badge from "@/lib/theme/components/Badge";
 import { trpc } from "@/lib/trpc";
 import { byIdAsList } from "@shared/lib/map";
 import type { TagWithIds } from "@shared/lib/schemas/tag";
-import type { ByIdMap, ID } from "@shared/types/data/utility.types";
 import { useQuery } from "@tanstack/react-query";
 import { LucideChevronDown, LucideChevronUp } from "lucide-react";
 import { useState } from "react";
@@ -22,17 +22,15 @@ export default function TagTree({
 	modalId = modalIds.tagTree.tree,
 	initialOpen = false
 }: TagTreeProps) {
-	const { data: tagTreeData } = useQuery(trpc.tags.tree.queryOptions());
-	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
+	const { data: tagsTree } = useQuery(trpc.tags.tree.queryOptions());
+	const { data: tags } = useQueryTags();
 
-	if (!tagTreeData || !tagsData) return null;
+	if (!tagsTree || !tags) return null;
 
-	const rootTagIds = [...tagTreeData.byId.keys()];
-	const rootTags = rootTagIds
-		.map((id) => tagsData.byId.get(String(id)))
-		.filter((tag) => !!tag);
+	const rootTagIds = [...tagsTree.keys()];
+	const rootTags = rootTagIds.map((id) => tags.get(id)).filter((tag) => !!tag);
 
-	if (!byIdAsList(tagsData.byId).length) return null;
+	if (!byIdAsList(tags).length) return null;
 
 	return (
 		<Modal modalId={modalId} initialOpen={initialOpen}>
@@ -60,22 +58,15 @@ type TagProps = {
 	level: number;
 };
 
-// TODO: this has to exist in a utility file somewhere
-function getTag(tag_id: ID, tagsById: ByIdMap<TagWithIds>) {
-	return tagsById.get(String(tag_id));
-}
-
 function Tag({ tag, level }: TagProps) {
-	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
+	const { data: tags } = useQueryTags();
 	const [collapsed, setCollapsed] = useState(false);
 
-	if (!tagsData) {
+	if (!tags) {
 		return null;
 	}
 
-	const children = tag.child_ids
-		?.map((id) => getTag(id, tagsData.byId))
-		.filter((tag) => !!tag);
+	const children = tag.child_ids?.map((id) => tags.get(id)).filter((tag) => !!tag);
 
 	return (
 		<S.Tag $level={level} layout>

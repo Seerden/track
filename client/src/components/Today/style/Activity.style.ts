@@ -46,7 +46,14 @@ const Activity = styled.div<{
 	display: flex;
 	position: absolute;
 	z-index: 2;
-	height: ${(p) => rowHeight * p.$durationHours}px;
+
+	--row-height: ${rowHeight}px;
+
+	@media (min-height: 1250px) {
+		--row-height: 2vh;
+	}
+
+	height: calc((var(--row-height) * ${(p) => p.$durationHours}));
 
 	${spacing.padding.wide({ size: 0.5, ratio: 2 })};
 	background-color: ${(p) =>

@@ -1,6 +1,6 @@
 import { timestampSchema } from "@shared/lib/schemas/timestamp";
 import { z } from "@shared/lib/zod";
-import type { ByIdMap, ID } from "@shared/types/data/utility.types";
+import type { ByIdMap } from "@shared/types/data/utility.types";
 
 export const newTagSchema = z.object({
 	user_id: z.string(),
@@ -37,4 +37,13 @@ export const tagWithIdsSchema = tagWithIdSchema.and(
 );
 export type TagWithIds = z.infer<typeof tagWithIdsSchema>;
 
-export type TagTreeById = ByIdMap<{ members: ID[] }>;
+export const tagInTreeSchema = tagWithIdsSchema.and(
+	z.object({
+		tree_root_id: z.string(),
+		tree_depth: z.number().int().min(0),
+	}),
+);
+export type TagInTree = z.infer<typeof tagInTreeSchema>;
+export type TagsInTree = ByIdMap<TagInTree>;
+
+export type TagsTree = Map<TagWithIds["tag_id"], TagWithIds["tag_id"][]>;

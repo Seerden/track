@@ -45,7 +45,7 @@ const Node = styled.li<{ $active?: boolean }>`
 		`}
 `;
 
-const Row = styled.ul`
+const Row = styled.menu`
 	${flex.row};
 	${flex.centered};
 

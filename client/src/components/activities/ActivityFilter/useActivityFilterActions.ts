@@ -6,7 +6,7 @@ import type {
 import { defaultFilter } from "@/components/activities/ActivityFilter/lib/constants";
 import { getTreeMembers } from "@/components/activities/ActivityFilter/lib/tag-branch";
 import { createDate } from "@/lib/datetime/make-date";
-import type { TagTreeById, TagWithIds } from "@shared/lib/schemas/tag";
+import type { TagsTree, TagWithIds } from "@shared/lib/schemas/tag";
 import type { ByIdMap, ID } from "@shared/types/data/utility.types";
 import { produce } from "immer";
 import type { Dispatch, SetStateAction } from "react";
@@ -15,25 +15,25 @@ import { useCallback } from "react";
 export default function useActivityFilterActions({
 	setActiveTagIds,
 	wholeTree,
-	tagsById,
+	tags,
 	tagsTreeById,
 	setFilter
 }: {
 	setActiveTagIds: Dispatch<SetStateAction<ID[]>>;
 	wholeTree: boolean;
-	tagsById: ByIdMap<TagWithIds> | undefined;
-	tagsTreeById: TagTreeById | undefined;
+	tags: ByIdMap<TagWithIds> | undefined;
+	tagsTreeById: TagsTree | undefined;
 	setFilter: Dispatch<SetStateAction<ActivityFilterWithValues>>;
 }) {
 	const updateActiveTagIds = useCallback(
 		(tag_id: ID, type: "on" | "off") => {
-			if (!tagsById || !tagsTreeById) return;
+			if (!tags || !tagsTreeById) return;
 
 			setActiveTagIds(
 				produce((draft) => {
 					const members = !wholeTree
 						? [tag_id]
-						: getTreeMembers(tag_id, tagsById, tagsTreeById);
+						: getTreeMembers(tag_id, tags, tagsTreeById);
 
 					switch (type) {
 						case "on":
@@ -45,12 +45,12 @@ export default function useActivityFilterActions({
 				})
 			);
 		},
-		[setActiveTagIds, wholeTree, tagsById, tagsTreeById]
+		[setActiveTagIds, wholeTree, tags, tagsTreeById]
 	);
 
 	const setFilterTags = useCallback(
 		(e: React.MouseEvent<HTMLButtonElement>) => {
-			if (!tagsById || !tagsTreeById) return;
+			if (!tags || !tagsTreeById) return;
 
 			const tag_id = e.currentTarget.value;
 
@@ -61,7 +61,7 @@ export default function useActivityFilterActions({
 					}
 
 					const members = wholeTree
-						? getTreeMembers(tag_id, tagsById, tagsTreeById)
+						? getTreeMembers(tag_id, tags, tagsTreeById)
 						: [tag_id];
 
 					if (draft.tags.value.includes(tag_id)) {
@@ -74,7 +74,7 @@ export default function useActivityFilterActions({
 				})
 			);
 		},
-		[tagsById, tagsTreeById, wholeTree]
+		[tags, tagsTreeById, wholeTree]
 	);
 
 	// TODO: maybe don't implement the functions as event handlers, just pass the

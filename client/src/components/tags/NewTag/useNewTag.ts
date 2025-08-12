@@ -1,4 +1,5 @@
 import { useMutateNewTag } from "@/lib/hooks/query/tags/useMutateNewTag";
+import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import { trpc } from "@/lib/trpc";
@@ -6,12 +7,11 @@ import useAuthentication from "@lib/hooks/useAuthentication";
 import { queryClient } from "@lib/query-client";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import type { NewTag } from "@shared/lib/schemas/tag";
-import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
 export default function useNewTag() {
 	const { currentUser } = useAuthentication();
-	const { data: tagsData } = useQuery(trpc.tags.all.queryOptions());
+	const { data: tags } = useQueryTags();
 	const { mutate: submit } = useMutateNewTag();
 
 	const [newTag, setNewTag] = useState<NewTag>({
@@ -54,6 +54,6 @@ export default function useNewTag() {
 	return {
 		onInputChange,
 		onSubmit,
-		tagsData
+		tags
 	};
 }

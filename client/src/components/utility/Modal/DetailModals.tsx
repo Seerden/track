@@ -2,6 +2,7 @@ import DetailedHabit from "@/components/habits/DetailedHabit/DetailedHabit";
 import DetailedTag from "@/components/tags/DetailedTag/DetailedTag";
 import DetailedActivity from "@/components/Today/DetailedActivity";
 import Modal from "@/components/utility/Modal/Modal";
+import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import modalIds from "@/lib/modal-ids";
 import { activeItemAtom } from "@/lib/state/active-item-state";
 import { syntheticActivitiesAtom } from "@/lib/state/synthetic-activity-state";
@@ -10,7 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useAtomValue } from "jotai";
 
 export default function DetailModals() {
-	const { data: tags } = useQuery(trpc.tags.all.queryOptions());
+	const { data: tags } = useQueryTags();
 	const { data: activities } = useQuery(trpc.activities.all.queryOptions());
 	const { data: habits } = useQuery(trpc.habits.all.queryOptions());
 	const syntheticActivities = useAtomValue(syntheticActivitiesAtom);
@@ -21,7 +22,7 @@ export default function DetailModals() {
 	// as numbers, whereas the byId Maps usually expect strings. This is why I'm
 	// casting the ids to strings. We can get rid of this when we homogeneize the
 	// ids to be strings everywhere.
-	const activeTag = tag.activeId ? tags?.byId.get(String(tag.activeId)) : null;
+	const activeTag = tag.activeId ? tags?.get(tag.activeId) : null;
 	const activeActivity = activity.activeId
 		? (activities?.byId.get(String(activity.activeId)) ??
 			syntheticActivities.find((a) => a.synthetic_id === activity.activeId))
