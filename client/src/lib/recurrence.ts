@@ -12,6 +12,7 @@ import { type Dayjs } from "dayjs";
 import { v7 as uuid } from "uuid";
 import { activityEnd, activityStart, isAllDayActivityOnDate } from "./activity";
 import { createDate } from "./datetime/make-date";
+import { dayMap } from "./day-map";
 
 export function isSyntheticActivity(
 	activity: PossiblySyntheticActivity
@@ -135,17 +136,6 @@ const createSyntheticsForNumericRecurrence: CreateSynthetics = ({
 
 	return synthetics;
 };
-
-// TODO TRK-252: move this elsewhere
-export const dayMap: Map<number, DayOfWeek> = new Map([
-	[0, "Sunday"],
-	[1, "Monday"],
-	[2, "Tuesday"],
-	[3, "Wednesday"],
-	[4, "Thursday"],
-	[5, "Friday"],
-	[6, "Saturday"]
-]);
 
 /** Create synthetic activities for `calendar` recurrences (refers to fixed days
  * of week or month). */
