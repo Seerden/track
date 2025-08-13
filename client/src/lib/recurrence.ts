@@ -12,6 +12,7 @@ import { type Dayjs } from "dayjs";
 import { v7 as uuid } from "uuid";
 import { activityEnd, activityStart, isAllDayActivityOnDate } from "./activity";
 import { createDate } from "./datetime/make-date";
+import { dayMap } from "./day-map";
 
 export function isSyntheticActivity(
 	activity: PossiblySyntheticActivity
@@ -136,16 +137,6 @@ const createSyntheticsForNumericRecurrence: CreateSynthetics = ({
 	return synthetics;
 };
 
-const dayMap: Map<number, DayOfWeek> = new Map([
-	[0, "Sunday"],
-	[1, "Monday"],
-	[2, "Tuesday"],
-	[3, "Wednesday"],
-	[4, "Thursday"],
-	[5, "Friday"],
-	[6, "Saturday"]
-]);
-
 /** Create synthetic activities for `calendar` recurrences (refers to fixed days
  * of week or month). */
 const createSyntheticsForCalendarRecurrence: CreateSynthetics = ({
@@ -166,8 +157,11 @@ const createSyntheticsForCalendarRecurrence: CreateSynthetics = ({
 	let rollingStart = createDate(timeWindow.startDate);
 	// we need this fixed offset between the start of the time window and the
 	// start date of the activity to determine the start and end dates of the
-	// synthetic entries
-	const offset = rollingStart.diff(start, "day");
+	// synthetic entries.
+	// NOTE: .diff(_, "day") between e.g. January 2 noon to January 1 3 pm is 0, because less
+	// than a full day passed. But we consider it to be 1 day (because that's the
+	// difference). That's why we set the offset comparison to the end of each day.
+	const offset = rollingStart.endOf("day").diff(start.endOf("day"), "day");
 
 	while (
 		!rollingStart.isAfter(timeWindow.endDate) &&
@@ -216,6 +210,7 @@ const createSyntheticsForCalendarRecurrence: CreateSynthetics = ({
 				synthetics.push(synthetic);
 			}
 		}
+
 		rollingStart = rollingStart.add(1, "day");
 		iteration++;
 	}
