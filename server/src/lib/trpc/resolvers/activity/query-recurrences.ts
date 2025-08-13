@@ -4,6 +4,7 @@ import {
 } from "@/lib/data/models/activities/query-occurrences";
 import {
 	queryRecurrenceByActivity,
+	queryRecurrencesById,
 	queryRecurrencesByUser,
 } from "@/lib/data/models/activities/query-recurrences";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
@@ -35,10 +36,30 @@ export const _getRecurrencesByUser = authenticatedProcedure.query(async ({ ctx }
 });
 
 export const _getRecurrenceByActivity = authenticatedProcedure
-	.input(z.string())
+	.input(
+		z.union([
+			z.object({
+				activity_id: z.string(),
+				synthetic_id: z.null(),
+			}),
+			z.object({
+				activity_id: z.null(),
+				synthetic_id: z.string(),
+			}),
+		]),
+	)
 	.query(async ({ input, ctx }) => {
 		return await queryRecurrenceByActivity({
-			activity_id: input,
+			...input,
 			user_id: ctx.req.session.user.user_id,
+		});
+	});
+
+export const getRecurrencesById = authenticatedProcedure
+	.input(z.object({ recurrence_ids: z.array(z.string()) }))
+	.query(async ({ input, ctx }) => {
+		return queryRecurrencesById({
+			user_id: ctx.req.session.user.user_id,
+			recurrence_ids: input.recurrence_ids,
 		});
 	});

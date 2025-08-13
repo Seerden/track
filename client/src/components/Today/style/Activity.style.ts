@@ -42,6 +42,7 @@ const Activity = styled.div<{
 	$durationHours: number;
 	$isTask?: boolean;
 	$completed?: boolean;
+	$isRecurring?: boolean;
 }>`
 	display: flex;
 	position: absolute;

@@ -4,6 +4,7 @@ import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import Modal from "@/components/utility/Modal/Modal";
 import { activityEnd, activityStart, hasNotEnded, startsInFuture } from "@/lib/activity";
 import { createDate } from "@/lib/datetime/make-date";
+import { useQueryRecurrenceById } from "@/lib/hooks/query/activities/useQueryRecurrenceById";
 import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
@@ -13,6 +14,7 @@ import CardStyle from "@/lib/theme/components/Card.style";
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { Datelike } from "@shared/lib/schemas/timestamp";
 import { PenLine } from "lucide-react";
+import { RecurrenceCard } from "./RecurrenceCard";
 
 type DetailedActivityProps = {
 	activity: PossiblySyntheticActivity;
@@ -34,6 +36,7 @@ export default function DetailedActivity({
 	const showHumanizedStart = hasNotEnded(activity);
 	const { openDetailedItemModal } = useDetailedItemModal("tag", modalIds.tags.detailed);
 	const { openModal } = useModalState();
+	const { data: recurrence } = useQueryRecurrenceById(activity.recurrence_id);
 
 	return (
 		<S.Wrapper>
@@ -122,6 +125,12 @@ export default function DetailedActivity({
 			<Modal modalId={modalIds.activities.form}>
 				<ActivityForm activity={activity} modalId={modalIds.activities.form} />
 			</Modal>
+
+			{!!recurrence && (
+				<S.RecurrenceCardContainer>
+					<RecurrenceCard recurrence={recurrence} />
+				</S.RecurrenceCardContainer>
+			)}
 
 			{DEBUG && (
 				<span

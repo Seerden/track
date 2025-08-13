@@ -20,6 +20,7 @@ import {
 	_getRecurrencesByUser,
 	_queryOccurrencesByRecurrence,
 	_queryOccurrencesByUser,
+	getRecurrencesById,
 } from "@/lib/trpc/resolvers/activity/query-recurrences";
 import {
 	updateActivity,
@@ -43,6 +44,7 @@ export const activityRouter = t.router({
 	recurrences: {
 		all: _getRecurrencesByUser,
 		queryByActivity: _getRecurrenceByActivity,
+		queryById: getRecurrencesById,
 		create: _createRecurrence,
 		delete: deleteRecurrenceById,
 		update: _updateRecurrence,
