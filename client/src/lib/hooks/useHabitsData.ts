@@ -8,21 +8,27 @@ import { useQuery } from "@tanstack/react-query";
 import { useCallback, useMemo } from "react";
 
 export default function useHabitsData() {
-	const { data: habitsData } = useQuery(trpc.habits.all.queryOptions());
-	const { data: habitEntriesData } = useQuery(trpc.habits.entries.queryOptions());
+	const { data: habits } = useQuery(trpc.habits.all.queryOptions());
+	const { data: habitEntries } = useQuery(trpc.habits.entries.queryOptions());
 
+	// TODO: rename to habitsWithEntries
+	// TODO: rework this. Definitely just use a Map) and then getHabit becomes
+	// obsolete. I would consider a single query (maybe implement timeWindow
+	// filters on the habits and habitEntries queries), but we want to build the
+	// synthetic entries client-side, so we have to do some stuff in here
+	// instead of in the server-side trpc resolver.
 	const habitsWithEntriesById = useMemo(() => {
-		if (!habitsData || !habitEntriesData) return {};
+		if (!habits || !habitEntries) return {};
 
-		return Array.from(habitsData.byId.entries()).reduce((acc, [id, habit]) => {
-			const entriesForHabit = byIdAsList(habitEntriesData.byId).filter((entry) => {
+		return Array.from(habits.entries()).reduce((acc, [id, habit]) => {
+			const entriesForHabit = byIdAsList(habitEntries).filter((entry) => {
 				return habit.entry_ids.includes(entry.habit_entry_id);
 			});
 			acc[+id] = Object.assign(habit, { entries: entriesForHabit });
 
 			return acc;
 		}, {} as ById<HabitWithEntries>);
-	}, [habitsData, habitEntriesData]);
+	}, [habits, habitEntries]);
 
 	const getHabitsForTimeWindow = useCallback(
 		(timeWindow: TimeWindow) => {
