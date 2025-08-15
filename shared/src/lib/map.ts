@@ -42,3 +42,18 @@ export function groupById<T extends object>(
 
 	return Object.fromEntries(byIdMap.entries()) as ById<T>;
 }
+
+/** Reduces a list of objects that share an *_id field into a map by id using
+ * the specified id field as keys. */
+export function mapById<T extends object>(
+	data: T[],
+	idField: IdFieldUnion<T>,
+): ByIdMap<T> {
+	const byIdMap = data.reduce((acc, cur) => {
+		const id = cur[idField];
+		acc.set(id as string, cur);
+		return acc;
+	}, new Map() as ByIdMap<T>);
+
+	return byIdMap;
+}
