@@ -18,13 +18,13 @@ export const queryActivitiesByUser: QueryFunction<
 	Promise<Activity[]>
 > = async ({ sql = sqlConnection, user_id, recurring, tasks, to, completed }) => {
 	const recurringSql = recurring ? sql`and recurrence_id is not null` : sql``;
-	const taskSql = tasks ? sql`and is_task = true and completed is not true` : sql``;
+	const taskSql = tasks ? sql`and is_task = true` : sql``;
 
 	const completedSql =
 		tasks && !isNullish(completed)
-			? sql`
-      and completed = ${completed}
-   `
+			? completed
+				? sql`and completed is true`
+				: sql`and completed is not true`
 			: sql``;
 
 	const toSql = !to

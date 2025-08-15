@@ -2,21 +2,15 @@ import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
 import S from "@/components/Today/style/DetailedActivity.style";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import Modal from "@/components/utility/Modal/Modal";
-import { activityEnd, activityStart, hasNotEnded, startsInFuture } from "@/lib/activity";
+import { activityEnd, activityStart } from "@/lib/activity";
 import { createDate } from "@/lib/datetime/make-date";
-import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
-import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
-import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
-import { useModalState } from "@/lib/state/modal-state";
-import CardStyle from "@/lib/theme/components/Card.style";
+import Card from "@/lib/theme/components/Card.style";
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { Datelike } from "@shared/lib/schemas/timestamp";
 import { PenLine } from "lucide-react";
-
-type DetailedActivityProps = {
-	activity: PossiblySyntheticActivity;
-};
+import { RecurrenceCard } from "./RecurrenceCard";
+import { useDetailedActivity } from "./useDetailedActiviity";
 
 // TODO: instead of this, do time (humanizedDate), with a tooltip on
 // humanizedDate that shows the full date.
@@ -27,13 +21,19 @@ function format(date: Datelike) {
 export default function DetailedActivity({
 	activity,
 	DEBUG
-}: DetailedActivityProps & { DEBUG?: boolean }) {
-	const { data: tags } = useQueryTags();
-	const putCompletion = usePutTaskCompletion(activity);
-	const humanizedStart = `${startsInFuture(activity) ? "starts" : "started"} ${activityStart(activity).fromNow()}`;
-	const showHumanizedStart = hasNotEnded(activity);
-	const { openDetailedItemModal } = useDetailedItemModal("tag", modalIds.tags.detailed);
-	const { openModal } = useModalState();
+}: {
+	activity: PossiblySyntheticActivity;
+	DEBUG?: boolean;
+}) {
+	const {
+		humanizedStart,
+		openDetailedItemModal,
+		openModal,
+		putCompletion,
+		recurrence,
+		showHumanizedStart,
+		tags
+	} = useDetailedActivity({ activity });
 
 	return (
 		<S.Wrapper>
@@ -59,15 +59,13 @@ export default function DetailedActivity({
 				<PenLine size={20} />
 			</S.EditButton>
 
-			{!!activity.description?.length && (
-				<S.Description>{activity.description}</S.Description>
-			)}
+			{!!activity.description?.length && <div>{activity.description}</div>}
 
 			<S.Time>
 				{showHumanizedStart && (
-					<CardStyle.InfoLine>
-						<S.HumanizedStart>{humanizedStart}</S.HumanizedStart>
-					</CardStyle.InfoLine>
+					<Card.InfoLine>
+						<Card.InfoValue>{humanizedStart}</Card.InfoValue>
+					</Card.InfoLine>
 				)}
 				<S.Datetime>
 					<span>
@@ -122,6 +120,12 @@ export default function DetailedActivity({
 			<Modal modalId={modalIds.activities.form}>
 				<ActivityForm activity={activity} modalId={modalIds.activities.form} />
 			</Modal>
+
+			{!!recurrence && (
+				<S.RecurrenceCardContainer>
+					<RecurrenceCard recurrence={recurrence} />
+				</S.RecurrenceCardContainer>
+			)}
 
 			{DEBUG && (
 				<span

@@ -1,37 +1,21 @@
-import { activityDurationOnDate, activityStartOnDate } from "@/lib/activity";
-import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
-import modalIds from "@/lib/modal-ids";
+import { Icon } from "@/lib/theme/components/icons";
+import { spacingValue } from "@/lib/theme/snippets/spacing";
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { Dayjs } from "dayjs";
+import { LucideRepeat } from "lucide-react";
 import T from "./style/Activity.style";
+import { useActivity } from "./useActivity";
 
-function useActivity(activity: PossiblySyntheticActivity, date: Dayjs) {
-	const start = activityStartOnDate(activity, date);
-	const offset = !start ? 0 : start.minute() / 60;
-	const { openDetailedItemModal } = useDetailedItemModal(
-		"activity",
-		modalIds.detailedActivity
-	);
-
-	/** This is the _displayed_ duration on the Today timeline. A multiday
-	 * activity still "ends" at midnight on this view. */
-	const durationHoursOnDate = activityDurationOnDate(activity, date);
-
-	return {
-		durationHoursOnDate,
-		offset,
-		openDetailedItemModal
-	} as const;
-}
-
-export type ActivityProps = {
+export default function Activity({
+	activity,
+	level,
+	date
+}: {
 	activity: PossiblySyntheticActivity;
 	level: number;
 	date: Dayjs;
-};
-
-export default function Activity({ activity, level, date }: ActivityProps) {
-	const { offset, openDetailedItemModal, durationHoursOnDate } = useActivity(
+}) {
+	const { offset, openDetailedItemModal, durationHoursOnDate, recurrence } = useActivity(
 		activity,
 		date
 	);
@@ -49,11 +33,40 @@ export default function Activity({ activity, level, date }: ActivityProps) {
 			{/* TODO: on mouseover, display a short humanized time string */}
 			<T.Activity
 				$isTask={activity.is_task}
+				$isRecurring={!!activity.recurrence_id || !!activity.will_recur}
 				$durationHours={durationHoursOnDate}
 				$completed={activity.completed ?? false}
 			>
 				<T.ActivityName>{activity.name}</T.ActivityName>
+
+				{!!recurrence && <RepeatIcon />}
 			</T.Activity>
 		</T.ActivityCard>
+	);
+}
+
+const icon = {
+	size: "12",
+	padding: spacingValue.smallest
+};
+
+function RepeatIcon() {
+	return (
+		<div
+			style={{
+				position: "absolute",
+				right: `calc(${spacingValue.smaller})`,
+				top: `calc(50% - ${icon.size} / 2 - ${icon.padding} / 2)`
+			}}
+		>
+			<Icon
+				style={{
+					backgroundColor: "white",
+					padding: icon.padding
+				}}
+			>
+				<LucideRepeat size={icon.size} />
+			</Icon>
+		</div>
 	);
 }
