@@ -30,14 +30,6 @@ const Time = styled.div`
 	gap: ${spacingValue.small};
 `;
 
-// TODO TRK-240: if we don't add anything to the extended styled component, just
-// use it directly
-const Description = styled.div``;
-
-// TODO TRK-240: if we don't add anything to the extended styled component, just
-// use it directly
-const HumanizedStart = styled(CardStyle.InfoValue)``;
-
 const Task = styled.div`
 	grid-area: task;
 `;
@@ -95,9 +87,7 @@ const StyledDetailedActivity = {
 	Wrapper,
 	Title,
 	Time,
-	Description,
 	Datetime: CardStyle.Datetime,
-	HumanizedStart,
 	Tags: CardStyle.Tags,
 	Tag: CardStyle.Tag,
 	Task,

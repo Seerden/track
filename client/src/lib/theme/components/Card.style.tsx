@@ -105,7 +105,7 @@ const InfoValue = styled.span`
 	border-radius: 0 3px 3px 0;
 `;
 
-export default {
+const Card = {
 	Wrapper,
 	Title,
 	Datetime,
@@ -115,3 +115,5 @@ export default {
 	InfoLabel,
 	InfoValue
 };
+
+export default Card;

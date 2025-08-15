@@ -1,43 +1,20 @@
-import { activityDurationOnDate, activityStartOnDate } from "@/lib/activity";
-import { useQueryRecurrenceById } from "@/lib/hooks/query/activities/useQueryRecurrenceById";
-import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
-import modalIds from "@/lib/modal-ids";
-import { colors } from "@/lib/theme/colors";
+import { Icon } from "@/lib/theme/components/icons";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { Dayjs } from "dayjs";
 import { LucideRepeat } from "lucide-react";
 import T from "./style/Activity.style";
+import { useActivity } from "./useActivity";
 
-// TODO: move this to its own file, like other component hooks.
-function useActivity(activity: PossiblySyntheticActivity, date: Dayjs) {
-	const { data: recurrence } = useQueryRecurrenceById(activity.recurrence_id);
-	const start = activityStartOnDate(activity, date);
-	const offset = !start ? 0 : start.minute() / 60;
-	const { openDetailedItemModal } = useDetailedItemModal(
-		"activity",
-		modalIds.detailedActivity
-	);
-
-	/** This is the _displayed_ duration on the Today timeline. A multiday
-	 * activity still "ends" at midnight on this view. */
-	const durationHoursOnDate = activityDurationOnDate(activity, date);
-
-	return {
-		durationHoursOnDate,
-		offset,
-		openDetailedItemModal,
-		recurrence
-	} as const;
-}
-
-export type ActivityProps = {
+export default function Activity({
+	activity,
+	level,
+	date
+}: {
 	activity: PossiblySyntheticActivity;
 	level: number;
 	date: Dayjs;
-};
-
-export default function Activity({ activity, level, date }: ActivityProps) {
+}) {
 	const { offset, openDetailedItemModal, durationHoursOnDate, recurrence } = useActivity(
 		activity,
 		date
@@ -62,35 +39,34 @@ export default function Activity({ activity, level, date }: ActivityProps) {
 			>
 				<T.ActivityName>{activity.name}</T.ActivityName>
 
-				{!!recurrence && (
-					<div
-						style={{
-							position: "absolute",
-							right: `calc(${spacingValue.smaller})`,
-							// 7px is half the height of the icon; make it a variable
-							// 3px is the padding
-							top: `calc(50% - 7px - 0.5 * 3px)`
-						}}
-					>
-						{/* TOOD: this is a badge, put it in style/badges or something */}
-						<span
-							style={{
-								display: "flex",
-								alignItems: "center",
-								justifyContent: "center",
-								backgroundColor: "white",
-								padding: "3px",
-								borderRadius: "50%"
-							}}
-						>
-							{/* TODO: use the color of the activity itself, think 
-                              we can target .lucide in T.Activity to make that 
-                              happen */}
-							<LucideRepeat size={12} color={colors.blue.main} />
-						</span>
-					</div>
-				)}
+				{!!recurrence && <RepeatIcon />}
 			</T.Activity>
 		</T.ActivityCard>
+	);
+}
+
+const icon = {
+	size: "12",
+	padding: spacingValue.smallest
+};
+
+function RepeatIcon() {
+	return (
+		<div
+			style={{
+				position: "absolute",
+				right: `calc(${spacingValue.smaller})`,
+				top: `calc(50% - ${icon.size} / 2 - ${icon.padding} / 2)`
+			}}
+		>
+			<Icon
+				style={{
+					backgroundColor: "white",
+					padding: icon.padding
+				}}
+			>
+				<LucideRepeat size={icon.size} />
+			</Icon>
+		</div>
 	);
 }

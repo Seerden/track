@@ -5,6 +5,11 @@ import { outline } from "../snippets/edge";
 import { flex } from "../snippets/flex";
 import { radius } from "../snippets/radius";
 
+export const Icon = styled.span`
+	${flex.centered};
+	border-radius: 50%;
+`;
+
 const InBadge = styled.span<{
 	invert?: boolean;
 	size?: CSSProperties["width"];

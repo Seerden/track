@@ -97,10 +97,12 @@ function CalendarRecurrenceCard({ recurrence }: { recurrence: Recurrence }) {
 	}
 
 	return (
-		<div style={{ display: "flex", flexDirection: "column", gap: spacingValue.small }}>
-			<p role="heading">Occurs on these days every month:</p>
+		<Containers.Column gap="small">
+			<p role="heading">
+				Occurs on these days every {recurrence.weekdays?.length ? "week" : "month"}:
+			</p>
 			<Container>{badges}</Container>
-		</div>
+		</Containers.Column>
 	);
 }
 

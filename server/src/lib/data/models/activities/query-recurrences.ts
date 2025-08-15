@@ -43,18 +43,19 @@ export const queryRecurrenceByActivity: QueryFunction<
 	  },
 	Promise<Nullable<Recurrence>>
 > = async ({ sql = sqlConnection, activity_id, synthetic_id, user_id }) => {
-	/* if synthetic_id: find the original activity id that the synthetic is
-	branched from */
-	const activityId = activity_id ?? "1";
+	// NOTE: synthetic ids are built like activity_id-recurrence_id-uuid
+	// TODO: use a helper to create/extract these synthetic ids
+	const activityId = activity_id ?? synthetic_id.split("-")[0];
 
 	const [recurrence] = await sql<[Recurrence?]>`
-     SELECT r.* FROM recurrences r
-     LEFT JOIN activities a
-      ON r.recurrence_id = a.recurrence_id
-      WHERE activity_id = ${activityId}
-     AND a.user_id = ${user_id}
-     AND r.user_id = ${user_id}
-     AND a.recurrence_id IS NOT NULL
+      select r.* from recurrences r
+      left join activities a
+      on r.recurrence_id = a.recurrence_id and
+         a.user_id = r.user_id
+      where
+         activity_id = ${activityId} and
+         a.user_id = ${user_id} and
+         a.recurrence_id is not null
    `;
 
 	return recurrence ?? null;

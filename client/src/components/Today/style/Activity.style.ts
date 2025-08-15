@@ -1,4 +1,5 @@
 import { rowHeight } from "@/components/Today/style/TimelineRow.style";
+import { colors } from "@/lib/theme/colors";
 import { getFontSize } from "@/lib/theme/font";
 import { outline } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
@@ -57,8 +58,7 @@ const Activity = styled.div<{
 	height: calc((var(--row-height) * ${(p) => p.$durationHours}));
 
 	${spacing.padding.wide({ size: 0.5, ratio: 2 })};
-	background-color: ${(p) =>
-		p.$isTask ? "dodgerblue" : "limegreen"}; // TODO: get these from theme
+	background-color: ${(p) => (p.$isTask ? colors.blue.main : colors.green.secondary)};
 	align-items: ${(p) => (p.$durationHours > 2 ? "flex-start" : "center")};
 	color: ${(p) => (p.$isTask ? "azure" : "black")};
 
@@ -82,6 +82,10 @@ const Activity = styled.div<{
 		z-index: 3;
 		background-color: ${(p) => (p.$isTask ? "royalblue" : p.theme.colors.green.main)};
 		color: azure;
+	}
+
+	.lucide {
+		color: ${(p) => (p.$isTask ? colors.blue.main : colors.green.main)};
 	}
 `;
 
