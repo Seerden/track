@@ -3,13 +3,13 @@ import HabitEntryToggle from "@/components/habits/Habits/HabitEntryToggle";
 import useCompletionInstance from "@/components/habits/Habits/useCompletionInstance";
 import type {
 	HabitEntry,
-	HabitWithIds,
+	HabitWithEntries,
 	SyntheticHabitEntry
 } from "@shared/lib/schemas/habit";
 
 type CompletionInstanceProps = {
 	entry: HabitEntry | SyntheticHabitEntry;
-	habit: HabitWithIds;
+	habit: HabitWithEntries;
 	sliderWidth?: string;
 	showLabelText?: boolean;
 };

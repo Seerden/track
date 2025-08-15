@@ -1,6 +1,6 @@
 import { createDate } from "@/lib/datetime/make-date";
 import type { TimeWindow } from "@/types/time-window.types";
-import { groupById } from "@shared/lib/map";
+import { mapById } from "@shared/lib/map";
 import type {
 	Habit,
 	HabitEntry,
@@ -10,7 +10,7 @@ import type {
 	SyntheticHabitEntry
 } from "@shared/lib/schemas/habit";
 import type { Datelike } from "@shared/lib/schemas/timestamp";
-import type { ById, ID } from "@shared/types/data/utility.types";
+import type { ID } from "@shared/types/data/utility.types";
 
 export function daysInInterval(interval: TimeWindow["intervalUnit"]) {
 	switch (interval) {
@@ -67,54 +67,49 @@ function makeSyntheticEntry({
 
 /**
  * For UI purposes, this function adds synthetic habit entries to each habit in
- * `habits`, if there are not enough actual entries (yet) for the given habit
- * and timescale.
- */
+ * `habits`, if there are not enough actual entries (yet) for the given `habit`
+ * and `timeWindow`. */
 export function withSyntheticHabitEntries(
-	habits: ById<HabitWithEntries>,
+	habits: Map<ID, HabitWithEntries>,
 	timeWindow: TimeWindow
-): ById<HabitWithPossiblySyntheticEntries> {
-	const habitsWithSyntheticEntries = Object.values(habits).map(
-		(habit: HabitWithEntries) => {
-			const expectedCount = expectedEntryCount(timeWindow, habit);
+): Map<ID, HabitWithPossiblySyntheticEntries> {
+	const habitsWithSyntheticEntries = [...habits.values()].map((habit) => {
+		const expectedCount = expectedEntryCount(timeWindow, habit);
 
-			const entries: Array<HabitEntry | SyntheticHabitEntry> = structuredClone(
-				habit.entries
-			).filter((entry) => {
-				const entryDate = createDate(entry.date);
-				const windowStart = createDate(timeWindow.startDate);
-				const windowEnd = createDate(timeWindow.endDate);
-				return !entryDate.isBefore(windowStart) && !entryDate.isAfter(windowEnd);
+		const entries: Array<HabitEntry | SyntheticHabitEntry> = structuredClone(
+			habit.entries
+		).filter((entry) => {
+			const entryDate = createDate(entry.date);
+			const windowStart = createDate(timeWindow.startDate);
+			const windowEnd = createDate(timeWindow.endDate);
+			return !entryDate.isBefore(windowStart) && !entryDate.isAfter(windowEnd);
+		});
+
+		const existingIndices = new Set(entries.map((e) => e.index));
+		const expectedIndices = new Set(Array.from({ length: expectedCount }, (_, i) => i));
+		const missingIndices = Array.from(expectedIndices).filter(
+			(i) => !existingIndices.has(i)
+		);
+
+		for (const index of missingIndices) {
+			const syntheticEntry = makeSyntheticEntry({
+				habit,
+				index,
+				// TODO: for now, using timeWindow.startDate probably works well
+				// enough, but I think it's still not perfect for the case where
+				// a user adds an entry in retrospect. Maybe we should just
+				// disallow that altogether.
+				date: timeWindow.startDate
 			});
-
-			const existingIndices = new Set(entries.map((e) => e.index));
-			const expectedIndices = new Set(
-				Array.from({ length: expectedCount }, (_, i) => i)
-			);
-			const missingIndices = Array.from(expectedIndices).filter(
-				(i) => !existingIndices.has(i)
-			);
-
-			for (const index of missingIndices) {
-				const syntheticEntry: SyntheticHabitEntry = makeSyntheticEntry({
-					habit,
-					index,
-					// TODO: for now, using timeWindow.startDate probably works well
-					// enough, but I think it's still not perfect for the case where
-					// a user adds an entry in retrospect. Maybe we should just
-					// disallow that altogether.
-					date: timeWindow.startDate
-				});
-				entries.push(syntheticEntry);
-			}
-
-			return Object.assign({}, habit, {
-				entries: entries.sort((a, b) => a.index - b.index)
-			});
+			entries.push(syntheticEntry);
 		}
-	);
 
-	return groupById(habitsWithSyntheticEntries, "habit_id");
+		return Object.assign({}, habit, {
+			entries: entries.sort((a, b) => a.index - b.index)
+		});
+	});
+
+	return mapById(habitsWithSyntheticEntries, "habit_id");
 }
 
 export function syntheticToReal({

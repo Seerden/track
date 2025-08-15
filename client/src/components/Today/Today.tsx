@@ -24,7 +24,7 @@ export default function Today() {
 		allDayActivities,
 		overdueTasks,
 		currentDate,
-		habitsById,
+		habits,
 		timestampedActivities,
 		title,
 		changeDay,
@@ -80,7 +80,7 @@ export default function Today() {
 					gap="medium"
 					style={{ gridArea: "things" }}
 				>
-					<Habits habitsById={habitsById} />
+					<Habits habits={habits} />
 					<Tasks activities={activities.filter((a) => a.is_task)} />
 					<Notes />
 				</Containers.Column>

@@ -1,11 +1,11 @@
 import { habitEntryIsDone } from "@/components/habits/Habits/entry-is-completed";
 import type {
 	HabitEntry,
-	HabitWithIds,
+	HabitWithEntries,
 	SyntheticHabitEntry
 } from "@shared/lib/schemas/habit";
 
-const habit: HabitWithIds = {
+const habit: HabitWithEntries = {
 	habit_id: "1",
 	created_at: new Date(),
 	user_id: "1",

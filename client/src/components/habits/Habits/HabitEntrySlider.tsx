@@ -5,7 +5,7 @@ import type { SliderProps } from "@mantine/core";
 import { Slider } from "@mantine/core";
 import type {
 	HabitEntry,
-	HabitWithIds,
+	HabitWithEntries,
 	SyntheticHabitEntry
 } from "@shared/lib/schemas/habit";
 import { isSynthetic } from "@shared/types/data/habit-entry.guards";
@@ -19,7 +19,7 @@ const sliderProps: SliderProps = {
 };
 
 type HabitEntrySliderProps = {
-	habit: HabitWithIds;
+	habit: HabitWithEntries;
 	entry: HabitEntry | SyntheticHabitEntry;
 	onChangeEnd: HabitEntryUpdateMutationFunction;
 	width?: string;

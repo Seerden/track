@@ -112,7 +112,7 @@ export default function useToday() {
 	);
 
 	return {
-		habitsById: getHabitsForTimeWindow(timeWindow),
+		habits: getHabitsForTimeWindow(timeWindow),
 		activities: todayActivities,
 		allDayActivities,
 		overdueTasks,

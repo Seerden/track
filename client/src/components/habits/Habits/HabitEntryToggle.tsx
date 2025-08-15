@@ -2,14 +2,14 @@ import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import type { HabitEntryUpdateMutationFunction } from "@/types/data.types";
 import type {
 	HabitEntry,
-	HabitWithIds,
+	HabitWithEntries,
 	SyntheticHabitEntry
 } from "@shared/lib/schemas/habit";
 import { isSynthetic } from "@shared/types/data/habit-entry.guards";
 import { useState } from "react";
 
 type HabitEntryToggleProps = {
-	habit: HabitWithIds;
+	habit: HabitWithEntries;
 	entry: HabitEntry | SyntheticHabitEntry;
 	onChange: HabitEntryUpdateMutationFunction;
 };

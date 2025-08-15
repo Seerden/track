@@ -1,4 +1,4 @@
-import type { Habit, HabitEntry, HabitWithIds } from "@shared/lib/schemas/habit";
+import type { Habit, HabitEntry, HabitWithEntries } from "@shared/lib/schemas/habit";
 import type { HabitTagRelation } from "@shared/types/data/relational.types";
 
 export function mergeHabitsAndRelations(
@@ -6,12 +6,12 @@ export function mergeHabitsAndRelations(
 	habitTagRelations: HabitTagRelation[],
 	entries: HabitEntry[],
 ) {
-	const habitMap = new Map<Habit["habit_id"], HabitWithIds>();
+	const habitMap = new Map<Habit["habit_id"], HabitWithEntries>();
 	for (const habit of habits) {
 		habitMap.set(habit.habit_id, {
 			...habit,
 			tag_ids: [],
-			entry_ids: [],
+			entries: [],
 		});
 	}
 
@@ -25,7 +25,7 @@ export function mergeHabitsAndRelations(
 	// habit.entries instead of habit.entry_ids?
 	for (const entry of entries) {
 		if (habitMap.has(entry.habit_id)) {
-			habitMap.get(entry.habit_id)!.entry_ids.push(entry.habit_entry_id);
+			habitMap.get(entry.habit_id)!.entries.push(entry);
 		}
 	}
 

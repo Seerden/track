@@ -39,23 +39,6 @@ export const habitSchema = newHabitSchema.and(
 );
 export type Habit = z.infer<typeof habitSchema>;
 
-/** Like other data types, a habit can also be linked to any number of tags.
- * Unlike other types, this also has entry_ids, which belong to habit_entries. */
-export const habitWithIdsSchema = habitSchema.and(
-	z.object({
-		tag_ids: z.array(z.string()),
-		entry_ids: z.array(z.string()),
-	}),
-);
-export type HabitWithIds = z.infer<typeof habitWithIdsSchema>;
-
-// matches HabitInput
-export const habitInputSchema = z.object({
-	habit: newHabitSchema,
-	tagIds: z.array(z.string()).optional(),
-});
-export type HabitInput = z.infer<typeof habitInputSchema>;
-
 // matches NewHabitEntry
 export const habitEntryInputSchema = z.object({
 	habit_id: z.string(),
@@ -82,6 +65,22 @@ export const habitEntryUpdateInputSchema = z.object({
 });
 export type HabitEntryUpdateInput = z.infer<typeof habitEntryUpdateInputSchema>;
 
+/** Like other data types, a habit can also be linked to any number of tags.
+ * Unlike other types, this also has entry_ids, which belong to habit_entries. */
+export const habitWithEntriesSchema = habitSchema.and(
+	z.object({
+		tag_ids: z.array(z.string()),
+		entries: z.array(habitEntrySchema),
+	}),
+);
+
+// matches HabitInput
+export const habitInputSchema = z.object({
+	habit: newHabitSchema,
+	tagIds: z.array(z.string()).optional(),
+});
+export type HabitInput = z.infer<typeof habitInputSchema>;
+
 /** This is a synthetic habit entry, which is not stored in the database, but is
  * an intermediate value used in the UI. */
 export const syntheticHabitEntrySchema = habitEntryInputSchema
@@ -100,21 +99,17 @@ export const syntheticHabitEntrySchema = habitEntryInputSchema
 	);
 export type SyntheticHabitEntry = z.infer<typeof syntheticHabitEntrySchema>;
 
-/** Same as HabitWithIds, but the entries are now merged into the object. This
- * also still has entry_ids, which may be unnecessary since the whole entries
- * are in there, but it can't hurt to leave them around. */
-export const habitWithEntriesSchema = habitWithIdsSchema.and(
-	z.object({
-		entries: z.array(habitEntrySchema),
-	}),
-);
 export type HabitWithEntries = z.infer<typeof habitWithEntriesSchema>;
 
-export const habitWithPossiblySyntheticEntriesSchema = habitWithIdsSchema.and(
-	z.object({
-		entries: z.array(habitEntrySchema.or(syntheticHabitEntrySchema)),
-	}),
-);
+export const habitWithPossiblySyntheticEntriesSchema =
+	habitWithEntriesSchema.and(
+		z.object({
+			entries: z.array(habitEntrySchema.or(syntheticHabitEntrySchema)),
+		}),
+	);
 export type HabitWithPossiblySyntheticEntries = z.infer<
 	typeof habitWithPossiblySyntheticEntriesSchema
 >;
+
+// TODO: rework HabitWithEntries to be habitWithEntries (without entry_ids), then
+// rename it. Make sure all habit queries include entries in the result.

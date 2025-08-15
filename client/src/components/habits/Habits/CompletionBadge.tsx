@@ -2,13 +2,13 @@ import { habitEntryIsDone } from "@/components/habits/Habits/entry-is-completed"
 import CircularProgress from "@/components/utility/CircularProgress/CircularProgress";
 import type {
 	HabitEntry,
-	HabitWithIds,
+	HabitWithEntries,
 	SyntheticHabitEntry
 } from "@shared/lib/schemas/habit";
 import S from "./style/CompletionBadge.style";
 
 type CompletionBadgeProps = {
-	habit: HabitWithIds;
+	habit: HabitWithEntries;
 	entries: Array<HabitEntry | SyntheticHabitEntry>;
 };
 
