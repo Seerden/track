@@ -26,6 +26,8 @@ const NavBar = styled.nav`
 
 const Actions = styled.div`
 	${flex.row};
+	align-items: center;
+
 	gap: 3rem;
 `;
 
