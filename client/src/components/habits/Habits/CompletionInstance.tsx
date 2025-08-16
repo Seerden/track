@@ -11,14 +11,12 @@ type CompletionInstanceProps = {
 	entry: HabitEntry | SyntheticHabitEntry;
 	habit: HabitWithEntries;
 	sliderWidth?: string;
-	showLabelText?: boolean;
 };
 
 export default function CompletionInstance({
 	entry,
 	habit,
-	sliderWidth,
-	showLabelText = true
+	sliderWidth
 }: CompletionInstanceProps) {
 	const { doMutation } = useCompletionInstance();
 
@@ -30,7 +28,7 @@ export default function CompletionInstance({
 					habit={habit}
 					onChangeEnd={doMutation}
 					width={sliderWidth}
-					showLabelText={showLabelText}
+					showLabelText={false}
 				/>
 			);
 		case "checkbox":
