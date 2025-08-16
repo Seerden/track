@@ -10,6 +10,20 @@ export const Icon = styled.span`
 	border-radius: 50%;
 `;
 
+// TODO (TRK-75): theme values
+const Shortcut = styled.span`
+	font-size: 0.8rem;
+	color: #333;
+	font-weight: 500;
+	text-transform: uppercase;
+	padding: 0.2rem 0.5rem;
+	background-color: #ddd;
+	width: max-content;
+	display: inline-flex;
+	border-radius: 3px;
+	box-shadow: 0 0.2rem 0 -0.1rem #eee;
+`;
+
 const InBadge = styled.span<{
 	invert?: boolean;
 	size?: CSSProperties["width"];
@@ -48,7 +62,8 @@ const InBadge = styled.span<{
 `;
 
 const Icons = {
-	InBadge
+	InBadge,
+	Shortcut
 };
 
 export default Icons;
