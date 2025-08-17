@@ -9,20 +9,8 @@ import type {
 	SyntheticHabitEntry
 } from "@shared/lib/schemas/habit";
 import { isSynthetic } from "@shared/types/data/habit-entry.guards";
-import { useState, type CSSProperties } from "react";
-
-export const completionTooltipStyles: CSSProperties = {
-	borderRadius: 0,
-	backgroundColor: "#f7f7f7",
-	color: "black",
-	borderEndEndRadius: "3px",
-	fontSize: "0.88rem",
-	padding: "0.3rem 0.6rem",
-	outline: "1px solid #aaa",
-	boxShadow: `
-      0 0.4rem 0 -0.2rem #ddd,
-      0 0.2rem 0.3rem 0 #aaa`
-};
+import { useState } from "react";
+import { completionTooltipStyles } from "./style/Completion.style";
 
 export default function HabitEntryToggle({
 	habit,
@@ -45,7 +33,7 @@ export default function HabitEntryToggle({
 		<Tooltip
 			withArrow
 			styles={{
-				tooltip: completionTooltipStyles
+				tooltip: completionTooltipStyles.regular
 			}}
 			label={
 				<>

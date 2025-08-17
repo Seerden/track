@@ -15,7 +15,7 @@ const SliderWrapper = styled.div<{ sliderColor: string }>`
 			}
 		}
 		.mantine-Slider-thumb {
-			background-color: forestgreen;
+			background-color: ${(p) => p.theme.colors.green.main};
 			display: inherit;
 		}
 	}

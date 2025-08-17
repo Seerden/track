@@ -1,4 +1,3 @@
-import { habitEntryIsDone } from "@/components/habits/Habits/entry-is-completed";
 import { ContextMenu } from "@/lib/hooks/useContextMenu";
 import { colors } from "@/lib/theme/colors";
 import Icons from "@/lib/theme/components/icons";
@@ -9,10 +8,17 @@ import type {
 	HabitWithEntries,
 	SyntheticHabitEntry
 } from "@shared/lib/schemas/habit";
-import { isSynthetic } from "@shared/types/data/habit-entry.guards";
-import { useState } from "react";
-import { completionTooltipStyles } from "./HabitEntryToggle";
+import { completionTooltipStyles } from "./style/Completion.style";
 import S from "./style/HabitEntrySlider.style";
+import { useHabitEntrySlider } from "./useHabitEntrySlider";
+
+export type HabitEntrySliderProps = {
+	habit: HabitWithEntries;
+	entry: HabitEntry | SyntheticHabitEntry;
+	onChangeEnd: HabitEntryUpdateMutationFunction;
+	width?: string;
+	showLabelText?: boolean;
+};
 
 export default function HabitEntrySlider({
 	habit,
@@ -20,20 +26,19 @@ export default function HabitEntrySlider({
 	onChangeEnd,
 	width,
 	showLabelText = true
-}: {
-	habit: HabitWithEntries;
-	entry: HabitEntry | SyntheticHabitEntry;
-	onChangeEnd: HabitEntryUpdateMutationFunction;
-	width?: string;
-	showLabelText?: boolean;
-}) {
-	const defaultValue = isSynthetic(entry) ? 0 : +entry.value;
-	const [sliderValue, setSliderValue] = useState(() => defaultValue); // TODO: do we need to do anything else to fully synchronize this with the entry's value?
-	const isDone = habitEntryIsDone({ habit, entry });
-
-	function handleChangeEnd(value: number) {
-		onChangeEnd({ input: entry, value: value.toString() });
-	}
+}: HabitEntrySliderProps) {
+	const {
+		defaultValue,
+		sliderValue,
+		isDone,
+		setSliderValue,
+		handleChangeEnd,
+		handleNumberInputBlur
+	} = useHabitEntrySlider({
+		habit,
+		entry,
+		onChangeEnd
+	});
 
 	if (habit.goal_type !== "goal") return;
 
@@ -46,9 +51,7 @@ export default function HabitEntrySlider({
 			)}
 			<S.SliderWrapper
 				sliderColor={isDone ? colors.green.main : colors.blue.main}
-				style={{
-					width: width ?? "100%"
-				}}
+				style={{ width: width ?? "100%" }}
 			>
 				<Slider
 					labelAlwaysOn={false}
@@ -61,16 +64,13 @@ export default function HabitEntrySlider({
 					step={1}
 					showLabelOnHover
 					styles={{
-						label: completionTooltipStyles
+						label: completionTooltipStyles.regular
 					}}
 					label={(value) => `${habit.goal_unit}: ${value}/${habit.goal}`}
 					// TODO: color and styling are work in progress that is out of scope
 					// for https://github.com/Seerden/track/pull/112. Handle it soon after.
 					color={isDone ? colors.green.main : colors.blue.main} // TODO: expand this into a gradient?
-					style={{
-						maxWidth: "200px",
-						width: "100%"
-					}}
+					style={{ maxWidth: "200px", width: "100%" }}
 					onChange={(value) => {
 						setSliderValue(value);
 					}}
@@ -88,19 +88,7 @@ export default function HabitEntrySlider({
 		<ContextMenu label={"Habit slider (hover/focus)"} triggerKeys={["c"]}>
 			{sliderValue > habit.goal ? (
 				<Tooltip
-					style={{
-						position: "absolute",
-						top: 0,
-						padding: "0.4rem 0.5rem",
-						borderRadius: "3px",
-						left: 0,
-						fontSize: "0.8rem",
-						maxWidth: "300px",
-						backgroundColor: "royalblue",
-						color: "white",
-						display: "inline-flex",
-						flexwrap: "wrap"
-					}}
+					style={completionTooltipStyles.alternate}
 					unstyled
 					label={
 						<div style={{ display: "flex", flexWrap: "wrap", maxWidth: "100%" }}>
@@ -126,14 +114,7 @@ export default function HabitEntrySlider({
 					label={habit.name}
 					defaultValue={defaultValue}
 					value={sliderValue}
-					onBlur={(e) => {
-						const value = +e.target.value
-							.replace(habit.goal_unit ? ` ${habit.goal_unit}` : "", "")
-							.trim();
-						if (isNaN(value)) return;
-						setSliderValue(value);
-						handleChangeEnd(value);
-					}}
+					onBlur={handleNumberInputBlur}
 				/>
 				<Slider
 					disabled
