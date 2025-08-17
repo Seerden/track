@@ -1,7 +1,6 @@
 import { timestampSchema } from "@shared/lib/schemas/timestamp";
 import { z } from "@shared/lib/zod";
 
-// matches IntervalUnit
 export const intervalUnitSchema = z.enum(["day", "week", "month", "year"]);
 
 const goalSchema = z.discriminatedUnion("goal_type", [
@@ -39,7 +38,6 @@ export const habitSchema = newHabitSchema.and(
 );
 export type Habit = z.infer<typeof habitSchema>;
 
-// matches NewHabitEntry
 export const habitEntryInputSchema = z.object({
 	habit_id: z.string(),
 	// TODO: take this out, get it from context
@@ -48,7 +46,6 @@ export const habitEntryInputSchema = z.object({
 	index: z.number(),
 	value: z.string(), // Varchar -- TODO: why not implement it as a number, and use values 0 and 1 for boolean habits?
 });
-// was NewHabitEntry
 export type HabitEntryInput = z.infer<typeof habitEntryInputSchema>;
 
 export const habitEntrySchema = habitEntryInputSchema.and(
@@ -66,15 +63,16 @@ export const habitEntryUpdateInputSchema = z.object({
 export type HabitEntryUpdateInput = z.infer<typeof habitEntryUpdateInputSchema>;
 
 /** Like other data types, a habit can also be linked to any number of tags.
- * Unlike other types, this also has entry_ids, which belong to habit_entries. */
+ * For this one, the server just gets the entire entries, instead of only the
+ * ids (hence it's called habitWithEntries vs. habitWithIds). */
 export const habitWithEntriesSchema = habitSchema.and(
 	z.object({
 		tag_ids: z.array(z.string()),
 		entries: z.array(habitEntrySchema),
 	}),
 );
+export type HabitWithEntries = z.infer<typeof habitWithEntriesSchema>;
 
-// matches HabitInput
 export const habitInputSchema = z.object({
 	habit: newHabitSchema,
 	tagIds: z.array(z.string()).optional(),
@@ -99,8 +97,6 @@ export const syntheticHabitEntrySchema = habitEntryInputSchema
 	);
 export type SyntheticHabitEntry = z.infer<typeof syntheticHabitEntrySchema>;
 
-export type HabitWithEntries = z.infer<typeof habitWithEntriesSchema>;
-
 export const habitWithPossiblySyntheticEntriesSchema =
 	habitWithEntriesSchema.and(
 		z.object({
@@ -110,6 +106,3 @@ export const habitWithPossiblySyntheticEntriesSchema =
 export type HabitWithPossiblySyntheticEntries = z.infer<
 	typeof habitWithPossiblySyntheticEntriesSchema
 >;
-
-// TODO: rework HabitWithEntries to be habitWithEntries (without entry_ids), then
-// rename it. Make sure all habit queries include entries in the result.
