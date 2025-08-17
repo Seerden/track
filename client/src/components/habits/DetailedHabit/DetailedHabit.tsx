@@ -3,12 +3,12 @@ import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import modalIds from "@/lib/modal-ids";
 import C from "@/lib/theme/components/Card.style";
-import type { HabitWithIds } from "@shared/lib/schemas/habit";
+import type { HabitWithEntries } from "@shared/lib/schemas/habit";
 import type { PropsWithChildren } from "react";
 import S from "./style/DetailedHabit.style";
 
 type DetailedHabitProps = {
-	habit: HabitWithIds;
+	habit: HabitWithEntries;
 };
 
 export default function DetailedHabit({ habit }: PropsWithChildren<DetailedHabitProps>) {

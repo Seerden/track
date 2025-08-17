@@ -1,6 +1,6 @@
 import type {
 	HabitEntry,
-	HabitWithIds,
+	HabitWithEntries,
 	SyntheticHabitEntry
 } from "@shared/lib/schemas/habit";
 import { isSynthetic } from "@shared/types/data/habit-entry.guards";
@@ -10,7 +10,7 @@ export function habitEntryIsDone({
 	habit,
 	entry
 }: {
-	habit: HabitWithIds;
+	habit: HabitWithEntries;
 	entry: HabitEntry | SyntheticHabitEntry;
 }) {
 	if (isSynthetic(entry)) return false;

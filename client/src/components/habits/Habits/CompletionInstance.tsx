@@ -3,22 +3,20 @@ import HabitEntryToggle from "@/components/habits/Habits/HabitEntryToggle";
 import useCompletionInstance from "@/components/habits/Habits/useCompletionInstance";
 import type {
 	HabitEntry,
-	HabitWithIds,
+	HabitWithEntries,
 	SyntheticHabitEntry
 } from "@shared/lib/schemas/habit";
 
 type CompletionInstanceProps = {
 	entry: HabitEntry | SyntheticHabitEntry;
-	habit: HabitWithIds;
+	habit: HabitWithEntries;
 	sliderWidth?: string;
-	showLabelText?: boolean;
 };
 
 export default function CompletionInstance({
 	entry,
 	habit,
-	sliderWidth,
-	showLabelText = true
+	sliderWidth
 }: CompletionInstanceProps) {
 	const { doMutation } = useCompletionInstance();
 
@@ -30,7 +28,7 @@ export default function CompletionInstance({
 					habit={habit}
 					onChangeEnd={doMutation}
 					width={sliderWidth}
-					showLabelText={showLabelText}
+					showLabelText={false}
 				/>
 			);
 		case "checkbox":

@@ -1,5 +1,5 @@
 import { sqlConnection } from "@/db/init";
-import type { Habit, HabitWithIds, NewHabit } from "@shared/lib/schemas/habit";
+import type { Habit, HabitWithEntries, NewHabit } from "@shared/lib/schemas/habit";
 import type { HabitTagRelation } from "@shared/types/data/relational.types";
 import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
@@ -30,7 +30,7 @@ const linkTagsToHabit: QueryFunction<
 
 export const insertHabitWithTags: QueryFunction<
 	{ habit: NewHabit; tagIds?: ID[] },
-	Promise<HabitWithIds>
+	Promise<HabitWithEntries>
 > = async ({ sql = sqlConnection, habit, tagIds }) => {
 	return await sql.begin(async (q) => {
 		const insertedHabit = await insertHabit({ sql: q, habit });

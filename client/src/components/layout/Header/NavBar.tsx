@@ -1,10 +1,15 @@
 import ActivityMenu from "@/components/layout/Header/ActivityMenu/ActivityMenu";
 import useAuthentication from "@/lib/hooks/useAuthentication";
+import { shortcutMenuAtom } from "@/lib/hooks/useContextMenu";
+import { Popover } from "@mantine/core";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { LucideCalendar } from "lucide-react";
+import { useAtomValue } from "jotai";
+import { LucideCalendar, LucideKeyboard } from "lucide-react";
 import S from "./style/NavBar.style";
 
 export default function NavBar() {
+	const shortcutMenu = useAtomValue(shortcutMenuAtom);
+
 	return (
 		<S.NavBar>
 			<Link to="/">
@@ -13,6 +18,15 @@ export default function NavBar() {
 				</S.HomeLink>
 			</Link>
 			<S.Actions>
+				{/* TODO (TRK-257): finish this implementation */}
+				<Popover>
+					<Popover.Target>
+						<LucideKeyboard role="dialog" style={{ cursor: "pointer" }} />
+					</Popover.Target>
+					<Popover.Dropdown>
+						{JSON.stringify(Object.fromEntries(shortcutMenu))}
+					</Popover.Dropdown>
+				</Popover>
 				<ActivityMenu />
 				<ProfileAction />
 			</S.Actions>

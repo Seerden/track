@@ -1,24 +1,33 @@
-import type { Habit, HabitEntry, HabitWithIds } from "@shared/lib/schemas/habit";
+import type { Habit, HabitEntry, HabitWithEntries } from "@shared/lib/schemas/habit";
 import type { HabitTagRelation } from "@shared/types/data/relational.types";
-import type { ById } from "@shared/types/data/utility.types";
 
 export function mergeHabitsAndRelations(
 	habits: Habit[],
 	habitTagRelations: HabitTagRelation[],
 	entries: HabitEntry[],
 ) {
-	const byId = {} as ById<HabitWithIds>;
+	const habitMap = new Map<Habit["habit_id"], HabitWithEntries>();
 	for (const habit of habits) {
-		byId[habit.habit_id] = Object.assign(habit, { tag_ids: [], entry_ids: [] });
+		habitMap.set(habit.habit_id, {
+			...habit,
+			tag_ids: [],
+			entries: [],
+		});
 	}
 
 	for (const { habit_id, tag_id } of habitTagRelations) {
-		byId[habit_id]?.tag_ids?.push(tag_id);
+		if (habitMap.has(habit_id)) {
+			habitMap.get(habit_id)!.tag_ids.push(tag_id);
+		}
 	}
 
+	// TODO TRK-76: we have the entire entries list here, so why not set
+	// habit.entries instead of habit.entry_ids?
 	for (const entry of entries) {
-		byId[entry.habit_id]?.entry_ids?.push(entry.habit_entry_id);
+		if (habitMap.has(entry.habit_id)) {
+			habitMap.get(entry.habit_id)!.entries.push(entry);
+		}
 	}
 
-	return byId;
+	return habitMap;
 }

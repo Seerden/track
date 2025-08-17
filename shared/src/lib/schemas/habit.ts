@@ -1,7 +1,6 @@
 import { timestampSchema } from "@shared/lib/schemas/timestamp";
 import { z } from "@shared/lib/zod";
 
-// matches IntervalUnit
 export const intervalUnitSchema = z.enum(["day", "week", "month", "year"]);
 
 const goalSchema = z.discriminatedUnion("goal_type", [
@@ -39,24 +38,6 @@ export const habitSchema = newHabitSchema.and(
 );
 export type Habit = z.infer<typeof habitSchema>;
 
-/** Like other data types, a habit can also be linked to any number of tags.
- * Unlike other types, this also has entry_ids, which belong to habit_entries. */
-export const habitWithIdsSchema = habitSchema.and(
-	z.object({
-		tag_ids: z.array(z.string()),
-		entry_ids: z.array(z.string()),
-	}),
-);
-export type HabitWithIds = z.infer<typeof habitWithIdsSchema>;
-
-// matches HabitInput
-export const habitInputSchema = z.object({
-	habit: newHabitSchema,
-	tagIds: z.array(z.string()).optional(),
-});
-export type HabitInput = z.infer<typeof habitInputSchema>;
-
-// matches NewHabitEntry
 export const habitEntryInputSchema = z.object({
 	habit_id: z.string(),
 	// TODO: take this out, get it from context
@@ -65,7 +46,6 @@ export const habitEntryInputSchema = z.object({
 	index: z.number(),
 	value: z.string(), // Varchar -- TODO: why not implement it as a number, and use values 0 and 1 for boolean habits?
 });
-// was NewHabitEntry
 export type HabitEntryInput = z.infer<typeof habitEntryInputSchema>;
 
 export const habitEntrySchema = habitEntryInputSchema.and(
@@ -81,6 +61,23 @@ export const habitEntryUpdateInputSchema = z.object({
 	value: z.string(), // TODO: type for Varchar
 });
 export type HabitEntryUpdateInput = z.infer<typeof habitEntryUpdateInputSchema>;
+
+/** Like other data types, a habit can also be linked to any number of tags.
+ * For this one, the server just gets the entire entries, instead of only the
+ * ids (hence it's called habitWithEntries vs. habitWithIds). */
+export const habitWithEntriesSchema = habitSchema.and(
+	z.object({
+		tag_ids: z.array(z.string()),
+		entries: z.array(habitEntrySchema),
+	}),
+);
+export type HabitWithEntries = z.infer<typeof habitWithEntriesSchema>;
+
+export const habitInputSchema = z.object({
+	habit: newHabitSchema,
+	tagIds: z.array(z.string()).optional(),
+});
+export type HabitInput = z.infer<typeof habitInputSchema>;
 
 /** This is a synthetic habit entry, which is not stored in the database, but is
  * an intermediate value used in the UI. */
@@ -100,21 +97,12 @@ export const syntheticHabitEntrySchema = habitEntryInputSchema
 	);
 export type SyntheticHabitEntry = z.infer<typeof syntheticHabitEntrySchema>;
 
-/** Same as HabitWithIds, but the entries are now merged into the object. This
- * also still has entry_ids, which may be unnecessary since the whole entries
- * are in there, but it can't hurt to leave them around. */
-export const habitWithEntriesSchema = habitWithIdsSchema.and(
-	z.object({
-		entries: z.array(habitEntrySchema),
-	}),
-);
-export type HabitWithEntries = z.infer<typeof habitWithEntriesSchema>;
-
-export const habitWithPossiblySyntheticEntriesSchema = habitWithIdsSchema.and(
-	z.object({
-		entries: z.array(habitEntrySchema.or(syntheticHabitEntrySchema)),
-	}),
-);
+export const habitWithPossiblySyntheticEntriesSchema =
+	habitWithEntriesSchema.and(
+		z.object({
+			entries: z.array(habitEntrySchema.or(syntheticHabitEntrySchema)),
+		}),
+	);
 export type HabitWithPossiblySyntheticEntries = z.infer<
 	typeof habitWithPossiblySyntheticEntriesSchema
 >;

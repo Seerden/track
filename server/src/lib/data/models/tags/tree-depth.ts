@@ -10,7 +10,6 @@ export function buildTagDepthTree(tags: ByIdMap<TagWithIds>) {
 		let currentTag: TagWithIds | undefined = tag;
 
 		while (currentTag.parent_id) {
-			console.log(currentTag.parent_id);
 			currentTag = tags.get(currentTag.parent_id);
 
 			if (!currentTag) {

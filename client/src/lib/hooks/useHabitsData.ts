@@ -1,46 +1,30 @@
 import { withSyntheticHabitEntries } from "@/components/habits/Habits/synthetic";
 import { trpc } from "@/lib/trpc";
 import type { TimeWindow } from "@/types/time-window.types";
-import { byIdAsList } from "@shared/lib/map";
-import type { Habit, HabitWithEntries } from "@shared/lib/schemas/habit";
-import type { ById } from "@shared/types/data/utility.types";
 import { useQuery } from "@tanstack/react-query";
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 
 export default function useHabitsData() {
-	const { data: habitsData } = useQuery(trpc.habits.all.queryOptions());
-	const { data: habitEntriesData } = useQuery(trpc.habits.entries.queryOptions());
-
-	const habitsWithEntriesById = useMemo(() => {
-		if (!habitsData || !habitEntriesData) return {};
-
-		return Array.from(habitsData.byId.entries()).reduce((acc, [id, habit]) => {
-			const entriesForHabit = byIdAsList(habitEntriesData.byId).filter((entry) => {
-				return habit.entry_ids.includes(entry.habit_entry_id);
-			});
-			acc[+id] = Object.assign(habit, { entries: entriesForHabit });
-
-			return acc;
-		}, {} as ById<HabitWithEntries>);
-	}, [habitsData, habitEntriesData]);
+	const { data: habits } = useQuery(trpc.habits.all.queryOptions());
 
 	const getHabitsForTimeWindow = useCallback(
-		(timeWindow: TimeWindow) => {
+		(timeWindow: TimeWindow): ReturnType<typeof withSyntheticHabitEntries> => {
+			if (!habits) {
+				return new Map();
+			}
 			// TODO: filter out habits whose start/end date do not fall within
 			// timeWindow.
 			// TODO: (unsure if we should do that here) consider disallowing
 			// interaction with entries once their timeWindow has passed.
-			return withSyntheticHabitEntries(habitsWithEntriesById, timeWindow);
+			return withSyntheticHabitEntries(habits, timeWindow);
 		},
-		[habitsWithEntriesById]
+		[habits]
 	);
 
-	const getHabit = useCallback(
-		({ habit_id }: Pick<Habit, "habit_id">) => {
-			return habitsWithEntriesById[habit_id];
-		},
-		[habitsWithEntriesById]
-	);
-
-	return { habitsWithEntriesById, getHabit, getHabitsForTimeWindow };
+	return {
+		/** The only place where this hook is used, doesn't use this. But can't
+		 * hurt to include it in the output anyway. */
+		habits,
+		getHabitsForTimeWindow
+	};
 }
