@@ -14,7 +14,7 @@ import {
 } from "react";
 import { useToggle } from "./useToggle";
 
-// Maps key -> label
+// maps key code -> label
 export const shortcutMenuAtom = atom<Map<string, string[]>>(new Map());
 
 function useShortcutMenu({ keys, label }: { keys: string[]; label: string }) {
@@ -25,7 +25,8 @@ function useShortcutMenu({ keys, label }: { keys: string[]; label: string }) {
 			produce((draft) => {
 				for (const key of keys) {
 					if (draft.has(key)) {
-						if (draft.get(key)?.includes(label)) continue; // Don't add the same label twice
+						// ensures each label only gets registered once
+						if (draft.get(key)?.includes(label)) continue;
 						draft.set(key, [...(draft.get(key) ?? []), label]);
 					} else {
 						draft.set(key, [label]);
@@ -181,11 +182,10 @@ export function ContextMenu({
 		<>
 			<Popover
 				onOpen={() => {
-					console.log("opened popover");
-					// TODO: close all other context menus (or only of the same
-					// kind?)
-					// could do it by tracking context menu state; then first closing
-					// all the ones that we want, and then opening this one
+					// TODO (TRK-256): close all other context menus (or only of the
+					// same kind?) could do it by tracking context menu state; then
+					// first closing all the ones that we want, and then opening this
+					// one.
 				}}
 				opened={showMenu}
 				onDismiss={() => setShowMenu(false)}
