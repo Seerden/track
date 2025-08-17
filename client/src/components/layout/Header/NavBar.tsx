@@ -18,6 +18,7 @@ export default function NavBar() {
 				</S.HomeLink>
 			</Link>
 			<S.Actions>
+				{/* TODO (TRK-257): finish this implementation */}
 				<Popover>
 					<Popover.Target>
 						<LucideKeyboard role="dialog" style={{ cursor: "pointer" }} />
