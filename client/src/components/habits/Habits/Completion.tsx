@@ -31,7 +31,6 @@ function CompletionInstances({
 						entry={entry}
 						habit={habit}
 						sliderWidth={shouldShowBadge ? "50px" : "100px"}
-						showLabelText={!shouldShowBadge}
 					/>
 				))}
 		</>
