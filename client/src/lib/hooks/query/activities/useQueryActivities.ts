@@ -9,9 +9,17 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { useEffect } from "react";
 
 export function useQueryActivities() {
-	const query = useQuery(trpc.activities.all.queryOptions());
 	const { data: recurrences } = useQuery(trpc.activities.recurrences.all.queryOptions());
 	const timeWindow = useAtomValue(timeWindowAtom);
+	// TODO: implement timeWindow filter on activities.all; make it optional
+	// though. I think we probably want to still have an easily accessible query
+	// that always returns every activity. Not sure how I want to implement it yet.
+	const query = useQuery(
+		trpc.activities.all.queryOptions({
+			from: timeWindow.startDate,
+			to: timeWindow.endDate
+		})
+	);
 	const setSyntheticActivities = useSetAtom(syntheticActivitiesAtom);
 
 	useEffect(() => {

@@ -1,15 +1,26 @@
 import { queryActivitiesAndRelations } from "@/lib/data/models/activities/query-activities";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 import { transformByIdToMap } from "@shared/lib/map";
+import { timestampSchema } from "@shared/lib/schemas/timestamp";
+import { z } from "@shared/lib/zod";
 
-export const queryActivities = authenticatedProcedure.query(async ({ ctx }) => {
-	const activities = await queryActivitiesAndRelations({
-		user_id: ctx.req.session.user.user_id,
+export const queryActivities = authenticatedProcedure
+	.input(
+		z.object({
+			from: timestampSchema.optional(),
+			to: timestampSchema.optional(),
+		}),
+	)
+	.query(async ({ ctx, input }) => {
+		const activities = await queryActivitiesAndRelations({
+			user_id: ctx.req.session.user.user_id,
+			from: input.from,
+			to: input.to,
+		});
+		return transformByIdToMap({
+			byId: activities,
+		});
 	});
-	return transformByIdToMap({
-		byId: activities,
-	});
-});
 
 export const queryRecurringActivities = authenticatedProcedure.query(async ({ ctx }) => {
 	return transformByIdToMap({
