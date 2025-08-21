@@ -12,6 +12,9 @@ import modalIds from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
+import { Skeleton } from "@mantine/core";
+import { Suspense } from "react";
+import { DefaultSkeleton } from "../layout/Skeleton";
 import Notes from "./Notes";
 import { OverdueTasksIndicator } from "./OverdueTasksIndicator";
 import S from "./style/Today.style";
@@ -28,11 +31,12 @@ export default function Today() {
 		timestampedActivities,
 		title,
 		changeDay,
-		setCurrentDate
+		setCurrentDate,
+		isFetching
 	} = useToday();
 
 	return (
-		<>
+		<Suspense fallback={<DefaultSkeleton />}>
 			<S.Columns>
 				<div style={{ gridArea: "calendar" }}>
 					<Calendar initialDate={currentDate} onChange={setCurrentDate} />
@@ -65,10 +69,28 @@ export default function Today() {
 						<AllDayActivities activities={allDayActivities} />
 					)}
 
-					<TimelineRows
-						activities={timestampedActivities}
-						currentDate={currentDate}
-					/>
+					{isFetching ? (
+						<div
+							style={{
+								display: "flex",
+								flexDirection: "column",
+								gap: "3px"
+							}}
+						>
+							{Array.from({ length: 25 }).map((_, i) => (
+								// TOOD: use the exact height and gap of the actual
+								// timeline rows
+								<Skeleton key={i} width={"100%"} height={25} />
+							))}
+						</div>
+					) : (
+						<Suspense fallback={<DefaultSkeleton />}>
+							<TimelineRows
+								activities={timestampedActivities}
+								currentDate={currentDate}
+							/>
+						</Suspense>
+					)}
 				</S.TimelineWrapper>
 
 				{/* TODO: at small viewports, put these in a modal or something. Do not always render the list. 
@@ -132,6 +154,6 @@ export default function Today() {
 			<Modal initialOpen={false} modalId={modalIds.notes.new}>
 				<NewNote />
 			</Modal>
-		</>
+		</Suspense>
 	);
 }
