@@ -24,7 +24,7 @@ export default function DetailModals() {
 	// ids to be strings everywhere.
 	const activeTag = tag.activeId ? tags?.get(tag.activeId) : null;
 	const activeActivity = activity.activeId
-		? (activities?.byId.get(String(activity.activeId)) ??
+		? (activities?.get(String(activity.activeId)) ??
 			syntheticActivities.find((a) => a.synthetic_id === activity.activeId))
 		: null;
 	const activeHabit = habit.activeId ? (habits?.get(habit.activeId) ?? null) : null;

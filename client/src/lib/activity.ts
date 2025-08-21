@@ -240,11 +240,9 @@ export function assignIndentationLevelToActivities(
 		const [startB, endB] = [activityStart(b), activityEnd(b)];
 		return startA.isSame(startB) ? endB.diff(endA) : startA.diff(startB);
 	});
-	loopActivities: for (const activity of candidateActivities) {
+	for (const activity of candidateActivities) {
 		const currentLevel = indentation.get(getPossiblySyntheticId(activity))!;
-		loopLevels: for (const level of Array.from({ length: currentLevel }).map(
-			(_, i) => i
-		)) {
+		for (const level of Array.from({ length: currentLevel }).map((_, i) => i)) {
 			const filtered = activities
 				.filter((a) => {
 					return (
@@ -257,12 +255,10 @@ export function assignIndentationLevelToActivities(
 					const [startB, endB] = [activityStart(b), activityEnd(b)];
 					return startA.isSame(startB) ? endB.diff(endA) : startA.diff(startB);
 				});
-			console.log({ indentation, level, activitiesCount: filtered.length });
+
 			if (activityFallsInGap(activity, filtered, startOfWindow, endOfWindow)) {
-				console.log({ msg: "setting indentation", activity: activity.name, level });
 				indentation.set(getPossiblySyntheticId(activity), level);
-				console.log("continuing");
-				break loopLevels;
+				break;
 			}
 		}
 	}
@@ -294,15 +290,16 @@ function firstOverlappingActivity(
 	activities: PossiblySyntheticActivity[],
 	indentation: Map<ID, number>
 ) {
-	const grouped = Array.from(
-		{ length: 1 + Math.max(...Array.from(indentation.values())) },
-		() => [] as string[]
+	// this is an array with a slot (empty array) for each level of indentation
+	const idsByLevel = Array.from({
+		length: 1 + Math.max(...Array.from(indentation.values()))
+	}).map((index) =>
+		[...indentation.entries()]
+			.filter(([_, level]) => level === index)
+			.map(([id, _]) => id)
 	);
-	for (const [id, level] of indentation.entries()) {
-		grouped[level]?.push(id);
-	}
 
-	for (const group of grouped) {
+	for (const group of idsByLevel) {
 		for (const id of group) {
 			const rest = group.filter((i) => i !== id);
 			for (const otherId of rest) {
@@ -315,7 +312,7 @@ function firstOverlappingActivity(
 				if (!first || !second) continue;
 
 				if (isSimultaneousActivity(first, second)) {
-					return sortActivitiesByTime([first, second]).at(0); // .at(1) looks better, but .at(0) looks more like intended order
+					return sortActivitiesByTime([first, second]).at(1); // .at(1) looks better, but .at(0) looks more like intended order
 				}
 			}
 		}

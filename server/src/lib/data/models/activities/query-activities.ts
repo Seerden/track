@@ -3,9 +3,10 @@ import { isNullish } from "@shared/lib/is-nullish";
 import type { Activity, ActivityWithIds } from "@shared/lib/schemas/activity";
 import type { Timestamp } from "@shared/lib/schemas/timestamp";
 import type { ActivityTagRelation } from "@shared/types/data/relational.types";
-import type { ById, ID } from "@shared/types/data/utility.types";
+import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 import { mergeActivitiesAndRelations } from "./merge-activities-and-relations";
+import { timeWindowFilter } from "./time-window-filter";
 
 // TODO (TRK-???) for the query by to/from, if we do that, we probably still
 // want access to recurring activities for now. High prio: rework the
@@ -34,47 +35,14 @@ export const queryActivitiesByUser: QueryFunction<
 				: sql`and completed is not true`
 			: sql``;
 
-	const fromSql = !from
-		? sql``
-		: sql`
-      and (
-         (
-            start_date is null 
-            and started_at >= ${from.valueOf()}
-         ) or (
-            started_at is null
-            and start_date >= ${from.valueOf()}
-         )
-      ) 
-      or (
-         will_recur = true
-      )
-   `;
-
-	const toSql = !to
-		? sql``
-		: sql`
-         and (
-            (
-               end_date is null 
-               and ended_at <= ${to.valueOf()}
-            ) or (
-               ended_at is null
-               and end_date <= ${to.valueOf()}
-            )
-         ) 
-         or (
-            will_recur = true
-         )
-      `;
+	const timeWindowSql = timeWindowFilter({ from, to, sql });
 
 	return await sql<Activity[]>`
       select * from activities 
       where user_id = ${user_id} 
       ${recurringSql}
       ${taskSql}
-      ${fromSql}
-      ${toSql}
+      ${timeWindowSql}
       ${completedSql}
    `;
 };
@@ -115,7 +83,11 @@ export const queryActivityByIdWithRelations: QueryFunction<
 	const activity = await queryActivityById({ sql, activity_id });
 	const tagRelations = await queryTagRelationsForActivity({ sql, activity_id });
 	const merged = mergeActivitiesAndRelations([activity], tagRelations);
-	return merged[activity_id];
+	const activityWithRelations = merged.get(activity_id);
+	if (!activityWithRelations) {
+		throw new Error(`Activity with ID ${activity_id} not found`);
+	}
+	return activityWithRelations;
 };
 
 /** Fetch all of a user's activities, all the activityTagRelations, and for each
@@ -133,7 +105,7 @@ export const queryActivitiesAndRelations: QueryFunction<
 		to?: Timestamp;
 		completed?: boolean;
 	},
-	Promise<ById<ActivityWithIds>>
+	Promise<Map<ID, ActivityWithIds>>
 > = async ({ sql = sqlConnection, user_id, recurring, tasks, from, to, completed }) => {
 	const activities = await queryActivitiesByUser({
 		sql,

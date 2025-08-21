@@ -10,10 +10,14 @@ import { useEffect } from "react";
 
 export function useQueryActivities() {
 	const { data: recurrences } = useQuery(trpc.activities.recurrences.all.queryOptions());
+	const { data: recurringActivitiesData } = useQuery(
+		trpc.activities.recurring.queryOptions()
+	);
 	const timeWindow = useAtomValue(timeWindowAtom);
 	// TODO: implement timeWindow filter on activities.all; make it optional
 	// though. I think we probably want to still have an easily accessible query
-	// that always returns every activity. Not sure how I want to implement it yet.
+	// that always returns every activity. Not sure how I want to implement it
+	// yet.
 	const query = useQuery(
 		trpc.activities.all.queryOptions({
 			from: timeWindow.startDate,
@@ -23,13 +27,13 @@ export function useQueryActivities() {
 	const setSyntheticActivities = useSetAtom(syntheticActivitiesAtom);
 
 	useEffect(() => {
-		const activities = byIdAsList(query.data?.byId);
+		const recurringActivities = byIdAsList(recurringActivitiesData);
 		// TODO: we could use the activities.recurring query instead to map over,
 		// which would be slightly more efficient, but that would require proper
 		// implementation of the query keys (resetting activities.all should also
 		// reset activities.recurring, but I don't think the trpc wrapper does
 		// that by default
-		const syntheticActivities = activities.reduce((acc, cur) => {
+		const syntheticActivities = recurringActivities.reduce((acc, cur) => {
 			if (!recurrences || !cur.recurrence_id || !cur.will_recur) {
 				return acc;
 			}
@@ -43,7 +47,7 @@ export function useQueryActivities() {
 		}, [] as SyntheticActivity[]);
 
 		setSyntheticActivities(syntheticActivities);
-	}, [query.data?.byId, recurrences, timeWindow]);
+	}, [recurringActivitiesData, recurrences, timeWindow]);
 
 	return query;
 }
