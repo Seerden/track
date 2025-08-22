@@ -200,12 +200,9 @@ export function assignIndentationLevelToActivities(
 		const sortedByStartAndEnd = sortActivitiesByTime(activitiesAtTimestamp);
 
 		for (const [index, value] of sortedByStartAndEnd.entries()) {
-			const newLevel = Math.max(
-				index,
-				indentation.get(getPossiblySyntheticId(value)) ?? 0
-			);
+			const newLevel = Math.max(index, indentation.get(getActivityId(value)) ?? 0);
 
-			indentation.set(getPossiblySyntheticId(value), newLevel);
+			indentation.set(getActivityId(value), newLevel);
 		}
 	}
 
@@ -220,7 +217,7 @@ export function assignIndentationLevelToActivities(
 	let newLevel = 0;
 
 	while (activityToOffset) {
-		indentation.set(getPossiblySyntheticId(activityToOffset), newLevel++);
+		indentation.set(getActivityId(activityToOffset), newLevel++);
 		activityToOffset = firstOverlappingActivity(activities, indentation);
 	}
 
@@ -233,7 +230,7 @@ export function assignIndentationLevelToActivities(
 		Array.from(indentation.entries())
 			.filter(([_id, level]) => level > 0)
 			.map(([id, _level]) =>
-				activities.find((a) => getPossiblySyntheticId(a) === id)
+				activities.find((a) => getActivityId(a) === id)
 			) as PossiblySyntheticActivity[]
 	).sort((a, b) => {
 		const [startA, endA] = [activityStart(a), activityEnd(a)];
@@ -241,13 +238,13 @@ export function assignIndentationLevelToActivities(
 		return startA.isSame(startB) ? endB.diff(endA) : startA.diff(startB);
 	});
 	for (const activity of candidateActivities) {
-		const currentLevel = indentation.get(getPossiblySyntheticId(activity))!;
+		const currentLevel = indentation.get(getActivityId(activity))!;
 		for (const level of Array.from({ length: currentLevel }).map((_, i) => i)) {
 			const filtered = activities
 				.filter((a) => {
 					return (
-						!isNullish(indentation.get(getPossiblySyntheticId(a))) &&
-						indentation.get(getPossiblySyntheticId(a)) === level
+						!isNullish(indentation.get(getActivityId(a))) &&
+						indentation.get(getActivityId(a)) === level
 					);
 				})
 				.sort((a, b) => {
@@ -257,7 +254,7 @@ export function assignIndentationLevelToActivities(
 				});
 
 			if (activityFallsInGap(activity, filtered, startOfWindow, endOfWindow)) {
-				indentation.set(getPossiblySyntheticId(activity), level);
+				indentation.set(getActivityId(activity), level);
 				break;
 			}
 		}
@@ -277,7 +274,9 @@ function sortActivitiesByTime(activities: PossiblySyntheticActivity[]) {
 	});
 }
 
-function getPossiblySyntheticId(activity: PossiblySyntheticActivity) {
+/** Get the id from a possibly synthetic activity.
+ * @returns either `activity_id` or `synthetic_id`, whichever is defined. */
+export function getActivityId(activity: PossiblySyntheticActivity) {
 	return activity.activity_id ?? activity.synthetic_id;
 }
 
@@ -292,7 +291,7 @@ function firstOverlappingActivity(
 ) {
 	// this is an array with a slot (empty array) for each level of indentation
 	const idsByLevel = Array.from({
-		length: 1 + Math.max(...Array.from(indentation.values()))
+		length: 1 + Math.max(...indentation.values())
 	}).map((index) =>
 		[...indentation.entries()]
 			.filter(([_, level]) => level === index)
@@ -303,12 +302,10 @@ function firstOverlappingActivity(
 		for (const id of group) {
 			const rest = group.filter((i) => i !== id);
 			for (const otherId of rest) {
-				const first = activities.find(
-					(activity) => getPossiblySyntheticId(activity) === id
+				const [first, second] = [id, otherId].map((id) =>
+					activities.find((activity) => getActivityId(activity) === id)
 				);
-				const second = activities.find(
-					(activity) => getPossiblySyntheticId(activity) === otherId
-				);
+
 				if (!first || !second) continue;
 
 				if (isSimultaneousActivity(first, second)) {

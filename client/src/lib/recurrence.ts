@@ -20,7 +20,7 @@ export function isSyntheticActivity(
 	return "synthetic" in activity && activity.synthetic === true;
 }
 
-function createSyntheticActivity(activity: ActivityWithIds): SyntheticActivity {
+export function createSyntheticActivity(activity: ActivityWithIds): SyntheticActivity {
 	return syntheticActivitySchema.parse({
 		...activity,
 		activity_id: null,
