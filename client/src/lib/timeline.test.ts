@@ -34,9 +34,9 @@ describe("activityFallsInGap", () => {
 			ended_at: createDate(activity.ended_at).add(-1, "hour")
 		};
 
-		expect(activityFallsInGap(activity, [otherActivity], startOfDay, endOfDay)).toBe(
-			true
-		);
+		expect(
+			activityFallsInGap(activity, [otherActivity], startOfDay, endOfDay)
+		).toBe(true);
 	});
 
 	// TODO: more tests

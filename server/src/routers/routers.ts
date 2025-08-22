@@ -5,5 +5,5 @@ import { mainRouter } from "./main";
 export const routers = {
 	index: mainRouter,
 	data: dataRouter,
-	sentry: sentryRouter,
+	sentry: sentryRouter
 };

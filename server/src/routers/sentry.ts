@@ -15,15 +15,15 @@ sentryRouter.post("/", async (req, res) => {
 		const url = `https://${host}/api/${projectId}/envelope/?sentry_key=${username}`;
 		const options = {
 			headers: {
-				"Content-Type": "application/x-sentry-envelope",
-			},
+				"Content-Type": "application/x-sentry-envelope"
+			}
 		};
 
 		// Forward the request body and headers to Sentry
 		const response = await fetch(url, {
 			body: envelope,
 			method: "POST",
-			...options,
+			...options
 		});
 
 		if (response.ok) {

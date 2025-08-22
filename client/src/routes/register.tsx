@@ -1,5 +1,5 @@
-import Register from "@/components/auth/Register/Register";
 import { createFileRoute } from "@tanstack/react-router";
+import Register from "@/components/auth/Register/Register";
 
 export const Route = createFileRoute("/register")({
 	component: Register

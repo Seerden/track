@@ -1,6 +1,6 @@
-import { createRouter } from "@/router";
 import { RouterProvider } from "@tanstack/react-router";
 import { act, render } from "@testing-library/react";
+import { createRouter } from "@/router";
 
 // TODO (TRK-225): tanstack router testing doesn't work right now
 export async function renderTanstackRouter() {

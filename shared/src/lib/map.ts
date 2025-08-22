@@ -1,9 +1,5 @@
-import { DataById, MappedData } from "@shared/types/data/map";
-import {
-	type ById,
-	type ByIdMap,
-	type MapById,
-} from "@shared/types/data/utility.types";
+import type { DataById, MappedData } from "@shared/types/data/map";
+import type { ById, ByIdMap, MapById } from "@shared/types/data/utility.types";
 
 /** Transform the byId object of a DataById object to a Map.
  * @note the solution above means we don't have to cast the return value, but
@@ -15,7 +11,7 @@ import {
  * @deprecated @todo TRK-249 just use the map, don't nest it under .byId
  */
 export function transformByIdToMap<T extends DataById<unknown>>(
-	data: T,
+	data: T
 ): MappedData<T> {
 	const byId = new Map(Object.entries(data.byId));
 
@@ -36,13 +32,16 @@ type IdFieldUnion<T> = {
  * object>. */
 export function groupById<T extends object>(
 	data: T[],
-	idField: IdFieldUnion<T>,
+	idField: IdFieldUnion<T>
 ): ById<T> {
-	const byIdMap = data.reduce((acc, cur) => {
-		const id = cur[idField];
-		acc.set(id as string, cur);
-		return acc;
-	}, new Map() as ByIdMap<T>);
+	const byIdMap = data.reduce(
+		(acc, cur) => {
+			const id = cur[idField];
+			acc.set(id as string, cur);
+			return acc;
+		},
+		new Map() as ByIdMap<T>
+	);
 
 	return Object.fromEntries(byIdMap.entries()) as ById<T>;
 }
@@ -51,13 +50,16 @@ export function groupById<T extends object>(
  * the specified id field as keys. */
 export function mapById<T extends object>(
 	data: T[],
-	idField: IdFieldUnion<T>,
+	idField: IdFieldUnion<T>
 ): ByIdMap<T> {
-	const byIdMap = data.reduce((acc, cur) => {
-		const id = cur[idField];
-		acc.set(id as string, cur);
-		return acc;
-	}, new Map() as ByIdMap<T>);
+	const byIdMap = data.reduce(
+		(acc, cur) => {
+			const id = cur[idField];
+			acc.set(id as string, cur);
+			return acc;
+		},
+		new Map() as ByIdMap<T>
+	);
 
 	return byIdMap;
 }

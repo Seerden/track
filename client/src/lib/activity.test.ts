@@ -1,3 +1,4 @@
+import type { ActivityWithIds } from "@shared/lib/schemas/activity";
 import {
 	activityFallsInTimeWindow,
 	activityFallsOnDay,
@@ -5,7 +6,6 @@ import {
 } from "@/lib/activity";
 import { createDate } from "@/lib/datetime/make-date";
 import type { TimeWindow } from "@/types/time-window.types";
-import type { ActivityWithIds } from "@shared/lib/schemas/activity";
 import { createSyntheticActivity } from "./recurrence";
 
 describe("activityFallsOnDay", () => {
@@ -108,6 +108,8 @@ describe("getActivityId", () => {
 
 	it("returns a synthetic activity'd id", () => {
 		const syntheticActivity = createSyntheticActivity(activity);
-		expect(getActivityId(syntheticActivity)).toBe(syntheticActivity.synthetic_id);
+		expect(getActivityId(syntheticActivity)).toBe(
+			syntheticActivity.synthetic_id
+		);
 	});
 });

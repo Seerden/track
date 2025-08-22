@@ -1,7 +1,7 @@
+import { createRootRouteWithContext, redirect } from "@tanstack/react-router";
 import App from "@/App";
 import { queryClient } from "@/lib/query-client";
 import { trpc } from "@/lib/trpc";
-import { createRootRouteWithContext, redirect } from "@tanstack/react-router";
 
 type RouterContext = {
 	queryClient: typeof queryClient;

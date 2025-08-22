@@ -1,16 +1,16 @@
-import { activityRouter } from "@/lib/trpc/routers/activities.router";
-import { authRouter } from "@/lib/trpc/routers/auth.router";
-import { habitRouter } from "@/lib/trpc/routers/habits.router";
-import { noteRouter } from "@/lib/trpc/routers/notes.router";
-import { tagRouter } from "@/lib/trpc/routers/tags.router";
 import {
 	createTRPCClient,
 	httpBatchLink,
 	httpLink,
 	isNonJsonSerializable,
-	splitLink,
+	splitLink
 } from "@trpc/client";
 import superjson from "superjson";
+import { activityRouter } from "@/lib/trpc/routers/activities.router";
+import { authRouter } from "@/lib/trpc/routers/auth.router";
+import { habitRouter } from "@/lib/trpc/routers/habits.router";
+import { noteRouter } from "@/lib/trpc/routers/notes.router";
+import { tagRouter } from "@/lib/trpc/routers/tags.router";
 import { t } from "./trpc/trpc-context";
 
 export const appRouter = t.router({
@@ -18,7 +18,7 @@ export const appRouter = t.router({
 	habits: habitRouter,
 	notes: noteRouter,
 	activities: activityRouter,
-	tags: tagRouter,
+	tags: tagRouter
 });
 
 export type AppRouter = typeof appRouter;
@@ -38,8 +38,8 @@ export const proxyClient = createTRPCClient<AppRouter>({
 					// request - convert data before sending to the tRPC server
 					serialize: (data) => data,
 					// response - convert the tRPC response before using it in client
-					deserialize: superjson.deserialize, // or your other transformer
-				},
+					deserialize: superjson.deserialize // or your other transformer
+				}
 			}),
 			false: httpBatchLink({
 				transformer: superjson,
@@ -47,10 +47,10 @@ export const proxyClient = createTRPCClient<AppRouter>({
 				fetch(url, options) {
 					return fetch(url, {
 						...options,
-						credentials: "include",
+						credentials: "include"
 					});
-				},
-			}),
-		}),
-	],
+				}
+			})
+		})
+	]
 });

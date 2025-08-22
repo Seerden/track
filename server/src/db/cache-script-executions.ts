@@ -1,10 +1,10 @@
-import { sqlConnection } from "@/db/init";
-import { redisClient } from "@/lib/redis/redis-client";
 import fs, { readFile } from "fs/promises";
 import path from "path";
+import { sqlConnection } from "@/db/init";
+import { redisClient } from "@/lib/redis/redis-client";
 
 const databaseScriptCacheKey = {
-	up: "database-scripts:up",
+	up: "database-scripts:up"
 };
 
 /** Gets the list of .sql files that have been run. */
@@ -15,7 +15,10 @@ async function getExecutedScriptNames() {
 
 /** Checks if a given .sql file has been run */
 async function scriptHasRun(filename: string) {
-	const hasRun = await redisClient.sismember(databaseScriptCacheKey.up, filename);
+	const hasRun = await redisClient.sismember(
+		databaseScriptCacheKey.up,
+		filename
+	);
 	return Boolean(hasRun);
 }
 
@@ -50,13 +53,13 @@ export async function runAndCacheNewScripts() {
 	const filenames = await getScriptFilenames();
 	const executedScriptFilenames = await getExecutedScriptNames();
 	const unexecutedScriptFilenames = filenames.filter(
-		(filename) => !executedScriptFilenames.includes(filename),
+		(filename) => !executedScriptFilenames.includes(filename)
 	);
 
 	for (const filename of unexecutedScriptFilenames) {
 		const queryAsString = await readFile(
 			path.join(__dirname, `./scripts/${filename}.sql`),
-			"utf-8",
+			"utf-8"
 		);
 		await sqlConnection.begin(async (q) => {
 			const response = await q.unsafe(queryAsString);
@@ -71,7 +74,7 @@ const databaseScriptCache = {
 	list: getExecutedScriptNames,
 	check: scriptHasRun,
 	set: markScriptAsRun,
-	synchronize: runAndCacheNewScripts,
+	synchronize: runAndCacheNewScripts
 };
 
 export default databaseScriptCache;

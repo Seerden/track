@@ -7,5 +7,5 @@ export const TABLES = {
 	users: "users",
 	tagsTags: "tags_tags",
 	RECURRENCES: "recurrences",
-	OCCURRENCES: "occurrences",
+	OCCURRENCES: "occurrences"
 } as const;

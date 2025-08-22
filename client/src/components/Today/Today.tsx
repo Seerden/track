@@ -1,3 +1,5 @@
+import { Skeleton } from "@mantine/core";
+import { Suspense } from "react";
 import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
 import NewHabit from "@/components/habits/NewHabit/NewHabit";
 import NewNote from "@/components/notes/NewNote/NewNote";
@@ -12,8 +14,6 @@ import modalIds from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import { Skeleton } from "@mantine/core";
-import { Suspense } from "react";
 import { DefaultSkeleton } from "../layout/Skeleton";
 import Notes from "./Notes";
 import { OverdueTasksIndicator } from "./OverdueTasksIndicator";
@@ -33,7 +33,7 @@ export default function Today() {
 		title,
 		changeDay,
 		setCurrentDate,
-		isFetching
+		isFetching,
 	} = useToday();
 
 	return (
@@ -111,7 +111,7 @@ export default function Today() {
 						padding: 0,
 						paddingBottom: spacingValue.small,
 						margin: 0,
-						marginTop: spacingValue.medium
+						marginTop: spacingValue.medium,
 					}}
 				>
 					Overdue tasks
@@ -123,7 +123,7 @@ export default function Today() {
 						paddingTop: spacingValue.small,
 						minWidth: "500px",
 						maxHeight: "50vh",
-						overflowY: "auto"
+						overflowY: "auto",
 					}}
 				>
 					{!!overdueTasks?.length &&

@@ -8,8 +8,8 @@ import ReactDOM from "react-dom/client";
 import "./index.scss";
 import "./normalize.css";
 
-import { createRouter } from "@/router";
 import { enableMapSet } from "immer";
+import { createRouter } from "@/router";
 
 export const router = createRouter();
 
@@ -41,7 +41,7 @@ if (process.env.NODE_ENV === "development") {
 
 enableMapSet();
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+// biome-ignore lint/style/noNonNullAssertion: root will exist
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
 		<RouterProvider router={router} />

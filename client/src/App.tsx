@@ -1,6 +1,6 @@
-import { AnimatedRoutes } from "@/components/wrappers/";
 import { HeadContent, Scripts } from "@tanstack/react-router";
 import { Suspense } from "react";
+import { AnimatedRoutes } from "@/components/wrappers/";
 import "./App.scss";
 import { DefaultSkeleton } from "./components/layout/Skeleton";
 

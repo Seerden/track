@@ -1,15 +1,15 @@
-import type { TimeWindow } from "@/types/time-window.types";
 import {
-	activityWithIdsSchema,
-	syntheticActivitySchema,
 	type ActivityWithIds,
+	activityWithIdsSchema,
 	type PossiblySyntheticActivity,
 	type Recurrence,
-	type SyntheticActivity
+	type SyntheticActivity,
+	syntheticActivitySchema
 } from "@shared/lib/schemas/activity";
 import type { DayOfWeek } from "@shared/types/data/utility.types";
-import { type Dayjs } from "dayjs";
+import type { Dayjs } from "dayjs";
 import { v7 as uuid } from "uuid";
+import type { TimeWindow } from "@/types/time-window.types";
 import { activityEnd, activityStart, isAllDayActivityOnDate } from "./activity";
 import { createDate } from "./datetime/make-date";
 import { dayMap } from "./day-map";
@@ -20,7 +20,9 @@ export function isSyntheticActivity(
 	return "synthetic" in activity && activity.synthetic === true;
 }
 
-export function createSyntheticActivity(activity: ActivityWithIds): SyntheticActivity {
+export function createSyntheticActivity(
+	activity: ActivityWithIds
+): SyntheticActivity {
 	return syntheticActivitySchema.parse({
 		...activity,
 		activity_id: null,
@@ -69,7 +71,10 @@ export function createSyntheticActivitiesForTimeWindow({
  * specified recurrence relation and the iteration number.
  * @usage helper for createSyntheticsForNumericRecurrence */
 function nextDate(date: Dayjs, iteration: number, recurrence: Recurrence) {
-	return date.add((iteration + 1) * recurrence.interval, recurrence.interval_unit);
+	return date.add(
+		(iteration + 1) * recurrence.interval,
+		recurrence.interval_unit
+	);
 }
 
 type CreateSynthetics = (args: {
@@ -174,7 +179,9 @@ const createSyntheticsForCalendarRecurrence: CreateSynthetics = ({
 		let end_date, start_date, ended_at, started_at;
 
 		if (
-			recurrence.weekdays?.includes(dayMap.get(rollingStart.day()) as DayOfWeek) ||
+			recurrence.weekdays?.includes(
+				dayMap.get(rollingStart.day()) as DayOfWeek
+			) ||
 			recurrence.monthdays?.includes(rollingStart.date())
 		) {
 			// TODO: does dayjs ensure that this then always is set to the

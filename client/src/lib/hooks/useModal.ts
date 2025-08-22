@@ -1,7 +1,7 @@
-import type { ModalId } from "@/lib/modal-ids";
-import { useModalState } from "@/lib/state/modal-state";
 import type { RefObject } from "react";
 import { useCallback, useEffect } from "react";
+import type { ModalId } from "@/lib/modal-ids";
+import { useModalState } from "@/lib/state/modal-state";
 
 type UseModalProps = {
 	keys?: string[];
@@ -11,7 +11,7 @@ type UseModalProps = {
 
 export default function useModal(
 	modalRef: RefObject<HTMLElement | null>,
-	{ keys, modalId, initialOpen }: UseModalProps
+	{ keys, modalId, initialOpen }: UseModalProps,
 ) {
 	const { setModalOpen, modalIds } = useModalState();
 
@@ -33,11 +33,11 @@ export default function useModal(
 				modalRef.current &&
 				["Escape"].concat(keys ?? []).includes(e.code)
 			) {
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+				// biome-ignore lint/style/noNonNullAssertion: the if statement checks modalIds.length > 0
 				closeModal(modalIds.at(-1)!);
 			}
 		},
-		[modalIds]
+		[modalIds],
 	);
 
 	useEffect(() => {
