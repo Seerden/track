@@ -126,7 +126,7 @@ function compressIndentation({
 /** Check if there is a gap on the timeline (at a given level `activities` are
  * assumed to already be filtered by level outside of this function) in which
  * `activity` can fit. */
-function activityFallsInGap(
+export function activityFallsInGap(
 	activity: PossiblySyntheticActivity,
 	/** assume activities are sorted in time, and further by duration */
 	activities: PossiblySyntheticActivity[],
@@ -160,6 +160,8 @@ function activityFallsInGap(
 
 		activityIndex += 1;
 	}
+
+	return false;
 }
 
 /**
