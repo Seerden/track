@@ -48,3 +48,7 @@ https://linear.app/seerden
 The client catches errors and sends them to
 [Sentry](https://track-am.sentry.io/issues/?project=4508463529984080&referrer=sidebar&statsPeriod=1h).
 Server errors will follow, soon.
+
+## Dependencies
+
+- Install biome at root-level using the [biome manual installation guide](https://next.biomejs.dev/guides/manual-installation/)
