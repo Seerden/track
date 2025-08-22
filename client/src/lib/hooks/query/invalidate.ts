@@ -9,6 +9,12 @@ export function invalidateActivities() {
 		queryKey: trpc.activities.all.queryKey()
 	});
 	queryClient.invalidateQueries({
+		queryKey: trpc.activities.recurring.queryKey()
+	});
+	queryClient.invalidateQueries({
 		queryKey: trpc.activities.recurrences.all.queryKey()
+	});
+	queryClient.invalidateQueries({
+		queryKey: trpc.activities.tasks.overdue.queryKey()
 	});
 }

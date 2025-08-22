@@ -3,20 +3,22 @@ import { isNullish } from "@shared/lib/is-nullish";
 import type { Activity, ActivityWithIds } from "@shared/lib/schemas/activity";
 import type { Timestamp } from "@shared/lib/schemas/timestamp";
 import type { ActivityTagRelation } from "@shared/types/data/relational.types";
-import type { ById, ID } from "@shared/types/data/utility.types";
+import type { ID, MapById } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 import { mergeActivitiesAndRelations } from "./merge-activities-and-relations";
+import { timeWindowFilter } from "./time-window-filter";
 
 export const queryActivitiesByUser: QueryFunction<
 	{
 		user_id: ID;
 		recurring?: boolean;
 		tasks?: boolean;
+		from?: Timestamp;
 		to?: Timestamp;
 		completed?: boolean;
 	},
 	Promise<Activity[]>
-> = async ({ sql = sqlConnection, user_id, recurring, tasks, to, completed }) => {
+> = async ({ sql = sqlConnection, user_id, recurring, tasks, from, to, completed }) => {
 	const recurringSql = recurring ? sql`and recurrence_id is not null` : sql``;
 	const taskSql = tasks ? sql`and is_task = true` : sql``;
 
@@ -27,26 +29,14 @@ export const queryActivitiesByUser: QueryFunction<
 				: sql`and completed is not true`
 			: sql``;
 
-	const toSql = !to
-		? sql``
-		: sql`
-         and (
-            (
-               end_date is null 
-               and ended_at <= ${to.valueOf()}
-            ) or (
-               ended_at is null
-               and end_date <= ${to.valueOf()}
-            )
-         ) 
-      `;
+	const timeWindowSql = timeWindowFilter({ from, to, sql });
 
 	return await sql<Activity[]>`
       select * from activities 
       where user_id = ${user_id} 
       ${recurringSql}
       ${taskSql}
-      ${toSql}
+      ${timeWindowSql}
       ${completedSql}
    `;
 };
@@ -87,7 +77,11 @@ export const queryActivityByIdWithRelations: QueryFunction<
 	const activity = await queryActivityById({ sql, activity_id });
 	const tagRelations = await queryTagRelationsForActivity({ sql, activity_id });
 	const merged = mergeActivitiesAndRelations([activity], tagRelations);
-	return merged[activity_id];
+	const activityWithRelations = merged.get(activity_id);
+	if (!activityWithRelations) {
+		throw new Error(`Activity with ID ${activity_id} not found`);
+	}
+	return activityWithRelations;
 };
 
 /** Fetch all of a user's activities, all the activityTagRelations, and for each
@@ -101,16 +95,18 @@ export const queryActivitiesAndRelations: QueryFunction<
 		user_id: ID;
 		recurring?: boolean;
 		tasks?: boolean;
+		from?: Timestamp;
 		to?: Timestamp;
 		completed?: boolean;
 	},
-	Promise<ById<ActivityWithIds>>
-> = async ({ sql = sqlConnection, user_id, recurring, tasks, to, completed }) => {
+	Promise<MapById<ActivityWithIds>>
+> = async ({ sql = sqlConnection, user_id, recurring, tasks, from, to, completed }) => {
 	const activities = await queryActivitiesByUser({
 		sql,
 		user_id,
 		recurring,
 		tasks,
+		from,
 		to,
 		completed,
 	});

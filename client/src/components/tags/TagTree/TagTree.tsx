@@ -11,17 +11,15 @@ import { LucideChevronDown, LucideChevronUp } from "lucide-react";
 import { useState } from "react";
 import S from "./style/TagTree.style";
 
-type TagTreeProps = {
-	orientation?: "vertical" | "horizontal";
-	modalId?: ModalId;
-	initialOpen?: boolean;
-};
-
 export default function TagTree({
 	orientation = "horizontal",
 	modalId = modalIds.tagTree.tree,
 	initialOpen = false
-}: TagTreeProps) {
+}: {
+	orientation?: "vertical" | "horizontal";
+	modalId?: ModalId;
+	initialOpen?: boolean;
+}) {
 	const { data: tagsTree } = useQuery(trpc.tags.tree.queryOptions());
 	const { data: tags } = useQueryTags();
 

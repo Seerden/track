@@ -3,6 +3,10 @@ import { trpc } from "@/lib/trpc";
 import { useMutation } from "@tanstack/react-query";
 import { invalidateActivities } from "../invalidate";
 
+// TODO: these functions aren't used yet. Once they are, consider using or
+// expanding invalidateActivities here, depending on the implementation details
+// of these hooks.
+
 export const useMutateNewRecurrence = () =>
 	useMutation(
 		trpc.activities.recurrences.create.mutationOptions({

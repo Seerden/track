@@ -10,7 +10,7 @@ import type {
 	SyntheticHabitEntry
 } from "@shared/lib/schemas/habit";
 import type { Datelike } from "@shared/lib/schemas/timestamp";
-import type { ID } from "@shared/types/data/utility.types";
+import type { ID, MapById } from "@shared/types/data/utility.types";
 
 export function daysInInterval(interval: TimeWindow["intervalUnit"]) {
 	switch (interval) {
@@ -70,9 +70,9 @@ function makeSyntheticEntry({
  * `habits`, if there are not enough actual entries (yet) for the given `habit`
  * and `timeWindow`. */
 export function withSyntheticHabitEntries(
-	habits: Map<ID, HabitWithEntries>,
+	habits: MapById<HabitWithEntries>,
 	timeWindow: TimeWindow
-): Map<ID, HabitWithPossiblySyntheticEntries> {
+): MapById<HabitWithPossiblySyntheticEntries> {
 	const habitsWithSyntheticEntries = [...habits.values()].map((habit) => {
 		const expectedCount = expectedEntryCount(timeWindow, habit);
 

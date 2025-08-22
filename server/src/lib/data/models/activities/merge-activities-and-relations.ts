@@ -1,21 +1,23 @@
-import { groupById } from "@shared/lib/map";
+import { mapById } from "@shared/lib/map";
 import type { Activity, ActivityWithIds } from "@shared/lib/schemas/activity";
 import type { ActivityTagRelation } from "@shared/types/data/relational.types";
-import type { ById } from "@shared/types/data/utility.types";
+import type { MapById } from "@shared/types/data/utility.types";
 
 export function mergeActivitiesAndRelations(
 	activities: Activity[],
 	activityTagRelations: ActivityTagRelation[],
 ) {
-	const activitiesById = groupById(activities, "activity_id");
-
-	const withTagIds = activitiesById as ById<ActivityWithIds>;
+	const activityMap = mapById(activities, "activity_id");
+	const withTagIds: MapById<ActivityWithIds> = new Map();
 	for (const activity of activities) {
-		withTagIds[activity.activity_id] = Object.assign({}, activity, { tag_ids: [] });
+		const withoutTagIds = activityMap.get(activity.activity_id);
+		if (withoutTagIds) {
+			withTagIds.set(activity.activity_id, { ...withoutTagIds, tag_ids: [] });
+		}
 	}
 
 	for (const { activity_id, tag_id } of activityTagRelations) {
-		withTagIds[activity_id]?.tag_ids?.push(tag_id);
+		withTagIds.get(activity_id)?.tag_ids?.push(tag_id);
 	}
 
 	return withTagIds;

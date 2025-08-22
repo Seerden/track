@@ -12,8 +12,12 @@ import modalIds from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
+import { Skeleton } from "@mantine/core";
+import { Suspense } from "react";
+import { DefaultSkeleton } from "../layout/Skeleton";
 import Notes from "./Notes";
 import { OverdueTasksIndicator } from "./OverdueTasksIndicator";
+import { rowHeight } from "./style/TimelineRow.style";
 import S from "./style/Today.style";
 import Task from "./Task";
 import Tasks from "./Tasks";
@@ -28,11 +32,12 @@ export default function Today() {
 		timestampedActivities,
 		title,
 		changeDay,
-		setCurrentDate
+		setCurrentDate,
+		isFetching
 	} = useToday();
 
 	return (
-		<>
+		<Suspense fallback={<DefaultSkeleton />}>
 			<S.Columns>
 				<div style={{ gridArea: "calendar" }}>
 					<Calendar initialDate={currentDate} onChange={setCurrentDate} />
@@ -65,10 +70,20 @@ export default function Today() {
 						<AllDayActivities activities={allDayActivities} />
 					)}
 
-					<TimelineRows
-						activities={timestampedActivities}
-						currentDate={currentDate}
-					/>
+					{isFetching ? (
+						<Containers.Column gap="smaller">
+							{Array.from({ length: 25 }).map((_, i) => (
+								<Skeleton key={i} width={"100%"} height={rowHeight} />
+							))}
+						</Containers.Column>
+					) : (
+						<Suspense fallback={<DefaultSkeleton />}>
+							<TimelineRows
+								activities={timestampedActivities}
+								currentDate={currentDate}
+							/>
+						</Suspense>
+					)}
 				</S.TimelineWrapper>
 
 				{/* TODO: at small viewports, put these in a modal or something. Do not always render the list. 
@@ -132,6 +147,6 @@ export default function Today() {
 			<Modal initialOpen={false} modalId={modalIds.notes.new}>
 				<NewNote />
 			</Modal>
-		</>
+		</Suspense>
 	);
 }

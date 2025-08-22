@@ -15,28 +15,25 @@ import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import { useQuery } from "@tanstack/react-query";
 import type { Dayjs } from "dayjs";
 import { useAtom, useAtomValue } from "jotai";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 /** Functionality hook for the Today component. */
 export default function useToday() {
-	const { data: activitiesData } = useQueryActivities();
-	const { data: recurrences } = useQuery(trpc.activities.recurrences.all.queryOptions());
+	const { data: activitiesData, isFetching: isFetchingActivities } =
+		useQueryActivities();
+	const { data: recurrences, isFetching: isFetchingRecurrences } = useQuery(
+		trpc.activities.recurrences.all.queryOptions()
+	);
 	const syntheticActivities = useAtomValue(syntheticActivitiesAtom);
 	const { getHabitsForTimeWindow } = useHabitsData();
 	const [currentDate, setCurrentDate] = useState<Dayjs>(() => today());
 	const [timeWindow, setTimeWindow] = useAtom(timeWindowAtom);
-	const changeDayTimeout = useRef<NodeJS.Timeout | null>(null);
-	const { data: overdueTasksData } = useQuery(
+	const { data: overdueTasksData, isFetching: isFetchingOverdueTasks } = useQuery(
 		trpc.activities.tasks.overdue.queryOptions()
 	);
 
-	useEffect(() => {
-		return () => {
-			if (changeDayTimeout.current) {
-				clearTimeout(changeDayTimeout.current);
-			}
-		};
-	}, []);
+	const isFetching =
+		isFetchingActivities || isFetchingRecurrences || isFetchingOverdueTasks;
 
 	useEffect(() => {
 		if (currentDate) {
@@ -49,21 +46,19 @@ export default function useToday() {
 	}, [currentDate]);
 
 	function changeDay(direction: "next" | "previous") {
-		changeDayTimeout.current = setTimeout(() => {
-			setCurrentDate((current) => current.add(direction === "next" ? 1 : -1, "day"));
-		}, 25);
+		setCurrentDate((current) => current.add(direction === "next" ? 1 : -1, "day"));
 	}
 
 	const activities = useMemo(() => {
-		const activities = byIdAsList(activitiesData?.byId);
+		const activityList = byIdAsList(activitiesData);
 
-		const allActivities: PossiblySyntheticActivity[] = activities.concat(
+		const allActivities: PossiblySyntheticActivity[] = activityList.concat(
 			// @ts-expect-error: Concat is faster than destructuring both. We don't
 			// care that concat expects the same type.
 			syntheticActivities.filter((synthetic) => {
 				// filter out the synthetic activities that correspond to real ones
 				// (presumably from synthetics turned real in the past)
-				return !activities.some(
+				return !activityList.some(
 					(activity) =>
 						activity.recurrence_id === synthetic.recurrence_id &&
 						(activityStart(activity).isSame(activityStart(synthetic)) ||
@@ -73,7 +68,7 @@ export default function useToday() {
 		);
 
 		return allActivities;
-	}, [activitiesData?.byId, timeWindow, recurrences, syntheticActivities]);
+	}, [activitiesData, timeWindow, recurrences, syntheticActivities]);
 
 	// TODO: todayActivities, allDayActivities, timestampedActivities are all
 	// memoized off the same variables, so we could combine them into a single
@@ -120,6 +115,7 @@ export default function useToday() {
 		currentDate,
 		setCurrentDate,
 		title,
-		changeDay
+		changeDay,
+		isFetching
 	} as const;
 }
