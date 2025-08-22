@@ -1,6 +1,6 @@
+import { habitEntryUpdateInputSchema } from "@shared/lib/schemas/habit";
 import { updateHabitEntry } from "@/lib/data/models/habits/update-habit-entry";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
-import { habitEntryUpdateInputSchema } from "@shared/lib/schemas/habit";
 
 export const updateEntry = authenticatedProcedure
 	.input(habitEntryUpdateInputSchema)
@@ -9,4 +9,6 @@ export const updateEntry = authenticatedProcedure
 		return habitEntry;
 	});
 
-export const updateHabit = authenticatedProcedure.mutation(async () => {});
+export const updateHabit = authenticatedProcedure.mutation(async () => {
+	// TODO: implement this functionality
+});

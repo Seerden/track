@@ -4,6 +4,6 @@ import "express-session";
 declare module "express-session" {
 	1;
 	export interface SessionData {
-		user?: User;
+		user?: Pick<User, "email" | "user_id" | "username">;
 	}
 }

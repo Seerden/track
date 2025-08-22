@@ -12,6 +12,7 @@ export const redisSession: session.SessionOptions = {
 	store: new RedisStore({ client: redisClient }),
 	name: sessionCookieName,
 	saveUninitialized: false,
+	// biome-ignore lint/style/noNonNullAssertion: should exist
 	secret: process.env.SESSION_SECRET!,
 	resave: false,
 	rolling: true,

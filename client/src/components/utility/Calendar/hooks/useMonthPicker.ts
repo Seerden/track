@@ -1,9 +1,9 @@
-import type { MonthAndYear } from "@/components/utility/Calendar/calendar.types";
-import { createMonthValue } from "@/components/utility/Calendar/hooks/create-date";
-import useClickOutside from "@/lib/hooks/useClickOutside";
 import type { DateValue } from "@mantine/dates";
 import type { Dayjs } from "dayjs";
 import { useEffect, useRef, useState } from "react";
+import type { MonthAndYear } from "@/components/utility/Calendar/calendar.types";
+import { createMonthValue } from "@/components/utility/Calendar/hooks/create-date";
+import useClickOutside from "@/lib/hooks/useClickOutside";
 
 type UseMonthPickerProps = {
 	initialDate: Dayjs;

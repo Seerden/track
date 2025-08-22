@@ -72,7 +72,12 @@
         "noUnsafeFinally": "error",
         "noUnsafeOptionalChaining": "error",
         "noUnusedLabels": "error",
-        "noUnusedVariables": "info",
+        "noUnusedVariables": {
+          "level": "info",
+          "options": {
+            "ignoreRestSiblings": true,
+          },
+        },
         "useIsNan": "error",
         "noUnusedImports": {
           "options": {},
@@ -83,7 +88,7 @@
         "useValidForDirection": "error",
         "useValidTypeof": "error",
         "useYield": "error",
-        "useExhaustiveDependencies": "info",
+        "useExhaustiveDependencies": "off",
       },
       "security": { "noDangerouslySetInnerHtmlWithChildren": "error" },
       "style": {
@@ -98,7 +103,7 @@
         "useImportType": "warn",
       },
       "suspicious": {
-        "noArrayIndexKey": "info",
+        "noArrayIndexKey": "off",
         "noAsyncPromiseExecutor": "error",
         "noCatchAssign": "error",
         "noClassAssign": "error",
@@ -144,6 +149,7 @@
       "**/*.csv",
       "**",
       "!**/*.json",
+      "!**/*.test.ts",
       "!**/*/routeTree.gen.ts",
     ],
   },

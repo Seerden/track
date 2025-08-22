@@ -1,6 +1,6 @@
+import { TRPCError } from "@trpc/server";
 import { sessionCookieName } from "@/lib/redis/redis-client";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
-import { TRPCError } from "@trpc/server";
 
 export const logout = authenticatedProcedure.mutation(
 	async ({ ctx: { req, res } }) => {
@@ -9,11 +9,17 @@ export const logout = authenticatedProcedure.mutation(
 				return null;
 			}
 
+			// @ts-ignore I guess since the user is defined (because we're in
+			// authenticatedProcedure, it can't be undefined here, but after this
+			// is called, we won't be in authenticatedProcedure anymore, so user
+			// will be undefined again)
 			req.session.user = undefined;
 			console.log({ sess: req.session, a: 1 });
 
 			res.clearCookie(sessionCookieName);
 
+			// stupid express-session code
+			// biome-ignore lint/suspicious/noEmptyBlockStatements: ^
 			req.session.destroy(() => {});
 
 			if (!req.session?.user) {
@@ -34,5 +40,5 @@ export const logout = authenticatedProcedure.mutation(
 						: "An error occurred while destroying the session.",
 			});
 		}
-	}
+	},
 );
