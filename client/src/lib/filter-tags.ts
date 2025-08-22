@@ -12,7 +12,5 @@ export function filterTagsById(
 ): TagWithIds[] {
 	if (!ids?.length) return [];
 
-	const tagsList = byIdAsList(tags);
-
-	return tagsList.filter(({ tag_id }) => ids.includes(tag_id));
+	return byIdAsList(tags).filter(({ tag_id }) => ids.includes(tag_id));
 }

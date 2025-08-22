@@ -50,15 +50,15 @@ export default function useToday() {
 	}
 
 	const activities = useMemo(() => {
-		const activities = byIdAsList(activitiesData);
+		const activityList = byIdAsList(activitiesData);
 
-		const allActivities: PossiblySyntheticActivity[] = activities.concat(
+		const allActivities: PossiblySyntheticActivity[] = activityList.concat(
 			// @ts-expect-error: Concat is faster than destructuring both. We don't
 			// care that concat expects the same type.
 			syntheticActivities.filter((synthetic) => {
 				// filter out the synthetic activities that correspond to real ones
 				// (presumably from synthetics turned real in the past)
-				return !activities.some(
+				return !activityList.some(
 					(activity) =>
 						activity.recurrence_id === synthetic.recurrence_id &&
 						(activityStart(activity).isSame(activityStart(synthetic)) ||

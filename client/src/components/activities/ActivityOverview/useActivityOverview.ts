@@ -11,7 +11,7 @@ export default function useActivityOverview() {
 
 	if (isProbablySuspended) return { isProbablySuspended };
 
-	const activities = activitiesData ? byIdAsList(activitiesData) : [];
+	const activities = byIdAsList(activitiesData);
 
 	return {
 		isProbablySuspended,

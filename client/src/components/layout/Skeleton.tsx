@@ -1,5 +1,7 @@
 import { Skeleton } from "@mantine/core";
 
+/** Default Skeleton component.
+ * @todo expand this and make it a bit more versatile. */
 export function DefaultSkeleton() {
 	return (
 		<>
