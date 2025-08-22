@@ -1,12 +1,12 @@
+import { Tooltip } from "@mantine/core";
+import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
+import { LucideHistory } from "lucide-react";
+import { useRef } from "react";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
 import Icons from "@/lib/theme/components/icons";
-import { Tooltip } from "@mantine/core";
-import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
-import { LucideHistory } from "lucide-react";
-import { useRef } from "react";
 import T from "./style/AllDayActivity.style";
 import S from "./style/Today.style";
 

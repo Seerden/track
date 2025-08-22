@@ -1,13 +1,13 @@
-import { syntheticToReal } from "@/components/habits/Habits/synthetic";
-import useAuthentication from "@/lib/hooks/useAuthentication";
-import { queryClient } from "@/lib/query-client";
-import { trpc } from "@/lib/trpc";
 import type {
 	HabitEntry,
 	SyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
 import { isSynthetic } from "@shared/types/data/habit-entry.guards";
 import { useMutation } from "@tanstack/react-query";
+import { syntheticToReal } from "@/components/habits/Habits/synthetic";
+import useAuthentication from "@/lib/hooks/useAuthentication";
+import { queryClient } from "@/lib/query-client";
+import { trpc } from "@/lib/trpc";
 
 export default function useCompletionInstance() {
 	const { mutate: submitNewEntry } = useMutation(

@@ -1,12 +1,12 @@
-import { useMutateNewNote } from "@/lib/hooks/query/notes/useMutateNewNote";
-import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
-import { trpc } from "@/lib/trpc";
 import useAuthentication from "@lib/hooks/useAuthentication";
 import { queryClient } from "@lib/query-client";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import type { NewNote } from "@shared/lib/schemas/note";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { useMutateNewNote } from "@/lib/hooks/query/notes/useMutateNewNote";
+import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
+import { trpc } from "@/lib/trpc";
 
 export default function useNewNote() {
 	const { data: tags } = useQueryTags();

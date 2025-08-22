@@ -1,10 +1,10 @@
+import type { Dayjs } from "dayjs";
 import {
 	createDate,
 	createFirstOfTheMonth,
 	now,
 	today,
 } from "@/lib/datetime/make-date";
-import type { Dayjs } from "dayjs";
 
 describe("datetime/make-date", () => {
 	describe("today", () => {

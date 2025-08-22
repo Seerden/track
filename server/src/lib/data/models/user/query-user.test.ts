@@ -1,6 +1,6 @@
-import { sqlConnection } from "@/db/init";
 import type { NewUser } from "@shared/lib/schemas/user";
 import { compare } from "bcryptjs";
+import { sqlConnection } from "@/db/init";
 import { createUser } from "./insert-user";
 import { queryUserByName } from "./query-user";
 

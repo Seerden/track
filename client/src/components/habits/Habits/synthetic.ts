@@ -1,5 +1,3 @@
-import { createDate } from "@/lib/datetime/make-date";
-import type { TimeWindow } from "@/types/time-window.types";
 import { mapById } from "@shared/lib/map";
 import type {
 	Habit,
@@ -11,6 +9,8 @@ import type {
 } from "@shared/lib/schemas/habit";
 import type { Datelike } from "@shared/lib/schemas/timestamp";
 import type { ID, MapById } from "@shared/types/data/utility.types";
+import { createDate } from "@/lib/datetime/make-date";
+import type { TimeWindow } from "@/types/time-window.types";
 
 export function daysInInterval(interval: TimeWindow["intervalUnit"]) {
 	switch (interval) {

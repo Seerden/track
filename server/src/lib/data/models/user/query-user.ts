@@ -1,8 +1,7 @@
-import { sqlConnection } from "@/db/init";
 import type { User } from "@shared/lib/schemas/user";
-import type { Maybe } from "@shared/types/data/utility.types";
-import type { ID } from "@shared/types/data/utility.types";
+import type { ID, Maybe } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
+import { sqlConnection } from "@/db/init";
 
 export const queryUserByName: QueryFunction<
 	{ username: string },

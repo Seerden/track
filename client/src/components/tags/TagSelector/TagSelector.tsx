@@ -1,13 +1,3 @@
-import Filter from "@/components/tags/TagSelector/Filter";
-import Selection from "@/components/tags/TagSelector/Selection";
-import type { TagSelectorProps } from "@/components/tags/TagSelector/tag-selector.types";
-import { TagSelectorItems } from "@/components/tags/TagSelector/TagSelectorItems";
-import useTagSelectorFilter from "@/components/tags/TagSelector/useTagSelectorFilter";
-import TagTree from "@/components/tags/TagTree/TagTree";
-import type { ModalId } from "@/lib/modal-ids";
-import modalIds from "@/lib/modal-ids";
-import { useModalState } from "@/lib/state/modal-state";
-import Buttons from "@/lib/theme/components/buttons";
 import {
 	LucideChevronDown,
 	LucideChevronUp,
@@ -15,6 +5,16 @@ import {
 	LucideMaximize,
 } from "lucide-react";
 import type { MouseEvent } from "react";
+import Filter from "@/components/tags/TagSelector/Filter";
+import Selection from "@/components/tags/TagSelector/Selection";
+import { TagSelectorItems } from "@/components/tags/TagSelector/TagSelectorItems";
+import type { TagSelectorProps } from "@/components/tags/TagSelector/tag-selector.types";
+import useTagSelectorFilter from "@/components/tags/TagSelector/useTagSelectorFilter";
+import TagTree from "@/components/tags/TagTree/TagTree";
+import type { ModalId } from "@/lib/modal-ids";
+import modalIds from "@/lib/modal-ids";
+import { useModalState } from "@/lib/state/modal-state";
+import Buttons from "@/lib/theme/components/buttons";
 import NewTagButton from "./NewTagButton";
 import S from "./style/TagSelector.style";
 import useTagSelector from "./useTagSelector";

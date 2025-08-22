@@ -1,5 +1,5 @@
-import { spacingValue } from "@/lib/theme/snippets/spacing";
 import { css } from "@emotion/react";
+import { spacingValue } from "@/lib/theme/snippets/spacing";
 
 const PasswordEye = css`
 	.lucide {

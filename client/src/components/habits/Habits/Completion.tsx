@@ -1,6 +1,3 @@
-import CompletionBadge from "@/components/habits/Habits/CompletionBadge";
-import CompletionInstance from "@/components/habits/Habits/CompletionInstance";
-import useFloatingProps from "@/lib/hooks/useFloatingProps";
 import { offset } from "@floating-ui/react";
 import type {
 	HabitEntry,
@@ -8,6 +5,9 @@ import type {
 	SyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
 import { useState } from "react";
+import CompletionBadge from "@/components/habits/Habits/CompletionBadge";
+import CompletionInstance from "@/components/habits/Habits/CompletionInstance";
+import useFloatingProps from "@/lib/hooks/useFloatingProps";
 import S from "./style/Completion.style";
 
 type CompletionInstancesProps = {

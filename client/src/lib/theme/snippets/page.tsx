@@ -1,8 +1,8 @@
-import { flex } from "@/lib/theme/snippets/flex";
-import shadows from "@/lib/theme/snippets/shadow";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { PropsWithChildren } from "react";
+import { flex } from "@/lib/theme/snippets/flex";
+import shadows from "@/lib/theme/snippets/shadow";
 
 export const pageStyle = css`
 	background-color: #efefef;

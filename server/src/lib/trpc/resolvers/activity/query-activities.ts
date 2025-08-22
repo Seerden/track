@@ -1,7 +1,7 @@
-import { queryActivitiesAndRelations } from "@/lib/data/models/activities/query-activities";
-import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 import { timestampSchema } from "@shared/lib/schemas/timestamp";
 import { z } from "@shared/lib/zod";
+import { queryActivitiesAndRelations } from "@/lib/data/models/activities/query-activities";
+import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 
 export const queryActivities = authenticatedProcedure
 	.input(

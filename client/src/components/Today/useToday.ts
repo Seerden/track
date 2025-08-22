@@ -1,3 +1,9 @@
+import { byIdAsList } from "@shared/lib/map";
+import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
+import { useQuery } from "@tanstack/react-query";
+import type { Dayjs } from "dayjs";
+import { useAtom, useAtomValue } from "jotai";
+import { useEffect, useMemo, useState } from "react";
 import {
 	activityEnd,
 	activityFallsOnDay,
@@ -10,12 +16,6 @@ import useHabitsData from "@/lib/hooks/useHabitsData";
 import { syntheticActivitiesAtom } from "@/lib/state/synthetic-activity-state";
 import { timeWindowAtom } from "@/lib/state/time-window.state";
 import { trpc } from "@/lib/trpc";
-import { byIdAsList } from "@shared/lib/map";
-import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
-import { useQuery } from "@tanstack/react-query";
-import type { Dayjs } from "dayjs";
-import { useAtom, useAtomValue } from "jotai";
-import { useEffect, useMemo, useState } from "react";
 
 /** Functionality hook for the Today component. */
 export default function useToday() {

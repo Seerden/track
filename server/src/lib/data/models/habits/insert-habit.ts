@@ -1,4 +1,3 @@
-import { sqlConnection } from "@/db/init";
 import type {
 	Habit,
 	HabitWithEntries,
@@ -7,6 +6,7 @@ import type {
 import type { HabitTagRelation } from "@shared/types/data/relational.types";
 import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
+import { sqlConnection } from "@/db/init";
 
 const insertHabit: QueryFunction<{ habit: NewHabit }, Promise<Habit>> = async ({
 	sql = sqlConnection,

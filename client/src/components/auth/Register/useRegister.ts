@@ -1,6 +1,6 @@
-import { useRegisterMutation } from "@/lib/hooks/query/user/register.mutation";
 import type { NewUser } from "@shared/lib/schemas/user";
 import { useState } from "react";
+import { useRegisterMutation } from "@/lib/hooks/query/user/register.mutation";
 
 export default function useRegister() {
 	const { mutate: register } = useRegisterMutation();

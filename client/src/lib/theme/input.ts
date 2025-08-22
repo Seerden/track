@@ -1,8 +1,8 @@
+import styled from "@emotion/styled";
 import { getFontSize } from "@/lib/theme/font";
 import { noBorders } from "@/lib/theme/snippets/border";
 import { outline } from "@/lib/theme/snippets/edge";
 import { inputStyle } from "@/lib/theme/snippets/input";
-import styled from "@emotion/styled";
 
 const Unstyled = styled.input`
 	${noBorders};

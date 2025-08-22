@@ -1,10 +1,10 @@
-import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import { byIdAsList } from "@shared/lib/map";
 import type { TagsInTree } from "@shared/lib/schemas/tag";
 import type { ById, ID } from "@shared/types/data/utility.types";
 import type { ChangeEvent, MouseEvent } from "react";
 import { useMemo, useState } from "react";
+import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 
 type UseTagSelector = {
 	maximum?: number;

@@ -1,8 +1,8 @@
+import { css } from "@emotion/react";
 import { font } from "@/lib/theme/font";
 import { noBorders } from "@/lib/theme/snippets/border";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import { css } from "@emotion/react";
 
 export const inputStyle = css`
 	--font-size: ${font.size[0.93]};

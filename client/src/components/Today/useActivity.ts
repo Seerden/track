@@ -1,9 +1,9 @@
+import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
+import type { Dayjs } from "dayjs";
 import { activityDurationOnDate, activityStartOnDate } from "@/lib/activity";
 import { useQueryRecurrenceById } from "@/lib/hooks/query/activities/useQueryRecurrenceById";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import modalIds from "@/lib/modal-ids";
-import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
-import type { Dayjs } from "dayjs";
 
 export function useActivity(activity: PossiblySyntheticActivity, date: Dayjs) {
 	const { data: recurrence } = useQueryRecurrenceById(activity.recurrence_id);

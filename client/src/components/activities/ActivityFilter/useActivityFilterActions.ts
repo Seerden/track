@@ -1,3 +1,8 @@
+import type { TagsTree, TagWithIds } from "@shared/lib/schemas/tag";
+import type { ByIdMap, ID } from "@shared/types/data/utility.types";
+import { produce } from "immer";
+import type { Dispatch, SetStateAction } from "react";
+import { useCallback } from "react";
 import type {
 	ActivityFilterWithValues,
 	FilterResetAction,
@@ -6,11 +11,6 @@ import type {
 import { defaultFilter } from "@/components/activities/ActivityFilter/lib/constants";
 import { getTreeMembers } from "@/components/activities/ActivityFilter/lib/tag-branch";
 import { createDate } from "@/lib/datetime/make-date";
-import type { TagsTree, TagWithIds } from "@shared/lib/schemas/tag";
-import type { ByIdMap, ID } from "@shared/types/data/utility.types";
-import { produce } from "immer";
-import type { Dispatch, SetStateAction } from "react";
-import { useCallback } from "react";
 
 export default function useActivityFilterActions({
 	setActiveTagIds,

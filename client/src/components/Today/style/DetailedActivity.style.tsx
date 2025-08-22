@@ -1,9 +1,9 @@
+import styled from "@emotion/styled";
 import Buttons from "@/lib/theme/components/buttons";
 import CardStyle from "@/lib/theme/components/Card.style";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import styled from "@emotion/styled";
 
 const Wrapper = styled(CardStyle.Wrapper)`
 	display: grid;

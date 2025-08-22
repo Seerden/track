@@ -1,7 +1,7 @@
-import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
-import { trpc } from "@/lib/trpc";
 import { byIdAsList } from "@shared/lib/map";
 import { useQuery } from "@tanstack/react-query";
+import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
+import { trpc } from "@/lib/trpc";
 
 export default function useActivityOverview() {
 	const { data: activitiesData } = useQuery(trpc.activities.all.queryOptions());

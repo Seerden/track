@@ -1,5 +1,5 @@
-import CardStyle from "@/lib/theme/components/Card.style";
 import styled from "@emotion/styled";
+import CardStyle from "@/lib/theme/components/Card.style";
 
 /** TODO: DetailedHabit is only really shown in a modal, which has some padding etc.
  * of its own, so the style for this is very barebones. If we want to show it

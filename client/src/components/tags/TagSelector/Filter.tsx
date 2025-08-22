@@ -1,6 +1,6 @@
+import { LucideX } from "lucide-react";
 import type { FilterProps } from "@/components/tags/TagSelector/tag-selector.types";
 import Input from "@/lib/theme/input";
-import { LucideX } from "lucide-react";
 import S from "./style/TagSelector.style";
 
 function Filter(p: FilterProps) {

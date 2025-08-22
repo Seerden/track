@@ -1,3 +1,9 @@
+import { createDate } from "@lib/datetime/make-date";
+import { parseTimeString } from "@lib/datetime/parse-string";
+import type { Maybe, StartAndEnd } from "@shared/types/data/utility.types";
+import { produce } from "immer";
+import { useAtomValue } from "jotai";
+import { useEffect, useMemo, useState } from "react";
 import {
 	isAllDay,
 	maybeGetDefaultStartAndEnd,
@@ -7,12 +13,6 @@ import { isToday, sameDay } from "@/lib/datetime/compare";
 import { formatToHHmm, formatToYearMonthDay } from "@/lib/datetime/format-date";
 import useCurrentTime from "@/lib/hooks/useCurrentTime";
 import { timeWindowAtom } from "@/lib/state/time-window.state";
-import { createDate } from "@lib/datetime/make-date";
-import { parseTimeString } from "@lib/datetime/parse-string";
-import type { Maybe, StartAndEnd } from "@shared/types/data/utility.types";
-import { produce } from "immer";
-import { useAtomValue } from "jotai";
-import { useEffect, useMemo, useState } from "react";
 import type { DateTimePickerProps } from "./datetime-picker.types";
 
 type UseDateTimePickerDefaults = {

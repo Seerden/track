@@ -1,5 +1,5 @@
-import { noBorders } from "@/lib/theme/snippets/border";
 import { css } from "@emotion/react";
+import { noBorders } from "@/lib/theme/snippets/border";
 
 export const unstyledButton = css`
 	${noBorders};

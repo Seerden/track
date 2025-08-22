@@ -1,8 +1,3 @@
-import { sqlConnection } from "@/db/init";
-import {
-	linkTagsToActivity,
-	unlinkTagsFromActivity,
-} from "@/lib/data/models/activities/link-and-unlink-tags-and-activities";
 import day from "@shared/lib/day";
 import type {
 	Activity,
@@ -10,11 +5,15 @@ import type {
 	ActivityWithIds,
 	TaskUpdateInput,
 } from "@shared/lib/schemas/activity";
-
 import type { ActivityTagRelation } from "@shared/types/data/relational.types";
 import type { ID } from "@shared/types/data/utility.types";
 import type { Dayjs } from "dayjs";
 import type { QueryFunction } from "types/sql.types";
+import { sqlConnection } from "@/db/init";
+import {
+	linkTagsToActivity,
+	unlinkTagsFromActivity,
+} from "@/lib/data/models/activities/link-and-unlink-tags-and-activities";
 
 /**
  * Updates the completion fields of an activity.

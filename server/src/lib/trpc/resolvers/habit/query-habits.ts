@@ -1,3 +1,4 @@
+import { mapById } from "@shared/lib/map";
 import { mergeHabitsAndRelations } from "@/lib/data/models/habits/merge-habits-and-relations";
 import {
 	queryHabitEntriesByUser,
@@ -5,7 +6,6 @@ import {
 	queryHabitTagsByUser,
 } from "@/lib/data/models/habits/query-habit-entries";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
-import { mapById } from "@shared/lib/map";
 
 export const queryHabitsAndRelations = authenticatedProcedure.query(
 	async ({ ctx: { req } }) => {

@@ -1,9 +1,9 @@
-import { habitEntryIsDone } from "@/components/habits/Habits/entry-is-completed";
 import type {
 	HabitEntry,
 	HabitWithEntries,
 	SyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
+import { habitEntryIsDone } from "@/components/habits/Habits/entry-is-completed";
 
 const habit: HabitWithEntries = {
 	habit_id: "1",

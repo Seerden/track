@@ -1,4 +1,15 @@
 import {
+	type ActivityWithIds,
+	activitySchema,
+	type NewActivity,
+	type NewActivityInput,
+	type NewRecurrenceInput,
+	newActivityInputSchema,
+	newRecurrenceInputSchema,
+} from "@shared/lib/schemas/activity";
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
+import {
 	useMutateNewActivity,
 	useMutateNewRecurringActivity,
 } from "@/lib/hooks/query/activities/useMutateNewActivity";
@@ -7,17 +18,6 @@ import type { ModalId } from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import { useTagSelection } from "@/lib/state/selected-tags-state";
 import { trpc } from "@/lib/trpc";
-import {
-	activitySchema,
-	newActivityInputSchema,
-	newRecurrenceInputSchema,
-	type ActivityWithIds,
-	type NewActivity,
-	type NewActivityInput,
-	type NewRecurrenceInput,
-} from "@shared/lib/schemas/activity";
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "@tanstack/react-router";
 import type { ActivityState } from "./activity-state.types";
 import { parseNewActivity, parseUpdatedActivity } from "./parse-activity";
 

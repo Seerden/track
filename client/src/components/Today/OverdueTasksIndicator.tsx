@@ -1,10 +1,10 @@
+import { Tooltip } from "@mantine/core";
+import { LucideClockAlert } from "lucide-react";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import { colors } from "@/lib/theme/colors";
 import Buttons from "@/lib/theme/components/buttons";
 import Icons from "@/lib/theme/components/icons";
-import { Tooltip } from "@mantine/core";
-import { LucideClockAlert } from "lucide-react";
 
 export function OverdueTasksIndicator({
 	taskCount,

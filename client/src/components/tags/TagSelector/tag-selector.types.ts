@@ -1,7 +1,7 @@
-import type { ModalId } from "@/lib/modal-ids";
 import type { TagsInTree, TagWithIds } from "@shared/lib/schemas/tag";
 import type { ID } from "@shared/types/data/utility.types";
 import type { FocusEvent, MouseEvent } from "react";
+import type { ModalId } from "@/lib/modal-ids";
 
 // These are passed from TagSelector > TagSelectorItems > TagSelectorItem
 export type SubcomponentProps = {

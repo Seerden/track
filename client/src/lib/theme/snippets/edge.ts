@@ -1,5 +1,5 @@
-import { colors } from "@/lib/theme/colors";
 import { css } from "@emotion/react";
+import { colors } from "@/lib/theme/colors";
 
 const edgeSizes = [1, 2, 3, 5] as const;
 

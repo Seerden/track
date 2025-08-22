@@ -1,13 +1,13 @@
-import { ContextMenu } from "@/lib/hooks/useContextMenu";
-import { colors } from "@/lib/theme/colors";
-import Icons from "@/lib/theme/components/icons";
-import type { HabitEntryUpdateMutationFunction } from "@/types/data.types";
 import { NumberInput, Slider, Tooltip } from "@mantine/core";
 import type {
 	HabitEntry,
 	HabitWithEntries,
 	SyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
+import { ContextMenu } from "@/lib/hooks/useContextMenu";
+import { colors } from "@/lib/theme/colors";
+import Icons from "@/lib/theme/components/icons";
+import type { HabitEntryUpdateMutationFunction } from "@/types/data.types";
 import { completionTooltipStyles } from "./style/Completion.style";
 import S from "./style/HabitEntrySlider.style";
 import { useHabitEntrySlider } from "./useHabitEntrySlider";

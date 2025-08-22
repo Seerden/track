@@ -1,5 +1,5 @@
-import { trpc } from "@/lib/trpc";
 import { useMutation } from "@tanstack/react-query";
+import { trpc } from "@/lib/trpc";
 import { invalidateActivities } from "../invalidate";
 
 export function useMutateNewActivity() {

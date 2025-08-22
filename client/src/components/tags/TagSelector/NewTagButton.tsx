@@ -1,8 +1,8 @@
+import NewTag from "@components/tags/NewTag/NewTag";
+import { Tags } from "lucide-react";
 import Modal from "@/components/utility/Modal/Modal";
 import type { ModalId } from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
-import NewTag from "@components/tags/NewTag/NewTag";
-import { Tags } from "lucide-react";
 import S from "./style/NewTagButton.style";
 
 type NewTagButtonProps = {

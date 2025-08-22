@@ -1,12 +1,12 @@
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 import BadgeStyles from "@/lib/theme/components/Badge.style";
 import { getFontSize } from "@/lib/theme/font";
 import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
-import { motion } from "framer-motion";
 
 const colors = [
 	"dodgerblue",

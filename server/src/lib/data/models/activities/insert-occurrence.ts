@@ -1,10 +1,10 @@
-import { sqlConnection } from "@/db/init";
 import type {
 	NewOccurrenceInput,
 	Occurrence,
 } from "@shared/lib/schemas/activity";
 import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
+import { sqlConnection } from "@/db/init";
 
 export const insertOccurrence: QueryFunction<
 	NewOccurrenceInput & { user_id: ID },

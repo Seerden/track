@@ -1,7 +1,7 @@
-import { sqlConnection } from "@/db/init";
 import type { Occurrence } from "@shared/lib/schemas/activity";
 import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
+import { sqlConnection } from "@/db/init";
 
 // TODO: business logic -- haven't designed the logic for this yet.
 export const removeOccurrenceById: QueryFunction<

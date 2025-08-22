@@ -1,5 +1,3 @@
-import { sqlConnection } from "@/db/init";
-import { updateActivityRecurrence } from "@/lib/data/models/activities/update-activity";
 import type {
 	CreateRecurrenceInput,
 	NewRecurrenceInput,
@@ -8,6 +6,8 @@ import type {
 } from "@shared/lib/schemas/activity";
 import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
+import { sqlConnection } from "@/db/init";
+import { updateActivityRecurrence } from "@/lib/data/models/activities/update-activity";
 
 /** Insert a new recurrence row. */
 const insertRecurrence: QueryFunction<

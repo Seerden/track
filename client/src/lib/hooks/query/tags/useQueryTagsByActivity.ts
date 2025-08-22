@@ -1,5 +1,5 @@
-import { filterTagsById } from "@/lib/filter-tags";
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
+import { filterTagsById } from "@/lib/filter-tags";
 import { useQueryTags } from "./useQueryTags";
 
 export function useQueryTagsByActivity(activity: PossiblySyntheticActivity) {

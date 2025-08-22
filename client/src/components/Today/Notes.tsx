@@ -1,3 +1,6 @@
+import { isToday } from "@lib/datetime/compare";
+import { byIdAsList } from "@shared/lib/map";
+import { useQuery } from "@tanstack/react-query";
 import Empty from "@/components/Today/Empty";
 import { createDate } from "@/lib/datetime/make-date";
 import { filterTagsById } from "@/lib/filter-tags";
@@ -5,9 +8,6 @@ import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import { trpc } from "@/lib/trpc";
-import { isToday } from "@lib/datetime/compare";
-import { byIdAsList } from "@shared/lib/map";
-import { useQuery } from "@tanstack/react-query";
 import { Note } from "./Note";
 import S from "./style/Today.style";
 

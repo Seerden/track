@@ -1,6 +1,6 @@
+import type { Maybe, StartAndEnd } from "@shared/types/data/utility.types";
 import type { DateTimePickerProps } from "@/components/activities/ActivityForm/datetime-picker.types";
 import { createDate } from "@/lib/datetime/make-date";
-import type { Maybe, StartAndEnd } from "@shared/types/data/utility.types";
 
 /** If `defaultValues` is given, this function returns a StartAndEnd object that
  * extracts the relevant datetime fields from it.

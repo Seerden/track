@@ -1,8 +1,8 @@
-import { sqlConnection } from "@/db/init";
 import type { Habit, HabitEntry } from "@shared/lib/schemas/habit";
 import type { HabitTagRelation } from "@shared/types/data/relational.types";
 import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
+import { sqlConnection } from "@/db/init";
 
 export const queryHabitEntriesByUser: QueryFunction<
 	{ user_id: ID },

@@ -1,9 +1,9 @@
-import { useLoginMutation } from "@/lib/hooks/query/user/login.mutation";
-import useAuthentication from "@/lib/hooks/useAuthentication";
-import { localUser } from "@/lib/user-storage";
 import type { NewUser } from "@shared/lib/schemas/user";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { useLoginMutation } from "@/lib/hooks/query/user/login.mutation";
+import useAuthentication from "@/lib/hooks/useAuthentication";
+import { localUser } from "@/lib/user-storage";
 
 export default function useLogin() {
 	const navigate = useNavigate();

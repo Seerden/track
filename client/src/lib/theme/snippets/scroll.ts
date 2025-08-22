@@ -1,6 +1,6 @@
+import { css } from "@emotion/react";
 import { outline } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
-import { css } from "@emotion/react";
 
 /** Visually hides scrollbar, but keeps the scrollability of the element the way
  * it was. */

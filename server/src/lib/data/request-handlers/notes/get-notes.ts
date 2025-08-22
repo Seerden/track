@@ -1,6 +1,6 @@
+import type { RequestHandler } from "express";
 import { queryNotesAndRelations } from "@/lib/data/models/notes/query-notes";
 import { getUserIdFromSessionOrBail } from "@/lib/data/request-handlers/get-user-id-from-session-or-bail";
-import type { RequestHandler } from "express";
 
 export const getNotes: RequestHandler = async (req, res) => {
 	const user_id = getUserIdFromSessionOrBail(req, res);

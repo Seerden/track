@@ -1,16 +1,16 @@
-import { createDate } from "@/lib/datetime/make-date";
-import { useMutateNewHabit } from "@/lib/hooks/query/habits/useMutateNewHabit";
-import useAuthentication from "@/lib/hooks/useAuthentication";
-import modalIds from "@/lib/modal-ids";
-import { useModalState } from "@/lib/state/modal-state";
-import { useTagSelection } from "@/lib/state/selected-tags-state";
-import { newHabitSchema, type NewHabit } from "@shared/lib/schemas/habit";
+import { type NewHabit, newHabitSchema } from "@shared/lib/schemas/habit";
 import { hasValidUserId } from "@shared/types/data/user-id.guards";
 import type { Nullable } from "@shared/types/data/utility.types";
 import { useNavigate } from "@tanstack/react-router";
 import type { Dayjs } from "dayjs";
 import { produce } from "immer";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { createDate } from "@/lib/datetime/make-date";
+import { useMutateNewHabit } from "@/lib/hooks/query/habits/useMutateNewHabit";
+import useAuthentication from "@/lib/hooks/useAuthentication";
+import modalIds from "@/lib/modal-ids";
+import { useModalState } from "@/lib/state/modal-state";
+import { useTagSelection } from "@/lib/state/selected-tags-state";
 
 export type NewHabitWithoutUserId = Omit<NewHabit, "user_id">;
 

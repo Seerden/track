@@ -1,6 +1,6 @@
-import Buttons from "@/lib/theme/components/buttons";
 import styled from "@emotion/styled";
 import type { CSSProperties } from "react";
+import Buttons from "@/lib/theme/components/buttons";
 
 const Button = styled(Buttons.Action.Default)<{
 	$size?: CSSProperties["width"];

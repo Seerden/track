@@ -1,3 +1,7 @@
+import { byIdAsList } from "@shared/lib/map";
+import type { ID } from "@shared/types/data/utility.types";
+import { useQuery } from "@tanstack/react-query";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { ActivityFilterProps } from "@/components/activities/ActivityFilter/ActivityFilter";
 import type {
 	ActivityFilterTabs,
@@ -7,10 +11,6 @@ import { defaultFilter } from "@/components/activities/ActivityFilter/lib/consta
 import useActivityFilterActions from "@/components/activities/ActivityFilter/useActivityFilterActions";
 import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import { trpc } from "@/lib/trpc";
-import { byIdAsList } from "@shared/lib/map";
-import type { ID } from "@shared/types/data/utility.types";
-import { useQuery } from "@tanstack/react-query";
-import { useCallback, useEffect, useMemo, useState } from "react";
 
 export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 	const { data: tags } = useQueryTags();

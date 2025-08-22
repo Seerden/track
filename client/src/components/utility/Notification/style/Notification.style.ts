@@ -1,9 +1,9 @@
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import type { NotificationType } from "@/components/utility/Notification/Notification";
 import type { MainTheme } from "@/lib/style/theme";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
 
 function getNotificationColor(theme: MainTheme, type: NotificationType) {
 	switch (type) {

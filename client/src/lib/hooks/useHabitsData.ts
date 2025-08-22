@@ -1,8 +1,8 @@
+import { useQuery } from "@tanstack/react-query";
+import { useCallback } from "react";
 import { withSyntheticHabitEntries } from "@/components/habits/Habits/synthetic";
 import { trpc } from "@/lib/trpc";
 import type { TimeWindow } from "@/types/time-window.types";
-import { useQuery } from "@tanstack/react-query";
-import { useCallback } from "react";
 
 export default function useHabitsData() {
 	const { data: habits } = useQuery(trpc.habits.all.queryOptions());

@@ -1,6 +1,6 @@
+import { transformByIdToMap } from "@shared/lib/map";
 import { queryNotesAndRelations } from "@/lib/data/models/notes/query-notes";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
-import { transformByIdToMap } from "@shared/lib/map";
 
 export const queryNotes = authenticatedProcedure.query(
 	async ({ ctx: { req } }) => {

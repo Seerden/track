@@ -1,7 +1,7 @@
-import { sqlConnection } from "@/db/init";
 import type { NewUser, User, UserInput } from "@shared/lib/schemas/user";
 import { hash } from "bcryptjs";
 import type { WithSQL } from "types/sql.types";
+import { sqlConnection } from "@/db/init";
 import { queryUserByName } from "./query-user";
 
 async function generatePasswordHash(password: string) {

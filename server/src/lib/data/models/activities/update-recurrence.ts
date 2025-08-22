@@ -1,10 +1,10 @@
-import { sqlConnection } from "@/db/init";
 import type {
 	Recurrence,
 	RecurrenceWithIds,
 } from "@shared/lib/schemas/activity";
 import type { ID, Maybe } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
+import { sqlConnection } from "@/db/init";
 
 // TODO: include the user_id in the QueryFunction type, because basically all
 // query functions require it.

@@ -1,8 +1,8 @@
-import { Icon } from "@/lib/theme/components/icons";
-import { spacingValue } from "@/lib/theme/snippets/spacing";
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { Dayjs } from "dayjs";
 import { LucideRepeat } from "lucide-react";
+import { Icon } from "@/lib/theme/components/icons";
+import { spacingValue } from "@/lib/theme/snippets/spacing";
 import T from "./style/Activity.style";
 import { useActivity } from "./useActivity";
 

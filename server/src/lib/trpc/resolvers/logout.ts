@@ -40,5 +40,5 @@ export const logout = authenticatedProcedure.mutation(
 						: "An error occurred while destroying the session.",
 			});
 		}
-	},
+	}
 );

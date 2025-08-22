@@ -1,7 +1,7 @@
+import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
-import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 
 export function useTask(activity: PossiblySyntheticActivity) {
 	const putCompletion = usePutTaskCompletion(activity);

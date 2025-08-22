@@ -1,3 +1,4 @@
+import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import { activityStart, hasNotEnded, startsInFuture } from "@/lib/activity";
 import { useQueryRecurrenceById } from "@/lib/hooks/query/activities/useQueryRecurrenceById";
 import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
@@ -5,7 +6,6 @@ import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
-import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 
 export function useDetailedActivity({
 	activity,

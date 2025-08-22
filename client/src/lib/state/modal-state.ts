@@ -1,8 +1,8 @@
-import type { ModalId } from "@/lib/modal-ids";
-import { activeItemAtom } from "@/lib/state/active-item-state";
 import { produce } from "immer";
 import { atom, useAtom, useSetAtom } from "jotai";
 import { useCallback } from "react";
+import type { ModalId } from "@/lib/modal-ids";
+import { activeItemAtom } from "@/lib/state/active-item-state";
 
 const modalAtom = atom<ModalId[]>([]);
 

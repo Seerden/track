@@ -1,3 +1,5 @@
+import { groupById } from "@shared/lib/map";
+import { z } from "@shared/lib/zod";
 import {
 	queryOccurrencesByRecurrence,
 	queryOccurrencesByUser,
@@ -8,8 +10,6 @@ import {
 	queryRecurrencesByUser,
 } from "@/lib/data/models/activities/query-recurrences";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
-import { groupById } from "@shared/lib/map";
-import { z } from "@shared/lib/zod";
 
 export const _queryOccurrencesByUser = authenticatedProcedure.query(
 	async ({ ctx: { req } }) => {

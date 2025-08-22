@@ -1,5 +1,5 @@
+import { type PropsWithChildren, useState } from "react";
 import NotificationProgressBar from "@/components/utility/Notification/NotificationProgressBar";
-import { useState, type PropsWithChildren } from "react";
 import S from "./style/Notification.style";
 
 export type NotificationType = "error" | "success" | "warning" | "info";

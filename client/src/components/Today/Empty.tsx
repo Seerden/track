@@ -1,6 +1,6 @@
-import Buttons from "@/lib/theme/components/buttons";
 import { LucidePlus } from "lucide-react";
 import type { PropsWithChildren } from "react";
+import Buttons from "@/lib/theme/components/buttons";
 import S from "./style/Empty.style";
 
 type EmptyProps = {

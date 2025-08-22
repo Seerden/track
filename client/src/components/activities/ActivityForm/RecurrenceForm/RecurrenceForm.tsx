@@ -1,3 +1,6 @@
+import { Tooltip } from "@mantine/core";
+import type { IntervalUnit } from "@shared/types/data/utility.types";
+import { LucideAlertCircle } from "lucide-react";
 import {
 	daysOfMonth,
 	daysOfWeek,
@@ -9,9 +12,6 @@ import DaySelector from "@/components/activities/ActivityForm/RecurrenceForm/Day
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import Containers from "@/lib/theme/components/container.style";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import { Tooltip } from "@mantine/core";
-import type { IntervalUnit } from "@shared/types/data/utility.types";
-import { LucideAlertCircle } from "lucide-react";
 import type useActivityForm from "../useActivityForm";
 import S from "./style/RecurrenceForm.style";
 

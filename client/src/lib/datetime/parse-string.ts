@@ -1,5 +1,5 @@
-import { formatToHHmm } from "@/lib/datetime/format-date";
 import day from "@shared/lib/day";
+import { formatToHHmm } from "@/lib/datetime/format-date";
 
 export function parseTimeString(time: string) {
 	// turns e.g. 1230 into dayjs with time to 12:30pm

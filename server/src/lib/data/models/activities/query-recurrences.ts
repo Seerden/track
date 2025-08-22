@@ -1,7 +1,7 @@
-import { sqlConnection } from "@/db/init";
 import type { Recurrence } from "@shared/lib/schemas/activity";
 import type { ID, Nullable } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
+import { sqlConnection } from "@/db/init";
 
 export const queryRecurrencesByUser: QueryFunction<
 	{ user_id: ID; recurrence_ids?: ID[] },

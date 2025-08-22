@@ -1,5 +1,5 @@
-import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import type { ActivityWithIds } from "@shared/lib/schemas/activity";
+import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 
 type ActivityFilterNameType = ActivityFilterWithValues["name"]["type"];
 

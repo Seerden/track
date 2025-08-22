@@ -1,3 +1,5 @@
+import styled from "@emotion/styled";
+import type { CSSProperties } from "react";
 import {
 	defaultCellHeight,
 	defaultCellWidth,
@@ -7,8 +9,6 @@ import { outline, thinBorder } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import styled from "@emotion/styled";
-import type { CSSProperties } from "react";
 
 // TODO: theme value
 const gap = "0.3rem";

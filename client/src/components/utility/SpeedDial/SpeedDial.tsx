@@ -1,8 +1,7 @@
-import Buttons from "@/lib/theme/components/buttons";
 import type { UseFloatingOptions } from "@floating-ui/react";
 import {
-	flip,
 	FloatingFocusManager,
+	flip,
 	offset,
 	safePolygon,
 	shift,
@@ -15,6 +14,7 @@ import {
 } from "@floating-ui/react";
 import { Minus, Plus } from "lucide-react";
 import type { PropsWithChildren } from "react";
+import Buttons from "@/lib/theme/components/buttons";
 import S from "./style/SpeedDial.style";
 
 type SpeedDialProps = {

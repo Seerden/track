@@ -1,10 +1,10 @@
-import { sqlConnection } from "@/db/init";
 import { isNullish } from "@shared/lib/is-nullish";
 import type { Activity, ActivityWithIds } from "@shared/lib/schemas/activity";
 import type { Timestamp } from "@shared/lib/schemas/timestamp";
 import type { ActivityTagRelation } from "@shared/types/data/relational.types";
 import type { ID, MapById } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
+import { sqlConnection } from "@/db/init";
 import { mergeActivitiesAndRelations } from "./merge-activities-and-relations";
 import { timeWindowFilter } from "./time-window-filter";
 

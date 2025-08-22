@@ -1,11 +1,11 @@
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import { inputStyle } from "@lib/theme/snippets/input";
 import { getFontSize } from "@/lib/theme/font";
 import Input from "@/lib/theme/input";
 import { border, outline, thinBorder } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
-import { inputStyle } from "@lib/theme/snippets/input";
 
 const Wrapper = styled.div`
 	${spacing.padding.wide({ size: 0.5, ratio: 2 })};

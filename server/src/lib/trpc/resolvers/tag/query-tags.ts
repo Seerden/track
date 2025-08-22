@@ -1,3 +1,5 @@
+import type { TagInTree } from "@shared/lib/schemas/tag";
+import type { MapById } from "@shared/types/data/utility.types";
 import {
 	createTagTreeMap,
 	findRootTag,
@@ -5,8 +7,6 @@ import {
 } from "@/lib/data/models/tags/merge-tags-and-relations";
 import { buildTagDepthTree } from "@/lib/data/models/tags/tree-depth";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
-import type { TagInTree } from "@shared/lib/schemas/tag";
-import type { MapById } from "@shared/types/data/utility.types";
 
 export const queryTags = authenticatedProcedure.query(async ({ ctx }) => {
 	const tags = await getTagsWithRelations({

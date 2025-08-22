@@ -1,5 +1,5 @@
-import useAuthentication from "@/lib/hooks/useAuthentication";
 import type { PropsWithChildren } from "react";
+import useAuthentication from "@/lib/hooks/useAuthentication";
 import Login from "../auth/Login/Login";
 
 export default function Protected({ children }: PropsWithChildren) {

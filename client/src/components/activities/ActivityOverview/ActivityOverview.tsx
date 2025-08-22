@@ -1,3 +1,10 @@
+import {
+	LucideArrowDownWideNarrow,
+	LucideDownload,
+	LucideFilter,
+	LucideSquareDot,
+} from "lucide-react";
+import { useMemo, useState } from "react";
 import ActivityFilter from "@/components/activities/ActivityFilter/ActivityFilter";
 import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import { filterActivities } from "@/components/activities/ActivityFilter/lib/filter";
@@ -8,13 +15,6 @@ import useFloatingProps from "@/lib/hooks/useFloatingProps";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import Table from "@/lib/theme/components/table";
-import {
-	LucideArrowDownWideNarrow,
-	LucideDownload,
-	LucideFilter,
-	LucideSquareDot,
-} from "lucide-react";
-import { useMemo, useState } from "react";
 import S from "./style/ActivityOverview.style";
 
 export default function ActivityOverview() {

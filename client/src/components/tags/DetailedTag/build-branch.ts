@@ -1,7 +1,7 @@
 import type {
 	TagInTree,
-	TagWithIds,
 	TagsInTree,
+	TagWithIds,
 } from "@shared/lib/schemas/tag";
 import type { ID } from "@shared/types/data/utility.types";
 

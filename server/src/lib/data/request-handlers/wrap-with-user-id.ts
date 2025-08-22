@@ -1,6 +1,6 @@
-import { getUserIdFromSessionOrBail } from "@/lib/data/request-handlers/get-user-id-from-session-or-bail";
 import type { ID } from "@shared/types/data/utility.types";
 import type { NextFunction, Request, Response } from "express";
+import { getUserIdFromSessionOrBail } from "@/lib/data/request-handlers/get-user-id-from-session-or-bail";
 
 export type RequestHandlerWithUserId = (
 	handlerArgs: {

@@ -1,7 +1,7 @@
-import Floating from "@/lib/theme/components/containers/floating.style";
-import { flex } from "@/lib/theme/snippets/flex";
 import styled from "@emotion/styled";
 import type { CSSProperties } from "react";
+import Floating from "@/lib/theme/components/containers/floating.style";
+import { flex } from "@/lib/theme/snippets/flex";
 
 const List = styled.ul<{ $itemCount: number }>`
 	width: 100%;

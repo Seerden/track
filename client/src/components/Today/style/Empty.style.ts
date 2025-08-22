@@ -1,7 +1,7 @@
+import styled from "@emotion/styled";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import styled from "@emotion/styled";
 
 const Empty = styled.p`
 	background-color: #ddd;

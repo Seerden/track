@@ -1,12 +1,12 @@
-import useMutateTaskCompletion from "@/lib/hooks/query/activities/useMutateTask";
 import {
-	syntheticActivitySchema,
 	type PossiblySyntheticActivity,
 	type SyntheticActivity,
+	syntheticActivitySchema,
 } from "@shared/lib/schemas/activity";
 import { produce } from "immer";
 import { useAtom, useSetAtom } from "jotai";
 import { useCallback } from "react";
+import useMutateTaskCompletion from "@/lib/hooks/query/activities/useMutateTask";
 import { queryClient } from "../query-client";
 import { isSyntheticActivity } from "../recurrence";
 import { activeItemAtom } from "../state/active-item-state";

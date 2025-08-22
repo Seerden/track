@@ -1,4 +1,3 @@
-import { offsetIfOverflowing } from "@/lib/floating-middleware";
 import type {
 	Middleware,
 	UseClickProps,
@@ -20,6 +19,7 @@ import {
 } from "@floating-ui/react";
 import type { Dispatch, SetStateAction } from "react";
 import { useRef, useState } from "react";
+import { offsetIfOverflowing } from "@/lib/floating-middleware";
 
 type UseFloatingPreviewArgs = {
 	click?: UseClickProps;

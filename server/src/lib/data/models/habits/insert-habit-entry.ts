@@ -1,6 +1,6 @@
-import { sqlConnection } from "@/db/init";
 import type { HabitEntry, HabitEntryInput } from "@shared/lib/schemas/habit";
 import type { QueryFunction } from "types/sql.types";
+import { sqlConnection } from "@/db/init";
 
 export const insertHabitEntry: QueryFunction<
 	{ habitEntry: HabitEntryInput },

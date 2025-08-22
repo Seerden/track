@@ -1,7 +1,7 @@
+import { css } from "@emotion/react";
 import { colors } from "@/lib/theme/colors";
 import { font } from "@/lib/theme/font";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import { css } from "@emotion/react";
 
 const constants = {} as const;
 

@@ -1,7 +1,7 @@
+import { createFileRoute } from "@tanstack/react-router";
 import ActivityOverview from "@/components/activities/ActivityOverview/ActivityOverview";
 import { Protected } from "@/components/wrappers";
 import Page from "@/lib/framer/components/Page";
-import { createFileRoute } from "@tanstack/react-router";
 
 function ActivityOverviewPage() {
 	return (

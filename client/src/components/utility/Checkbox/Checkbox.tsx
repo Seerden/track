@@ -1,11 +1,11 @@
-import { colors } from "@/lib/theme/colors";
-import Input from "@/lib/theme/input";
 import {
 	LucideCheckSquare,
 	LucideCircle,
 	LucideCircleCheckBig,
 	LucideSquare,
 } from "lucide-react";
+import { colors } from "@/lib/theme/colors";
+import Input from "@/lib/theme/input";
 import S from "./style/Checkbox.style";
 
 type CheckboxIconProps = {

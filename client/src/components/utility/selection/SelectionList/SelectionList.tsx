@@ -1,6 +1,6 @@
-import Badge from "@/lib/theme/components/Badge";
 import type { CSSProperties } from "react";
 import { useState } from "react";
+import Badge from "@/lib/theme/components/Badge";
 import S from "./SelectionList.style";
 
 export type ItemValue = string;

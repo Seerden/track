@@ -1,3 +1,11 @@
+import { DateTimePicker } from "@mantine/dates";
+import {
+	LucideBlend,
+	LucideFilterX,
+	LucideNetwork,
+	LucideXCircle,
+} from "lucide-react";
+import type { ReactNode } from "react";
 import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import {
 	activityFilterDatetimeModifiers,
@@ -10,14 +18,6 @@ import useActivityFilter from "@/components/activities/ActivityFilter/useActivit
 import Containers from "@/lib/theme/components/container.style";
 import Input from "@/lib/theme/input";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import { DateTimePicker } from "@mantine/dates";
-import {
-	LucideBlend,
-	LucideFilterX,
-	LucideNetwork,
-	LucideXCircle,
-} from "lucide-react";
-import type { ReactNode } from "react";
 import S from "./style/ActivityFilter.style";
 
 export type ActivityFilterProps = {

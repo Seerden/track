@@ -1,11 +1,11 @@
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import Containers from "@/lib/theme/components/container.style";
 import ListStyle from "@/lib/theme/components/List.style";
 import { getFontSize } from "@/lib/theme/font";
 import { column } from "@/lib/theme/snippets/column";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
 
 // TODO: make this shared with Notes for now since they are currently the same
 const TasksWrapper = styled.section`

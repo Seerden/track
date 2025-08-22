@@ -1,6 +1,6 @@
-import { trpc } from "@/lib/trpc";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
+import { trpc } from "@/lib/trpc";
 
 export function useRegisterMutation() {
 	const navigate = useNavigate();

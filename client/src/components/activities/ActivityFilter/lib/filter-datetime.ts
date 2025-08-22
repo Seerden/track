@@ -1,6 +1,6 @@
+import type { ActivityWithIds } from "@shared/lib/schemas/activity";
 import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import { activityEnd, activityStart } from "@/lib/activity";
-import type { ActivityWithIds } from "@shared/lib/schemas/activity";
 
 export const datetimePredicates = {
 	starts: datetimeStartsPredicate,

@@ -1,8 +1,8 @@
+import styled from "@emotion/styled";
 import { thickOutline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import styled from "@emotion/styled";
 
 // TODO: put all other floating styles here, too.
 

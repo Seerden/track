@@ -1,3 +1,5 @@
+import Form from "@lib/theme/components/form.style";
+import { LucideCalendarOff, LucideCalendarPlus } from "lucide-react";
 import TagSelector from "@/components/tags/TagSelector/TagSelector";
 import { CheckboxIcon } from "@/components/utility/Checkbox/Checkbox";
 import { formatToYearMonthDay } from "@/lib/datetime/format-date";
@@ -6,8 +8,6 @@ import modalIds from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import Input from "@/lib/theme/input";
-import Form from "@lib/theme/components/form.style";
-import { LucideCalendarOff, LucideCalendarPlus } from "lucide-react";
 import S from "./style/NewHabit.style";
 import useNewHabit, { type NewHabitWithoutUserId } from "./useNewHabit";
 

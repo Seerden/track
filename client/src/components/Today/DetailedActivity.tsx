@@ -1,3 +1,6 @@
+import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
+import type { Datelike } from "@shared/lib/schemas/timestamp";
+import { PenLine } from "lucide-react";
 import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
 import S from "@/components/Today/style/DetailedActivity.style";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
@@ -6,9 +9,6 @@ import { activityEnd, activityStart } from "@/lib/activity";
 import { createDate } from "@/lib/datetime/make-date";
 import modalIds from "@/lib/modal-ids";
 import Card from "@/lib/theme/components/Card.style";
-import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
-import type { Datelike } from "@shared/lib/schemas/timestamp";
-import { PenLine } from "lucide-react";
 import { RecurrenceCard } from "./RecurrenceCard";
 import { useDetailedActivity } from "./useDetailedActiviity";
 

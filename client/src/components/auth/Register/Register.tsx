@@ -1,5 +1,5 @@
-import F from "@/lib/theme/components/form/form.alternate.style";
 import { LucideArrowRight, LucideEye, LucideEyeOff } from "lucide-react";
+import F from "@/lib/theme/components/form/form.alternate.style";
 import S from "../style/auth.style";
 import useRegister from "./useRegister";
 

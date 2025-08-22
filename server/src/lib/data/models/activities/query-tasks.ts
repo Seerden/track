@@ -1,8 +1,8 @@
-import { sqlConnection } from "@/db/init";
 import day from "@shared/lib/day";
 import type { ActivityWithIds } from "@shared/lib/schemas/activity";
 import type { ById, ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
+import { sqlConnection } from "@/db/init";
 import { queryActivitiesAndRelations } from "./query-activities";
 
 export const queryOverdueTasksByUser: QueryFunction<

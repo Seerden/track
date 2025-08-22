@@ -1,7 +1,7 @@
+import styled from "@emotion/styled";
 import Buttons from "@/lib/theme/components/buttons";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
-import styled from "@emotion/styled";
 
 // TODO: do we have any other badges? share styles 🙃
 const Badge = styled(Buttons.Unstyled)<{ $size: number; $done?: boolean }>`

@@ -1,5 +1,5 @@
-import AllDayActivity from "@/components/Today/AllDayActivity";
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
+import AllDayActivity from "@/components/Today/AllDayActivity";
 import S from "./style/Today.style";
 
 type AllDayActivitiesProps = {

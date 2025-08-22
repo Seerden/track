@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import Buttons from "@/lib/theme/components/buttons";
 import { containers } from "@/lib/theme/components/container.style";
 import { font } from "@/lib/theme/font";
@@ -5,7 +6,6 @@ import { thinBorder } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
-import styled from "@emotion/styled";
 
 /** TODO: I implemented these styles for LogbookForm initially, but I like them
  * enough that I want to implement them as app-wide alternate form styles (in

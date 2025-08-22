@@ -1,7 +1,3 @@
-import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
-import { formatToYearMonthDay } from "@/lib/datetime/format-date";
-import { createDate } from "@/lib/datetime/make-date";
-import type { HabitEntryUpdateMutationFunction } from "@/types/data.types";
 import { Tooltip } from "@mantine/core";
 import type {
 	HabitEntry,
@@ -10,6 +6,10 @@ import type {
 } from "@shared/lib/schemas/habit";
 import { isSynthetic } from "@shared/types/data/habit-entry.guards";
 import { useState } from "react";
+import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
+import { formatToYearMonthDay } from "@/lib/datetime/format-date";
+import { createDate } from "@/lib/datetime/make-date";
+import type { HabitEntryUpdateMutationFunction } from "@/types/data.types";
 import { completionTooltipStyles } from "./style/Completion.style";
 
 export default function HabitEntryToggle({

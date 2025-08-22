@@ -1,8 +1,8 @@
-import { sqlConnection } from "@/db/init";
 import type { NewNote, Note, NoteWithIds } from "@shared/lib/schemas/note";
 import type { NoteTagRelation } from "@shared/types/data/relational.types";
 import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
+import { sqlConnection } from "@/db/init";
 
 const insertNote: QueryFunction<{ note: NewNote }, Promise<Note>> = async ({
 	sql = sqlConnection,

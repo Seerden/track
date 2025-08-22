@@ -1,6 +1,6 @@
-import { trpc } from "@/lib/trpc";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
+import { trpc } from "@/lib/trpc";
 import { localUser } from "../user-storage";
 import useAuthentication from "./useAuthentication";
 

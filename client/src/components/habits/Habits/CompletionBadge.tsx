@@ -1,10 +1,10 @@
-import { habitEntryIsDone } from "@/components/habits/Habits/entry-is-completed";
-import CircularProgress from "@/components/utility/CircularProgress/CircularProgress";
 import type {
 	HabitEntry,
 	HabitWithEntries,
 	SyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
+import { habitEntryIsDone } from "@/components/habits/Habits/entry-is-completed";
+import CircularProgress from "@/components/utility/CircularProgress/CircularProgress";
 import S from "./style/CompletionBadge.style";
 
 type CompletionBadgeProps = {

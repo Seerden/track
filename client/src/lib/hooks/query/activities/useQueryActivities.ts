@@ -1,12 +1,12 @@
-import { createSyntheticActivitiesForTimeWindow } from "@/lib/recurrence";
-import { syntheticActivitiesAtom } from "@/lib/state/synthetic-activity-state";
-import { timeWindowAtom } from "@/lib/state/time-window.state";
-import { trpc } from "@/lib/trpc";
 import { byIdAsList } from "@shared/lib/map";
 import type { SyntheticActivity } from "@shared/lib/schemas/activity";
 import { useQuery } from "@tanstack/react-query";
 import { useAtomValue, useSetAtom } from "jotai";
 import { useEffect } from "react";
+import { createSyntheticActivitiesForTimeWindow } from "@/lib/recurrence";
+import { syntheticActivitiesAtom } from "@/lib/state/synthetic-activity-state";
+import { timeWindowAtom } from "@/lib/state/time-window.state";
+import { trpc } from "@/lib/trpc";
 
 /** Query all activities that occur inside `timeWindow`. Has built-in
  * functionality to also fetch all recurring activities (regardless of timeWindow),

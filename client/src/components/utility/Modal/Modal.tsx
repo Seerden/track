@@ -1,7 +1,7 @@
-import useModal from "@/lib/hooks/useModal";
-import type { ModalId } from "@/lib/modal-ids";
 import type { PropsWithChildren } from "react";
 import { useRef } from "react";
+import useModal from "@/lib/hooks/useModal";
+import type { ModalId } from "@/lib/modal-ids";
 import S from "./style/Modal.style";
 
 type ModalProps = {

@@ -1,6 +1,6 @@
+import styled from "@emotion/styled";
 import { radius } from "@/lib/theme/snippets/radius";
 import { subgridItem } from "@/lib/theme/snippets/subgrid";
-import styled from "@emotion/styled";
 
 // TODO: I'm keeping this here instead of extracting it to lib/theme because of
 // the `$isTask` prop. Perhaps we can still put it in lib/theme as
