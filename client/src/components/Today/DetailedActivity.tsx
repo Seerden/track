@@ -20,7 +20,7 @@ function format(date: Datelike) {
 
 export default function DetailedActivity({
 	activity,
-	DEBUG = true
+	DEBUG
 }: {
 	activity: PossiblySyntheticActivity;
 	DEBUG?: boolean;
