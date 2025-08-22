@@ -66,7 +66,11 @@ export default function TagSelector({
 					</S.Title>
 				)}
 
-				<div style={{ position: "relative" }}>
+				<div
+					style={{
+						position: "relative",
+						marginTop: "0.3rem",
+					}}>
 					<S.Actions>
 						{!expanded && (
 							<>
@@ -100,7 +104,13 @@ export default function TagSelector({
 					)}
 
 					{expanded && (
-						<S.DropdownContent ref={dropdownRef}>
+						<S.DropdownContent
+							ref={dropdownRef}
+							onBlur={(e) => {
+								if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+									minimizeFilter(e);
+								}
+							}}>
 							<S.DropdownActions>
 								<Filter
 									filter={filter}
