@@ -48,6 +48,8 @@ export type StartAndEnd = {
 /**
  * Omit that only works with keys actually present in the object.
  * @see https://github.com/microsoft/TypeScript/issues/30825#issuecomment-673002409 */
+
+// biome-ignore lint/suspicious/noExplicitAny: ^
 export type OmitStrict<T, K extends keyof T> = T extends any
 	? Pick<T, Exclude<keyof T, K>>
 	: never;

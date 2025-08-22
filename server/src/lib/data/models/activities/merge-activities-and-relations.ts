@@ -5,7 +5,7 @@ import type { MapById } from "@shared/types/data/utility.types";
 
 export function mergeActivitiesAndRelations(
 	activities: Activity[],
-	activityTagRelations: ActivityTagRelation[],
+	activityTagRelations: ActivityTagRelation[]
 ) {
 	const activityMap = mapById(activities, "activity_id");
 	const withTagIds: MapById<ActivityWithIds> = new Map();

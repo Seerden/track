@@ -1,9 +1,9 @@
-import CurrentTimeMark from "@/components/Today/CurrentTimeMark";
-import { isToday } from "@/lib/datetime/compare";
-import useCurrentTime from "@/lib/hooks/useCurrentTime";
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { ID } from "@shared/types/data/utility.types";
 import type { Dayjs } from "dayjs";
+import CurrentTimeMark from "@/components/Today/CurrentTimeMark";
+import { isToday } from "@/lib/datetime/compare";
+import useCurrentTime from "@/lib/hooks/useCurrentTime";
 import Activity from "./Activity";
 import HourMark from "./HourMark";
 import R from "./style/TimelineRow.style";
@@ -18,7 +18,12 @@ type RowProps = {
 	indentation: Map<ID, number>;
 };
 
-export default function TimelineRow({ date, index, activities, indentation }: RowProps) {
+export default function TimelineRow({
+	date,
+	index,
+	activities,
+	indentation,
+}: RowProps) {
 	const currentTime = useCurrentTime();
 	const isCurrentHour = isToday(date) && currentTime.hour() === index;
 	const offset = currentTime.minute() / 60;

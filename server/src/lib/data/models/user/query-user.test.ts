@@ -1,6 +1,6 @@
-import { sqlConnection } from "@/db/init";
 import type { NewUser } from "@shared/lib/schemas/user";
 import { compare } from "bcryptjs";
+import { sqlConnection } from "@/db/init";
 import { createUser } from "./insert-user";
 import { queryUserByName } from "./query-user";
 
@@ -14,13 +14,18 @@ describe("queryUserByName", () => {
 
 			await createUser({ sql: q, newUser });
 
-			const foundUser = await queryUserByName({ sql: q, username: newUser.username });
+			const foundUser = await queryUserByName({
+				sql: q,
+				username: newUser.username,
+			});
 
 			if (!foundUser) throw new Error("User not found");
 			expect(foundUser).toBeDefined();
 			expect(foundUser.username).toBeDefined();
 			expect(foundUser.username).toEqual(newUser.username);
-			expect(await compare(newUser.password, foundUser.password_hash)).toEqual(true);
+			expect(await compare(newUser.password, foundUser.password_hash)).toEqual(
+				true
+			);
 
 			q`rollback`;
 		});

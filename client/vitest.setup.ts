@@ -6,11 +6,11 @@
 
 import { setupServer } from "msw/node";
 import "whatwg-fetch";
-import { handlers } from "./src/mocks/handlers";
 
 import * as matchers from "@testing-library/jest-dom/matchers";
 import { cleanup } from "@testing-library/react";
 import { afterEach, expect } from "vitest";
+import { handlers } from "./src/mocks/handlers";
 
 expect.extend(matchers);
 

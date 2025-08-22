@@ -13,6 +13,7 @@ const {
 } = process.env;
 
 // I don't know what the point of the generic is here, leave it as any.
+// biome-ignore lint/suspicious/noExplicitAny: ^
 type PostgresOptions = postgres.Options<any>;
 
 const options: PostgresOptions = {
@@ -31,7 +32,9 @@ const testOptions: PostgresOptions = {
 	port: +(PG_TEST_PORT ?? 5434),
 };
 
-export const sqlConnection = postgres(IS_TEST_ENVIRONMENT ? testOptions : options);
+export const sqlConnection = postgres(
+	IS_TEST_ENVIRONMENT ? testOptions : options
+);
 
 export async function pingDatabase() {
 	try {

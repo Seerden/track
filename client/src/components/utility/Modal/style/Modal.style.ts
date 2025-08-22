@@ -1,9 +1,9 @@
+import styled from "@emotion/styled";
 import Buttons from "@/lib/theme/components/buttons";
 import { thinBorder } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
 import scrollbar from "@/lib/theme/snippets/scroll";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import styled from "@emotion/styled";
 
 const ModalWrapper = styled.div`
 	--modal-offset: 5vh;

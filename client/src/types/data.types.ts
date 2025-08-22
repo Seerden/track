@@ -1,4 +1,7 @@
-import type { HabitEntry, SyntheticHabitEntry } from "@shared/lib/schemas/habit";
+import type {
+	HabitEntry,
+	SyntheticHabitEntry,
+} from "@shared/lib/schemas/habit";
 
 export type HabitEntryUpdateMutationArgs = {
 	input: HabitEntry | SyntheticHabitEntry;

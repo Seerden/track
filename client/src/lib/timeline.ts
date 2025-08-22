@@ -1,3 +1,8 @@
+/** biome-ignore-all lint/style/noNonNullAssertion: there are a few instances of
+ * this, where we know that the thing being asserted exists because of e.g.
+ * array-length checks or previous conditionals that typescript doesn't
+ * propagate. */
+
 import { isNullish } from "@shared/lib/is-nullish";
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { ID } from "@shared/types/data/utility.types";
@@ -12,7 +17,7 @@ import {
 	getAllStartAndEndTimesOnDate,
 	isSimultaneousActivity,
 	sortActivitiesByTime,
-	timeSort
+	timeSort,
 } from "./activity";
 
 /**
@@ -50,7 +55,10 @@ export function assignIndentationLevelToActivities(
 		const sortedByStartAndEnd = sortActivitiesByTime(activitiesAtTimestamp);
 
 		for (const [index, value] of sortedByStartAndEnd.entries()) {
-			const newLevel = Math.max(index, indentation.get(getActivityId(value)) ?? 0);
+			const newLevel = Math.max(
+				index,
+				indentation.get(getActivityId(value)) ?? 0
+			);
 
 			indentation.set(getActivityId(value), newLevel);
 		}
@@ -82,7 +90,7 @@ export function assignIndentationLevelToActivities(
 function compressIndentation({
 	date,
 	indentation,
-	activities
+	activities,
 }: {
 	date: Dayjs;
 	indentation: Map<ID, number>;
@@ -100,6 +108,8 @@ function compressIndentation({
 		.sort((a, b) => timeSort([a, b]));
 
 	for (const activity of candidateActivities) {
+		// we know there is an indentation level for this activity because of the
+		// filter above
 		const currentLevel = indentation.get(getActivityId(activity))!;
 		for (const level of Array.from({ length: currentLevel }).map((_, i) => i)) {
 			const filtered = activities
@@ -150,7 +160,8 @@ export function activityFallsInGap(
 			gapStart = activityEndOnDate(activities.at(-1)!, end)!;
 			gapEnd = end;
 		} else if (activityIndex > 0) {
-			gapStart = activityEndOnDate(activities.at(activityIndex - 1)!, start) ?? start;
+			gapStart =
+				activityEndOnDate(activities.at(activityIndex - 1)!, start) ?? start;
 			gapEnd = activityStartOnDate(activities.at(activityIndex)!, end) ?? end;
 		}
 
@@ -175,7 +186,7 @@ function firstOverlappingActivity(
 ) {
 	// this is an array with a slot (empty array) for each level of indentation
 	const idsByLevel = Array.from({
-		length: 1 + Math.max(...indentation.values())
+		length: 1 + Math.max(...indentation.values()),
 	}).map((index) =>
 		[...indentation.entries()]
 			.filter(([_, level]) => level === index)

@@ -1,8 +1,8 @@
+import { Link } from "@tanstack/react-router";
+import { LucideArrowRight, LucideEye, LucideEyeOff } from "lucide-react";
 import Notification from "@/components/utility/Notification/Notification";
 import Containers from "@/lib/theme/components/container.style";
 import F from "@/lib/theme/components/form/form.alternate.style";
-import { Link } from "@tanstack/react-router";
-import { LucideArrowRight, LucideEye, LucideEyeOff } from "lucide-react";
 import S from "../style/auth.style";
 import useLogin from "./useLogin";
 
@@ -12,7 +12,7 @@ function Login() {
 		handleSubmit,
 		passwordVisible,
 		togglePasswordVisible,
-		isError
+		isError,
 	} = useLogin();
 
 	return (
@@ -48,8 +48,7 @@ function Login() {
 								tabIndex={-1}
 								type="button"
 								onClick={togglePasswordVisible}
-								value={`${passwordVisible ? "Hide" : "Show"} password`}
-							>
+								value={`${passwordVisible ? "Hide" : "Show"} password`}>
 								{passwordVisible ? (
 									<LucideEyeOff size={24} />
 								) : (
@@ -62,18 +61,16 @@ function Login() {
 				<Containers.Row
 					style={{
 						justifyContent: "space-between",
-						alignItems: "center"
-					}}
-				>
+						alignItems: "center",
+					}}>
 					<S.Submit $color="theme">
 						log in <LucideArrowRight size={15} color="black" strokeWidth={2} />
 					</S.Submit>
 					<Link
 						to="/register"
 						style={{
-							marginTop: "1rem"
-						}}
-					>
+							marginTop: "1rem",
+						}}>
 						register
 					</Link>
 				</Containers.Row>

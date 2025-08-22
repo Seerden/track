@@ -1,8 +1,8 @@
-import { sqlConnection } from "@/db/init";
 import type { Recurrence } from "@shared/lib/schemas/activity";
 import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 import { TABLES } from "types/tables";
+import { sqlConnection } from "@/db/init";
 
 // TODO: business logic
 export const removeRecurrenceById: QueryFunction<

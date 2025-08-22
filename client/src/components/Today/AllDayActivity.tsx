@@ -1,12 +1,12 @@
+import { Tooltip } from "@mantine/core";
+import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
+import { LucideHistory } from "lucide-react";
+import { useRef } from "react";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
 import Icons from "@/lib/theme/components/icons";
-import { Tooltip } from "@mantine/core";
-import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
-import { LucideHistory } from "lucide-react";
-import { useRef } from "react";
 import T from "./style/AllDayActivity.style";
 import S from "./style/Today.style";
 
@@ -21,7 +21,7 @@ function useAllDayActivity(activity: PossiblySyntheticActivity) {
 	return {
 		checkboxRef,
 		openDetailedItemModal,
-		putCompletion
+		putCompletion,
 	};
 }
 
@@ -44,8 +44,7 @@ export default function AllDayActivity({ activity }: AllDayActivityProps) {
 
 				e.stopPropagation();
 				openDetailedItemModal(activity.activity_id ?? activity.synthetic_id);
-			}}
-		>
+			}}>
 			<Tooltip label="This activity lasts all day" position="top" withArrow>
 				<Icons.InBadge>
 					<LucideHistory size={15} />
@@ -56,7 +55,10 @@ export default function AllDayActivity({ activity }: AllDayActivityProps) {
 
 			{activity.is_task && (
 				<S.CheckboxWrapper ref={checkboxRef}>
-					<Checkbox checked={activity.completed ?? false} onChange={putCompletion} />
+					<Checkbox
+						checked={activity.completed ?? false}
+						onChange={putCompletion}
+					/>
 				</S.CheckboxWrapper>
 			)}
 		</T.AllDayActivity>

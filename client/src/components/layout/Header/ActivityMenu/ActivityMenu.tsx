@@ -1,20 +1,18 @@
-import useActivityMenu from "@/components/layout/Header/ActivityMenu/useActivityMenu";
-import type { FlatPaths } from "@/types/router.types";
 import { FloatingArrow } from "@floating-ui/react";
 import { Link } from "@tanstack/react-router";
 import { LucideCalendarDays, LucideList, LucidePlus } from "lucide-react";
+import useActivityMenu from "@/components/layout/Header/ActivityMenu/useActivityMenu";
+import type { FlatPaths } from "@/types/router.types";
 import S from "../style/menu.style";
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-type ActivityMenuProps = {};
-
-// eslint-disable-next-line no-empty-pattern
-export default function ActivityMenu({}: ActivityMenuProps) {
+export default function ActivityMenu() {
 	const { float } = useActivityMenu();
 
 	return (
 		<>
-			<S.TriggerButton ref={float.refs.setReference} {...float.getReferenceProps()}>
+			<S.TriggerButton
+				ref={float.refs.setReference}
+				{...float.getReferenceProps()}>
 				Activities
 			</S.TriggerButton>
 
@@ -23,10 +21,9 @@ export default function ActivityMenu({}: ActivityMenuProps) {
 					<S.Menu
 						ref={float.refs.setFloating}
 						style={{
-							...float.floatingStyles
+							...float.floatingStyles,
 						}}
-						{...float.getFloatingProps()}
-					>
+						{...float.getFloatingProps()}>
 						{/* TODO: I guess we could make this shared since it's identical in all header menus. */}
 						<FloatingArrow
 							ref={float.arrowRef}
@@ -49,9 +46,8 @@ export default function ActivityMenu({}: ActivityMenuProps) {
 							<Link
 								to={`/activities/new`}
 								search={{
-									task: true
-								}}
-							>
+									task: true,
+								}}>
 								{/* TODO: use the query param to pre-set is_task */}
 								<S.Link>
 									<LucidePlus /> new task

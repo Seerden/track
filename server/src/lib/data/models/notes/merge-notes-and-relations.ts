@@ -6,7 +6,7 @@ import type { ById } from "@shared/types/data/utility.types";
  * single notesById object. */
 export function mergeNotesAndRelations(
 	notes: Note[],
-	noteTagRelations: NoteTagRelation[],
+	noteTagRelations: NoteTagRelation[]
 ) {
 	const notesById = {} as ById<NoteWithIds>;
 	for (const note of notes) {

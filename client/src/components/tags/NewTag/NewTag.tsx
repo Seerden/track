@@ -1,8 +1,8 @@
+import { LucideTag } from "lucide-react";
 import type { ModalId } from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import F from "@/lib/theme/components/form.style";
 import Input from "@/lib/theme/input";
-import { LucideTag } from "lucide-react";
 import TagSelector from "../TagSelector/TagSelector";
 import S from "./style/NewTag.style";
 import useNewTag from "./useNewTag";

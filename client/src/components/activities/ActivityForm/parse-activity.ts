@@ -1,11 +1,11 @@
-import { createDate } from "@/lib/datetime/make-date";
 import {
-	activityWithIdsSchema,
-	newActivityInputSchema,
 	type ActivityWithIds,
-	type NewActivityInput
+	activityWithIdsSchema,
+	type NewActivityInput,
+	newActivityInputSchema,
 } from "@shared/lib/schemas/activity";
 import { activityGuards } from "@shared/types/data/activity.guards";
+import { createDate } from "@/lib/datetime/make-date";
 import type { ActivityState } from "./activity-state.types";
 
 /** If `activity` is an all-day activity (which we determine by seeing if it's

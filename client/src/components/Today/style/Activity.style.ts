@@ -1,11 +1,11 @@
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import { rowHeight } from "@/components/Today/style/TimelineRow.style";
 import { colors } from "@/lib/theme/colors";
 import { getFontSize } from "@/lib/theme/font";
 import { outline } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
 import S from "./Today.style";
 
 const cardWidth = "8vw";

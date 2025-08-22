@@ -1,16 +1,16 @@
-import { createDate } from "@/lib/datetime/make-date";
-import { useMutateNewHabit } from "@/lib/hooks/query/habits/useMutateNewHabit";
-import useAuthentication from "@/lib/hooks/useAuthentication";
-import modalIds from "@/lib/modal-ids";
-import { useModalState } from "@/lib/state/modal-state";
-import { useTagSelection } from "@/lib/state/selected-tags-state";
-import { newHabitSchema, type NewHabit } from "@shared/lib/schemas/habit";
+import { type NewHabit, newHabitSchema } from "@shared/lib/schemas/habit";
 import { hasValidUserId } from "@shared/types/data/user-id.guards";
 import type { Nullable } from "@shared/types/data/utility.types";
 import { useNavigate } from "@tanstack/react-router";
 import type { Dayjs } from "dayjs";
 import { produce } from "immer";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { createDate } from "@/lib/datetime/make-date";
+import { useMutateNewHabit } from "@/lib/hooks/query/habits/useMutateNewHabit";
+import useAuthentication from "@/lib/hooks/useAuthentication";
+import modalIds from "@/lib/modal-ids";
+import { useModalState } from "@/lib/state/modal-state";
+import { useTagSelection } from "@/lib/state/selected-tags-state";
 
 export type NewHabitWithoutUserId = Omit<NewHabit, "user_id">;
 
@@ -36,7 +36,7 @@ export default function useNewHabit() {
 		interval_unit: "day",
 		goal_type: "checkbox",
 		goal_unit: null,
-		goal: null
+		goal: null,
 	});
 
 	// TODO: clean this up
@@ -59,13 +59,13 @@ export default function useNewHabit() {
 		submit(
 			{
 				habit: parsed.data,
-				tagIds: selectedTagIds
+				tagIds: selectedTagIds,
 			},
 			{
 				onSuccess: () => {
 					navigate({ to: "/today" });
 					closeModal(modalIds.habits.new);
-				}
+				},
 			}
 		);
 	}
@@ -81,7 +81,9 @@ export default function useNewHabit() {
 	/** Input change handler that can handle all fields in NewHabit.
 	 * @todo is it time to generalize this so we can reuse it in other forms?
 	 */
-	function onInputChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+	function onInputChange(
+		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+	) {
 		const value = e.target.value;
 		let parsedValue: Nullable<string | number | Dayjs> = value;
 		switch (e.target.type) {
@@ -107,7 +109,7 @@ export default function useNewHabit() {
 		// type and inferring that it matches the given field is not worth it.
 		setHabit((current) => ({
 			...current,
-			[e.target.name]: parsedValue
+			[e.target.name]: parsedValue,
 		}));
 	}
 
@@ -145,6 +147,6 @@ export default function useNewHabit() {
 		onSubmit,
 		hasEndDate,
 		handleClearEndDate,
-		enableEndDate
+		enableEndDate,
 	};
 }

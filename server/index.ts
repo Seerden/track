@@ -1,3 +1,6 @@
+// MUST BE TOP OF FILE
+import "./instrument";
+// ^
 import * as Sentry from "@sentry/node";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import cors from "cors";
@@ -5,11 +8,13 @@ import "dotenv/config";
 import type { RequestHandler } from "express";
 import express from "express";
 import session from "express-session";
-import "./instrument"; // THIS MUST BE TOP OF FILE
 import { onError } from "./instrument";
 import { pingDatabase } from "./src/db/init";
 import { logRequests } from "./src/lib/log-requests";
-import { initializeRedisConnection, redisSession } from "./src/lib/redis/redis-client";
+import {
+	initializeRedisConnection,
+	redisSession,
+} from "./src/lib/redis/redis-client";
 import { appRouter } from "./src/lib/trpc";
 import { createContext } from "./src/lib/trpc/trpc-context";
 import { routers } from "./src/routers/routers";
@@ -22,7 +27,7 @@ async function start() {
 		cors({
 			origin: true, // Could also use client domain (in dev: http://localhost:3000)
 			credentials: true,
-		}),
+		})
 	);
 
 	app.use(logRequests);
@@ -32,7 +37,7 @@ async function start() {
 			limit: "5mb",
 			parameterLimit: 10000,
 			extended: true,
-		}) as RequestHandler,
+		}) as RequestHandler
 	);
 
 	await initializeRedisConnection();
@@ -54,7 +59,7 @@ async function start() {
 				console.log({ error: opts.error, body: opts.req.body }); // TODO: proper error handling
 			},
 			allowBatching: true, // this _should_ be the default, but I was having issues with empty request bodies, and this may have fixed it.
-		}),
+		})
 	);
 
 	app.use("/", routers.index);

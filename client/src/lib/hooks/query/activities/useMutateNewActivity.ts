@@ -1,5 +1,5 @@
-import { trpc } from "@/lib/trpc";
 import { useMutation } from "@tanstack/react-query";
+import { trpc } from "@/lib/trpc";
 import { invalidateActivities } from "../invalidate";
 
 export function useMutateNewActivity() {
@@ -10,7 +10,7 @@ export function useMutateNewActivity() {
 			// not gonna abstract them into a single onSuccess function.
 			onSuccess: () => {
 				invalidateActivities();
-			}
+			},
 		})
 	);
 }
@@ -20,7 +20,7 @@ export function useMutateNewRecurringActivity() {
 		trpc.activities.createRecurring.mutationOptions({
 			onSuccess: () => {
 				invalidateActivities();
-			}
+			},
 		})
 	);
 }
@@ -31,7 +31,7 @@ export function useMutateNewSyntheticActivity() {
 		trpc.activities.createFromSynthetic.mutationOptions({
 			onSuccess: () => {
 				invalidateActivities();
-			}
+			},
 		})
 	);
 }

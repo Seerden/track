@@ -1,8 +1,11 @@
-import { queryClient } from "@/lib/query-client";
 import type { AppRouter } from "@server/lib/trpc";
 import { createTRPCClient, httpBatchLink } from "@trpc/client";
-import { createTRPCContext, createTRPCOptionsProxy } from "@trpc/tanstack-react-query";
+import {
+	createTRPCContext,
+	createTRPCOptionsProxy,
+} from "@trpc/tanstack-react-query";
 import SuperJSON from "superjson";
+import { queryClient } from "@/lib/query-client";
 
 const DOMAIN = import.meta.env.DOMAIN ?? "localhost";
 const HOST = import.meta.env.NODE_ENV === "production" ? DOMAIN : "localhost";
@@ -20,11 +23,11 @@ export const trpcClient: ReturnType<typeof createTRPCClient<AppRouter>> =
 				fetch(url, options) {
 					return fetch(url, {
 						...options,
-						credentials: "include"
+						credentials: "include",
 					});
-				}
-			})
-		]
+				},
+			}),
+		],
 	});
 
 /**
@@ -36,5 +39,5 @@ export const trpcClient: ReturnType<typeof createTRPCClient<AppRouter>> =
 export const trpc: ReturnType<typeof createTRPCOptionsProxy<AppRouter>> =
 	createTRPCOptionsProxy<AppRouter>({
 		client: trpcClient,
-		queryClient: queryClient
+		queryClient: queryClient,
 	});

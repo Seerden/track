@@ -1,8 +1,8 @@
+import NewTag from "@components/tags/NewTag/NewTag";
+import { Tags } from "lucide-react";
 import Modal from "@/components/utility/Modal/Modal";
 import type { ModalId } from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
-import NewTag from "@components/tags/NewTag/NewTag";
-import { Tags } from "lucide-react";
 import S from "./style/NewTagButton.style";
 
 type NewTagButtonProps = {
@@ -10,7 +10,10 @@ type NewTagButtonProps = {
 	size?: number;
 };
 
-export default function NewTagButton({ modalId, size = 16 }: NewTagButtonProps) {
+export default function NewTagButton({
+	modalId,
+	size = 16,
+}: NewTagButtonProps) {
 	const { toggleModal, modalIds } = useModalState();
 
 	function handleOpen(e: React.MouseEvent<HTMLButtonElement>) {
@@ -24,8 +27,7 @@ export default function NewTagButton({ modalId, size = 16 }: NewTagButtonProps) 
 				type="button"
 				title="Create a tag"
 				onClick={handleOpen}
-				$color="purple"
-			>
+				$color="purple">
 				<Tags size={size} />
 			</S.Button>
 

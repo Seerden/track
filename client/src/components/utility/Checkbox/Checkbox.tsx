@@ -1,11 +1,11 @@
-import { colors } from "@/lib/theme/colors";
-import Input from "@/lib/theme/input";
 import {
 	LucideCheckSquare,
 	LucideCircle,
 	LucideCircleCheckBig,
-	LucideSquare
+	LucideSquare,
 } from "lucide-react";
+import { colors } from "@/lib/theme/colors";
+import Input from "@/lib/theme/input";
 import S from "./style/Checkbox.style";
 
 type CheckboxIconProps = {
@@ -44,7 +44,7 @@ export function Checkbox(props: CheckboxProps) {
 // TODO: get rid of this? This is actually used in NewHabit, for example.
 export function CheckboxIcon({
 	checked,
-	size = 20
+	size = 20,
 }: {
 	checked: boolean;
 	size?: number;

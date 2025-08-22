@@ -1,9 +1,9 @@
-import useFloatingProps from "@/lib/hooks/useFloatingProps";
-import Buttons from "@/lib/theme/components/buttons";
-import Containers from "@/lib/theme/components/container.style";
 import { FloatingArrow, FloatingFocusManager } from "@floating-ui/react";
 import { LucideXCircle } from "lucide-react";
 import { useState } from "react";
+import useFloatingProps from "@/lib/hooks/useFloatingProps";
+import Buttons from "@/lib/theme/components/buttons";
+import Containers from "@/lib/theme/components/container.style";
 import S from "./style/DaySelector.style";
 
 /** Either e.g. "monday" or in domain [1,31]. */
@@ -52,13 +52,13 @@ export default function DaySelector<T extends Option>({
 	resetSelection,
 	triggerLabel,
 	options,
-	optionLabels
+	optionLabels,
 }: DaySelectorProps<T>) {
 	const [isOpen, setIsOpen] = useState(false);
 	const float = useFloatingProps({
 		click: {},
 		open: isOpen,
-		setOpen: setIsOpen
+		setOpen: setIsOpen,
 	});
 
 	const isActive = (day: T) => selection?.includes(day);
@@ -74,10 +74,9 @@ export default function DaySelector<T extends Option>({
 					<S.FloatingWrapper
 						ref={float.refs.setFloating}
 						style={{
-							...float.floatingStyles
+							...float.floatingStyles,
 						}}
-						{...float.getFloatingProps()}
-					>
+						{...float.getFloatingProps()}>
 						<FloatingArrow
 							ref={float.arrowRef}
 							context={float.context}
@@ -91,8 +90,7 @@ export default function DaySelector<T extends Option>({
 								type="button"
 								disabled={!selection?.length}
 								title="Clear selection"
-								onClick={resetSelection}
-							>
+								onClick={resetSelection}>
 								<LucideXCircle size={20} strokeWidth={2} />
 							</Buttons.Action.Clear>
 						</S.ActionBar>
@@ -104,8 +102,7 @@ export default function DaySelector<T extends Option>({
 											<Buttons.Cell.DaySelector
 												$active={isActive(day)}
 												onClick={() => setSelection(day)}
-												key={day}
-											>
+												key={day}>
 												{day}
 											</Buttons.Cell.DaySelector>
 										))}
@@ -118,8 +115,7 @@ export default function DaySelector<T extends Option>({
 									<Buttons.Cell.DaySelector
 										key={option}
 										$active={isActive(option)}
-										onClick={() => setSelection(option)}
-									>
+										onClick={() => setSelection(option)}>
 										{optionLabels?.[index] ?? option}
 									</Buttons.Cell.DaySelector>
 								))}

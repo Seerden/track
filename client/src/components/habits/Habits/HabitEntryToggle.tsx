@@ -1,21 +1,21 @@
-import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
-import { formatToYearMonthDay } from "@/lib/datetime/format-date";
-import { createDate } from "@/lib/datetime/make-date";
-import type { HabitEntryUpdateMutationFunction } from "@/types/data.types";
 import { Tooltip } from "@mantine/core";
 import type {
 	HabitEntry,
 	HabitWithEntries,
-	SyntheticHabitEntry
+	SyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
 import { isSynthetic } from "@shared/types/data/habit-entry.guards";
 import { useState } from "react";
+import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
+import { formatToYearMonthDay } from "@/lib/datetime/format-date";
+import { createDate } from "@/lib/datetime/make-date";
+import type { HabitEntryUpdateMutationFunction } from "@/types/data.types";
 import { completionTooltipStyles } from "./style/Completion.style";
 
 export default function HabitEntryToggle({
 	habit,
 	entry,
-	onChange
+	onChange,
 }: {
 	habit: HabitWithEntries;
 	entry: HabitEntry | SyntheticHabitEntry;
@@ -33,14 +33,13 @@ export default function HabitEntryToggle({
 		<Tooltip
 			withArrow
 			styles={{
-				tooltip: completionTooltipStyles.regular
+				tooltip: completionTooltipStyles.regular,
 			}}
 			label={
 				<>
 					{formatToYearMonthDay(createDate(entry.date))} (#{entry.index + 1})
 				</>
-			}
-		>
+			}>
 			<label style={{ width: "max-content" }}>
 				<Checkbox
 					tabIndex={0}

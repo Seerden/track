@@ -16,7 +16,12 @@ interface CustomResponse extends Response {
 	sentry?: string;
 }
 
-export const onError: ErrorRequestHandler = (err, req, res: CustomResponse, next) => {
+export const onError: ErrorRequestHandler = (
+	err,
+	req,
+	res: CustomResponse,
+	next
+) => {
 	console.error(err);
 	res.statusCode = 500;
 	res.end(res.sentry + "\n");

@@ -1,16 +1,16 @@
 import {
+	activityInputSchema,
+	type NewActivity,
+	newActivitySchema,
+	recurringActivityInputSchema,
+	syntheticActivitySchema,
+} from "@shared/lib/schemas/activity";
+import {
 	createRecurringActivity as _createRecurringActivity,
 	insertActivity,
 	insertActivityWithTags,
 } from "@/lib/data/models/activities/insert-activity";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
-import {
-	activityInputSchema,
-	newActivitySchema,
-	recurringActivityInputSchema,
-	syntheticActivitySchema,
-	type NewActivity,
-} from "@shared/lib/schemas/activity";
 
 /** A synthetic activity, as of writing this, is an entry in a recurrence
  * relation that has been interacted with somehow. It does not have tags linked

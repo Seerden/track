@@ -1,9 +1,12 @@
-import { Datelike } from "@shared/lib/schemas/timestamp";
+import type { Datelike } from "@shared/lib/schemas/timestamp";
 import type { Dayjs } from "dayjs";
 import { createDate } from "./make-date";
 
 // Format a date to year-month-date hh:mm (and optionally :ss)
-export function formatDate(date: Datelike, { short }: { short?: boolean } = {}): string {
+export function formatDate(
+	date: Datelike,
+	{ short }: { short?: boolean } = {}
+): string {
 	const d = createDate(date);
 	return d.format(`YYYY-MM-DD HH:mm${!short ? ":ss" : ""}`);
 }

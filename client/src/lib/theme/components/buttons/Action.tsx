@@ -1,12 +1,16 @@
-import { getMainColor, getSecondaryColor, type ColorKey } from "@/lib/theme/colors";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import type { CSSProperties } from "react";
+import {
+	type ColorKey,
+	getMainColor,
+	getSecondaryColor,
+} from "@/lib/theme/colors";
 import Unstyled from "@/lib/theme/components/buttons/Unstyled";
 import { border, outline, thinOutline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
-import type { CSSProperties } from "react";
 import Active from "../../snippets/active";
 import { DirectionButton } from "./Direction";
 
@@ -160,7 +164,7 @@ const ActionButtons = {
 	WithIcon,
 	CallToAction,
 	Clear,
-	Direction: DirectionButton
+	Direction: DirectionButton,
 };
 
 export default ActionButtons;

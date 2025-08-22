@@ -1,9 +1,9 @@
+import type { NewUser } from "@shared/lib/schemas/user";
+import { useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { useLoginMutation } from "@/lib/hooks/query/user/login.mutation";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import { localUser } from "@/lib/user-storage";
-import { type NewUser } from "@shared/lib/schemas/user";
-import { useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
 
 export default function useLogin() {
 	const navigate = useNavigate();
@@ -19,15 +19,19 @@ export default function useLogin() {
 		}
 	}, [isLoggedIn]);
 
-	const [userLogin, setUserLogin] = useState<NewUser>({ username: "", password: "" });
+	const [userLogin, setUserLogin] = useState<NewUser>({
+		username: "",
+		password: "",
+	});
 	const { mutate: login, isError } = useLoginMutation();
 
-	const isValidLogin = !!userLogin.username.length && !!userLogin.password.length;
+	const isValidLogin =
+		!!userLogin.username.length && !!userLogin.password.length;
 
 	function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
 		setUserLogin((current) => ({
 			...current,
-			[e.target.name]: e.target.value
+			[e.target.name]: e.target.value,
 		}));
 	}
 
@@ -46,7 +50,7 @@ export default function useLogin() {
 				// expect almost everyting will be behind a login wall.
 				localUser.set(user);
 				navigate({ to: "/" });
-			}
+			},
 		});
 	}
 
@@ -55,6 +59,6 @@ export default function useLogin() {
 		isError,
 		togglePasswordVisible,
 		handleInputChange,
-		handleSubmit
+		handleSubmit,
 	};
 }

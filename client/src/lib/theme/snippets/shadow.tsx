@@ -30,7 +30,7 @@ const shadows = {
 	card,
 	cardOffset,
 	section,
-	list
+	list,
 };
 
 export default shadows;

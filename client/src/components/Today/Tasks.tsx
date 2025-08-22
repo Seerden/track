@@ -1,10 +1,10 @@
+import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import Empty from "@/components/Today/Empty";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
-import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
-import Task from "./Task";
 import T from "./style/Tasks.style";
 import S from "./style/Today.style";
+import Task from "./Task";
 
 type TasksProps = {
 	activities: PossiblySyntheticActivity[];

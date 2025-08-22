@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import Buttons from "@/lib/theme/components/buttons";
 import F from "@/lib/theme/components/form.style";
 import { font } from "@/lib/theme/font";
@@ -7,7 +8,6 @@ import { flex } from "@/lib/theme/snippets/flex";
 import { inputStyle } from "@/lib/theme/snippets/input";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import styled from "@emotion/styled";
 
 const ClearEndDateButtonWrapper = styled.div`
 	position: absolute;
@@ -171,5 +171,5 @@ export default {
 	ProgressionTitle,
 	Select,
 	FixedLengthString,
-	DateFields
+	DateFields,
 };

@@ -1,3 +1,4 @@
+import { mapById } from "@shared/lib/map";
 import { mergeHabitsAndRelations } from "@/lib/data/models/habits/merge-habits-and-relations";
 import {
 	queryHabitEntriesByUser,
@@ -5,7 +6,6 @@ import {
 	queryHabitTagsByUser,
 } from "@/lib/data/models/habits/query-habit-entries";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
-import { mapById } from "@shared/lib/map";
 
 export const queryHabitsAndRelations = authenticatedProcedure.query(
 	async ({ ctx: { req } }) => {
@@ -16,7 +16,7 @@ export const queryHabitsAndRelations = authenticatedProcedure.query(
 		const entries = await queryHabitEntriesByUser({ user_id });
 
 		return mergeHabitsAndRelations(habits, habitTagRelations, entries);
-	},
+	}
 );
 
 export const queryHabitEntries = authenticatedProcedure.query(
@@ -24,5 +24,5 @@ export const queryHabitEntries = authenticatedProcedure.query(
 		const user_id = req.session.user.user_id;
 		const entries = await queryHabitEntriesByUser({ user_id });
 		return mapById(entries, "habit_entry_id");
-	},
+	}
 );

@@ -1,5 +1,5 @@
-import AllDayActivity from "@/components/Today/AllDayActivity";
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
+import AllDayActivity from "@/components/Today/AllDayActivity";
 import S from "./style/Today.style";
 
 type AllDayActivitiesProps = {
@@ -9,7 +9,9 @@ type AllDayActivitiesProps = {
 	// (like "yoga session: overdue 5 times")
 };
 
-export default function AllDayActivities({ activities }: AllDayActivitiesProps) {
+export default function AllDayActivities({
+	activities,
+}: AllDayActivitiesProps) {
 	return (
 		/* TODO: rename AllDayActivityList to Container or something */
 		<S.AllDayActivityList>

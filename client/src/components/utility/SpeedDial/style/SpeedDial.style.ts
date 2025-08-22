@@ -6,5 +6,5 @@ const SpeedDialWrapper = styled.div`
 `;
 
 export default {
-	SpeedDialWrapper
+	SpeedDialWrapper,
 };

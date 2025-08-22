@@ -7,7 +7,7 @@ const Buttons = {
 	Action: ActionButtons,
 	Cell: CellButtons,
 	Submit,
-	Unstyled: _UnstyledButton
+	Unstyled: _UnstyledButton,
 };
 
 export default Buttons;

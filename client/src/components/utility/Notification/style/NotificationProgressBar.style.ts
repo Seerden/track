@@ -1,5 +1,5 @@
-import { radius } from "@/lib/theme/snippets/radius";
 import styled from "@emotion/styled";
+import { radius } from "@/lib/theme/snippets/radius";
 
 const Bar = styled.div`
 	content: "";

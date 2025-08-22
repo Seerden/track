@@ -1,19 +1,24 @@
+import type { HabitWithEntries } from "@shared/lib/schemas/habit";
+import type { PropsWithChildren } from "react";
 import { createDate } from "@/lib/datetime/make-date";
 import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import modalIds from "@/lib/modal-ids";
 import C from "@/lib/theme/components/Card.style";
-import type { HabitWithEntries } from "@shared/lib/schemas/habit";
-import type { PropsWithChildren } from "react";
 import S from "./style/DetailedHabit.style";
 
 type DetailedHabitProps = {
 	habit: HabitWithEntries;
 };
 
-export default function DetailedHabit({ habit }: PropsWithChildren<DetailedHabitProps>) {
+export default function DetailedHabit({
+	habit,
+}: PropsWithChildren<DetailedHabitProps>) {
 	const { data: tags } = useQueryTags();
-	const { openDetailedItemModal } = useDetailedItemModal("tag", modalIds.tags.detailed);
+	const { openDetailedItemModal } = useDetailedItemModal(
+		"tag",
+		modalIds.tags.detailed
+	);
 
 	const humanizedStart = createDate(habit.start_timestamp).fromNow();
 	const humanizedEnd = habit.end_timestamp
@@ -43,9 +48,8 @@ export default function DetailedHabit({ habit }: PropsWithChildren<DetailedHabit
 				style={{
 					display: "flex",
 					flexDirection: "column",
-					alignItems: "flex-start"
-				}}
-			>
+					alignItems: "flex-start",
+				}}>
 				<span>Tracking started {humanizedStart}</span>
 				{habit.end_timestamp && <span>Tracking ends {humanizedEnd}</span>}
 			</C.Datetime>
@@ -58,8 +62,7 @@ export default function DetailedHabit({ habit }: PropsWithChildren<DetailedHabit
 							onClick={(e) => {
 								e.stopPropagation();
 								openDetailedItemModal(id);
-							}}
-						>
+							}}>
 							{/* TODO: See #176 */}
 							{tags.get(id)?.name}
 						</C.Tag>

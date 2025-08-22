@@ -1,8 +1,3 @@
-import { activityRouter } from "@/lib/trpc/routers/activities.router";
-import { authRouter } from "@/lib/trpc/routers/auth.router";
-import { habitRouter } from "@/lib/trpc/routers/habits.router";
-import { noteRouter } from "@/lib/trpc/routers/notes.router";
-import { tagRouter } from "@/lib/trpc/routers/tags.router";
 import {
 	createTRPCClient,
 	httpBatchLink,
@@ -11,6 +6,11 @@ import {
 	splitLink,
 } from "@trpc/client";
 import superjson from "superjson";
+import { activityRouter } from "@/lib/trpc/routers/activities.router";
+import { authRouter } from "@/lib/trpc/routers/auth.router";
+import { habitRouter } from "@/lib/trpc/routers/habits.router";
+import { noteRouter } from "@/lib/trpc/routers/notes.router";
+import { tagRouter } from "@/lib/trpc/routers/tags.router";
 import { t } from "./trpc/trpc-context";
 
 export const appRouter = t.router({

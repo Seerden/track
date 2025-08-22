@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 
-export default function useNotificationTimer(durationMs: number, handleEnd: () => void) {
+export default function useNotificationTimer(
+	durationMs: number,
+	handleEnd: () => void
+) {
 	const [elapsed, setElapsed] = useState(0);
 
 	const refresh = 1000 / 60; // try to refresh at 60fps
@@ -27,6 +30,6 @@ export default function useNotificationTimer(durationMs: number, handleEnd: () =
 
 	return {
 		elapsed,
-		visible
+		visible,
 	};
 }

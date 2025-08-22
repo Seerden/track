@@ -11,7 +11,7 @@ export default function Badge({
 	title,
 	height,
 	color,
-	children
+	children,
 }: PropsWithChildren<BadgeProps>) {
 	return (
 		<S.Badge title={title} height={height} color={color}>

@@ -1,6 +1,6 @@
-import useFloatingProps from "@/lib/hooks/useFloatingProps";
 import { useLocation } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import useFloatingProps from "@/lib/hooks/useFloatingProps";
 
 export default function useActivityMenu() {
 	const [open, setOpen] = useState(false);
@@ -16,6 +16,6 @@ export default function useActivityMenu() {
 	const float = useFloatingProps({ click: {}, hover: {}, open, setOpen });
 
 	return {
-		float
+		float,
 	};
 }

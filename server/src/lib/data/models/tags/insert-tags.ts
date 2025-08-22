@@ -1,8 +1,13 @@
-import { sqlConnection } from "@/db/init";
-import type { NewTag, TagInput, TagWithId, TagWithIds } from "@shared/lib/schemas/tag";
+import type {
+	NewTag,
+	TagInput,
+	TagWithId,
+	TagWithIds,
+} from "@shared/lib/schemas/tag";
 import type { TagTagRelation } from "@shared/types/data/relational.types";
 import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
+import { sqlConnection } from "@/db/init";
 
 /** Inserts one or multiple tags into the database. Does not handle tag-tag relationships. */
 export const insertTags: QueryFunction<

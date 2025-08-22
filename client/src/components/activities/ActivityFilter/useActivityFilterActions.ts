@@ -1,23 +1,23 @@
-import type {
-	ActivityFilterWithValues,
-	FilterResetAction,
-	FilterUpdateAction
-} from "@/components/activities/ActivityFilter/ActivityFilter.types";
-import { defaultFilter } from "@/components/activities/ActivityFilter/lib/constants";
-import { getTreeMembers } from "@/components/activities/ActivityFilter/lib/tag-branch";
-import { createDate } from "@/lib/datetime/make-date";
 import type { TagsTree, TagWithIds } from "@shared/lib/schemas/tag";
 import type { ByIdMap, ID } from "@shared/types/data/utility.types";
 import { produce } from "immer";
 import type { Dispatch, SetStateAction } from "react";
 import { useCallback } from "react";
+import type {
+	ActivityFilterWithValues,
+	FilterResetAction,
+	FilterUpdateAction,
+} from "@/components/activities/ActivityFilter/ActivityFilter.types";
+import { defaultFilter } from "@/components/activities/ActivityFilter/lib/constants";
+import { getTreeMembers } from "@/components/activities/ActivityFilter/lib/tag-branch";
+import { createDate } from "@/lib/datetime/make-date";
 
 export default function useActivityFilterActions({
 	setActiveTagIds,
 	wholeTree,
 	tags,
 	tagsTreeById,
-	setFilter
+	setFilter,
 }: {
 	setActiveTagIds: Dispatch<SetStateAction<ID[]>>;
 	wholeTree: boolean;
@@ -145,13 +145,13 @@ export default function useActivityFilterActions({
 		reset: {
 			name: {
 				all: () => resetFilter({ type: "name-filter" }),
-				value: () => resetFilter({ type: "name-value" })
+				value: () => resetFilter({ type: "name-value" }),
 			},
 			datetime: () => resetFilter({ type: "datetime" }),
 			tags: {
 				value: () => resetFilter({ type: "tags-value" }),
-				search: () => resetFilter({ type: "tags-search" })
-			}
+				search: () => resetFilter({ type: "tags-search" }),
+			},
 		},
 		set: {
 			tags: {
@@ -160,13 +160,13 @@ export default function useActivityFilterActions({
 					updateFilter({ type: "filter-tags-type", e }),
 				toggleExact: () => updateFilter({ type: "toggle-exact" }),
 				search: (e: React.ChangeEvent<HTMLInputElement>) =>
-					updateFilter({ type: "tags-search", e })
+					updateFilter({ type: "tags-search", e }),
 			},
 			name: {
 				type: (e: React.ChangeEvent<HTMLSelectElement>) =>
 					updateFilter({ type: "name-type", e }),
 				value: (e: React.ChangeEvent<HTMLInputElement>) =>
-					updateFilter({ type: "name-value", e })
+					updateFilter({ type: "name-value", e }),
 			},
 			datetime: {
 				modifier: (value: string) =>
@@ -174,10 +174,10 @@ export default function useActivityFilterActions({
 				selector: (selector: string) =>
 					updateFilter({ type: "datetime-selector", selector }),
 				value: (value: Date | null, index: number) =>
-					updateFilter({ type: "datetime-value", value, index })
+					updateFilter({ type: "datetime-value", value, index }),
 			},
-			activeTagIds: updateActiveTagIds
-		}
+			activeTagIds: updateActiveTagIds,
+		},
 	};
 
 	return actions;

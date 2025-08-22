@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import TagCardStyle from "@/components/tags/TagCard/style/TagCard.style";
 import { getFontSize } from "@/lib/theme/font";
 import { column } from "@/lib/theme/snippets/column";
@@ -6,7 +7,6 @@ import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import scrollbar from "@/lib/theme/snippets/scroll";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
-import styled from "@emotion/styled";
 
 const TimelineWrapper = styled.section`
 	${flex.column};
@@ -163,5 +163,5 @@ export default {
 	Columns,
 	Header,
 	Tags,
-	AllDayActivityList
+	AllDayActivityList,
 };

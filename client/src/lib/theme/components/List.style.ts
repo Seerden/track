@@ -1,7 +1,7 @@
+import styled from "@emotion/styled";
 import { getFontSize } from "@/lib/theme/font";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import styled from "@emotion/styled";
 
 const ItemList = styled.ul`
 	gap: 0.6rem; // TODO: theem value;
@@ -69,5 +69,5 @@ export default {
 	ItemList,
 	Item,
 	ItemName,
-	Info
+	Info,
 };

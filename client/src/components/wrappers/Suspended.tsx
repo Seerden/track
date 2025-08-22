@@ -1,6 +1,6 @@
-import Page from "@/lib/framer/components/Page";
 import type { PropsWithChildren } from "react";
 import { Suspense } from "react";
+import Page from "@/lib/framer/components/Page";
 import { DefaultSkeleton } from "../layout/Skeleton";
 
 /**
@@ -14,8 +14,7 @@ export default function Suspended(props: PropsWithChildren) {
 				<Page>
 					<DefaultSkeleton />
 				</Page>
-			}
-		>
+			}>
 			{props.children}
 		</Suspense>
 	);

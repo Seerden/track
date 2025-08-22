@@ -1,10 +1,10 @@
-import { theme } from "@/lib/style/theme";
-import { trpc } from "@/lib/trpc";
 import { Global, ThemeProvider } from "@emotion/react";
 import { createTheme, DEFAULT_THEME, MantineProvider } from "@mantine/core";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
+import { theme } from "@/lib/style/theme";
+import { trpc } from "@/lib/trpc";
 import { DefaultSkeleton } from "./components/layout/Skeleton";
 import { queryClient } from "./lib/query-client";
 import { routeTree } from "./routeTree.gen";
@@ -23,9 +23,8 @@ export function createRouter() {
 					<div
 						style={{
 							padding: "3rem",
-							width: "100%"
-						}}
-					>
+							width: "100%",
+						}}>
 						<DefaultSkeleton />
 					</div>
 				</>
@@ -44,8 +43,8 @@ export function createRouter() {
 		},
 		context: {
 			queryClient,
-			trpc
-		}
+			trpc,
+		},
 	});
 
 	return router;

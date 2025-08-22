@@ -1,13 +1,13 @@
+import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
+import type { Dayjs } from "dayjs";
 import TimelineRow from "@/components/Today/TimelineRow";
 import { activityStartHourOnDate } from "@/lib/activity";
 import { assignIndentationLevelToActivities } from "@/lib/timeline";
-import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
-import type { Dayjs } from "dayjs";
 import S from "./style/Today.style";
 
 function useRows({
 	activities,
-	currentDate
+	currentDate,
 }: {
 	activities: PossiblySyntheticActivity[];
 	/** @todo `currentDate` will change to `date` once we make Today take a date
@@ -15,7 +15,7 @@ function useRows({
 	currentDate: Dayjs;
 }) {
 	return {
-		indentation: assignIndentationLevelToActivities(activities, currentDate)
+		indentation: assignIndentationLevelToActivities(activities, currentDate),
 	};
 }
 

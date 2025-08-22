@@ -1,13 +1,13 @@
-import CompletionBadge from "@/components/habits/Habits/CompletionBadge";
-import CompletionInstance from "@/components/habits/Habits/CompletionInstance";
-import useFloatingProps from "@/lib/hooks/useFloatingProps";
 import { offset } from "@floating-ui/react";
 import type {
 	HabitEntry,
 	HabitWithEntries,
-	SyntheticHabitEntry
+	SyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
 import { useState } from "react";
+import CompletionBadge from "@/components/habits/Habits/CompletionBadge";
+import CompletionInstance from "@/components/habits/Habits/CompletionInstance";
+import useFloatingProps from "@/lib/hooks/useFloatingProps";
 import S from "./style/Completion.style";
 
 type CompletionInstancesProps = {
@@ -19,7 +19,7 @@ type CompletionInstancesProps = {
 function CompletionInstances({
 	entries,
 	habit,
-	shouldShowBadge
+	shouldShowBadge,
 }: CompletionInstancesProps) {
 	return (
 		<>
@@ -53,13 +53,13 @@ export default function Completion({ habit, entries }: CompletionProps) {
 		click: {},
 		open: isOpen,
 		offset: offset(10),
-		setOpen: setIsOpen
+		setOpen: setIsOpen,
 	});
 
 	const completionInstanceProps = {
 		entries,
 		habit,
-		shouldShowBadge
+		shouldShowBadge,
 	};
 
 	if (!shouldShowBadge) {
@@ -79,8 +79,7 @@ export default function Completion({ habit, entries }: CompletionProps) {
 				<S.FloatingWrapper
 					ref={float.refs.setFloating}
 					style={{ ...float.floatingStyles }}
-					{...float.getFloatingProps()}
-				>
+					{...float.getFloatingProps()}>
 					<CompletionInstances {...completionInstanceProps} />
 				</S.FloatingWrapper>
 			)}

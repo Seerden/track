@@ -4,13 +4,13 @@ import { atom, useSetAtom } from "jotai";
 import {
 	cloneElement,
 	isValidElement,
-	useCallback,
-	useEffect,
-	useRef,
 	type PropsWithChildren,
 	type ReactElement,
 	type ReactNode,
-	type RefAttributes
+	type RefAttributes,
+	useCallback,
+	useEffect,
+	useRef,
 } from "react";
 import { useToggle } from "./useToggle";
 
@@ -95,14 +95,14 @@ function useContextMenu({ triggerKeys }: { triggerKeys: string[] }) {
 		},
 		onBlur: () => {
 			setFocus(false);
-		}
+		},
 	} as const;
 
 	return {
 		ref,
 		eventHandlers,
 		showMenu,
-		setShowMenu
+		setShowMenu,
 	};
 }
 
@@ -114,14 +114,18 @@ export function ContextMenu({
 	 */
 	children,
 	triggerKeys,
-	label
-}: PropsWithChildren<{ children: ReactNode; triggerKeys: string[]; label: string }>) {
+	label,
+}: PropsWithChildren<{
+	children: ReactNode;
+	triggerKeys: string[];
+	label: string;
+}>) {
 	const { eventHandlers, ref, showMenu, setShowMenu } = useContextMenu({
-		triggerKeys
+		triggerKeys,
 	});
 	const { registerShortcuts, unregisterShortcuts } = useShortcutMenu({
 		keys: triggerKeys,
-		label
+		label,
 	});
 
 	// TODO: a performance optimization would be to only register this if they
@@ -150,12 +154,14 @@ export function ContextMenu({
 	const withHandlers = !Array.isArray(children)
 		? (cloneElement(children as ReactElement<RefAttributes<HTMLElement>>, {
 				ref,
-				...eventHandlers
+				...eventHandlers,
 			}) as ReactElement<RefAttributes<HTMLElement>>)
 		: children?.reduce(
 				(acc, child: ReactElement<RefAttributes<HTMLElement>>, index) => {
 					if (!isValidElement(child)) {
-						throw new Error("ContextMenu children must be valid React elements");
+						throw new Error(
+							"ContextMenu children must be valid React elements"
+						);
 					}
 
 					acc.push(
@@ -163,7 +169,7 @@ export function ContextMenu({
 							? cloneElement(child, {
 									key: index,
 									ref,
-									...eventHandlers
+									...eventHandlers,
 								})
 							: child
 					);
@@ -191,8 +197,7 @@ export function ContextMenu({
 				onDismiss={() => setShowMenu(false)}
 				withinPortal={false}
 				withArrow
-				closeOnClickOutside
-			>
+				closeOnClickOutside>
 				<Popover.Target>{first}</Popover.Target>
 				<Popover.Dropdown>{rest}</Popover.Dropdown>
 			</Popover>

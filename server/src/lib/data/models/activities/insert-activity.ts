@@ -1,6 +1,3 @@
-import { sqlConnection } from "@/db/init";
-import { createRecurrence } from "@/lib/data/models/activities/insert-recurrence";
-import { linkTagsToActivity } from "@/lib/data/models/activities/link-and-unlink-tags-and-activities";
 import type {
 	Activity,
 	ActivityWithIds,
@@ -10,6 +7,9 @@ import type {
 } from "@shared/lib/schemas/activity";
 import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
+import { sqlConnection } from "@/db/init";
+import { createRecurrence } from "@/lib/data/models/activities/insert-recurrence";
+import { linkTagsToActivity } from "@/lib/data/models/activities/link-and-unlink-tags-and-activities";
 
 export const insertActivity: QueryFunction<
 	{ activity: NewActivity },

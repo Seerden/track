@@ -1,10 +1,10 @@
+import type { ID } from "@shared/types/data/utility.types";
+import { produce } from "immer";
+import { useAtom } from "jotai";
 import type { ModalId } from "@/lib/modal-ids";
 import type { ActiveItemState } from "@/lib/state/active-item-state";
 import { activeItemAtom } from "@/lib/state/active-item-state";
 import { useModalState } from "@/lib/state/modal-state";
-import type { ID } from "@shared/types/data/utility.types";
-import { produce } from "immer";
-import { useAtom } from "jotai";
 
 /**
  * This hook provides an abstraction for Detail modals that currently supports
@@ -31,6 +31,6 @@ export default function useDetailedItemModal(
 	return {
 		modalId,
 		activeItem,
-		openDetailedItemModal
+		openDetailedItemModal,
 	} as const;
 }

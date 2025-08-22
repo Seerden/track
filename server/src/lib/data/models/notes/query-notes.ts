@@ -1,15 +1,15 @@
-import { sqlConnection } from "@/db/init";
 import type { Note, NoteWithIds } from "@shared/lib/schemas/note";
 import type { NoteTagRelation } from "@shared/types/data/relational.types";
 import type { ById, ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
+import { sqlConnection } from "@/db/init";
 import { mergeNotesAndRelations } from "./merge-notes-and-relations";
 
 /** Get all of a user's notes. */
-export const queryNotesByUser: QueryFunction<{ user_id: ID }, Promise<Note[]>> = async ({
-	sql = sqlConnection,
-	user_id,
-}) => {
+export const queryNotesByUser: QueryFunction<
+	{ user_id: ID },
+	Promise<Note[]>
+> = async ({ sql = sqlConnection, user_id }) => {
 	return sql<Note[]>`
       select * from notes where user_id = ${user_id}
    `;

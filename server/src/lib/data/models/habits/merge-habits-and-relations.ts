@@ -1,10 +1,14 @@
-import type { Habit, HabitEntry, HabitWithEntries } from "@shared/lib/schemas/habit";
+import type {
+	Habit,
+	HabitEntry,
+	HabitWithEntries,
+} from "@shared/lib/schemas/habit";
 import type { HabitTagRelation } from "@shared/types/data/relational.types";
 
 export function mergeHabitsAndRelations(
 	habits: Habit[],
 	habitTagRelations: HabitTagRelation[],
-	entries: HabitEntry[],
+	entries: HabitEntry[]
 ) {
 	const habitMap = new Map<Habit["habit_id"], HabitWithEntries>();
 	for (const habit of habits) {
@@ -17,15 +21,15 @@ export function mergeHabitsAndRelations(
 
 	for (const { habit_id, tag_id } of habitTagRelations) {
 		if (habitMap.has(habit_id)) {
-			habitMap.get(habit_id)!.tag_ids.push(tag_id);
+			// will exist, but ?. makes typescript happy
+			habitMap.get(habit_id)?.tag_ids.push(tag_id);
 		}
 	}
 
-	// TODO TRK-76: we have the entire entries list here, so why not set
-	// habit.entries instead of habit.entry_ids?
 	for (const entry of entries) {
 		if (habitMap.has(entry.habit_id)) {
-			habitMap.get(entry.habit_id)!.entries.push(entry);
+			// will exist, but ?. makes typescript happy
+			habitMap.get(entry.habit_id)?.entries.push(entry);
 		}
 	}
 

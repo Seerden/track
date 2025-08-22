@@ -1,15 +1,15 @@
+import type { HabitWithPossiblySyntheticEntries } from "@shared/lib/schemas/habit";
+import type { MapById } from "@shared/types/data/utility.types";
 import Empty from "@/components/Today/Empty";
 import Habit from "@/components/Today/Habit";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import Containers from "@/lib/theme/components/container.style";
-import type { HabitWithPossiblySyntheticEntries } from "@shared/lib/schemas/habit";
-import type { MapById } from "@shared/types/data/utility.types";
 import S from "./style/Habits.style";
 import T from "./style/Today.style";
 
 export default function Habits({
-	habits
+	habits,
 }: {
 	habits: MapById<HabitWithPossiblySyntheticEntries>;
 }) {

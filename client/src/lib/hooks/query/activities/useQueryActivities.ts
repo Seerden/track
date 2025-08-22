@@ -1,12 +1,12 @@
-import { createSyntheticActivitiesForTimeWindow } from "@/lib/recurrence";
-import { syntheticActivitiesAtom } from "@/lib/state/synthetic-activity-state";
-import { timeWindowAtom } from "@/lib/state/time-window.state";
-import { trpc } from "@/lib/trpc";
 import { byIdAsList } from "@shared/lib/map";
 import type { SyntheticActivity } from "@shared/lib/schemas/activity";
 import { useQuery } from "@tanstack/react-query";
 import { useAtomValue, useSetAtom } from "jotai";
 import { useEffect } from "react";
+import { createSyntheticActivitiesForTimeWindow } from "@/lib/recurrence";
+import { syntheticActivitiesAtom } from "@/lib/state/synthetic-activity-state";
+import { timeWindowAtom } from "@/lib/state/time-window.state";
+import { trpc } from "@/lib/trpc";
 
 /** Query all activities that occur inside `timeWindow`. Has built-in
  * functionality to also fetch all recurring activities (regardless of timeWindow),
@@ -16,14 +16,16 @@ import { useEffect } from "react";
 export function useQueryActivities() {
 	const timeWindow = useAtomValue(timeWindowAtom);
 	const setSyntheticActivities = useSetAtom(syntheticActivitiesAtom);
-	const { data: recurrences } = useQuery(trpc.activities.recurrences.all.queryOptions());
+	const { data: recurrences } = useQuery(
+		trpc.activities.recurrences.all.queryOptions()
+	);
 	const { data: recurringActivitiesData } = useQuery(
 		trpc.activities.recurring.queryOptions()
 	);
 	const query = useQuery(
 		trpc.activities.all.queryOptions({
 			from: timeWindow.startDate,
-			to: timeWindow.endDate
+			to: timeWindow.endDate,
 		})
 	);
 
@@ -42,7 +44,7 @@ export function useQueryActivities() {
 				createSyntheticActivitiesForTimeWindow({
 					activity: cur,
 					recurrence: recurrences[cur.recurrence_id],
-					timeWindow
+					timeWindow,
 				})
 			);
 		}, [] as SyntheticActivity[]);

@@ -25,18 +25,18 @@ describe("activityFallsInGap", () => {
 			user_id: "1",
 			will_recur: false,
 			completion_start: null,
-			completion_end: null
+			completion_end: null,
 		};
 
 		const otherActivity = {
 			...activity,
 			started_at: createDate(activity.started_at).add(-2, "hour"),
-			ended_at: createDate(activity.ended_at).add(-1, "hour")
+			ended_at: createDate(activity.ended_at).add(-1, "hour"),
 		};
 
-		expect(activityFallsInGap(activity, [otherActivity], startOfDay, endOfDay)).toBe(
-			true
-		);
+		expect(
+			activityFallsInGap(activity, [otherActivity], startOfDay, endOfDay)
+		).toBe(true);
 	});
 
 	// TODO: more tests

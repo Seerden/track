@@ -1,10 +1,10 @@
-import ActivityMenu from "@/components/layout/Header/ActivityMenu/ActivityMenu";
-import useAuthentication from "@/lib/hooks/useAuthentication";
-import { shortcutMenuAtom } from "@/lib/hooks/useContextMenu";
 import { Popover } from "@mantine/core";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useAtomValue } from "jotai";
 import { LucideCalendar, LucideKeyboard } from "lucide-react";
+import ActivityMenu from "@/components/layout/Header/ActivityMenu/ActivityMenu";
+import useAuthentication from "@/lib/hooks/useAuthentication";
+import { shortcutMenuAtom } from "@/lib/hooks/useContextMenu";
 import S from "./style/NavBar.style";
 
 export default function NavBar() {
@@ -52,8 +52,7 @@ function ProfileAction() {
 			color="darkblue"
 			onClick={() => {
 				navigate({ to: "/login" });
-			}}
-		>
+			}}>
 			log in
 		</S.Action>
 	);

@@ -1,13 +1,13 @@
+import {
+	activityUpdateInputSchema,
+	taskUpdateInputSchema,
+} from "@shared/lib/schemas/activity";
 import { queryActivityByIdWithRelations } from "@/lib/data/models/activities/query-activities";
 import {
 	updateActivity as _updateActivity,
 	updateActivityCompletion,
 } from "@/lib/data/models/activities/update-activity";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
-import {
-	activityUpdateInputSchema,
-	taskUpdateInputSchema,
-} from "@shared/lib/schemas/activity";
 
 export const updateActivity = authenticatedProcedure
 	.input(activityUpdateInputSchema)

@@ -12,8 +12,8 @@ export const prebuiltCalendarRows = [
 			[9, 10, 11, 12, 13, 14, 15],
 			[16, 17, 18, 19, 20, 21, 22],
 			[23, 24, 25, 26, 27, 28, 29],
-			[30, 31, null, null, null, null, null]
-		]
+			[30, 31, null, null, null, null, null],
+		],
 	},
 	{
 		year: 2023,
@@ -23,8 +23,8 @@ export const prebuiltCalendarRows = [
 			[6, 7, 8, 9, 10, 11, 12],
 			[13, 14, 15, 16, 17, 18, 19],
 			[20, 21, 22, 23, 24, 25, 26],
-			[27, 28, null, null, null, null, null]
-		]
+			[27, 28, null, null, null, null, null],
+		],
 	},
 	{
 		year: 2023,
@@ -34,8 +34,8 @@ export const prebuiltCalendarRows = [
 			[6, 7, 8, 9, 10, 11, 12],
 			[13, 14, 15, 16, 17, 18, 19],
 			[20, 21, 22, 23, 24, 25, 26],
-			[27, 28, 29, 30, 31, null, null]
-		]
+			[27, 28, 29, 30, 31, null, null],
+		],
 	},
 	{
 		year: 2023,
@@ -45,8 +45,8 @@ export const prebuiltCalendarRows = [
 			[3, 4, 5, 6, 7, 8, 9],
 			[10, 11, 12, 13, 14, 15, 16],
 			[17, 18, 19, 20, 21, 22, 23],
-			[24, 25, 26, 27, 28, 29, 30]
-		]
+			[24, 25, 26, 27, 28, 29, 30],
+		],
 	},
 	{
 		year: 2023,
@@ -56,8 +56,8 @@ export const prebuiltCalendarRows = [
 			[8, 9, 10, 11, 12, 13, 14],
 			[15, 16, 17, 18, 19, 20, 21],
 			[22, 23, 24, 25, 26, 27, 28],
-			[29, 30, 31, null, null, null, null]
-		]
+			[29, 30, 31, null, null, null, null],
+		],
 	},
 	{
 		year: 2023,
@@ -67,8 +67,8 @@ export const prebuiltCalendarRows = [
 			[5, 6, 7, 8, 9, 10, 11],
 			[12, 13, 14, 15, 16, 17, 18],
 			[19, 20, 21, 22, 23, 24, 25],
-			[26, 27, 28, 29, 30, null, null]
-		]
+			[26, 27, 28, 29, 30, null, null],
+		],
 	},
 	{
 		year: 2023,
@@ -79,8 +79,8 @@ export const prebuiltCalendarRows = [
 			[10, 11, 12, 13, 14, 15, 16],
 			[17, 18, 19, 20, 21, 22, 23],
 			[24, 25, 26, 27, 28, 29, 30],
-			[31, null, null, null, null, null, null]
-		]
+			[31, null, null, null, null, null, null],
+		],
 	},
 	{
 		year: 2023,
@@ -90,8 +90,8 @@ export const prebuiltCalendarRows = [
 			[7, 8, 9, 10, 11, 12, 13],
 			[14, 15, 16, 17, 18, 19, 20],
 			[21, 22, 23, 24, 25, 26, 27],
-			[28, 29, 30, 31, null, null, null]
-		]
+			[28, 29, 30, 31, null, null, null],
+		],
 	},
 	{
 		year: 2023,
@@ -101,8 +101,8 @@ export const prebuiltCalendarRows = [
 			[4, 5, 6, 7, 8, 9, 10],
 			[11, 12, 13, 14, 15, 16, 17],
 			[18, 19, 20, 21, 22, 23, 24],
-			[25, 26, 27, 28, 29, 30, null]
-		]
+			[25, 26, 27, 28, 29, 30, null],
+		],
 	},
 	{
 		year: 2023,
@@ -113,8 +113,8 @@ export const prebuiltCalendarRows = [
 			[9, 10, 11, 12, 13, 14, 15],
 			[16, 17, 18, 19, 20, 21, 22],
 			[23, 24, 25, 26, 27, 28, 29],
-			[30, 31, null, null, null, null, null]
-		]
+			[30, 31, null, null, null, null, null],
+		],
 	},
 	{
 		year: 2023,
@@ -124,8 +124,8 @@ export const prebuiltCalendarRows = [
 			[6, 7, 8, 9, 10, 11, 12],
 			[13, 14, 15, 16, 17, 18, 19],
 			[20, 21, 22, 23, 24, 25, 26],
-			[27, 28, 29, 30, null, null, null]
-		]
+			[27, 28, 29, 30, null, null, null],
+		],
 	},
 	{
 		year: 2023,
@@ -135,8 +135,8 @@ export const prebuiltCalendarRows = [
 			[4, 5, 6, 7, 8, 9, 10],
 			[11, 12, 13, 14, 15, 16, 17],
 			[18, 19, 20, 21, 22, 23, 24],
-			[25, 26, 27, 28, 29, 30, 31]
-		]
+			[25, 26, 27, 28, 29, 30, 31],
+		],
 	},
 	{
 		year: 2024,
@@ -146,8 +146,8 @@ export const prebuiltCalendarRows = [
 			[8, 9, 10, 11, 12, 13, 14],
 			[15, 16, 17, 18, 19, 20, 21],
 			[22, 23, 24, 25, 26, 27, 28],
-			[29, 30, 31, null, null, null, null]
-		]
+			[29, 30, 31, null, null, null, null],
+		],
 	},
 	{
 		year: 2024,
@@ -157,8 +157,8 @@ export const prebuiltCalendarRows = [
 			[5, 6, 7, 8, 9, 10, 11],
 			[12, 13, 14, 15, 16, 17, 18],
 			[19, 20, 21, 22, 23, 24, 25],
-			[26, 27, 28, 29, null, null, null]
-		]
+			[26, 27, 28, 29, null, null, null],
+		],
 	},
 	{
 		year: 2024,
@@ -168,8 +168,8 @@ export const prebuiltCalendarRows = [
 			[4, 5, 6, 7, 8, 9, 10],
 			[11, 12, 13, 14, 15, 16, 17],
 			[18, 19, 20, 21, 22, 23, 24],
-			[25, 26, 27, 28, 29, 30, 31]
-		]
+			[25, 26, 27, 28, 29, 30, 31],
+		],
 	},
 	{
 		year: 2024,
@@ -179,8 +179,8 @@ export const prebuiltCalendarRows = [
 			[8, 9, 10, 11, 12, 13, 14],
 			[15, 16, 17, 18, 19, 20, 21],
 			[22, 23, 24, 25, 26, 27, 28],
-			[29, 30, null, null, null, null, null]
-		]
+			[29, 30, null, null, null, null, null],
+		],
 	},
 	{
 		year: 2024,
@@ -190,8 +190,8 @@ export const prebuiltCalendarRows = [
 			[6, 7, 8, 9, 10, 11, 12],
 			[13, 14, 15, 16, 17, 18, 19],
 			[20, 21, 22, 23, 24, 25, 26],
-			[27, 28, 29, 30, 31, null, null]
-		]
+			[27, 28, 29, 30, 31, null, null],
+		],
 	},
 	{
 		year: 2024,
@@ -201,8 +201,8 @@ export const prebuiltCalendarRows = [
 			[3, 4, 5, 6, 7, 8, 9],
 			[10, 11, 12, 13, 14, 15, 16],
 			[17, 18, 19, 20, 21, 22, 23],
-			[24, 25, 26, 27, 28, 29, 30]
-		]
+			[24, 25, 26, 27, 28, 29, 30],
+		],
 	},
 	{
 		year: 2024,
@@ -212,8 +212,8 @@ export const prebuiltCalendarRows = [
 			[8, 9, 10, 11, 12, 13, 14],
 			[15, 16, 17, 18, 19, 20, 21],
 			[22, 23, 24, 25, 26, 27, 28],
-			[29, 30, 31, null, null, null, null]
-		]
+			[29, 30, 31, null, null, null, null],
+		],
 	},
 	{
 		year: 2024,
@@ -223,8 +223,8 @@ export const prebuiltCalendarRows = [
 			[5, 6, 7, 8, 9, 10, 11],
 			[12, 13, 14, 15, 16, 17, 18],
 			[19, 20, 21, 22, 23, 24, 25],
-			[26, 27, 28, 29, 30, 31, null]
-		]
+			[26, 27, 28, 29, 30, 31, null],
+		],
 	},
 	{
 		year: 2024,
@@ -235,8 +235,8 @@ export const prebuiltCalendarRows = [
 			[9, 10, 11, 12, 13, 14, 15],
 			[16, 17, 18, 19, 20, 21, 22],
 			[23, 24, 25, 26, 27, 28, 29],
-			[30, null, null, null, null, null, null]
-		]
+			[30, null, null, null, null, null, null],
+		],
 	},
 	{
 		year: 2024,
@@ -246,8 +246,8 @@ export const prebuiltCalendarRows = [
 			[7, 8, 9, 10, 11, 12, 13],
 			[14, 15, 16, 17, 18, 19, 20],
 			[21, 22, 23, 24, 25, 26, 27],
-			[28, 29, 30, 31, null, null, null]
-		]
+			[28, 29, 30, 31, null, null, null],
+		],
 	},
 	{
 		year: 2024,
@@ -257,8 +257,8 @@ export const prebuiltCalendarRows = [
 			[4, 5, 6, 7, 8, 9, 10],
 			[11, 12, 13, 14, 15, 16, 17],
 			[18, 19, 20, 21, 22, 23, 24],
-			[25, 26, 27, 28, 29, 30, null]
-		]
+			[25, 26, 27, 28, 29, 30, null],
+		],
 	},
 	{
 		year: 2024,
@@ -269,8 +269,8 @@ export const prebuiltCalendarRows = [
 			[9, 10, 11, 12, 13, 14, 15],
 			[16, 17, 18, 19, 20, 21, 22],
 			[23, 24, 25, 26, 27, 28, 29],
-			[30, 31, null, null, null, null, null]
-		]
+			[30, 31, null, null, null, null, null],
+		],
 	},
 	{
 		year: 2025,
@@ -280,8 +280,8 @@ export const prebuiltCalendarRows = [
 			[6, 7, 8, 9, 10, 11, 12],
 			[13, 14, 15, 16, 17, 18, 19],
 			[20, 21, 22, 23, 24, 25, 26],
-			[27, 28, 29, 30, 31, null, null]
-		]
+			[27, 28, 29, 30, 31, null, null],
+		],
 	},
 	{
 		year: 2025,
@@ -291,8 +291,8 @@ export const prebuiltCalendarRows = [
 			[3, 4, 5, 6, 7, 8, 9],
 			[10, 11, 12, 13, 14, 15, 16],
 			[17, 18, 19, 20, 21, 22, 23],
-			[24, 25, 26, 27, 28, null, null]
-		]
+			[24, 25, 26, 27, 28, null, null],
+		],
 	},
 	{
 		year: 2025,
@@ -303,8 +303,8 @@ export const prebuiltCalendarRows = [
 			[10, 11, 12, 13, 14, 15, 16],
 			[17, 18, 19, 20, 21, 22, 23],
 			[24, 25, 26, 27, 28, 29, 30],
-			[31, null, null, null, null, null, null]
-		]
+			[31, null, null, null, null, null, null],
+		],
 	},
 	{
 		year: 2025,
@@ -314,8 +314,8 @@ export const prebuiltCalendarRows = [
 			[7, 8, 9, 10, 11, 12, 13],
 			[14, 15, 16, 17, 18, 19, 20],
 			[21, 22, 23, 24, 25, 26, 27],
-			[28, 29, 30, null, null, null, null]
-		]
+			[28, 29, 30, null, null, null, null],
+		],
 	},
 	{
 		year: 2025,
@@ -325,8 +325,8 @@ export const prebuiltCalendarRows = [
 			[5, 6, 7, 8, 9, 10, 11],
 			[12, 13, 14, 15, 16, 17, 18],
 			[19, 20, 21, 22, 23, 24, 25],
-			[26, 27, 28, 29, 30, 31, null]
-		]
+			[26, 27, 28, 29, 30, 31, null],
+		],
 	},
 	{
 		year: 2025,
@@ -337,8 +337,8 @@ export const prebuiltCalendarRows = [
 			[9, 10, 11, 12, 13, 14, 15],
 			[16, 17, 18, 19, 20, 21, 22],
 			[23, 24, 25, 26, 27, 28, 29],
-			[30, null, null, null, null, null, null]
-		]
+			[30, null, null, null, null, null, null],
+		],
 	},
 	{
 		year: 2025,
@@ -348,8 +348,8 @@ export const prebuiltCalendarRows = [
 			[7, 8, 9, 10, 11, 12, 13],
 			[14, 15, 16, 17, 18, 19, 20],
 			[21, 22, 23, 24, 25, 26, 27],
-			[28, 29, 30, 31, null, null, null]
-		]
+			[28, 29, 30, 31, null, null, null],
+		],
 	},
 	{
 		year: 2025,
@@ -359,8 +359,8 @@ export const prebuiltCalendarRows = [
 			[4, 5, 6, 7, 8, 9, 10],
 			[11, 12, 13, 14, 15, 16, 17],
 			[18, 19, 20, 21, 22, 23, 24],
-			[25, 26, 27, 28, 29, 30, 31]
-		]
+			[25, 26, 27, 28, 29, 30, 31],
+		],
 	},
 	{
 		year: 2025,
@@ -370,8 +370,8 @@ export const prebuiltCalendarRows = [
 			[8, 9, 10, 11, 12, 13, 14],
 			[15, 16, 17, 18, 19, 20, 21],
 			[22, 23, 24, 25, 26, 27, 28],
-			[29, 30, null, null, null, null, null]
-		]
+			[29, 30, null, null, null, null, null],
+		],
 	},
 	{
 		year: 2025,
@@ -381,8 +381,8 @@ export const prebuiltCalendarRows = [
 			[6, 7, 8, 9, 10, 11, 12],
 			[13, 14, 15, 16, 17, 18, 19],
 			[20, 21, 22, 23, 24, 25, 26],
-			[27, 28, 29, 30, 31, null, null]
-		]
+			[27, 28, 29, 30, 31, null, null],
+		],
 	},
 	{
 		year: 2025,
@@ -392,8 +392,8 @@ export const prebuiltCalendarRows = [
 			[3, 4, 5, 6, 7, 8, 9],
 			[10, 11, 12, 13, 14, 15, 16],
 			[17, 18, 19, 20, 21, 22, 23],
-			[24, 25, 26, 27, 28, 29, 30]
-		]
+			[24, 25, 26, 27, 28, 29, 30],
+		],
 	},
 	{
 		year: 2025,
@@ -403,7 +403,7 @@ export const prebuiltCalendarRows = [
 			[8, 9, 10, 11, 12, 13, 14],
 			[15, 16, 17, 18, 19, 20, 21],
 			[22, 23, 24, 25, 26, 27, 28],
-			[29, 30, 31, null, null, null, null]
-		]
-	}
+			[29, 30, 31, null, null, null, null],
+		],
+	},
 ];

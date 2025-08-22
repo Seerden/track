@@ -27,6 +27,7 @@ export function mergeTagsAndRelations({
 		const tag = tagMap.get(parent_id);
 		if (!tag) continue; // TODO TRK-249: throw
 		tag.child_ids?.push(child_id);
+		// biome-ignore lint/style/noNonNullAssertion: is defined ^
 		tagMap.set(child_id, { ...tagMap.get(child_id)!, parent_id });
 	}
 

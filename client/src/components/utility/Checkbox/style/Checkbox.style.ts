@@ -1,6 +1,6 @@
-import { noBorders } from "@/lib/theme/snippets/border";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { noBorders } from "@/lib/theme/snippets/border";
 
 const defaultCheckboxStyle = css`
 	display: flex;
@@ -48,7 +48,7 @@ const Wrapper = styled.span`
 const Checkbox = {
 	Wrapper,
 	Checked,
-	Unchecked
+	Unchecked,
 };
 
 export default Checkbox;

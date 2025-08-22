@@ -1,11 +1,11 @@
-import HabitEntrySlider from "@/components/habits/Habits/HabitEntrySlider";
-import HabitEntryToggle from "@/components/habits/Habits/HabitEntryToggle";
-import useCompletionInstance from "@/components/habits/Habits/useCompletionInstance";
 import type {
 	HabitEntry,
 	HabitWithEntries,
-	SyntheticHabitEntry
+	SyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
+import HabitEntrySlider from "@/components/habits/Habits/HabitEntrySlider";
+import HabitEntryToggle from "@/components/habits/Habits/HabitEntryToggle";
+import useCompletionInstance from "@/components/habits/Habits/useCompletionInstance";
 
 type CompletionInstanceProps = {
 	entry: HabitEntry | SyntheticHabitEntry;
@@ -16,7 +16,7 @@ type CompletionInstanceProps = {
 export default function CompletionInstance({
 	entry,
 	habit,
-	sliderWidth
+	sliderWidth,
 }: CompletionInstanceProps) {
 	const { doMutation } = useCompletionInstance();
 
@@ -32,7 +32,9 @@ export default function CompletionInstance({
 				/>
 			);
 		case "checkbox":
-			return <HabitEntryToggle entry={entry} habit={habit} onChange={doMutation} />;
+			return (
+				<HabitEntryToggle entry={entry} habit={habit} onChange={doMutation} />
+			);
 		default:
 			return null;
 	}

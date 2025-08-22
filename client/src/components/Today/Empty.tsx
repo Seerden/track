@@ -1,13 +1,16 @@
-import Buttons from "@/lib/theme/components/buttons";
 import { LucidePlus } from "lucide-react";
 import type { PropsWithChildren } from "react";
+import Buttons from "@/lib/theme/components/buttons";
 import S from "./style/Empty.style";
 
 type EmptyProps = {
 	action?: () => void;
 };
 
-export default function Empty({ children, action }: PropsWithChildren<EmptyProps>) {
+export default function Empty({
+	children,
+	action,
+}: PropsWithChildren<EmptyProps>) {
 	return (
 		<S.Empty>
 			{children}

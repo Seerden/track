@@ -4,7 +4,11 @@ import S from "./Page.style";
 
 export default function Page(props: PropsWithChildren) {
 	return (
-		<S.Page variants={pageVariants} initial="hidden" animate="appear" exit="exit">
+		<S.Page
+			variants={pageVariants}
+			initial="hidden"
+			animate="appear"
+			exit="exit">
 			{props.children}
 		</S.Page>
 	);

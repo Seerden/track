@@ -64,7 +64,7 @@ const InBadge = styled.span<{
 
 const Icons = {
 	InBadge,
-	Shortcut
+	Shortcut,
 };
 
 export default Icons;

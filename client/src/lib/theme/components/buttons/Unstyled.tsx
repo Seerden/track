@@ -1,5 +1,5 @@
-import { unstyledButton } from "@/lib/theme/snippets/button";
 import styled from "@emotion/styled";
+import { unstyledButton } from "@/lib/theme/snippets/button";
 
 const _UnstyledButton = styled.button`
 	${unstyledButton};

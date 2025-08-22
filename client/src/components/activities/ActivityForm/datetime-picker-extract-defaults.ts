@@ -1,6 +1,6 @@
+import type { Maybe, StartAndEnd } from "@shared/types/data/utility.types";
 import type { DateTimePickerProps } from "@/components/activities/ActivityForm/datetime-picker.types";
 import { createDate } from "@/lib/datetime/make-date";
-import type { Maybe, StartAndEnd } from "@shared/types/data/utility.types";
 
 /** If `defaultValues` is given, this function returns a StartAndEnd object that
  * extracts the relevant datetime fields from it.
@@ -15,12 +15,12 @@ export function maybeGetDefaultStartAndEnd(
 	if (defaultValues.start_date && defaultValues.end_date) {
 		return {
 			start: createDate(defaultValues.start_date),
-			end: createDate(defaultValues.end_date)
+			end: createDate(defaultValues.end_date),
 		};
 	} else if (defaultValues.started_at && defaultValues.ended_at) {
 		return {
 			start: createDate(defaultValues.started_at),
-			end: createDate(defaultValues.ended_at)
+			end: createDate(defaultValues.ended_at),
 		};
 	}
 }

@@ -1,5 +1,5 @@
-import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import type { ActivityWithIds } from "@shared/lib/schemas/activity";
+import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 
 type ActivityFilterNameType = ActivityFilterWithValues["name"]["type"];
 
@@ -11,10 +11,12 @@ export const namePredicates: Record<
 	equals: (name, value) => name === value,
 	excludes: (name, value) => !name.includes(value),
 	startsWith: (name, value) => name.startsWith(value),
-	endsWith: (name, value) => name.endsWith(value)
+	endsWith: (name, value) => name.endsWith(value),
 };
 
-export const nameTypeOptions = Object.keys(namePredicates) as ActivityFilterNameType[];
+export const nameTypeOptions = Object.keys(
+	namePredicates
+) as ActivityFilterNameType[];
 
 export function filterByName(
 	activities: ActivityWithIds[],

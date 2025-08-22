@@ -1,7 +1,7 @@
+import styled from "@emotion/styled";
 import { outline } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
-import styled from "@emotion/styled";
 
 const OverviewWrapper = styled.div`
 	width: 100%;
@@ -37,5 +37,5 @@ const FloatingWrapper = styled.div`
 export default {
 	OverviewWrapper,
 	Wrapper,
-	FloatingWrapper
+	FloatingWrapper,
 };

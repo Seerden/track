@@ -1,6 +1,6 @@
-import { createRouter } from "@/router";
 import { RouterProvider } from "@tanstack/react-router";
 import { act, render } from "@testing-library/react";
+import { createRouter } from "@/router";
 
 // TODO (TRK-225): tanstack router testing doesn't work right now
 export async function renderTanstackRouter() {
@@ -14,12 +14,12 @@ export async function renderTanstackRouter() {
 	// Either you can make this part of setup, or call it in each test manually
 	await act(() =>
 		router.navigate({
-			to: "/"
+			to: "/",
 		})
 	);
 
 	return {
 		app,
-		router
+		router,
 	};
 }

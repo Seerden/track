@@ -1,7 +1,7 @@
+import { z } from "@shared/lib/zod";
 import { removeOccurrenceById } from "@/lib/data/models/activities/remove-occurrence";
 import { removeRecurrenceById } from "@/lib/data/models/activities/remove-recurrence";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
-import { z } from "@shared/lib/zod";
 
 export const deleteRecurrenceById = authenticatedProcedure
 	.input(z.string())

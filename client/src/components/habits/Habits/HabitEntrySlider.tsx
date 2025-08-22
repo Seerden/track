@@ -1,13 +1,13 @@
-import { ContextMenu } from "@/lib/hooks/useContextMenu";
-import { colors } from "@/lib/theme/colors";
-import Icons from "@/lib/theme/components/icons";
-import type { HabitEntryUpdateMutationFunction } from "@/types/data.types";
 import { NumberInput, Slider, Tooltip } from "@mantine/core";
 import type {
 	HabitEntry,
 	HabitWithEntries,
-	SyntheticHabitEntry
+	SyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
+import { ContextMenu } from "@/lib/hooks/useContextMenu";
+import { colors } from "@/lib/theme/colors";
+import Icons from "@/lib/theme/components/icons";
+import type { HabitEntryUpdateMutationFunction } from "@/types/data.types";
 import { completionTooltipStyles } from "./style/Completion.style";
 import S from "./style/HabitEntrySlider.style";
 import { useHabitEntrySlider } from "./useHabitEntrySlider";
@@ -25,7 +25,7 @@ export default function HabitEntrySlider({
 	entry,
 	onChangeEnd,
 	width,
-	showLabelText = true
+	showLabelText = true,
 }: HabitEntrySliderProps) {
 	const {
 		defaultValue,
@@ -33,11 +33,11 @@ export default function HabitEntrySlider({
 		isDone,
 		setSliderValue,
 		handleChangeEnd,
-		handleNumberInputBlur
+		handleNumberInputBlur,
 	} = useHabitEntrySlider({
 		habit,
 		entry,
-		onChangeEnd
+		onChangeEnd,
 	});
 
 	if (habit.goal_type !== "goal") return;
@@ -51,8 +51,7 @@ export default function HabitEntrySlider({
 			)}
 			<S.SliderWrapper
 				sliderColor={isDone ? colors.green.main : colors.blue.main}
-				style={{ width: width ?? "100%" }}
-			>
+				style={{ width: width ?? "100%" }}>
 				<Slider
 					labelAlwaysOn={false}
 					size={"sm"}
@@ -64,7 +63,7 @@ export default function HabitEntrySlider({
 					step={1}
 					showLabelOnHover
 					styles={{
-						label: completionTooltipStyles.regular
+						label: completionTooltipStyles.regular,
 					}}
 					label={(value) => `${habit.goal_unit}: ${value}/${habit.goal}`}
 					// TODO: color and styling are work in progress that is out of scope
@@ -91,15 +90,15 @@ export default function HabitEntrySlider({
 					style={completionTooltipStyles.alternate}
 					unstyled
 					label={
-						<div style={{ display: "flex", flexWrap: "wrap", maxWidth: "100%" }}>
+						<div
+							style={{ display: "flex", flexWrap: "wrap", maxWidth: "100%" }}>
 							<div style={{ width: "max-content", maxWidth: "100%" }}>
 								You exceeded the goal of {habit.goal} {habit.goal_unit} for this
-								habit. Use the detailed view <Icons.Shortcut>c</Icons.Shortcut> to
-								adjust the value.
+								habit. Use the detailed view <Icons.Shortcut>c</Icons.Shortcut>{" "}
+								to adjust the value.
 							</div>
 						</div>
-					}
-				>
+					}>
 					{label}
 				</Tooltip>
 			) : (
@@ -121,8 +120,10 @@ export default function HabitEntrySlider({
 					styles={{
 						bar: {
 							backgroundColor:
-								sliderValue >= habit.goal ? colors.green.main : colors.blue.main
-						}
+								sliderValue >= habit.goal
+									? colors.green.main
+									: colors.blue.main,
+						},
 					}}
 					value={sliderValue}
 					min={0}

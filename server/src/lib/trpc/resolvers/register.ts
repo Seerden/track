@@ -1,8 +1,8 @@
+import { newUserSchema } from "@shared/lib/schemas/user";
+import { TRPCError } from "@trpc/server";
 import { login } from "@/lib/auth/log-in";
 import { createUser } from "@/lib/data/models/user/insert-user";
 import { publicProcedure } from "@/lib/trpc/procedures/public.procedure";
-import { newUserSchema } from "@shared/lib/schemas/user";
-import { TRPCError } from "@trpc/server";
 
 export const register = publicProcedure
 	.input(newUserSchema)

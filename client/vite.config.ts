@@ -12,36 +12,38 @@ export default defineConfig({
 		tanstackRouter({
 			target: "react",
 			autoCodeSplitting: true,
-			quoteStyle: "double"
+			quoteStyle: "double",
 		}),
 		viteReact({
 			babel: {
 				plugins: ["@emotion/babel-plugin"],
 				babelrc: false,
-				configFile: false
-			}
+				configFile: false,
+			},
 		}),
-		tsconfigPaths()
+		tsconfigPaths(),
 	],
 	resolve: {
 		alias: {
 			"@": fileURLToPath(new URL("./src", import.meta.url)),
 			"@lib": fileURLToPath(new URL("./src/lib", import.meta.url)),
-			"@components": fileURLToPath(new URL("./src/components", import.meta.url)),
+			"@components": fileURLToPath(
+				new URL("./src/components", import.meta.url)
+			),
 			"@shared": fileURLToPath(new URL("../shared/src", import.meta.url)),
-			"@server": fileURLToPath(new URL("../server/src", import.meta.url))
+			"@server": fileURLToPath(new URL("../server/src", import.meta.url)),
 		},
-		extensions: [".js", ".jsx", ".ts", ".tsx", ".json"]
+		extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
 	},
 	server: {
 		host: true,
 		port: 5175,
 		watch: {
-			usePolling: true
-		}
+			usePolling: true,
+		},
 	},
 	build: {
 		emptyOutDir: true,
-		outDir: "../server/dist/public"
-	}
+		outDir: "../server/dist/public",
+	},
 });

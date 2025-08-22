@@ -41,14 +41,14 @@ export const createRecurrenceInputSchema = newRecurrenceInputSchema.and(
 	z.object({
 		/** from ActivityWithIds["activity_id"] */
 		activity_id: z.string(),
-	}),
+	})
 );
 export type CreateRecurrenceInput = z.infer<typeof createRecurrenceInputSchema>;
 
 export const newRecurrenceSchema = newRecurrenceInputSchema.and(
 	z.object({
 		user_id: z.string(),
-	}),
+	})
 );
 export type NewRecurrence = z.infer<typeof newRecurrenceSchema>;
 
@@ -56,14 +56,14 @@ export const recurrenceSchema = newRecurrenceSchema.and(
 	z.object({
 		recurrence_id: z.string(),
 		created_at: timestampSchema,
-	}),
+	})
 );
 export type Recurrence = z.infer<typeof recurrenceSchema>;
 
 export const recurrenceWithIdsSchema = recurrenceSchema.and(
 	z.object({
 		activity_id: z.string(),
-	}),
+	})
 );
 export type RecurrenceWithIds = z.infer<typeof recurrenceWithIdsSchema>;
 
@@ -78,7 +78,7 @@ export const occurrenceDivergenceBaseSchema = z.discriminatedUnion(
 			divergence_kind: z.literal("skip"),
 			offset_milliseconds: z.null(),
 		}),
-	],
+	]
 );
 export type OccurrenceDivergenceBase = z.infer<
 	typeof occurrenceDivergenceBaseSchema
@@ -90,21 +90,21 @@ export const newOccurrenceInputSchema = occurrenceDivergenceBaseSchema.and(
 		activity_id: z.string(),
 		divergence_count: z.number(),
 		excluded_activity_ids: z.array(z.string()),
-	}),
+	})
 );
 export type NewOccurrenceInput = z.infer<typeof newOccurrenceInputSchema>;
 
 export const newOccurrenceSchema = newOccurrenceInputSchema.and(
 	z.object({
 		user_id: z.string(),
-	}),
+	})
 );
 export type NewOccurrence = z.infer<typeof newOccurrenceSchema>;
 
 export const occurrenceSchema = newOccurrenceSchema.and(
 	z.object({
 		occurrence_id: z.string(),
-	}),
+	})
 );
 export type Occurrence = z.infer<typeof occurrenceSchema>;
 
@@ -142,7 +142,7 @@ export const withTimestampsBaseSchema = z.object({
 });
 
 export const activityWithTimestampsSchema = newActivityBaseSchema.merge(
-	withTimestampsBaseSchema,
+	withTimestampsBaseSchema
 );
 export type WithTimestamps = z.infer<typeof withTimestampsBaseSchema>;
 
@@ -172,7 +172,7 @@ export type ActivityOccurrenceBase = z.infer<
 
 /** This is the client-side created new activity. */
 export const newActivityInputSchema = activityOccurrenceBaseSchema.and(
-	z.union([activityWithTimestampsSchema, activityWithDatesSchema]),
+	z.union([activityWithTimestampsSchema, activityWithDatesSchema])
 );
 export type NewActivityInput = z.infer<typeof newActivityInputSchema>;
 
@@ -181,7 +181,7 @@ export type NewActivityInput = z.infer<typeof newActivityInputSchema>;
 export const newActivitySchema = newActivityInputSchema.and(
 	z.object({
 		user_id: userSchema.shape.user_id,
-	}),
+	})
 );
 
 export type NewActivity = z.infer<typeof newActivitySchema>;
@@ -195,7 +195,7 @@ export type ActivityInput = z.infer<typeof activityInputSchema>;
 export const recurringActivityInputSchema = activityInputSchema.and(
 	z.object({
 		recurrence: newRecurrenceInputSchema,
-	}),
+	})
 );
 
 export const taskUpdateSchema = z.object({
@@ -226,13 +226,13 @@ export const syntheticActivitySchema = syntheticActivityWithoutIdsSchema
 	.and(
 		z.object({
 			tag_ids: z.array(z.string()),
-		}),
+		})
 	)
 	.and(
 		z.object({
 			synthetic: z.literal(true),
 			synthetic_id: z.string(),
-		}),
+		})
 	);
 
 export type SyntheticActivity = z.infer<typeof syntheticActivitySchema>;
@@ -240,7 +240,7 @@ export type SyntheticActivity = z.infer<typeof syntheticActivitySchema>;
 export const activityWithIdsSchema = activitySchema.and(
 	z.object({
 		tag_ids: z.array(z.string()),
-	}),
+	})
 );
 export type ActivityWithIds = z.infer<typeof activityWithIdsSchema>;
 
@@ -255,7 +255,7 @@ export type ActivityBase = z.infer<typeof activityBaseSchema>;
 
 export const taskUpdateInputSchema = z.intersection(
 	taskUpdateSchema,
-	activityBaseSchema.pick({ activity_id: true }),
+	activityBaseSchema.pick({ activity_id: true })
 );
 
 export type TaskUpdateInput = z.infer<typeof taskUpdateInputSchema>;

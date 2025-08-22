@@ -32,7 +32,9 @@ describe("datetime/compare", () => {
 			const yesterday = now().add(-1, "day");
 			const currentTime = now();
 			expect(isToday(yesterday)).toBe(false);
-			expect(isToday(currentTime.endOf("day").add(1, "millisecond"))).toBe(false);
+			expect(isToday(currentTime.endOf("day").add(1, "millisecond"))).toBe(
+				false
+			);
 		});
 	});
 });

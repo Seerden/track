@@ -1,20 +1,20 @@
+import { byIdAsList } from "@shared/lib/map";
+import type { TagWithIds } from "@shared/lib/schemas/tag";
+import { useQuery } from "@tanstack/react-query";
+import { LucideChevronDown, LucideChevronUp } from "lucide-react";
+import { useState } from "react";
 import Modal from "@/components/utility/Modal/Modal";
 import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
 import Badge from "@/lib/theme/components/Badge";
 import { trpc } from "@/lib/trpc";
-import { byIdAsList } from "@shared/lib/map";
-import type { TagWithIds } from "@shared/lib/schemas/tag";
-import { useQuery } from "@tanstack/react-query";
-import { LucideChevronDown, LucideChevronUp } from "lucide-react";
-import { useState } from "react";
 import S from "./style/TagTree.style";
 
 export default function TagTree({
 	orientation = "horizontal",
 	modalId = modalIds.tagTree.tree,
-	initialOpen = false
+	initialOpen = false,
 }: {
 	orientation?: "vertical" | "horizontal";
 	modalId?: ModalId;
@@ -37,8 +37,9 @@ export default function TagTree({
 					<h1>Tag tree</h1>
 					{/* TODO: style and finish this */}
 					<p>
-						This is an overview of all your tags and how they relate to each other.
-						Soon, you will be able to edit the hierarchy of your tags from here.
+						This is an overview of all your tags and how they relate to each
+						other. Soon, you will be able to edit the hierarchy of your tags
+						from here.
 					</p>
 					<S.Tree $orientation={orientation} $columnCount={rootTags.length}>
 						{rootTags.map((tag) => (
@@ -64,7 +65,9 @@ function Tag({ tag, level }: TagProps) {
 		return null;
 	}
 
-	const children = tag.child_ids?.map((id) => tags.get(id)).filter((tag) => !!tag);
+	const children = tag.child_ids
+		?.map((id) => tags.get(id))
+		.filter((tag) => !!tag);
 
 	return (
 		<S.Tag $level={level} layout>
@@ -74,8 +77,7 @@ function Tag({ tag, level }: TagProps) {
 					<Badge
 						height={"20px"}
 						color={"indigo"}
-						title={`${children.length} tags hidden`}
-					>
+						title={`${children.length} tags hidden`}>
 						{/* TODO: instead of children.length, we want to get the number of descendants */}
 						{children.length}
 					</Badge>
@@ -107,9 +109,8 @@ function Tag({ tag, level }: TagProps) {
 					animate={collapsed ? "hidden" : "visible"}
 					transition={{
 						duration: 0.05,
-						ease: "easeIn"
-					}}
-				>
+						ease: "easeIn",
+					}}>
 					{children.map((child) => (
 						<Tag key={child.tag_id} tag={child} level={(level ?? 0) + 1} />
 					))}
@@ -123,11 +124,11 @@ const variants = {
 	hidden: {
 		opacity: 0,
 		height: "0px",
-		visibility: "hidden"
+		visibility: "hidden",
 	},
 	visible: {
 		opacity: 1,
 		height: "auto",
-		visibility: "visible"
-	}
+		visibility: "visible",
+	},
 } as const;

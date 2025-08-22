@@ -1,6 +1,6 @@
 import type {
 	TagSelectorItemProps,
-	TagSelectorItemsProps
+	TagSelectorItemsProps,
 } from "@/components/tags/TagSelector/tag-selector.types";
 import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import { useModalState } from "@/lib/state/modal-state";
@@ -15,8 +15,7 @@ function TagSelectorItem(p: TagSelectorItemProps) {
 			$hasParent={hasParent}
 			$isSelected={isSelected}
 			key={p.tag.tag_id}
-			onClick={() => p.updateTagSelection(p.tag.tag_id)}
-		>
+			onClick={() => p.updateTagSelection(p.tag.tag_id)}>
 			{p.tag.name}
 		</S.ListItem>
 	);
@@ -28,7 +27,7 @@ export function TagSelectorItems({
 	modalId,
 	filteredTags,
 	tagSelection,
-	updateTagSelection
+	updateTagSelection,
 }: TagSelectorItemsProps) {
 	const { openModal } = useModalState();
 	const { data: tags } = useQueryTags();
@@ -57,8 +56,7 @@ export function TagSelectorItems({
 			onClick={(e) => {
 				openModal(modalId);
 				e.stopPropagation();
-			}}
-		>
+			}}>
 			You do not have any tags yet. Click to add one.
 		</S.CreateTagButton>
 	);

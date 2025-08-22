@@ -3,36 +3,37 @@ import type {
 	ActivityFilterDatetimeSelector,
 	ActivityFilterTabs,
 	ActivityFilterTagsType,
-	ActivityFilterWithValues
+	ActivityFilterWithValues,
 } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 
 export const defaultFilter = {
 	datetime: {
 		modifier: "starts",
 		selector: "after",
-		value: null
+		value: null,
 	},
 	name: {
 		type: "includes",
-		value: null
+		value: null,
 	},
 	tags: {
 		type: "includes",
 		exact: true,
 		value: null,
-		search: ""
-	}
+		search: "",
+	},
 } satisfies ActivityFilterWithValues;
 
-export const activityFilterTabs: ActivityFilterTabs[] = ["name", "datetime", "tags"];
-export const activityFilterTagsTypes: ActivityFilterTagsType[] = ["includes", "excludes"];
-export const activityFilterDatetimeModifiers: ActivityFilterDatetimeModifier[] = [
-	"starts",
-	"ends",
-	"occurs"
+export const activityFilterTabs: ActivityFilterTabs[] = [
+	"name",
+	"datetime",
+	"tags",
 ];
-export const activityFilterDatetimeSelectors: ActivityFilterDatetimeSelector[] = [
-	"before",
-	"between",
-	"after"
+export const activityFilterTagsTypes: ActivityFilterTagsType[] = [
+	"includes",
+	"excludes",
 ];
+export const activityFilterDatetimeModifiers: ActivityFilterDatetimeModifier[] =
+	["starts", "ends", "occurs"];
+export const activityFilterDatetimeSelectors: ActivityFilterDatetimeSelector[] =
+	["before", "between", "after"];

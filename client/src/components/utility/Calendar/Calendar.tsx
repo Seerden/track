@@ -1,12 +1,15 @@
-import type { CalendarProps, Row } from "@/components/utility/Calendar/calendar.types";
+import { MonthPicker } from "@mantine/dates";
+import type { Maybe } from "@shared/types/data/utility.types";
+import type { Dayjs } from "dayjs";
+import type {
+	CalendarProps,
+	Row,
+} from "@/components/utility/Calendar/calendar.types";
 import { useCalendar } from "@/components/utility/Calendar/hooks/useCalendar";
 import useMonthPicker from "@/components/utility/Calendar/hooks/useMonthPicker";
 import { today } from "@/lib/datetime/make-date";
 import { daysOfWeekShort } from "@/lib/datetime/weekdays";
 import Buttons from "@/lib/theme/components/buttons";
-import { MonthPicker } from "@mantine/dates";
-import type { Maybe } from "@shared/types/data/utility.types";
-import type { Dayjs } from "dayjs";
 import S from "./style/Calendar.style";
 
 type CalendarRowProps = {
@@ -17,12 +20,20 @@ type CalendarRowProps = {
 	selectedDate?: Maybe<Dayjs>;
 };
 
-function CalendarRow({ month, year, row, selectDate, selectedDate }: CalendarRowProps) {
+function CalendarRow({
+	month,
+	year,
+	row,
+	selectDate,
+	selectedDate,
+}: CalendarRowProps) {
 	function is(day: number | null, type: "today" | "selected") {
 		const date = type === "today" ? today() : selectedDate;
 
 		if (!date || !day) return false;
-		return day === date.date() && month === date.month() && year === date.year();
+		return (
+			day === date.date() && month === date.month() && year === date.year()
+		);
 	}
 
 	return (
@@ -33,8 +44,7 @@ function CalendarRow({ month, year, row, selectDate, selectedDate }: CalendarRow
 					key={index}
 					onClick={() => selectDate(day)}
 					$selected={is(day, "selected")}
-					$highlight={is(day, "today")}
-				>
+					$highlight={is(day, "today")}>
 					{day}
 				</Buttons.Cell.Default>
 			))}
@@ -44,13 +54,19 @@ function CalendarRow({ month, year, row, selectDate, selectedDate }: CalendarRow
 
 export default function Calendar({
 	initialDate,
-	onChange: setExternalState
+	onChange: setExternalState,
 }: CalendarProps) {
-	const { monthAndYear, setMonthAndYear, title, rows, selectDate, selectedDate } =
-		useCalendar({
-			initialDate,
-			onChange: setExternalState
-		});
+	const {
+		monthAndYear,
+		setMonthAndYear,
+		title,
+		rows,
+		selectDate,
+		selectedDate,
+	} = useCalendar({
+		initialDate,
+		onChange: setExternalState,
+	});
 
 	const {
 		handleMonthChange,
@@ -58,10 +74,10 @@ export default function Calendar({
 		handleArrowClick,
 		monthPickerRef,
 		showMonthPicker,
-		setShowMonthPicker
+		setShowMonthPicker,
 	} = useMonthPicker({
 		initialDate,
-		onChange: setMonthAndYear
+		onChange: setMonthAndYear,
 	});
 
 	return (

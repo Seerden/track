@@ -35,7 +35,7 @@ const Default = styled(UnstyledButton)`
 `;
 
 const Submit = {
-	Default
+	Default,
 };
 
 export default Submit;

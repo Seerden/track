@@ -22,5 +22,5 @@ const SliderWrapper = styled.div<{ sliderColor: string }>`
 `;
 
 export default {
-	SliderWrapper
+	SliderWrapper,
 };

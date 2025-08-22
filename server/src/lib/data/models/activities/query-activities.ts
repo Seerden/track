@@ -1,10 +1,10 @@
-import { sqlConnection } from "@/db/init";
 import { isNullish } from "@shared/lib/is-nullish";
 import type { Activity, ActivityWithIds } from "@shared/lib/schemas/activity";
 import type { Timestamp } from "@shared/lib/schemas/timestamp";
 import type { ActivityTagRelation } from "@shared/types/data/relational.types";
 import type { ID, MapById } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
+import { sqlConnection } from "@/db/init";
 import { mergeActivitiesAndRelations } from "./merge-activities-and-relations";
 import { timeWindowFilter } from "./time-window-filter";
 
@@ -18,7 +18,15 @@ export const queryActivitiesByUser: QueryFunction<
 		completed?: boolean;
 	},
 	Promise<Activity[]>
-> = async ({ sql = sqlConnection, user_id, recurring, tasks, from, to, completed }) => {
+> = async ({
+	sql = sqlConnection,
+	user_id,
+	recurring,
+	tasks,
+	from,
+	to,
+	completed,
+}) => {
 	const recurringSql = recurring ? sql`and recurrence_id is not null` : sql``;
 	const taskSql = tasks ? sql`and is_task = true` : sql``;
 
@@ -100,7 +108,15 @@ export const queryActivitiesAndRelations: QueryFunction<
 		completed?: boolean;
 	},
 	Promise<MapById<ActivityWithIds>>
-> = async ({ sql = sqlConnection, user_id, recurring, tasks, from, to, completed }) => {
+> = async ({
+	sql = sqlConnection,
+	user_id,
+	recurring,
+	tasks,
+	from,
+	to,
+	completed,
+}) => {
 	const activities = await queryActivitiesByUser({
 		sql,
 		user_id,

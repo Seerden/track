@@ -1,5 +1,5 @@
-import { createDate } from "@/lib/datetime/make-date";
 import { useEffect, useState } from "react";
+import { createDate } from "@/lib/datetime/make-date";
 
 /**
  * Returns stateful current time that updates every `pollInterval` milliseconds.

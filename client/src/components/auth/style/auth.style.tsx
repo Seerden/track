@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import Buttons from "@/lib/theme/components/buttons";
 import F from "@/lib/theme/components/form/form.alternate.style";
 import { outline } from "@/lib/theme/snippets/edge";
@@ -5,7 +6,6 @@ import { flex } from "@/lib/theme/snippets/flex";
 import Lucide from "@/lib/theme/snippets/lucide";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import styled from "@emotion/styled";
 
 const Wrapper = styled.div`
 	justify-self: center;
@@ -55,5 +55,5 @@ export default {
 	Fields,
 	ShowPassword,
 	Submit,
-	Column
+	Column,
 };

@@ -1,8 +1,8 @@
+import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
+import type { Dayjs } from "dayjs";
 import { getLocalHour } from "@/lib/datetime/local";
 import { createDate, now } from "@/lib/datetime/make-date";
 import type { TimeWindow } from "@/types/time-window.types";
-import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
-import type { Dayjs } from "dayjs";
 import { sameDay } from "./datetime/compare";
 
 /** Gets the `start` of an activity, which is either a timestamp or
@@ -22,7 +22,10 @@ export function activityEnd(activity: PossiblySyntheticActivity) {
  * but if the activity only takes place on `date`, this returns the actual start
  * of the activity. If the activity doesn't fall on `date` at all, this returns
  * null. */
-export function activityStartOnDate(activity: PossiblySyntheticActivity, date: Dayjs) {
+export function activityStartOnDate(
+	activity: PossiblySyntheticActivity,
+	date: Dayjs
+) {
 	if (!activityFallsOnDay(activity, date)) return null;
 
 	const _date = date.startOf("day");
@@ -31,7 +34,10 @@ export function activityStartOnDate(activity: PossiblySyntheticActivity, date: D
 }
 
 /** Analogous to `activityStartOnDate`. */
-export function activityEndOnDate(activity: PossiblySyntheticActivity, date: Dayjs) {
+export function activityEndOnDate(
+	activity: PossiblySyntheticActivity,
+	date: Dayjs
+) {
 	if (!activityFallsOnDay(activity, date)) return null;
 	const _date = date.endOf("day");
 	const end = activityEnd(activity);
@@ -39,7 +45,10 @@ export function activityEndOnDate(activity: PossiblySyntheticActivity, date: Day
 }
 
 /** Checks if any part of `activity` falls on `date`. */
-export function activityFallsOnDay(activity: PossiblySyntheticActivity, date: Dayjs) {
+export function activityFallsOnDay(
+	activity: PossiblySyntheticActivity,
+	date: Dayjs
+) {
 	const start = activityStart(activity);
 	const end = activityEnd(activity);
 
@@ -54,10 +63,13 @@ export function activityFallsOnDay(activity: PossiblySyntheticActivity, date: Da
  * Note that for e.g. Today, we limit the activity visually to end at 23:59.
  * This is done in the Today component though, so we don't have to worry about
  * it here. */
-export function activityDurationOnDate(activity: PossiblySyntheticActivity, date: Dayjs) {
+export function activityDurationOnDate(
+	activity: PossiblySyntheticActivity,
+	date: Dayjs
+) {
 	const [start, end] = [
 		activityStartOnDate(activity, date),
-		activityEndOnDate(activity, date)
+		activityEndOnDate(activity, date),
 	];
 
 	if (!end || !start) return 0;
@@ -112,9 +124,15 @@ export function isAllDaySingleDayActivity(activity: PossiblySyntheticActivity) {
 /** Checks if an an `activity` lasts all day on the given `date`.
  * TODO: `isAllDaySingleDayActivity()` is not necessary if we use this one properly
  * instead. */
-export function isAllDayActivityOnDate(activity: PossiblySyntheticActivity, date: Dayjs) {
+export function isAllDayActivityOnDate(
+	activity: PossiblySyntheticActivity,
+	date: Dayjs
+) {
 	const [startOfDay, endOfDay] = [date.startOf("day"), date.endOf("day")];
-	const [startActivity, endActivity] = [activityStart(activity), activityEnd(activity)];
+	const [startActivity, endActivity] = [
+		activityStart(activity),
+		activityEnd(activity),
+	];
 	return !startOfDay.isBefore(startActivity) && !endOfDay.isAfter(endActivity);
 }
 
@@ -216,7 +234,8 @@ export function isOverdueTask(
 	it falls outside of `timeWindow`. */
 	timeWindow?: TimeWindow
 ) {
-	const isOverdue = activity.is_task && !activity.completed && !hasNotEnded(activity);
+	const isOverdue =
+		activity.is_task && !activity.completed && !hasNotEnded(activity);
 
 	if (!timeWindow) return isOverdue;
 

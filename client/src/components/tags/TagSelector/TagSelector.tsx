@@ -1,20 +1,20 @@
+import {
+	LucideChevronDown,
+	LucideChevronUp,
+	LucideFilterX,
+	LucideMaximize,
+} from "lucide-react";
+import type { MouseEvent } from "react";
 import Filter from "@/components/tags/TagSelector/Filter";
 import Selection from "@/components/tags/TagSelector/Selection";
-import type { TagSelectorProps } from "@/components/tags/TagSelector/tag-selector.types";
 import { TagSelectorItems } from "@/components/tags/TagSelector/TagSelectorItems";
+import type { TagSelectorProps } from "@/components/tags/TagSelector/tag-selector.types";
 import useTagSelectorFilter from "@/components/tags/TagSelector/useTagSelectorFilter";
 import TagTree from "@/components/tags/TagTree/TagTree";
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import Buttons from "@/lib/theme/components/buttons";
-import {
-	LucideChevronDown,
-	LucideChevronUp,
-	LucideFilterX,
-	LucideMaximize
-} from "lucide-react";
-import type { MouseEvent } from "react";
 import NewTagButton from "./NewTagButton";
 import S from "./style/TagSelector.style";
 import useTagSelector from "./useTagSelector";
@@ -27,7 +27,7 @@ export default function TagSelector({
 	maximum,
 	showNewTagButton,
 	tags,
-	title
+	title,
 }: TagSelectorProps) {
 	const {
 		clearFilter,
@@ -39,13 +39,15 @@ export default function TagSelector({
 		tags: selectorTags,
 		filteredTags,
 		updateFilter,
-		updateTagSelection
+		updateTagSelection,
 	} = useTagSelector({ maximum, tags });
-	const { dropdownRef, expandFilter, expanded, minimizeFilter } = useTagSelectorFilter();
+	const { dropdownRef, expandFilter, expanded, minimizeFilter } =
+		useTagSelectorFilter();
 
 	// NOTE: tagTreeModalId has to depend on `modalId` because we can have
 	// multiple TagSelectors on the same page.
-	const tagTreeModalId = `${modalIds.tagTree.tagSelector}-${modalId}` as ModalId;
+	const tagTreeModalId =
+		`${modalIds.tagTree.tagSelector}-${modalId}` as ModalId;
 	const { openModal } = useModalState();
 
 	function onModalOpen(e: MouseEvent) {
@@ -58,7 +60,8 @@ export default function TagSelector({
 			<S.Wrapper $fullSize={fullSize}>
 				{/* TODO: the info tooltip should be in a little info block, not a title on a random element */}
 				{!!title && (
-					<S.Title {...(maximum && { title: `Choose at most ${maximum} tag(s)` })}>
+					<S.Title
+						{...(maximum && { title: `Choose at most ${maximum} tag(s)` })}>
 						{title}
 					</S.Title>
 				)}
@@ -89,7 +92,9 @@ export default function TagSelector({
 					</S.Actions>
 
 					{!selectedTags.length ? (
-						<S.EmptySelection>You haven't selected any tags yet.</S.EmptySelection>
+						<S.EmptySelection>
+							You haven't selected any tags yet.
+						</S.EmptySelection>
 					) : (
 						<Selection tags={selectorTags} selectedTags={selectedTags} />
 					)}

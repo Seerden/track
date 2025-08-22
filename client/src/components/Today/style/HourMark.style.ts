@@ -1,9 +1,9 @@
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import { getFontSize } from "@/lib/theme/font";
 import { thinOutline } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
 
 const HourMark = styled.span<{ $highlighted?: boolean }>`
 	display: flex;
@@ -38,5 +38,5 @@ const HourMark = styled.span<{ $highlighted?: boolean }>`
 `;
 
 export default {
-	HourMark
+	HourMark,
 };

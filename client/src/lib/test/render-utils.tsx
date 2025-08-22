@@ -1,5 +1,5 @@
-import { theme } from "@/lib/style/theme";
 import { ThemeProvider } from "@emotion/react";
+import { theme } from "@/lib/style/theme";
 import "@testing-library/jest-dom/vitest";
 import type { RenderOptions } from "@testing-library/react";
 import { render } from "@testing-library/react";

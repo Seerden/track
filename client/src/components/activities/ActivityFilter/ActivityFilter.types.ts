@@ -20,8 +20,10 @@ export type ActivityFilterState = {
 
 export type ActivityFilterTabs = keyof ActivityFilterState;
 export type ActivityFilterTagsType = ActivityFilterState["tags"]["type"];
-export type ActivityFilterDatetimeModifier = ActivityFilterState["datetime"]["modifier"];
-export type ActivityFilterDatetimeSelector = ActivityFilterState["datetime"]["selector"];
+export type ActivityFilterDatetimeModifier =
+	ActivityFilterState["datetime"]["modifier"];
+export type ActivityFilterDatetimeSelector =
+	ActivityFilterState["datetime"]["selector"];
 
 type ActivityFilterValueMap = {
 	name: string;
@@ -36,7 +38,12 @@ export type ActivityFilterWithValues = {
 };
 
 export type FilterResetAction = {
-	type: "name-value" | "name-filter" | "datetime" | "tags-value" | "tags-search";
+	type:
+		| "name-value"
+		| "name-filter"
+		| "datetime"
+		| "tags-value"
+		| "tags-search";
 };
 
 export type FilterUpdateAction =

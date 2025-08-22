@@ -1,3 +1,5 @@
+import Form from "@lib/theme/components/form.style";
+import { LucideCalendarOff, LucideCalendarPlus } from "lucide-react";
 import TagSelector from "@/components/tags/TagSelector/TagSelector";
 import { CheckboxIcon } from "@/components/utility/Checkbox/Checkbox";
 import { formatToYearMonthDay } from "@/lib/datetime/format-date";
@@ -6,8 +8,6 @@ import modalIds from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import Input from "@/lib/theme/input";
-import Form from "@lib/theme/components/form.style";
-import { LucideCalendarOff, LucideCalendarPlus } from "lucide-react";
 import S from "./style/NewHabit.style";
 import useNewHabit, { type NewHabitWithoutUserId } from "./useNewHabit";
 
@@ -20,7 +20,7 @@ export default function NewHabit() {
 		onSubmit,
 		handleGoalTypeChange,
 		handleClearEndDate,
-		enableEndDate
+		enableEndDate,
 	} = useNewHabit();
 
 	return (
@@ -53,16 +53,14 @@ export default function NewHabit() {
 				<Form.Row
 					style={{
 						position: "relative",
-						flexDirection: "column"
-					}}
-				>
+						flexDirection: "column",
+					}}>
 					{hasEndDate && (
 						<S.ClearEndDateButtonWrapper>
 							<Buttons.Action.Default
 								type="button"
 								$color="red"
-								onClick={handleClearEndDate}
-							>
+								onClick={handleClearEndDate}>
 								<LucideCalendarOff size={16} color="white" />
 							</Buttons.Action.Default>
 						</S.ClearEndDateButtonWrapper>
@@ -83,7 +81,9 @@ export default function NewHabit() {
 					showNewTagButton
 					title="Add tags"
 				/>
-				<Buttons.Submit.Default type="submit">Create habit</Buttons.Submit.Default>
+				<Buttons.Submit.Default type="submit">
+					Create habit
+				</Buttons.Submit.Default>
 			</Form.Form>
 		</Form.Wrapper>
 	);
@@ -93,7 +93,7 @@ function SimpleField({
 	onChange,
 	required,
 	name,
-	label
+	label,
 }: {
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	required?: boolean;
@@ -103,13 +103,20 @@ function SimpleField({
 	return (
 		<Form.Label>
 			<span>{label}</span>
-			<Input.Default type="text" onChange={onChange} name={name} required={required} />
+			<Input.Default
+				type="text"
+				onChange={onChange}
+				name={name}
+				required={required}
+			/>
 		</Form.Label>
 	);
 }
 
 type FieldProps = {
-	onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+	onChange: (
+		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+	) => void;
 	habit: NewHabitWithoutUserId;
 };
 
@@ -120,7 +127,7 @@ function TargetField({ onChange, habit }: FieldProps) {
 			<Input.Default
 				style={{
 					width: "95px",
-					fontSize: "0.82rem"
+					fontSize: "0.82rem",
 				}}
 				type="number"
 				name="goal"
@@ -144,7 +151,7 @@ function UnitField({ onChange, habit }: FieldProps) {
 			<Input.Default
 				style={{
 					width: "75px",
-					fontSize: "0.82rem"
+					fontSize: "0.82rem",
 				}}
 				type="text"
 				name="goal_unit"
@@ -195,7 +202,7 @@ function EndDateField({ onChange, habit }: FieldProps) {
 function OccurrenceFields({
 	onChange,
 	habit,
-	maybePlural
+	maybePlural,
 }: FieldProps & {
 	maybePlural: (unit: string) => string;
 }) {
@@ -210,7 +217,10 @@ function OccurrenceFields({
 				name="frequency"
 				onChange={onChange}
 			/>{" "}
-			<S.FixedLengthString>time{habit.frequency > 1 && "s"}</S.FixedLengthString> every
+			<S.FixedLengthString>
+				time{habit.frequency > 1 && "s"}
+			</S.FixedLengthString>{" "}
+			every
 			<Input.Default
 				name="interval"
 				onChange={onChange}
@@ -233,7 +243,7 @@ function OccurrenceFields({
 function ProgressionFields({
 	habit,
 	handleGoalTypeChange,
-	handleInputChange
+	handleInputChange,
 }: {
 	habit: NewHabitWithoutUserId;
 	handleGoalTypeChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

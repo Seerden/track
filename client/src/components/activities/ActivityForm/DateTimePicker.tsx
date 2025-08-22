@@ -1,11 +1,14 @@
+import { LucideHelpCircle } from "lucide-react";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import Input from "@/lib/theme/input";
-import { LucideHelpCircle } from "lucide-react";
 import type { DateTimePickerProps } from "./datetime-picker.types";
 import S from "./style/DateTimePicker.style";
 import useDateTimePicker from "./useDateTimePicker";
 
-export default function DateTimePicker({ onChange, defaultValues }: DateTimePickerProps) {
+export default function DateTimePicker({
+	onChange,
+	defaultValues,
+}: DateTimePickerProps) {
 	const {
 		allDay,
 		manualEndDate,
@@ -15,10 +18,10 @@ export default function DateTimePicker({ onChange, defaultValues }: DateTimePick
 		onAllDayFieldChange,
 		onStartDateFieldChange,
 		onEndDateFieldChange,
-		onTimeFieldChange
+		onTimeFieldChange,
 	} = useDateTimePicker({
 		onChange,
-		defaultValues
+		defaultValues,
 	});
 
 	return (
@@ -45,8 +48,7 @@ export default function DateTimePicker({ onChange, defaultValues }: DateTimePick
 					<S.Info
 						title={
 							"If you do not set an end date, it will default to the start date."
-						}
-					>
+						}>
 						<LucideHelpCircle size={20} />
 					</S.Info>
 				</S.Fields>

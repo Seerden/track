@@ -1,3 +1,8 @@
+import { activityEnd, activityStart, isOverdueTask } from "@lib/activity";
+import { Popover } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
+import { LucideClockAlert } from "lucide-react";
 import { useTask } from "@/components/Today/useTask";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import { formatToHHmm } from "@/lib/datetime/format-date";
@@ -8,11 +13,6 @@ import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import Icons from "@/lib/theme/components/icons";
 import List from "@/lib/theme/components/List.style";
-import { activityEnd, activityStart, isOverdueTask } from "@lib/activity";
-import { Popover } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
-import { LucideClockAlert } from "lucide-react";
 import TagCard from "../tags/TagCard/TagCard";
 import T from "./style/Tasks.style";
 import S from "./style/Today.style";
@@ -35,23 +35,27 @@ export default function Task({ activity }: TaskProps) {
 					// This prevents the task from being opened when the checkbox is
 					// clicked.
 					e.stopPropagation();
-				}}
-			>
-				<Checkbox checked={activity.completed ?? false} onChange={putCompletion} />
+				}}>
+				<Checkbox
+					checked={activity.completed ?? false}
+					onChange={putCompletion}
+				/>
 			</S.CheckboxWrapper>
 
 			{overdue ? (
 				<Containers.Column
-					style={{ height: "100%", justifyContent: "center", alignItems: "center" }}
-				>
+					style={{
+						height: "100%",
+						justifyContent: "center",
+						alignItems: "center",
+					}}>
 					<Popover opened={opened}>
 						<Popover.Target>
 							<Icons.InBadge
 								$color={colors.red.secondary}
 								size={"23px"}
 								onMouseEnter={open}
-								onMouseLeave={close}
-							>
+								onMouseLeave={close}>
 								<LucideClockAlert size={16} strokeWidth={2} />
 							</Icons.InBadge>
 						</Popover.Target>

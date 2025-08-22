@@ -1,6 +1,6 @@
-import { trpc } from "@/lib/trpc";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
+import { trpc } from "@/lib/trpc";
 
 export function useRegisterMutation() {
 	const navigate = useNavigate();
@@ -10,7 +10,7 @@ export function useRegisterMutation() {
 				// TODO: decide: either redirect here, or call the login mutation.
 				// Either way, only do it in one place: here, or in the useRegister hook.
 				navigate({ to: "/login" });
-			}
+			},
 		})
 	);
 }

@@ -25,6 +25,12 @@ export function createDate(date: Datelike) {
 		.local();
 }
 
-export function createFirstOfTheMonth({ month, year }: { month: number; year: number }) {
+export function createFirstOfTheMonth({
+	month,
+	year,
+}: {
+	month: number;
+	year: number;
+}) {
 	return createDate(new Date(year, month)).startOf("month");
 }

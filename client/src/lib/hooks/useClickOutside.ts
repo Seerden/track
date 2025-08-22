@@ -1,12 +1,12 @@
-import { findNearestParentModal } from "@/lib/nearest-modal";
 import type { RefObject } from "react";
 import { useEffect, useState } from "react";
+import { findNearestParentModal } from "@/lib/nearest-modal";
 
 export default function useClickOutside<T extends HTMLElement | null>(
 	ref: RefObject<T>,
 	{
 		handler,
-		initialOpen = false
+		initialOpen = false,
 	}: {
 		initialOpen?: boolean;
 		handler?: (e: MouseEvent) => void;

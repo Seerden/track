@@ -1,8 +1,14 @@
+import { byIdAsList } from "@shared/lib/map";
+import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
+import { useQuery } from "@tanstack/react-query";
+import type { Dayjs } from "dayjs";
+import { useAtom, useAtomValue } from "jotai";
+import { useEffect, useMemo, useState } from "react";
 import {
 	activityEnd,
 	activityFallsOnDay,
 	activityStart,
-	isAllDayActivityOnDate
+	isAllDayActivityOnDate,
 } from "@/lib/activity";
 import { today } from "@/lib/datetime/make-date";
 import { useQueryActivities } from "@/lib/hooks/query/activities/useQueryActivities";
@@ -10,12 +16,6 @@ import useHabitsData from "@/lib/hooks/useHabitsData";
 import { syntheticActivitiesAtom } from "@/lib/state/synthetic-activity-state";
 import { timeWindowAtom } from "@/lib/state/time-window.state";
 import { trpc } from "@/lib/trpc";
-import { byIdAsList } from "@shared/lib/map";
-import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
-import { useQuery } from "@tanstack/react-query";
-import type { Dayjs } from "dayjs";
-import { useAtom, useAtomValue } from "jotai";
-import { useEffect, useMemo, useState } from "react";
 
 /** Functionality hook for the Today component. */
 export default function useToday() {
@@ -28,9 +28,8 @@ export default function useToday() {
 	const { getHabitsForTimeWindow } = useHabitsData();
 	const [currentDate, setCurrentDate] = useState<Dayjs>(() => today());
 	const [timeWindow, setTimeWindow] = useAtom(timeWindowAtom);
-	const { data: overdueTasksData, isFetching: isFetchingOverdueTasks } = useQuery(
-		trpc.activities.tasks.overdue.queryOptions()
-	);
+	const { data: overdueTasksData, isFetching: isFetchingOverdueTasks } =
+		useQuery(trpc.activities.tasks.overdue.queryOptions());
 
 	const isFetching =
 		isFetchingActivities || isFetchingRecurrences || isFetchingOverdueTasks;
@@ -40,13 +39,15 @@ export default function useToday() {
 			setTimeWindow({
 				startDate: currentDate.startOf("day"),
 				endDate: currentDate.endOf("day"),
-				intervalUnit: "day"
+				intervalUnit: "day",
 			});
 		}
 	}, [currentDate]);
 
 	function changeDay(direction: "next" | "previous") {
-		setCurrentDate((current) => current.add(direction === "next" ? 1 : -1, "day"));
+		setCurrentDate((current) =>
+			current.add(direction === "next" ? 1 : -1, "day")
+		);
 	}
 
 	const activities = useMemo(() => {
@@ -116,6 +117,6 @@ export default function useToday() {
 		setCurrentDate,
 		title,
 		changeDay,
-		isFetching
+		isFetching,
 	} as const;
 }

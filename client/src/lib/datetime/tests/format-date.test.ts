@@ -3,7 +3,7 @@ import {
 	formatHour,
 	formatToHHmm,
 	formatToMonthAndYear,
-	formatToYearMonthDay
+	formatToYearMonthDay,
 } from "@/lib/datetime/format-date";
 import { createDate } from "@/lib/datetime/make-date";
 

@@ -1,5 +1,8 @@
 import styled from "@emotion/styled";
-import { LucideChevronLeftCircle, LucideChevronRightCircle } from "lucide-react";
+import {
+	LucideChevronLeftCircle,
+	LucideChevronRightCircle,
+} from "lucide-react";
 import { spacingValue } from "../../snippets/spacing";
 import { Default } from "./Action";
 
@@ -30,13 +33,14 @@ const StyledChangeDayButton = styled(Default)<{
  */
 export default function ChangeDayButton({
 	type,
-	onClick
+	onClick,
 }: {
 	type: "next" | "previous";
 	onClick: (e?: React.MouseEvent<HTMLButtonElement>) => void;
 }) {
 	// TODO: use the same buttons as we do to move back/forward a month in the Calendar.
-	const Icon = type === "next" ? LucideChevronRightCircle : LucideChevronLeftCircle;
+	const Icon =
+		type === "next" ? LucideChevronRightCircle : LucideChevronLeftCircle;
 
 	const size = 20; // TODO: make this responsive
 
@@ -49,8 +53,7 @@ export default function ChangeDayButton({
 			onClick={(e) => {
 				e.stopPropagation();
 				onClick();
-			}}
-		>
+			}}>
 			<Icon size={size} color="white" />
 		</StyledChangeDayButton>
 	);

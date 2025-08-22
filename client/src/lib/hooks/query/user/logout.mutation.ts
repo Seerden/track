@@ -1,8 +1,8 @@
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 import { queryClient } from "@/lib/query-client";
 import { trpc } from "@/lib/trpc";
 import { localUser } from "@/lib/user-storage";
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "@tanstack/react-router";
 
 export function useLogoutMutation() {
 	const navigate = useNavigate();
@@ -18,7 +18,7 @@ export function useLogoutMutation() {
 				// logout, too, instead of doing it here, I think.
 				queryClient.clear();
 				navigate({ to: "/login" });
-			}
+			},
 		})
 	);
 }

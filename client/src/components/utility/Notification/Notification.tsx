@@ -1,5 +1,5 @@
+import { type PropsWithChildren, useState } from "react";
 import NotificationProgressBar from "@/components/utility/Notification/NotificationProgressBar";
-import { useState, type PropsWithChildren } from "react";
 import S from "./style/Notification.style";
 
 export type NotificationType = "error" | "success" | "warning" | "info";
@@ -8,7 +8,7 @@ export type NotificationType = "error" | "success" | "warning" | "info";
  * after `timeout` milliseconds. */
 export default function Notification({
 	children,
-	type
+	type,
 }: PropsWithChildren<{ type: NotificationType }>) {
 	const timeout = 5 * 1000; // by default, notification is visible for 5 seconds
 

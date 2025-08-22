@@ -5,5 +5,5 @@ const Tags = styled.div`
 `;
 
 export default {
-	Tags
+	Tags,
 };

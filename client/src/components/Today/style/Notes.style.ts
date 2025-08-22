@@ -1,5 +1,5 @@
-import { spacing } from "@/lib/theme/snippets/spacing";
 import styled from "@emotion/styled";
+import { spacing } from "@/lib/theme/snippets/spacing";
 import S from "./Today.style";
 
 const Note = styled.li`
@@ -33,5 +33,5 @@ const NoteContent = styled.div`
 export default {
 	Note,
 	NoteTitle,
-	NoteContent
+	NoteContent,
 };

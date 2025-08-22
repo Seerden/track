@@ -1,11 +1,15 @@
-import F from "@/lib/theme/components/form/form.alternate.style";
 import { LucideArrowRight, LucideEye, LucideEyeOff } from "lucide-react";
+import F from "@/lib/theme/components/form/form.alternate.style";
 import S from "../style/auth.style";
 import useRegister from "./useRegister";
 
 function Register() {
-	const { handleInputChange, handleSubmit, passwordVisible, togglePasswordVisible } =
-		useRegister();
+	const {
+		handleInputChange,
+		handleSubmit,
+		passwordVisible,
+		togglePasswordVisible,
+	} = useRegister();
 	return (
 		// TODO: like in the login form, this probably becomes a modal that expands from the navigation/header
 		<S.Wrapper>
@@ -33,9 +37,8 @@ function Register() {
 							style={{
 								display: "flex",
 								flexDirection: "row",
-								gap: "0.5rem"
-							}}
-						>
+								gap: "0.5rem",
+							}}>
 							<F.Label>
 								<span>password</span>
 								<div style={{ position: "relative" }}>
@@ -49,8 +52,7 @@ function Register() {
 										tabIndex={-1}
 										type="button"
 										onClick={togglePasswordVisible}
-										value={`${passwordVisible ? "Hide" : "Show"} password`}
-									>
+										value={`${passwordVisible ? "Hide" : "Show"} password`}>
 										{passwordVisible ? (
 											<LucideEyeOff size={24} />
 										) : (
@@ -72,8 +74,7 @@ function Register() {
 										tabIndex={-1}
 										type="button"
 										onClick={togglePasswordVisible}
-										value={`${passwordVisible ? "Hide" : "Show"} password`}
-									>
+										value={`${passwordVisible ? "Hide" : "Show"} password`}>
 										{passwordVisible ? (
 											<LucideEyeOff size={24} />
 										) : (

@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import Buttons from "@/lib/theme/components/buttons";
 import formStyle from "@/lib/theme/components/form.style";
 import Input from "@/lib/theme/input";
@@ -6,7 +7,6 @@ import { noBorders } from "@/lib/theme/snippets/border";
 import { border, outline } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
-import styled from "@emotion/styled";
 
 const Trigger = styled(Buttons.Unstyled)`
 	${spacing.padding.small};
@@ -94,5 +94,5 @@ export default {
 	NumberInput,
 	Select,
 	ActionBar,
-	Label
+	Label,
 };

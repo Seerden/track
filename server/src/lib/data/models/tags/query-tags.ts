@@ -1,4 +1,3 @@
-import { sqlConnection } from "@/db/init";
 import type { TagWithId } from "@shared/lib/schemas/tag";
 import type {
 	ActivityTagRelation,
@@ -6,6 +5,7 @@ import type {
 } from "@shared/types/data/relational.types";
 import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
+import { sqlConnection } from "@/db/init";
 
 /** Get all of a user's tags. */
 export const queryTagsByUser: QueryFunction<

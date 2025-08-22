@@ -1,7 +1,7 @@
 import type { AtLeast, HasUserIdField, ID } from "./utility.types";
 
 function hasUserId<T extends HasUserIdField<unknown>>(
-	thing: T,
+	thing: T
 ): thing is AtLeast<T, "user_id"> {
 	return "user_id" in thing && thing.user_id !== null;
 }
@@ -15,7 +15,7 @@ function hasUserId<T extends HasUserIdField<unknown>>(
  * same thing for other data types, making this function obsolete.
  */
 export function hasValidUserId<T extends HasUserIdField<unknown>>(
-	thing: T,
+	thing: T
 ): thing is T & { user_id: ID } {
 	return (
 		hasUserId(thing) &&

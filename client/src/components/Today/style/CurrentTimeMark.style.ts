@@ -1,6 +1,6 @@
-import { radius } from "@/lib/theme/snippets/radius";
 import styled from "@emotion/styled";
 import type { CSSProperties } from "react";
+import { radius } from "@/lib/theme/snippets/radius";
 
 const markColor: CSSProperties["color"] = "orangered";
 
@@ -29,5 +29,5 @@ const CurrentTimeMark = styled.div<{ $offset: number }>`
 
 export default {
 	CurrentTimeMark,
-	Circle
+	Circle,
 };

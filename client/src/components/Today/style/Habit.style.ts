@@ -1,7 +1,7 @@
+import styled from "@emotion/styled";
 import ListStyle from "@/lib/theme/components/List.style";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import styled from "@emotion/styled";
 
 const Wrapper = styled(ListStyle.Item)`
 	position: relative;
@@ -25,5 +25,5 @@ const CompletionWrapper = styled.div`
 
 export default {
 	Wrapper,
-	CompletionWrapper
+	CompletionWrapper,
 };

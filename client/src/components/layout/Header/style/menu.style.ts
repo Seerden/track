@@ -1,10 +1,10 @@
+import styled from "@emotion/styled";
 import Buttons from "@/lib/theme/components/buttons";
 import { font } from "@/lib/theme/font";
 import { border, outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
-import styled from "@emotion/styled";
 
 const Menu = styled.div`
 	${flex.column};
@@ -138,5 +138,5 @@ export default {
 	MenuSection,
 	LinkCards,
 	LinkCard,
-	TriggerButton
+	TriggerButton,
 };

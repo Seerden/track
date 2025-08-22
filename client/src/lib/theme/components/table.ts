@@ -1,10 +1,10 @@
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 import { subgridItem } from "@/lib/theme/snippets/subgrid";
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
 
 // shared styles between the items and the header -- see TableItem.style (needs
 // to be moved to lib/theme)
@@ -61,10 +61,10 @@ const Table = {
 	Header: {
 		Dark: {
 			Wrapper: HeaderDark,
-			Field: HeaderDarkField
-		}
+			Field: HeaderDarkField,
+		},
 	},
-	Cell
+	Cell,
 };
 
 export default Table;

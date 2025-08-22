@@ -5,8 +5,8 @@ export const postConfig: RequestInit = {
 	credentials: "include",
 	headers: {
 		Accept: "application/json",
-		"Content-Type": "application/json"
-	}
+		"Content-Type": "application/json",
+	},
 };
 
 export const putConfig: RequestInit = {
@@ -14,8 +14,8 @@ export const putConfig: RequestInit = {
 	credentials: "include",
 	headers: {
 		Accept: "application/json",
-		"Content-Type": "application/json"
-	}
+		"Content-Type": "application/json",
+	},
 };
 
 export const deleteConfig: RequestInit = {
@@ -23,6 +23,6 @@ export const deleteConfig: RequestInit = {
 	credentials: "include",
 	headers: {
 		Accept: "application/json",
-		"Content-Type": "application/json"
-	}
+		"Content-Type": "application/json",
+	},
 };

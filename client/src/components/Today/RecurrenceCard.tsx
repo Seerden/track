@@ -1,12 +1,12 @@
+import styled from "@emotion/styled";
+import type { Recurrence } from "@shared/lib/schemas/activity";
+import { LucideRepeat } from "lucide-react";
+import type { ReactNode } from "react";
 import { colors } from "@/lib/theme/colors";
 import Containers from "@/lib/theme/components/container.style";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
-import styled from "@emotion/styled";
-import type { Recurrence } from "@shared/lib/schemas/activity";
-import { LucideRepeat } from "lucide-react";
-import type { ReactNode } from "react";
 
 export function RecurrenceCard({ recurrence }: { recurrence: Recurrence }) {
 	return (
@@ -14,9 +14,8 @@ export function RecurrenceCard({ recurrence }: { recurrence: Recurrence }) {
 			gap="small"
 			style={{
 				alignItems: "center",
-				maxWidth: "300px"
-			}}
-		>
+				maxWidth: "300px",
+			}}>
 			<span
 				// TODO: this is a badge, put it in style/badges or something
 				style={{
@@ -26,9 +25,8 @@ export function RecurrenceCard({ recurrence }: { recurrence: Recurrence }) {
 					display: "flex",
 					alignItems: "center",
 					justifyContent: "center",
-					padding: "3px"
-				}}
-			>
+					padding: "3px",
+				}}>
 				<LucideRepeat size={"15px"} color="black" />
 			</span>
 			{recurrence.frequency === "calendar" ? (
@@ -99,7 +97,8 @@ function CalendarRecurrenceCard({ recurrence }: { recurrence: Recurrence }) {
 	return (
 		<Containers.Column gap="small">
 			<p role="heading">
-				Occurs on these days every {recurrence.weekdays?.length ? "week" : "month"}:
+				Occurs on these days every{" "}
+				{recurrence.weekdays?.length ? "week" : "month"}:
 			</p>
 			<Container>{badges}</Container>
 		</Containers.Column>

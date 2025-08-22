@@ -6,15 +6,15 @@ import { trpc } from "@/lib/trpc";
  */
 export function invalidateActivities() {
 	queryClient.invalidateQueries({
-		queryKey: trpc.activities.all.queryKey()
+		queryKey: trpc.activities.all.queryKey(),
 	});
 	queryClient.invalidateQueries({
-		queryKey: trpc.activities.recurring.queryKey()
+		queryKey: trpc.activities.recurring.queryKey(),
 	});
 	queryClient.invalidateQueries({
-		queryKey: trpc.activities.recurrences.all.queryKey()
+		queryKey: trpc.activities.recurrences.all.queryKey(),
 	});
 	queryClient.invalidateQueries({
-		queryKey: trpc.activities.tasks.overdue.queryKey()
+		queryKey: trpc.activities.tasks.overdue.queryKey(),
 	});
 }

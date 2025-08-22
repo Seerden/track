@@ -1,3 +1,5 @@
+import { groupById } from "@shared/lib/map";
+import { z } from "@shared/lib/zod";
 import {
 	queryOccurrencesByRecurrence,
 	queryOccurrencesByUser,
@@ -8,15 +10,13 @@ import {
 	queryRecurrencesByUser,
 } from "@/lib/data/models/activities/query-recurrences";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
-import { groupById } from "@shared/lib/map";
-import { z } from "@shared/lib/zod";
 
 export const _queryOccurrencesByUser = authenticatedProcedure.query(
 	async ({ ctx: { req } }) => {
 		return await queryOccurrencesByUser({
 			user_id: req.session.user.user_id,
 		});
-	},
+	}
 );
 
 export const _queryOccurrencesByRecurrence = authenticatedProcedure
@@ -28,12 +28,14 @@ export const _queryOccurrencesByRecurrence = authenticatedProcedure
 		});
 	});
 
-export const _getRecurrencesByUser = authenticatedProcedure.query(async ({ ctx }) => {
-	return groupById(
-		await queryRecurrencesByUser({ user_id: ctx.req.session.user.user_id }),
-		"recurrence_id",
-	);
-});
+export const _getRecurrencesByUser = authenticatedProcedure.query(
+	async ({ ctx }) => {
+		return groupById(
+			await queryRecurrencesByUser({ user_id: ctx.req.session.user.user_id }),
+			"recurrence_id"
+		);
+	}
+);
 
 export const _getRecurrenceByActivity = authenticatedProcedure
 	.input(
@@ -46,7 +48,7 @@ export const _getRecurrenceByActivity = authenticatedProcedure
 				activity_id: z.null(),
 				synthetic_id: z.string(),
 			}),
-		]),
+		])
 	)
 	.query(async ({ input, ctx }) => {
 		return await queryRecurrenceByActivity({

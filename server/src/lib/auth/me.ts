@@ -1,5 +1,5 @@
-import { queryUserbyId } from "@/lib/data/models/user/query-user";
 import type { Request, Response } from "express";
+import { queryUserbyId } from "@/lib/data/models/user/query-user";
 
 /** Request handler that returns the active user, or an error message. */
 export async function getMe({ req, res }: { req: Request; res: Response }) {

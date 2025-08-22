@@ -1,13 +1,13 @@
-import { useMutateNewTag } from "@/lib/hooks/query/tags/useMutateNewTag";
-import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
-import modalIds from "@/lib/modal-ids";
-import { useModalState } from "@/lib/state/modal-state";
-import { trpc } from "@/lib/trpc";
 import useAuthentication from "@lib/hooks/useAuthentication";
 import { queryClient } from "@lib/query-client";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import type { NewTag } from "@shared/lib/schemas/tag";
 import { useEffect, useState } from "react";
+import { useMutateNewTag } from "@/lib/hooks/query/tags/useMutateNewTag";
+import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
+import modalIds from "@/lib/modal-ids";
+import { useModalState } from "@/lib/state/modal-state";
+import { trpc } from "@/lib/trpc";
 
 export default function useNewTag() {
 	const { currentUser } = useAuthentication();
@@ -16,8 +16,9 @@ export default function useNewTag() {
 
 	const [newTag, setNewTag] = useState<NewTag>({
 		name: "",
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		user_id: currentUser!.user_id // TODO: find a way to refine this typing so that currentUser cannot be undefined here
+		// TODO: remove userId here nad handle it server-side
+		// biome-ignore lint/style/noNonNullAssertion: ^
+		user_id: currentUser!.user_id,
 	});
 
 	const { selectedTagIds, resetTagSelection } = useTagSelection();
@@ -46,7 +47,7 @@ export default function useNewTag() {
 				onSuccess: () => {
 					queryClient.invalidateQueries({ queryKey: trpc.tags.all.queryKey() });
 					closeModal(modalIds.tagSelector.activityForm);
-				}
+				},
 			}
 		);
 	}
@@ -54,6 +55,6 @@ export default function useNewTag() {
 	return {
 		onInputChange,
 		onSubmit,
-		tags
+		tags,
 	};
 }

@@ -1,9 +1,9 @@
+import styled from "@emotion/styled";
+import type { CSSProperties } from "react";
 import { getFontSize } from "@/lib/theme/font";
 import { outline } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import styled from "@emotion/styled";
-import type { CSSProperties } from "react";
 
 const Badge = styled.div<{ height?: CSSProperties["height"] }>`
 	user-select: none;
@@ -20,7 +20,7 @@ const Badge = styled.div<{ height?: CSSProperties["height"] }>`
 `;
 
 const BadgeStyles = {
-	Badge
+	Badge,
 };
 
 export default BadgeStyles;

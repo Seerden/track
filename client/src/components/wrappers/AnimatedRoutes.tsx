@@ -1,10 +1,10 @@
-import Header from "@/components/layout/Header/Header";
-import DetailModals from "@/components/utility/Modal/DetailModals";
-import PageWrapper from "@/lib/theme/snippets/page";
 import { ErrorBoundary } from "@sentry/react";
 import { getRouterContext, Outlet, useLocation } from "@tanstack/react-router";
 import { AnimatePresence, motion, useIsPresent } from "framer-motion";
-import { forwardRef, Fragment, useContext, useRef } from "react";
+import { Fragment, forwardRef, useContext, useRef } from "react";
+import Header from "@/components/layout/Header/Header";
+import DetailModals from "@/components/utility/Modal/DetailModals";
+import PageWrapper from "@/lib/theme/snippets/page";
 
 /**
  * @see https://stackoverflow.com/questions/74190609/exit-animations-with-animatepresence-framer-motion-and-createbrowserrouter-r

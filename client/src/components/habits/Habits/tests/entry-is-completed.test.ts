@@ -1,9 +1,9 @@
-import { habitEntryIsDone } from "@/components/habits/Habits/entry-is-completed";
 import type {
 	HabitEntry,
 	HabitWithEntries,
-	SyntheticHabitEntry
+	SyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
+import { habitEntryIsDone } from "@/components/habits/Habits/entry-is-completed";
 
 const habit: HabitWithEntries = {
 	habit_id: "1",
@@ -20,7 +20,7 @@ const habit: HabitWithEntries = {
 	goal_unit: "test unit",
 	goal: 2,
 	tag_ids: ["1"],
-	entry_ids: ["1"]
+	entry_ids: ["1"],
 };
 
 describe("entry-is-completed", () => {
@@ -30,7 +30,7 @@ describe("entry-is-completed", () => {
 			date: 1,
 			index: 1,
 			created_at: 1,
-			synthetic: true
+			synthetic: true,
 		};
 		expect(habitEntryIsDone({ habit, entry: syntheticEntry })).toBe(false);
 	});
@@ -43,7 +43,7 @@ describe("entry-is-completed", () => {
 			created_at: 1,
 			habit_entry_id: "1",
 			user_id: "1",
-			value: "2"
+			value: "2",
 		};
 		expect(habitEntryIsDone({ habit, entry })).toBe(true);
 
@@ -61,7 +61,7 @@ describe("entry-is-completed", () => {
 			created_at: 1,
 			habit_entry_id: "1",
 			user_id: "1",
-			value: "true"
+			value: "true",
 		};
 		expect(habitEntryIsDone({ habit: checkboxHabit, entry })).toBe(true);
 

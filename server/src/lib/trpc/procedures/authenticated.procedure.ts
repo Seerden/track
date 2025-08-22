@@ -1,7 +1,7 @@
-import { publicProcedure } from "@/lib/trpc/procedures/public.procedure";
 import type { User } from "@shared/lib/schemas/user";
 import { TRPCError } from "@trpc/server";
 import type { Session, SessionData } from "express-session";
+import { publicProcedure } from "@/lib/trpc/procedures/public.procedure";
 
 export const authenticatedProcedure = publicProcedure.use(async (opts) => {
 	if (!opts.ctx.req.session.user) {

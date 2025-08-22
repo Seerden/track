@@ -1,8 +1,8 @@
-import { queryUserByName } from "@/lib/data/models/user/query-user";
 import type { NewUser } from "@shared/lib/schemas/user";
 import { TRPCError } from "@trpc/server";
 import { compare } from "bcryptjs";
 import type { Request, Response } from "express";
+import { queryUserByName } from "@/lib/data/models/user/query-user";
 import { destroySession } from "./destroy-session";
 
 /** Request handler. If login info is valid, (re-)set the session. */
@@ -26,7 +26,10 @@ export async function login(user: NewUser, req: Request, res: Response) {
 		});
 	}
 
-	req.session.user = { user_id: foundUser.user_id, username: foundUser.username }; // could also regenerate()
+	req.session.user = {
+		user_id: foundUser.user_id,
+		username: foundUser.username,
+	}; // could also regenerate()
 
 	return { user: foundUser };
 }
