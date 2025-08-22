@@ -15,8 +15,7 @@ export const queryActivities = authenticatedProcedure
 	.query(async ({ ctx, input }) => {
 		const activities = await queryActivitiesAndRelations({
 			user_id: ctx.req.session.user.user_id,
-			from: input?.from,
-			to: input?.to,
+			...input,
 		});
 		return activities;
 	});

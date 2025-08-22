@@ -2,8 +2,8 @@ import {
 	useMutateNewActivity,
 	useMutateNewRecurringActivity
 } from "@/lib/hooks/query/activities/useMutateNewActivity";
+import { invalidateActivities } from "@/lib/hooks/query/invalidate";
 import type { ModalId } from "@/lib/modal-ids";
-import { queryClient } from "@/lib/query-client";
 import { useModalState } from "@/lib/state/modal-state";
 import { useTagSelection } from "@/lib/state/selected-tags-state";
 import { trpc } from "@/lib/trpc";
@@ -46,12 +46,7 @@ export function useSubmitUpdatedActivity({
 			},
 			{
 				onSuccess: () => {
-					queryClient.invalidateQueries({
-						queryKey: trpc.activities.all.queryKey()
-					});
-					queryClient.invalidateQueries({
-						queryKey: trpc.activities.recurrences.all.queryKey()
-					});
+					invalidateActivities();
 
 					if (modalId) {
 						closeModal(modalId);
@@ -93,12 +88,13 @@ export function useSubmitNewActivity({
 	const { closeModal } = useModalState();
 
 	function handleSuccess() {
-		queryClient.invalidateQueries({ queryKey: trpc.activities.all.queryKey() });
-		queryClient.invalidateQueries({
-			queryKey: trpc.activities.recurrences.all.queryKey()
-		});
-		if (modalId) closeModal(modalId);
-		else navigate({ to: "/today" });
+		invalidateActivities();
+
+		if (modalId) {
+			closeModal(modalId);
+		} else {
+			navigate({ to: "/today" });
+		}
 	}
 
 	function handleSubmit() {

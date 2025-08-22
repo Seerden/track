@@ -123,13 +123,16 @@ function compressIndentation({
 	}
 }
 
+/** Check if there is a gap on the timeline (at a given level `activities` are
+ * assumed to already be filtered by level outside of this function) in which
+ * `activity` can fit. */
 function activityFallsInGap(
 	activity: PossiblySyntheticActivity,
 	/** assume activities are sorted in time, and further by duration */
 	activities: PossiblySyntheticActivity[],
-	/** timestamp for start of day */
+	/** timestamp for start of window */
 	start: Dayjs,
-	/** timestamp for end of day */
+	/** timestamp for end of window */
 	end: Dayjs
 ) {
 	const count = activities.length;

@@ -1,14 +1,15 @@
-import { queryClient } from "@/lib/query-client";
 import { trpc } from "@/lib/trpc";
 import { useMutation } from "@tanstack/react-query";
+import { invalidateActivities } from "../invalidate";
 
 export function useMutateNewActivity() {
 	return useMutation(
 		trpc.activities.create.mutationOptions({
+			// TODO: the onSuccess handlers in this file are the same right now,
+			// but I can see a situation where they diverge in the future, so I'm
+			// not gonna abstract them into a single onSuccess function.
 			onSuccess: () => {
-				queryClient.invalidateQueries({
-					queryKey: trpc.activities.all.queryKey()
-				});
+				invalidateActivities();
 			}
 		})
 	);
@@ -18,12 +19,7 @@ export function useMutateNewRecurringActivity() {
 	return useMutation(
 		trpc.activities.createRecurring.mutationOptions({
 			onSuccess: () => {
-				queryClient.invalidateQueries({
-					queryKey: trpc.activities.all.queryKey()
-				});
-				queryClient.invalidateQueries({
-					queryKey: trpc.activities.recurrences.all.queryKey()
-				});
+				invalidateActivities();
 			}
 		})
 	);
@@ -34,12 +30,7 @@ export function useMutateNewSyntheticActivity() {
 	return useMutation(
 		trpc.activities.createFromSynthetic.mutationOptions({
 			onSuccess: () => {
-				queryClient.invalidateQueries({
-					queryKey: trpc.activities.all.queryKey()
-				});
-				queryClient.invalidateQueries({
-					queryKey: trpc.activities.recurrences.all.queryKey()
-				});
+				invalidateActivities();
 			}
 		})
 	);
