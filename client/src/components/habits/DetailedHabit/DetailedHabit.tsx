@@ -61,7 +61,7 @@ export default function DetailedHabit({ habit }: PropsWithChildren<DetailedHabit
 							}}
 						>
 							{/* TODO: See #176 */}
-							{tags.get(String(id))?.name}
+							{tags.get(id)?.name}
 						</C.Tag>
 					))}
 				</C.Tags>

@@ -99,7 +99,7 @@ export default function DetailedActivity({
 					}}
 				>
 					{activity.tag_ids.map((id) => {
-						const tag = tags.get(String(id));
+						const tag = tags.get(id);
 						if (!tag) return null;
 						return (
 							<S.Tag

@@ -5,7 +5,7 @@ import type { ID } from "@shared/types/data/utility.types";
  * @todo I know for a fact I already have something like this somewhere. *
  */
 export function getTag({ id, tags }: { id: ID; tags: TagsInTree }) {
-	const tag = tags.get(String(id));
+	const tag = tags.get(id);
 	if (!tag) return null;
 	return tag;
 }
