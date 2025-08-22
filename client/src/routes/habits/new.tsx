@@ -4,7 +4,7 @@ import Page from "@/lib/theme/snippets/page";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/habits/new")({
-	component: RouteComponent
+	component: RouteComponent,
 });
 
 function RouteComponent() {

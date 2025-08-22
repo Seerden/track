@@ -5,43 +5,43 @@ const baseColors = {
 		main: "indigo",
 		secondary: "blueviolet",
 		tertiary: "darkorchid",
-		dark: "darkviolet"
+		dark: "darkviolet",
 	},
 	blue: {
 		main: "dodgerblue",
-		secondary: "deepskyblue"
+		secondary: "deepskyblue",
 	},
 	darkBlue: {
 		main: "royalblue",
-		secondary: "dodgerblue"
+		secondary: "dodgerblue",
 	},
 	yellow: {
 		main: "hsl(54, 100.00%, 50.00%)",
-		secondary: "gold"
+		secondary: "gold",
 	},
 	orange: {
 		main: "orange",
-		secondary: "darkorange"
+		secondary: "darkorange",
 	},
 	red: {
 		main: "tomato",
-		secondary: "orangered"
+		secondary: "orangered",
 	},
 	green: {
 		main: "forestgreen",
-		secondary: "limegreen"
-	}
+		secondary: "limegreen",
+	},
 };
 
 const mainAndSecondary = {
 	theme: {
 		main: "#e8e8e8",
-		secondary: "#ddd"
+		secondary: "#ddd",
 	},
 	themeInverted: {
 		main: "#666",
-		secondary: "#999"
-	}
+		secondary: "#999",
+	},
 };
 
 const tintColors = {
@@ -53,8 +53,8 @@ const tintColors = {
 	shade: {
 		primary: "#ccc",
 		secondary: "#bbb",
-		tertiary: "#aaa"
-	}
+		tertiary: "#aaa",
+	},
 };
 
 const highlightColors = {
@@ -65,14 +65,14 @@ const highlightColors = {
 	warning: baseColors.red.secondary,
 	danger: baseColors.red.main,
 	light: "azure",
-	dark: "#333"
+	dark: "#333",
 };
 
 export const colors = {
 	...baseColors,
 	...mainAndSecondary,
 	highlight: highlightColors,
-	tint: tintColors
+	tint: tintColors,
 };
 
 export type ColorKey = keyof typeof baseColors | keyof typeof mainAndSecondary;

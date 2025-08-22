@@ -9,7 +9,9 @@ import type { TagInTree } from "@shared/lib/schemas/tag";
 import type { MapById } from "@shared/types/data/utility.types";
 
 export const queryTags = authenticatedProcedure.query(async ({ ctx }) => {
-	const tags = await getTagsWithRelations({ user_id: ctx.req.session.user.user_id });
+	const tags = await getTagsWithRelations({
+		user_id: ctx.req.session.user.user_id,
+	});
 	const treeDepth = buildTagDepthTree(tags);
 
 	const tagsInTree: MapById<TagInTree> = new Map();
@@ -30,6 +32,8 @@ export const queryTags = authenticatedProcedure.query(async ({ ctx }) => {
 });
 
 export const queryTagTree = authenticatedProcedure.query(async ({ ctx }) => {
-	const tags = await getTagsWithRelations({ user_id: ctx.req.session.user.user_id });
+	const tags = await getTagsWithRelations({
+		user_id: ctx.req.session.user.user_id,
+	});
 	return createTagTreeMap(tags);
 });

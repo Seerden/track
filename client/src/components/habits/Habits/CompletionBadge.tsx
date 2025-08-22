@@ -3,7 +3,7 @@ import CircularProgress from "@/components/utility/CircularProgress/CircularProg
 import type {
 	HabitEntry,
 	HabitWithEntries,
-	SyntheticHabitEntry
+	SyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
 import S from "./style/CompletionBadge.style";
 
@@ -12,7 +12,10 @@ type CompletionBadgeProps = {
 	entries: Array<HabitEntry | SyntheticHabitEntry>;
 };
 
-export default function CompletionBadge({ habit, entries }: CompletionBadgeProps) {
+export default function CompletionBadge({
+	habit,
+	entries,
+}: CompletionBadgeProps) {
 	const completedCount = entries.filter((entry) =>
 		habitEntryIsDone({ habit, entry })
 	).length;

@@ -26,5 +26,5 @@ const InfoFields = styled.section`
 
 export default {
 	DetailedHabitCard,
-	InfoFields
+	InfoFields,
 };

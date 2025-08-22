@@ -61,10 +61,10 @@ const Table = {
 	Header: {
 		Dark: {
 			Wrapper: HeaderDark,
-			Field: HeaderDarkField
-		}
+			Field: HeaderDarkField,
+		},
 	},
-	Cell
+	Cell,
 };
 
 export default Table;

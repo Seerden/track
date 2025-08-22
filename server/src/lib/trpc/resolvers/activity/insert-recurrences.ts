@@ -14,10 +14,12 @@ export const createOccurrence = authenticatedProcedure
 
 export const _createRecurrence = authenticatedProcedure
 	.input(createRecurrenceInputSchema)
-	.mutation(async ({ ctx: { req }, input: { activity_id, ...newRecurrence } }) => {
-		createRecurrence({
-			...newRecurrence,
-			activity_id,
-			user_id: req.session.user.user_id,
-		});
-	});
+	.mutation(
+		async ({ ctx: { req }, input: { activity_id, ...newRecurrence } }) => {
+			createRecurrence({
+				...newRecurrence,
+				activity_id,
+				user_id: req.session.user.user_id,
+			});
+		}
+	);

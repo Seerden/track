@@ -16,6 +16,6 @@ export default function useAuthentication() {
 		login,
 		logout,
 		isLoggedIn,
-		currentUser
+		currentUser,
 	};
 }

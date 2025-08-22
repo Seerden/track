@@ -14,5 +14,5 @@ function ActivityOverviewPage() {
 }
 
 export const Route = createFileRoute("/activities/")({
-	component: ActivityOverviewPage
+	component: ActivityOverviewPage,
 });

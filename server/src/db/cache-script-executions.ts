@@ -4,7 +4,7 @@ import { sqlConnection } from "@/db/init";
 import { redisClient } from "@/lib/redis/redis-client";
 
 const databaseScriptCacheKey = {
-	up: "database-scripts:up"
+	up: "database-scripts:up",
 };
 
 /** Gets the list of .sql files that have been run. */
@@ -74,7 +74,7 @@ const databaseScriptCache = {
 	list: getExecutedScriptNames,
 	check: scriptHasRun,
 	set: markScriptAsRun,
-	synchronize: runAndCacheNewScripts
+	synchronize: runAndCacheNewScripts,
 };
 
 export default databaseScriptCache;

@@ -14,8 +14,7 @@ export default function Suspended(props: PropsWithChildren) {
 				<Page>
 					<DefaultSkeleton />
 				</Page>
-			}
-		>
+			}>
 			{props.children}
 		</Suspense>
 	);

@@ -18,7 +18,12 @@ type RowProps = {
 	indentation: Map<ID, number>;
 };
 
-export default function TimelineRow({ date, index, activities, indentation }: RowProps) {
+export default function TimelineRow({
+	date,
+	index,
+	activities,
+	indentation,
+}: RowProps) {
 	const currentTime = useCurrentTime();
 	const isCurrentHour = isToday(date) && currentTime.hour() === index;
 	const offset = currentTime.minute() / 60;

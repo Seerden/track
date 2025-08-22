@@ -12,5 +12,5 @@ const Row = styled.li<{ $collapsed?: boolean }>`
 `;
 
 export default {
-	Row
+	Row,
 };

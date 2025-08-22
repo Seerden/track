@@ -13,5 +13,5 @@ const Button = styled(Buttons.Action.Default)<{
 `;
 
 export default {
-	Button
+	Button,
 };

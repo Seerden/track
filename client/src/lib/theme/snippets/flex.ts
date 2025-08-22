@@ -21,5 +21,5 @@ export const flex = {
 		${flexBase};
 		justify-content: center;
 		align-items: center;
-	`
+	`,
 };

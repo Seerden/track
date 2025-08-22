@@ -20,5 +20,5 @@ const Empty = styled.p`
 `;
 
 export default {
-	Empty
+	Empty,
 };

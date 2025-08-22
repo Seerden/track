@@ -6,10 +6,10 @@ import type { QueryFunction } from "types/sql.types";
 import { mergeNotesAndRelations } from "./merge-notes-and-relations";
 
 /** Get all of a user's notes. */
-export const queryNotesByUser: QueryFunction<{ user_id: ID }, Promise<Note[]>> = async ({
-	sql = sqlConnection,
-	user_id,
-}) => {
+export const queryNotesByUser: QueryFunction<
+	{ user_id: ID },
+	Promise<Note[]>
+> = async ({ sql = sqlConnection, user_id }) => {
 	return sql<Note[]>`
       select * from notes where user_id = ${user_id}
    `;

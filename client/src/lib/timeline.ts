@@ -2,6 +2,7 @@
  * this, where we know that the thing being asserted exists because of e.g.
  * array-length checks or previous conditionals that typescript doesn't
  * propagate. */
+
 import { isNullish } from "@shared/lib/is-nullish";
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { ID } from "@shared/types/data/utility.types";
@@ -16,7 +17,7 @@ import {
 	getAllStartAndEndTimesOnDate,
 	isSimultaneousActivity,
 	sortActivitiesByTime,
-	timeSort
+	timeSort,
 } from "./activity";
 
 /**
@@ -89,7 +90,7 @@ export function assignIndentationLevelToActivities(
 function compressIndentation({
 	date,
 	indentation,
-	activities
+	activities,
 }: {
 	date: Dayjs;
 	indentation: Map<ID, number>;
@@ -185,7 +186,7 @@ function firstOverlappingActivity(
 ) {
 	// this is an array with a slot (empty array) for each level of indentation
 	const idsByLevel = Array.from({
-		length: 1 + Math.max(...indentation.values())
+		length: 1 + Math.max(...indentation.values()),
 	}).map((index) =>
 		[...indentation.entries()]
 			.filter(([_, level]) => level === index)

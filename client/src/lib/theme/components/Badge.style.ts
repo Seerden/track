@@ -20,7 +20,7 @@ const Badge = styled.div<{ height?: CSSProperties["height"] }>`
 `;
 
 const BadgeStyles = {
-	Badge
+	Badge,
 };
 
 export default BadgeStyles;

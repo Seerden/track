@@ -3,7 +3,7 @@ import { Protected } from "@/components/wrappers";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/notes/new")({
-	component: NewNotePage
+	component: NewNotePage,
 });
 
 function NewNotePage() {

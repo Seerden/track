@@ -69,5 +69,5 @@ export default {
 	ItemList,
 	Item,
 	ItemName,
-	Info
+	Info,
 };

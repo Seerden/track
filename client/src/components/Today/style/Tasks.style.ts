@@ -25,13 +25,17 @@ const Tasks = styled(Containers.Column)`
 	gap: ${spacingValue.medium}; // same as Habits
 `;
 
-const Task = styled(ListStyle.Item)<{ $completed?: boolean; overdue?: boolean }>`
+const Task = styled(ListStyle.Item)<{
+	$completed?: boolean;
+	overdue?: boolean;
+}>`
 	cursor: unset;
 	max-width: 500px; // same as Habit
 	display: grid;
 	gap: 1rem;
-	grid-template-columns: 30px ${(p) => (p.overdue ? "max-content" : "10ch")} ${(p) =>
-			p.overdue ? "210px" : "175px"} 1fr;
+	grid-template-columns: 30px ${(p) => (p.overdue ? "max-content" : "10ch")} ${(
+		p
+	) => (p.overdue ? "210px" : "175px")} 1fr;
 
 	${(p) =>
 		p.$completed &&
@@ -46,5 +50,5 @@ export default {
 	TasksWrapper,
 	Times,
 	Tasks,
-	Task
+	Task,
 };

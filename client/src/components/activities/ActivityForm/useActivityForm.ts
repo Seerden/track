@@ -6,14 +6,18 @@ import {
 	type NewRecurrenceInput,
 	type PossiblySyntheticActivity,
 	type WithDates,
-	type WithTimestamps
+	type WithTimestamps,
 } from "@shared/lib/schemas/activity";
 import type { DayOfWeek, IntervalUnit } from "@shared/types/data/utility.types";
 import { produce } from "immer";
 import { useEffect, useMemo, useState } from "react";
 import type { ActivityState } from "./activity-state.types";
 import { createDefaultActivity } from "./create-default-activity";
-import { defaultRecurrence, FREQUENCY, INTERVAL_UNIT } from "./RecurrenceForm/constants";
+import {
+	defaultRecurrence,
+	FREQUENCY,
+	INTERVAL_UNIT,
+} from "./RecurrenceForm/constants";
 import { useSubmitNewActivity, useSubmitUpdatedActivity } from "./useSubmit";
 
 type UpdateRecurrencePayload =
@@ -37,7 +41,7 @@ type SetRecurrenceSelection =
 export default function useActivityForm({
 	initialIsTask = false,
 	modalId,
-	activity: existingActivity
+	activity: existingActivity,
 }: {
 	initialIsTask?: boolean;
 	modalId?: ModalId;
@@ -51,7 +55,7 @@ export default function useActivityForm({
 				started_at: existingActivity.started_at,
 				ended_at: existingActivity.ended_at,
 				start_date: existingActivity.start_date,
-				end_date: existingActivity.end_date
+				end_date: existingActivity.end_date,
 			} as WithDates | WithTimestamps)
 		: undefined;
 
@@ -63,7 +67,8 @@ export default function useActivityForm({
 	const validActivity = useMemo(() => {
 		return newActivityInputSchema.safeParse(activity).success;
 	}, [activity]);
-	const [recurrence, setRecurrence] = useState<NewRecurrenceInput>(defaultRecurrence);
+	const [recurrence, setRecurrence] =
+		useState<NewRecurrenceInput>(defaultRecurrence);
 	const intervalUnitSuffix = recurrence.interval > 1 ? "s" : "";
 	// TODO: this should just be a validation using one of the recurrence schemas, no?
 	const validRecurrence =
@@ -71,25 +76,31 @@ export default function useActivityForm({
 		(recurrence.frequency === FREQUENCY.CALENDAR &&
 			Boolean(recurrence.monthdays?.length || !!recurrence.weekdays?.length));
 
-	const { handleSubmit: handleSubmitUpdateActivity } = useSubmitUpdatedActivity({
-		activity,
-		modalId
-	});
+	const { handleSubmit: handleSubmitUpdateActivity } = useSubmitUpdatedActivity(
+		{
+			activity,
+			modalId,
+		}
+	);
 	const { handleSubmit: handleSubmitCreateActivity } = useSubmitNewActivity({
 		activity,
 		modalId,
 		recurrence,
-		isRecurring
+		isRecurring,
 	});
 
 	useEffect(() => {
-		isEditing ? setTagSelectionFromList(existingActivity.tag_ids) : resetTagSelection();
+		isEditing
+			? setTagSelectionFromList(existingActivity.tag_ids)
+			: resetTagSelection();
 	}, []);
 
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 
-		return isEditing ? handleSubmitUpdateActivity() : handleSubmitCreateActivity();
+		return isEditing
+			? handleSubmitUpdateActivity()
+			: handleSubmitCreateActivity();
 	}
 
 	function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -99,7 +110,7 @@ export default function useActivityForm({
 		// `name`.
 		setActivity((current) => ({
 			...current,
-			[name]: type === "checkbox" ? !current.is_task : value
+			[name]: type === "checkbox" ? !current.is_task : value,
 		}));
 	}
 
@@ -120,8 +131,12 @@ export default function useActivityForm({
 		);
 	}
 
-	function setRecurrenceSelection<T extends SetRecurrenceSelection["type"]>(type: T) {
-		return (value: Extract<SetRecurrenceSelection, { type: T }>["value"] | null) =>
+	function setRecurrenceSelection<T extends SetRecurrenceSelection["type"]>(
+		type: T
+	) {
+		return (
+			value: Extract<SetRecurrenceSelection, { type: T }>["value"] | null
+		) =>
 			setRecurrence(
 				produce((draft) => {
 					// The logic for these cases is basically the same, but the
@@ -206,6 +221,6 @@ export default function useActivityForm({
 		setSelection: setRecurrenceSelection,
 		resetSelection: resetRecurrenceSelection,
 		validActivity,
-		validRecurrence
+		validRecurrence,
 	};
 }

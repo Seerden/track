@@ -14,7 +14,7 @@ export type ActiveItemState = Record<DetailTypes, PossiblyActiveItem>;
 const defaultActiveItemState: ActiveItemState = {
 	tag: inactive,
 	activity: inactive,
-	habit: inactive
+	habit: inactive,
 } as const;
 
 export const activeItemAtom = atom<ActiveItemState>(defaultActiveItemState);

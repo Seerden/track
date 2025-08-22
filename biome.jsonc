@@ -135,7 +135,8 @@
       },
     },
     "includes": [
-      "**",
+      "**/*.ts",
+      "**/*.tsx",
       "!**/node_modules",
       "!**/build",
       "!**/dist",
@@ -150,7 +151,7 @@
     "formatter": {
       "jsxQuoteStyle": "double",
       "quoteProperties": "asNeeded",
-      "trailingCommas": "none",
+      "trailingCommas": "es5",
       "semicolons": "always",
       "arrowParentheses": "always",
       "bracketSameLine": true,

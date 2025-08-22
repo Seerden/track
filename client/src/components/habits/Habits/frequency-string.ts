@@ -10,7 +10,7 @@ export function frequencyString({
 	interval_unit,
 	goal,
 	goal_unit,
-	goal_type
+	goal_type,
 }: HabitWithEntries) {
 	const intervalSuffix = interval > 1 ? "s" : "";
 

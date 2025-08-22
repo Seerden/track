@@ -7,7 +7,10 @@ type EmptyProps = {
 	action?: () => void;
 };
 
-export default function Empty({ children, action }: PropsWithChildren<EmptyProps>) {
+export default function Empty({
+	children,
+	action,
+}: PropsWithChildren<EmptyProps>) {
 	return (
 		<S.Empty>
 			{children}

@@ -119,7 +119,7 @@ const formStyle = {
 	Row,
 	CompactRow,
 	Form,
-	Label
+	Label,
 };
 
 export default formStyle;

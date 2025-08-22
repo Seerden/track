@@ -23,7 +23,7 @@ export function createRouter() {
 					<div
 						style={{
 							padding: "3rem",
-							width: "100%"
+							width: "100%",
 						}}>
 						<DefaultSkeleton />
 					</div>
@@ -43,8 +43,8 @@ export function createRouter() {
 		},
 		context: {
 			queryClient,
-			trpc
-		}
+			trpc,
+		},
 	});
 
 	return router;

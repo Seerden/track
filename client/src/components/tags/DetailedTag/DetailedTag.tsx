@@ -18,7 +18,9 @@ export default function DetailedTag({ tag }: DetailedTagProps) {
 			<p>{tag.description}</p>
 			<TagBranch tag={tag} />
 			<C.Datetime>
-				<span title={formatDate(tag.created_at)}>created {humanizedCreatedAt}</span>
+				<span title={formatDate(tag.created_at)}>
+					created {humanizedCreatedAt}
+				</span>
 			</C.Datetime>
 		</S.Wrapper>
 	);

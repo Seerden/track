@@ -12,5 +12,5 @@ const Page = styled(motion.section)`
 `;
 
 export default {
-	Page
+	Page,
 };

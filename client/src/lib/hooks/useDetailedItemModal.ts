@@ -31,6 +31,6 @@ export default function useDetailedItemModal(
 	return {
 		modalId,
 		activeItem,
-		openDetailedItemModal
+		openDetailedItemModal,
 	} as const;
 }

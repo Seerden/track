@@ -10,7 +10,7 @@ export const queryActivities = authenticatedProcedure
 				from: timestampSchema.optional(),
 				to: timestampSchema.optional(),
 			})
-			.optional(),
+			.optional()
 	)
 	.query(async ({ ctx, input }) => {
 		const activities = await queryActivitiesAndRelations({
@@ -20,9 +20,11 @@ export const queryActivities = authenticatedProcedure
 		return activities;
 	});
 
-export const queryRecurringActivities = authenticatedProcedure.query(async ({ ctx }) => {
-	return await queryActivitiesAndRelations({
-		user_id: ctx.req.session.user.user_id,
-		recurring: true,
-	});
-});
+export const queryRecurringActivities = authenticatedProcedure.query(
+	async ({ ctx }) => {
+		return await queryActivitiesAndRelations({
+			user_id: ctx.req.session.user.user_id,
+			recurring: true,
+		});
+	}
+);

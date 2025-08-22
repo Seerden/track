@@ -97,5 +97,5 @@ export default {
 	Branch,
 	Row,
 	Node,
-	Title
+	Title,
 };

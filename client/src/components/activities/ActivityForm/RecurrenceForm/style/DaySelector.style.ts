@@ -94,5 +94,5 @@ export default {
 	NumberInput,
 	Select,
 	ActionBar,
-	Label
+	Label,
 };

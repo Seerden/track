@@ -3,7 +3,7 @@ import {
 	daysOfWeek,
 	FREQUENCY,
 	frequencyOptions,
-	INTERVAL_UNIT
+	INTERVAL_UNIT,
 } from "@/components/activities/ActivityForm/RecurrenceForm/constants";
 import DaySelector from "@/components/activities/ActivityForm/RecurrenceForm/DaySelector";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
@@ -23,7 +23,7 @@ export default function RecurrenceForm({
 	updateRecurrence,
 	setSelection,
 	resetSelection,
-	validRecurrence
+	validRecurrence,
 }: Pick<
 	ReturnType<typeof useActivityForm>,
 	| "recurrence"
@@ -53,20 +53,19 @@ export default function RecurrenceForm({
 					style={{
 						position: "absolute",
 						top: spacingValue.smaller,
-						right: spacingValue.smaller
-					}}
-				>
+						right: spacingValue.smaller,
+					}}>
 					<Tooltip
 						label={
-							<div style={{ display: "flex", width: "250px", textWrap: "wrap" }}>
-								A fixed date recurrence needs at least 1 weekday or monthday, and
-								a numeric recurrence needs a valid interval.
+							<div
+								style={{ display: "flex", width: "250px", textWrap: "wrap" }}>
+								A fixed date recurrence needs at least 1 weekday or monthday,
+								and a numeric recurrence needs a valid interval.
 							</div>
 						}
 						position="top"
 						color="orangered"
-						withArrow
-					>
+						withArrow>
 						<LucideAlertCircle color="orangered" />
 					</Tooltip>
 				</span>
@@ -78,7 +77,9 @@ export default function RecurrenceForm({
 			<Containers.Row gap="medium" padding="medium">
 				<S.Column>
 					{frequencyOptions.map((frequency) => (
-						<S.Label key={frequency} $active={recurrence.frequency === frequency}>
+						<S.Label
+							key={frequency}
+							$active={recurrence.frequency === frequency}>
 							{/* TODO: Input.Hidden */}
 							<input
 								style={{ width: 0 }}
@@ -109,7 +110,7 @@ export default function RecurrenceForm({
 								onChange={(e) =>
 									updateRecurrence({
 										type: "interval",
-										value: Math.max(+e.target.value, 1)
+										value: Math.max(+e.target.value, 1),
 									})
 								}
 							/>
@@ -118,10 +119,9 @@ export default function RecurrenceForm({
 								onChange={(e) =>
 									updateRecurrence({
 										type: "intervalUnit",
-										value: e.target.value as IntervalUnit
+										value: e.target.value as IntervalUnit,
 									})
-								}
-							>
+								}>
 								<option value="week">week{intervalUnitSuffix}</option>
 								<option value="month">month{intervalUnitSuffix}</option>
 							</S.DaySelector.Select>
@@ -164,7 +164,7 @@ export default function RecurrenceForm({
 								onChange={(e) =>
 									updateRecurrence({
 										type: "interval",
-										value: Math.max(+e.target.value, 1)
+										value: Math.max(+e.target.value, 1),
 									})
 								}
 							/>

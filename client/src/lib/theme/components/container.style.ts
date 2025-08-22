@@ -1,4 +1,9 @@
-import { border, outline, thickOutline, thinOutline } from "@/lib/theme/snippets/edge";
+import {
+	border,
+	outline,
+	thickOutline,
+	thinOutline,
+} from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
@@ -14,7 +19,7 @@ const minimal = css`
 `;
 
 export const containers = {
-	minimal
+	minimal,
 };
 
 const FieldWrapper = styled.div<{ $small?: boolean }>`
@@ -106,7 +111,7 @@ const Containers = {
 	EmptyState,
 	Row,
 	Column,
-	ActionBar
+	ActionBar,
 };
 
 export default Containers;

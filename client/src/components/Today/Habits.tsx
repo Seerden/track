@@ -9,7 +9,7 @@ import S from "./style/Habits.style";
 import T from "./style/Today.style";
 
 export default function Habits({
-	habits
+	habits,
 }: {
 	habits: MapById<HabitWithPossiblySyntheticEntries>;
 }) {

@@ -7,5 +7,5 @@ export const dayMap: Map<number, DayOfWeek> = new Map([
 	[3, "Wednesday"],
 	[4, "Thursday"],
 	[5, "Friday"],
-	[6, "Saturday"]
+	[6, "Saturday"],
 ]);

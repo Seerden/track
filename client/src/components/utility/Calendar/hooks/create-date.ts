@@ -4,7 +4,7 @@ import type { Dayjs } from "dayjs";
 export function createMonthAndYear(date: Dayjs) {
 	return {
 		month: date.month(),
-		year: date.year()
+		year: date.year(),
 	};
 }
 

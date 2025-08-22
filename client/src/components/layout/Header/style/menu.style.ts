@@ -138,5 +138,5 @@ export default {
 	MenuSection,
 	LinkCards,
 	LinkCard,
-	TriggerButton
+	TriggerButton,
 };

@@ -14,9 +14,8 @@ export function RecurrenceCard({ recurrence }: { recurrence: Recurrence }) {
 			gap="small"
 			style={{
 				alignItems: "center",
-				maxWidth: "300px"
-			}}
-		>
+				maxWidth: "300px",
+			}}>
 			<span
 				// TODO: this is a badge, put it in style/badges or something
 				style={{
@@ -26,9 +25,8 @@ export function RecurrenceCard({ recurrence }: { recurrence: Recurrence }) {
 					display: "flex",
 					alignItems: "center",
 					justifyContent: "center",
-					padding: "3px"
-				}}
-			>
+					padding: "3px",
+				}}>
 				<LucideRepeat size={"15px"} color="black" />
 			</span>
 			{recurrence.frequency === "calendar" ? (
@@ -99,7 +97,8 @@ function CalendarRecurrenceCard({ recurrence }: { recurrence: Recurrence }) {
 	return (
 		<Containers.Column gap="small">
 			<p role="heading">
-				Occurs on these days every {recurrence.weekdays?.length ? "week" : "month"}:
+				Occurs on these days every{" "}
+				{recurrence.weekdays?.length ? "week" : "month"}:
 			</p>
 			<Container>{badges}</Container>
 		</Containers.Column>

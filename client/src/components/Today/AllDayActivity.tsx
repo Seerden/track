@@ -21,7 +21,7 @@ function useAllDayActivity(activity: PossiblySyntheticActivity) {
 	return {
 		checkboxRef,
 		openDetailedItemModal,
-		putCompletion
+		putCompletion,
 	};
 }
 
@@ -44,8 +44,7 @@ export default function AllDayActivity({ activity }: AllDayActivityProps) {
 
 				e.stopPropagation();
 				openDetailedItemModal(activity.activity_id ?? activity.synthetic_id);
-			}}
-		>
+			}}>
 			<Tooltip label="This activity lasts all day" position="top" withArrow>
 				<Icons.InBadge>
 					<LucideHistory size={15} />
@@ -56,7 +55,10 @@ export default function AllDayActivity({ activity }: AllDayActivityProps) {
 
 			{activity.is_task && (
 				<S.CheckboxWrapper ref={checkboxRef}>
-					<Checkbox checked={activity.completed ?? false} onChange={putCompletion} />
+					<Checkbox
+						checked={activity.completed ?? false}
+						onChange={putCompletion}
+					/>
 				</S.CheckboxWrapper>
 			)}
 		</T.AllDayActivity>

@@ -1,4 +1,8 @@
-import { getMainColor, getSecondaryColor, type ColorKey } from "@/lib/theme/colors";
+import {
+	getMainColor,
+	getSecondaryColor,
+	type ColorKey,
+} from "@/lib/theme/colors";
 import Unstyled from "@/lib/theme/components/buttons/Unstyled";
 import { border, outline, thinOutline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
@@ -160,7 +164,7 @@ const ActionButtons = {
 	WithIcon,
 	CallToAction,
 	Clear,
-	Direction: DirectionButton
+	Direction: DirectionButton,
 };
 
 export default ActionButtons;

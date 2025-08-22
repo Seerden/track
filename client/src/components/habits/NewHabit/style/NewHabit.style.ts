@@ -171,5 +171,5 @@ export default {
 	ProgressionTitle,
 	Select,
 	FixedLengthString,
-	DateFields
+	DateFields,
 };

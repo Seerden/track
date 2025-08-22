@@ -1,14 +1,14 @@
 import type {
 	HabitEntry,
 	HabitWithEntries,
-	SyntheticHabitEntry
+	SyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
 import { isSynthetic } from "@shared/types/data/habit-entry.guards";
 
 /** Given an entry and its template habit, determine if the entry is "done". */
 export function habitEntryIsDone({
 	habit,
-	entry
+	entry,
 }: {
 	habit: HabitWithEntries;
 	entry: HabitEntry | SyntheticHabitEntry;

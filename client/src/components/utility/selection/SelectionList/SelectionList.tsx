@@ -23,7 +23,7 @@ export default function SelectionList({
 	multiple = false,
 	items,
 	onChange,
-	highlightColor = "limegreen"
+	highlightColor = "limegreen",
 }: SelectionListProps) {
 	const [selection, setSelection] = useState<ItemValue[]>([]);
 
@@ -59,10 +59,10 @@ export default function SelectionList({
 						handleSelection({ value: item.value });
 					}}
 					style={{
-						cursor: "pointer"
-					}}
-				>
-					<Badge color={selection.includes(item.value) ? highlightColor : "#ccc"}>
+						cursor: "pointer",
+					}}>
+					<Badge
+						color={selection.includes(item.value) ? highlightColor : "#ccc"}>
 						{item.label}
 					</Badge>
 				</div>

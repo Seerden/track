@@ -18,5 +18,5 @@ const Wrapper = styled(CardStyle.Wrapper)`
 `;
 
 export default {
-	Wrapper
+	Wrapper,
 };

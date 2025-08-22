@@ -9,7 +9,7 @@ type CircularProgressProps = {
 export default function CircularProgress({
 	percentage,
 	size,
-	thickness = 1.5
+	thickness = 1.5,
 }: CircularProgressProps) {
 	const offset = thickness; // size increase of progress bar compared to the circle itself
 	const radius = size / 2 - thickness / 2;

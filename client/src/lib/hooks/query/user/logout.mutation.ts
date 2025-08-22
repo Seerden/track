@@ -18,7 +18,7 @@ export function useLogoutMutation() {
 				// logout, too, instead of doing it here, I think.
 				queryClient.clear();
 				navigate({ to: "/login" });
-			}
+			},
 		})
 	);
 }

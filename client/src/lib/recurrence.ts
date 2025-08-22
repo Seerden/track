@@ -4,7 +4,7 @@ import {
 	type PossiblySyntheticActivity,
 	type Recurrence,
 	type SyntheticActivity,
-	syntheticActivitySchema
+	syntheticActivitySchema,
 } from "@shared/lib/schemas/activity";
 import type { DayOfWeek } from "@shared/types/data/utility.types";
 import type { Dayjs } from "dayjs";
@@ -28,7 +28,7 @@ export function createSyntheticActivity(
 		activity_id: null,
 		completed: false,
 		synthetic: true,
-		synthetic_id: `${activity.activity_id}-${activity.recurrence_id}-${uuid()}`
+		synthetic_id: `${activity.activity_id}-${activity.recurrence_id}-${uuid()}`,
 		// TODO: when converting a synthetic activity to a real one, update
 		// created_at.
 	});
@@ -41,7 +41,7 @@ function isCalendarRecurrence(recurrence: Recurrence) {
 export function createSyntheticActivitiesForTimeWindow({
 	activity,
 	recurrence,
-	timeWindow
+	timeWindow,
 }: {
 	activity: ActivityWithIds;
 	recurrence: Recurrence;
@@ -59,7 +59,7 @@ export function createSyntheticActivitiesForTimeWindow({
 		activity,
 		timeWindow,
 		start,
-		end
+		end,
 	};
 
 	return isCalendarRecurrence(recurrence)
@@ -94,7 +94,7 @@ const createSyntheticsForNumericRecurrence: CreateSynthetics = ({
 	activity,
 	timeWindow,
 	start,
-	end
+	end,
 }) => {
 	// if an activity starts as all-day, then all of its recurrences should be
 	// all-day, too
@@ -117,7 +117,7 @@ const createSyntheticsForNumericRecurrence: CreateSynthetics = ({
 				end_date: isAllDay ? syntheticEnd : null,
 				ended_at: isAllDay ? null : syntheticEnd,
 				start_date: isAllDay ? syntheticStart : null,
-				started_at: isAllDay ? null : syntheticStart
+				started_at: isAllDay ? null : syntheticStart,
 			})
 		);
 
@@ -149,7 +149,7 @@ const createSyntheticsForCalendarRecurrence: CreateSynthetics = ({
 	activity,
 	timeWindow,
 	start,
-	end
+	end,
 }) => {
 	const recurrenceStart = createDate(recurrence.start_timestamp);
 	const isAllDayActivity = isAllDayActivityOnDate(activity, recurrenceStart);
@@ -203,7 +203,7 @@ const createSyntheticsForCalendarRecurrence: CreateSynthetics = ({
 					start_date,
 					started_at,
 					end_date,
-					ended_at
+					ended_at,
 				})
 			);
 

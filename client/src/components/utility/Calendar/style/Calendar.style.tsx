@@ -1,4 +1,7 @@
-import { defaultCellHeight, defaultCellWidth } from "@/lib/theme/components/buttons/Cell";
+import {
+	defaultCellHeight,
+	defaultCellWidth,
+} from "@/lib/theme/components/buttons/Cell";
 import { getFontSize } from "@/lib/theme/font";
 import { outline, thinBorder } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
@@ -121,5 +124,5 @@ export default {
 	Day,
 	Rows,
 	Row,
-	MonthPickerActionWrapper
+	MonthPickerActionWrapper,
 };

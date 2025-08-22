@@ -93,7 +93,7 @@ const StyledDetailedActivity = {
 	Task,
 	CheckboxWrapper,
 	EditButton,
-	RecurrenceCardContainer
+	RecurrenceCardContainer,
 };
 
 export default StyledDetailedActivity;

@@ -1,7 +1,10 @@
 import { insertHabitWithTags } from "@/lib/data/models/habits/insert-habit";
 import { insertHabitEntry } from "@/lib/data/models/habits/insert-habit-entry";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
-import { habitEntryInputSchema, habitInputSchema } from "@shared/lib/schemas/habit";
+import {
+	habitEntryInputSchema,
+	habitInputSchema,
+} from "@shared/lib/schemas/habit";
 
 export const createHabitEntry = authenticatedProcedure
 	.input(habitEntryInputSchema)

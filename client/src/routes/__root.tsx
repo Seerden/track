@@ -18,14 +18,14 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 	},
 	head: (ctx) => {
 		return {
-			meta: [{ title: "Home" }]
+			meta: [{ title: "Home" }],
 		};
 	},
 
 	context: () => {
 		return {
 			queryClient,
-			trpc
+			trpc,
 		};
-	}
+	},
 });

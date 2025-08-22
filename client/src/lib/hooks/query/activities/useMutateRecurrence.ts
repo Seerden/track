@@ -12,9 +12,9 @@ export const useMutateNewRecurrence = () =>
 		trpc.activities.recurrences.create.mutationOptions({
 			onSuccess: () => {
 				queryClient.invalidateQueries({
-					queryKey: trpc.activities.recurrences.all.queryKey()
+					queryKey: trpc.activities.recurrences.all.queryKey(),
 				});
-			}
+			},
 		})
 	);
 
@@ -23,9 +23,9 @@ export const useMutateNewOccurrence = () =>
 		trpc.activities.occurrences.create.mutationOptions({
 			onSuccess: () => {
 				queryClient.invalidateQueries({
-					queryKey: trpc.activities.occurrences.queryByUser.queryKey()
+					queryKey: trpc.activities.occurrences.queryByUser.queryKey(),
 				});
-			}
+			},
 		})
 	);
 
@@ -34,7 +34,7 @@ export const useMutateUpdateRecurrence = () => {
 		trpc.activities.recurrences.update.mutationOptions({
 			onSuccess: () => {
 				invalidateActivities();
-			}
+			},
 		})
 	);
 };
@@ -44,12 +44,12 @@ export const useMutateUpdateOccurrence = () => {
 		trpc.activities.recurrences.update.mutationOptions({
 			onSuccess: () => {
 				queryClient.invalidateQueries({
-					queryKey: trpc.activities.all.queryKey()
+					queryKey: trpc.activities.all.queryKey(),
 				});
 				queryClient.invalidateQueries({
-					queryKey: trpc.activities.occurrences.queryByUser.queryKey()
+					queryKey: trpc.activities.occurrences.queryByUser.queryKey(),
 				});
-			}
+			},
 		})
 	);
 };
@@ -59,7 +59,7 @@ export const useMutateDeleteRecurrence = () => {
 		trpc.activities.recurrences.delete.mutationOptions({
 			onSuccess: () => {
 				invalidateActivities();
-			}
+			},
 		})
 	);
 };
@@ -69,12 +69,12 @@ export const useMutateDeleteOccurrence = () => {
 		trpc.activities.occurrences.delete.mutationOptions({
 			onSuccess: () => {
 				queryClient.invalidateQueries({
-					queryKey: trpc.activities.occurrences.queryByUser.queryKey()
+					queryKey: trpc.activities.occurrences.queryByUser.queryKey(),
 				});
 				queryClient.invalidateQueries({
-					queryKey: trpc.activities.all.queryKey()
+					queryKey: trpc.activities.all.queryKey(),
 				});
-			}
+			},
 		})
 	);
 };

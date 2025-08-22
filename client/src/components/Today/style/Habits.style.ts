@@ -6,5 +6,5 @@ const Habits = styled.div`
 `;
 
 export default {
-	Habits
+	Habits,
 };

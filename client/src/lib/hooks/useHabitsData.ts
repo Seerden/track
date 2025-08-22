@@ -25,6 +25,6 @@ export default function useHabitsData() {
 		/** The only place where this hook is used, doesn't use this. But can't
 		 * hurt to include it in the output anyway. */
 		habits,
-		getHabitsForTimeWindow
+		getHabitsForTimeWindow,
 	};
 }

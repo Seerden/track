@@ -51,5 +51,5 @@ const ActivityName = styled.span`
 
 export default {
 	AllDayActivity,
-	ActivityName
+	ActivityName,
 };

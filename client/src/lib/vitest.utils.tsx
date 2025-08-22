@@ -14,12 +14,12 @@ export async function renderTanstackRouter() {
 	// Either you can make this part of setup, or call it in each test manually
 	await act(() =>
 		router.navigate({
-			to: "/"
+			to: "/",
 		})
 	);
 
 	return {
 		app,
-		router
+		router,
 	};
 }

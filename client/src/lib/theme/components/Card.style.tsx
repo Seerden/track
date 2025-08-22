@@ -113,7 +113,7 @@ const Card = {
 	Tag,
 	InfoLine,
 	InfoLabel,
-	InfoValue
+	InfoValue,
 };
 
 export default Card;

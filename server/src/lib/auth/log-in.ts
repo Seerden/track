@@ -26,7 +26,10 @@ export async function login(user: NewUser, req: Request, res: Response) {
 		});
 	}
 
-	req.session.user = { user_id: foundUser.user_id, username: foundUser.username }; // could also regenerate()
+	req.session.user = {
+		user_id: foundUser.user_id,
+		username: foundUser.username,
+	}; // could also regenerate()
 
 	return { user: foundUser };
 }

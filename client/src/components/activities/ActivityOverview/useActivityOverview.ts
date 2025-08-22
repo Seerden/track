@@ -16,6 +16,6 @@ export default function useActivityOverview() {
 	return {
 		isProbablySuspended,
 		activities,
-		tags
+		tags,
 	};
 }

@@ -15,12 +15,12 @@ export function maybeGetDefaultStartAndEnd(
 	if (defaultValues.start_date && defaultValues.end_date) {
 		return {
 			start: createDate(defaultValues.start_date),
-			end: createDate(defaultValues.end_date)
+			end: createDate(defaultValues.end_date),
 		};
 	} else if (defaultValues.started_at && defaultValues.ended_at) {
 		return {
 			start: createDate(defaultValues.started_at),
-			end: createDate(defaultValues.ended_at)
+			end: createDate(defaultValues.ended_at),
 		};
 	}
 }

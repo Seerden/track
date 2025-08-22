@@ -43,7 +43,7 @@ const Input = {
 	Unstyled,
 	Default,
 	Filter,
-	Hidden
+	Hidden,
 };
 
 export default Input;

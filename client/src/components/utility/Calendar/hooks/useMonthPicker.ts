@@ -11,12 +11,13 @@ type UseMonthPickerProps = {
 };
 
 /** Functionality hook for Calendar.tsx */
-export default function useMonthPicker({ initialDate, onChange }: UseMonthPickerProps) {
+export default function useMonthPicker({
+	initialDate,
+	onChange,
+}: UseMonthPickerProps) {
 	const monthPickerRef = useRef<HTMLDivElement>(null);
-	const { isOpen: showMonthPicker, setIsOpen: setShowMonthPicker } = useClickOutside(
-		monthPickerRef,
-		{ initialOpen: false }
-	);
+	const { isOpen: showMonthPicker, setIsOpen: setShowMonthPicker } =
+		useClickOutside(monthPickerRef, { initialOpen: false });
 
 	const defaultMonthValue = createMonthValue(initialDate);
 	const [monthValue, setMonthValue] = useState(defaultMonthValue);
@@ -39,7 +40,7 @@ export default function useMonthPicker({ initialDate, onChange }: UseMonthPicker
 
 		onChange?.({
 			month: monthValue.getMonth(),
-			year: monthValue.getFullYear()
+			year: monthValue.getFullYear(),
 		});
 	}, [monthValue]);
 
@@ -59,6 +60,6 @@ export default function useMonthPicker({ initialDate, onChange }: UseMonthPicker
 		setMonthValue,
 		handleMonthChange,
 		handleArrowClick,
-		monthPickerRef
+		monthPickerRef,
 	};
 }

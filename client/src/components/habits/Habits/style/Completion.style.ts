@@ -33,7 +33,7 @@ export const completionTooltipStyles = {
 		outline: "1px solid #aaa",
 		boxShadow: `
          0 0.4rem 0 -0.2rem #ddd,
-         0 0.2rem 0.3rem 0 #aaa`
+         0 0.2rem 0.3rem 0 #aaa`,
 	},
 	alternate: {
 		position: "absolute",
@@ -46,6 +46,6 @@ export const completionTooltipStyles = {
 		backgroundColor: "royalblue",
 		color: "white",
 		display: "inline-flex",
-		flexWrap: "wrap"
-	}
+		flexWrap: "wrap",
+	},
 } as const satisfies Record<string, CSSProperties>;

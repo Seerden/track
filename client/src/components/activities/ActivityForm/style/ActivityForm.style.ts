@@ -22,5 +22,5 @@ const Task = styled.label`
 `;
 
 export default {
-	Task
+	Task,
 };

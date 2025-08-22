@@ -17,6 +17,6 @@ export function useTask(activity: PossiblySyntheticActivity) {
 
 	return {
 		handleModalOpen,
-		putCompletion
+		putCompletion,
 	} as const;
 }

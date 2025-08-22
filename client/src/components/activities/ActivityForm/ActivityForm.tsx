@@ -8,7 +8,7 @@ import Input from "@/lib/theme/input";
 import TagSelector from "@components/tags/TagSelector/TagSelector";
 import type {
 	NewActivityInput,
-	PossiblySyntheticActivity
+	PossiblySyntheticActivity,
 } from "@shared/lib/schemas/activity";
 import DateTimePicker from "./DateTimePicker";
 import S from "./style/ActivityForm.style";
@@ -21,7 +21,7 @@ import useActivityForm from "./useActivityForm";
 export default function ActivityForm({
 	activity,
 	isTask: initialIsTask,
-	modalId
+	modalId,
 }: {
 	isTask?: boolean;
 	modalId?: ModalId;
@@ -43,11 +43,11 @@ export default function ActivityForm({
 		setSelection,
 		resetSelection,
 		validActivity,
-		validRecurrence
+		validRecurrence,
 	} = useActivityForm({
 		initialIsTask,
 		modalId,
-		activity
+		activity,
 	});
 
 	return (
@@ -103,8 +103,7 @@ export default function ActivityForm({
                recurrence fields, etc.) */}
 				<Buttons.Submit.Default
 					type="submit"
-					disabled={!(validActivity && (validRecurrence || !isRecurring))}
-				>
+					disabled={!(validActivity && (validRecurrence || !isRecurring))}>
 					{buttonTitle}
 				</Buttons.Submit.Default>
 			</Form.Form>

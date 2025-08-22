@@ -23,5 +23,5 @@ const Badge = styled(Buttons.Unstyled)<{ $size: number; $done?: boolean }>`
 `;
 
 export default {
-	Badge
+	Badge,
 };

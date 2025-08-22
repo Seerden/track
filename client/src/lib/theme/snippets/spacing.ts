@@ -10,7 +10,11 @@ type SpacingArgs = {
 type SpacingRule = "padding" | "margin";
 type SpacingType = "wide" | "tall";
 
-function getSpacing(rule: SpacingRule, type: SpacingType, { size, ratio }: SpacingArgs) {
+function getSpacing(
+	rule: SpacingRule,
+	type: SpacingType,
+	{ size, ratio }: SpacingArgs
+) {
 	const [small, big] = [`${size}rem`, `calc(${ratio} * ${size}rem)`] as const;
 	const [vertical, horizontal] = type === "wide" ? [small, big] : [big, small];
 	const value = `${vertical} ${horizontal}`;
@@ -34,12 +38,14 @@ export const spacingValue = {
 	small: "0.5rem",
 	medium: "1rem",
 	large: "1.5rem",
-	larger: "2rem"
+	larger: "2rem",
 };
 
 const margin = {
-	wide: ({ size, ratio }: SpacingArgs) => getSpacing("margin", "wide", { size, ratio }),
-	tall: ({ size, ratio }: SpacingArgs) => getSpacing("margin", "tall", { size, ratio }),
+	wide: ({ size, ratio }: SpacingArgs) =>
+		getSpacing("margin", "wide", { size, ratio }),
+	tall: ({ size, ratio }: SpacingArgs) =>
+		getSpacing("margin", "tall", { size, ratio }),
 	small: css`
 		margin: ${spacingValue.small};
 	`,
@@ -51,12 +57,14 @@ const margin = {
 	`,
 	larger: css`
 		margin: ${spacingValue.larger};
-	`
+	`,
 } as const;
 
 const padding = {
-	wide: ({ size, ratio }: SpacingArgs) => getSpacing("padding", "wide", { size, ratio }),
-	tall: ({ size, ratio }: SpacingArgs) => getSpacing("padding", "tall", { size, ratio }),
+	wide: ({ size, ratio }: SpacingArgs) =>
+		getSpacing("padding", "wide", { size, ratio }),
+	tall: ({ size, ratio }: SpacingArgs) =>
+		getSpacing("padding", "tall", { size, ratio }),
 	small: css`
 		padding: ${spacingValue.small};
 	`,
@@ -65,10 +73,10 @@ const padding = {
 	`,
 	medium: css`
 		padding: ${spacingValue.medium};
-	`
+	`,
 } as const;
 
 export const spacing = {
 	margin,
-	padding
+	padding,
 };

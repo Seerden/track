@@ -22,6 +22,6 @@ export function useActivity(activity: PossiblySyntheticActivity, date: Dayjs) {
 		durationHoursOnDate,
 		offset,
 		openDetailedItemModal,
-		recurrence
+		recurrence,
 	} as const;
 }

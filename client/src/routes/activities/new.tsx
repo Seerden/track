@@ -6,7 +6,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/activities/new")({
 	validateSearch: z.object({ task: z.boolean().optional() }).optional(),
-	component: ActivityFormPage
+	component: ActivityFormPage,
 });
 
 function ActivityFormPage() {

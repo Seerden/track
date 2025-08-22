@@ -69,7 +69,7 @@ export function activityDurationOnDate(
 ) {
 	const [start, end] = [
 		activityStartOnDate(activity, date),
-		activityEndOnDate(activity, date)
+		activityEndOnDate(activity, date),
 	];
 
 	if (!end || !start) return 0;
@@ -131,7 +131,7 @@ export function isAllDayActivityOnDate(
 	const [startOfDay, endOfDay] = [date.startOf("day"), date.endOf("day")];
 	const [startActivity, endActivity] = [
 		activityStart(activity),
-		activityEnd(activity)
+		activityEnd(activity),
 	];
 	return !startOfDay.isBefore(startActivity) && !endOfDay.isAfter(endActivity);
 }

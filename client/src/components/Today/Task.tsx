@@ -35,23 +35,27 @@ export default function Task({ activity }: TaskProps) {
 					// This prevents the task from being opened when the checkbox is
 					// clicked.
 					e.stopPropagation();
-				}}
-			>
-				<Checkbox checked={activity.completed ?? false} onChange={putCompletion} />
+				}}>
+				<Checkbox
+					checked={activity.completed ?? false}
+					onChange={putCompletion}
+				/>
 			</S.CheckboxWrapper>
 
 			{overdue ? (
 				<Containers.Column
-					style={{ height: "100%", justifyContent: "center", alignItems: "center" }}
-				>
+					style={{
+						height: "100%",
+						justifyContent: "center",
+						alignItems: "center",
+					}}>
 					<Popover opened={opened}>
 						<Popover.Target>
 							<Icons.InBadge
 								$color={colors.red.secondary}
 								size={"23px"}
 								onMouseEnter={open}
-								onMouseLeave={close}
-							>
+								onMouseLeave={close}>
 								<LucideClockAlert size={16} strokeWidth={2} />
 							</Icons.InBadge>
 						</Popover.Target>

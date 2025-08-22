@@ -3,7 +3,7 @@ import {
 	activityWithIdsSchema,
 	newActivityInputSchema,
 	type ActivityWithIds,
-	type NewActivityInput
+	type NewActivityInput,
 } from "@shared/lib/schemas/activity";
 import { activityGuards } from "@shared/types/data/activity.guards";
 import type { ActivityState } from "./activity-state.types";

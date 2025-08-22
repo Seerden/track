@@ -4,7 +4,7 @@ import { deleteConfig, postConfig, putConfig } from "./fetch-constants";
 function maybeWithBody<T>(config: RequestInit, data?: T): RequestInit {
 	return {
 		...config,
-		...(data && { body: JSON.stringify(data) })
+		...(data && { body: JSON.stringify(data) }),
 	};
 }
 
@@ -24,5 +24,5 @@ function createDeleteConfig<T>(data?: T): RequestInit {
 export const createRequestConfig = {
 	post: createPostConfig,
 	put: createPutConfig,
-	delete: createDeleteConfig
+	delete: createDeleteConfig,
 };

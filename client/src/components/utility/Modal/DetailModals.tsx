@@ -27,7 +27,9 @@ export default function DetailModals() {
 		? (activities?.get(activity.activeId) ??
 			syntheticActivities.find((a) => a.synthetic_id === activity.activeId))
 		: null;
-	const activeHabit = habit.activeId ? (habits?.get(habit.activeId) ?? null) : null;
+	const activeHabit = habit.activeId
+		? (habits?.get(habit.activeId) ?? null)
+		: null;
 
 	return (
 		<>

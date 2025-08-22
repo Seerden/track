@@ -8,7 +8,7 @@ export default function useRegister() {
 	const [newUser, setNewUser] = useState<NewUser>({
 		username: "",
 		password: "",
-		email: ""
+		email: "",
 	});
 
 	const [passwordConfirm, setPasswordConfirm] = useState<string>("");
@@ -30,7 +30,7 @@ export default function useRegister() {
 		} else {
 			setNewUser((current) => ({
 				...current,
-				[e.target.name]: e.target.value
+				[e.target.name]: e.target.value,
 			}));
 		}
 	}
@@ -44,7 +44,7 @@ export default function useRegister() {
 				// account, but for dev purposes this approach is good enough
 				onSuccess: () => {
 					// TODO: login and redirect
-				}
+				},
 			});
 		}
 
@@ -55,6 +55,6 @@ export default function useRegister() {
 		handleInputChange,
 		handleSubmit,
 		passwordVisible,
-		togglePasswordVisible
+		togglePasswordVisible,
 	};
 }

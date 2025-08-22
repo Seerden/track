@@ -6,7 +6,11 @@ import type { OmitStrict } from "@shared/types/data/utility.types";
  * no `existingActivity` is passed (i.e. when the form is meant to create a
  * new activity, not update an existing one).
  **/
-export function createDefaultActivity({ is_task = false }: { is_task?: boolean }) {
+export function createDefaultActivity({
+	is_task = false,
+}: {
+	is_task?: boolean;
+}) {
 	return {
 		name: "",
 		description: null,
@@ -14,7 +18,7 @@ export function createDefaultActivity({ is_task = false }: { is_task?: boolean }
 		occurrence: null,
 		recurrence_id: null,
 		duration_milliseconds: null,
-		will_recur: false
+		will_recur: false,
 	} satisfies OmitStrict<
 		NewActivityInput,
 		"started_at" | "ended_at" | "start_date" | "end_date"

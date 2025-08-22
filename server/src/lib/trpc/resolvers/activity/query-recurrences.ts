@@ -16,7 +16,7 @@ export const _queryOccurrencesByUser = authenticatedProcedure.query(
 		return await queryOccurrencesByUser({
 			user_id: req.session.user.user_id,
 		});
-	},
+	}
 );
 
 export const _queryOccurrencesByRecurrence = authenticatedProcedure
@@ -28,12 +28,14 @@ export const _queryOccurrencesByRecurrence = authenticatedProcedure
 		});
 	});
 
-export const _getRecurrencesByUser = authenticatedProcedure.query(async ({ ctx }) => {
-	return groupById(
-		await queryRecurrencesByUser({ user_id: ctx.req.session.user.user_id }),
-		"recurrence_id",
-	);
-});
+export const _getRecurrencesByUser = authenticatedProcedure.query(
+	async ({ ctx }) => {
+		return groupById(
+			await queryRecurrencesByUser({ user_id: ctx.req.session.user.user_id }),
+			"recurrence_id"
+		);
+	}
+);
 
 export const _getRecurrenceByActivity = authenticatedProcedure
 	.input(
@@ -46,7 +48,7 @@ export const _getRecurrenceByActivity = authenticatedProcedure
 				activity_id: z.null(),
 				synthetic_id: z.string(),
 			}),
-		]),
+		])
 	)
 	.query(async ({ input, ctx }) => {
 		return await queryRecurrenceByActivity({

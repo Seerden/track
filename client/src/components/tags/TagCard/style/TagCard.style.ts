@@ -17,5 +17,5 @@ const Tag = styled.div`
 `;
 
 export default {
-	Tag
+	Tag,
 };

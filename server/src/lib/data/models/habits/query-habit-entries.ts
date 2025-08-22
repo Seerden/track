@@ -8,7 +8,9 @@ export const queryHabitEntriesByUser: QueryFunction<
 	{ user_id: ID },
 	Promise<HabitEntry[]>
 > = ({ sql = sqlConnection, user_id }) => {
-	return sql<HabitEntry[]>`select * from habit_entries where user_id = ${user_id}`;
+	return sql<
+		HabitEntry[]
+	>`select * from habit_entries where user_id = ${user_id}`;
 };
 
 export const queryHabitsByUser: QueryFunction<
@@ -22,5 +24,7 @@ export const queryHabitTagsByUser: QueryFunction<
 	{ user_id: ID },
 	Promise<HabitTagRelation[]>
 > = async ({ sql = sqlConnection, user_id }) => {
-	return sql<HabitTagRelation[]>`select * from habits_tags where user_id = ${user_id}`;
+	return sql<
+		HabitTagRelation[]
+	>`select * from habits_tags where user_id = ${user_id}`;
 };

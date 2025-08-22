@@ -11,9 +11,8 @@ function NewNote() {
 	return (
 		<F.Wrapper
 			style={{
-				minWidth: 500
-			}}
-		>
+				minWidth: 500,
+			}}>
 			<F.FormTitle> Take a note</F.FormTitle>
 			<F.Form onSubmit={onSubmit}>
 				<F.Row>
@@ -45,7 +44,9 @@ function NewNote() {
 						modalId={modalIds.tagSelector.newNote}
 					/>
 				</F.Row>
-				<Buttons.Submit.Default type="submit">Create note</Buttons.Submit.Default>
+				<Buttons.Submit.Default type="submit">
+					Create note
+				</Buttons.Submit.Default>
 			</F.Form>
 		</F.Wrapper>
 	);

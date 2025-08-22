@@ -11,7 +11,7 @@ type UseModalProps = {
 
 export default function useModal(
 	modalRef: RefObject<HTMLElement | null>,
-	{ keys, modalId, initialOpen }: UseModalProps,
+	{ keys, modalId, initialOpen }: UseModalProps
 ) {
 	const { setModalOpen, modalIds } = useModalState();
 
@@ -37,7 +37,7 @@ export default function useModal(
 				closeModal(modalIds.at(-1)!);
 			}
 		},
-		[modalIds],
+		[modalIds]
 	);
 
 	useEffect(() => {

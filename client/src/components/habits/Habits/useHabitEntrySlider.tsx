@@ -7,7 +7,7 @@ import type { HabitEntrySliderProps } from "./HabitEntrySlider";
 export function useHabitEntrySlider({
 	habit,
 	entry,
-	onChangeEnd
+	onChangeEnd,
 }: Pick<HabitEntrySliderProps, "habit" | "entry" | "onChangeEnd">) {
 	const defaultValue = isSynthetic(entry) ? 0 : +entry.value;
 	const [sliderValue, setSliderValue] = useState(() => defaultValue); // TODO: do we need to do anything else to fully synchronize this with the entry's value?
@@ -32,6 +32,6 @@ export function useHabitEntrySlider({
 		setSliderValue,
 		isDone,
 		handleChangeEnd,
-		handleNumberInputBlur
+		handleNumberInputBlur,
 	};
 }

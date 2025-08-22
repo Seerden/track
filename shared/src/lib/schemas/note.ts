@@ -23,14 +23,14 @@ export const noteSchema = newNoteSchema.and(
 	z.object({
 		note_id: z.string(),
 		created_at: timestampSchema,
-	}),
+	})
 );
 export type Note = z.infer<typeof noteSchema>;
 
 export const noteWithIdsSchema = noteSchema.and(
 	z.object({
 		tag_ids: z.array(z.string()).optional(),
-	}),
+	})
 );
 export type NoteWithIds = z.infer<typeof noteWithIdsSchema>;
 

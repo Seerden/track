@@ -16,6 +16,6 @@ export default function useActivityMenu() {
 	const float = useFloatingProps({ click: {}, hover: {}, open, setOpen });
 
 	return {
-		float
+		float,
 	};
 }

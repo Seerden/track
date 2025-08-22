@@ -14,10 +14,10 @@ export const queryUserByName: QueryFunction<
 	return user;
 };
 
-export const queryUserbyId: QueryFunction<{ user_id: ID }, Promise<User>> = async ({
-	sql = sqlConnection,
-	user_id,
-}) => {
+export const queryUserbyId: QueryFunction<
+	{ user_id: ID },
+	Promise<User>
+> = async ({ sql = sqlConnection, user_id }) => {
 	const [user] = await sql<[User]>`
       select * from users where user_id = ${user_id}
    `;

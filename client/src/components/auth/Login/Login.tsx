@@ -12,7 +12,7 @@ function Login() {
 		handleSubmit,
 		passwordVisible,
 		togglePasswordVisible,
-		isError
+		isError,
 	} = useLogin();
 
 	return (
@@ -48,8 +48,7 @@ function Login() {
 								tabIndex={-1}
 								type="button"
 								onClick={togglePasswordVisible}
-								value={`${passwordVisible ? "Hide" : "Show"} password`}
-							>
+								value={`${passwordVisible ? "Hide" : "Show"} password`}>
 								{passwordVisible ? (
 									<LucideEyeOff size={24} />
 								) : (
@@ -62,18 +61,16 @@ function Login() {
 				<Containers.Row
 					style={{
 						justifyContent: "space-between",
-						alignItems: "center"
-					}}
-				>
+						alignItems: "center",
+					}}>
 					<S.Submit $color="theme">
 						log in <LucideArrowRight size={15} color="black" strokeWidth={2} />
 					</S.Submit>
 					<Link
 						to="/register"
 						style={{
-							marginTop: "1rem"
-						}}
-					>
+							marginTop: "1rem",
+						}}>
 						register
 					</Link>
 				</Containers.Row>

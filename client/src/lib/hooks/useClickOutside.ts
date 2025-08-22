@@ -6,7 +6,7 @@ export default function useClickOutside<T extends HTMLElement | null>(
 	ref: RefObject<T>,
 	{
 		handler,
-		initialOpen = false
+		initialOpen = false,
 	}: {
 		initialOpen?: boolean;
 		handler?: (e: MouseEvent) => void;

@@ -8,7 +8,13 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 
-const colors = ["dodgerblue", "blueviolet", "darkorchid", "darkviolet", "indigo"];
+const colors = [
+	"dodgerblue",
+	"blueviolet",
+	"darkorchid",
+	"darkviolet",
+	"indigo",
+];
 
 const TagName = styled.label<{ $level: number }>`
 	font-size: ${(p) => getFontSize(p, 0.9)};
@@ -160,5 +166,5 @@ export default {
 	Children,
 	Tree,
 	Container,
-	DropdownCheckbox
+	DropdownCheckbox,
 };

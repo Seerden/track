@@ -48,7 +48,7 @@ export default function useNewTag() {
 					queryClient.invalidateQueries({ queryKey: trpc.tags.all.queryKey() });
 					closeModal(modalIds.tagSelector.activityForm);
 				},
-			},
+			}
 		);
 	}
 

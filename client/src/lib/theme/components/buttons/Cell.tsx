@@ -1,6 +1,6 @@
 import {
 	default as Unstyled,
-	default as UnstyledButton
+	default as UnstyledButton,
 } from "@/lib/theme/components/buttons/Unstyled";
 import { outline, thinOutline } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
@@ -109,7 +109,7 @@ const DaySelector = styled(UnstyledButton)<{ $active?: boolean }>`
 
 const CellButtons = {
 	Default,
-	DaySelector
+	DaySelector,
 };
 
 export default CellButtons;

@@ -15,5 +15,5 @@ export const radius = {
 	`,
 	round: css`
 		border-radius: 50%;
-	`
+	`,
 } as const;

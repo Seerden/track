@@ -13,5 +13,5 @@ const Item = styled.div<{ $isTask: boolean }>`
 `;
 
 export default {
-	Item
+	Item,
 };

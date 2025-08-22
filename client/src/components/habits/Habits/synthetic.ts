@@ -7,7 +7,7 @@ import type {
 	HabitEntryInput,
 	HabitWithEntries,
 	HabitWithPossiblySyntheticEntries,
-	SyntheticHabitEntry
+	SyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
 import type { Datelike } from "@shared/lib/schemas/timestamp";
 import type { ID, MapById } from "@shared/types/data/utility.types";
@@ -50,7 +50,7 @@ function expectedEntryCount(timeWindow: TimeWindow, habit: Habit) {
 function makeSyntheticEntry({
 	habit,
 	index,
-	date
+	date,
 }: {
 	habit: Habit;
 	index: number;
@@ -61,7 +61,7 @@ function makeSyntheticEntry({
 		date,
 		habit_id: habit.habit_id,
 		index,
-		synthetic: true
+		synthetic: true,
 	};
 }
 
@@ -86,7 +86,9 @@ export function withSyntheticHabitEntries(
 		});
 
 		const existingIndices = new Set(entries.map((e) => e.index));
-		const expectedIndices = new Set(Array.from({ length: expectedCount }, (_, i) => i));
+		const expectedIndices = new Set(
+			Array.from({ length: expectedCount }, (_, i) => i)
+		);
 		const missingIndices = Array.from(expectedIndices).filter(
 			(i) => !existingIndices.has(i)
 		);
@@ -99,13 +101,13 @@ export function withSyntheticHabitEntries(
 				// enough, but I think it's still not perfect for the case where
 				// a user adds an entry in retrospect. Maybe we should just
 				// disallow that altogether.
-				date: timeWindow.startDate
+				date: timeWindow.startDate,
 			});
 			entries.push(syntheticEntry);
 		}
 
 		return Object.assign({}, habit, {
-			entries: entries.sort((a, b) => a.index - b.index)
+			entries: entries.sort((a, b) => a.index - b.index),
 		});
 	});
 
@@ -115,7 +117,7 @@ export function withSyntheticHabitEntries(
 export function syntheticToReal({
 	entry,
 	value,
-	user_id
+	user_id,
 }: {
 	entry: SyntheticHabitEntry;
 	value: HabitEntryInput["value"];
@@ -126,6 +128,6 @@ export function syntheticToReal({
 		habit_id: entry.habit_id,
 		index: entry.index,
 		value,
-		user_id
+		user_id,
 	};
 }

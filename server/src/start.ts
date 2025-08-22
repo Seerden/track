@@ -11,7 +11,7 @@ export async function runAtStartup() {
 			// @note in v8, Sentry says to use SeverityLevel like this, but in v9
 			// it's deprecated again 🫠
 			level: "error" as SeverityLevel,
-			extra: { error }
+			extra: { error },
 		});
 	}
 }

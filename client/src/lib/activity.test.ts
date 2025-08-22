@@ -2,7 +2,7 @@ import type { ActivityWithIds } from "@shared/lib/schemas/activity";
 import {
 	activityFallsInTimeWindow,
 	activityFallsOnDay,
-	getActivityId
+	getActivityId,
 } from "@/lib/activity";
 import { createDate } from "@/lib/datetime/make-date";
 import type { TimeWindow } from "@/types/time-window.types";
@@ -25,7 +25,7 @@ describe("activityFallsOnDay", () => {
 		recurrence_id: null,
 		duration_milliseconds: null,
 		completed: null,
-		will_recur: false
+		will_recur: false,
 	};
 
 	it("returns true if activity falls on day", () => {
@@ -58,14 +58,14 @@ describe("activityFallsInTimeWindow", () => {
 		recurrence_id: null,
 		duration_milliseconds: null,
 		completed: null,
-		will_recur: false
+		will_recur: false,
 	};
 
 	it("returns true if activity falls in time window", () => {
 		const timeWindow: TimeWindow = {
 			startDate: createDate("2025-01-01"),
 			endDate: createDate("2025-01-02"),
-			intervalUnit: "day"
+			intervalUnit: "day",
 		};
 
 		expect(activityFallsInTimeWindow(mockActivity, timeWindow)).toBe(true);
@@ -75,7 +75,7 @@ describe("activityFallsInTimeWindow", () => {
 		const timeWindow: TimeWindow = {
 			startDate: createDate("1900-01-01"),
 			endDate: createDate("1900-12-30"),
-			intervalUnit: "day"
+			intervalUnit: "day",
 		};
 
 		expect(activityFallsInTimeWindow(mockActivity, timeWindow)).toBe(false);
@@ -99,7 +99,7 @@ describe("getActivityId", () => {
 		recurrence_id: null,
 		duration_milliseconds: null,
 		completed: null,
-		will_recur: false
+		will_recur: false,
 	};
 
 	it("returns a real activity's id", () => {

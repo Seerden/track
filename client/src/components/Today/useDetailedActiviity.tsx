@@ -8,7 +8,7 @@ import { useModalState } from "@/lib/state/modal-state";
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 
 export function useDetailedActivity({
-	activity
+	activity,
 }: {
 	activity: PossiblySyntheticActivity;
 }) {
@@ -16,7 +16,10 @@ export function useDetailedActivity({
 	const putCompletion = usePutTaskCompletion(activity);
 	const humanizedStart = `${startsInFuture(activity) ? "starts" : "started"} ${activityStart(activity).fromNow()}`;
 	const showHumanizedStart = hasNotEnded(activity);
-	const { openDetailedItemModal } = useDetailedItemModal("tag", modalIds.tags.detailed);
+	const { openDetailedItemModal } = useDetailedItemModal(
+		"tag",
+		modalIds.tags.detailed
+	);
 	const { openModal } = useModalState();
 	const { data: recurrence } = useQueryRecurrenceById(activity.recurrence_id);
 
@@ -27,6 +30,6 @@ export function useDetailedActivity({
 		showHumanizedStart,
 		openDetailedItemModal,
 		openModal,
-		putCompletion
+		putCompletion,
 	};
 }

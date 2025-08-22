@@ -10,7 +10,7 @@ export function useRegisterMutation() {
 				// TODO: decide: either redirect here, or call the login mutation.
 				// Either way, only do it in one place: here, or in the useRegister hook.
 				navigate({ to: "/login" });
-			}
+			},
 		})
 	);
 }

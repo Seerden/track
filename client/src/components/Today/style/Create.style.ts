@@ -33,5 +33,5 @@ const SpeedDialButton = styled(Buttons.Action.Stylized)`
 export default {
 	Create,
 	SpeedDialActions,
-	SpeedDialButton
+	SpeedDialButton,
 };

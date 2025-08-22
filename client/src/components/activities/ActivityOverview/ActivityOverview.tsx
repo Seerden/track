@@ -12,7 +12,7 @@ import {
 	LucideArrowDownWideNarrow,
 	LucideDownload,
 	LucideFilter,
-	LucideSquareDot
+	LucideSquareDot,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import S from "./style/ActivityOverview.style";
@@ -38,8 +38,7 @@ export default function ActivityOverview() {
 					light
 					ref={float.refs.setReference}
 					{...float.getReferenceProps()}
-					title="Filter"
-				>
+					title="Filter">
 					<LucideFilter size={15} />
 				</Buttons.Action.Alternative>
 
@@ -48,11 +47,15 @@ export default function ActivityOverview() {
 					<LucideArrowDownWideNarrow size={15} />
 				</Buttons.Action.Alternative>
 
-				<Buttons.Action.Alternative disabled title="Export (not yet implemented)">
+				<Buttons.Action.Alternative
+					disabled
+					title="Export (not yet implemented)">
 					<LucideDownload size={15} />
 				</Buttons.Action.Alternative>
 
-				<Buttons.Action.Alternative disabled title="Select (not yet implemented)">
+				<Buttons.Action.Alternative
+					disabled
+					title="Select (not yet implemented)">
 					<LucideSquareDot size={15} />
 				</Buttons.Action.Alternative>
 			</Containers.ActionBar>
@@ -61,10 +64,9 @@ export default function ActivityOverview() {
 				ref={float.refs.setFloating}
 				style={{
 					...float.floatingStyles,
-					display: float.open ? "block" : "none"
+					display: float.open ? "block" : "none",
 				}}
-				{...float.getFloatingProps()}
-			>
+				{...float.getFloatingProps()}>
 				<ActivityFilter onChange={setFilter} />
 			</S.FloatingWrapper>
 

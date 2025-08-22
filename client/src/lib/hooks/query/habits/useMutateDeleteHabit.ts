@@ -7,8 +7,10 @@ export default function useMutateDeleteHabit() {
 		trpc.habits.delete.mutationOptions({
 			onSuccess: () => {
 				queryClient.invalidateQueries({ queryKey: trpc.habits.all.queryKey() });
-				queryClient.invalidateQueries({ queryKey: trpc.habits.entries.queryKey() });
-			}
+				queryClient.invalidateQueries({
+					queryKey: trpc.habits.entries.queryKey(),
+				});
+			},
 		})
 	);
 }

@@ -50,7 +50,7 @@ const customVerticalScrollbar = css`
 const scrollbar = {
 	hidden: hiddenScrollbar,
 	custom: customScrollbar,
-	customVertical: customVerticalScrollbar
+	customVertical: customVerticalScrollbar,
 };
 
 export default scrollbar;

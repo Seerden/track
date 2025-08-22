@@ -16,7 +16,7 @@ export const queryHabitsAndRelations = authenticatedProcedure.query(
 		const entries = await queryHabitEntriesByUser({ user_id });
 
 		return mergeHabitsAndRelations(habits, habitTagRelations, entries);
-	},
+	}
 );
 
 export const queryHabitEntries = authenticatedProcedure.query(
@@ -24,5 +24,5 @@ export const queryHabitEntries = authenticatedProcedure.query(
 		const user_id = req.session.user.user_id;
 		const entries = await queryHabitEntriesByUser({ user_id });
 		return mapById(entries, "habit_entry_id");
-	},
+	}
 );

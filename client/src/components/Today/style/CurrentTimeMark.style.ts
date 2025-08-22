@@ -29,5 +29,5 @@ const CurrentTimeMark = styled.div<{ $offset: number }>`
 
 export default {
 	CurrentTimeMark,
-	Circle
+	Circle,
 };

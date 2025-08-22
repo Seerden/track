@@ -2,7 +2,7 @@ import useMutateTaskCompletion from "@/lib/hooks/query/activities/useMutateTask"
 import {
 	syntheticActivitySchema,
 	type PossiblySyntheticActivity,
-	type SyntheticActivity
+	type SyntheticActivity,
 } from "@shared/lib/schemas/activity";
 import { produce } from "immer";
 import { useAtom, useSetAtom } from "jotai";
@@ -33,7 +33,7 @@ export default function usePutTaskCompletion(task: PossiblySyntheticActivity) {
 					// TODO: we also do this on the server. Same note here as there:
 					// once we start involving occurrences, this might have to
 					// change.
-					will_recur: false
+					will_recur: false,
 				} as SyntheticActivity),
 				{
 					onSuccess: (updatedTask) => {
@@ -61,9 +61,9 @@ export default function usePutTaskCompletion(task: PossiblySyntheticActivity) {
 						}
 
 						queryClient.invalidateQueries({
-							queryKey: trpc.activities.tasks.overdue.queryKey()
+							queryKey: trpc.activities.tasks.overdue.queryKey(),
 						});
-					}
+					},
 				}
 			);
 		} else {
@@ -72,9 +72,9 @@ export default function usePutTaskCompletion(task: PossiblySyntheticActivity) {
 				{
 					onSuccess: () => {
 						queryClient.invalidateQueries({
-							queryKey: trpc.activities.tasks.overdue.queryKey()
+							queryKey: trpc.activities.tasks.overdue.queryKey(),
 						});
-					}
+					},
 				}
 			);
 		}

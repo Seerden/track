@@ -38,6 +38,6 @@ export function makeTable<TData extends object, TDataKey extends keyof TData>(
 
 	return {
 		fields,
-		rows
+		rows,
 	} as Table<TData, TDataKey>;
 }

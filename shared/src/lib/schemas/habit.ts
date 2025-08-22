@@ -34,7 +34,7 @@ export const habitSchema = newHabitSchema.and(
 	z.object({
 		habit_id: z.string(),
 		created_at: timestampSchema,
-	}),
+	})
 );
 export type Habit = z.infer<typeof habitSchema>;
 
@@ -52,7 +52,7 @@ export const habitEntrySchema = habitEntryInputSchema.and(
 	z.object({
 		habit_entry_id: z.string(),
 		created_at: timestampSchema,
-	}),
+	})
 );
 export type HabitEntry = z.infer<typeof habitEntrySchema>;
 
@@ -69,7 +69,7 @@ export const habitWithEntriesSchema = habitSchema.and(
 	z.object({
 		tag_ids: z.array(z.string()),
 		entries: z.array(habitEntrySchema),
-	}),
+	})
 );
 export type HabitWithEntries = z.infer<typeof habitWithEntriesSchema>;
 
@@ -93,7 +93,7 @@ export const syntheticHabitEntrySchema = habitEntryInputSchema
 			// extension of habitEntrySchema, but it's tough to do that with a zod
 			// intersection, so instead I have to just redefine this field.
 			created_at: timestampSchema,
-		}),
+		})
 	);
 export type SyntheticHabitEntry = z.infer<typeof syntheticHabitEntrySchema>;
 
@@ -101,7 +101,7 @@ export const habitWithPossiblySyntheticEntriesSchema =
 	habitWithEntriesSchema.and(
 		z.object({
 			entries: z.array(habitEntrySchema.or(syntheticHabitEntrySchema)),
-		}),
+		})
 	);
 export type HabitWithPossiblySyntheticEntries = z.infer<
 	typeof habitWithPossiblySyntheticEntriesSchema

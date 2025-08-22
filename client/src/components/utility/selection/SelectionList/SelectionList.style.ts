@@ -8,5 +8,5 @@ const List = styled.ul`
 `;
 
 export default {
-	List
+	List,
 };

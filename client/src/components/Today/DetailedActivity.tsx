@@ -20,7 +20,7 @@ function format(date: Datelike) {
 
 export default function DetailedActivity({
 	activity,
-	DEBUG
+	DEBUG,
 }: {
 	activity: PossiblySyntheticActivity;
 	DEBUG?: boolean;
@@ -32,7 +32,7 @@ export default function DetailedActivity({
 		putCompletion,
 		recurrence,
 		showHumanizedStart,
-		tags
+		tags,
 	} = useDetailedActivity({ activity });
 
 	return (
@@ -54,8 +54,7 @@ export default function DetailedActivity({
 				onClick={(e) => {
 					e.stopPropagation();
 					openModal(modalIds.activities.form);
-				}}
-			>
+				}}>
 				<PenLine size={20} />
 			</S.EditButton>
 
@@ -95,9 +94,8 @@ export default function DetailedActivity({
 			{tags && (
 				<S.Tags
 					style={{
-						gridArea: "tags"
-					}}
-				>
+						gridArea: "tags",
+					}}>
 					{activity.tag_ids.map((id) => {
 						const tag = tags.get(id);
 						if (!tag) return null;
@@ -107,8 +105,7 @@ export default function DetailedActivity({
 									e.stopPropagation();
 									openDetailedItemModal(tag.tag_id);
 								}}
-								key={id}
-							>
+								key={id}>
 								{tag.name}
 							</S.Tag>
 						);
@@ -133,9 +130,8 @@ export default function DetailedActivity({
 						position: "absolute",
 						bottom: "0.5rem",
 						right: "1.5rem",
-						opacity: 0.3
-					}}
-				>
+						opacity: 0.3,
+					}}>
 					ID {activity.activity_id ?? activity.synthetic_id}
 				</span>
 			)}

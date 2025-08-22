@@ -1,5 +1,9 @@
 import { offsetIfOverflowing } from "@/lib/floating-middleware";
-import type { Middleware, UseClickProps, UseHoverProps } from "@floating-ui/react";
+import type {
+	Middleware,
+	UseClickProps,
+	UseHoverProps,
+} from "@floating-ui/react";
 import {
 	arrow,
 	autoUpdate,
@@ -12,7 +16,7 @@ import {
 	useFocus,
 	useHover,
 	useInteractions,
-	useRole
+	useRole,
 } from "@floating-ui/react";
 import type { Dispatch, SetStateAction } from "react";
 import { useRef, useState } from "react";
@@ -30,7 +34,7 @@ export default function useFloatingProps({
 	hover,
 	offset,
 	open,
-	setOpen
+	setOpen,
 }: UseFloatingPreviewArgs) {
 	// This local state is used as a fallback if open state isn't provided by
 	// the caller.
@@ -50,11 +54,11 @@ export default function useFloatingProps({
 			offsetIfOverflowing(),
 			// TODO: only use arrow if it's needed -- determine it through props
 			arrow({
-				element: arrowRef
-			})
+				element: arrowRef,
+			}),
 		],
 		open: open ?? _open,
-		onOpenChange: setOpen ?? _setOpen
+		onOpenChange: setOpen ?? _setOpen,
 	});
 
 	const dismiss = useDismiss(context);
@@ -66,7 +70,7 @@ export default function useFloatingProps({
 		// to pass a hover object into useInteractions to enable to hover
 		// interaction.
 		enabled: !!hover,
-		...hover
+		...hover,
 	});
 	const _click = useClick(context, click);
 	const focus = useFocus(context);
@@ -76,7 +80,7 @@ export default function useFloatingProps({
 		role,
 		focus,
 		...[hover ? _hover : undefined],
-		...[click ? _click : undefined]
+		...[click ? _click : undefined],
 	]);
 
 	return {
@@ -87,6 +91,6 @@ export default function useFloatingProps({
 		refs,
 		setOpen: setOpen ?? _setOpen,
 		context,
-		arrowRef
+		arrowRef,
 	};
 }

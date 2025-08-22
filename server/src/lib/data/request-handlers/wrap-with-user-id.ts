@@ -8,7 +8,7 @@ export type RequestHandlerWithUserId = (
 		res: Response;
 		next: NextFunction;
 	},
-	user_id: ID,
+	user_id: ID
 ) => void;
 
 // TODO: use this in places 🫠
@@ -16,7 +16,7 @@ export const withUserId = (
 	req: Request,
 	res: Response,
 	next: NextFunction,
-	handler: RequestHandlerWithUserId,
+	handler: RequestHandlerWithUserId
 ) => {
 	const user_id = getUserIdFromSessionOrBail(req, res);
 	if (user_id) {

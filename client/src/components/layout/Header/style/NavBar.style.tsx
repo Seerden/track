@@ -80,5 +80,5 @@ export default {
 	HomeLink,
 	NavBar,
 	Actions,
-	Action
+	Action,
 };

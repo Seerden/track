@@ -15,6 +15,6 @@ export function makePath(tag: Maybe<TagWithIds>, tags: TagWithIds[]): string[] {
 		...makePath(
 			tags.find((t) => t.tag_id === tag.parent_id),
 			tags
-		)
+		),
 	];
 }

@@ -3,7 +3,7 @@ import {
 	activityFilterDatetimeModifiers,
 	activityFilterDatetimeSelectors,
 	activityFilterTabs,
-	activityFilterTagsTypes
+	activityFilterTagsTypes,
 } from "@/components/activities/ActivityFilter/lib/constants";
 import { nameTypeOptions } from "@/components/activities/ActivityFilter/lib/filter-name";
 import useActivityFilter from "@/components/activities/ActivityFilter/useActivityFilter";
@@ -11,7 +11,12 @@ import Containers from "@/lib/theme/components/container.style";
 import Input from "@/lib/theme/input";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 import { DateTimePicker } from "@mantine/dates";
-import { LucideBlend, LucideFilterX, LucideNetwork, LucideXCircle } from "lucide-react";
+import {
+	LucideBlend,
+	LucideFilterX,
+	LucideNetwork,
+	LucideXCircle,
+} from "lucide-react";
 import type { ReactNode } from "react";
 import S from "./style/ActivityFilter.style";
 
@@ -31,7 +36,7 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 		wholeTree,
 		toggleWholeTree,
 		activeTab,
-		setActiveTab
+		setActiveTab,
 	} = useActivityFilter({ onChange });
 
 	if (isProbablySuspended) return null;
@@ -50,7 +55,7 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 				noTagsFound={noTagsFound}
 			/>
 		),
-		datetime: <DatetimeTab filter={filter} actions={actions} />
+		datetime: <DatetimeTab filter={filter} actions={actions} />,
 	};
 
 	return (
@@ -61,8 +66,7 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 						key={tab}
 						role="tab"
 						onClick={() => setActiveTab(tab)}
-						$active={activeTab === tab}
-					>
+						$active={activeTab === tab}>
 						<S.TabInner $active={activeTab === tab}>{tab}</S.TabInner>
 					</S.Tab>
 				))}
@@ -92,7 +96,7 @@ function ClearInputButton({ onClick }: { onClick: () => void }) {
 				right: "0.2rem",
 				top: "50%",
 				transform: "translateY(-50%)",
-				cursor: "pointer"
+				cursor: "pointer",
 			}}
 			onClick={onClick}
 		/>
@@ -113,7 +117,9 @@ function DatetimeTab({ filter, actions }: TabProps) {
 			<Containers.Row gap="small" style={{ marginTop: spacingValue.small }}>
 				<Containers.Column>
 					{activityFilterDatetimeModifiers.map((modifier) => (
-						<S.Label key={modifier} $active={filter.datetime.modifier === modifier}>
+						<S.Label
+							key={modifier}
+							$active={filter.datetime.modifier === modifier}>
 							{modifier}
 							<Input.Hidden
 								name="datetime.modifier"
@@ -125,7 +131,9 @@ function DatetimeTab({ filter, actions }: TabProps) {
 				</Containers.Column>
 				<Containers.Column>
 					{activityFilterDatetimeSelectors.map((selector) => (
-						<S.Label key={selector} $active={filter.datetime.selector === selector}>
+						<S.Label
+							key={selector}
+							$active={filter.datetime.selector === selector}>
 							{selector}
 							<input
 								style={{ width: 0 }}
@@ -140,11 +148,13 @@ function DatetimeTab({ filter, actions }: TabProps) {
 					<DateTimePicker
 						size="sm"
 						placeholder={`pick a ${filter.datetime.selector === "between" ? "start" : ""} date`}
-						label={filter.datetime.selector === "between" ? "start" : "datetime"}
+						label={
+							filter.datetime.selector === "between" ? "start" : "datetime"
+						}
 						value={filter.datetime.value?.[0]?.toDate()}
 						onChange={(value) => actions.set.datetime.value(value, 0)}
 						style={{
-							width: "150px"
+							width: "150px",
 						}}
 						maxDate={filter.datetime.value?.[1]?.toDate()}
 					/>
@@ -203,7 +213,7 @@ function TagsTab({
 	tags,
 	isSelectedTag,
 	isActiveTag,
-	noTagsFound
+	noTagsFound,
 }: {
 	actions: Defined<ReturnType<typeof useActivityFilter>["actions"]>;
 	filter: ActivityFilterWithValues;
@@ -240,16 +250,14 @@ function TagsTab({
 						role="button"
 						onClick={actions.set.tags.toggleExact}
 						$active={filter.tags.exact}
-						title="Exact match?"
-					>
+						title="Exact match?">
 						<LucideBlend size={15} />
 					</S.Toggle>
 					<S.Toggle
 						role="button"
 						onClick={toggleWholeTree}
 						$active={wholeTree}
-						title="Select tree?"
-					>
+						title="Select tree?">
 						<LucideNetwork size={15} />
 					</S.Toggle>
 				</S.SectionActionBar>
@@ -263,8 +271,7 @@ function TagsTab({
 								onMouseLeave={() => actions.set.activeTagIds(tag_id, "off")}
 								key={tag_id}
 								value={tag_id}
-								onClick={actions.set.tags.value}
-							>
+								onClick={actions.set.tags.value}>
 								{name}
 							</S.TagChip>
 						);

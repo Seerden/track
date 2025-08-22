@@ -124,5 +124,5 @@ export default {
 	Label,
 	Fields,
 	AllDay,
-	Info
+	Info,
 };

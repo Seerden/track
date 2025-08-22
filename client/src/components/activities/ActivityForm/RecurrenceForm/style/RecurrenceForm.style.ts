@@ -34,5 +34,5 @@ export default {
 	CheckboxWrapper,
 	Column,
 	Label,
-	DaySelector: D
+	DaySelector: D,
 };

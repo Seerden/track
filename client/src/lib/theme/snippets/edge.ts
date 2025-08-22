@@ -13,7 +13,7 @@ const size = edgeSizes.reduce((acc, size) => {
 }, {} as EdgeSizeMap);
 
 export const edge = {
-	size
+	size,
 };
 
 export const border = {
@@ -31,7 +31,7 @@ export const border = {
 	`,
 	tint: css`
 		border: 2px solid #777;
-	`
+	`,
 };
 
 export const thinBorder = {
@@ -49,7 +49,7 @@ export const thinBorder = {
 	`,
 	darkish: css`
 		border: 1px solid #444;
-	`
+	`,
 };
 
 export const thickOutline = {
@@ -58,7 +58,7 @@ export const thickOutline = {
 	`,
 	greyer: css`
 		outline: 3px solid #aaa;
-	`
+	`,
 };
 
 export const outline = {
@@ -79,7 +79,7 @@ export const outline = {
 	`,
 	blueSecondary: css`
 		outline: 2px solid ${colors.blue.secondary};
-	`
+	`,
 };
 
 export const thinOutline = {
@@ -94,5 +94,5 @@ export const thinOutline = {
 	`,
 	grey: css`
 		outline: 1px solid #ccc;
-	`
+	`,
 };

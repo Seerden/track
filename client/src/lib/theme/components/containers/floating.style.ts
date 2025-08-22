@@ -25,7 +25,7 @@ const Wrapper = styled.div`
 `;
 
 const Floating = {
-	Wrapper
+	Wrapper,
 };
 
 export default Floating;

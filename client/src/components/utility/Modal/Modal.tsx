@@ -15,15 +15,17 @@ export default function Modal({
 	children,
 	modalId,
 	initialOpen,
-	scrollbarVisible = false
+	scrollbarVisible = false,
 }: PropsWithChildren<ModalProps>) {
 	const modalRef = useRef(null);
 	const { closeModal, isOpen } = useModal(modalRef, {
 		modalId,
-		initialOpen
+		initialOpen,
 	});
 
-	function handleModalClose(e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>) {
+	function handleModalClose(
+		e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>
+	) {
 		e.stopPropagation();
 		closeModal(modalId);
 	}
@@ -39,8 +41,7 @@ export default function Modal({
 					handleModalClose(e);
 				}
 			}}
-			data-modal-id={modalId}
-		>
+			data-modal-id={modalId}>
 			<S.Modal ref={modalRef} data-modal-id={modalId}>
 				<S.Close onClick={handleModalClose} $color="red" />
 				<S.ModalChildWrapper scrollbarVisible={scrollbarVisible}>

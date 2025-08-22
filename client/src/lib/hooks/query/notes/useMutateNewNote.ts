@@ -7,9 +7,9 @@ export function useMutateNewNote() {
 		trpc.notes.create.mutationOptions({
 			onSuccess: () => {
 				queryClient.invalidateQueries({
-					queryKey: trpc.notes.all.queryKey()
+					queryKey: trpc.notes.all.queryKey(),
 				});
-			}
+			},
 		})
 	);
 }

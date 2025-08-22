@@ -26,8 +26,7 @@ export default function Habit({ habit }: HabitProps) {
 				onClick={(e) => {
 					e.stopPropagation();
 					openDetailedItemModal(habit.habit_id);
-				}}
-			>
+				}}>
 				<L.ItemName>{habit.name}</L.ItemName>
 			</Buttons.Unstyled>
 			<L.Info>{frequencyString(habit)}</L.Info>

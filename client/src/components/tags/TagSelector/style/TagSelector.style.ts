@@ -259,5 +259,5 @@ export default {
 	SelectionItem,
 	PathPart,
 	EmptySelection,
-	CreateTagButton
+	CreateTagButton,
 };

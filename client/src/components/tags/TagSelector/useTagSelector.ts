@@ -14,7 +14,7 @@ type UseTagSelector = {
 // TODO: handle case where maximum > 1.
 export default function useTagSelector({
 	maximum,
-	tags: initialTags
+	tags: initialTags,
 }: UseTagSelector = {}) {
 	const { data: tags } = useQueryTags();
 
@@ -23,7 +23,7 @@ export default function useTagSelector({
 		setTagSelection,
 		toggleTagSelection,
 		selectedTagIds,
-		resetTagSelection
+		resetTagSelection,
 	} = useTagSelection();
 	const [filter, setFilter] = useState<string>("");
 
@@ -38,7 +38,9 @@ export default function useTagSelector({
 
 	function updateTagSelection(tagId: ID) {
 		if (maximum === 1) {
-			setTagSelection((current) => ({ [tagId]: !current[tagId] }) as ById<boolean>);
+			setTagSelection(
+				(current) => ({ [tagId]: !current[tagId] }) as ById<boolean>
+			);
 		} else {
 			toggleTagSelection(tagId);
 		}
@@ -70,6 +72,6 @@ export default function useTagSelector({
 		onSelectionReset,
 		filteredTags,
 		selectedTags,
-		tags: tagList
+		tags: tagList,
 	};
 }

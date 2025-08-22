@@ -18,7 +18,7 @@ const BlackInWhite = css`
 
 const Lucide = {
 	PasswordEye,
-	BlackInWhite
+	BlackInWhite,
 };
 
 export default Lucide;

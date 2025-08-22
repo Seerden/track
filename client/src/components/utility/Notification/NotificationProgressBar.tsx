@@ -12,7 +12,7 @@ type NotificationProgressBarProps = {
  * this is part of will be visible. */
 export default function NotificationProgressBar({
 	timeout,
-	hide
+	hide,
 }: NotificationProgressBarProps) {
 	const { elapsed } = useNotificationTimer(timeout, hide);
 
@@ -21,7 +21,7 @@ export default function NotificationProgressBar({
 			style={{
 				// TODO: we should account for the offset of the progress bar,
 				// currently it's off-center at 0% elapsed.
-				width: `${Math.max(0, 100 - (elapsed / timeout) * 100)}%`
+				width: `${Math.max(0, 100 - (elapsed / timeout) * 100)}%`,
 			}}
 		/>
 	);

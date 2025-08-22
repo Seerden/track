@@ -1,6 +1,6 @@
 import type {
 	HabitEntry,
-	SyntheticHabitEntry
+	SyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
 
 export type HabitEntryUpdateMutationArgs = {

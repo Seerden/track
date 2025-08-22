@@ -9,7 +9,7 @@ export function useLoginMutation() {
 			onSuccess: ({ user }) => {
 				localUser.set(user);
 				queryClient.invalidateQueries({ queryKey: trpc.auth.me.queryKey() });
-			}
+			},
 		})
 	);
 }

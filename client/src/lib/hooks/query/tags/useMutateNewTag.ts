@@ -7,9 +7,9 @@ export function useMutateNewTag() {
 		trpc.tags.create.mutationOptions({
 			onSuccess: () => {
 				queryClient.invalidateQueries({
-					queryKey: trpc.tags.all.queryKey()
+					queryKey: trpc.tags.all.queryKey(),
 				});
-			}
+			},
 		})
 	);
 }

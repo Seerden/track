@@ -16,14 +16,16 @@ import { useEffect } from "react";
 export function useQueryActivities() {
 	const timeWindow = useAtomValue(timeWindowAtom);
 	const setSyntheticActivities = useSetAtom(syntheticActivitiesAtom);
-	const { data: recurrences } = useQuery(trpc.activities.recurrences.all.queryOptions());
+	const { data: recurrences } = useQuery(
+		trpc.activities.recurrences.all.queryOptions()
+	);
 	const { data: recurringActivitiesData } = useQuery(
 		trpc.activities.recurring.queryOptions()
 	);
 	const query = useQuery(
 		trpc.activities.all.queryOptions({
 			from: timeWindow.startDate,
-			to: timeWindow.endDate
+			to: timeWindow.endDate,
 		})
 	);
 
@@ -42,7 +44,7 @@ export function useQueryActivities() {
 				createSyntheticActivitiesForTimeWindow({
 					activity: cur,
 					recurrence: recurrences[cur.recurrence_id],
-					timeWindow
+					timeWindow,
 				})
 			);
 		}, [] as SyntheticActivity[]);

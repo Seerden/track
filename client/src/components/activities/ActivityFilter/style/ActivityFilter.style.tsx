@@ -203,5 +203,5 @@ export default {
 	InputWithSelect,
 	ResetButton,
 	TagChip,
-	TagSelectionList
+	TagSelectionList,
 };

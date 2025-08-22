@@ -9,7 +9,9 @@ type AllDayActivitiesProps = {
 	// (like "yoga session: overdue 5 times")
 };
 
-export default function AllDayActivities({ activities }: AllDayActivitiesProps) {
+export default function AllDayActivities({
+	activities,
+}: AllDayActivitiesProps) {
 	return (
 		/* TODO: rename AllDayActivityList to Container or something */
 		<S.AllDayActivityList>

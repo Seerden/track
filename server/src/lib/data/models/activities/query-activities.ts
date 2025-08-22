@@ -18,7 +18,15 @@ export const queryActivitiesByUser: QueryFunction<
 		completed?: boolean;
 	},
 	Promise<Activity[]>
-> = async ({ sql = sqlConnection, user_id, recurring, tasks, from, to, completed }) => {
+> = async ({
+	sql = sqlConnection,
+	user_id,
+	recurring,
+	tasks,
+	from,
+	to,
+	completed,
+}) => {
 	const recurringSql = recurring ? sql`and recurrence_id is not null` : sql``;
 	const taskSql = tasks ? sql`and is_task = true` : sql``;
 
@@ -100,7 +108,15 @@ export const queryActivitiesAndRelations: QueryFunction<
 		completed?: boolean;
 	},
 	Promise<MapById<ActivityWithIds>>
-> = async ({ sql = sqlConnection, user_id, recurring, tasks, from, to, completed }) => {
+> = async ({
+	sql = sqlConnection,
+	user_id,
+	recurring,
+	tasks,
+	from,
+	to,
+	completed,
+}) => {
 	const activities = await queryActivitiesByUser({
 		sql,
 		user_id,

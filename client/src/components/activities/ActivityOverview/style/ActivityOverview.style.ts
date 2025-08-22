@@ -37,5 +37,5 @@ const FloatingWrapper = styled.div`
 export default {
 	OverviewWrapper,
 	Wrapper,
-	FloatingWrapper
+	FloatingWrapper,
 };

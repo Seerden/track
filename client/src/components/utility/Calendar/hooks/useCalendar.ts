@@ -75,6 +75,6 @@ export function useCalendar({ initialDate, onChange }: UseCalendarProps) {
 		rows,
 		title,
 		selectDate,
-		selectedDate
+		selectedDate,
 	} as const;
 }

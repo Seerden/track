@@ -1,6 +1,6 @@
 import {
 	useMutateNewActivity,
-	useMutateNewRecurringActivity
+	useMutateNewRecurringActivity,
 } from "@/lib/hooks/query/activities/useMutateNewActivity";
 import { invalidateActivities } from "@/lib/hooks/query/invalidate";
 import type { ModalId } from "@/lib/modal-ids";
@@ -14,7 +14,7 @@ import {
 	type ActivityWithIds,
 	type NewActivity,
 	type NewActivityInput,
-	type NewRecurrenceInput
+	type NewRecurrenceInput,
 } from "@shared/lib/schemas/activity";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
@@ -23,12 +23,14 @@ import { parseNewActivity, parseUpdatedActivity } from "./parse-activity";
 
 export function useSubmitUpdatedActivity({
 	activity,
-	modalId
+	modalId,
 }: {
 	activity: ActivityState;
 	modalId?: ModalId;
 }) {
-	const { mutate: submit } = useMutation(trpc.activities.update.mutationOptions());
+	const { mutate: submit } = useMutation(
+		trpc.activities.update.mutationOptions()
+	);
 	const navigate = useNavigate();
 	const { selectedTagIds } = useTagSelection();
 	const { closeModal } = useModalState();
@@ -42,7 +44,7 @@ export function useSubmitUpdatedActivity({
 		submit(
 			{
 				activity: parsedActivity,
-				tag_ids: selectedTagIds
+				tag_ids: selectedTagIds,
 			},
 			{
 				onSuccess: () => {
@@ -53,7 +55,7 @@ export function useSubmitUpdatedActivity({
 					} else {
 						navigate({ to: "/today" });
 					}
-				}
+				},
 			}
 		);
 	}
@@ -61,7 +63,9 @@ export function useSubmitUpdatedActivity({
 	return { handleSubmit };
 }
 
-function isExistingActivity(activity: ActivityState): activity is ActivityWithIds {
+function isExistingActivity(
+	activity: ActivityState
+): activity is ActivityWithIds {
 	return activitySchema.safeParse(activity).success;
 }
 
@@ -69,7 +73,7 @@ export function useSubmitNewActivity({
 	activity,
 	modalId,
 	recurrence,
-	isRecurring
+	isRecurring,
 }: {
 	/**
 	 * @note For the polymorphy of `activity` in useActivityForm, we type it as
@@ -82,7 +86,8 @@ export function useSubmitNewActivity({
 	isRecurring?: boolean;
 }) {
 	const { mutate: submit } = useMutateNewActivity();
-	const { mutate: submitNewRecurringActivity } = useMutateNewRecurringActivity();
+	const { mutate: submitNewRecurringActivity } =
+		useMutateNewRecurringActivity();
 	const navigate = useNavigate();
 	const { selectedTagIds } = useTagSelection();
 	const { closeModal } = useModalState();
@@ -103,7 +108,7 @@ export function useSubmitNewActivity({
 		if (isRecurring) {
 			const parsedActivity = newActivityInputSchema.safeParse({
 				...activity,
-				will_recur: true
+				will_recur: true,
 			} as NewActivity);
 			const parsedRecurrence = newRecurrenceInputSchema.safeParse(recurrence);
 
@@ -112,7 +117,7 @@ export function useSubmitNewActivity({
 				console.log({
 					error: "Invalid activity or recurrence data",
 					activityError: parsedActivity.error,
-					recurrenceError: parsedRecurrence.error
+					recurrenceError: parsedRecurrence.error,
 				});
 				return;
 			}
@@ -121,7 +126,7 @@ export function useSubmitNewActivity({
 				{
 					activity: parseNewActivity(parsedActivity.data),
 					recurrence: parsedRecurrence.data,
-					tagIds: selectedTagIds
+					tagIds: selectedTagIds,
 				},
 				{ onSuccess: handleSuccess }
 			);
@@ -132,7 +137,7 @@ export function useSubmitNewActivity({
 					// `NewActivityInput`, but typescript isn't smart enough to not
 					// have to type-cast this here.
 					activity: parseNewActivity(activity as NewActivityInput),
-					tagIds: selectedTagIds
+					tagIds: selectedTagIds,
 				},
 				{ onSuccess: handleSuccess }
 			);

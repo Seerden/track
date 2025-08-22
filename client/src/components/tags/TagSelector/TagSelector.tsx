@@ -12,7 +12,7 @@ import {
 	LucideChevronDown,
 	LucideChevronUp,
 	LucideFilterX,
-	LucideMaximize
+	LucideMaximize,
 } from "lucide-react";
 import type { MouseEvent } from "react";
 import NewTagButton from "./NewTagButton";
@@ -27,7 +27,7 @@ export default function TagSelector({
 	maximum,
 	showNewTagButton,
 	tags,
-	title
+	title,
 }: TagSelectorProps) {
 	const {
 		clearFilter,
@@ -39,13 +39,15 @@ export default function TagSelector({
 		tags: selectorTags,
 		filteredTags,
 		updateFilter,
-		updateTagSelection
+		updateTagSelection,
 	} = useTagSelector({ maximum, tags });
-	const { dropdownRef, expandFilter, expanded, minimizeFilter } = useTagSelectorFilter();
+	const { dropdownRef, expandFilter, expanded, minimizeFilter } =
+		useTagSelectorFilter();
 
 	// NOTE: tagTreeModalId has to depend on `modalId` because we can have
 	// multiple TagSelectors on the same page.
-	const tagTreeModalId = `${modalIds.tagTree.tagSelector}-${modalId}` as ModalId;
+	const tagTreeModalId =
+		`${modalIds.tagTree.tagSelector}-${modalId}` as ModalId;
 	const { openModal } = useModalState();
 
 	function onModalOpen(e: MouseEvent) {
@@ -58,7 +60,8 @@ export default function TagSelector({
 			<S.Wrapper $fullSize={fullSize}>
 				{/* TODO: the info tooltip should be in a little info block, not a title on a random element */}
 				{!!title && (
-					<S.Title {...(maximum && { title: `Choose at most ${maximum} tag(s)` })}>
+					<S.Title
+						{...(maximum && { title: `Choose at most ${maximum} tag(s)` })}>
 						{title}
 					</S.Title>
 				)}
@@ -89,7 +92,9 @@ export default function TagSelector({
 					</S.Actions>
 
 					{!selectedTags.length ? (
-						<S.EmptySelection>You haven't selected any tags yet.</S.EmptySelection>
+						<S.EmptySelection>
+							You haven't selected any tags yet.
+						</S.EmptySelection>
 					) : (
 						<Selection tags={selectorTags} selectedTags={selectedTags} />
 					)}

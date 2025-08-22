@@ -6,7 +6,7 @@ import type { ActivityWithIds } from "@shared/lib/schemas/activity";
 
 export function filterActivities({
 	activities,
-	filter
+	filter,
 }: {
 	activities: ActivityWithIds[];
 	filter: ActivityFilterWithValues;

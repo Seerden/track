@@ -11,7 +11,7 @@ import {
 	useFloating,
 	useHover,
 	useInteractions,
-	useRole
+	useRole,
 } from "@floating-ui/react";
 import { Minus, Plus } from "lucide-react";
 import type { PropsWithChildren } from "react";
@@ -35,26 +35,28 @@ export default function SpeedDial({
 		middleware: [offset(10), flip(), shift()], // I just took this from an example in the docs
 		open,
 		onOpenChange: setOpen,
-		...floatingOptions
+		...floatingOptions,
 	});
 
 	const click = useClick(context);
 	const dismiss = useDismiss(context);
 	const role = useRole(context);
 	const hover = useHover(context, {
-		handleClose: safePolygon()
+		handleClose: safePolygon(),
 	});
 
 	const { getReferenceProps, getFloatingProps } = useInteractions([
 		click,
 		dismiss,
 		role,
-		hover
+		hover,
 	]);
 
 	return (
 		<S.SpeedDialWrapper ref={refs.setReference} {...getReferenceProps()}>
-			<Buttons.Action.Default $color="darkBlue" style={{ width: 50, height: 50 }}>
+			<Buttons.Action.Default
+				$color="darkBlue"
+				style={{ width: 50, height: 50 }}>
 				{open ? <Minus strokeWidth={3} /> : <Plus strokeWidth={3} />}
 			</Buttons.Action.Default>
 			{open && (
@@ -63,8 +65,7 @@ export default function SpeedDial({
 						<div
 							ref={refs.setFloating}
 							style={{ ...floatingStyles }}
-							{...getFloatingProps()}
-						>
+							{...getFloatingProps()}>
 							{children}
 						</div>
 					</FloatingFocusManager>

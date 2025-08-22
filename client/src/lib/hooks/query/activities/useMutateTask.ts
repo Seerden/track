@@ -6,8 +6,10 @@ export default function useMutateTaskCompletion() {
 	return useMutation(
 		trpc.activities.updateCompletion.mutationOptions({
 			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: trpc.activities.all.queryKey() });
-			}
+				queryClient.invalidateQueries({
+					queryKey: trpc.activities.all.queryKey(),
+				});
+			},
 		})
 	);
 }

@@ -38,5 +38,5 @@ const HourMark = styled.span<{ $highlighted?: boolean }>`
 `;
 
 export default {
-	HourMark
+	HourMark,
 };

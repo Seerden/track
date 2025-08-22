@@ -4,7 +4,8 @@ import { useRef } from "react";
 
 export default function useTagSelectorFilter() {
 	const dropdownRef = useRef<HTMLDivElement>(null);
-	const { isOpen: expanded, setIsOpen: setExpanded } = useClickOutside(dropdownRef);
+	const { isOpen: expanded, setIsOpen: setExpanded } =
+		useClickOutside(dropdownRef);
 
 	function expandFilter<T>(e?: MouseEvent<T> | FocusEvent<T>) {
 		e?.stopPropagation();
@@ -20,6 +21,6 @@ export default function useTagSelectorFilter() {
 		dropdownRef,
 		expanded,
 		expandFilter,
-		minimizeFilter
+		minimizeFilter,
 	};
 }

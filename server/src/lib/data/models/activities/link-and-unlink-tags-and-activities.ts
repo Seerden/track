@@ -8,7 +8,11 @@ export const linkTagsToActivity: QueryFunction<
 	{ activity_id: ID; user_id: ID; tag_ids: ID[] },
 	Promise<ActivityTagRelation[]>
 > = async ({ sql = sqlConnection, user_id, activity_id, tag_ids }) => {
-	const tagRelations = tag_ids.map((tag_id) => ({ user_id, activity_id, tag_id }));
+	const tagRelations = tag_ids.map((tag_id) => ({
+		user_id,
+		activity_id,
+		tag_id,
+	}));
 	if (!tagRelations.length) return [];
 	return sql<ActivityTagRelation[]>`
       insert into activities_tags ${sql(tagRelations)}

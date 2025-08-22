@@ -14,7 +14,10 @@ function Filter(p: FilterProps) {
 				value={p.filter}
 				onChange={p.updateFilter}
 			/>
-			<S.ClearFilter type="button" onClick={p.clearFilter} $color="themeInverted">
+			<S.ClearFilter
+				type="button"
+				onClick={p.clearFilter}
+				$color="themeInverted">
 				<LucideX size={15} />
 			</S.ClearFilter>
 		</S.FilterWrapper>

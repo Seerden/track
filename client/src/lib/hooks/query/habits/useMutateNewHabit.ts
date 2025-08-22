@@ -11,9 +11,9 @@ export function useMutateNewHabit() {
 		trpc.habits.create.mutationOptions({
 			onSuccess: () => {
 				queryClient.invalidateQueries({
-					queryKey: trpc.habits.all.queryKey()
+					queryKey: trpc.habits.all.queryKey(),
 				});
-			}
+			},
 		})
 	);
 }

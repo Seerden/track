@@ -32,5 +32,5 @@ const Circle = styled.circle<{
 
 export default {
 	Svg,
-	Circle
+	Circle,
 };

@@ -42,8 +42,7 @@ export function DirectionButton({ direction, onClick }: DirectionButtonProps) {
 			type="button"
 			$color="dodgerblue"
 			$direction={direction}
-			onClick={onClick}
-		>
+			onClick={onClick}>
 			<Icon size={22} />
 		</StyledDirectionButton>
 	);

@@ -4,7 +4,7 @@ import type {
 } from "@shared/lib/schemas/activity";
 
 function isActivityWithTimestamps(
-	activity: Partial<ActivityWithTimestamps | ActivityWithDates>,
+	activity: Partial<ActivityWithTimestamps | ActivityWithDates>
 ): activity is ActivityWithTimestamps {
 	return (
 		activity.started_at !== null &&
@@ -15,7 +15,7 @@ function isActivityWithTimestamps(
 }
 
 function isActivityWithDates(
-	activity: Partial<ActivityWithTimestamps | ActivityWithDates>,
+	activity: Partial<ActivityWithTimestamps | ActivityWithDates>
 ): activity is ActivityWithDates {
 	return (
 		activity.started_at === null &&

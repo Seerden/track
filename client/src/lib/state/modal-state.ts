@@ -16,8 +16,8 @@ export function useModalState() {
 		setActiveItem((current) => ({
 			...current,
 			[modalId.split("-")[1]]: {
-				activeId: null
-			}
+				activeId: null,
+			},
 		}));
 	}
 
@@ -36,7 +36,13 @@ export function useModalState() {
 		maybeClearActiveItemState(modalId);
 	}
 
-	function setModalOpen({ modalId, value }: { modalId: ModalId; value: boolean }) {
+	function setModalOpen({
+		modalId,
+		value,
+	}: {
+		modalId: ModalId;
+		value: boolean;
+	}) {
 		if (!value) {
 			closeModal(modalId);
 		} else {
@@ -69,6 +75,6 @@ export function useModalState() {
 		closeModal,
 		openModal,
 		setModalOpen,
-		toggleModal
+		toggleModal,
 	};
 }

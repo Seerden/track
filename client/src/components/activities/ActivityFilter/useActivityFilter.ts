@@ -1,7 +1,7 @@
 import type { ActivityFilterProps } from "@/components/activities/ActivityFilter/ActivityFilter";
 import type {
 	ActivityFilterTabs,
-	ActivityFilterWithValues
+	ActivityFilterWithValues,
 } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import { defaultFilter } from "@/components/activities/ActivityFilter/lib/constants";
 import useActivityFilterActions from "@/components/activities/ActivityFilter/useActivityFilterActions";
@@ -34,7 +34,7 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 		wholeTree,
 		tags,
 		tagsTreeById: tagsTree,
-		setFilter
+		setFilter,
 	});
 
 	const isActiveTag = useCallback(
@@ -60,7 +60,9 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 	}, [tagsList, filter.tags.search, filter.tags.value]);
 
 	const noTagsFound =
-		filteredTags.length === 0 && filter.tags.search.length > 0 && tagsList.length > 0;
+		filteredTags.length === 0 &&
+		filter.tags.search.length > 0 &&
+		tagsList.length > 0;
 
 	if (isProbablySuspended) return { isProbablySuspended };
 
@@ -75,6 +77,6 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 		isActiveTag,
 		isSelectedTag,
 		activeTab,
-		setActiveTab
+		setActiveTab,
 	};
 }

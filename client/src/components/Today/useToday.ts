@@ -2,7 +2,7 @@ import {
 	activityEnd,
 	activityFallsOnDay,
 	activityStart,
-	isAllDayActivityOnDate
+	isAllDayActivityOnDate,
 } from "@/lib/activity";
 import { today } from "@/lib/datetime/make-date";
 import { useQueryActivities } from "@/lib/hooks/query/activities/useQueryActivities";
@@ -28,9 +28,8 @@ export default function useToday() {
 	const { getHabitsForTimeWindow } = useHabitsData();
 	const [currentDate, setCurrentDate] = useState<Dayjs>(() => today());
 	const [timeWindow, setTimeWindow] = useAtom(timeWindowAtom);
-	const { data: overdueTasksData, isFetching: isFetchingOverdueTasks } = useQuery(
-		trpc.activities.tasks.overdue.queryOptions()
-	);
+	const { data: overdueTasksData, isFetching: isFetchingOverdueTasks } =
+		useQuery(trpc.activities.tasks.overdue.queryOptions());
 
 	const isFetching =
 		isFetchingActivities || isFetchingRecurrences || isFetchingOverdueTasks;
@@ -40,13 +39,15 @@ export default function useToday() {
 			setTimeWindow({
 				startDate: currentDate.startOf("day"),
 				endDate: currentDate.endOf("day"),
-				intervalUnit: "day"
+				intervalUnit: "day",
 			});
 		}
 	}, [currentDate]);
 
 	function changeDay(direction: "next" | "previous") {
-		setCurrentDate((current) => current.add(direction === "next" ? 1 : -1, "day"));
+		setCurrentDate((current) =>
+			current.add(direction === "next" ? 1 : -1, "day")
+		);
 	}
 
 	const activities = useMemo(() => {
@@ -116,6 +117,6 @@ export default function useToday() {
 		setCurrentDate,
 		title,
 		changeDay,
-		isFetching
+		isFetching,
 	} as const;
 }

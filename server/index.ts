@@ -27,7 +27,7 @@ async function start() {
 		cors({
 			origin: true, // Could also use client domain (in dev: http://localhost:3000)
 			credentials: true,
-		}),
+		})
 	);
 
 	app.use(logRequests);
@@ -37,7 +37,7 @@ async function start() {
 			limit: "5mb",
 			parameterLimit: 10000,
 			extended: true,
-		}) as RequestHandler,
+		}) as RequestHandler
 	);
 
 	await initializeRedisConnection();
@@ -59,7 +59,7 @@ async function start() {
 				console.log({ error: opts.error, body: opts.req.body }); // TODO: proper error handling
 			},
 			allowBatching: true, // this _should_ be the default, but I was having issues with empty request bodies, and this may have fixed it.
-		}),
+		})
 	);
 
 	app.use("/", routers.index);

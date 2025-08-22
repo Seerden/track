@@ -1,10 +1,14 @@
-import type { Habit, HabitEntry, HabitWithEntries } from "@shared/lib/schemas/habit";
+import type {
+	Habit,
+	HabitEntry,
+	HabitWithEntries,
+} from "@shared/lib/schemas/habit";
 import type { HabitTagRelation } from "@shared/types/data/relational.types";
 
 export function mergeHabitsAndRelations(
 	habits: Habit[],
 	habitTagRelations: HabitTagRelation[],
-	entries: HabitEntry[],
+	entries: HabitEntry[]
 ) {
 	const habitMap = new Map<Habit["habit_id"], HabitWithEntries>();
 	for (const habit of habits) {

@@ -1,4 +1,7 @@
-import { findAncestors, findChildren } from "@/components/tags/DetailedTag/build-branch";
+import {
+	findAncestors,
+	findChildren,
+} from "@/components/tags/DetailedTag/build-branch";
 import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import type { TagWithIds } from "@shared/lib/schemas/tag";
 import S from "./style/TagBranch.style";
@@ -39,7 +42,7 @@ export default function TagBranch({ tag }: TagBranchProps) {
 				a.tree_depth - b.tree_depth
 		),
 		tag,
-		children
+		children,
 	] as Array<TagWithIds | TagWithIds[]>;
 
 	return (

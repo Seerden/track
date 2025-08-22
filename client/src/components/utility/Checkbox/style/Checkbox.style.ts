@@ -48,7 +48,7 @@ const Wrapper = styled.span`
 const Checkbox = {
 	Wrapper,
 	Checked,
-	Unchecked
+	Unchecked,
 };
 
 export default Checkbox;

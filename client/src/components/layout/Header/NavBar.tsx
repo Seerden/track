@@ -52,8 +52,7 @@ function ProfileAction() {
 			color="darkblue"
 			onClick={() => {
 				navigate({ to: "/login" });
-			}}
-		>
+			}}>
 			log in
 		</S.Action>
 	);

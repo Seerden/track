@@ -33,10 +33,21 @@ export function buildCalendarRows(date: Dayjs) {
 	const firstOfMonthDay = (date.startOf("month").day() + startOfWeekOffset) % 7;
 	const lastOfMonthDay = (date.endOf("month").day() + startOfWeekOffset) % 7;
 
-	const nonEmptyCells: Row = Array.from({ length: date.daysInMonth() }, (_, i) => i + 1);
-	const emptyCellsStart: Row = Array.from({ length: firstOfMonthDay }, () => null);
-	const emptyCellsEnd: Row = Array.from({ length: 6 - lastOfMonthDay }, () => null);
-	const cells: Row = emptyCellsStart.concat(nonEmptyCells).concat(emptyCellsEnd);
+	const nonEmptyCells: Row = Array.from(
+		{ length: date.daysInMonth() },
+		(_, i) => i + 1
+	);
+	const emptyCellsStart: Row = Array.from(
+		{ length: firstOfMonthDay },
+		() => null
+	);
+	const emptyCellsEnd: Row = Array.from(
+		{ length: 6 - lastOfMonthDay },
+		() => null
+	);
+	const cells: Row = emptyCellsStart
+		.concat(nonEmptyCells)
+		.concat(emptyCellsEnd);
 
 	const rows: Rows = [];
 	let i = 0;
@@ -60,7 +71,7 @@ export function prebuildProbablyRelevantCalendarRows() {
 	const firstDayOfRelevantMonths = [
 		currentDate.add(-1, "year"),
 		currentDate,
-		currentDate.add(1, "year")
+		currentDate.add(1, "year"),
 	]
 		.map((date) => {
 			return months.map((month) => createDate(new Date(date.year(), month, 1)));
@@ -71,7 +82,7 @@ export function prebuildProbablyRelevantCalendarRows() {
 		return {
 			year: date.year(),
 			month: date.month(),
-			rows: buildCalendarRows(date)
+			rows: buildCalendarRows(date),
 		};
 	});
 	return rows;

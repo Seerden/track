@@ -7,7 +7,7 @@ import S from "./style/Today.style";
 
 function useRows({
 	activities,
-	currentDate
+	currentDate,
 }: {
 	activities: PossiblySyntheticActivity[];
 	/** @todo `currentDate` will change to `date` once we make Today take a date
@@ -15,7 +15,7 @@ function useRows({
 	currentDate: Dayjs;
 }) {
 	return {
-		indentation: assignIndentationLevelToActivities(activities, currentDate)
+		indentation: assignIndentationLevelToActivities(activities, currentDate),
 	};
 }
 

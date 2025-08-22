@@ -10,10 +10,10 @@ export function offsetIfOverflowing() {
 			// overflow.right === 0, hence we don't just check for > 0 below
 			if (overflow.right >= 0) {
 				return {
-					x: state.x - 20
+					x: state.x - 20,
 				};
 			}
 			return {};
-		}
+		},
 	};
 }

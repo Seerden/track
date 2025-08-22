@@ -9,7 +9,7 @@ const defaultActiveStyles = css`
 `;
 
 const Active = {
-	default: defaultActiveStyles
+	default: defaultActiveStyles,
 };
 
 export default Active;

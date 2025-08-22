@@ -25,5 +25,5 @@ const CompletionWrapper = styled.div`
 
 export default {
 	Wrapper,
-	CompletionWrapper
+	CompletionWrapper,
 };

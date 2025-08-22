@@ -26,7 +26,7 @@ export const theme = {
 	colors,
 	constants,
 	global,
-	font
+	font,
 } as const;
 
 export type MainTheme = typeof theme;
