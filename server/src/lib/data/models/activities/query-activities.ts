@@ -3,17 +3,11 @@ import { isNullish } from "@shared/lib/is-nullish";
 import type { Activity, ActivityWithIds } from "@shared/lib/schemas/activity";
 import type { Timestamp } from "@shared/lib/schemas/timestamp";
 import type { ActivityTagRelation } from "@shared/types/data/relational.types";
-import type { ID } from "@shared/types/data/utility.types";
+import type { ID, MapById } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
 import { mergeActivitiesAndRelations } from "./merge-activities-and-relations";
 import { timeWindowFilter } from "./time-window-filter";
 
-// TODO (TRK-???) for the query by to/from, if we do that, we probably still
-// want access to recurring activities for now. High prio: rework the
-// syntheticActivties creation to always ensure recurring activities are
-// fetched. Probably make it a separate query that is integrated in the
-// useQueryActivities hook, so that we can still use the optimized activities
-// query without needing `OR will_recur = true` in the SQL query here.
 export const queryActivitiesByUser: QueryFunction<
 	{
 		user_id: ID;
@@ -105,7 +99,7 @@ export const queryActivitiesAndRelations: QueryFunction<
 		to?: Timestamp;
 		completed?: boolean;
 	},
-	Promise<Map<ID, ActivityWithIds>>
+	Promise<MapById<ActivityWithIds>>
 > = async ({ sql = sqlConnection, user_id, recurring, tasks, from, to, completed }) => {
 	const activities = await queryActivitiesByUser({
 		sql,

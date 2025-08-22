@@ -1,5 +1,9 @@
 import { DataById, MappedData } from "@shared/types/data/map";
-import { ID, type ById, type ByIdMap } from "@shared/types/data/utility.types";
+import {
+	type ById,
+	type ByIdMap,
+	type MapById,
+} from "@shared/types/data/utility.types";
 
 /** Transform the byId object of a DataById object to a Map.
  * @note the solution above means we don't have to cast the return value, but
@@ -19,7 +23,7 @@ export function transformByIdToMap<T extends DataById<unknown>>(
 }
 
 /** Transforms a byId Map to a list containing `byId`'s values. */
-export function byIdAsList<T>(map?: Map<ID, T>): T[] {
+export function byIdAsList<T>(map?: MapById<T>): T[] {
 	if (!map) return [];
 	return [...map.values()];
 }

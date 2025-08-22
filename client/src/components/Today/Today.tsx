@@ -17,6 +17,7 @@ import { Suspense } from "react";
 import { DefaultSkeleton } from "../layout/Skeleton";
 import Notes from "./Notes";
 import { OverdueTasksIndicator } from "./OverdueTasksIndicator";
+import { rowHeight } from "./style/TimelineRow.style";
 import S from "./style/Today.style";
 import Task from "./Task";
 import Tasks from "./Tasks";
@@ -70,19 +71,11 @@ export default function Today() {
 					)}
 
 					{isFetching ? (
-						<div
-							style={{
-								display: "flex",
-								flexDirection: "column",
-								gap: "3px"
-							}}
-						>
+						<Containers.Column gap="smaller">
 							{Array.from({ length: 25 }).map((_, i) => (
-								// TOOD: use the exact height and gap of the actual
-								// timeline rows
-								<Skeleton key={i} width={"100%"} height={25} />
+								<Skeleton key={i} width={"100%"} height={rowHeight} />
 							))}
-						</div>
+						</Containers.Column>
 					) : (
 						<Suspense fallback={<DefaultSkeleton />}>
 							<TimelineRows

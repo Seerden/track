@@ -8,23 +8,24 @@ import { useQuery } from "@tanstack/react-query";
 import { useAtomValue, useSetAtom } from "jotai";
 import { useEffect } from "react";
 
+/** Query all activities that occur inside `timeWindow`. Has built-in
+ * functionality to also fetch all recurring activities (regardless of timeWindow),
+ * and sets syntheticActivities state for timeWindow properly accordingly.
+ * @returns the regular activities.all query, which is timeWindow-filtered.
+ * @todo optionally opt out of time-window filtering to get all activities. */
 export function useQueryActivities() {
+	const timeWindow = useAtomValue(timeWindowAtom);
+	const setSyntheticActivities = useSetAtom(syntheticActivitiesAtom);
 	const { data: recurrences } = useQuery(trpc.activities.recurrences.all.queryOptions());
 	const { data: recurringActivitiesData } = useQuery(
 		trpc.activities.recurring.queryOptions()
 	);
-	const timeWindow = useAtomValue(timeWindowAtom);
-	// TODO: implement timeWindow filter on activities.all; make it optional
-	// though. I think we probably want to still have an easily accessible query
-	// that always returns every activity. Not sure how I want to implement it
-	// yet.
 	const query = useQuery(
 		trpc.activities.all.queryOptions({
 			from: timeWindow.startDate,
 			to: timeWindow.endDate
 		})
 	);
-	const setSyntheticActivities = useSetAtom(syntheticActivitiesAtom);
 
 	useEffect(() => {
 		const recurringActivities = byIdAsList(recurringActivitiesData);

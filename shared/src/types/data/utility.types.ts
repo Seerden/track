@@ -14,6 +14,12 @@ export type Maybe<T> = T | null | undefined;
 export type ById<T> = T extends unknown[] ? never : Record<ID, T>;
 export type ByIdMap<T> = T extends unknown[] ? never : Map<ID, T>;
 
+/** `ByIdMap<T> !== Map<ID, T>` for some cases I've encountered, and I genuinely
+ * don't understand why (I think maybe it's inferring nested fields as arrays?);
+ * @example: `ByIdMap<ActivityWithIds>` in `mergeActivitiesAndRelations`.
+ * Because of that issue, use this type instead, for these types of Maps. */
+export type MapById<T> = Map<ID, T>;
+
 /** Type helper for discriminated unions
  * @usage mostly obsolete now that I have trpc schemas for validation. */
 export type NullUnused<TUsed, TUnused> = TUsed & {
