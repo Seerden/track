@@ -71,9 +71,14 @@ export default function Today() {
 					)}
 
 					{isFetching ? (
-						<Containers.Column gap="smaller">
+						<Containers.Column>
 							{Array.from({ length: 25 }).map((_, i) => (
-								<Skeleton key={i} width={"100%"} height={rowHeight} />
+								<Skeleton
+									key={i}
+									width={"100%"}
+									height={`max(${rowHeight}px, 2vh)`}
+									style={{ borderTop: "2px solid white" }}
+								/>
 							))}
 						</Containers.Column>
 					) : (
