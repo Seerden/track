@@ -9,7 +9,11 @@ import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import { trpc } from "@/lib/trpc";
 
-export default function useNewTag() {
+export default function useNewTag({
+	tagSelectorId,
+}: {
+	tagSelectorId: string;
+}) {
 	const { currentUser } = useAuthentication();
 	const { data: tags } = useQueryTags();
 	const { mutate: submit } = useMutateNewTag();
@@ -21,7 +25,14 @@ export default function useNewTag() {
 		user_id: currentUser!.user_id,
 	});
 
-	const { selectedTagIds, resetTagSelection } = useTagSelection();
+	const { selectedTagIds, resetTagSelection } = useTagSelection(tagSelectorId);
+
+	useEffect(() => {
+		console.log({
+			selectedTagIds,
+			tagSelectorId,
+		});
+	}, [selectedTagIds, tagSelectorId]);
 	const parent_id = selectedTagIds.length === 1 ? selectedTagIds[0] : undefined;
 	const { closeModal } = useModalState();
 

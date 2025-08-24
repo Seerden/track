@@ -1,51 +1,50 @@
-import type { ById, ID } from "@shared/types/data/utility.types";
+import type { ID } from "@shared/types/data/utility.types";
 import { produce } from "immer";
-import { atom, useAtom, useAtomValue } from "jotai";
-import { useCallback } from "react";
+import { atom, useAtom } from "jotai";
 
-interface TagSelectionState {
-	tagSelection: ById<boolean>;
-	selectedTagIds: ID[];
-	toggleTagSelection: (tag_id: ID) => void;
-	setTagSelection: (selection: ById<boolean>) => void;
-	resetTagSelection: () => void;
-	setTagSelectionFromList: (ids: ID[]) => void;
-}
+/** Tag selection states are split up by usecase, using a unique identifier for
+ * each usecase (examples: tag selection for a new activity; tag selection for
+ * the activity overview). */
+export type TagSelectionState = Map<string, Set<ID>>;
 
-const tagSelectionAtom = atom<TagSelectionState["tagSelection"]>({});
+const tagSelectionAtom = atom<TagSelectionState>(new Map());
 
-const selectedTagIdsAtom = atom((get) => {
-	const tagSelection = get(tagSelectionAtom);
-	return Object.keys(tagSelection).filter((tagId) => tagSelection[tagId]);
-});
-
-export function useTagSelection() {
-	const selectedTagIds = useAtomValue(selectedTagIdsAtom);
+export function useTagSelection(id: string) {
 	const [tagSelection, setTagSelection] = useAtom(tagSelectionAtom);
+	const selectedTagIds = Array.from(tagSelection.get(id) ?? []);
 
-	const toggleTagSelection = useCallback(
-		(tag_id: ID) => {
-			setTagSelection(
-				produce((state) => {
-					state[tag_id] = !state[tag_id];
-				})
-			);
-		},
-		[setTagSelection]
-	);
+	function toggleTagSelection(tagId: ID) {
+		console.log("toggling", tagId);
+		setTagSelection(
+			produce((state) => {
+				if (!state.has(id)) {
+					state.set(id, new Set());
+				}
 
-	const resetTagSelection = () => setTagSelection({});
-
-	const setTagSelectionFromList = (ids: ID[]) => {
-		const newSelection = ids.reduce(
-			(acc, id) => {
-				acc[id] = true;
-				return acc;
-			},
-			{} as ById<boolean>
+				if (!state.get(id)?.has(tagId)) {
+					state.get(id)?.add(tagId);
+				} else {
+					state.get(id)?.delete(tagId);
+				}
+			})
 		);
-		setTagSelection(newSelection);
-	};
+	}
+
+	function resetTagSelection() {
+		setTagSelection(
+			produce((draft) => {
+				draft.set(id, new Set());
+			})
+		);
+	}
+
+	function setTagSelectionFromList(ids: ID[]) {
+		setTagSelection(
+			produce((draft) => {
+				draft.set(id, new Set(ids));
+			})
+		);
+	}
 
 	return {
 		tagSelection,

@@ -5,6 +5,7 @@ import { useNavigate } from "@tanstack/react-router";
 import type { Dayjs } from "dayjs";
 import { produce } from "immer";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { tagSelectorId } from "@/components/tags/TagSelector/useTagSelector";
 import { createDate } from "@/lib/datetime/make-date";
 import { useMutateNewHabit } from "@/lib/hooks/query/habits/useMutateNewHabit";
 import useAuthentication from "@/lib/hooks/useAuthentication";
@@ -17,7 +18,7 @@ export type NewHabitWithoutUserId = Omit<NewHabit, "user_id">;
 export default function useNewHabit() {
 	const { currentUser } = useAuthentication();
 	const { mutate: submit } = useMutateNewHabit();
-	const { selectedTagIds, resetTagSelection } = useTagSelection();
+	const { selectedTagIds, resetTagSelection } = useTagSelection(tagSelectorId);
 	const navigate = useNavigate();
 	const { closeModal } = useModalState();
 	const [hasEndDate, setHasEndDate] = useState(false);

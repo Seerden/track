@@ -1,3 +1,4 @@
+import { FocusTrap } from "@mantine/core";
 import type { PropsWithChildren } from "react";
 import { useRef } from "react";
 import useModal from "@/lib/hooks/useModal";
@@ -35,19 +36,21 @@ export default function Modal({
 	}
 
 	return (
-		<S.ModalWrapper
-			onClick={(e) => {
-				if (e.target === e.currentTarget) {
-					handleModalClose(e);
-				}
-			}}
-			data-modal-id={modalId}>
-			<S.Modal ref={modalRef} data-modal-id={modalId}>
-				<S.Close onClick={handleModalClose} $color="red" />
-				<S.ModalChildWrapper scrollbarVisible={scrollbarVisible}>
-					{children}
-				</S.ModalChildWrapper>
-			</S.Modal>
-		</S.ModalWrapper>
+		<FocusTrap>
+			<S.ModalWrapper
+				onClick={(e) => {
+					if (e.target === e.currentTarget) {
+						handleModalClose(e);
+					}
+				}}
+				data-modal-id={modalId}>
+				<S.Modal ref={modalRef} data-modal-id={modalId}>
+					<S.Close onClick={handleModalClose} $color="red" />
+					<S.ModalChildWrapper scrollbarVisible={scrollbarVisible}>
+						{children}
+					</S.ModalChildWrapper>
+				</S.Modal>
+			</S.ModalWrapper>
+		</FocusTrap>
 	);
 }

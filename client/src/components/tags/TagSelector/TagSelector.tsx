@@ -4,7 +4,7 @@ import {
 	LucideFilterX,
 	LucideMaximize,
 } from "lucide-react";
-import type { MouseEvent } from "react";
+import { type MouseEvent, useRef } from "react";
 import Filter from "@/components/tags/TagSelector/Filter";
 import Selection from "@/components/tags/TagSelector/Selection";
 import { TagSelectorItems } from "@/components/tags/TagSelector/TagSelectorItems";
@@ -22,6 +22,7 @@ import useTagSelector from "./useTagSelector";
 const Button = Buttons.Action.Alternative;
 
 export default function TagSelector({
+	tagSelectorId,
 	modalId,
 	fullSize,
 	maximum,
@@ -40,9 +41,10 @@ export default function TagSelector({
 		filteredTags,
 		updateFilter,
 		updateTagSelection,
-	} = useTagSelector({ maximum, tags });
+	} = useTagSelector({ maximum, tags, id: tagSelectorId });
 	const { dropdownRef, expandFilter, expanded, minimizeFilter } =
 		useTagSelectorFilter();
+	const tagSelectorRef = useRef<HTMLDivElement>(null);
 
 	// NOTE: tagTreeModalId has to depend on `modalId` because we can have
 	// multiple TagSelectors on the same page.
@@ -57,7 +59,15 @@ export default function TagSelector({
 
 	return (
 		<>
-			<S.Wrapper $fullSize={fullSize}>
+			<S.Wrapper
+				$fullSize={fullSize}
+				ref={tagSelectorRef}
+				onBlur={(e) => {
+					e.stopPropagation();
+					if (e.relatedTarget && !e.currentTarget.contains(e.relatedTarget)) {
+						minimizeFilter();
+					}
+				}}>
 				{/* TODO: the info tooltip should be in a little info block, not a title on a random element */}
 				{!!title && (
 					<S.Title
@@ -104,13 +114,7 @@ export default function TagSelector({
 					)}
 
 					{expanded && (
-						<S.DropdownContent
-							ref={dropdownRef}
-							onBlur={(e) => {
-								if (!e.currentTarget.contains(e.relatedTarget as Node)) {
-									minimizeFilter(e);
-								}
-							}}>
+						<S.DropdownContent ref={dropdownRef}>
 							<S.DropdownActions>
 								<Filter
 									filter={filter}
@@ -138,6 +142,7 @@ export default function TagSelector({
 
 							<S.List>
 								<TagSelectorItems
+									id={tagSelectorId}
 									modalId={modalId}
 									filteredTags={filteredTags}
 									tagSelection={tagSelection}
