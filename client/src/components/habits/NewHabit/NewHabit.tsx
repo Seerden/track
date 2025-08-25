@@ -1,6 +1,7 @@
 import Form from "@lib/theme/components/form.style";
 import { LucideCalendarOff, LucideCalendarPlus } from "lucide-react";
 import TagSelector from "@/components/tags/TagSelector/TagSelector";
+import { tagSelectorId } from "@/components/tags/TagSelector/useTagSelector";
 import { CheckboxIcon } from "@/components/utility/Checkbox/Checkbox";
 import { formatToYearMonthDay } from "@/lib/datetime/format-date";
 import { createDate } from "@/lib/datetime/make-date";
@@ -77,6 +78,7 @@ export default function NewHabit() {
 					</S.DateFields>
 				</Form.Row>
 				<TagSelector
+					tagSelectorId={tagSelectorId}
 					modalId={modalIds.tagSelector.newHabit}
 					showNewTagButton
 					title="Add tags"

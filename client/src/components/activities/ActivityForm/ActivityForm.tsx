@@ -4,6 +4,7 @@ import type {
 	PossiblySyntheticActivity,
 } from "@shared/lib/schemas/activity";
 import RecurrenceForm from "@/components/activities/ActivityForm/RecurrenceForm/RecurrenceForm";
+import { tagSelectorId } from "@/components/tags/TagSelector/useTagSelector";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
@@ -94,6 +95,7 @@ export default function ActivityForm({
 					/>
 				</Form.Row>
 				<TagSelector
+					tagSelectorId={tagSelectorId}
 					fullSize
 					title="Tags"
 					showNewTagButton

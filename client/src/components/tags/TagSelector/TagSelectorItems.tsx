@@ -6,17 +6,24 @@ import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import { useModalState } from "@/lib/state/modal-state";
 import S from "./style/TagSelector.style";
 
-function TagSelectorItem(p: TagSelectorItemProps) {
-	const hasParent = p.tag.parent_id !== null;
-	const isSelected = p.tagSelection?.[+p.tag.tag_id] ?? false;
+function TagSelectorItem({
+	tag,
+	tagSelection,
+	updateTagSelection,
+	id,
+}: TagSelectorItemProps & { id: string }) {
+	const hasParent = tag.parent_id !== null;
+	const isSelected = tagSelection.get(id)?.has(tag.tag_id) ?? false;
 
 	return (
 		<S.ListItem
+			role="button"
+			tabIndex={0}
 			$hasParent={hasParent}
 			$isSelected={isSelected}
-			key={p.tag.tag_id}
-			onClick={() => p.updateTagSelection(p.tag.tag_id)}>
-			{p.tag.name}
+			key={tag.tag_id}
+			onClick={() => updateTagSelection(tag.tag_id)}>
+			{tag.name}
 		</S.ListItem>
 	);
 }
@@ -25,10 +32,11 @@ function TagSelectorItem(p: TagSelectorItemProps) {
 // isProbablySuspended pattern.
 export function TagSelectorItems({
 	modalId,
+	id,
 	filteredTags,
 	tagSelection,
 	updateTagSelection,
-}: TagSelectorItemsProps) {
+}: TagSelectorItemsProps & { id: string }) {
 	const { openModal } = useModalState();
 	const { data: tags } = useQueryTags();
 	const tagCount = tags?.size;
@@ -38,6 +46,7 @@ export function TagSelectorItems({
 	if (tagCount) {
 		return filteredTags.map((tag) => (
 			<TagSelectorItem
+				id={id}
 				tagSelection={tagSelection}
 				updateTagSelection={updateTagSelection}
 				key={tag.tag_id}
