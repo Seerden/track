@@ -39,9 +39,11 @@ export default function useNewTag({
 	useEffect(() => {
 		// make sure we reset tag selection on mount so that we don't accidentally
 		// get an already-active selection into this new tag's state.
-		// TODO: we probably still want to separate tag selection states between
-		// components/use-cases as described in a comment elsewhere
 		resetTagSelection();
+
+		return () => {
+			resetTagSelection();
+		};
 	}, []);
 
 	function onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
