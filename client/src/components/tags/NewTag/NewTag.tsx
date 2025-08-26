@@ -1,8 +1,9 @@
-import { LucideTag } from "lucide-react";
+import { LucideTags } from "lucide-react";
 import type { ModalId } from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import F from "@/lib/theme/components/form.style";
 import Input from "@/lib/theme/input";
+import { spacingValue } from "@/lib/theme/snippets/spacing";
 import { TAG_SELECTOR_IDS } from "../TagSelector/constants";
 import TagSelector from "../TagSelector/TagSelector";
 import S from "./style/NewTag.style";
@@ -17,8 +18,13 @@ function NewTag({ modalId }: { modalId: ModalId }) {
 	return (
 		<F.Wrapper role="form">
 			<F.Form>
-				<F.FormTitle>
-					New <LucideTag />
+				<F.FormTitle
+					style={{
+						alignItems: "center",
+						gap: spacingValue.small,
+					}}>
+					New
+					<LucideTags />
 				</F.FormTitle>
 
 				<F.Row>
