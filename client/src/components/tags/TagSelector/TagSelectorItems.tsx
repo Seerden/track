@@ -13,7 +13,7 @@ function TagSelectorItem({
 	id,
 }: TagSelectorItemProps & { id: string }) {
 	const hasParent = tag.parent_id !== null;
-	const isSelected = tagSelection.get(id)?.has(tag.tag_id) ?? false;
+	const isSelected = tagSelection.get(id)?.includes(tag.tag_id) ?? false;
 
 	return (
 		<S.ListItem

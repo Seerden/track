@@ -5,7 +5,7 @@ import { atom, useAtom } from "jotai";
 /** Tag selection states are split up by usecase, using a unique identifier for
  * each usecase (examples: tag selection for a new activity; tag selection for
  * the activity overview). */
-export type TagSelectionState = Map<string, Set<ID>>;
+export type TagSelectionState = Map<string, ID[]>;
 
 const tagSelectionAtom = atom<TagSelectionState>(new Map());
 
@@ -18,13 +18,13 @@ export function useTagSelection(id: string) {
 		setTagSelection(
 			produce((state) => {
 				if (!state.has(id)) {
-					state.set(id, new Set());
+					state.set(id, []);
 				}
 
-				if (!state.get(id)?.has(tagId)) {
-					state.get(id)?.add(tagId);
+				if (!state.get(id)?.includes(tagId)) {
+					state.get(id)?.push(tagId);
 				} else {
-					state.get(id)?.delete(tagId);
+					state.set(id, state.get(id)?.filter((t) => t !== tagId) ?? []);
 				}
 			})
 		);
@@ -33,7 +33,7 @@ export function useTagSelection(id: string) {
 	function resetTagSelection() {
 		setTagSelection(
 			produce((draft) => {
-				draft.set(id, new Set());
+				draft.set(id, []);
 			})
 		);
 	}
@@ -41,7 +41,7 @@ export function useTagSelection(id: string) {
 	function setTagSelectionFromList(ids: ID[]) {
 		setTagSelection(
 			produce((draft) => {
-				draft.set(id, new Set(ids));
+				draft.set(id, ids);
 			})
 		);
 	}

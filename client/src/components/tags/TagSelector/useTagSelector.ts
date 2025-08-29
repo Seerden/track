@@ -1,4 +1,5 @@
 import { useTagSelection } from "@lib/state/selected-tags-state";
+import { isNullish } from "@shared/lib/is-nullish";
 import { byIdAsList } from "@shared/lib/map";
 import type { TagsInTree } from "@shared/lib/schemas/tag";
 import type { ID } from "@shared/types/data/utility.types";
@@ -45,10 +46,9 @@ export default function useTagSelector({
 			setTagSelection(
 				produce((draft) => {
 					if (!draft.has(id)) {
-						draft.set(id, new Set());
+						draft.set(id, []);
 					}
-					draft.get(id)?.clear();
-					draft.get(id)?.add(tagId);
+					draft.set(id, [tagId]);
 				})
 			);
 		} else {
@@ -67,10 +67,11 @@ export default function useTagSelector({
 		tag.name.toLowerCase().includes(filter.toLowerCase())
 	);
 
-	const selectedTags = useMemo(
-		() => tagList.filter((tag) => selectedTagIds.includes(tag.tag_id)),
-		[tags, selectedTagIds]
-	);
+	const selectedTags = useMemo(() => {
+		return selectedTagIds
+			.map((id) => tagList.find((t) => t.tag_id === id))
+			.filter((entry) => !isNullish(entry)) as typeof tagList;
+	}, [tags, selectedTagIds]);
 
 	return {
 		tagSelection,
