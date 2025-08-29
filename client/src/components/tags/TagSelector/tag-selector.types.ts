@@ -2,10 +2,11 @@ import type { TagsInTree, TagWithIds } from "@shared/lib/schemas/tag";
 import type { ID } from "@shared/types/data/utility.types";
 import type { FocusEvent, MouseEvent } from "react";
 import type { ModalId } from "@/lib/modal-ids";
+import type { TagSelectionState } from "@/lib/state/selected-tags-state";
 
 // These are passed from TagSelector > TagSelectorItems > TagSelectorItem
 export type SubcomponentProps = {
-	tagSelection: Record<number, boolean>;
+	tagSelection: TagSelectionState;
 	updateTagSelection: (id: ID) => void;
 };
 
@@ -33,6 +34,8 @@ export type SelectionProps = {
 };
 
 export type TagSelectorProps = {
+	/** id for tag selection state */
+	tagSelectorId: string;
 	title?: string;
 	tags?: TagsInTree;
 	fullSize?: boolean;

@@ -1,30 +1,35 @@
 import { useTagSelection } from "@lib/state/selected-tags-state";
+import { isNullish } from "@shared/lib/is-nullish";
 import { byIdAsList } from "@shared/lib/map";
 import type { TagsInTree } from "@shared/lib/schemas/tag";
-import type { ById, ID } from "@shared/types/data/utility.types";
+import type { ID } from "@shared/types/data/utility.types";
+import { produce } from "immer";
 import type { ChangeEvent, MouseEvent } from "react";
 import { useMemo, useState } from "react";
 import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 
-type UseTagSelector = {
-	maximum?: number;
-	tags?: TagsInTree;
-};
+export const tagSelectorId = "default-tag-selector";
 
 // TODO: handle case where maximum > 1.
 export default function useTagSelector({
+	id,
 	maximum,
 	tags: initialTags,
-}: UseTagSelector = {}) {
+}: {
+	id: string;
+	maximum?: number;
+	tags?: TagsInTree;
+}) {
 	const { data: tags } = useQueryTags();
 
 	const {
 		tagSelection,
+		selectedTagIds,
 		setTagSelection,
 		toggleTagSelection,
-		selectedTagIds,
 		resetTagSelection,
-	} = useTagSelection();
+	} = useTagSelection(id);
+
 	const [filter, setFilter] = useState<string>("");
 
 	function updateFilter(e: ChangeEvent<HTMLInputElement>) {
@@ -39,7 +44,12 @@ export default function useTagSelector({
 	function updateTagSelection(tagId: ID) {
 		if (maximum === 1) {
 			setTagSelection(
-				(current) => ({ [tagId]: !current[tagId] }) as ById<boolean>
+				produce((draft) => {
+					if (!draft.has(id)) {
+						draft.set(id, []);
+					}
+					draft.set(id, [tagId]);
+				})
 			);
 		} else {
 			toggleTagSelection(tagId);
@@ -51,16 +61,17 @@ export default function useTagSelector({
 		resetTagSelection();
 	}
 
-	// TODO: If tags are passed through props (=p.tagsById), they take priority over all the
-	// user's tags (=t.tags.tags), We need to rename the variables to make that clear.
 	const tagList = byIdAsList(initialTags ?? tags);
+
 	const filteredTags = tagList.filter((tag) =>
 		tag.name.toLowerCase().includes(filter.toLowerCase())
 	);
-	const selectedTags = useMemo(
-		() => tagList.filter((tag) => selectedTagIds.includes(tag.tag_id)),
-		[tags, selectedTagIds]
-	);
+
+	const selectedTags = useMemo(() => {
+		return selectedTagIds
+			.map((id) => tagList.find((t) => t.tag_id === id))
+			.filter((entry) => !isNullish(entry)) as typeof tagList;
+	}, [tags, selectedTagIds]);
 
 	return {
 		tagSelection,
