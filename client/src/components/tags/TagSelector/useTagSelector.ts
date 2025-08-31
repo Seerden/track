@@ -56,7 +56,7 @@ export default function useTagSelector({
 		}
 	}
 
-	function onSelectionReset(e: MouseEvent<HTMLButtonElement>) {
+	function handleSelectionReset(e: MouseEvent<HTMLButtonElement>) {
 		e.stopPropagation();
 		resetTagSelection();
 	}
@@ -80,7 +80,7 @@ export default function useTagSelector({
 		updateFilter,
 		clearFilter,
 		selectedTagIds,
-		onSelectionReset,
+		handleSelectionReset,
 		filteredTags,
 		selectedTags,
 		tags: tagList,

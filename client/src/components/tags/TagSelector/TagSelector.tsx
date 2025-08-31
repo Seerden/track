@@ -33,7 +33,7 @@ export default function TagSelector({
 	const {
 		clearFilter,
 		filter,
-		onSelectionReset,
+		handleSelectionReset,
 		selectedTagIds,
 		selectedTags,
 		tagSelection,
@@ -92,7 +92,7 @@ export default function TagSelector({
 								/>
 								{/* TODO: we show this exact thing in two different places -- make it a subcomponent, or at least a render function */}
 								{!!selectedTagIds.length && (
-									<Button onClick={onSelectionReset}>
+									<Button onClick={handleSelectionReset}>
 										<LucideFilterX size={20} color="orangered" />
 									</Button>
 								)}
@@ -124,7 +124,7 @@ export default function TagSelector({
 								/>
 
 								{!!selectedTagIds.length && (
-									<Button onClick={onSelectionReset}>
+									<Button onClick={handleSelectionReset}>
 										<LucideFilterX size={20} color="orangered" />
 									</Button>
 								)}
