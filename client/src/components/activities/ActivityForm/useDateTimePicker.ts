@@ -15,6 +15,17 @@ import useCurrentTime from "@/lib/hooks/useCurrentTime";
 import { timeWindowAtom } from "@/lib/state/time-window.state";
 import type { DateTimePickerProps } from "./datetime-picker.types";
 
+/**
+ * @TODO (TRK-144)
+ * In this PR, I'm refactoring the date picker fields for NewHabit to use the
+ * DatePicker from mantine. ActivityForm still uses this custom hook/component,
+ * but I think I want to also switch this one over to use mantine as well. There
+ * is some logic in this hook that I want to re-use for those components though,
+ * like automatically shifting the end date to the start date if it's changed
+ * and becomes overlapping, etc, so I'm keeping this hook here for now to
+ * evaluate the future refactored implementation.
+ */
+
 type UseDateTimePickerDefaults = {
 	defaultStartAndEnd: Maybe<StartAndEnd>;
 };

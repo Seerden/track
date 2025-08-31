@@ -1,4 +1,5 @@
 import { type NewHabit, newHabitSchema } from "@shared/lib/schemas/habit";
+import type { Timestamp } from "@shared/lib/schemas/timestamp";
 import { hasValidUserId } from "@shared/types/data/user-id.guards";
 import type { Nullable } from "@shared/types/data/utility.types";
 import { useNavigate } from "@tanstack/react-router";
@@ -13,7 +14,30 @@ import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import { useTagSelection } from "@/lib/state/selected-tags-state";
 
+// TODO: refactor client and server to make this implicit. The user id will
+// always be added server-side for any type of data creation.
 export type NewHabitWithoutUserId = Omit<NewHabit, "user_id">;
+
+export type DateChangeHandler = ({
+	value,
+	field,
+}: {
+	value: Nullable<Timestamp>;
+	field: keyof NewHabitWithoutUserId;
+}) => void;
+
+const defaultNewHabit: NewHabitWithoutUserId = {
+	name: "",
+	description: "",
+	start_timestamp: createDate(new Date()),
+	end_timestamp: null,
+	frequency: 1,
+	interval: 1,
+	interval_unit: "day",
+	goal_type: "checkbox",
+	goal_unit: null,
+	goal: null,
+};
 
 export default function useNewHabit() {
 	const { currentUser } = useAuthentication();
@@ -23,24 +47,12 @@ export default function useNewHabit() {
 	);
 	const navigate = useNavigate();
 	const { closeModal } = useModalState();
-	const [hasEndDate, setHasEndDate] = useState(false);
 
 	useEffect(() => {
 		resetTagSelection();
 	}, []);
 
-	const [habit, setHabit] = useState<NewHabitWithoutUserId>({
-		name: "",
-		description: "",
-		start_timestamp: createDate(new Date()),
-		end_timestamp: null,
-		frequency: 1,
-		interval: 1,
-		interval_unit: "day",
-		goal_type: "checkbox",
-		goal_unit: null,
-		goal: null,
-	});
+	const [habit, setHabit] = useState<NewHabitWithoutUserId>(defaultNewHabit);
 
 	// TODO: clean this up
 	useEffect(() => {
@@ -83,18 +95,18 @@ export default function useNewHabit() {
 
 	/** Input change handler that can handle all fields in NewHabit.
 	 * @todo is it time to generalize this so we can reuse it in other forms?
-	 */
+	 * @todo (TRK-144) consider splitting this up into multiple handlers for
+	 * better type safety and readability. ignore the todo above, I don't want to
+	 * generalize it. */
 	function onInputChange(
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
 	) {
 		const value = e.target.value;
+
 		let parsedValue: Nullable<string | number | Dayjs> = value;
 		switch (e.target.type) {
 			case "number":
 				parsedValue = +value;
-				break;
-			case "date":
-				parsedValue = createDate(value);
 				break;
 			case "text":
 				parsedValue = value === "" ? null : value;
@@ -116,6 +128,48 @@ export default function useNewHabit() {
 		}));
 	}
 
+	const handleDateChange: DateChangeHandler = ({ value, field }) => {
+		if (field !== "end_timestamp" && field !== "start_timestamp") {
+			throw new Error(
+				"Field must be either 'start_timestamp' or 'end_timestamp'"
+			);
+		}
+
+		if (value === null) {
+			switch (field) {
+				case "end_timestamp":
+					return handleClearEndDate();
+				case "start_timestamp":
+					setHabit(
+						produce((draft) => {
+							// TODO: is this always the behavior we want?
+							draft.start_timestamp = createDate(new Date());
+						})
+					);
+			}
+		} else {
+			setHabit(
+				produce((draft) => {
+					draft[field] = createDate(value);
+
+					// if the start date is after the end date, clear the end date
+					if (field === "start_timestamp" && draft.end_timestamp) {
+						if (
+							createDate(draft.start_timestamp).isAfter(
+								createDate(draft.end_timestamp)
+							)
+						) {
+							// TODO: is this the desired behavior, or is it better UX
+							// to shift the end date accordingly? (requires additional
+							// logic to determine how far the start date was shifted)
+							draft.end_timestamp = null;
+						}
+					}
+				})
+			);
+		}
+	};
+
 	function handleGoalTypeChange(e: React.ChangeEvent<HTMLInputElement>) {
 		onInputChange(e);
 		setHabit(
@@ -126,9 +180,8 @@ export default function useNewHabit() {
 		);
 	}
 
-	function handleClearEndDate(e: React.MouseEvent<HTMLButtonElement>) {
-		e.stopPropagation();
-		setHasEndDate(false);
+	function handleClearEndDate(e?: React.MouseEvent<HTMLButtonElement>) {
+		e?.stopPropagation();
 		setHabit(
 			produce((draft) => {
 				draft.end_timestamp = null;
@@ -136,20 +189,12 @@ export default function useNewHabit() {
 		);
 	}
 
-	function enableEndDate(e: React.MouseEvent<HTMLButtonElement>) {
-		e.stopPropagation();
-		setHasEndDate(true);
-	}
-
 	return {
 		habit,
-		setHabit,
 		maybePlural,
 		onInputChange,
 		handleGoalTypeChange,
 		onSubmit,
-		hasEndDate,
-		handleClearEndDate,
-		enableEndDate,
+		handleDateChange,
 	};
 }

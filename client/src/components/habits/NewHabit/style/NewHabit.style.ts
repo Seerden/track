@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import Buttons from "@/lib/theme/components/buttons";
-import F from "@/lib/theme/components/form.style";
 import { font } from "@/lib/theme/font";
 import Input from "@/lib/theme/input";
 import { border, outline } from "@/lib/theme/snippets/edge";
@@ -20,6 +19,8 @@ const SetEndDateButton = styled(Buttons.Action.Stylized)`
 	${flex.row};
 
 	width: max-content;
+
+   align-self: flex-end;
 
 	gap: ${spacingValue.medium};
 	${radius.small};
@@ -150,13 +151,21 @@ const FixedLengthString = styled.span`
 const DateFields = styled.div`
 	${flex.row};
 	justify-content: space-between;
+   padding-top: ${spacingValue.small};
 
 	--gap: 0.5rem;
 	gap: var(--gap);
 
-	${F.Label} {
-		width: calc(50% - var(--gap));
-	}
+   .mantine-DatePickerInput {
+      &-root {
+         width: calc(50% - var(--gap));
+      }
+
+      &-input {
+
+      }
+   }
+	
 `;
 
 export default {
