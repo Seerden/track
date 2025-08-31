@@ -1,14 +1,15 @@
+import type { TagsInTree } from "@shared/lib/schemas/tag";
 import {
 	LucideChevronDown,
 	LucideChevronUp,
 	LucideFilterX,
 	LucideMaximize,
 } from "lucide-react";
-import Filter from "@/components/tags/TagSelector/Filter";
-import Selection from "@/components/tags/TagSelector/Selection";
+import { Filter } from "@/components/tags/TagSelector/Filter";
+import { Selection } from "@/components/tags/TagSelector/Selection";
 import { TagSelectorItems } from "@/components/tags/TagSelector/TagSelectorItems";
-import type { TagSelectorProps } from "@/components/tags/TagSelector/tag-selector.types";
 import TagTree from "@/components/tags/TagTree/TagTree";
+import type { ModalId } from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import NewTagButton from "./NewTagButton";
 import S from "./style/TagSelector.style";
@@ -24,7 +25,17 @@ export default function TagSelector({
 	showNewTagButton,
 	tags,
 	title,
-}: TagSelectorProps) {
+}: {
+	/** id for tag selection state */
+	tagSelectorId: string;
+	title?: string;
+	tags?: TagsInTree;
+	fullSize?: boolean;
+	maximum?: number;
+	showNewTagButton?: boolean;
+	/** The modalId that gets passed to `NewTagButton` */
+	modalId: ModalId;
+}) {
 	const {
 		filter,
 		selectedTagIds,
@@ -130,6 +141,11 @@ export default function TagSelector({
 									modalId={modalId}
 									filteredTags={filteredTags}
 									tagSelection={tagSelection}
+									// TODO (TRK-209) updateTagSelection is exported from
+									// the state hook, so we could just call the hook
+									// inside here, instead of prop-drilling it. Only
+									// difference is we'd have to manually pass
+									// `maximum`.
 									updateTagSelection={updateTagSelection}
 								/>
 							</S.List>

@@ -1,27 +1,34 @@
 import { LucideX } from "lucide-react";
-import type { FilterProps } from "@/components/tags/TagSelector/tag-selector.types";
+import type { FocusEvent, MouseEvent } from "react";
 import Input from "@/lib/theme/input";
 import S from "./style/TagSelector.style";
 
-function Filter(p: FilterProps) {
+export function Filter({
+	filter,
+	updateFilter,
+	clearFilter,
+	onFocus,
+	hasAutoFocus,
+}: {
+	filter: string;
+	updateFilter: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	clearFilter: (e: MouseEvent<HTMLButtonElement>) => void;
+	onFocus?: <T>(e?: FocusEvent<T>) => void;
+	hasAutoFocus?: boolean;
+}) {
 	return (
 		<S.FilterWrapper>
 			<Input.Filter
-				onFocus={(e) => p.onFocus?.(e)}
-				autoFocus={p.hasAutoFocus}
+				onFocus={(e) => onFocus?.(e)}
+				autoFocus={hasAutoFocus}
 				type="text"
 				placeholder="search categories"
-				value={p.filter}
-				onChange={p.updateFilter}
+				value={filter}
+				onChange={updateFilter}
 			/>
-			<S.ClearFilter
-				type="button"
-				onClick={p.clearFilter}
-				$color="themeInverted">
+			<S.ClearFilter type="button" onClick={clearFilter} $color="themeInverted">
 				<LucideX size={15} />
 			</S.ClearFilter>
 		</S.FilterWrapper>
 	);
 }
-
-export default Filter;

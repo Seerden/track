@@ -1,9 +1,9 @@
-import type {
-	TagSelectorItemProps,
-	TagSelectorItemsProps,
-} from "@/components/tags/TagSelector/tag-selector.types";
+import type { TagWithIds } from "@shared/lib/schemas/tag";
+import type { ID } from "@shared/types/data/utility.types";
 import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
+import type { ModalId } from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
+import type { TagSelectionState } from "@/lib/state/selected-tags-state";
 import S from "./style/TagSelector.style";
 
 function TagSelectorItem({
@@ -11,7 +11,12 @@ function TagSelectorItem({
 	tagSelection,
 	updateTagSelection,
 	id,
-}: TagSelectorItemProps & { id: string }) {
+}: {
+	tagSelection: TagSelectionState;
+	updateTagSelection: (id: ID) => void;
+	tag: TagWithIds;
+	id: string;
+}) {
 	const hasParent = tag.parent_id !== null;
 	const isSelected = tagSelection.get(id)?.includes(tag.tag_id) ?? false;
 
@@ -36,7 +41,13 @@ export function TagSelectorItems({
 	filteredTags,
 	tagSelection,
 	updateTagSelection,
-}: TagSelectorItemsProps & { id: string }) {
+}: {
+	tagSelection: TagSelectionState;
+	updateTagSelection: (id: ID) => void;
+	filteredTags: TagWithIds[];
+	modalId: ModalId;
+	id: string;
+}) {
 	const { openModal } = useModalState();
 	const { data: tags } = useQueryTags();
 	const tagCount = tags?.size;
