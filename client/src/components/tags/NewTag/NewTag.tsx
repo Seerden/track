@@ -10,7 +10,7 @@ import S from "./style/NewTag.style";
 import useNewTag from "./useNewTag";
 
 function NewTag({ modalId }: { modalId: ModalId }) {
-	const { onInputChange, onSubmit, tags } = useNewTag({
+	const { handleInputChange, handleSubmit, tags } = useNewTag({
 		tagSelectorId: TAG_SELECTOR_IDS.NEW_TAG,
 	});
 	const tagIds = tags ? [...tags.keys()] : [];
@@ -34,7 +34,7 @@ function NewTag({ modalId }: { modalId: ModalId }) {
 							type="text"
 							placeholder="Tag name"
 							name="name"
-							onChange={onInputChange}
+							onChange={handleInputChange}
 						/>
 					</F.Label>
 
@@ -44,7 +44,7 @@ function NewTag({ modalId }: { modalId: ModalId }) {
 							placeholder="Tag description"
 							type="text"
 							name="description"
-							onChange={onInputChange}
+							onChange={handleInputChange}
 						/>
 					</F.Label>
 				</F.Row>
@@ -61,7 +61,10 @@ function NewTag({ modalId }: { modalId: ModalId }) {
 						</S.Tags>
 					)}
 				</F.Row>
-				<Buttons.Submit.Default type="submit" title="Save" onClick={onSubmit}>
+				<Buttons.Submit.Default
+					type="submit"
+					title="Save"
+					onClick={handleSubmit}>
 					💾
 				</Buttons.Submit.Default>
 			</F.Form>

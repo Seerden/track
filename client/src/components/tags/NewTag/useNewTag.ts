@@ -27,12 +27,6 @@ export default function useNewTag({
 
 	const { selectedTagIds, resetTagSelection } = useTagSelection(tagSelectorId);
 
-	useEffect(() => {
-		console.log({
-			selectedTagIds,
-			tagSelectorId,
-		});
-	}, [selectedTagIds, tagSelectorId]);
 	const parent_id = selectedTagIds.length === 1 ? selectedTagIds[0] : undefined;
 	const { closeModal } = useModalState();
 
@@ -46,11 +40,11 @@ export default function useNewTag({
 		};
 	}, []);
 
-	function onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+	function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
 		setNewTag((current) => ({ ...current, [e.target.name]: e.target.value }));
 	}
 
-	function onSubmit(e: React.FormEvent<HTMLButtonElement>) {
+	function handleSubmit(e: React.FormEvent<HTMLButtonElement>) {
 		e.preventDefault();
 		e.stopPropagation();
 
@@ -66,8 +60,8 @@ export default function useNewTag({
 	}
 
 	return {
-		onInputChange,
-		onSubmit,
+		handleInputChange,
+		handleSubmit,
 		tags,
 	};
 }
