@@ -5,7 +5,7 @@ import { useNavigate } from "@tanstack/react-router";
 import type { Dayjs } from "dayjs";
 import { produce } from "immer";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { tagSelectorId } from "@/components/tags/TagSelector/useTagSelector";
+import { tagSelectorId } from "@/components/tags/TagSelector/tag-selector-id";
 import { createDate } from "@/lib/datetime/make-date";
 import { useMutateNewHabit } from "@/lib/hooks/query/habits/useMutateNewHabit";
 import useAuthentication from "@/lib/hooks/useAuthentication";

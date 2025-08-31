@@ -9,7 +9,7 @@ import {
 } from "@shared/lib/schemas/activity";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
-import { tagSelectorId } from "@/components/tags/TagSelector/useTagSelector";
+import { tagSelectorId } from "@/components/tags/TagSelector/tag-selector-id";
 import {
 	useMutateNewActivity,
 	useMutateNewRecurringActivity,

@@ -5,20 +5,23 @@ import type { TagsInTree } from "@shared/lib/schemas/tag";
 import type { ID } from "@shared/types/data/utility.types";
 import { produce } from "immer";
 import type { ChangeEvent, MouseEvent } from "react";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
-
-export const tagSelectorId = "default-tag-selector";
+import modalIds, { type ModalId } from "@/lib/modal-ids";
+import { useModalState } from "@/lib/state/modal-state";
+import useTagSelectorFilter from "./useTagSelectorFilter";
 
 // TODO: handle case where maximum > 1.
 export default function useTagSelector({
 	id,
 	maximum,
 	tags: initialTags,
+	modalId,
 }: {
 	id: string;
 	maximum?: number;
 	tags?: TagsInTree;
+	modalId: ModalId;
 }) {
 	const { data: tags } = useQueryTags();
 
@@ -73,16 +76,47 @@ export default function useTagSelector({
 			.filter((entry) => !isNullish(entry)) as typeof tagList;
 	}, [tags, selectedTagIds]);
 
+	const { dropdownRef, expandFilter, expanded, minimizeFilter } =
+		useTagSelectorFilter();
+	const tagSelectorRef = useRef<HTMLDivElement>(null);
+
+	// NOTE: tagTreeModalId has to depend on `modalId` because we can have
+	// multiple TagSelectors on the same page.
+	const tagTreeModalId =
+		`${modalIds.tagTree.tagSelector}-${modalId}` as ModalId;
+	const { openModal } = useModalState();
+
+	function handleModalOpen(e: MouseEvent) {
+		e.stopPropagation();
+		openModal(tagTreeModalId);
+	}
+
+	/** When focusing out of the dropdown, close the tag selector dropdown. */
+	function handleDropdownBlur(e: React.FocusEvent) {
+		e.stopPropagation();
+		if (e.relatedTarget && !e.currentTarget.contains(e.relatedTarget)) {
+			minimizeFilter();
+		}
+	}
+
 	return {
-		tagSelection,
-		updateTagSelection,
 		filter,
-		updateFilter,
-		clearFilter,
 		selectedTagIds,
-		handleSelectionReset,
-		filteredTags,
 		selectedTags,
+		tagSelection,
 		tags: tagList,
+		filteredTags,
+		tagSelectorRef,
+		expanded,
+		dropdownRef,
+		tagTreeModalId,
+		clearFilter,
+		handleSelectionReset,
+		updateFilter,
+		updateTagSelection,
+		handleDropdownBlur,
+		expandFilter,
+		handleModalOpen,
+		minimizeFilter,
 	};
 }

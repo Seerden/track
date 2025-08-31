@@ -1,7 +1,7 @@
 import Form from "@lib/theme/components/form.style";
 import { LucideCalendarOff, LucideCalendarPlus } from "lucide-react";
 import TagSelector from "@/components/tags/TagSelector/TagSelector";
-import { tagSelectorId } from "@/components/tags/TagSelector/useTagSelector";
+import { tagSelectorId } from "@/components/tags/TagSelector/tag-selector-id";
 import { CheckboxIcon } from "@/components/utility/Checkbox/Checkbox";
 import { formatToYearMonthDay } from "@/lib/datetime/format-date";
 import { createDate } from "@/lib/datetime/make-date";

@@ -10,7 +10,7 @@ import type { DayOfWeek, IntervalUnit } from "@shared/types/data/utility.types";
 import { produce } from "immer";
 import { useEffect, useMemo, useState } from "react";
 import type { DateTimeStateSetter } from "@/components/activities/ActivityForm/datetime-picker.types";
-import { tagSelectorId } from "@/components/tags/TagSelector/useTagSelector";
+import { tagSelectorId } from "@/components/tags/TagSelector/tag-selector-id";
 import type { ModalId } from "@/lib/modal-ids";
 import type { ActivityState } from "./activity-state.types";
 import { createDefaultActivity } from "./create-default-activity";

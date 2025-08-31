@@ -4,7 +4,7 @@ import type {
 	PossiblySyntheticActivity,
 } from "@shared/lib/schemas/activity";
 import RecurrenceForm from "@/components/activities/ActivityForm/RecurrenceForm/RecurrenceForm";
-import { tagSelectorId } from "@/components/tags/TagSelector/useTagSelector";
+import { tagSelectorId } from "@/components/tags/TagSelector/tag-selector-id";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";

@@ -1,5 +1,5 @@
 import TagSelector from "@/components/tags/TagSelector/TagSelector";
-import { tagSelectorId } from "@/components/tags/TagSelector/useTagSelector";
+import { tagSelectorId } from "@/components/tags/TagSelector/tag-selector-id";
 import modalIds from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import F from "@/lib/theme/components/form.style";
