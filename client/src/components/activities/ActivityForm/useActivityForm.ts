@@ -10,6 +10,7 @@ import type { DayOfWeek, IntervalUnit } from "@shared/types/data/utility.types";
 import { produce } from "immer";
 import { useEffect, useMemo, useState } from "react";
 import type { DateTimeStateSetter } from "@/components/activities/ActivityForm/datetime-picker.types";
+import { TAG_SELECTOR_IDS } from "@/components/tags/TagSelector/constants";
 import type { ModalId } from "@/lib/modal-ids";
 import type { ActivityState } from "./activity-state.types";
 import { createDefaultActivity } from "./create-default-activity";
@@ -59,7 +60,9 @@ export default function useActivityForm({
 			} as WithDates | WithTimestamps)
 		: undefined;
 
-	const { resetTagSelection, setTagSelectionFromList } = useTagSelection();
+	const { resetTagSelection, setTagSelectionFromList } = useTagSelection(
+		TAG_SELECTOR_IDS.DEFAULT
+	);
 	const [isRecurring, setIsRecurring] = useState(false);
 	const [activity, setActivity] = useState<ActivityState>(
 		existingActivity ?? createDefaultActivity({ is_task: initialIsTask })

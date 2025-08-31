@@ -12,8 +12,8 @@ export default function useTagSelectorFilter() {
 		setExpanded(true);
 	}
 
-	function minimizeFilter(e: MouseEvent) {
-		e.stopPropagation();
+	function minimizeFilter<T>(e?: MouseEvent<T> | FocusEvent<T>) {
+		e?.stopPropagation();
 		setExpanded(false);
 	}
 

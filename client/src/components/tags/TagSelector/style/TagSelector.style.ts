@@ -125,9 +125,8 @@ const FilterWrapper = styled.div`
 const Actions = styled.div`
 	${flex.row};
 	justify-content: space-between;
-	align-items: center;
-	margin-top: 0.3rem;
-	gap: 0.5rem;
+	align-items: flex-end;
+	gap: 1rem;
 	width: 100%;
 
 	& > button:nth-of-type(1) {
@@ -141,6 +140,7 @@ const DropdownActions = styled.div`
 	justify-content: space-between;
 
 	gap: 1rem;
+
 	${spacing.margin.wide({ size: 0.8, ratio: 1.25 })}
 
 	button:nth-of-type(1) {
@@ -158,9 +158,11 @@ const DropdownActions = styled.div`
 `;
 
 const DropdownContent = styled.div`
+   --inline-offset: 1.15rem;
+
 	position: absolute;
-	top: -0.8rem;
-	left: -1.1rem;
+	top: -0.9rem;
+	left: calc(-1 * var(--inline-offset));
 
 	${flex.column};
 
@@ -173,7 +175,7 @@ const DropdownContent = styled.div`
 		0 0 0.6rem 0 #999;
 
 	width: calc(
-		100% + 2.2rem
+		100% + calc(2 * var(--inline-offset))
 	); // 100% plus twice the left offset to center it against its parent
 `;
 

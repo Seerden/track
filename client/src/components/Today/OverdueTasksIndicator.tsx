@@ -29,6 +29,7 @@ export function OverdueTasksIndicator({
 				top: `${Math.floor(size / 2)}px`,
 			}}>
 			<Tooltip
+				// TODO: pluralize properly
 				label={`You have ${taskCount} overdue tasks`}
 				position="top"
 				withArrow>

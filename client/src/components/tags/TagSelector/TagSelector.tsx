@@ -1,19 +1,15 @@
+import type { TagsInTree } from "@shared/lib/schemas/tag";
 import {
 	LucideChevronDown,
 	LucideChevronUp,
 	LucideFilterX,
 	LucideMaximize,
 } from "lucide-react";
-import type { MouseEvent } from "react";
-import Filter from "@/components/tags/TagSelector/Filter";
-import Selection from "@/components/tags/TagSelector/Selection";
+import { Filter } from "@/components/tags/TagSelector/Filter";
+import { Selection } from "@/components/tags/TagSelector/Selection";
 import { TagSelectorItems } from "@/components/tags/TagSelector/TagSelectorItems";
-import type { TagSelectorProps } from "@/components/tags/TagSelector/tag-selector.types";
-import useTagSelectorFilter from "@/components/tags/TagSelector/useTagSelectorFilter";
 import TagTree from "@/components/tags/TagTree/TagTree";
 import type { ModalId } from "@/lib/modal-ids";
-import modalIds from "@/lib/modal-ids";
-import { useModalState } from "@/lib/state/modal-state";
 import Buttons from "@/lib/theme/components/buttons";
 import NewTagButton from "./NewTagButton";
 import S from "./style/TagSelector.style";
@@ -22,42 +18,51 @@ import useTagSelector from "./useTagSelector";
 const Button = Buttons.Action.Alternative;
 
 export default function TagSelector({
+	tagSelectorId,
 	modalId,
 	fullSize,
 	maximum,
 	showNewTagButton,
 	tags,
 	title,
-}: TagSelectorProps) {
+}: {
+	/** id for tag selection state */
+	tagSelectorId: string;
+	title?: string;
+	tags?: TagsInTree;
+	fullSize?: boolean;
+	maximum?: number;
+	showNewTagButton?: boolean;
+	/** The modalId that gets passed to `NewTagButton` */
+	modalId: ModalId;
+}) {
 	const {
-		clearFilter,
 		filter,
-		onSelectionReset,
 		selectedTagIds,
 		selectedTags,
 		tagSelection,
 		tags: selectorTags,
 		filteredTags,
+		tagSelectorRef,
+		expanded,
+		dropdownRef,
+		tagTreeModalId,
+		clearFilter,
+		handleSelectionReset,
 		updateFilter,
 		updateTagSelection,
-	} = useTagSelector({ maximum, tags });
-	const { dropdownRef, expandFilter, expanded, minimizeFilter } =
-		useTagSelectorFilter();
-
-	// NOTE: tagTreeModalId has to depend on `modalId` because we can have
-	// multiple TagSelectors on the same page.
-	const tagTreeModalId =
-		`${modalIds.tagTree.tagSelector}-${modalId}` as ModalId;
-	const { openModal } = useModalState();
-
-	function onModalOpen(e: MouseEvent) {
-		e.stopPropagation();
-		openModal(tagTreeModalId);
-	}
+		handleDropdownBlur,
+		expandFilter,
+		handleModalOpen,
+		minimizeFilter,
+	} = useTagSelector({ maximum, tags, id: tagSelectorId, modalId });
 
 	return (
 		<>
-			<S.Wrapper $fullSize={fullSize}>
+			<S.Wrapper
+				$fullSize={fullSize}
+				ref={tagSelectorRef}
+				onBlur={handleDropdownBlur}>
 				{/* TODO: the info tooltip should be in a little info block, not a title on a random element */}
 				{!!title && (
 					<S.Title
@@ -66,7 +71,11 @@ export default function TagSelector({
 					</S.Title>
 				)}
 
-				<div style={{ position: "relative" }}>
+				<div
+					style={{
+						position: "relative",
+						marginTop: "0.3rem",
+					}}>
 					<S.Actions>
 						{!expanded && (
 							<>
@@ -78,7 +87,7 @@ export default function TagSelector({
 								/>
 								{/* TODO: we show this exact thing in two different places -- make it a subcomponent, or at least a render function */}
 								{!!selectedTagIds.length && (
-									<Button onClick={onSelectionReset}>
+									<Button onClick={handleSelectionReset}>
 										<LucideFilterX size={20} color="orangered" />
 									</Button>
 								)}
@@ -110,12 +119,12 @@ export default function TagSelector({
 								/>
 
 								{!!selectedTagIds.length && (
-									<Button onClick={onSelectionReset}>
+									<Button onClick={handleSelectionReset}>
 										<LucideFilterX size={20} color="orangered" />
 									</Button>
 								)}
 
-								<Button onClick={onModalOpen}>
+								<Button onClick={handleModalOpen}>
 									<LucideMaximize size={20} color="dodgerblue" />
 								</Button>
 
@@ -128,9 +137,15 @@ export default function TagSelector({
 
 							<S.List>
 								<TagSelectorItems
+									id={tagSelectorId}
 									modalId={modalId}
 									filteredTags={filteredTags}
 									tagSelection={tagSelection}
+									// TODO (TRK-209) updateTagSelection is exported from
+									// the state hook, so we could just call the hook
+									// inside here, instead of prop-drilling it. Only
+									// difference is we'd have to manually pass
+									// `maximum`.
 									updateTagSelection={updateTagSelection}
 								/>
 							</S.List>

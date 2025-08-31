@@ -1,25 +1,30 @@
-import { LucideTag } from "lucide-react";
+import { LucideTags } from "lucide-react";
 import type { ModalId } from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import F from "@/lib/theme/components/form.style";
 import Input from "@/lib/theme/input";
+import { spacingValue } from "@/lib/theme/snippets/spacing";
+import { TAG_SELECTOR_IDS } from "../TagSelector/constants";
 import TagSelector from "../TagSelector/TagSelector";
 import S from "./style/NewTag.style";
 import useNewTag from "./useNewTag";
 
-type NewTagProps = {
-	modalId: ModalId;
-};
-
-function NewTag({ modalId }: NewTagProps) {
-	const { onInputChange, onSubmit, tags } = useNewTag();
+function NewTag({ modalId }: { modalId: ModalId }) {
+	const { handleInputChange, handleSubmit, tags } = useNewTag({
+		tagSelectorId: TAG_SELECTOR_IDS.NEW_TAG,
+	});
 	const tagIds = tags ? [...tags.keys()] : [];
 
 	return (
 		<F.Wrapper role="form">
 			<F.Form>
-				<F.FormTitle>
-					New <LucideTag />
+				<F.FormTitle
+					style={{
+						alignItems: "center",
+						gap: spacingValue.small,
+					}}>
+					New
+					<LucideTags />
 				</F.FormTitle>
 
 				<F.Row>
@@ -29,7 +34,7 @@ function NewTag({ modalId }: NewTagProps) {
 							type="text"
 							placeholder="Tag name"
 							name="name"
-							onChange={onInputChange}
+							onChange={handleInputChange}
 						/>
 					</F.Label>
 
@@ -39,7 +44,7 @@ function NewTag({ modalId }: NewTagProps) {
 							placeholder="Tag description"
 							type="text"
 							name="description"
-							onChange={onInputChange}
+							onChange={handleInputChange}
 						/>
 					</F.Label>
 				</F.Row>
@@ -47,6 +52,7 @@ function NewTag({ modalId }: NewTagProps) {
 					{tagIds.length > 0 && (
 						<S.Tags>
 							<TagSelector
+								tagSelectorId={TAG_SELECTOR_IDS.NEW_TAG}
 								title="Categorize"
 								maximum={1}
 								tags={tags}
@@ -55,7 +61,10 @@ function NewTag({ modalId }: NewTagProps) {
 						</S.Tags>
 					)}
 				</F.Row>
-				<Buttons.Submit.Default type="submit" title="Save" onClick={onSubmit}>
+				<Buttons.Submit.Default
+					type="submit"
+					title="Save"
+					onClick={handleSubmit}>
 					💾
 				</Buttons.Submit.Default>
 			</F.Form>

@@ -1,16 +1,23 @@
 import type { TagWithIds } from "@shared/lib/schemas/tag";
 import { Fragment } from "react/jsx-runtime";
-import type { SelectionProps } from "@/components/tags/TagSelector/tag-selector.types";
 import { makePath } from "@/lib/tag-path";
 import S from "./style/TagSelector.style";
 
-function Selection(p: SelectionProps) {
-	if (!p.selectedTags.length) return null;
+export function Selection({
+	selectedTags,
+	tags,
+	fullPaths,
+}: {
+	selectedTags: TagWithIds[];
+	tags: TagWithIds[];
+	fullPaths?: boolean;
+}) {
+	if (!selectedTags.length) return null;
 
 	function renderPath(tag: TagWithIds, tags: TagWithIds[]) {
 		return (
 			<S.SelectionItem key={tag.tag_id}>
-				{p.fullPaths
+				{fullPaths
 					? makePath(tag, tags)
 							.map((path, index) => (
 								<Fragment key={index}>
@@ -28,9 +35,7 @@ function Selection(p: SelectionProps) {
 
 	return (
 		<S.SelectionList>
-			{p.selectedTags.map((tag) => renderPath(tag, p.tags))}
+			{selectedTags.map((tag) => renderPath(tag, tags))}
 		</S.SelectionList>
 	);
 }
-
-export default Selection;

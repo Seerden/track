@@ -9,7 +9,11 @@ import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import { trpc } from "@/lib/trpc";
 
-export default function useNewTag() {
+export default function useNewTag({
+	tagSelectorId,
+}: {
+	tagSelectorId: string;
+}) {
 	const { currentUser } = useAuthentication();
 	const { data: tags } = useQueryTags();
 	const { mutate: submit } = useMutateNewTag();
@@ -21,23 +25,26 @@ export default function useNewTag() {
 		user_id: currentUser!.user_id,
 	});
 
-	const { selectedTagIds, resetTagSelection } = useTagSelection();
+	const { selectedTagIds, resetTagSelection } = useTagSelection(tagSelectorId);
+
 	const parent_id = selectedTagIds.length === 1 ? selectedTagIds[0] : undefined;
 	const { closeModal } = useModalState();
 
 	useEffect(() => {
 		// make sure we reset tag selection on mount so that we don't accidentally
 		// get an already-active selection into this new tag's state.
-		// TODO: we probably still want to separate tag selection states between
-		// components/use-cases as described in a comment elsewhere
 		resetTagSelection();
+
+		return () => {
+			resetTagSelection();
+		};
 	}, []);
 
-	function onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+	function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
 		setNewTag((current) => ({ ...current, [e.target.name]: e.target.value }));
 	}
 
-	function onSubmit(e: React.FormEvent<HTMLButtonElement>) {
+	function handleSubmit(e: React.FormEvent<HTMLButtonElement>) {
 		e.preventDefault();
 		e.stopPropagation();
 
@@ -53,8 +60,8 @@ export default function useNewTag() {
 	}
 
 	return {
-		onInputChange,
-		onSubmit,
+		handleInputChange,
+		handleSubmit,
 		tags,
 	};
 }

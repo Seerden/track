@@ -1,3 +1,4 @@
+import { TAG_SELECTOR_IDS } from "@/components/tags/TagSelector/constants";
 import TagSelector from "@/components/tags/TagSelector/TagSelector";
 import modalIds from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
@@ -38,6 +39,7 @@ function NewNote() {
 				</F.Row>
 				<F.Row>
 					<TagSelector
+						tagSelectorId={TAG_SELECTOR_IDS.DEFAULT}
 						title="Tags"
 						tags={tags}
 						showNewTagButton

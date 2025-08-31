@@ -81,7 +81,7 @@ export default function useToday() {
 	const overdueTasks = useMemo(() => {
 		if (!overdueTasksData) return [];
 
-		return byIdAsList(overdueTasksData.byId);
+		return byIdAsList(overdueTasksData);
 	}, [overdueTasksData]);
 
 	const todayActivities = useMemo(() => {

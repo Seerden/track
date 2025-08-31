@@ -19,6 +19,7 @@ const Wrapper = styled.div`
 `;
 
 const FormTitle = styled.h1`
+   ${flex.row};
 	font-size: ${(p) => getFontSize(p, 1.1)};
 	margin: 0;
 	margin-left: 0.8rem;
