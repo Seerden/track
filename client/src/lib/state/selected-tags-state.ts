@@ -9,22 +9,28 @@ export type TagSelectionState = Map<string, ID[]>;
 
 const tagSelectionAtom = atom<TagSelectionState>(new Map());
 
-export function useTagSelection(id: string) {
+export function useTagSelection(
+	/** the selection id. Tag selection is split up into use-cases, e.g. the tags
+	 * for a NewTag form are different to those for the highlighted tasks. */
+	selectionId: string
+) {
 	const [tagSelection, setTagSelection] = useAtom(tagSelectionAtom);
-	const selectedTagIds = Array.from(tagSelection.get(id) ?? []);
+	const selectedTagIds = Array.from(tagSelection.get(selectionId) ?? []);
 
 	function toggleTagSelection(tagId: ID) {
-		console.log("toggling", tagId);
 		setTagSelection(
 			produce((state) => {
-				if (!state.has(id)) {
-					state.set(id, []);
+				if (!state.has(selectionId)) {
+					state.set(selectionId, []);
 				}
 
-				if (!state.get(id)?.includes(tagId)) {
-					state.get(id)?.push(tagId);
+				if (!state.get(selectionId)?.includes(tagId)) {
+					state.get(selectionId)?.push(tagId);
 				} else {
-					state.set(id, state.get(id)?.filter((t) => t !== tagId) ?? []);
+					state.set(
+						selectionId,
+						state.get(selectionId)?.filter((t) => t !== tagId) ?? []
+					);
 				}
 			})
 		);
@@ -33,7 +39,7 @@ export function useTagSelection(id: string) {
 	function resetTagSelection() {
 		setTagSelection(
 			produce((draft) => {
-				draft.set(id, []);
+				draft.set(selectionId, []);
 			})
 		);
 	}
@@ -41,7 +47,7 @@ export function useTagSelection(id: string) {
 	function setTagSelectionFromList(ids: ID[]) {
 		setTagSelection(
 			produce((draft) => {
-				draft.set(id, ids);
+				draft.set(selectionId, ids);
 			})
 		);
 	}
