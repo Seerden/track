@@ -9,7 +9,7 @@ import {
 } from "@shared/lib/schemas/activity";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
-import { tagSelectorId } from "@/components/tags/TagSelector/tag-selector-id";
+import { TAG_SELECTOR_IDS } from "@/components/tags/TagSelector/constants";
 import {
 	useMutateNewActivity,
 	useMutateNewRecurringActivity,
@@ -33,7 +33,7 @@ export function useSubmitUpdatedActivity({
 		trpc.activities.update.mutationOptions()
 	);
 	const navigate = useNavigate();
-	const { selectedTagIds } = useTagSelection(tagSelectorId);
+	const { selectedTagIds } = useTagSelection(TAG_SELECTOR_IDS.DEFAULT);
 	const { closeModal } = useModalState();
 
 	function handleSubmit() {
@@ -90,7 +90,7 @@ export function useSubmitNewActivity({
 	const { mutate: submitNewRecurringActivity } =
 		useMutateNewRecurringActivity();
 	const navigate = useNavigate();
-	const { selectedTagIds } = useTagSelection(tagSelectorId);
+	const { selectedTagIds } = useTagSelection(TAG_SELECTOR_IDS.DEFAULT);
 	const { closeModal } = useModalState();
 
 	function handleSuccess() {
