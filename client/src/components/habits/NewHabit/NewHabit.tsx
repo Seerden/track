@@ -196,7 +196,9 @@ function EndDateField({ onChange, timestamp, min }: DateFieldProps) {
 
 	return (
 		<DatePickerInput
+			placeholder="Lasts indefinitely"
 			label="End date"
+			clearable
 			name="end_timestamp"
 			value={timestamp ? createDate(timestamp).toDate() : undefined}
 			onChange={handleChange}
