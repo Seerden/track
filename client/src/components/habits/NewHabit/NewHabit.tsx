@@ -1,27 +1,29 @@
 import Form from "@lib/theme/components/form.style";
-import { LucideCalendarOff, LucideCalendarPlus } from "lucide-react";
+import { DatePickerInput, type DateValue } from "@mantine/dates";
+import type { Timestamp } from "@shared/lib/schemas/timestamp";
+import type { Nullable } from "@shared/types/data/utility.types";
 import { TAG_SELECTOR_IDS } from "@/components/tags/TagSelector/constants";
 import TagSelector from "@/components/tags/TagSelector/TagSelector";
 import { CheckboxIcon } from "@/components/utility/Checkbox/Checkbox";
-import { formatToYearMonthDay } from "@/lib/datetime/format-date";
 import { createDate } from "@/lib/datetime/make-date";
 import modalIds from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import Input from "@/lib/theme/input";
 import S from "./style/NewHabit.style";
-import useNewHabit, { type NewHabitWithoutUserId } from "./useNewHabit";
+import useNewHabit, {
+	type DateChangeHandler,
+	type NewHabitWithoutUserId,
+} from "./useNewHabit";
 
 export default function NewHabit() {
 	const {
 		habit,
 		onInputChange,
 		maybePlural,
-		hasEndDate,
 		onSubmit,
 		handleGoalTypeChange,
-		handleClearEndDate,
-		enableEndDate,
+		handleDateChange,
 	} = useNewHabit();
 
 	return (
@@ -56,25 +58,17 @@ export default function NewHabit() {
 						position: "relative",
 						flexDirection: "column",
 					}}>
-					{hasEndDate && (
-						<S.ClearEndDateButtonWrapper>
-							<Buttons.Action.Default
-								type="button"
-								$color="red"
-								onClick={handleClearEndDate}>
-								<LucideCalendarOff size={16} color="white" />
-							</Buttons.Action.Default>
-						</S.ClearEndDateButtonWrapper>
-					)}
 					<S.DateFields>
-						<StartDateField habit={habit} onChange={onInputChange} />
-						{hasEndDate ? (
-							<EndDateField habit={habit} onChange={onInputChange} />
-						) : (
-							<S.SetEndDateButton $color="theme" onClick={enableEndDate}>
-								Add end date <LucideCalendarPlus size={15} />
-							</S.SetEndDateButton>
-						)}
+						<StartDateField
+							timestamp={habit.start_timestamp}
+							onChange={handleDateChange}
+						/>
+
+						<EndDateField
+							min={habit.start_timestamp ?? undefined}
+							timestamp={habit.end_timestamp}
+							onChange={handleDateChange}
+						/>
 					</S.DateFields>
 				</Form.Row>
 				<TagSelector
@@ -167,37 +161,49 @@ function UnitField({ onChange, habit }: FieldProps) {
 	);
 }
 
-function StartDateField({ onChange, habit }: FieldProps) {
+type DateFieldProps = {
+	onChange: DateChangeHandler;
+	timestamp: Nullable<Timestamp>;
+	min?: Timestamp;
+};
+
+function StartDateField({ onChange, timestamp }: DateFieldProps) {
+	function handleChange(value: DateValue) {
+		onChange({
+			value: value ? createDate(value) : null,
+			field: "start_timestamp",
+		});
+	}
+
 	return (
-		<Form.Label>
-			<span>Start date</span>
-			<Input.Default
-				type="date"
-				name="start_timestamp"
-				value={formatToYearMonthDay(createDate(habit.start_timestamp))}
-				onChange={onChange}
-				required
-			/>
-		</Form.Label>
+		<DatePickerInput
+			label="Start date"
+			name="start_timestamp"
+			value={timestamp ? createDate(timestamp).toDate() : undefined}
+			onChange={handleChange}
+			required
+		/>
 	);
 }
 
-function EndDateField({ onChange, habit }: FieldProps) {
+function EndDateField({ onChange, timestamp, min }: DateFieldProps) {
+	function handleChange(value: DateValue) {
+		onChange({
+			value: value ? createDate(value) : null,
+			field: "end_timestamp",
+		});
+	}
+
 	return (
-		<Form.Label>
-			<span>End date</span>
-			<Input.Default
-				type="date"
-				name="end_timestamp"
-				value={
-					habit.end_timestamp
-						? formatToYearMonthDay(createDate(habit.end_timestamp))
-						: undefined
-				}
-				onChange={onChange}
-				required
-			/>
-		</Form.Label>
+		<DatePickerInput
+			placeholder="Lasts indefinitely"
+			label="End date"
+			clearable
+			name="end_timestamp"
+			value={timestamp ? createDate(timestamp).toDate() : undefined}
+			onChange={handleChange}
+			minDate={min ? createDate(min).toDate() : undefined}
+		/>
 	);
 }
 
