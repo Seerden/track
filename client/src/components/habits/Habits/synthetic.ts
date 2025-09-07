@@ -111,7 +111,19 @@ export function withSyntheticHabitEntries(
 		});
 	});
 
-	return mapById(habitsWithSyntheticEntries, "habit_id");
+	// TODO (TRK-144): could consider altering the habits query to consider the time
+	// window, similar to the activities query
+	const filteredHabits = habitsWithSyntheticEntries.filter((habit) => {
+		const endsBeforeTimeWindow =
+			habit.end_timestamp &&
+			createDate(habit.end_timestamp).isBefore(timeWindow.startDate);
+		const beginsAfterTimeWindow =
+			habit.start_timestamp &&
+			createDate(habit.start_timestamp).isAfter(timeWindow.endDate);
+		return !endsBeforeTimeWindow && !beginsAfterTimeWindow;
+	});
+
+	return mapById(filteredHabits, "habit_id");
 }
 
 export function syntheticToReal({
