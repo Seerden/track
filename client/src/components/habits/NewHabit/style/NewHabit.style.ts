@@ -6,7 +6,7 @@ import { border, outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { inputStyle } from "@/lib/theme/snippets/input";
 import { radius } from "@/lib/theme/snippets/radius";
-import { spacingValue } from "@/lib/theme/snippets/spacing";
+import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 
 const ClearEndDateButtonWrapper = styled.div`
 	position: absolute;
@@ -24,9 +24,10 @@ const SetEndDateButton = styled(Buttons.Action.Stylized)`
 
 	gap: ${spacingValue.medium};
 	${radius.small};
-	padding: ${spacingValue.small};
+   ${spacing.padding.small};
 
 	color: black;
+
 	svg {
 		color: black;
 	}
@@ -153,16 +154,12 @@ const DateFields = styled.div`
 	justify-content: space-between;
    padding-top: ${spacingValue.small};
 
-	--gap: 0.5rem;
+	--gap: ${spacingValue.small};
 	gap: var(--gap);
 
    .mantine-DatePickerInput {
       &-root {
          width: calc(50% - var(--gap));
-      }
-
-      &-input {
-
       }
    }
 	
