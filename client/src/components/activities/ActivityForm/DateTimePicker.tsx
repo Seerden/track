@@ -1,90 +1,52 @@
-import { LucideHelpCircle } from "lucide-react";
-import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
-import Input from "@/lib/theme/input";
-import type { DateTimePickerProps } from "./datetime-picker.types";
-import S from "./style/DateTimePicker.style";
-import useDateTimePicker from "./useDateTimePicker";
+import {
+	DatePickerInput,
+	type DatePickerInputProps,
+	DateTimePicker as MantineDateTimePicker,
+	type DateTimePickerProps as MantineDateTimePickerProps,
+} from "@mantine/dates";
+import type { OmitStrict } from "@shared/types/data/utility.types";
+import { createDate } from "@/lib/datetime/make-date";
+import F from "@/lib/theme/components/form.style";
+import type useDateTimePicker from "./useDateTimePicker";
 
 export default function DateTimePicker({
-	onChange,
-	defaultValues,
-}: DateTimePickerProps) {
-	const {
-		allDay,
-		manualEndDate,
-		defaultStartDate,
-		defaultEndDate,
-		defaultTime,
-		onAllDayFieldChange,
-		onStartDateFieldChange,
-		onEndDateFieldChange,
-		onTimeFieldChange,
-	} = useDateTimePicker({
-		onChange,
-		defaultValues,
-	});
+	allDay,
+	dates,
+	handleDateChange,
+}: OmitStrict<ReturnType<typeof useDateTimePicker>, "handleAllDayChange">) {
+	const InputComponent = allDay ? DatePickerInput : MantineDateTimePicker;
+	// TODO: update to mantine 8 and use timePickerProps in here
+	const inputProps = allDay
+		? ({
+				valueFormat: "DD MMMM YYYY",
+			} satisfies DatePickerInputProps)
+		: ({
+				valueFormat: "DD MMMM YYYY (HH:mm)",
+			} satisfies MantineDateTimePickerProps);
 
 	return (
-		<S.Form>
-			<S.Row>
-				<S.Fields>
-					<S.Label>
-						<span>Date</span>
-						<Input.Default
-							type="date"
-							defaultValue={defaultStartDate}
-							onChange={onStartDateFieldChange}
-						/>
-					</S.Label>
+		<F.Row style={{ flexDirection: "column" }}>
+			<InputComponent
+				required
+				error={createDate(dates.start).isAfter(createDate(dates.end))}
+				label="Start"
+				value={createDate(dates.start).toDate()}
+				onChange={(value) => {
+					handleDateChange({ field: "start", value });
+				}}
+				{...inputProps}
+			/>
 
-					<S.Label $faded={!manualEndDate}>
-						<span>End date</span>
-						<Input.Default
-							type="date"
-							defaultValue={defaultEndDate}
-							onChange={onEndDateFieldChange}
-						/>
-					</S.Label>
-					<S.Info
-						title={
-							"If you do not set an end date, it will default to the start date."
-						}>
-						<LucideHelpCircle size={20} />
-					</S.Info>
-				</S.Fields>
-			</S.Row>
-			<S.Row>
-				<S.Fields>
-					<S.Label $faded={allDay}>
-						<span>Start time</span>
-						<Input.Default
-							type="text"
-							onBlur={(e) => onTimeFieldChange(e, "start")}
-							defaultValue={defaultTime.start}
-							// TODO: Need something in the UI to clarify the time
-							// format (also in the endTime field), just this
-							// placeholder is not enough -- do this after implementing
-							// parsing of other types of time inputs
-							placeholder={"HHmm"}
-							disabled={allDay}
-						/>
-					</S.Label>
-					<S.Label $faded={allDay}>
-						<span>End time</span>
-						<Input.Default
-							type="text"
-							placeholder={"HHmm"}
-							onBlur={(e) => onTimeFieldChange(e, "end")}
-							defaultValue={defaultTime.end}
-							disabled={allDay}
-						/>
-					</S.Label>
-				</S.Fields>
-				<S.AllDay>
-					All day?
-					<Checkbox checked={allDay} onChange={onAllDayFieldChange} />
-				</S.AllDay>
-			</S.Row>
-		</S.Form>
+			<InputComponent
+				required
+				error={createDate(dates.end).isBefore(createDate(dates.start))}
+				label="End"
+				value={createDate(dates.end).toDate()}
+				onChange={(value) => {
+					handleDateChange({ field: "end", value });
+				}}
+				{...inputProps}
+			/>
+		</F.Row>
 	);
 }

@@ -9,7 +9,6 @@ import {
 	INTERVAL_UNIT,
 } from "@/components/activities/ActivityForm/RecurrenceForm/constants";
 import DaySelector from "@/components/activities/ActivityForm/RecurrenceForm/DaySelector";
-import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import Containers from "@/lib/theme/components/container.style";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 import type useActivityForm from "../useActivityForm";
@@ -19,7 +18,6 @@ export default function RecurrenceForm({
 	recurrence,
 	isRecurring,
 	intervalUnitSuffix,
-	toggleRecurring,
 	updateRecurrence,
 	setSelection,
 	resetSelection,
@@ -29,21 +27,13 @@ export default function RecurrenceForm({
 	| "recurrence"
 	| "isRecurring"
 	| "intervalUnitSuffix"
-	| "toggleRecurring"
 	| "updateRecurrence"
 	| "setSelection"
 	| "resetSelection"
 	| "validRecurrence"
 >) {
 	if (!isRecurring) {
-		return (
-			<S.Container>
-				<S.CheckboxWrapper>
-					<span>Recurring activity?</span>
-					<Checkbox checked={isRecurring} onChange={toggleRecurring} />
-				</S.CheckboxWrapper>
-			</S.Container>
-		);
+		return null;
 	}
 
 	return (
@@ -70,10 +60,7 @@ export default function RecurrenceForm({
 					</Tooltip>
 				</span>
 			)}
-			<S.CheckboxWrapper>
-				<span>Recurring activity?</span>
-				<Checkbox checked={isRecurring} onChange={toggleRecurring} />
-			</S.CheckboxWrapper>
+
 			<Containers.Row gap="medium" padding="medium">
 				<S.Column>
 					{frequencyOptions.map((frequency) => (
