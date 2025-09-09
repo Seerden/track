@@ -20,7 +20,7 @@ export const newHabitSchema = z
 	.object({
 		user_id: z.string(),
 		name: z.string(),
-		description: z.string(),
+		description: z.string().nullable(),
 		start_timestamp: timestampSchema,
 		end_timestamp: timestampSchema.nullable(),
 		interval: z.number(),
