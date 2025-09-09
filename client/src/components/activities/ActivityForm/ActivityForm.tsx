@@ -129,10 +129,7 @@ export default function ActivityForm({
 					<Form.Row
 						style={{ position: "relative", padding: spacingValue.small }}>
 						<TextInput
-							style={{
-								paddingTop: spacingValue.small,
-								width: "100%",
-							}}
+							style={{ width: "100%" }}
 							label="Activity"
 							name={"name" satisfies keyof NewActivityInput}
 							onChange={handleInputChange}

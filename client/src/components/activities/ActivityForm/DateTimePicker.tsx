@@ -7,7 +7,6 @@ import {
 import type { OmitStrict } from "@shared/types/data/utility.types";
 import { createDate } from "@/lib/datetime/make-date";
 import F from "@/lib/theme/components/form.style";
-import { spacingValue } from "@/lib/theme/snippets/spacing";
 import type useDateTimePicker from "./useDateTimePicker";
 
 export default function DateTimePicker({
@@ -16,9 +15,9 @@ export default function DateTimePicker({
 	handleDateChange,
 }: OmitStrict<ReturnType<typeof useDateTimePicker>, "handleAllDayChange">) {
 	const InputComponent = allDay ? DatePickerInput : MantineDateTimePicker;
+	// TODO: update to mantine 8 and use timePickerProps in here
 	const inputProps = allDay
-		? // TODO: update to mantine 8 and use timePickerProps in here
-			({
+		? ({
 				valueFormat: "DD MMMM YYYY",
 			} satisfies DatePickerInputProps)
 		: ({
@@ -26,13 +25,7 @@ export default function DateTimePicker({
 			} satisfies MantineDateTimePickerProps);
 
 	return (
-		<F.Row
-			style={{
-				position: "relative",
-				paddingLeft: spacingValue.medium,
-				flexDirection: "column",
-				gap: spacingValue.small,
-			}}>
+		<F.Row style={{ flexDirection: "column" }}>
 			<InputComponent
 				required
 				error={createDate(dates.start).isAfter(createDate(dates.end))}
