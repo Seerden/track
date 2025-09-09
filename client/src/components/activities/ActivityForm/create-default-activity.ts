@@ -19,6 +19,7 @@ export function createDefaultActivity({
 		recurrence_id: null,
 		duration_milliseconds: null,
 		will_recur: false,
+		completed: null,
 	} satisfies OmitStrict<
 		NewActivityInput,
 		"started_at" | "ended_at" | "start_date" | "end_date"

@@ -3,13 +3,10 @@ import {
 	type NewRecurrenceInput,
 	newActivityInputSchema,
 	type PossiblySyntheticActivity,
-	type WithDates,
-	type WithTimestamps,
 } from "@shared/lib/schemas/activity";
 import type { DayOfWeek, IntervalUnit } from "@shared/types/data/utility.types";
 import { produce } from "immer";
 import { useEffect, useMemo, useState } from "react";
-import type { DateTimeStateSetter } from "@/components/activities/ActivityForm/datetime-picker.types";
 import { TAG_SELECTOR_IDS } from "@/components/tags/TagSelector/constants";
 import type { ModalId } from "@/lib/modal-ids";
 import type { ActivityState } from "./activity-state.types";
@@ -51,14 +48,6 @@ export default function useActivityForm({
 	const isEditing = !!existingActivity;
 	const title = existingActivity ? "Edit activity" : "Create an activity";
 	const buttonTitle = existingActivity ? "Update activity" : "Create activity";
-	const defaultDateTimeValues = existingActivity
-		? ({
-				started_at: existingActivity.started_at,
-				ended_at: existingActivity.ended_at,
-				start_date: existingActivity.start_date,
-				end_date: existingActivity.end_date,
-			} as WithDates | WithTimestamps)
-		: undefined;
 
 	const { resetTagSelection, setTagSelectionFromList } = useTagSelection(
 		TAG_SELECTOR_IDS.DEFAULT
@@ -116,14 +105,6 @@ export default function useActivityForm({
 			[name]: type === "checkbox" ? !current.is_task : value,
 		}));
 	}
-
-	const handleDateTimeChange: DateTimeStateSetter = ({ name, value }) => {
-		setActivity(
-			produce((draft) => {
-				draft[name] = value;
-			})
-		);
-	};
 
 	function resetRecurrenceSelection() {
 		setRecurrence(
@@ -211,11 +192,11 @@ export default function useActivityForm({
 	return {
 		handleSubmit,
 		handleInputChange,
-		handleDateTimeChange,
+		activity,
+		setActivity,
 		isTask: !!activity.is_task,
 		title,
 		buttonTitle,
-		defaultDateTimeValues,
 		isRecurring,
 		recurrence,
 		intervalUnitSuffix,
