@@ -1,7 +1,7 @@
 import type { DateValue } from "@mantine/dates";
+import { withDatesBaseSchema } from "@shared/lib/schemas/activity";
 import { produce } from "immer";
 import { type ChangeEvent, useCallback, useMemo, useState } from "react";
-import { isAllDay } from "@/components/activities/ActivityForm/datetime-picker-extract-defaults";
 import { createDate, now } from "@/lib/datetime/make-date";
 import type { DateTimePickerProps } from "./datetime-picker.types";
 
@@ -22,7 +22,9 @@ export default function useDateTimePicker({
 	activity,
 	setActivity,
 }: DateTimePickerProps) {
-	const [allDay, setAllDay] = useState(() => isAllDay(activity));
+	const [allDay, setAllDay] = useState(
+		() => withDatesBaseSchema.safeParse(activity).success
+	);
 
 	const dates = useMemo(() => {
 		const start = createDate(
