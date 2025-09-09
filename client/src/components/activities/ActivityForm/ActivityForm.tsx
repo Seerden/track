@@ -80,10 +80,7 @@ export default function ActivityForm({
 							aria-label="Is this a task?"
 							label="Is this a task?"
 							withArrow>
-							<label
-								style={{
-									alignSelf: "center",
-								}}>
+							<label>
 								<Checkbox
 									aria-labelledby="is-task-label"
 									size={23}
@@ -95,14 +92,13 @@ export default function ActivityForm({
 						</Tooltip>
 
 						<Tooltip
+							id="all-day-label"
 							aria-label="Does this activity last all day?"
 							label="Does this activity last all day?"
 							withArrow>
-							<label
-								style={{
-									width: "max-content",
-								}}>
+							<label>
 								<Checkbox
+									aria-labelledby="all-day-label"
 									size={23}
 									name="allDay"
 									checked={allDay}
@@ -113,9 +109,14 @@ export default function ActivityForm({
 							</label>
 						</Tooltip>
 
-						<Tooltip label="Is this a recurring activity?" withArrow>
+						<Tooltip
+							id="is-recurring-label"
+							aria-label="Is this a recurring activity?"
+							label="Is this a recurring activity?"
+							withArrow>
 							<label>
 								<Checkbox
+									aria-labelledby="is-recurring-label"
 									IconOn={LucideRepeat}
 									IconOff={LucideDotSquare}
 									size={23}
