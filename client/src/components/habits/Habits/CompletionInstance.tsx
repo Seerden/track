@@ -28,7 +28,6 @@ export default function CompletionInstance({
 					habit={habit}
 					onChangeEnd={doMutation}
 					width={sliderWidth}
-					showLabelText={false}
 				/>
 			);
 		case "checkbox":

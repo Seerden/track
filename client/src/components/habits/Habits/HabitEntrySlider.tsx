@@ -17,7 +17,6 @@ export type HabitEntrySliderProps = {
 	entry: HabitEntry | SyntheticHabitEntry;
 	onChangeEnd: HabitEntryUpdateMutationFunction;
 	width?: string;
-	showLabelText?: boolean;
 };
 
 export default function HabitEntrySlider({
@@ -25,7 +24,6 @@ export default function HabitEntrySlider({
 	entry,
 	onChangeEnd,
 	width,
-	showLabelText = true,
 }: HabitEntrySliderProps) {
 	const {
 		defaultValue,
@@ -44,11 +42,6 @@ export default function HabitEntrySlider({
 
 	const label = (
 		<label>
-			{showLabelText && (
-				<span>
-					{sliderValue} {habit.goal_unit}
-				</span>
-			)}
 			<S.SliderWrapper
 				sliderColor={isDone ? colors.green.main : colors.blue.main}
 				style={{ width: width ?? "100%" }}>
@@ -65,7 +58,11 @@ export default function HabitEntrySlider({
 					styles={{
 						label: completionTooltipStyles.regular,
 					}}
-					label={(value) => `${habit.goal_unit}: ${value}/${habit.goal}`}
+					label={(value) =>
+						value < habit.goal
+							? `${habit.goal_unit}: ${value}/${habit.goal}`
+							: null
+					}
 					// TODO: color and styling are work in progress that is out of scope
 					// for https://github.com/Seerden/track/pull/112. Handle it soon after.
 					color={isDone ? colors.green.main : colors.blue.main} // TODO: expand this into a gradient?

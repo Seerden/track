@@ -1,5 +1,10 @@
 import { Global, ThemeProvider } from "@emotion/react";
-import { createTheme, DEFAULT_THEME, MantineProvider } from "@mantine/core";
+import {
+	createTheme,
+	DEFAULT_THEME,
+	MantineProvider,
+	Tooltip,
+} from "@mantine/core";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
@@ -34,7 +39,22 @@ export function createRouter() {
 			return (
 				<QueryClientProvider client={queryClient}>
 					<ReactQueryDevtools initialIsOpen={false} position="bottom" />
-					<MantineProvider theme={createTheme(DEFAULT_THEME)}>
+					<MantineProvider
+						theme={{
+							...createTheme(DEFAULT_THEME),
+							components: {
+								...DEFAULT_THEME.components,
+								Tooltip: Tooltip.extend({
+									defaultProps: {
+										events: {
+											hover: true,
+											focus: true,
+											touch: true,
+										},
+									},
+								}),
+							},
+						}}>
 						<Global styles={theme.global} />
 						<ThemeProvider theme={theme}>{children}</ThemeProvider>
 					</MantineProvider>
