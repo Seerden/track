@@ -1,5 +1,5 @@
 import type { NewActivityInput } from "@shared/lib/schemas/activity";
-import type { OmitStrict } from "@shared/types/data/utility.types";
+import { now } from "@/lib/datetime/make-date";
 
 /** Instantiate a default activity,
  * @usage intended as default initial ActivityForm `activity` state when an
@@ -20,8 +20,9 @@ export function createDefaultActivity({
 		duration_milliseconds: null,
 		will_recur: false,
 		completed: null,
-	} satisfies OmitStrict<
-		NewActivityInput,
-		"started_at" | "ended_at" | "start_date" | "end_date"
-	>;
+		started_at: now(),
+		ended_at: now().add(1, "hour"),
+		start_date: null,
+		end_date: null,
+	} satisfies NewActivityInput;
 }

@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import Buttons from "@/lib/theme/components/buttons";
 import CardStyle from "@/lib/theme/components/Card.style";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
@@ -73,16 +72,6 @@ const CheckboxWrapper = styled.label`
 	}
 `;
 
-const _EditButton = styled(Buttons.Action.Stylized)`
-	position: absolute;
-	top: -1rem;
-	right: 6rem;
-`;
-
-function EditButton(props: Parameters<typeof _EditButton>[0]) {
-	return <_EditButton title="Edit this activity" {...props} type="button" />;
-}
-
 const StyledDetailedActivity = {
 	Wrapper,
 	Title,
@@ -92,7 +81,6 @@ const StyledDetailedActivity = {
 	Tag: CardStyle.Tag,
 	Task,
 	CheckboxWrapper,
-	EditButton,
 	RecurrenceCardContainer,
 };
 
