@@ -24,7 +24,7 @@ export const trpcClient: ReturnType<typeof createTRPCClient<AppRouter>> =
 					return fetch(url, {
 						...options,
 						credentials: "include",
-					});
+					} as RequestInit);
 				},
 			}),
 		],
