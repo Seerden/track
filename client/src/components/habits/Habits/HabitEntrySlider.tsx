@@ -60,7 +60,7 @@ export default function HabitEntrySlider({
 					}}
 					label={(value) =>
 						value < habit.goal
-							? `${habit.goal_unit}: ${value}/${habit.goal} (#${entry.index + 1})`
+							? `${habit.goal_unit}: ${value}/${habit.goal}`
 							: null
 					}
 					// TODO: color and styling are work in progress that is out of scope
