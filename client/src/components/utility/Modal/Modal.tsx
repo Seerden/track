@@ -1,6 +1,7 @@
 import { FocusTrap } from "@mantine/core";
 import type { PropsWithChildren } from "react";
 import { useRef } from "react";
+import { createPortal } from "react-dom";
 import useModal from "@/lib/hooks/useModal";
 import type { ModalId } from "@/lib/modal-ids";
 import S from "./style/Modal.style";
@@ -35,7 +36,7 @@ export default function Modal({
 		return null;
 	}
 
-	return (
+	return createPortal(
 		<FocusTrap>
 			<S.ModalWrapper
 				onClick={(e) => {
@@ -51,6 +52,7 @@ export default function Modal({
 					</S.ModalChildWrapper>
 				</S.Modal>
 			</S.ModalWrapper>
-		</FocusTrap>
+		</FocusTrap>,
+		document.querySelector("#root") as HTMLElement
 	);
 }
