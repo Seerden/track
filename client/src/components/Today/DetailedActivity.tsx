@@ -9,7 +9,6 @@ import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import Modal from "@/components/utility/Modal/Modal";
 import { activityEnd, activityStart } from "@/lib/activity";
 import { createDate } from "@/lib/datetime/make-date";
-import { invalidateActivities } from "@/lib/hooks/query/invalidate";
 import modalIds from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import Card from "@/lib/theme/components/Card.style";
@@ -43,7 +42,7 @@ export default function DetailedActivity({
 		opened,
 		close,
 		toggle,
-		mutate,
+		handleDeleteActivity,
 	} = useDetailedActivity({ activity });
 
 	return (
@@ -96,22 +95,7 @@ export default function DetailedActivity({
 							<Buttons.Action.DefaultText
 								$color="red"
 								type="button"
-								onClick={(e) => {
-									e.stopPropagation();
-									// prevents attempting to delete a synthetic activity
-									if (activity.activity_id) {
-										mutate(
-											{ activity_id: activity.activity_id },
-											{
-												onSuccess: () => {
-													close();
-													invalidateActivities();
-													// TODO (TRK-268) show a notification
-												},
-											}
-										);
-									}
-								}}
+								onClick={handleDeleteActivity}
 							>
 								Delete
 							</Buttons.Action.DefaultText>

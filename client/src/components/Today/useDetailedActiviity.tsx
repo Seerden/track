@@ -1,8 +1,10 @@
 import { useDisclosure } from "@mantine/hooks";
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import { useMutation } from "@tanstack/react-query";
+import type { MouseEvent } from "react";
 import { activityStart, hasNotEnded, startsInFuture } from "@/lib/activity";
 import { useQueryRecurrenceById } from "@/lib/hooks/query/activities/useQueryRecurrenceById";
+import { invalidateActivities } from "@/lib/hooks/query/invalidate";
 import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
@@ -28,6 +30,23 @@ export function useDetailedActivity({
 
 	const { mutate } = useMutation(trpc.activities.delete.byId.mutationOptions());
 	const [opened, { close, toggle }] = useDisclosure(false);
+
+	function handleDeleteActivity(e: MouseEvent<HTMLButtonElement>) {
+		e.stopPropagation();
+		// prevents attempting to delete a synthetic activity
+		if (activity.activity_id) {
+			mutate(
+				{ activity_id: activity.activity_id },
+				{
+					onSuccess: () => {
+						close();
+						invalidateActivities();
+						// TODO (TRK-268) show a notification
+					},
+				}
+			);
+		}
+	}
 	return {
 		tags,
 		recurrence,
@@ -39,6 +58,6 @@ export function useDetailedActivity({
 		opened,
 		close,
 		toggle,
-		mutate,
+		handleDeleteActivity,
 	};
 }
