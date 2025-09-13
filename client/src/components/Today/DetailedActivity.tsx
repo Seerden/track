@@ -1,9 +1,7 @@
 import { Popover, Tooltip } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import { isNullish } from "@shared/lib/is-nullish";
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { Datelike } from "@shared/lib/schemas/timestamp";
-import { useMutation } from "@tanstack/react-query";
 import { LucideX, PenLine } from "lucide-react";
 import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
 import S from "@/components/Today/style/DetailedActivity.style";
@@ -17,7 +15,6 @@ import Buttons from "@/lib/theme/components/buttons";
 import Card from "@/lib/theme/components/Card.style";
 import Containers from "@/lib/theme/components/container.style";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import { trpc } from "@/lib/trpc";
 import { RecurrenceCard } from "./RecurrenceCard";
 import { useDetailedActivity } from "./useDetailedActiviity";
 
@@ -42,10 +39,11 @@ export default function DetailedActivity({
 		recurrence,
 		showHumanizedStart,
 		tags,
+		opened,
+		close,
+		toggle,
+		mutate,
 	} = useDetailedActivity({ activity });
-
-	const { mutate } = useMutation(trpc.activities.delete.byId.mutationOptions());
-	const [opened, { close, toggle }] = useDisclosure(false);
 
 	return (
 		<S.Wrapper>
