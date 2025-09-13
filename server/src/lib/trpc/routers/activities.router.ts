@@ -31,10 +31,14 @@ import {
 	_updateRecurrence,
 } from "@/lib/trpc/resolvers/activity/update-recurrences";
 import { t } from "@/lib/trpc/trpc-context";
+import { resolveDeleteActivityById } from "../resolvers/activity/delete-activity";
 import { queryOverdueTasks } from "../resolvers/activity/query-tasks";
 
 export const activityRouter = t.router({
 	all: queryActivities,
+	delete: {
+		byId: resolveDeleteActivityById,
+	},
 	recurring: queryRecurringActivities,
 	create: createActivity,
 	createRecurring: createRecurringActivity,

@@ -14,11 +14,14 @@ import { spacingValue } from "@/lib/theme/snippets/spacing";
 import Active from "../../snippets/active";
 import { DirectionButton } from "./Direction";
 
-export const Default = styled(Unstyled)<{ $color?: ColorKey }>`
+export const Default = styled(Unstyled)<{
+	$color?: ColorKey;
+	$minimal?: boolean;
+}>`
 	${flex.centered};
 	${radius.round};
 
-	--color: ${(p) => p.theme.colors[p.$color ?? "purple"].main};
+	--color: ${(p) => (p.$minimal ? "#f2f2f2" : p.theme.colors[p.$color ?? "purple"].main)};
 	background-color: var(--color);
 	box-shadow: 0 0 0.2rem 0 var(--color);
 
@@ -26,9 +29,13 @@ export const Default = styled(Unstyled)<{ $color?: ColorKey }>`
 	&:focus,
 	&:active {
 		background-color: ${(p) =>
-			p.$color ? p.theme.colors[p.$color].secondary : "transparent"};
+			p.$minimal
+				? "#eee"
+				: p.$color
+					? p.theme.colors[p.$color].secondary
+					: "transparent"};
 		${outline.primary};
-		box-shadow: 0 0 0.3rem 0 #333;
+		box-shadow: ${(p) => (p.$minimal ? "none" : `0 0 0.3rem 0 #333`)};
 	}
 
 	transition: transform 75ms ease-out;
@@ -42,6 +49,17 @@ export const Default = styled(Unstyled)<{ $color?: ColorKey }>`
 		cursor: not-allowed;
 		opacity: 0.5;
 	}
+
+   ${(p) =>
+			p.$minimal &&
+			css`
+            color: black;
+            box-shadow: none;
+
+            .lucide {
+               color: black;
+            }
+      `}
 `;
 
 const Alternative = styled(Unstyled)<{ light?: boolean }>`
@@ -99,7 +117,7 @@ const Stylized = styled(Unstyled)<{
 		color: white;
 	}
 
-	&:hover {
+	&:hover:not(:disabled) {
 		outline: 2px solid ${(p) => getSecondaryColor(p.theme, p.$color)};
 		background-color: ${(p) => getSecondaryColor(p.theme, p.$color)};
 		${radius.medium}
@@ -110,6 +128,12 @@ const Stylized = styled(Unstyled)<{
 	--default-edit-button-size: 35px;
 	width: ${(p) => p.$size ?? "var(--default-edit-button-size)"};
 	height: ${(p) => p.$size ?? "var(--default-edit-button-size)"};
+
+   &:disabled {
+      opacity: 0.6;
+      box-shadow: none;
+      cursor: not-allowed;
+   }
 `;
 
 const WithIcon = styled(Default)`
@@ -157,8 +181,17 @@ const Clear = styled(Unstyled)`
 	${Active.default};
 `;
 
+const DefaultText = styled(Default)`
+   width: max-content;
+   ${radius.small};
+   padding-inline: ${spacingValue.small};
+   font-size: 0.9rem; // TODO: theme value
+
+`;
+
 const ActionButtons = {
 	Default,
+	DefaultText,
 	Alternative,
 	Stylized,
 	WithIcon,
