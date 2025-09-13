@@ -14,6 +14,7 @@ import modalIds from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import Card from "@/lib/theme/components/Card.style";
 import Containers from "@/lib/theme/components/container.style";
+import { deleteActivityDropdownStyle } from "@/lib/theme/components/containers/popover.style";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 import { RecurrenceCard } from "./RecurrenceCard";
 import { useDetailedActivity } from "./useDetailedActiviity";
@@ -59,17 +60,7 @@ export default function DetailedActivity({
 				<span>{activity.name}</span>
 			</S.Title>
 
-			<div
-				style={{
-					position: "absolute",
-					top: "-1rem",
-					right: "6rem",
-					display: "flex",
-					flexDirection: "row",
-					gap: spacingValue.medium,
-					justifyContent: "flex-end",
-				}}
-			>
+			<S.ActionBar>
 				<Popover
 					withArrow
 					opened={opened}
@@ -85,7 +76,7 @@ export default function DetailedActivity({
 						>
 							<Buttons.Action.Stylized
 								disabled={isNullish(activity.activity_id)}
-								$color="blue"
+								$color="darkBlue"
 								type="button"
 								onClick={(e) => {
 									e.stopPropagation();
@@ -96,18 +87,13 @@ export default function DetailedActivity({
 							</Buttons.Action.Stylized>
 						</Tooltip>
 					</Popover.Target>
-					<Popover.Dropdown
-						style={{
-							boxShadow: "0 0.2rem 0.3rem -0.1rem #888",
-							backgroundColor: "#ddd",
-						}}
-					>
+					<Popover.Dropdown style={deleteActivityDropdownStyle}>
 						Delete this activity?
 						<Containers.Row
 							gap="small"
 							style={{ marginTop: spacingValue.smaller }}
 						>
-							<Buttons.Action.Default
+							<Buttons.Action.DefaultText
 								$color="red"
 								type="button"
 								onClick={(e) => {
@@ -126,31 +112,19 @@ export default function DetailedActivity({
 										);
 									}
 								}}
-								style={{
-									width: "max-content",
-									borderRadius: "3px",
-									paddingInline: spacingValue.small,
-									fontSize: "0.9rem",
-								}}
 							>
 								Delete
-							</Buttons.Action.Default>
-							<Buttons.Action.Default
+							</Buttons.Action.DefaultText>
+							<Buttons.Action.DefaultText
 								$minimal
 								type="button"
 								onClick={(e) => {
 									e.stopPropagation();
 									close();
 								}}
-								style={{
-									width: "max-content",
-									borderRadius: "3px",
-									paddingInline: spacingValue.small,
-									fontSize: "0.9rem",
-								}}
 							>
 								Keep
-							</Buttons.Action.Default>
+							</Buttons.Action.DefaultText>
 						</Containers.Row>
 					</Popover.Dropdown>
 				</Popover>
@@ -165,7 +139,7 @@ export default function DetailedActivity({
 				>
 					<PenLine size={20} />
 				</Buttons.Action.Stylized>
-			</div>
+			</S.ActionBar>
 
 			{!!activity.description?.length && <div>{activity.description}</div>}
 

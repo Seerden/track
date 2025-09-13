@@ -181,8 +181,17 @@ const Clear = styled(Unstyled)`
 	${Active.default};
 `;
 
+const DefaultText = styled(Default)`
+   width: max-content;
+   ${radius.small};
+   padding-inline: ${spacingValue.small};
+   font-size: 0.9rem; // TODO: theme value
+
+`;
+
 const ActionButtons = {
 	Default,
+	DefaultText,
 	Alternative,
 	Stylized,
 	WithIcon,

@@ -17,6 +17,15 @@ const Wrapper = styled(CardStyle.Wrapper)`
 	grid-column-gap: ${spacingValue.smaller};
 `;
 
+const ActionBar = styled.div`
+   position: absolute;
+   top: -1rem;
+   right: 6rem;
+   ${flex.row};
+   gap: ${spacingValue.medium};
+   justify-content: flex-end;
+`;
+
 const Title = styled(CardStyle.Title)`
 	grid-area: title;
 	max-height: max-content;
@@ -82,6 +91,7 @@ const StyledDetailedActivity = {
 	Task,
 	CheckboxWrapper,
 	RecurrenceCardContainer,
+	ActionBar,
 };
 
 export default StyledDetailedActivity;
