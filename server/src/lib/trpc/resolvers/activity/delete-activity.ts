@@ -5,7 +5,7 @@ import {
 import { authenticatedProcedure } from "../../procedures/authenticated.procedure";
 
 export const resolveDeleteActivityById = authenticatedProcedure
-	.input(deleteActivityByIdInputSchema)
+	.input(deleteActivityByIdInputSchema.omit({ user_id: true }))
 	.mutation(async ({ input, ctx }) => {
 		return await deleteActivityById({
 			activity_id: input.activity_id,
