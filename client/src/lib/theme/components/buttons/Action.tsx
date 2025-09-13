@@ -54,12 +54,12 @@ export const Default = styled(Unstyled)<{
 			p.$minimal &&
 			css`
             color: black;
+            box-shadow: none;
 
             .lucide {
                color: black;
             }
-            box-shadow: none;
-         `}
+      `}
 `;
 
 const Alternative = styled(Unstyled)<{ light?: boolean }>`
