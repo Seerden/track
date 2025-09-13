@@ -3,7 +3,9 @@ import type { Activity, ActivityWithIds } from "@shared/lib/schemas/activity";
 import type { Timestamp } from "@shared/lib/schemas/timestamp";
 import type { ActivityTagRelation } from "@shared/types/data/relational.types";
 import type { ID, MapById } from "@shared/types/data/utility.types";
+import type { Maybe } from "@trpc/server/unstable-core-do-not-import";
 import type { QueryFunction } from "types/sql.types";
+import { TABLES } from "types/tables";
 import { sqlConnection } from "@/db/init";
 import { mergeActivitiesAndRelations } from "./merge-activities-and-relations";
 import { timeWindowFilter } from "./time-window-filter";
@@ -50,12 +52,16 @@ export const queryActivitiesByUser: QueryFunction<
 };
 
 export const queryActivityById: QueryFunction<
-	{ activity_id: ID },
-	Promise<Activity>
-> = async ({ sql = sqlConnection, activity_id }) => {
-	const [activity] = await sql<
-		Activity[]
-	>`select * from activities where activity_id = ${activity_id}`;
+	{ activity_id: ID; user_id?: ID },
+	Promise<Maybe<Activity>>
+> = async ({ sql = sqlConnection, activity_id, user_id }) => {
+	const userIdSql = user_id ? sql`and user_id = ${user_id}` : sql``;
+
+	const [activity] = await sql<[Activity?]>`
+      select * from ${sql(TABLES.activities)} 
+      where activity_id = ${activity_id} 
+      ${userIdSql}
+   `;
 	return activity;
 };
 
@@ -80,9 +86,12 @@ export const queryActivityTagsByUser: QueryFunction<
 
 export const queryActivityByIdWithRelations: QueryFunction<
 	{ activity_id: ID },
-	Promise<ActivityWithIds>
+	Promise<Maybe<ActivityWithIds>>
 > = async ({ sql = sqlConnection, activity_id }) => {
 	const activity = await queryActivityById({ sql, activity_id });
+	if (!activity) {
+		return;
+	}
 	const tagRelations = await queryTagRelationsForActivity({ sql, activity_id });
 	const merged = mergeActivitiesAndRelations([activity], tagRelations);
 	const activityWithRelations = merged.get(activity_id);
