@@ -34,6 +34,8 @@ export const deleteActivityById: QueryFunction<
 	// TODO (TRK-268): are activities cached? if so, invalidate or update the
 	// cache here
 	// TODO: does everything cascade delete properly?
+	// ^ activities_tags doesn't cascade on user_id delete, but that's OOS for
+	// this
 
 	return deletedActivity;
 };
