@@ -77,10 +77,7 @@ export default function DetailedActivity({
 								disabled={isNullish(activity.activity_id)}
 								$color="darkBlue"
 								type="button"
-								onClick={(e) => {
-									e.stopPropagation();
-									toggle();
-								}}
+								onClick={toggle}
 							>
 								<LucideX size={20} />
 							</Buttons.Action.Stylized>
@@ -102,10 +99,7 @@ export default function DetailedActivity({
 							<Buttons.Action.DefaultText
 								$minimal
 								type="button"
-								onClick={(e) => {
-									e.stopPropagation();
-									close();
-								}}
+								onClick={close}
 							>
 								Keep
 							</Buttons.Action.DefaultText>
