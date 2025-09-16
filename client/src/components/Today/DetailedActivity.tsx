@@ -2,7 +2,7 @@ import { Popover, Tooltip } from "@mantine/core";
 import { isNullish } from "@shared/lib/is-nullish";
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { Datelike } from "@shared/lib/schemas/timestamp";
-import { LucideX, PenLine } from "lucide-react";
+import { LucideListX, PenLine } from "lucide-react";
 import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
 import S from "@/components/Today/style/DetailedActivity.style";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
@@ -79,7 +79,7 @@ export default function DetailedActivity({
 								type="button"
 								onClick={toggle}
 							>
-								<LucideX size={20} />
+								<LucideListX size={20} />
 							</Buttons.Action.Stylized>
 						</Tooltip>
 					</Popover.Target>
