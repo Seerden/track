@@ -52,7 +52,7 @@ export const insertHabitWithTags: QueryFunction<
 
 		return Object.assign(insertedHabit, {
 			tag_ids: linkedTagIds,
-			entry_ids: [],
-		});
+			entries: [],
+		}) satisfies HabitWithEntries;
 	});
 };

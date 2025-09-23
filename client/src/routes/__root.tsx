@@ -16,7 +16,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 			throw redirect({ to: "/login" });
 		}
 	},
-	head: (ctx) => {
+	head: (_ctx) => {
 		return {
 			meta: [{ title: "Home" }],
 		};
