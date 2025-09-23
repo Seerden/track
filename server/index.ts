@@ -5,13 +5,13 @@ import * as Sentry from "@sentry/node";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import cors from "cors";
 import "dotenv/config";
-import { NODE__dirname } from "@server/lib/build.utility";
 import type { RequestHandler } from "express";
 import express from "express";
 import session from "express-session";
 import path from "path";
 import { onError } from "./instrument";
 import { pingDatabase } from "./src/db/init";
+import { NODE__dirname } from "./src/lib/build.utility";
 import { logRequests } from "./src/lib/log-requests";
 import {
 	initializeRedisConnection,
