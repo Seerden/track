@@ -1,0 +1,34 @@
+# Stage 0: base node image
+FROM node:22-alpine AS base
+
+# Stage 1: build everything
+FROM base AS deps
+
+WORKDIR /track
+
+COPY . .
+RUN npm install
+COPY . .
+
+WORKDIR /track/server
+RUN npm run build
+COPY ./server/dist ./dist
+
+WORKDIR /track/client
+RUN npm run build
+COPY ../ .
+
+# stage 2: production
+FROM node:22-alpine AS runner
+
+WORKDIR /track
+
+COPY --from=deps /track/server/dist /track/server/dist
+
+# Set environment variables for production
+ENV NODE_ENV=production
+ENV PORT=5000
+EXPOSE 5000
+WORKDIR /track/server
+
+# NOTE: there is no CMD, we run it from the compose file
