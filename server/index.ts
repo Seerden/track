@@ -5,9 +5,11 @@ import * as Sentry from "@sentry/node";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import cors from "cors";
 import "dotenv/config";
+import { NODE__dirname } from "@server/lib/build.utility";
 import type { RequestHandler } from "express";
 import express from "express";
 import session from "express-session";
+import path from "path";
 import { onError } from "./instrument";
 import { pingDatabase } from "./src/db/init";
 import { logRequests } from "./src/lib/log-requests";
@@ -68,6 +70,18 @@ async function start() {
 	Sentry.setupExpressErrorHandler(app);
 	app.use(onError);
 
+	if (process.env.NODE_ENV === "production") {
+		app.use(express.static(path.join(NODE__dirname, "public")));
+		app.set("trust proxy", "172.17.0.0/16"); // Trust Docker's default bridge network // TODO: is this necessary?
+
+		// note: since express v5, wildcard routes need to be named. I don't even
+		// know what "splat" could be used for, but I saw it in an example, so that's
+		// why I'm calling it that.
+		app.get("*splat", (req, res) => {
+			res.sendFile(path.join(NODE__dirname, "public", "index.html"));
+		});
+	}
+
 	const port = process.env.PORT || 5000;
 
 	await runAtStartup();
@@ -77,4 +91,8 @@ async function start() {
 	});
 }
 
-start();
+try {
+	start();
+} catch (error) {
+	console.error(error);
+}
