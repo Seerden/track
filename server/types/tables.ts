@@ -8,4 +8,7 @@ export const TABLES = {
 	tagsTags: "tags_tags",
 	RECURRENCES: "recurrences",
 	OCCURRENCES: "occurrences",
+	HABITS: "habits",
+	HABITS_TAGS: "habits_tags",
+	HABIT_ENTRIES: "habit_entries",
 } as const;

@@ -1,10 +1,10 @@
 import { mapById } from "@shared/lib/map";
 import { mergeHabitsAndRelations } from "@/lib/data/models/habits/merge-habits-and-relations";
+import { queryHabitEntriesByUser } from "@/lib/data/models/habits/query-habit-entries";
 import {
-	queryHabitEntriesByUser,
 	queryHabitsByUser,
 	queryHabitTagsByUser,
-} from "@/lib/data/models/habits/query-habit-entries";
+} from "@/lib/data/models/habits/query-habits";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 
 export const queryHabitsAndRelations = authenticatedProcedure.query(
