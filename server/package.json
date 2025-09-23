@@ -7,7 +7,8 @@
   "scripts": {
     "test": "jest --setupFiles ./dotenv-config.js --detectOpenHandles --watchAll",
     "dev": "tsx watch --clear-screen=false ./index.ts",
-    "build": "tsc -p './tsconfig.json' && npm run sentry:sourcemaps && node esbuild.config.js --bundle",
+    "build:local": "tsc -p './tsconfig.json' && npm run sentry:sourcemaps",
+    "build": "node esbuild.config.js --bundle",
     "sentry:sourcemaps": "sentry-cli sourcemaps inject --org track-am --project server ./dist && sentry-cli sourcemaps upload --org track-am --project server ./dist"
   },
   "author": "",
@@ -23,7 +24,7 @@
     "bcryptjs": "3.0.2",
     "connect-redis": "^7.1.1",
     "cors": "^2.8.5",
-    "dayjs": "^1.11.13",
+    "dayjs": "1.11.18",
     "express": "^5.0.1",
     "express-session": "^1.18.0",
     "immer": "^10.1.1",
