@@ -39,6 +39,8 @@ services:
       - IS_TEST_ENVIRONMENT=false
     env_file:
       - ../server/.env
+    command: ["node", "./dist/server.js"] 
+
   nginx:
       image: nginx:latest
       ports:
