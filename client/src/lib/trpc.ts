@@ -8,9 +8,9 @@ import SuperJSON from "superjson";
 import { queryClient } from "@/lib/query-client";
 
 const DOMAIN =
-	import.meta.env.NODE_ENV === "production" ? "track.seerden.dev" : "localhost";
-const PROTOCOL = import.meta.env.NODE_ENV === "production" ? "https" : "http";
-const HOST = import.meta.env.NODE_ENV === "production" ? DOMAIN : "localhost";
+	import.meta.env.MODE === "production" ? "track.seerden.dev" : "localhost";
+const PROTOCOL = import.meta.env.MODE === "production" ? "https" : "http";
+const HOST = import.meta.env.MODE === "production" ? DOMAIN : "localhost";
 const SERVER_PORT = import.meta.env.PORT ?? "5000";
 const url = `${PROTOCOL}://${HOST}:${SERVER_PORT}/api/trpc`;
 
