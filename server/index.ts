@@ -79,7 +79,7 @@ async function start() {
 		// note: since express v5, wildcard routes need to be named. I don't even
 		// know what "splat" could be used for, but I saw it in an example, so that's
 		// why I'm calling it that.
-		app.get("*splat", (req, res) => {
+		app.get("*splat", (_req, res) => {
 			res.sendFile(path.join(NODE__dirname, "public", "index.html"));
 		});
 	}

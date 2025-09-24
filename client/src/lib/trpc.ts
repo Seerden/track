@@ -12,7 +12,13 @@ const DOMAIN =
 const PROTOCOL = import.meta.env.MODE === "production" ? "https" : "http";
 const HOST = import.meta.env.MODE === "production" ? DOMAIN : "localhost";
 const SERVER_PORT = import.meta.env.PORT ?? "5000";
-const url = `${PROTOCOL}://${HOST}:${SERVER_PORT}/api/trpc`;
+
+const url =
+	import.meta.env.MODE === "production"
+		? // In production, we can't use the port; the express server on the backend
+			// should handle deciding between the trpc router and serving the client bundle.
+			`${PROTOCOL}://${HOST}/api/trpc`
+		: `${PROTOCOL}://${HOST}:${SERVER_PORT}/api/trpc`;
 
 console.log({ url, clientEnv: import.meta.env });
 
