@@ -30,6 +30,8 @@ const HOST = process.env.NODE_ENV === "production" ? DOMAIN : "localhost";
 const SERVER_PORT = process.env.PORT ?? "5000";
 const url = `${PROTOCOL}://${HOST}:${SERVER_PORT}/api/trpc`;
 
+console.log({ env: process.env });
+
 export const proxyClient = createTRPCClient<AppRouter>({
 	links: [
 		splitLink({
