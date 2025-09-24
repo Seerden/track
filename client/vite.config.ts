@@ -6,6 +6,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+	envDir: ".",
 	plugins: [
 		// I think I recall seeing somewhere that the order of these plugins
 		// matters. Tanstack Router is weird like that, so it could be necessary.
