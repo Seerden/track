@@ -7,12 +7,14 @@ import {
 import SuperJSON from "superjson";
 import { queryClient } from "@/lib/query-client";
 
-// TODO: set domain in .env :)
-const DOMAIN = import.meta.env.VITE_DOMAIN ?? "localhost";
+const DOMAIN =
+	import.meta.env.NODE_ENV === "production" ? "track.seerden.dev" : "localhost";
 const PROTOCOL = import.meta.env.NODE_ENV === "production" ? "https" : "http";
 const HOST = import.meta.env.NODE_ENV === "production" ? DOMAIN : "localhost";
 const SERVER_PORT = import.meta.env.PORT ?? "5000";
 const url = `${PROTOCOL}://${HOST}:${SERVER_PORT}/api/trpc`;
+
+console.log({ url, clientEnv: import.meta.env });
 
 export const trpcReactQuery: ReturnType<typeof createTRPCContext<AppRouter>> =
 	createTRPCContext<AppRouter>();
