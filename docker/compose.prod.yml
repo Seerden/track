@@ -51,5 +51,5 @@ services:
         - server
       volumes:
         - ../nginx.conf:/etc/nginx/conf.d/default.conf:ro 
-        - /etc/letsencript/:/etc/letsencrypt
+        - /etc/letsencrypt/:/etc/letsencrypt
       restart: always
