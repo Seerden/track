@@ -27,7 +27,7 @@ async function start() {
 
 	app.use(
 		cors({
-			origin: true, // Could also use client domain (in dev: http://localhost:3000)
+			origin: "*",
 			credentials: true,
 		})
 	);

@@ -2,6 +2,8 @@ import { queryUserbyId } from "@/lib/data/models/user/query-user";
 import { publicProcedure } from "@/lib/trpc/procedures/public.procedure";
 
 export const me = publicProcedure.query(async ({ ctx }) => {
+	console.log("In me resolver");
+
 	// TODO: auth context (get from `dash`)
 	const user = ctx.req.session.user;
 	if (!user) {
