@@ -12,6 +12,7 @@ import { habitRouter } from "@/lib/trpc/routers/habits.router";
 import { noteRouter } from "@/lib/trpc/routers/notes.router";
 import { tagRouter } from "@/lib/trpc/routers/tags.router";
 import { t } from "./trpc/trpc-context";
+import "dotenv/config";
 
 export const appRouter = t.router({
 	auth: authRouter,
