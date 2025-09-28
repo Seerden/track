@@ -1,11 +1,13 @@
 services:
   store:
+    container_name: track-store
     image: redis
     command: ["redis-server", "--appendonly", "yes"]
     volumes:
       - ./redis-data:/data
 
   database:
+    container_name: track-database
     image: postgres:14-alpine
     environment:
       - POSTGRES_PASSWORD=$PG_PASS
@@ -27,6 +29,7 @@ services:
     command: ["postgres", "-c", "log_statement=all"]
 
   server:
+    container_name: track-server
     image: seerden/track:latest
     depends_on:
       - database
@@ -43,6 +46,7 @@ services:
     command: ["node", "./dist/server.js"] 
 
   nginx:
+      container_name: track-nginx
       image: nginx:latest
       ports:
         - "80:80" 
