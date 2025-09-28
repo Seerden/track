@@ -15,11 +15,18 @@ export const redisSession: session.SessionOptions = {
 	store: new RedisStore({ client: redisClient }),
 	name: sessionCookieName,
 	saveUninitialized: false,
+	/**
+	 * necessary for production (with nginx and https)
+	 * @see https://stackoverflow.com/questions/44039069/express-session-secure-cookies-not-working */
+	proxy: process.env.NODE_ENV === "production",
 	// biome-ignore lint/style/noNonNullAssertion: should exist
 	secret: process.env.SESSION_SECRET!,
 	resave: false,
 	rolling: true,
 	cookie: {
+		domain:
+			process.env.NODE_ENV === "production" ? "track.seerden.dev" : "localhost",
+		httpOnly: true,
 		maxAge: 7 * 24 * 3600 * 1000, // One week.
 		secure: process.env.NODE_ENV === "production",
 	},
