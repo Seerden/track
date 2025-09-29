@@ -29,8 +29,9 @@ services:
       #    test-database container below!
       - ../server/src/db/scripts:/docker-entrypoint-initdb.d
       - ./database-backup:/psql-backups
-    ports:
-      - "5432:5432"
+    # comment out for security
+    # ports:
+    #   - "5432:5432"
     command: ["postgres", "-c", "log_statement=all"]
 
   server:
