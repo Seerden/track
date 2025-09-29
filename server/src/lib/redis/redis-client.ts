@@ -7,7 +7,9 @@ import Redis from "ioredis";
 // NOTE: we run the client in containers, too, so we don't need to have a switch
 // here that checks for environment (if we ran client/server outside of
 // containers, we'd need to use localhost here).
-export const redisClient = new Redis("redis://store:6379");
+export const redisClient = new Redis(
+	`redis://${process.env.REDIS_PASS}@store:6379`
+);
 
 export const sessionCookieName = "track-session";
 

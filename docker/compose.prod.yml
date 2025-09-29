@@ -2,7 +2,7 @@ services:
   store:
     container_name: track-store
     image: redis
-    command: ["redis-server", "/usr/local/etc/redis/redis.conf", "--appendonly", "yes"]
+    command: /bin/sh -c "redis-server /usr/local/etc/redis/redis.conf --appendonly yes --requirepass $$REDIS_PASS"
     volumes:
       - ./redis-data:/data
       - ./config/redis.conf:/usr/local/etc/redis.conf
