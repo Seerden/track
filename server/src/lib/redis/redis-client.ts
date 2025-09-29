@@ -7,8 +7,10 @@ import Redis from "ioredis";
 // NOTE: we run the client in containers, too, so we don't need to have a switch
 // here that checks for environment (if we ran client/server outside of
 // containers, we'd need to use localhost here).
+// NOTE: the leading : before the password indicates that we leave the username
+// out. This works fine as of redis 7.x
 export const redisClient = new Redis(
-	`redis://${process.env.REDIS_PASS}@store:6379`
+	`redis://:${process.env.REDIS_PASS}@store:6379`
 );
 
 export const sessionCookieName = "track-session";
