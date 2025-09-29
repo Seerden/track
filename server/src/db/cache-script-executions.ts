@@ -1,6 +1,7 @@
 import fs, { readFile } from "fs/promises";
 import path from "path";
 import { sqlConnection } from "@/db/init";
+import { NODE__dirname } from "@/lib/build.utility";
 import { redisClient } from "@/lib/redis/redis-client";
 
 const databaseScriptCacheKey = {
@@ -33,7 +34,7 @@ async function markScriptAsRun(filenmae: string) {
  * files in that directory.
  **/
 export async function getScriptFilenames() {
-	const pathToScripts = path.join(__dirname, "./scripts");
+	const pathToScripts = path.join(NODE__dirname, "./scripts");
 	const files = (await fs.readdir(pathToScripts))
 		.filter((file: string) => file.endsWith(".sql"))
 		.map((file) => file.replace(".sql", ""));
@@ -58,7 +59,7 @@ export async function runAndCacheNewScripts() {
 
 	for (const filename of unexecutedScriptFilenames) {
 		const queryAsString = await readFile(
-			path.join(__dirname, `./scripts/${filename}.sql`),
+			path.join(NODE__dirname, `./scripts/${filename}.sql`),
 			"utf-8"
 		);
 		await sqlConnection.begin(async (q) => {
