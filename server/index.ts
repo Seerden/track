@@ -27,7 +27,8 @@ async function start() {
 
 	app.use(
 		cors({
-			origin: true,
+			origin:
+				process.env.NODE_ENV === "production" ? "track.seerden.dev" : true,
 			credentials: true,
 		})
 	);
