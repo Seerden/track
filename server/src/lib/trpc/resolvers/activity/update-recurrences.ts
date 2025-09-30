@@ -1,6 +1,6 @@
 import {
 	occurrenceSchema,
-	recurrenceSchema,
+	recurrenceWithIdsSchema,
 } from "@shared/lib/schemas/activity";
 import { updateOccurrence } from "@/lib/data/models/activities/update-occurrence";
 import { updateRecurrence } from "@/lib/data/models/activities/update-recurrence";
@@ -16,10 +16,10 @@ export const _updateOccurrence = authenticatedProcedure
 	});
 
 export const _updateRecurrence = authenticatedProcedure
-	.input(recurrenceSchema)
+	.input(recurrenceWithIdsSchema)
 	.mutation(async ({ input, ctx }) => {
 		return await updateRecurrence({
-			recurrence: input,
+			...input,
 			user_id: ctx.req.session.user.user_id,
 		});
 	});

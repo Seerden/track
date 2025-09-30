@@ -4,7 +4,14 @@ import Redis from "ioredis";
 
 // NOTE: `store` is the name of our redis service in docker-compose, and 6379 is
 // the default port, which we haven't changed.
-export const redisClient = new Redis("redis://store:6379");
+// NOTE: we run the client in containers, too, so we don't need to have a switch
+// here that checks for environment (if we ran client/server outside of
+// containers, we'd need to use localhost here).
+// NOTE: the leading : before the password indicates that we leave the username
+// out. This works fine as of redis 7.x
+export const redisClient = new Redis(
+	`redis://:${process.env.REDIS_PASS}@store:6379`
+);
 
 export const sessionCookieName = "track-session";
 
@@ -12,11 +19,18 @@ export const redisSession: session.SessionOptions = {
 	store: new RedisStore({ client: redisClient }),
 	name: sessionCookieName,
 	saveUninitialized: false,
+	/**
+	 * necessary for production (with nginx and https)
+	 * @see https://stackoverflow.com/questions/44039069/express-session-secure-cookies-not-working */
+	proxy: process.env.NODE_ENV === "production",
 	// biome-ignore lint/style/noNonNullAssertion: should exist
 	secret: process.env.SESSION_SECRET!,
 	resave: false,
 	rolling: true,
 	cookie: {
+		domain:
+			process.env.NODE_ENV === "production" ? "track.seerden.dev" : "localhost",
+		httpOnly: true,
 		maxAge: 7 * 24 * 3600 * 1000, // One week.
 		secure: process.env.NODE_ENV === "production",
 	},

@@ -22,11 +22,11 @@ export const authenticatedProcedure = publicProcedure.use(async (opts) => {
 			req: {
 				...opts.ctx.req,
 				session: {
-					...opts.ctx.req.session,
+					...(opts.ctx.req.session satisfies Session),
 					user: opts.ctx.req.session.user as User,
 					save: opts.ctx.req.session.save.bind(opts.ctx.req.session),
 					destroy: opts.ctx.req.session.destroy.bind(opts.ctx.req.session),
-				} as Session & Required<SessionData>,
+				} as unknown as Session & Required<SessionData>,
 			},
 			user_id: opts.ctx.req.session.user?.user_id,
 		},

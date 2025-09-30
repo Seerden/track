@@ -10,11 +10,11 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "devDependencies": {
-    "typescript": "^5.2.2"
-  },
   "dependencies": {
-    "dayjs": "^1.11.13",
+    "dayjs": "1.11.18",
     "zod": "3.25.67"
+  },
+  "devDependencies": {
+    "typescript": "5.8.3"
   }
 }

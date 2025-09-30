@@ -18,9 +18,9 @@ interface CustomResponse extends Response {
 
 export const onError: ErrorRequestHandler = (
 	err,
-	req,
+	_req,
 	res: CustomResponse,
-	next
+	_next
 ) => {
 	console.error(err);
 	res.statusCode = 500;

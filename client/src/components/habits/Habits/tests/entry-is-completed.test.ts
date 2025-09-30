@@ -4,6 +4,7 @@ import type {
 	SyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
 import { habitEntryIsDone } from "@/components/habits/Habits/entry-is-completed";
+import { now } from "@/lib/datetime/make-date";
 
 const habit: HabitWithEntries = {
 	habit_id: "1",
@@ -20,7 +21,17 @@ const habit: HabitWithEntries = {
 	goal_unit: "test unit",
 	goal: 2,
 	tag_ids: ["1"],
-	entry_ids: ["1"],
+	entries: [
+		{
+			created_at: now(),
+			date: now(),
+			habit_entry_id: "1",
+			habit_id: "1",
+			index: 0,
+			user_id: "1",
+			value: "1",
+		},
+	],
 };
 
 describe("entry-is-completed", () => {
@@ -53,7 +64,7 @@ describe("entry-is-completed", () => {
 
 	it("should return correct done value for 'checkbox' entry", () => {
 		const checkboxHabit = structuredClone(habit);
-		checkboxHabit.goal_type = "checkbox";
+		(checkboxHabit as HabitWithEntries).goal_type = "checkbox";
 		const entry: HabitEntry = {
 			habit_id: "1",
 			date: 1,

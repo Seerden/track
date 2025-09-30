@@ -1,3 +1,5 @@
+import type { JSX } from "react";
+
 type ValueAndElement<T> = { value: T; element: JSX.Element };
 
 export type Table<TData extends object, TDataKey extends keyof TData> = {

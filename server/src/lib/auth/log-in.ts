@@ -31,5 +31,10 @@ export async function login(user: NewUser, req: Request, res: Response) {
 		username: foundUser.username,
 	}; // could also regenerate()
 
+	console.info({
+		message: "Login successful",
+		user: foundUser,
+	});
+
 	return { user: foundUser };
 }

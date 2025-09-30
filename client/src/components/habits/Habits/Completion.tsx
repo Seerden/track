@@ -79,7 +79,8 @@ export default function Completion({ habit, entries }: CompletionProps) {
 				<S.FloatingWrapper
 					ref={float.refs.setFloating}
 					style={{ ...float.floatingStyles }}
-					{...float.getFloatingProps()}>
+					{...float.getFloatingProps()}
+				>
 					<CompletionInstances {...completionInstanceProps} />
 				</S.FloatingWrapper>
 			)}

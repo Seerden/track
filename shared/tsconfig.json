@@ -2,7 +2,9 @@
   "compilerOptions": {
     "target": "ES2021" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
+    "declaration": true,
+    "declarationMap": true,
     "lib": ["ES2021"],
     "sourceMap": true,
     "rootDir": "./src" /* Specify the root folder within your source files. */,

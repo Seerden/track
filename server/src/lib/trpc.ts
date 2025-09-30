@@ -12,6 +12,7 @@ import { habitRouter } from "@/lib/trpc/routers/habits.router";
 import { noteRouter } from "@/lib/trpc/routers/notes.router";
 import { tagRouter } from "@/lib/trpc/routers/tags.router";
 import { t } from "./trpc/trpc-context";
+import "dotenv/config";
 
 export const appRouter = t.router({
 	auth: authRouter,
@@ -23,10 +24,11 @@ export const appRouter = t.router({
 
 export type AppRouter = typeof appRouter;
 
-/**
- * @todo needs to match what we use in the client, I guess
- */
-const url = "http://localhost:5000/api/trpc";
+const DOMAIN = process.env.DOMAIN ?? "localhost";
+const PROTOCOL = process.env.NODE_ENV === "production" ? "https" : "http";
+const HOST = process.env.NODE_ENV === "production" ? DOMAIN : "localhost";
+const SERVER_PORT = process.env.PORT ?? "5000";
+const url = `${PROTOCOL}://${HOST}:${SERVER_PORT}/api/trpc`;
 
 export const proxyClient = createTRPCClient<AppRouter>({
 	links: [

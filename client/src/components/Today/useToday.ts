@@ -25,7 +25,7 @@ export default function useToday() {
 		trpc.activities.recurrences.all.queryOptions()
 	);
 	const syntheticActivities = useAtomValue(syntheticActivitiesAtom);
-	const { getHabitsForTimeWindow } = useHabitsData();
+	const { habits } = useHabitsData();
 	const [currentDate, setCurrentDate] = useState<Dayjs>(() => today());
 	const [timeWindow, setTimeWindow] = useAtom(timeWindowAtom);
 	const { data: overdueTasksData, isFetching: isFetchingOverdueTasks } =
@@ -108,7 +108,7 @@ export default function useToday() {
 	);
 
 	return {
-		habits: getHabitsForTimeWindow(timeWindow),
+		habits,
 		activities: todayActivities,
 		allDayActivities,
 		overdueTasks,

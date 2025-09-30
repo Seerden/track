@@ -7,9 +7,20 @@ import {
 import SuperJSON from "superjson";
 import { queryClient } from "@/lib/query-client";
 
-const DOMAIN = import.meta.env.DOMAIN ?? "localhost";
-const HOST = import.meta.env.NODE_ENV === "production" ? DOMAIN : "localhost";
-const url = `http://${HOST}:5000/api/trpc`;
+const DOMAIN =
+	import.meta.env.MODE === "production" ? "track.seerden.dev" : "localhost";
+const PROTOCOL = import.meta.env.MODE === "production" ? "https" : "http";
+const HOST = import.meta.env.MODE === "production" ? DOMAIN : "localhost";
+const SERVER_PORT = import.meta.env.PORT ?? "5000";
+
+const url =
+	import.meta.env.MODE === "production"
+		? // In production, we can't use the port; the express server on the backend
+			// should handle deciding between the trpc router and serving the client bundle.
+			`${PROTOCOL}://${HOST}/api/trpc`
+		: `${PROTOCOL}://${HOST}:${SERVER_PORT}/api/trpc`;
+
+console.log({ url, clientEnv: import.meta.env });
 
 export const trpcReactQuery: ReturnType<typeof createTRPCContext<AppRouter>> =
 	createTRPCContext<AppRouter>();

@@ -8,8 +8,10 @@ import "dotenv/config";
 import type { RequestHandler } from "express";
 import express from "express";
 import session from "express-session";
+import path from "path";
 import { onError } from "./instrument";
 import { pingDatabase } from "./src/db/init";
+import { NODE__dirname } from "./src/lib/build.utility";
 import { logRequests } from "./src/lib/log-requests";
 import {
 	initializeRedisConnection,
@@ -25,7 +27,8 @@ async function start() {
 
 	app.use(
 		cors({
-			origin: true, // Could also use client domain (in dev: http://localhost:3000)
+			origin:
+				process.env.NODE_ENV === "production" ? "track.seerden.dev" : true,
 			credentials: true,
 		})
 	);
@@ -62,11 +65,25 @@ async function start() {
 		})
 	);
 
-	app.use("/", routers.index);
-	app.use("/data", routers.data);
+	if (!(process.env.NODE_ENV === "production")) {
+		app.use("/", routers.index); // even in dev, we don't use this, but this is to make sure it's definitely not used in production
+		app.use("/data", routers.data); // deprecated
+	}
 
 	Sentry.setupExpressErrorHandler(app);
 	app.use(onError);
+
+	if (process.env.NODE_ENV === "production") {
+		app.use(express.static(path.join(NODE__dirname, "public")));
+		app.set("trust proxy", "172.17.0.0/16"); // Trust Docker's default bridge network // TODO: is this necessary?
+
+		// note: since express v5, wildcard routes need to be named. I don't even
+		// know what "splat" could be used for, but I saw it in an example, so that's
+		// why I'm calling it that.
+		app.get("*splat", (_req, res) => {
+			res.sendFile(path.join(NODE__dirname, "public", "index.html"));
+		});
+	}
 
 	const port = process.env.PORT || 5000;
 
@@ -77,4 +94,8 @@ async function start() {
 	});
 }
 
-start();
+try {
+	start();
+} catch (error) {
+	console.error(error);
+}
