@@ -26,11 +26,16 @@ export default function useHabitsData() {
 
 	const habits = getHabitsForTimeWindow(timeWindow);
 
+	function getHabitById(id: string) {
+		return habitsData?.get(id);
+	}
+
 	return {
 		habits,
 		/** The only place where this hook is used, doesn't use this. But can't
 		 * hurt to include it in the output anyway. */
 		habitsData,
 		getHabitsForTimeWindow,
+		getHabitById,
 	};
 }
