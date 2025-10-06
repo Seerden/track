@@ -3,7 +3,7 @@ import type {
 	HabitWithEntries,
 	SyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
-import { habitEntryIsDone } from "@/components/habits/Habits/entry-is-completed";
+import { singleHabitEntryIsDone } from "@/components/habits/Habits/entry-is-completed";
 import CircularProgress from "@/components/utility/CircularProgress/CircularProgress";
 import S from "./style/CompletionBadge.style";
 
@@ -17,7 +17,7 @@ export default function CompletionBadge({
 	entries,
 }: CompletionBadgeProps) {
 	const completedCount = entries.filter((entry) =>
-		habitEntryIsDone({ habit, entry })
+		singleHabitEntryIsDone({ habit, entry })
 	).length;
 	const percentageCompleted = (100 * completedCount) / entries.length;
 

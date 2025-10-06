@@ -17,6 +17,7 @@ export function now() {
 	return day().utc().local();
 }
 
+/** Creates a dayjs .utc.local Dayjs object for `date`. */
 export function createDate(date: Datelike) {
 	// TODO: type-aliasing necessary because of the definition of Datelike, see
 	// the note with `timestampSchema`
