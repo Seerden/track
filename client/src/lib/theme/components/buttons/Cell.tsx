@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import type { Nullable } from "@shared/types/data/utility.types";
 import type { CSSProperties } from "react";
 import {
 	default as Unstyled,
@@ -67,7 +68,12 @@ const Default = styled(Unstyled)<{
 				color: white;
 				box-shadow: 0 0 0.3rem 0 #ddd;
 			`}
-	}
+
+   }
+   
+   &:disabled {
+      outline-color: transparent;
+   }
 
 	${(p) =>
 		p.$highlight &&
@@ -84,6 +90,26 @@ const Default = styled(Unstyled)<{
 			color: azure; // TODO TRK-231: theme value
 			box-shadow: 0 0 0.2rem 0 #ccc;
 		`}
+`;
+
+const Habit = styled(Default)<{
+	$cellDone?: Nullable<boolean>;
+	$rowDone?: boolean;
+}>`
+   ${(p) =>
+			p.$rowDone &&
+			css`
+            background-color: deepskyblue;
+   `}
+         
+   ${(p) =>
+			p.$cellDone &&
+			css`
+         outline-color: forestgreen;
+         background-color: forestgreen;
+
+       `}
+
 `;
 
 const DaySelector = styled(UnstyledButton)<{ $active?: boolean }>`
@@ -110,6 +136,7 @@ const DaySelector = styled(UnstyledButton)<{ $active?: boolean }>`
 const CellButtons = {
 	Default,
 	DaySelector,
+	Habit,
 };
 
 export default CellButtons;

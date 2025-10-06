@@ -1,6 +1,7 @@
 import { MonthPicker } from "@mantine/dates";
 import type { Maybe } from "@shared/types/data/utility.types";
 import type { Dayjs } from "dayjs";
+import type { ReactNode } from "react";
 import type {
 	CalendarProps,
 	Row,
@@ -18,6 +19,7 @@ type CalendarRowProps = {
 	row: Row;
 	selectDate: (day: number | null) => void;
 	selectedDate?: Maybe<Dayjs>;
+	Cell?: ReactNode;
 };
 
 function CalendarRow({
@@ -42,10 +44,11 @@ function CalendarRow({
 				<Buttons.Cell.Default
 					disabled={day === null}
 					key={index}
-					onClick={() => selectDate(day)}
-					$selected={is(day, "selected")}
-					$highlight={is(day, "today")}>
-					{day}
+					onClick={() => selectDate(day.value)}
+					$selected={is(day.value, "selected")}
+					$highlight={is(day.value, "today")}
+				>
+					{day.value}
 				</Buttons.Cell.Default>
 			))}
 		</S.Row>

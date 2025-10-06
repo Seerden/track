@@ -3,7 +3,6 @@ import type { Dayjs } from "dayjs";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { buildCalendarRows } from "@/components/utility/Calendar/build-calendar-rows";
 import type { MonthAndYear } from "@/components/utility/Calendar/calendar.types";
-import { prebuiltCalendarRows } from "@/components/utility/Calendar/constants";
 import { createMonthAndYear } from "@/components/utility/Calendar/hooks/create-date";
 import { formatToMonthAndYear } from "@/lib/datetime/format-date";
 import { createDate, createFirstOfTheMonth } from "@/lib/datetime/make-date";
@@ -58,11 +57,7 @@ export function useCalendar({ initialDate, onChange }: UseCalendarProps) {
 		[monthAndYear, setSelectedDate]
 	);
 
-	const existingRows = prebuiltCalendarRows.find(
-		({ month, year }) =>
-			month === firstDayOfTheMonth.month() && year === firstDayOfTheMonth.year()
-	);
-	const rows = existingRows?.rows || buildCalendarRows(firstDayOfTheMonth);
+	const rows = buildCalendarRows(firstDayOfTheMonth);
 
 	const title = useMemo(
 		() => formatToMonthAndYear(firstDayOfTheMonth),
