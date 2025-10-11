@@ -8,6 +8,7 @@ import {
 } from "@/lib/theme/components/buttons/Unstyled";
 import { outline, thinOutline } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
+import { colors } from "../../colors";
 import Active from "../../snippets/active";
 import { flex } from "../../snippets/flex";
 import { spacing } from "../../snippets/spacing";
@@ -94,21 +95,52 @@ const Default = styled(Unstyled)<{
 
 const Habit = styled(Default)<{
 	$cellDone?: Nullable<boolean>;
-	$rowDone?: boolean;
+	$cellTouched?: Nullable<boolean>;
+	$intervalDone?: Nullable<boolean>;
 }>`
-   ${(p) =>
-			p.$rowDone &&
-			css`
-            background-color: deepskyblue;
-   `}
-         
-   ${(p) =>
-			p.$cellDone &&
-			css`
-         outline-color: forestgreen;
-         background-color: forestgreen;
+   border-radius: 50%;
 
-       `}
+   --inner-color: ${(p) => (p.$cellDone ? "forestgreen" : p.$cellTouched ? colors.purple.tertiary : "#e2e2e2")};
+   --outer-color: ${(p) => (p.$intervalDone ? "forestgreen" : p.$cellTouched ? colors.purple.tertiary : "#e2e2e2")};
+
+   font-size: 0.7rem;
+
+   background-color: var(--inner-color);
+   outline: 3px solid var(--outer-color);
+   border: 2px solid #f2f2f2;
+
+   &:disabled {
+      background-color: unset;
+      /* TODO: once the feature to extend the calendar by optionally including
+      days from overlapping months to be shown, this might change, or might not
+      (because those cells probably won't be "disabled") */
+      border: none;
+      outline-color: transparent;
+   };
+
+   color: ${(p) => (p.$cellDone || p.$cellTouched ? "white" : "inherit")};
+
+   &:not(:disabled) {
+      /* These styles are repeated from above, because otherwise they're
+      overwritten by the interaction styles from Default */
+      &:hover, &:active, &:focus {
+         background-color: var(--inner-color);
+         outline: 3px solid var(--outer-color) ;
+         color: ${(p) => (p.$cellDone || p.$cellTouched ? "white" : "inherit")};
+      }
+
+      &:active, &:focus {
+         box-shadow: 0 0 0.5rem 0 #333;
+      }
+
+      &:hover {
+         box-shadow: 0 0 0.4rem 0 #666;
+      }
+   }
+   &:hover, &:active, &:focus {
+   
+
+   }
 
 `;
 

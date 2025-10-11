@@ -1,7 +1,8 @@
 import { offset } from "@floating-ui/react";
 import type {
 	HabitEntry,
-	HabitWithEntries,
+	HabitWithPossiblySyntheticEntries,
+	PossiblySyntheticHabitEntry,
 	SyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
 import { useState } from "react";
@@ -11,8 +12,8 @@ import useFloatingProps from "@/lib/hooks/useFloatingProps";
 import S from "./style/Completion.style";
 
 type CompletionInstancesProps = {
-	entries: Array<HabitEntry | SyntheticHabitEntry>;
-	habit: HabitWithEntries;
+	entries: PossiblySyntheticHabitEntry[];
+	habit: HabitWithPossiblySyntheticEntries;
 	shouldShowBadge: boolean;
 };
 
@@ -38,7 +39,7 @@ function CompletionInstances({
 }
 
 type CompletionProps = {
-	habit: HabitWithEntries;
+	habit: HabitWithPossiblySyntheticEntries;
 	entries: Array<HabitEntry | SyntheticHabitEntry>;
 };
 

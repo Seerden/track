@@ -1,6 +1,6 @@
 import type {
 	HabitEntry,
-	HabitWithEntries,
+	HabitWithPossiblySyntheticEntries,
 	SyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
 import { singleHabitEntryIsDone } from "@/components/habits/Habits/entry-is-completed";
@@ -8,7 +8,7 @@ import CircularProgress from "@/components/utility/CircularProgress/CircularProg
 import S from "./style/CompletionBadge.style";
 
 type CompletionBadgeProps = {
-	habit: HabitWithEntries;
+	habit: HabitWithPossiblySyntheticEntries;
 	entries: Array<HabitEntry | SyntheticHabitEntry>;
 };
 

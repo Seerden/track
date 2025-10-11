@@ -1,8 +1,7 @@
 import { NumberInput, Slider, Tooltip } from "@mantine/core";
 import type {
-	HabitEntry,
-	HabitWithEntries,
-	SyntheticHabitEntry,
+	HabitWithPossiblySyntheticEntries,
+	PossiblySyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
 import { ContextMenu } from "@/lib/hooks/useContextMenu";
 import { colors } from "@/lib/theme/colors";
@@ -13,8 +12,8 @@ import S from "./style/HabitEntrySlider.style";
 import { useHabitEntrySlider } from "./useHabitEntrySlider";
 
 export type HabitEntrySliderProps = {
-	habit: HabitWithEntries;
-	entry: HabitEntry | SyntheticHabitEntry;
+	habit: HabitWithPossiblySyntheticEntries;
+	entry: PossiblySyntheticHabitEntry;
 	onChangeEnd: HabitEntryUpdateMutationFunction;
 	width?: string;
 };
@@ -44,7 +43,8 @@ export default function HabitEntrySlider({
 		<label>
 			<S.SliderWrapper
 				sliderColor={isDone ? colors.green.main : colors.blue.main}
-				style={{ width: width ?? "100%" }}>
+				style={{ width: width ?? "100%" }}
+			>
 				<Slider
 					labelAlwaysOn={false}
 					size={"sm"}
@@ -55,11 +55,9 @@ export default function HabitEntrySlider({
 					max={Math.max(sliderValue, habit.goal) ?? 1} // TODO: habit.goal should always exist if goal_type is "goal"
 					step={1}
 					showLabelOnHover
-					styles={{
-						label: completionTooltipStyles.regular,
-					}}
+					styles={{ label: completionTooltipStyles.regular }}
 					label={(value) =>
-						value < habit.goal
+						value <= habit.goal
 							? `${habit.goal_unit}: ${value}/${habit.goal}`
 							: null
 					}
@@ -82,25 +80,22 @@ export default function HabitEntrySlider({
 
 	return (
 		<ContextMenu label={"Habit slider (hover/focus)"} triggerKeys={["c"]}>
-			{sliderValue > habit.goal ? (
-				<Tooltip
-					style={completionTooltipStyles.alternate}
-					unstyled
-					label={
-						<div
-							style={{ display: "flex", flexWrap: "wrap", maxWidth: "100%" }}>
-							<div style={{ width: "max-content", maxWidth: "100%" }}>
-								You exceeded the goal of {habit.goal} {habit.goal_unit} for this
-								habit. Use the detailed view <Icons.Shortcut>c</Icons.Shortcut>{" "}
-								to adjust the value.
-							</div>
+			<Tooltip
+				disabled={!(sliderValue > habit.goal)}
+				style={completionTooltipStyles.alternate}
+				unstyled
+				label={
+					<div style={{ display: "flex", flexWrap: "wrap", maxWidth: "100%" }}>
+						<div style={{ width: "max-content", maxWidth: "100%" }}>
+							You exceeded the goal of {habit.goal} {habit.goal_unit} for this
+							habit. Use the detailed view <Icons.Shortcut>c</Icons.Shortcut> to
+							adjust the value.
 						</div>
-					}>
-					{label}
-				</Tooltip>
-			) : (
-				label
-			)}
+					</div>
+				}
+			>
+				{label}
+			</Tooltip>
 
 			<>
 				<NumberInput
