@@ -159,3 +159,9 @@ describe("habitSuccessfulOnDate", () => {
 
 	describe("monthly habits", () => {});
 });
+
+describe("habitSuccessfulInInterval", () => {
+	it("TODO", () => {
+		expect(false).toEqual(true);
+	});
+});

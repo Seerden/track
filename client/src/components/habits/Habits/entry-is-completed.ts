@@ -1,22 +1,24 @@
-import type {
-	HabitEntry,
-	HabitWithEntries,
-	SyntheticHabitEntry,
+import {
+	type HabitEntry,
+	type HabitWithPossiblySyntheticEntries,
+	habitEntrySchema,
+	type SyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
 import type { Datelike } from "@shared/lib/schemas/timestamp";
 import { isSynthetic } from "@shared/types/data/habit-entry.guards";
+import type { Nullable } from "@shared/types/data/utility.types";
 import { createDate } from "@/lib/datetime/make-date";
 
 /** Given an entry and its template habit, determine if the entry is "done".
- * @todo (TRK-93) I made habit be Partial<HabitWithEntries> because we only need
- * goal_type and goal, but for proper usage, we should narrow the type to
- * Pick<Habit, "goal_type" | "goal"> and update current usage.
+ * @todo (TRK-93) I made habit be `Partial<HabitWithEntries>` because we only need
+ * `goal_type` and `goal`, but for proper usage, we should narrow the type to
+ * `Pick<Habit, "goal_type" | "goal">` and update current usage.
  */
 export function singleHabitEntryIsDone({
 	habit,
 	entry,
 }: {
-	habit: Partial<HabitWithEntries>;
+	habit: Partial<HabitWithPossiblySyntheticEntries>;
 	entry: HabitEntry | SyntheticHabitEntry;
 }) {
 	if (isSynthetic(entry)) return false;
@@ -49,15 +51,21 @@ export function singleHabitEntryIsDone({
  *   build UI for this))
  */
 export function habitSuccessfulOnDate(
-	habitWithEntries: HabitWithEntries,
+	habitWithEntries: HabitWithPossiblySyntheticEntries,
 	date: Datelike
 ) {
 	const { entries, ...habit } = habitWithEntries;
 
 	// get all the entries for `date`
-	const entriesForDate = entries.filter((entry) =>
-		createDate(entry.date).isSame(createDate(date), "date")
-	);
+	const entriesForDate = habitEntrySchema
+		.array()
+		.parse(
+			entries.filter(
+				(entry) =>
+					!isSynthetic(entry) &&
+					createDate(entry.date).isSame(createDate(date), "date")
+			)
+		);
 
 	switch (habit.goal_type) {
 		case "checkbox": {
@@ -72,6 +80,7 @@ export function habitSuccessfulOnDate(
 			// there is 1 successful entry on the day. But for habits that go e.g.
 			// 3x/2 weeks, is that still true? I think so.
 			const frequencyGoal = habit.interval_unit === "day" ? habit.frequency : 1;
+
 			return successfulEntries >= frequencyGoal;
 		}
 		case "goal": {
@@ -100,5 +109,60 @@ export function habitSuccessfulOnDate(
 				return totalValueForDate >= habit.goal;
 			}
 		}
+	}
+}
+
+// given a habit and all of its entries within the habit-specific interval
+// (a given day, week, month)), determine if the goal for that interval
+// was met.
+// TODO: this only takes into account "per day", "per week", "per month" habits,
+// not "per 2 weeks", "per 3 days", etc. Use modified start and end of interval,
+// and the combination of habit.interval and habit.interval_unit to accomplish this.
+export function habitSuccessfulInInterval(
+	habitWithEntries: HabitWithPossiblySyntheticEntries,
+	date: Nullable<Datelike>
+) {
+	if (!date) return null;
+
+	const { entries, ...habit } = habitWithEntries;
+	const dateDayjs = createDate(date);
+
+	// get the start and end dates for the interval; for a "day" interval, use
+	// the date, for other intervals, use start and end dates
+	const entriesForInterval = entries.filter((entry) => {
+		const entryDateDayjs = createDate(entry.date);
+
+		if (habit.interval_unit === "day") {
+			return entryDateDayjs.isSame(dateDayjs, "date");
+		} else {
+			const startOfInterval = dateDayjs.startOf(habit.interval_unit);
+			const endOfInterval = dateDayjs.endOf(habit.interval_unit);
+
+			return (
+				!entryDateDayjs.isBefore(startOfInterval) &&
+				!entryDateDayjs.isAfter(endOfInterval)
+			);
+		}
+	});
+
+	if (habit.goal_type === "checkbox") {
+		const successfulEntryCount = entriesForInterval.reduce((acc, entry) => {
+			if (!isSynthetic(entry) && entry.value === "true") {
+				acc += 1;
+			}
+			return acc;
+		}, 0);
+
+		return successfulEntryCount >= habit.frequency;
+	} else {
+		// goal type is "goal"
+		const successfulEntryCount = entriesForInterval.reduce((acc, entry) => {
+			if (!isSynthetic(entry) && singleHabitEntryIsDone({ habit, entry })) {
+				acc += 1;
+			}
+			return acc;
+		}, 0);
+
+		return successfulEntryCount >= habit.frequency;
 	}
 }
