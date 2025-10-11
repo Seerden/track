@@ -51,6 +51,7 @@
     "@types/react-dom": "19.1.6",
     "@vitejs/plugin-react": "4.5.2",
     "@vitest/ui": "3.2.4",
+    "babel-plugin-react-compiler": "1.0.0",
     "eslit": "^6.0.0",
     "jsdom": "^25.0.1",
     "sass": "^1.77.8",
