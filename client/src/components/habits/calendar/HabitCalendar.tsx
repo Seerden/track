@@ -60,7 +60,7 @@ export default function HabitCalendar({
 	return (
 		<>
 			<S.CalendarHeader>
-				<div style={{ display: "flex", gap: "0.5rem", flexDirection: "row" }}>
+				<Containers.Row gap="small">
 					<Buttons.Action.Direction
 						direction="previous"
 						onClick={() => changeMonth("previous")}
@@ -69,8 +69,8 @@ export default function HabitCalendar({
 						direction="next"
 						onClick={() => changeMonth("next")}
 					/>
-				</div>
-				<span>{title}</span>
+				</Containers.Row>
+				<span style={{ userSelect: "none" }}>{title}</span>
 			</S.CalendarHeader>
 			<Containers.Column
 				gap="medium"
