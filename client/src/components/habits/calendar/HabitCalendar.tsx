@@ -24,7 +24,10 @@ import {
 	habitSuccessfulOnDate,
 } from "../Habits/entry-is-completed";
 import S from "./style/HabitCalendar.style";
-import { withSyntheticEntriesForDayCell } from "./synthetic";
+import {
+	realEntryThreshold,
+	withSyntheticEntriesForDayCell,
+} from "./synthetic";
 
 function isCurrentYear(date: Datelike) {
 	return createDate(date).year() === now().year();
@@ -214,7 +217,15 @@ function HabitCell({
 					>
 						{day.date ? createDate(day.date).format("MMMM D") : null}
 					</span>
-					<Completion entries={entries} habit={habit} />
+					<Completion
+						entries={entries}
+						habit={habit}
+						count={
+							day.date
+								? realEntryThreshold(habit, createDate(day.date))
+								: entries.length
+						}
+					/>
 				</Containers.Column>
 			</Popover.Dropdown>
 		</Popover>

@@ -10,16 +10,18 @@ import S from "./style/CompletionBadge.style";
 type CompletionBadgeProps = {
 	habit: HabitWithPossiblySyntheticEntries;
 	entries: Array<HabitEntry | SyntheticHabitEntry>;
+	count: number;
 };
 
 export default function CompletionBadge({
 	habit,
 	entries,
+	count,
 }: CompletionBadgeProps) {
 	const completedCount = entries.filter((entry) =>
 		singleHabitEntryIsDone({ habit, entry })
 	).length;
-	const percentageCompleted = (100 * completedCount) / entries.length;
+	const percentageCompleted = Math.min(100, (100 * completedCount) / count);
 
 	const size = 30;
 

@@ -41,9 +41,14 @@ function CompletionInstances({
 type CompletionProps = {
 	habit: HabitWithPossiblySyntheticEntries;
 	entries: Array<HabitEntry | SyntheticHabitEntry>;
+	/** Expected real entry count (e.g. if 3x/day, this would be 3. We use this
+	 * prop to determine the percentage for e.g. circular progression, because we
+	 * can keep adding entries indefinitely, but beyond this `count`, the new
+	 * entries shouldn't expand the circular progress bar). */
+	count?: number;
 };
 
-export default function Completion({ habit, entries }: CompletionProps) {
+export default function Completion({ habit, entries, count }: CompletionProps) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const itemCount = entries.length;
@@ -74,7 +79,11 @@ export default function Completion({ habit, entries }: CompletionProps) {
 	return (
 		<S.List $itemCount={itemCount}>
 			<div ref={float.refs.setReference} {...float.getReferenceProps()}>
-				<CompletionBadge habit={habit} entries={entries} />
+				<CompletionBadge
+					habit={habit}
+					entries={entries}
+					count={count ?? entries.length}
+				/>
 			</div>
 			{isOpen && (
 				<S.FloatingWrapper

@@ -73,8 +73,8 @@ export function withSyntheticEntriesForDayCell(
 	const shouldAppendSynthetic =
 		!finalEntry ||
 		(!isSynthetic(finalEntry) &&
-			habit.goal_type === "checkbox" &&
-			finalEntry.value === "true");
+			((habit.goal_type === "checkbox" && finalEntry.value === "true") ||
+				(habit.goal_type === "goal" && +finalEntry.value >= habit.goal)));
 
 	if (shouldAppendSynthetic) {
 		withSynthetics.push(
