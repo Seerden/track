@@ -8,6 +8,7 @@ import type { Datelike } from "@shared/lib/schemas/timestamp";
 import { isSynthetic } from "@shared/types/data/habit-entry.guards";
 import type { Nullable } from "@shared/types/data/utility.types";
 import { createDate } from "@/lib/datetime/make-date";
+import { extractEntriesForInterval } from "./entries-for-interval";
 
 /** Given an entry and its template habit, determine if the entry is "done".
  * @todo (TRK-93) I made habit be `Partial<HabitWithEntries>` because we only need
@@ -125,44 +126,26 @@ export function habitSuccessfulInInterval(
 	if (!date) return null;
 
 	const { entries, ...habit } = habitWithEntries;
-	const dateDayjs = createDate(date);
 
 	// get the start and end dates for the interval; for a "day" interval, use
 	// the date, for other intervals, use start and end dates
-	const entriesForInterval = entries.filter((entry) => {
-		const entryDateDayjs = createDate(entry.date);
+	// TODO: make this a separate helper (filterEntriesForInterval)
+	const entriesForInterval = extractEntriesForInterval(
+		entries,
+		habit.interval_unit,
+		date
+	);
 
-		if (habit.interval_unit === "day") {
-			return entryDateDayjs.isSame(dateDayjs, "date");
-		} else {
-			const startOfInterval = dateDayjs.startOf(habit.interval_unit);
-			const endOfInterval = dateDayjs.endOf(habit.interval_unit);
+	const successfulEntryCount = entriesForInterval.reduce((acc, entry) => {
+		const isSuccessful =
+			!isSynthetic(entry) && singleHabitEntryIsDone({ habit, entry });
 
-			return (
-				!entryDateDayjs.isBefore(startOfInterval) &&
-				!entryDateDayjs.isAfter(endOfInterval)
-			);
+		if (isSuccessful) {
+			acc += 1;
 		}
-	});
 
-	if (habit.goal_type === "checkbox") {
-		const successfulEntryCount = entriesForInterval.reduce((acc, entry) => {
-			if (!isSynthetic(entry) && entry.value === "true") {
-				acc += 1;
-			}
-			return acc;
-		}, 0);
+		return acc;
+	}, 0);
 
-		return successfulEntryCount >= habit.frequency;
-	} else {
-		// goal type is "goal"
-		const successfulEntryCount = entriesForInterval.reduce((acc, entry) => {
-			if (!isSynthetic(entry) && singleHabitEntryIsDone({ habit, entry })) {
-				acc += 1;
-			}
-			return acc;
-		}, 0);
-
-		return successfulEntryCount >= habit.frequency;
-	}
+	return successfulEntryCount >= habit.frequency;
 }
