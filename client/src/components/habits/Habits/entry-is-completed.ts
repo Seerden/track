@@ -34,8 +34,7 @@ export function singleHabitEntryIsDone({
 	}
 }
 
-/**
- * This function takes a habit with its entries, looks at the habit's settings and
+/** This function takes a habit with its entries, looks at the habit's settings and
  * determines, for the given `date` whether the habit's goal was reached on that date.
  *
  * - daily habits: look at the sum of all entry `value`s. if they reach `goal`,
@@ -46,9 +45,8 @@ export function singleHabitEntryIsDone({
  *   would use rowIsDone or something, which goes over multiple cells)
  * - monthly and other: for these, I guess cells work the same as weekly habits,
  *   because completion intervals are always linked to a single day.
- *
- *  @todo completion entries should be labeled by date where relevant (need to
- * build UI for this) -- TRK-93: what did I even mean by this?
+ * @todo completion entries should be labeled by date where relevant (need to
+ *    build UI for this) -- TRK-93: what did I even mean by this?
  * @todo pass `habit` and `entries` as separate args?
  */
 export function habitSuccessfulOnDate(
@@ -86,8 +84,6 @@ export function habitSuccessfulOnDate(
 		case "goal": {
 			if (habit.frequency > 1 && habit.interval_unit === "day") {
 				const successfulEntries = entriesForDate.filter((entry) => {
-					// TODO: should really rename this to `singleHabitEntryIsDone` or
-					// something
 					return singleHabitEntryIsDone({
 						habit,
 						entry,
@@ -112,12 +108,12 @@ export function habitSuccessfulOnDate(
 	}
 }
 
-// given a habit and all of its entries within the habit-specific interval
-// (a given day, week, month)), determine if the goal for that interval
-// was met.
-// TODO: this only takes into account "per day", "per week", "per month" habits,
-// not "per 2 weeks", "per 3 days", etc. Use modified start and end of interval,
-// and the combination of habit.interval and habit.interval_unit to accomplish this.
+/** given a habit and all of its entries within the habit-specific interval (a
+ * given day, week, month)), determine if the goal for that interval was met.
+ * @todo this only takes into account "per day", "per week", "per month" habits,,
+ *    not "per 2 weeks", "per 3 days", etc. Use modified start and end of interval,
+ *    and the combination of habit.interval and habit.interval_unit to accomplish this.
+ */
 export function habitSuccessfulInInterval(
 	habitWithEntries: HabitWithPossiblySyntheticEntries,
 	date: Nullable<Datelike>
@@ -126,9 +122,6 @@ export function habitSuccessfulInInterval(
 
 	const { entries, ...habit } = habitWithEntries;
 
-	// get the start and end dates for the interval; for a "day" interval, use
-	// the date, for other intervals, use start and end dates
-	// TODO: make this a separate helper (filterEntriesForInterval)
 	const entriesForInterval = extractEntriesForInterval(
 		entries,
 		habit.interval_unit,
