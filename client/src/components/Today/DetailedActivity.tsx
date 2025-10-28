@@ -13,7 +13,7 @@ import modalIds from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import Card from "@/lib/theme/components/Card.style";
 import Containers from "@/lib/theme/components/container.style";
-import { deleteActivityDropdownStyle } from "@/lib/theme/components/containers/popover.style";
+import { actionDropdownStyle } from "@/lib/theme/components/containers/popover.style";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 import { RecurrenceCard } from "./RecurrenceCard";
 import { useDetailedActivity } from "./useDetailedActiviity";
@@ -83,7 +83,7 @@ export default function DetailedActivity({
 							</Buttons.Action.Stylized>
 						</Tooltip>
 					</Popover.Target>
-					<Popover.Dropdown style={deleteActivityDropdownStyle}>
+					<Popover.Dropdown style={actionDropdownStyle}>
 						Delete this activity?
 						<Containers.Row
 							gap="small"

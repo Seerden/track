@@ -16,7 +16,7 @@ import type { Cell } from "@/components/utility/Calendar/calendar.types";
 import { createDate, now } from "@/lib/datetime/make-date";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
-import { deleteActivityDropdownStyle } from "@/lib/theme/components/containers/popover.style";
+import { actionDropdownStyle } from "@/lib/theme/components/containers/popover.style";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 import Completion from "../Habits/Completion";
 import {
@@ -28,6 +28,7 @@ import {
 	realEntryThreshold,
 	withSyntheticEntriesForDayCell,
 } from "./synthetic";
+import { habitTrackedOnDate } from "./habit-tracked-on-date";
 
 function isCurrentYear(date: Datelike) {
 	return createDate(date).year() === now().year();
@@ -94,7 +95,6 @@ export default function HabitCalendar({
 							}}
 						>
 							{row.map((day, dayIndex) => {
-								// TODO: inline return
 								const entriesForDate = habit.entries.filter(
 									(entry) =>
 										!isNullish(day.date) &&
@@ -102,6 +102,23 @@ export default function HabitCalendar({
 											.local()
 											.isSame(dayjs(day.date as Dayjs).local(), "day")
 								);
+
+								// TODO: instead of disabling the button on nullish
+								// `day`, or when `day` is outside of habit tracking
+								// range, render an empty element
+
+								if (
+									isNullish(day.date) ||
+									(!isNullish(day.date) && !habitTrackedOnDate(habit, day.date))
+								)
+									return (
+										<div
+											style={{
+												width: 23,
+												height: 23,
+											}}
+										/>
+									);
 
 								return (
 									<HabitCell
@@ -116,7 +133,6 @@ export default function HabitCalendar({
 										habit={habit}
 										key={dayIndex}
 										day={day}
-										buttonProps={{ disabled: isNullish(day.value) }}
 									/>
 								);
 							})}
@@ -138,7 +154,7 @@ function HabitCell({
 	day: Cell;
 	// buttonProps isn't really necessary. determine the props in here, we should
 	// have all the information we need to make that happen
-	buttonProps: Parameters<typeof Buttons.Cell.Habit>[0];
+	buttonProps?: Parameters<typeof Buttons.Cell.Habit>[0];
 	habit: HabitWithPossiblySyntheticEntries;
 	intervalDone?: Nullable<boolean>;
 	entries: PossiblySyntheticHabitEntry[];
@@ -152,6 +168,13 @@ function HabitCell({
 		? habitSuccessfulOnDate({ ...habit, entries }, createDate(day.date))
 		: null;
 
+	// Since we do not have tri-state inputs yet for checkboxes
+	// (true/false/null), a cell that was "touched" ("dirty", interacted with)
+	// is one that is either a goal cell with a non-0 value, or a checkbox
+	// with a true value. Since we always have at least 1 entry for every cell
+	// (if not interacted with, it'll be a synthetic entry), we use cellTouched
+	// to visually distinguish cells (days) that the user interacted with the
+	// habit.
 	const cellTouched =
 		entries.filter(
 			(entry) =>
@@ -179,9 +202,7 @@ function HabitCell({
 			position="top-start"
 			opened={opened}
 			onChange={toggle}
-			styles={{
-				dropdown: deleteActivityDropdownStyle,
-			}}
+			styles={{ dropdown: actionDropdownStyle }}
 		>
 			<Popover.Target>
 				<Buttons.Cell.Habit
@@ -192,9 +213,6 @@ function HabitCell({
 					$cellTouched={cellTouched}
 					$intervalDone={intervalDone}
 					{...buttonProps}
-					style={{
-						...buttonProps.style,
-					}}
 					type="button"
 				>
 					{day.value ?? ""}
@@ -202,21 +220,9 @@ function HabitCell({
 			</Popover.Target>
 			<Popover.Dropdown>
 				<Containers.Column gap="small">
-					<span
-						style={{
-							minWidth: "max-content",
-							userSelect: "none",
-							backgroundColor: "#f7f7f7",
-							padding: "0.2rem 0.4rem",
-							boxShadow: "0 0.3rem 0.2rem -0.2rem #ccc",
-							borderRadius: 2,
-							borderBottom: "2px solid #bbb",
-							color: "#333",
-							fontSize: "0.85rem",
-						}}
-					>
+					<S.CalendarTitle>
 						{day.date ? createDate(day.date).format("MMMM D") : null}
-					</span>
+					</S.CalendarTitle>
 					<Completion
 						entries={entries}
 						habit={habit}

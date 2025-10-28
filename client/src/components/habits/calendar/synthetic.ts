@@ -29,9 +29,9 @@ export function realEntryThreshold(
 		case "day": {
 			return habit.frequency;
 		}
-		// Weekly, monthly, [yearly: not yet implemented] should assume a
-		// single entry per day. Schemes like 20x/week are exceptions that we
-		// don't take into account specifically.
+		// TODO (TRK-93, TRK-242) Weekly, monthly, [yearly: not yet implemented]
+		// should assume a single entry per day. Schemes like 20x/week are
+		// exceptions that we don't take into account specifically.
 		default:
 			return 1;
 	}
@@ -50,14 +50,14 @@ export function withSyntheticEntriesForDayCell(
 			!isSynthetic(entry) &&
 			createDate(entry.date).isSame(createDate(day), "date")
 	);
-	const expectedRealEntries = realEntryThreshold(
+	const expectedRealEntryCount = realEntryThreshold(
 		habitWithEntries,
 		createDate(day)
 	);
 
 	const existingIndices = new Set(realEntriesForDate.map((e) => e.index));
 	const missingIndices = Array.from(
-		{ length: expectedRealEntries },
+		{ length: expectedRealEntryCount },
 		(_, i) => i
 	).filter((i) => !existingIndices.has(i));
 

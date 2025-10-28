@@ -34,10 +34,8 @@ export function singleHabitEntryIsDone({
 	}
 }
 
-/** @todo implementation
- *
- * This function takes a habit with its entries (❓ or a habit and a list of
- * entries separately, for flexibility), looks at the habit's settings and
+/**
+ * This function takes a habit with its entries, looks at the habit's settings and
  * determines, for the given `date` whether the habit's goal was reached on that date.
  *
  * - daily habits: look at the sum of all entry `value`s. if they reach `goal`,
@@ -47,9 +45,11 @@ export function singleHabitEntryIsDone({
  *   (this doesn't mean the actual habit's goal was reached: for that, we
  *   would use rowIsDone or something, which goes over multiple cells)
  * - monthly and other: for these, I guess cells work the same as weekly habits,
- *   because completion intervals are always linked to a single day (❗ TODO:
- *   completion entries should be labeled by date where relevant (I need to
- *   build UI for this))
+ *   because completion intervals are always linked to a single day.
+ *
+ *  @todo completion entries should be labeled by date where relevant (need to
+ * build UI for this) -- TRK-93: what did I even mean by this?
+ * @todo pass `habit` and `entries` as separate args?
  */
 export function habitSuccessfulOnDate(
 	habitWithEntries: HabitWithPossiblySyntheticEntries,
@@ -57,7 +57,6 @@ export function habitSuccessfulOnDate(
 ) {
 	const { entries, ...habit } = habitWithEntries;
 
-	// get all the entries for `date`
 	const entriesForDate = habitEntrySchema
 		.array()
 		.parse(

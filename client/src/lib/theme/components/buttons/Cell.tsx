@@ -137,11 +137,6 @@ const Habit = styled(Default)<{
          box-shadow: 0 0 0.4rem 0 #666;
       }
    }
-   &:hover, &:active, &:focus {
-   
-
-   }
-
 `;
 
 const DaySelector = styled(UnstyledButton)<{ $active?: boolean }>`
