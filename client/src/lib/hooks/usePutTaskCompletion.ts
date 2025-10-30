@@ -14,10 +14,6 @@ import { syntheticActivitiesAtom } from "../state/synthetic-activity-state";
 import { trpc } from "../trpc";
 import { useMutateNewSyntheticActivity } from "./query/activities/useMutateNewActivity";
 
-/**
- * @deprecated this hook doesn't do anything more than useMutateTaskCompletion,
- * so just put the mutation
- */
 export default function usePutTaskCompletion(task: PossiblySyntheticActivity) {
 	const { mutate } = useMutateTaskCompletion();
 	const { mutate: mutateSynthetic } = useMutateNewSyntheticActivity();
