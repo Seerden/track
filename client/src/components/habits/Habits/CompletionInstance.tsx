@@ -1,15 +1,14 @@
 import type {
-	HabitEntry,
-	HabitWithEntries,
-	SyntheticHabitEntry,
+	HabitWithPossiblySyntheticEntries,
+	PossiblySyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
 import HabitEntrySlider from "@/components/habits/Habits/HabitEntrySlider";
 import HabitEntryToggle from "@/components/habits/Habits/HabitEntryToggle";
 import useCompletionInstance from "@/components/habits/Habits/useCompletionInstance";
 
 type CompletionInstanceProps = {
-	entry: HabitEntry | SyntheticHabitEntry;
-	habit: HabitWithEntries;
+	entry: PossiblySyntheticHabitEntry;
+	habit: HabitWithPossiblySyntheticEntries;
 	sliderWidth?: string;
 };
 

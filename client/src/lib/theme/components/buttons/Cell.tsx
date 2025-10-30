@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import type { Nullable } from "@shared/types/data/utility.types";
 import type { CSSProperties } from "react";
 import {
 	default as Unstyled,
@@ -7,6 +8,7 @@ import {
 } from "@/lib/theme/components/buttons/Unstyled";
 import { outline, thinOutline } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
+import { colors } from "../../colors";
 import Active from "../../snippets/active";
 import { flex } from "../../snippets/flex";
 import { spacing } from "../../snippets/spacing";
@@ -67,7 +69,12 @@ const Default = styled(Unstyled)<{
 				color: white;
 				box-shadow: 0 0 0.3rem 0 #ddd;
 			`}
-	}
+
+   }
+   
+   &:disabled {
+      outline-color: transparent;
+   }
 
 	${(p) =>
 		p.$highlight &&
@@ -84,6 +91,52 @@ const Default = styled(Unstyled)<{
 			color: azure; // TODO TRK-231: theme value
 			box-shadow: 0 0 0.2rem 0 #ccc;
 		`}
+`;
+
+const Habit = styled(Default)<{
+	$cellDone?: Nullable<boolean>;
+	$cellTouched?: Nullable<boolean>;
+	$intervalDone?: Nullable<boolean>;
+}>`
+   border-radius: 50%;
+
+   --inner-color: ${(p) => (p.$cellDone ? "forestgreen" : p.$cellTouched ? colors.purple.tertiary : "#e2e2e2")};
+   --outer-color: ${(p) => (p.$intervalDone ? "forestgreen" : p.$cellTouched ? colors.purple.tertiary : "#e2e2e2")};
+
+   font-size: 0.7rem;
+
+   background-color: var(--inner-color);
+   outline: 3px solid var(--outer-color);
+   border: 2px solid #f2f2f2;
+
+   &:disabled {
+      background-color: unset;
+      /* TODO: once the feature to extend the calendar by optionally including
+      days from overlapping months to be shown, this might change, or might not
+      (because those cells probably won't be "disabled") */
+      border: none;
+      outline-color: transparent;
+   };
+
+   color: ${(p) => (p.$cellDone || p.$cellTouched ? "white" : "inherit")};
+
+   &:not(:disabled) {
+      /* These styles are repeated from above, because otherwise they're
+      overwritten by the interaction styles from Default */
+      &:hover, &:active, &:focus {
+         background-color: var(--inner-color);
+         outline: 3px solid var(--outer-color) ;
+         color: ${(p) => (p.$cellDone || p.$cellTouched ? "white" : "inherit")};
+      }
+
+      &:active, &:focus {
+         box-shadow: 0 0 0.5rem 0 #333;
+      }
+
+      &:hover {
+         box-shadow: 0 0 0.4rem 0 #666;
+      }
+   }
 `;
 
 const DaySelector = styled(UnstyledButton)<{ $active?: boolean }>`
@@ -110,6 +163,7 @@ const DaySelector = styled(UnstyledButton)<{ $active?: boolean }>`
 const CellButtons = {
 	Default,
 	DaySelector,
+	Habit,
 };
 
 export default CellButtons;

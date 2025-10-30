@@ -1,7 +1,7 @@
 import { Tooltip } from "@mantine/core";
 import type {
 	HabitEntry,
-	HabitWithEntries,
+	HabitWithPossiblySyntheticEntries,
 	SyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
 import { isSynthetic } from "@shared/types/data/habit-entry.guards";
@@ -17,7 +17,7 @@ export default function HabitEntryToggle({
 	entry,
 	onChange,
 }: {
-	habit: HabitWithEntries;
+	habit: HabitWithPossiblySyntheticEntries;
 	entry: HabitEntry | SyntheticHabitEntry;
 	onChange: HabitEntryUpdateMutationFunction;
 }) {
@@ -39,7 +39,8 @@ export default function HabitEntryToggle({
 				<>
 					{formatToYearMonthDay(createDate(entry.date))} (#{entry.index + 1})
 				</>
-			}>
+			}
+		>
 			<label style={{ width: "max-content" }}>
 				<Checkbox
 					tabIndex={0}

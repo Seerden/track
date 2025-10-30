@@ -47,7 +47,7 @@ function expectedEntryCount(timeWindow: TimeWindow, habit: Habit) {
 	return Math.ceil(dayCount * habitCompletionsPerDay);
 }
 
-function makeSyntheticEntry({
+export function makeSyntheticEntry({
 	habit,
 	index,
 	date,

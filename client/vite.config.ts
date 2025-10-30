@@ -17,7 +17,7 @@ export default defineConfig({
 		}),
 		viteReact({
 			babel: {
-				plugins: ["@emotion/babel-plugin"],
+				plugins: ["@emotion/babel-plugin", "babel-plugin-react-compiler"],
 				babelrc: false,
 				configFile: false,
 			},

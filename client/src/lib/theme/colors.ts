@@ -50,6 +50,11 @@ const tintColors = {
 	light: "#fff",
 	secondary: "#eee",
 	tertiary: "#e1e1e1",
+	offwhite: {
+		lightest: "#f7f7f7",
+		light: "#f2f2f2",
+		shade: "#e7e7e7",
+	},
 	shade: {
 		primary: "#ccc",
 		secondary: "#bbb",

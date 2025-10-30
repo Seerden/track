@@ -62,12 +62,16 @@ export const habitEntryUpdateInputSchema = z.object({
 });
 export type HabitEntryUpdateInput = z.infer<typeof habitEntryUpdateInputSchema>;
 
+export const habitWithIdsSchema = habitSchema.and(
+	z.object({
+		tag_ids: z.array(z.string()),
+	})
+);
 /** Like other data types, a habit can also be linked to any number of tags.
  * For this one, the server just gets the entire entries, instead of only the
  * ids (hence it's called habitWithEntries vs. habitWithIds). */
-export const habitWithEntriesSchema = habitSchema.and(
+export const habitWithEntriesSchema = habitWithIdsSchema.and(
 	z.object({
-		tag_ids: z.array(z.string()),
 		entries: z.array(habitEntrySchema),
 	})
 );
@@ -97,12 +101,22 @@ export const syntheticHabitEntrySchema = habitEntryInputSchema
 	);
 export type SyntheticHabitEntry = z.infer<typeof syntheticHabitEntrySchema>;
 
-export const habitWithPossiblySyntheticEntriesSchema =
-	habitWithEntriesSchema.and(
-		z.object({
-			entries: z.array(habitEntrySchema.or(syntheticHabitEntrySchema)),
-		})
-	);
+export const possiblySyntheticHabitEntrySchema = z.union([
+	habitEntrySchema,
+	syntheticHabitEntrySchema,
+]);
+export type PossiblySyntheticHabitEntry = z.infer<
+	typeof possiblySyntheticHabitEntrySchema
+>;
+
+export const habitWithPossiblySyntheticEntriesSchema = habitWithIdsSchema.and(
+	z.object({
+		entries: z.union([
+			habitEntrySchema.array(),
+			possiblySyntheticHabitEntrySchema.array(),
+		]),
+	})
+);
 export type HabitWithPossiblySyntheticEntries = z.infer<
 	typeof habitWithPossiblySyntheticEntriesSchema
 >;

@@ -1,3 +1,5 @@
+import type { Datelike } from "@shared/lib/schemas/timestamp";
+import type { Nullable } from "@shared/types/data/utility.types";
 import type { Dayjs } from "dayjs";
 
 export type CalendarProps = {
@@ -13,6 +15,6 @@ export type MonthAndYear = {
 };
 
 export type WeekStartDay = "monday" | "sunday";
-export type Cell = number | null;
+export type Cell = { date: Nullable<Datelike>; value: Nullable<number> };
 export type Row = Cell[];
 export type Rows = Row[];

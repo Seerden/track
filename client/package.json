@@ -38,6 +38,9 @@
     "superjson": "^2.2.2",
     "uuid": "11.1.0"
   },
+  "optionalDependencies": {
+     "@rollup/rollup-win32-x64-msvc": "^4.52.5"
+  },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.13.5",
     "@tanstack/react-query": "5.81.2",
@@ -51,6 +54,7 @@
     "@types/react-dom": "19.1.6",
     "@vitejs/plugin-react": "4.5.2",
     "@vitest/ui": "3.2.4",
+    "babel-plugin-react-compiler": "1.0.0",
     "eslit": "^6.0.0",
     "jsdom": "^25.0.1",
     "sass": "^1.77.8",
@@ -64,5 +68,9 @@
     "workerDirectory": [
       "public"
     ]
-  }
+  },
+  "os": [
+    "linux",
+    "win32"
+  ]
 }
