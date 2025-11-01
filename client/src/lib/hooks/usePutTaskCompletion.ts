@@ -4,20 +4,18 @@ import {
 	syntheticActivitySchema,
 } from "@shared/lib/schemas/activity";
 import { produce } from "immer";
-import { useAtom, useSetAtom } from "jotai";
+import { useAtom } from "jotai";
 import { useCallback } from "react";
 import useMutateTaskCompletion from "@/lib/hooks/query/activities/useMutateTask";
 import { queryClient } from "../query-client";
 import { isSyntheticActivity } from "../recurrence";
 import { activeItemAtom } from "../state/active-item-state";
-import { syntheticActivitiesAtom } from "../state/synthetic-activity-state";
 import { trpc } from "../trpc";
 import { useMutateNewSyntheticActivity } from "./query/activities/useMutateNewActivity";
 
 export default function usePutTaskCompletion(task: PossiblySyntheticActivity) {
 	const { mutate } = useMutateTaskCompletion();
 	const { mutate: mutateSynthetic } = useMutateNewSyntheticActivity();
-	const setSyntheticActivities = useSetAtom(syntheticActivitiesAtom);
 	const [activeItem, setActiveItem] = useAtom(activeItemAtom);
 
 	const putCompletion = useCallback(() => {
@@ -33,18 +31,18 @@ export default function usePutTaskCompletion(task: PossiblySyntheticActivity) {
 				} as SyntheticActivity),
 				{
 					onSuccess: (updatedTask) => {
-						// filter out the synthetic activity that we just turned into a
-						// real one
-						setSyntheticActivities(
-							produce((draft) => {
-								const index = draft.findIndex(
-									(synthetic) => synthetic.synthetic_id === task.synthetic_id
-								);
-								if (index !== -1) {
-									draft.splice(index, 1);
-								}
-							})
-						);
+						// NOTE: it would seem like a good idea to filter out the
+						// now-real synthetic activities from syntheticActivities, but
+						// that's not the way the syntheticActivities atom works. It's
+						// fine to have it always contain synthetics, even if it's
+						// since been turned into a real activity. in useToday, we
+						// filter out any duplicates that were formed this way. This
+						// mutation invalidates all activity-related queries,
+						// including the recurring activities query, and in
+						// useQueryActivities(), we regenerated syntheticActivities
+						// based on that query, so removing the synthetic activity in
+						// this onSuccess handler only created a temporary layout
+						// shift in the inbetween state.
 
 						// if the synthetic activity was opened as a modal, we need to
 						// now open the modal for the real activity
@@ -55,10 +53,6 @@ export default function usePutTaskCompletion(task: PossiblySyntheticActivity) {
 								})
 							);
 						}
-
-						queryClient.invalidateQueries({
-							queryKey: trpc.activities.tasks.overdue.queryKey(),
-						});
 					},
 				}
 			);
