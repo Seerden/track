@@ -75,6 +75,8 @@ export const queryTagsForRecurringActivities: QueryFunction<
 	},
 	Promise<Map<string, string[]>>
 > = async ({ sql = sqlConnection, user_id, recurrence_ids }) => {
+	if (!recurrence_ids?.length) return new Map();
+
 	const activityTags = await sql<
 		(ActivityTagRelation & Pick<Activity, "recurrence_id">)[]
 	>`
