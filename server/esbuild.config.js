@@ -1,9 +1,6 @@
 import esbuild from "esbuild";
-import { readFileSync } from "fs";
+import packageJson from "./package.json" with { type: "json" };
 
-const packageJson = JSON.parse(
-	readFileSync(new URL("./package.json", import.meta.url))
-);
 const dependencies = Object.keys(packageJson.dependencies);
 const devDependencies = Object.keys(packageJson.devDependencies);
 
@@ -18,6 +15,9 @@ esbuild
 		format: "esm",
 		sourcemap: false,
 		minify: true,
+		// TODO: check if this is necessary. I imagine with this, we need to
+		// install the packages at the run-site, but without it, we could just
+		// run the built application as standalone.
 		external: [...dependencies, ...devDependencies],
 	})
 	.catch(() => process.exit(1));
