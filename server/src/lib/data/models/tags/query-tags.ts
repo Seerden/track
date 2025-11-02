@@ -1,3 +1,4 @@
+import { arrayMapById } from "@shared/lib/map";
 import type { Activity } from "@shared/lib/schemas/activity";
 import type { TagWithId } from "@shared/lib/schemas/tag";
 import type {
@@ -86,17 +87,7 @@ export const queryTagsForRecurringActivities: QueryFunction<
          a.will_recur = true
    `;
 
-	// TODO: I thought this could be done with mapById, but that does something
-	// else, actually. I guess I need another function for this functionality,
-	// but what would I call it, listToMapById? Confusing if compared to mapById
-	// and groupById.
-	return activityTags.reduce((acc, cur) => {
-		if (!cur.recurrence_id) return acc;
-
-		const tagIds = acc.get(cur.recurrence_id) ?? [];
-		acc.set(cur.recurrence_id, tagIds.concat(cur.tag_id));
-		return acc;
-	}, new Map<string, TagWithId["tag_id"][]>());
+	return arrayMapById(activityTags, "recurrence_id", "tag_id");
 };
 
 export const queryTagsAndRelations: QueryFunction<
