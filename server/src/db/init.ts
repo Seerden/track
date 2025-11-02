@@ -25,7 +25,10 @@ const options: PostgresOptions = {
 };
 
 const testOptions: PostgresOptions = {
-	host: DB_TEST_HOST,
+	/** for `options`, we don't care about this, because we never want to
+	 * interact with the "actual" database outside of docker anyway.
+	 * @todo add another IS_CONTAINERIZED flag */
+	host: IS_TEST_ENVIRONMENT ? "localhost" : DB_TEST_HOST,
 	user: PG_USER,
 	pass: PG_PASS,
 	database: PG_TEST_DB,

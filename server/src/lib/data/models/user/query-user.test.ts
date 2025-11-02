@@ -6,10 +6,11 @@ import { queryUserByName } from "./query-user";
 
 describe("queryUserByName", () => {
 	it("should return a just-inserted user", async () => {
-		sqlConnection.begin(async (q) => {
+		await sqlConnection.begin(async (q) => {
 			const newUser: NewUser = {
 				username: "Billy",
 				password: "this should really be a hash",
+				email: "test@me.com",
 			};
 
 			await createUser({ sql: q, newUser });

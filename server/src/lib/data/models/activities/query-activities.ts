@@ -84,16 +84,23 @@ export const queryActivityTagsByUser: QueryFunction<
    `;
 };
 
+// TODO: if this queries a non-original recurring activity, tag_ids will be
+// empty. Figure out a way to get tag ids from the original activity
+// efficiently.
 export const queryActivityByIdWithRelations: QueryFunction<
-	{ activity_id: ID },
+	{ activity_id: ID; user_id: ID },
 	Promise<Maybe<ActivityWithIds>>
-> = async ({ sql = sqlConnection, activity_id }) => {
+> = async ({ sql = sqlConnection, activity_id, user_id }) => {
 	const activity = await queryActivityById({ sql, activity_id });
 	if (!activity) {
 		return;
 	}
 	const tagRelations = await queryTagRelationsForActivity({ sql, activity_id });
-	const merged = mergeActivitiesAndRelations([activity], tagRelations);
+	const merged = await mergeActivitiesAndRelations(
+		[activity],
+		tagRelations,
+		user_id
+	);
 	const activityWithRelations = merged.get(activity_id);
 	if (!activityWithRelations) {
 		throw new Error(`Activity with ID ${activity_id} not found`);
@@ -136,7 +143,13 @@ export const queryActivitiesAndRelations: QueryFunction<
 		completed,
 	});
 
+	// TODO: for this function, we already get _all_ of a user's tag relations,
+	// so we can relatively easily make a Map(reccurenceId ->
+	// originalActivity.tagIds) and assign the original activity's tag ids to the
+	// recurring entries for the same recurrence relation. But for
+	// queryActivitiesById, that doesn't work, because we don't have the full set
+	// of tag relations.
 	const activityTagRelations = await queryActivityTagsByUser({ sql, user_id });
 
-	return mergeActivitiesAndRelations(activities, activityTagRelations);
+	return mergeActivitiesAndRelations(activities, activityTagRelations, user_id);
 };

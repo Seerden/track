@@ -1,5 +1,11 @@
 import type { DataById, MappedData } from "@shared/types/data/map";
-import type { ById, ByIdMap, MapById } from "@shared/types/data/utility.types";
+import type {
+	ById,
+	ByIdMap,
+	ID,
+	MapById,
+} from "@shared/types/data/utility.types";
+import { z } from "./zod";
 
 /** Transform the byId object of a DataById object to a Map.
  * @note the solution above means we don't have to cast the return value, but
@@ -62,4 +68,34 @@ export function mapById<T extends object>(
 	);
 
 	return byIdMap;
+}
+
+/** Given an array of objects of type T, an idField of T (like user_id) whose value
+ * is a string, and another property `extractField` in T whose values we want to
+ * group by idField, create a Map<idField, extractField[]>.
+ * @example given a list of activities with tag_ids, group the tag_ids by
+ * activity.recurrence_id. */
+export function arrayMapById<T extends object, U extends keyof T>(
+	data: T[],
+	idField: IdFieldUnion<T>,
+	// pick one of the fields of T, the returned map will hold values that are an
+	// array of that property
+	extractField: U
+): Map<ID, T[U][]> {
+	if (!idField.endsWith("_id")) {
+		throw new Error(`idField '${idField}' is not an id field`);
+	}
+
+	return data.reduce((acc, cur) => {
+		if (!cur[idField]) return acc;
+
+		const idPropertyParsed = z.string().safeParse(cur[idField]);
+
+		if (!idPropertyParsed.success) return acc;
+		const idProperty = idPropertyParsed.data;
+
+		const groupedValues = acc.get(idProperty) ?? [];
+		acc.set(idProperty, groupedValues.concat(cur[extractField]));
+		return acc;
+	}, new Map<string, T[U][]>());
 }

@@ -1,5 +1,10 @@
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import Empty from "@/components/Today/Empty";
+import {
+	activityEnd,
+	activityStart,
+	sortActivitiesByTime,
+} from "@/lib/activity";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import T from "./style/Tasks.style";
@@ -10,16 +15,24 @@ type TasksProps = {
 	activities: PossiblySyntheticActivity[];
 };
 
+function getActivityKey(activity: PossiblySyntheticActivity) {
+	return `
+      ${activityStart(activity).valueOf()}-${activityEnd(activity).valueOf()}-${activity.name}
+   `;
+}
+
 export default function Tasks({ activities }: TasksProps) {
 	const { openModal } = useModalState();
+
+	const sortedActivities = sortActivitiesByTime(activities);
 
 	return (
 		<T.TasksWrapper style={{ gridArea: "tasks" }}>
 			<S.BlockTitle>Tasks</S.BlockTitle>
 			{activities.length ? (
 				<T.Tasks>
-					{activities.map((a) => (
-						<Task key={a.activity_id ?? a.synthetic_id} activity={a} />
+					{sortedActivities.map((a) => (
+						<Task key={getActivityKey(a)} activity={a} />
 					))}
 				</T.Tasks>
 			) : (

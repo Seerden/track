@@ -20,6 +20,7 @@ export async function createUser({
 	const userInput: UserInput = {
 		username: newUser.username,
 		password_hash: passwordHash,
+		email: newUser.email,
 	};
 
 	// TODO: check if email is unique

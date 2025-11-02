@@ -29,9 +29,10 @@ export function createSyntheticActivity(
 		completed: false,
 		synthetic: true,
 		synthetic_id: `${activity.activity_id}-${activity.recurrence_id}-${uuid()}`,
+		tag_ids: activity.tag_ids,
 		// TODO: when converting a synthetic activity to a real one, update
 		// created_at.
-	});
+	} as SyntheticActivity);
 }
 
 function isCalendarRecurrence(recurrence: Recurrence) {

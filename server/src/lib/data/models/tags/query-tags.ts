@@ -1,3 +1,5 @@
+import { arrayMapById } from "@shared/lib/map";
+import type { Activity } from "@shared/lib/schemas/activity";
 import type { TagWithId } from "@shared/lib/schemas/tag";
 import type {
 	ActivityTagRelation,
@@ -5,6 +7,7 @@ import type {
 } from "@shared/types/data/relational.types";
 import type { ID } from "@shared/types/data/utility.types";
 import type { QueryFunction } from "types/sql.types";
+import { TABLES } from "types/tables";
 import { sqlConnection } from "@/db/init";
 
 /** Get all of a user's tags. */
@@ -57,6 +60,36 @@ export const queryTagRelations: QueryFunction<
 	return sql<[TagTagRelation]>`
       select * from tags_tags where user_id = ${user_id}
    `;
+};
+
+/** Given a list of recurrence ids, get all tag_ids (in a map, by the recurrence
+ * id of the original activity) of that belong to the activities of
+ * recurrence_id.
+ * @note this presumes that a recurring activity will never have tags that
+ * differ from its original activity. I am not sure if, when going from
+ * synthetic -> real, we do not "lock in" the tag_ids for the recurring entry. */
+export const queryTagsForRecurringActivities: QueryFunction<
+	{
+		user_id: ID;
+		recurrence_ids: ID[];
+	},
+	Promise<Map<string, string[]>>
+> = async ({ sql = sqlConnection, user_id, recurrence_ids }) => {
+	if (!recurrence_ids?.length) return new Map();
+
+	const activityTags = await sql<
+		(ActivityTagRelation & Pick<Activity, "recurrence_id">)[]
+	>`
+      select t.*, a.recurrence_id
+      from ${sql(TABLES.activitiesTags)} t
+      join ${sql(TABLES.activities)} a 
+         on a.activity_id = t.activity_id
+      where t.user_id = ${user_id} and
+         a.recurrence_id = any(${recurrence_ids}) and
+         a.will_recur = true
+   `;
+
+	return arrayMapById(activityTags, "recurrence_id", "tag_id");
 };
 
 export const queryTagsAndRelations: QueryFunction<
