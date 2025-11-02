@@ -4,7 +4,7 @@ import { z } from "@shared/lib/zod";
 export const newUserSchema = z.object({
 	username: z.string(),
 	password: z.string(),
-	email: z.string().email().optional(),
+	email: z.email(),
 });
 export type NewUser = z.infer<typeof newUserSchema>;
 
