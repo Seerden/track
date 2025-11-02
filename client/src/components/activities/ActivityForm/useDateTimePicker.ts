@@ -1,9 +1,30 @@
 import type { DateValue } from "@mantine/dates";
 import { withDatesBaseSchema } from "@shared/lib/schemas/activity";
+import type { Datelike } from "@shared/lib/schemas/timestamp";
 import { produce } from "immer";
+import { useAtom } from "jotai";
 import { type ChangeEvent, useCallback, useMemo, useState } from "react";
 import { createDate, now } from "@/lib/datetime/make-date";
+import { timeWindowAtom } from "@/lib/state/time-window.state";
+import type { TimeWindow } from "@/types/time-window.types";
 import type { DateTimePickerProps } from "./datetime-picker.types";
+
+function nearestNonPastHour(date: Datelike) {
+	const dateDayjs = createDate(date);
+
+	if (dateDayjs.minute() === 0) {
+		return dateDayjs.startOf("hour");
+	}
+	return createDate(date).startOf("hour").add(1, "hour");
+}
+
+function defaultTimeWindowAwareStart(timeWindow: TimeWindow) {
+	const isToday = createDate(timeWindow.startDate).isSame(now(), "day");
+
+	return nearestNonPastHour(
+		isToday ? now() : createDate(timeWindow.startDate).set("hour", 12)
+	);
+}
 
 /**
  * @TODO (TRK-144)
@@ -22,13 +43,17 @@ export default function useDateTimePicker({
 	activity,
 	setActivity,
 }: DateTimePickerProps) {
+	const [timeWindow] = useAtom(timeWindowAtom);
+
 	const [allDay, setAllDay] = useState(
 		() => withDatesBaseSchema.safeParse(activity).success
 	);
 
 	const dates = useMemo(() => {
 		const start = createDate(
-			activity?.start_date ?? activity?.started_at ?? now()
+			activity?.start_date ??
+				activity?.started_at ??
+				defaultTimeWindowAwareStart(timeWindow)
 		);
 		const end = createDate(
 			activity?.end_date ?? activity?.ended_at ?? start.add(1, "hour")
@@ -38,35 +63,30 @@ export default function useDateTimePicker({
 			start: start.toDate(),
 			end: end.toDate(),
 		};
-	}, [activity]);
+	}, [activity, timeWindow]);
 
-	const handleAllDayChange = (e: ChangeEvent<HTMLInputElement>) => {
-		console.log("handleAllDayChange", e.target.checked);
-		const isAllDay = e.target.checked;
-		setAllDay(isAllDay);
+	const handleAllDayChange = useCallback(
+		(e: ChangeEvent<HTMLInputElement>) => {
+			const isAllDay = e.target.checked;
+			setAllDay(isAllDay);
 
-		// TODO: if not all day, on switching allDay, set hour and minute to
-		// current hour and minute (start), and for end, add an hour
-		setActivity(
-			produce((draft) => {
-				const start = isAllDay
-					? createDate(dates.start).startOf("day")
-					: createDate(dates.start)
-							.set("hour", now().hour())
-							.set("minute", now().minute());
-				const end = isAllDay
-					? createDate(dates.end).endOf("day")
-					: createDate(dates.end)
-							.set("hour", now().hour())
-							.add(1, "hour")
-							.set("minute", now().minute());
-				draft.start_date = isAllDay ? start : null;
-				draft.end_date = isAllDay ? end : null;
-				draft.started_at = isAllDay ? null : start;
-				draft.ended_at = isAllDay ? null : end;
-			})
-		);
-	};
+			setActivity(
+				produce((draft) => {
+					const start = isAllDay
+						? createDate(dates.start).startOf("day")
+						: defaultTimeWindowAwareStart(timeWindow);
+					const end = isAllDay
+						? createDate(dates.end).endOf("day")
+						: start.add(1, "hour");
+					draft.start_date = isAllDay ? start : null;
+					draft.end_date = isAllDay ? end : null;
+					draft.started_at = isAllDay ? null : start;
+					draft.ended_at = isAllDay ? null : end;
+				})
+			);
+		},
+		[dates, timeWindow, setActivity]
+	);
 
 	const handleDateChange = useCallback(
 		({ field, value }: { field: "start" | "end"; value: DateValue }) => {
@@ -99,8 +119,6 @@ export default function useDateTimePicker({
 						newEnd = newEnd.endOf("day");
 					}
 			}
-
-			console.log({ newStart, newEnd });
 
 			setActivity(
 				produce((draft) => {
