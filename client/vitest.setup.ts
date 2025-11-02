@@ -9,7 +9,7 @@ import "whatwg-fetch";
 
 import * as matchers from "@testing-library/jest-dom/matchers";
 import { cleanup } from "@testing-library/react";
-import { afterEach, expect } from "vitest";
+import { afterAll, afterEach, beforeAll, expect } from "vitest";
 import { handlers } from "./src/mocks/handlers";
 
 expect.extend(matchers);
@@ -18,11 +18,11 @@ global.structuredClone = (val) => JSON.parse(JSON.stringify(val));
 
 const server = setupServer(...handlers);
 
-global.beforeAll(() => {
+beforeAll(() => {
 	server.listen();
 });
 
-global.afterAll(() => {
+afterAll(() => {
 	server.close();
 });
 
