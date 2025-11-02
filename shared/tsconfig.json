@@ -1,29 +1,28 @@
 {
   "compilerOptions": {
-    "target": "ES2021" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "target": "ES2021" ,
     "module": "ESNext",
     "moduleResolution": "bundler",
     "declaration": true,
     "declarationMap": true,
     "lib": ["ES2021"],
     "types": [
-      // node and vitest types
       "vitest/globals",
       "node"
     ],
     "sourceMap": true,
-    "rootDir": "./src" /* Specify the root folder within your source files. */,
-    "baseUrl": "./src" /* Specify the base directory to resolve non-relative module names. */,
+    "rootDir": "./src" ,
+    "baseUrl": "./src" ,
     "jsx": "react-jsx",
-    "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
+    "esModuleInterop": true ,
     "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
+    "forceConsistentCasingInFileNames": true,
 
-    "strict": true /* Enable all strict type-checking options. */,
+    "strict": true ,
     "noEmit": false,
-    "skipLibCheck": true /* Skip type checking all .d.ts files. */,
+    "skipLibCheck": true, 
     "noImplicitAny": true,
-    "outDir": "./dist" /* Redirect output structure to the directory. */,
+    "outDir": "./dist", 
     "composite": true,
     "paths": {
       "@shared/*": ["./*"],
