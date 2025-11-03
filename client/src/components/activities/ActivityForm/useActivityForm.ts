@@ -6,7 +6,7 @@ import {
 } from "@shared/lib/schemas/activity";
 import type { DayOfWeek, IntervalUnit } from "@shared/types/data/utility.types";
 import { produce } from "immer";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { TAG_SELECTOR_IDS } from "@/components/tags/TagSelector/constants";
 import type { ModalId } from "@/lib/modal-ids";
 import type { ActivityState } from "./activity-state.types";
@@ -56,9 +56,7 @@ export default function useActivityForm({
 	const [activity, setActivity] = useState<ActivityState>(
 		existingActivity ?? createDefaultActivity({ is_task: initialIsTask })
 	);
-	const validActivity = useMemo(() => {
-		return newActivityInputSchema.safeParse(activity).success;
-	}, [activity]);
+	const validActivity = newActivityInputSchema.safeParse(activity).success;
 	const [recurrence, setRecurrence] =
 		useState<NewRecurrenceInput>(defaultRecurrence);
 	const intervalUnitSuffix = recurrence.interval > 1 ? "s" : "";

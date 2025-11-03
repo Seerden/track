@@ -21,7 +21,9 @@ export function now() {
 export function createDate(date: Datelike) {
 	// TODO: type-aliasing necessary because of the definition of Datelike, see
 	// the note with `timestampSchema`
-	return day.utc(date as Dayjs).local();
+	return day(date as Dayjs)
+		.utc()
+		.local();
 }
 
 export function createFirstOfTheMonth({
