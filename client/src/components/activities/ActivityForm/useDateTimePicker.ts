@@ -1,22 +1,13 @@
 import type { DateValue } from "@mantine/dates";
 import { withDatesBaseSchema } from "@shared/lib/schemas/activity";
-import type { Datelike } from "@shared/lib/schemas/timestamp";
 import { produce } from "immer";
 import { useAtom } from "jotai";
 import { type ChangeEvent, useCallback, useMemo, useState } from "react";
 import { createDate, now } from "@/lib/datetime/make-date";
+import { nearestNonPastHour } from "@/lib/datetime/nearest";
 import { timeWindowAtom } from "@/lib/state/time-window.state";
 import type { TimeWindow } from "@/types/time-window.types";
 import type { DateTimePickerProps } from "./datetime-picker.types";
-
-function nearestNonPastHour(date: Datelike) {
-	const dateDayjs = createDate(date);
-
-	if (dateDayjs.minute() === 0) {
-		return dateDayjs.startOf("hour");
-	}
-	return createDate(date).startOf("hour").add(1, "hour");
-}
 
 function defaultTimeWindowAwareStart(timeWindow: TimeWindow) {
 	const isToday = createDate(timeWindow.startDate).isSame(now(), "day");
