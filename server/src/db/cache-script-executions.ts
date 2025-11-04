@@ -60,7 +60,7 @@ export async function runAndCacheNewScripts() {
 
 	for (const filename of unexecutedScriptFilenames) {
 		const queryAsString = await readFile(
-			path.join(`${scriptsFolder}/${filename}.sql`),
+			path.join(scriptsFolder, `${filename}.sql`),
 			"utf-8"
 		);
 		await sqlConnection.begin(async (q) => {
