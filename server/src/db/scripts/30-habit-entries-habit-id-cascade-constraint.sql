@@ -76,16 +76,19 @@ commit;
 -- habits_tags
 begin;
    alter table habits_tags
+   drop constraint if exists fk_habits_tags_habits,
    add constraint fk_habits_tags_habits
       foreign key (habit_id)
       references habits(habit_id)
       on delete cascade,
 
+   drop constraint if exists fk_habits_tags_tags,
    add constraint fk_habits_tags_tags
       foreign key (tag_id)
       references tags(tag_id)
       on delete cascade,
 
+   drop constraint if exists fk_habits_tags_users,
    add constraint fk_habits_tags_users
       foreign key (user_id)
       references users(user_id)
