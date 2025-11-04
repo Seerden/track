@@ -23,12 +23,12 @@ import {
 	habitSuccessfulInInterval,
 	habitSuccessfulOnDate,
 } from "../Habits/entry-is-completed";
+import { habitTrackedOnDate } from "./habit-tracked-on-date";
 import S from "./style/HabitCalendar.style";
 import {
 	realEntryThreshold,
 	withSyntheticEntriesForDayCell,
 } from "./synthetic";
-import { habitTrackedOnDate } from "./habit-tracked-on-date";
 
 function isCurrentYear(date: Datelike) {
 	return createDate(date).year() === now().year();
@@ -113,6 +113,7 @@ export default function HabitCalendar({
 								)
 									return (
 										<div
+											key={`${dayIndex}-null`}
 											style={{
 												width: 23,
 												height: 23,
