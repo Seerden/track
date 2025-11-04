@@ -54,11 +54,6 @@ export default function useNewHabit() {
 
 	const [habit, setHabit] = useState<NewHabitWithoutUserId>(defaultNewHabit);
 
-	// TODO: clean this up
-	useEffect(() => {
-		console.log({ habit });
-	}, [habit]);
-
 	const habitWithUserIdField = useMemo(() => {
 		return Object.assign({}, habit, { user_id: currentUser?.user_id ?? null });
 	}, [habit, currentUser]);
