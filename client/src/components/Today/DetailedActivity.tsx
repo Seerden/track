@@ -16,7 +16,8 @@ import Containers from "@/lib/theme/components/container.style";
 import { actionDropdownStyle } from "@/lib/theme/components/containers/popover.style";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 import { RecurrenceCard } from "./RecurrenceCard";
-import { useDetailedActivity } from "./useDetailedActiviity";
+import F from "./style/Detailed.style";
+import { useDetailedActivity } from "./useDetailedActivity";
 
 // TODO: instead of this, do time (humanizedDate), with a tooltip on
 // humanizedDate that shows the full date.
@@ -59,7 +60,7 @@ export default function DetailedActivity({
 				<span>{activity.name}</span>
 			</S.Title>
 
-			<S.ActionBar>
+			<F.ActionBar>
 				<Popover
 					withArrow
 					opened={opened}
@@ -74,7 +75,7 @@ export default function DetailedActivity({
 							disabled={!activity.recurrence_id}
 						>
 							<Buttons.Action.Stylized
-								disabled={isNullish(activity.activity_id)}
+								disabled={!isNullish(activity.recurrence_id)}
 								$color="darkBlue"
 								type="button"
 								onClick={toggle}
@@ -106,6 +107,7 @@ export default function DetailedActivity({
 						</Containers.Row>
 					</Popover.Dropdown>
 				</Popover>
+
 				<Buttons.Action.Stylized
 					type="button"
 					title="Edit this activity"
@@ -117,7 +119,7 @@ export default function DetailedActivity({
 				>
 					<PenLine size={20} />
 				</Buttons.Action.Stylized>
-			</S.ActionBar>
+			</F.ActionBar>
 
 			{!!activity.description?.length && <div>{activity.description}</div>}
 
