@@ -1,5 +1,5 @@
+import type { SeverityLevel } from "@sentry/core";
 import * as Sentry from "@sentry/node";
-import type { SeverityLevel } from "@sentry/types";
 import databaseScriptCache from "@/db/cache-script-executions";
 
 export async function runAtStartup() {
