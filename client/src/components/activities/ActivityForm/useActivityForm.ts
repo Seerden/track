@@ -6,9 +6,11 @@ import {
 } from "@shared/lib/schemas/activity";
 import type { DayOfWeek, IntervalUnit } from "@shared/types/data/utility.types";
 import { produce } from "immer";
+import { useAtomValue } from "jotai";
 import { useEffect, useState } from "react";
 import { TAG_SELECTOR_IDS } from "@/components/tags/TagSelector/constants";
 import type { ModalId } from "@/lib/modal-ids";
+import { timeWindowAtom } from "@/lib/state/time-window.state";
 import type { ActivityState } from "./activity-state.types";
 import { createDefaultActivity } from "./create-default-activity";
 import {
@@ -45,6 +47,7 @@ export default function useActivityForm({
 	modalId?: ModalId;
 	activity?: PossiblySyntheticActivity;
 }) {
+	const timeWindow = useAtomValue(timeWindowAtom);
 	const isEditing = !!existingActivity;
 	const title = existingActivity ? "Edit activity" : "Create an activity";
 	const buttonTitle = existingActivity ? "Update activity" : "Create activity";
@@ -54,9 +57,11 @@ export default function useActivityForm({
 	);
 	const [isRecurring, setIsRecurring] = useState(false);
 	const [activity, setActivity] = useState<ActivityState>(
-		existingActivity ?? createDefaultActivity({ is_task: initialIsTask })
+		existingActivity ??
+			createDefaultActivity({ is_task: initialIsTask, timeWindow })
 	);
 	const validActivity = newActivityInputSchema.safeParse(activity).success;
+
 	const [recurrence, setRecurrence] =
 		useState<NewRecurrenceInput>(defaultRecurrence);
 	const intervalUnitSuffix = recurrence.interval > 1 ? "s" : "";
