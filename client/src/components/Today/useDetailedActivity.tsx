@@ -1,4 +1,3 @@
-import { useDisclosure } from "@mantine/hooks";
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import { useMutation } from "@tanstack/react-query";
 import type { MouseEvent } from "react";
@@ -29,7 +28,6 @@ export function useDetailedActivity({
 	const { data: recurrence } = useQueryRecurrenceById(activity.recurrence_id);
 
 	const { mutate } = useMutation(trpc.activities.delete.byId.mutationOptions());
-	const [opened, { close, toggle }] = useDisclosure(false);
 
 	function handleDeleteActivity(e: MouseEvent<HTMLButtonElement>) {
 		e.stopPropagation();
@@ -39,7 +37,6 @@ export function useDetailedActivity({
 				{ activity_id: activity.activity_id },
 				{
 					onSuccess: () => {
-						close();
 						invalidateActivities();
 						// TODO (TRK-268) show a notification
 					},
@@ -55,9 +52,6 @@ export function useDetailedActivity({
 		openDetailedItemModal,
 		openModal,
 		putCompletion,
-		opened,
-		close,
-		toggle,
 		handleDeleteActivity,
 	};
 }

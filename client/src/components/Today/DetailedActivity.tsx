@@ -1,8 +1,7 @@
-import { Popover, Tooltip } from "@mantine/core";
 import { isNullish } from "@shared/lib/is-nullish";
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { Datelike } from "@shared/lib/schemas/timestamp";
-import { LucideListX, PenLine } from "lucide-react";
+import { PenLine } from "lucide-react";
 import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
 import S from "@/components/Today/style/DetailedActivity.style";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
@@ -12,9 +11,7 @@ import { createDate } from "@/lib/datetime/make-date";
 import modalIds from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import Card from "@/lib/theme/components/Card.style";
-import Containers from "@/lib/theme/components/container.style";
-import { actionDropdownStyle } from "@/lib/theme/components/containers/popover.style";
-import { spacingValue } from "@/lib/theme/snippets/spacing";
+import TwoStepDelete from "../utility/Modal/TwoStepDelete";
 import { RecurrenceCard } from "./RecurrenceCard";
 import F from "./style/Detailed.style";
 import { useDetailedActivity } from "./useDetailedActivity";
@@ -40,9 +37,6 @@ export default function DetailedActivity({
 		recurrence,
 		showHumanizedStart,
 		tags,
-		opened,
-		close,
-		toggle,
 		handleDeleteActivity,
 	} = useDetailedActivity({ activity });
 
@@ -61,52 +55,16 @@ export default function DetailedActivity({
 			</S.Title>
 
 			<F.ActionBar>
-				<Popover
-					withArrow
-					opened={opened}
-					onChange={toggle}
-					trapFocus
-					closeOnClickOutside
-				>
-					<Popover.Target>
-						<Tooltip
-							label="Recurring activities cannot be deleted yet"
-							withArrow
-							disabled={!activity.recurrence_id}
-						>
-							<Buttons.Action.Stylized
-								disabled={!isNullish(activity.recurrence_id)}
-								$color="darkBlue"
-								type="button"
-								onClick={toggle}
-							>
-								<LucideListX size={20} />
-							</Buttons.Action.Stylized>
-						</Tooltip>
-					</Popover.Target>
-					<Popover.Dropdown style={actionDropdownStyle}>
-						Delete this activity?
-						<Containers.Row
-							gap="small"
-							style={{ marginTop: spacingValue.smaller }}
-						>
-							<Buttons.Action.DefaultText
-								$color="red"
-								type="button"
-								onClick={handleDeleteActivity}
-							>
-								Delete
-							</Buttons.Action.DefaultText>
-							<Buttons.Action.DefaultText
-								$minimal
-								type="button"
-								onClick={close}
-							>
-								Keep
-							</Buttons.Action.DefaultText>
-						</Containers.Row>
-					</Popover.Dropdown>
-				</Popover>
+				<TwoStepDelete
+					confirmLabel="Delete"
+					rejectLabel="Keep"
+					handleConfirmClick={handleDeleteActivity}
+					title="Delete this activity?"
+					disabled={
+						isNullish(activity.activity_id) ||
+						!isNullish(activity.recurrence_id)
+					}
+				/>
 
 				<Buttons.Action.Stylized
 					type="button"

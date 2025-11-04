@@ -1,11 +1,9 @@
 import F from "@components/Today/style/Detailed.style";
-import { Popover } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import { isNullish } from "@shared/lib/is-nullish";
 import type { HabitWithEntries } from "@shared/lib/schemas/habit";
 import { useAtomValue } from "jotai";
-import { LucideX } from "lucide-react";
-import type { MouseEvent, PropsWithChildren, ReactNode } from "react";
+import type { MouseEvent, PropsWithChildren } from "react";
+import TwoStepDelete from "@/components/utility/Modal/TwoStepDelete";
 import { createDate } from "@/lib/datetime/make-date";
 import useMutateDeleteHabit from "@/lib/hooks/query/habits/useMutateDeleteHabit";
 import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
@@ -13,11 +11,7 @@ import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import useHabitsData from "@/lib/hooks/useHabitsData";
 import modalIds from "@/lib/modal-ids";
 import { timeWindowAtom } from "@/lib/state/time-window.state";
-import Buttons from "@/lib/theme/components/buttons";
 import C from "@/lib/theme/components/Card.style";
-import Containers from "@/lib/theme/components/container.style";
-import { actionDropdownStyle } from "@/lib/theme/components/containers/popover.style";
-import { spacingValue } from "@/lib/theme/snippets/spacing";
 import HabitCalendar from "../calendar/HabitCalendar";
 import S from "./style/DetailedHabit.style";
 
@@ -65,8 +59,6 @@ export default function DetailedHabit({
 				<C.Title>{habit.name}</C.Title>
 
 				<F.ActionBar>
-					{/* action bar: share styles from DetailedActivity */}
-
 					<TwoStepDelete
 						disabled={isNullish(habit.habit_id)}
 						title="Delete this habit?"
@@ -120,58 +112,5 @@ export default function DetailedHabit({
 			</S.DetailedHabitCard>
 			<HabitCalendar habit={habit} date={timeWindow.startDate} />
 		</>
-	);
-}
-
-// TODO: reuse this in DetailedActivity
-function TwoStepDelete({
-	disabled,
-	title,
-	handleConfirmClick,
-	confirmLabel,
-	rejectLabel,
-}: {
-	disabled?: boolean;
-	title: string | ReactNode;
-	handleConfirmClick: (e: MouseEvent<HTMLButtonElement>) => void;
-	confirmLabel: string | ReactNode;
-	rejectLabel: string | ReactNode;
-}) {
-	const [opened, { toggle, close }] = useDisclosure(false);
-
-	return (
-		<Popover
-			withArrow
-			opened={opened}
-			onChange={toggle}
-			trapFocus
-			closeOnClickOutside
-		>
-			<Popover.Target>
-				<Buttons.Action.Stylized
-					disabled={disabled}
-					$color="orange"
-					type="button"
-					onClick={toggle}
-				>
-					<LucideX size={20} />
-				</Buttons.Action.Stylized>
-			</Popover.Target>
-			<Popover.Dropdown style={actionDropdownStyle}>
-				{title}
-				<Containers.Row gap="small" style={{ marginTop: spacingValue.smaller }}>
-					<Buttons.Action.DefaultText
-						$color="red"
-						type="button"
-						onClick={handleConfirmClick}
-					>
-						{confirmLabel}
-					</Buttons.Action.DefaultText>
-					<Buttons.Action.DefaultText $minimal type="button" onClick={close}>
-						{rejectLabel}
-					</Buttons.Action.DefaultText>
-				</Containers.Row>
-			</Popover.Dropdown>
-		</Popover>
 	);
 }
