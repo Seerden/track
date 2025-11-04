@@ -9,7 +9,6 @@ import { produce } from "immer";
 import { useAtomValue } from "jotai";
 import { useEffect, useState } from "react";
 import { TAG_SELECTOR_IDS } from "@/components/tags/TagSelector/constants";
-import { defaultTimeWindowAwareStart } from "@/lib/datetime/time-window-aware-start";
 import type { ModalId } from "@/lib/modal-ids";
 import { timeWindowAtom } from "@/lib/state/time-window.state";
 import type { ActivityState } from "./activity-state.types";
@@ -57,16 +56,10 @@ export default function useActivityForm({
 		TAG_SELECTOR_IDS.DEFAULT
 	);
 	const [isRecurring, setIsRecurring] = useState(false);
-	const [activity, setActivity] = useState<ActivityState>(() => {
-		if (existingActivity) return existingActivity;
-
-		const start = defaultTimeWindowAwareStart(timeWindow);
-		return {
-			...createDefaultActivity({ is_task: initialIsTask }),
-			started_at: start,
-			ended_at: start.add(1, "hour"),
-		};
-	});
+	const [activity, setActivity] = useState<ActivityState>(
+		existingActivity ??
+			createDefaultActivity({ is_task: initialIsTask, timeWindow })
+	);
 	const validActivity = newActivityInputSchema.safeParse(activity).success;
 
 	const [recurrence, setRecurrence] =

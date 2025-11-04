@@ -1,4 +1,6 @@
 import type { NewActivityInput } from "@shared/lib/schemas/activity";
+import { defaultTimeWindowAwareStart } from "@/lib/datetime/time-window-aware-start";
+import type { TimeWindow } from "@/types/time-window.types";
 
 /** Instantiate a default activity,
  * @usage intended as default initial ActivityForm `activity` state when an
@@ -7,9 +9,13 @@ import type { NewActivityInput } from "@shared/lib/schemas/activity";
  **/
 export function createDefaultActivity({
 	is_task = false,
+	timeWindow,
 }: {
 	is_task?: boolean;
+	timeWindow: TimeWindow;
 }) {
+	const start = defaultTimeWindowAwareStart(timeWindow);
+
 	return {
 		name: "",
 		description: null,
@@ -21,5 +27,7 @@ export function createDefaultActivity({
 		completed: null,
 		start_date: null,
 		end_date: null,
-	} satisfies Partial<NewActivityInput>;
+		started_at: start,
+		ended_at: start.add(1, "hour"),
+	} satisfies NewActivityInput;
 }
