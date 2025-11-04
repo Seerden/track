@@ -1,4 +1,4 @@
-import { deleteHabitById } from "@/lib/trpc/resolvers/habit/delete-habits";
+import { deleteHabitByIdResolver } from "@/lib/trpc/resolvers/habit/delete-habits";
 import {
 	createHabit,
 	createHabitEntry,
@@ -14,9 +14,9 @@ import {
 import { t } from "@/lib/trpc/trpc-context";
 
 export const habitRouter = t.router({
-	delete: deleteHabitById,
 	all: queryHabitsAndRelations,
 	entries: queryHabitEntries,
+	delete: deleteHabitByIdResolver,
 	update: updateHabit,
 	updateEntry,
 	create: createHabit,

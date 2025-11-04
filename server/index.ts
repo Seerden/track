@@ -1,5 +1,5 @@
 // MUST BE TOP OF FILE
-import "./instrument";
+import "./instrument.ts";
 // ^
 import * as Sentry from "@sentry/node";
 import * as trpcExpress from "@trpc/server/adapters/express";
@@ -88,6 +88,14 @@ async function start() {
 	const port = process.env.PORT || 5000;
 
 	await runAtStartup();
+
+	Sentry.captureEvent({
+		message: "Server started",
+		level: "info",
+		extra: {
+			port,
+		},
+	});
 
 	app.listen(port, () => {
 		console.log(`Express server started on port ${port} at ${new Date()}`);

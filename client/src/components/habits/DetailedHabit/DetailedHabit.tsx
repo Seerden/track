@@ -1,7 +1,11 @@
-import type { Habit } from "@shared/lib/schemas/habit";
+import F from "@components/Today/style/Detailed.style";
+import { isNullish } from "@shared/lib/is-nullish";
+import type { HabitWithEntries } from "@shared/lib/schemas/habit";
 import { useAtomValue } from "jotai";
-import type { PropsWithChildren } from "react";
+import type { MouseEvent, PropsWithChildren } from "react";
+import TwoStepDelete from "@/components/utility/Modal/TwoStepDelete";
 import { createDate } from "@/lib/datetime/make-date";
+import useMutateDeleteHabit from "@/lib/hooks/query/habits/useMutateDeleteHabit";
 import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import useHabitsData from "@/lib/hooks/useHabitsData";
@@ -12,17 +16,17 @@ import HabitCalendar from "../calendar/HabitCalendar";
 import S from "./style/DetailedHabit.style";
 
 type DetailedHabitProps = {
-	id: Habit["habit_id"];
+	habit: HabitWithEntries;
 };
 
 export default function DetailedHabit({
-	id,
+	habit: _habit,
 }: PropsWithChildren<DetailedHabitProps>) {
 	const { data: tags } = useQueryTags();
 	// NOTE: we do not use getHabitsForTimeWindow, because for the habit
 	// calendar, we want to create synthetic habits for potentially any date.
 	const { getHabitById } = useHabitsData();
-	const habit = getHabitById(id);
+	const habit = getHabitById(_habit.habit_id);
 
 	const { openDetailedItemModal } = useDetailedItemModal(
 		"tag",
@@ -38,10 +42,31 @@ export default function DetailedHabit({
 		: null;
 	const humanizedFrequency = `${habit.frequency} time(s) per ${habit.interval} ${habit.interval_unit}(s)`; // TODO: consider using frequencyString from elsewhere
 
+	const { mutate } = useMutateDeleteHabit();
+
+	function handleDeleteHabit(e: MouseEvent<HTMLButtonElement>) {
+		e.stopPropagation();
+
+		// notification
+		if (!habit) return;
+
+		mutate(habit.habit_id);
+	}
+
 	return (
 		<>
 			<S.DetailedHabitCard>
 				<C.Title>{habit.name}</C.Title>
+
+				<F.ActionBar>
+					<TwoStepDelete
+						disabled={isNullish(habit.habit_id)}
+						title="Delete this habit?"
+						handleConfirmClick={handleDeleteHabit}
+						confirmLabel="Delete"
+						rejectLabel="Keep"
+					/>
+				</F.ActionBar>
 				<p>{habit.description}</p>
 				<S.InfoFields>
 					{habit.goal_type === "goal" && (

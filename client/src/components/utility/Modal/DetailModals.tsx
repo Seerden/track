@@ -13,6 +13,8 @@ import { trpc } from "@/lib/trpc";
 export default function DetailModals() {
 	const { data: tags } = useQueryTags();
 	const { data: activities } = useQuery(trpc.activities.all.queryOptions());
+	const { data: habits } = useQuery(trpc.habits.all.queryOptions());
+
 	// NOTE: we do not use getHabitsForTimeWindow, because for the habit
 	// calendar, we want to create synthetic habits for potentially any date.
 	const syntheticActivities = useAtomValue(syntheticActivitiesAtom);
@@ -28,6 +30,7 @@ export default function DetailModals() {
 		? (activities?.get(activity.activeId) ??
 			syntheticActivities.find((a) => a.synthetic_id === activity.activeId))
 		: null;
+	const activeHabit = habit.activeId ? habits?.get(habit.activeId) : null;
 
 	return (
 		<>
@@ -37,9 +40,9 @@ export default function DetailModals() {
 				</Modal>
 			)}
 
-			{!!habit.activeId && (
+			{!!activeHabit && (
 				<Modal modalId={modalIds.habits.detailed}>
-					<DetailedHabit id={habit.activeId} />
+					<DetailedHabit habit={activeHabit} />
 				</Modal>
 			)}
 			{!!activeTag && (
