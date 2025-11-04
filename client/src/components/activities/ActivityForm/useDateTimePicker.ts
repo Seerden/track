@@ -4,18 +4,9 @@ import { produce } from "immer";
 import { useAtom } from "jotai";
 import { type ChangeEvent, useCallback, useMemo, useState } from "react";
 import { createDate, now } from "@/lib/datetime/make-date";
-import { nearestNonPastHour } from "@/lib/datetime/nearest";
+import { defaultTimeWindowAwareStart } from "@/lib/datetime/time-window-aware-start";
 import { timeWindowAtom } from "@/lib/state/time-window.state";
-import type { TimeWindow } from "@/types/time-window.types";
 import type { DateTimePickerProps } from "./datetime-picker.types";
-
-function defaultTimeWindowAwareStart(timeWindow: TimeWindow) {
-	const isToday = createDate(timeWindow.startDate).isSame(now(), "day");
-
-	return nearestNonPastHour(
-		isToday ? now() : createDate(timeWindow.startDate).set("hour", 12)
-	);
-}
 
 /**
  * @TODO (TRK-144)
