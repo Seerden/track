@@ -36,10 +36,12 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "superjson": "^2.2.2",
-    "uuid": "11.1.0"
+    "uuid": "11.1.0",
+    "vite-plugin-pwa": "1.1.0",
+    "web-push": "3.6.7"
   },
   "optionalDependencies": {
-     "@rollup/rollup-win32-x64-msvc": "^4.52.5"
+    "@rollup/rollup-win32-x64-msvc": "^4.52.5"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.13.5",
@@ -52,6 +54,7 @@
     "@testing-library/react": "^16.0.1",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
+    "@types/web-push": "3.6.4",
     "@vitejs/plugin-react": "4.5.2",
     "@vitest/ui": "3.2.4",
     "babel-plugin-react-compiler": "1.0.0",
