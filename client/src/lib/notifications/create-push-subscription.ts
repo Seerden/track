@@ -18,7 +18,11 @@ function urlBase64ToUint8Array(base64String: string): Maybe<Uint8Array> {
 
 		return Uint8Array.from(rawData, (char) => char.charCodeAt(0));
 	} catch (error) {
-		console.error(error);
+		console.error({
+			error,
+			base64String,
+			publicKey: import.meta.env.VITE_VAPID_PUBLIC_KEY,
+		});
 		return;
 	}
 }
@@ -45,7 +49,7 @@ export async function createPushSubscription() {
 
 		const applicationServerKey = urlBase64ToUint8Array(vapidPublicKey);
 
-		if (!applicationServerKey) return;
+		if (!applicationServerKey?.length) return;
 
 		const subscription = await worker.pushManager.subscribe({
 			userVisibleOnly: true,
