@@ -8,10 +8,15 @@ import ReactDOM from "react-dom/client";
 import "./index.scss";
 import "./normalize.css";
 
+import { registerSW } from "virtual:pwa-register";
 import { enableMapSet } from "immer";
 import { createRouter } from "@/router";
 
 export const router = createRouter();
+
+registerSW({
+	immediate: true,
+});
 
 Sentry.init({
 	// Note: we could also use an environment variable, but the DSN is public
