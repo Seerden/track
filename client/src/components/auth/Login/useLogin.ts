@@ -22,6 +22,8 @@ export default function useLogin() {
 	const [userLogin, setUserLogin] = useState<NewUser>({
 		username: "",
 		password: "",
+		// TODO: implement this for real
+		email: "me@test.com",
 	});
 	const { mutate: login, isError } = useLoginMutation();
 

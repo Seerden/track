@@ -1,6 +1,5 @@
 import { Skeleton } from "@mantine/core";
-import { useQuery } from "@tanstack/react-query";
-import { Suspense, useEffect } from "react";
+import { Suspense } from "react";
 import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
 import NewHabit from "@/components/habits/NewHabit/NewHabit";
 import NewNote from "@/components/notes/NewNote/NewNote";
@@ -12,11 +11,9 @@ import useToday from "@/components/Today/useToday";
 import Calendar from "@/components/utility/Calendar/Calendar";
 import Modal from "@/components/utility/Modal/Modal";
 import modalIds from "@/lib/modal-ids";
-import { useCreatePushSubscription } from "@/lib/notifications/useCreatePushSubscription";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import { trpc } from "@/lib/trpc";
 import { DefaultSkeleton } from "../layout/Skeleton";
 import Notes from "./Notes";
 import { OverdueTasksIndicator } from "./OverdueTasksIndicator";
@@ -39,30 +36,8 @@ export default function Today() {
 		isFetching,
 	} = useToday();
 
-	const { data } = useQuery(trpc.push.testNotification.queryOptions());
-
-	useEffect(() => {
-		console.log({ data });
-	}, [data]);
-
-	const { handleCreatePushSubscription } = useCreatePushSubscription();
-
 	return (
 		<Suspense fallback={<DefaultSkeleton />}>
-			<Buttons.Unstyled
-				type="button"
-				onClick={async (e) => {
-					e.preventDefault();
-					await handleCreatePushSubscription();
-				}}
-				style={{
-					padding: "0.2rem",
-					outline: "1px solid red",
-					margin: "1rem",
-				}}
-			>
-				click me
-			</Buttons.Unstyled>
 			<S.Columns>
 				<div style={{ gridArea: "calendar" }}>
 					<Calendar initialDate={currentDate} onChange={setCurrentDate} />
