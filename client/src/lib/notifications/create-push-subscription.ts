@@ -19,6 +19,7 @@ function urlBase64ToUint8Array(base64String: string): Uint8Array {
 
 export async function maybeCreatePushSubscription() {
 	const permission = await requestPermission();
+	console.log({ permission });
 	if (permission === "granted") {
 		return await createPushSubscription();
 	}
@@ -27,6 +28,8 @@ export async function maybeCreatePushSubscription() {
 /** Make the service worker call pushManager.subscribe. */
 export async function createPushSubscription() {
 	const worker = await navigator.serviceWorker.ready;
+
+	console.log({ worker });
 
 	try {
 		const vapidPublicKey = import.meta.env.VITE_VAPID_PUBLIC_KEY;
@@ -43,6 +46,7 @@ export async function createPushSubscription() {
 			applicationServerKey: vapidPublicKey,
 		});
 
+		console.log({ subscriptionFromClientCreatePushSubscription: subscription });
 		return subscription;
 	} catch (error) {
 		// alert in UI and send a sentry message

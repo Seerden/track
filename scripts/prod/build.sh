@@ -38,3 +38,4 @@ export SERVER_TAG
 echo "Building server with tag: $SERVER_TAG"
 
 cd ./docker && docker compose --file ./compose.build.yml build --no-cache
+docker image push seerden/track:$SERVER_TAG

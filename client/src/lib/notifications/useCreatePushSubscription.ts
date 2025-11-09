@@ -10,6 +10,7 @@ export function useCreatePushSubscription() {
 		const subscription = await maybeCreatePushSubscription();
 
 		if (!subscription) {
+			console.log("No subscription found.");
 			return;
 		}
 
