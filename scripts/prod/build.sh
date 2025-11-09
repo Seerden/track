@@ -2,6 +2,7 @@
 
 # --- Set Defaults ---
 SERVER_TAG="latest"
+IMAGE_NAME="seerden/track"
 # Note: when we add more flags that end up as build env variables, 
 #  add their defaults here
 
@@ -38,4 +39,11 @@ export SERVER_TAG
 echo "Building server with tag: $SERVER_TAG"
 
 cd ./docker && docker compose --file ./compose.build.yml build --no-cache
-docker image push seerden/track:$SERVER_TAG
+
+# --- Tag as 'latest' ---
+# This is the new step.
+# It only runs if you provided a specific tag (not 'latest').
+if [ "$SERVER_TAG" != "latest" ]; then
+    echo "Tagging ${IMAGE_NAME}:${SERVER_TAG} as ${IMAGE_NAME}:latest"
+    docker tag "${IMAGE_NAME}:${SERVER_TAG}" "${IMAGE_NAME}:latest"
+fi
