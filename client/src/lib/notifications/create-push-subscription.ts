@@ -40,6 +40,12 @@ export async function createPushSubscription() {
 		// 	urlBase64ToUint8Array(vapidPublicKey)
 		// );
 
+		// TODO: remove this once it works
+		console.log({
+			vapidPublicKey,
+			array: urlBase64ToUint8Array(vapidPublicKey),
+		});
+
 		// subscribe the push manager
 		const subscription = await worker.pushManager.subscribe({
 			userVisibleOnly: true,
