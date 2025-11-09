@@ -13,6 +13,7 @@ import { onError } from "./instrument";
 import { pingDatabase } from "./src/db/init";
 import { NODE__dirname } from "./src/lib/build.utility";
 import { logRequests } from "./src/lib/log-requests";
+import { registerWebpush } from "./src/lib/notifications/register";
 import {
 	initializeRedisConnection,
 	redisSession,
@@ -23,6 +24,8 @@ import { routers } from "./src/routers/routers";
 import { runAtStartup } from "./src/start";
 
 async function start() {
+	registerWebpush();
+
 	const app = express();
 
 	app.use(
