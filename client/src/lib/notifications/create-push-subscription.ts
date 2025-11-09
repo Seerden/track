@@ -1,4 +1,5 @@
 import { captureException } from "@sentry/react";
+import type { Maybe } from "@shared/types/data/utility.types";
 import { requestPermission } from "./get-notification-permission";
 
 /**
@@ -6,15 +7,20 @@ import { requestPermission } from "./get-notification-permission";
  * I adapted this from the web-push github:
  * @see https://github.com/web-push-libs/web-push/blob/bcd83623e807f41008a129c72030c143e40d0105/test/data/demo/index.html#L11
  */
-function urlBase64ToUint8Array(base64String: string): Uint8Array {
-	const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
-	const base64 = (base64String + padding)
-		.replace(/-/g, "+") // Convert URL-safe '-' to standard '+'
-		.replace(/_/g, "/"); // Convert URL-safe '_' to standard '/'
+function urlBase64ToUint8Array(base64String: string): Maybe<Uint8Array> {
+	try {
+		const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+		const base64 = (base64String + padding)
+			.replace(/-/g, "+") // Convert URL-safe '-' to standard '+'
+			.replace(/_/g, "/"); // Convert URL-safe '_' to standard '/'
 
-	const rawData = window.atob(base64);
+		const rawData = window.atob(base64);
 
-	return Uint8Array.from(rawData, (char) => char.charCodeAt(0));
+		return Uint8Array.from(rawData, (char) => char.charCodeAt(0));
+	} catch (error) {
+		console.error(error);
+		return;
+	}
 }
 
 export async function maybeCreatePushSubscription() {
@@ -36,24 +42,18 @@ export async function createPushSubscription() {
 		if (!vapidPublicKey) {
 			throw new Error("No VAPID public key found in vite env.");
 		}
-		// const applicationServerKeyBuffer = Buffer.from(
-		// 	urlBase64ToUint8Array(vapidPublicKey)
-		// );
 
-		// TODO: remove this once it works
-		console.log({
-			vapidPublicKey,
-			array: urlBase64ToUint8Array(vapidPublicKey),
-		});
+		const applicationServerKey = urlBase64ToUint8Array(vapidPublicKey);
 
-		// subscribe the push manager
+		if (!applicationServerKey) return;
+
 		const subscription = await worker.pushManager.subscribe({
 			userVisibleOnly: true,
-			// @ts-ignore
-			applicationServerKey: urlBase64ToUint8Array(vapidPublicKey),
+			// @ts-ignore typing is weird, but the urlBase64 helper is lifted
+			// directly from the web-push repo, so it works fine.
+			applicationServerKey,
 		});
 
-		console.log({ subscriptionFromClientCreatePushSubscription: subscription });
 		return subscription;
 	} catch (error) {
 		console.info("Could not create push subscription");
