@@ -34,8 +34,8 @@ services:
     
     build:
       args:
-        - VITE_DOMAIN=${VITE_DOMAIN}:-
-        - VITE_VAPID_PUBLIC_KEY=${VITE_VAPID_PUBLIC_KEY}:-
+        - VITE_DOMAIN=${VITE_DOMAIN:-}
+        - VITE_VAPID_PUBLIC_KEY=${VITE_VAPID_PUBLIC_KEY:-}
       context: ../
       dockerfile: ./server/Dockerfile.prod
     depends_on:
