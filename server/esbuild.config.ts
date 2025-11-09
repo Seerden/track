@@ -24,13 +24,14 @@ async function build() {
 			external: [...dependencies, ...devDependencies],
 		})
 		.then(async () => {
-			const srcDir = resolve("server/src/db/scripts");
+			console.info("Built server successfully");
+			const srcDir = resolve("src/db/scripts");
 			const destDir = resolve("dist/scripts"); // See explanation below
 
 			try {
-				console.log(`Copying SQL scripts from ${srcDir} to ${destDir}...`);
+				console.info(`Copying SQL scripts from ${srcDir} to ${destDir}...`);
 				await cp(srcDir, destDir, { recursive: true });
-				console.log("SQL scripts copied successfully.");
+				console.info("SQL scripts copied successfully.");
 			} catch (err) {
 				console.error("Failed to copy SQL scripts:", err);
 			}
