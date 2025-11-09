@@ -43,12 +43,15 @@ export async function createPushSubscription() {
 		// subscribe the push manager
 		const subscription = await worker.pushManager.subscribe({
 			userVisibleOnly: true,
-			applicationServerKey: vapidPublicKey,
+			// @ts-ignore
+			applicationServerKey: urlBase64ToUint8Array(vapidPublicKey),
 		});
 
 		console.log({ subscriptionFromClientCreatePushSubscription: subscription });
 		return subscription;
 	} catch (error) {
+		console.info("Could not create push subscription");
+		console.error(error);
 		// alert in UI and send a sentry message
 		captureException(error, {
 			level: "error",
