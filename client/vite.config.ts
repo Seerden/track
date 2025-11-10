@@ -35,19 +35,36 @@ export default defineConfig({
 			manifest: {
 				name: "Track",
 				short_name: "Track",
+				description: "Habit tracking and planning",
+				theme_color: "#f2f2f2",
 				icons: [
-					// TODO: generate some icons for Track
-					//  {
-					//    src: '/icons/icon-192x192.png',
-					//    sizes: '192x192',
-					//    type: 'image/png',
-					//  },
-					//  {
-					//    src: '/icons/icon-512x512.png',
-					//    sizes: '512x512',
-					//    type: 'image/png',
-					//  },
+					{
+						src: "pwa-64x64.png",
+						sizes: "64x64",
+						type: "image/png",
+					},
+					{
+						src: "pwa-192x192.png",
+						sizes: "192x192",
+						type: "image/png",
+					},
+					{
+						src: "pwa-512x512.png",
+						sizes: "512x512",
+						type: "image/png",
+					},
+					{
+						src: "maskable-icon-512x512.png",
+						sizes: "512x512",
+						type: "image/png",
+						purpose: "maskable",
+					},
 				],
+			},
+			workbox: {
+				// defining cached files formats
+				globPatterns: ["**/*.{js,css,html,ico,png,svg,webmanifest}"],
+				cacheId: "seerden/track:trk-139",
 			},
 		}),
 		tsconfigPaths({
@@ -73,6 +90,7 @@ export default defineConfig({
 			usePolling: true,
 		},
 	},
+	publicDir: "public",
 	build: {
 		emptyOutDir: true,
 		outDir: "./dist/public",
