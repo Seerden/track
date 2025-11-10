@@ -41,6 +41,8 @@ export async function createPushSubscription() {
 
 	console.log({ worker });
 
+	if (!worker) return;
+
 	try {
 		const vapidPublicKey = import.meta.env.VITE_VAPID_PUBLIC_KEY;
 		if (!vapidPublicKey) {
