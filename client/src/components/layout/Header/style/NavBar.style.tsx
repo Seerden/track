@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import Buttons from "@/lib/theme/components/buttons";
 import ActionButtons from "@/lib/theme/components/buttons/Action";
 import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
@@ -31,6 +32,7 @@ const Actions = styled.div`
 	gap: 3rem;
 `;
 
+// TODO (TRK-139): replaced this with another button, so this can probably be removed.
 const Action = styled(ActionButtons.Default)`
 	margin-left: auto;
 	${radius.medium};
@@ -76,9 +78,26 @@ const HomeLink = styled.span`
 	}
 `;
 
+const MenuTrigger = styled(Buttons.Unstyled)`
+   display: flex;
+
+   &:hover, &:focus {
+      .lucide {
+         color: ${(p) => p.theme.colors.blue.secondary};
+      }
+   }
+   
+   &[aria-expanded="true"] {
+      .lucide {
+         color: ${(p) => p.theme.colors.blue.main};
+      }
+   }
+`;
+
 export default {
 	HomeLink,
 	NavBar,
 	Actions,
 	Action,
+	MenuTrigger,
 };

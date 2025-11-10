@@ -1,14 +1,18 @@
 import { Popover } from "@mantine/core";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useAtomValue } from "jotai";
-import { LucideCalendar, LucideKeyboard } from "lucide-react";
+import { LucideCalendar, LucideKeyboard, LucideUserCircle } from "lucide-react";
 import ActivityMenu from "@/components/layout/Header/ActivityMenu/ActivityMenu";
+import Profile from "@/components/user/profile/Profile";
+import { Protected } from "@/components/wrappers";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import { shortcutMenuAtom } from "@/lib/hooks/useContextMenu";
+import { theme } from "@/lib/style/theme";
 import S from "./style/NavBar.style";
 
 export default function NavBar() {
 	const shortcutMenu = useAtomValue(shortcutMenuAtom);
+	const { isLoggedIn } = useAuthentication();
 
 	return (
 		<S.NavBar>
@@ -21,28 +25,54 @@ export default function NavBar() {
 				{/* TODO (TRK-257): finish this implementation */}
 				<Popover>
 					<Popover.Target>
-						<LucideKeyboard role="dialog" style={{ cursor: "pointer" }} />
+						<LucideKeyboard
+							size={23}
+							role="dialog"
+							style={{ cursor: "pointer" }}
+						/>
 					</Popover.Target>
 					<Popover.Dropdown>
 						{JSON.stringify(Object.fromEntries(shortcutMenu))}
 					</Popover.Dropdown>
 				</Popover>
 				<ActivityMenu />
-				<ProfileAction />
+
+				{/* NOTE: this needs to rerender when isLoggedIn changes, but it doesn't by default for some reason. */}
+				<ProfileAction isLoggedIn={isLoggedIn} />
 			</S.Actions>
 		</S.NavBar>
 	);
 }
 
-function ProfileAction() {
-	const { isLoggedIn, logout } = useAuthentication();
+function ProfileAction({ isLoggedIn }: { isLoggedIn: boolean }) {
 	const navigate = useNavigate();
 
 	if (isLoggedIn) {
 		return (
-			<S.Action type="button" onClick={() => logout()} $color="darkBlue">
-				log out
-			</S.Action>
+			<Protected key={`${isLoggedIn}`}>
+				<Popover
+					radius={"sm"}
+					withArrow
+					styles={{
+						arrow: {
+							backgroundColor: theme.colors.blue.main,
+						},
+						dropdown: {
+							padding: 0,
+						},
+					}}
+				>
+					<Popover.Target>
+						{/* TODO: styling */}
+						<S.MenuTrigger type="button">
+							<LucideUserCircle size={23} />
+						</S.MenuTrigger>
+					</Popover.Target>
+					<Popover.Dropdown>
+						<Profile />
+					</Popover.Dropdown>
+				</Popover>
+			</Protected>
 		);
 	}
 
@@ -52,7 +82,8 @@ function ProfileAction() {
 			color="darkblue"
 			onClick={() => {
 				navigate({ to: "/login" });
-			}}>
+			}}
+		>
 			log in
 		</S.Action>
 	);
