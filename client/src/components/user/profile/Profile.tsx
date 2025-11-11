@@ -3,9 +3,8 @@ import {
 	LucideToggleLeft,
 	LucideToggleRight,
 } from "lucide-react";
-import type { ChangeEvent } from "react";
+import { useProfile } from "@/components/user/profile/useProfile";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
-import useAuthentication from "@/lib/hooks/useAuthentication";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import { Label } from "@/lib/theme/components/form/label.style";
@@ -13,8 +12,12 @@ import { Title } from "@/lib/theme/components/text/title.style";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 import S from "./style/Profile.style";
 
+/** Use this when rendering Profile standalone, i.e. not within a Popover or
+ * similar component.
+ * @note (TRK-139) currently we only render Profile as ProfileMenu inside
+ * Navbar. */
 export default function Profile() {
-	const { currentUser, logout } = useAuthentication();
+	const { handlers, disableNotifications, currentUser, logout } = useProfile();
 
 	// this component will be wrapped in Protected, so this won't happen, but it
 	// makes typescript happy.
@@ -22,24 +25,8 @@ export default function Profile() {
 		return null;
 	}
 
-	const disableNotifications = false; // TODO: useQuery
-
-	function handleToggleDisableNotifications(e: ChangeEvent<HTMLInputElement>) {
-		e.preventDefault();
-		// TODO: mutation
-	}
-
-	const handlers = {
-		toggleNotifications: handleToggleDisableNotifications,
-	};
-
 	return (
-		<section
-			style={{
-				display: "flex",
-				flexDirection: "column",
-			}}
-		>
+		<Containers.Column as="section">
 			<Title.Menu.Header>
 				<LucideShieldUser size={23} /> <span>Account</span>
 			</Title.Menu.Header>
@@ -66,6 +53,9 @@ export default function Profile() {
 						<span>Stub</span>
 						<Checkbox
 							checked={true}
+							onChange={() => {
+								return;
+							}}
 							IconOff={LucideToggleLeft}
 							IconOn={LucideToggleRight}
 						/>
@@ -80,6 +70,15 @@ export default function Profile() {
 					Log out
 				</Buttons.Action.Minimal>
 			</Containers.Column>
-		</section>
+		</Containers.Column>
+	);
+}
+
+/** Use this when rendering Profile inside a Popover. */
+export function ProfileMenu() {
+	return (
+		<S.Menu>
+			<Profile />
+		</S.Menu>
 	);
 }
