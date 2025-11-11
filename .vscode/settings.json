@@ -25,6 +25,8 @@
   "css.validate": false,
   "editor.linkedEditing": true,
   "typescript.preferences.importModuleSpecifierEnding": "auto",
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+   "typescript.preferences.importModuleSpecifier": "non-relative",
   "liveServer.settings.donotVerifyTags": true,
   "explorer.confirmDragAndDrop": false,
   "liveServer.settings.donotShowInfoMsg": true,
