@@ -1,13 +1,10 @@
 import type { SeverityLevel } from "@sentry/core";
 import * as Sentry from "@sentry/node";
-import databaseScriptCache, {
-	DEV_seedScripts,
-} from "@/db/cache-script-executions";
+import databaseScriptCache from "@/db/cache-script-executions";
 import { sendTestNotification } from "./lib/notifications/test-notification";
 
 export async function runAtStartup() {
 	try {
-		await DEV_seedScripts();
 		await databaseScriptCache.synchronize();
 
 		console.log(await sendTestNotification());
