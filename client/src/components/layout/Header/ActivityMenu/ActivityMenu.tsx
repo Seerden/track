@@ -12,7 +12,8 @@ export default function ActivityMenu() {
 		<>
 			<S.TriggerButton
 				ref={float.refs.setReference}
-				{...float.getReferenceProps()}>
+				{...float.getReferenceProps()}
+			>
 				Activities
 			</S.TriggerButton>
 
@@ -23,7 +24,8 @@ export default function ActivityMenu() {
 						style={{
 							...float.floatingStyles,
 						}}
-						{...float.getFloatingProps()}>
+						{...float.getFloatingProps()}
+					>
 						{/* TODO: I guess we could make this shared since it's identical in all header menus. */}
 						<FloatingArrow
 							ref={float.arrowRef}
@@ -47,7 +49,8 @@ export default function ActivityMenu() {
 								to={`/activities/new`}
 								search={{
 									task: true,
-								}}>
+								}}
+							>
 								{/* TODO: use the query param to pre-set is_task */}
 								<S.Link>
 									<LucidePlus /> new task
