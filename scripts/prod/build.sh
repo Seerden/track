@@ -40,7 +40,7 @@ echo "Building server with tag: $SERVER_TAG"
 
 export $(awk '!/^ *#/ && /./ {print $0}' ./client/.env) &&
 export $(awk '!/^ *#/ && /./ {print $0}' ./server/.env) &&
-cd ./docker && docker compose --file ./compose.build.yml build --no-cache
+cd ./docker && docker compose --file ./compose.build.yml build 
 
 # --- Tag as 'latest' ---
 # This is the new step.
