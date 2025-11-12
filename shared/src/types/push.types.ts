@@ -31,3 +31,13 @@ export type PushSubscriptionInput = z.infer<typeof pushSubscriptionInputSchema>;
 export type CreatePushSubscriptionInput = z.infer<
 	typeof createPushSubscriptionInputSchema
 >;
+
+export const pushSubscriptionChangeInputSchema = z.object({
+	old_endpoint: z.string().nullable(),
+	new_endpoint: z.string(),
+	new_p256dh: z.string(),
+	new_auth: z.string(),
+});
+export type PushSubscriptionChangeInput = z.infer<
+	typeof pushSubscriptionChangeInputSchema
+>;

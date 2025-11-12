@@ -70,8 +70,11 @@ async function start() {
 
 	if (!(process.env.NODE_ENV === "production")) {
 		app.use("/", routers.index); // even in dev, we don't use this, but this is to make sure it's definitely not used in production
-		app.use("/data", routers.data); // deprecated
 	}
+
+	// used for the pushsubscriptionchange endpoint, which is called by the
+	// service worker
+	app.use("/data", routers.data);
 
 	Sentry.setupExpressErrorHandler(app);
 	app.use(onError);

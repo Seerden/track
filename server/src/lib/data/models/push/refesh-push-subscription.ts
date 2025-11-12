@@ -1,8 +1,10 @@
-import type { PushSubscription } from "@shared/types/push.types";
+import type {
+	PushSubscription,
+	PushSubscriptionChangeInput,
+} from "@shared/types/push.types";
 import type { QueryFunction } from "types/sql.types";
 import { TABLES } from "types/tables";
 import { sqlConnection } from "@/db/init";
-import type { PushSubscriptionChangeInput } from "@/routers/push";
 
 /**
  * This handles the service worker's pushsubscriptionchange event, which occurs
