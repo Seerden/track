@@ -29,9 +29,6 @@ self.addEventListener("activate", (event) => {
 
 // 3. 'push' event: The core logic for notifications
 self.addEventListener("push", (event) => {
-	// Get payload data
-	console.log({ data: JSON.stringify(event.data) });
-
 	const payload = event.data
 		? event.data.json()
 		: { title: "No Title", body: "No Body" };
@@ -59,4 +56,38 @@ self.addEventListener("notificationclick", (event) => {
 
 	// Open the URL specified in the 'data'
 	event.waitUntil(self.clients.openWindow(event.notification.data.url));
+});
+
+// Push subscriptions expire after some time. When this happens, the endpoint
+// changes, and we have to re-insert a subscription for the user, and delete the
+// old one.
+// @see https://pushpad.xyz/blog/web-push-error-410-the-push-subscription-has-expired-or-the-user-has-unsubscribed
+self.addEventListener("pushsubscriptionchange", (event) => {
+	console.log("pushsubscriptionchange event handler called");
+
+	const url = import.meta.env.DEV
+		? "http://localhost:5000/data/push/subscriptionchange"
+		: `https://${import.meta.env.VITE_DOMAIN}/data/push/subscriptionchange`;
+
+	console.log({ url, event });
+	event.waitUntil(
+		fetch(url, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				old_endpoint: event.oldSubscription
+					? event.oldSubscription.endpoint
+					: null,
+				new_endpoint: event.newSubscription
+					? event.newSubscription.endpoint
+					: null,
+				new_p256dh: event.newSubscription
+					? event.newSubscription.toJSON().keys?.p256dh
+					: null,
+				new_auth: event.newSubscription
+					? event.newSubscription.toJSON().keys?.auth
+					: null,
+			}),
+		})
+	);
 });
