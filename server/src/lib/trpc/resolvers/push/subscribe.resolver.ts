@@ -28,12 +28,10 @@ export const subscribeResolver = authenticatedProcedure
 				return;
 			}
 
-			await insertPushSubscription({
+			return await insertPushSubscription({
 				user_id: ctx.req.session.user.user_id,
 				push_subscription: input,
 			});
-
-			return;
 		} catch (error) {
 			console.error(error);
 			captureException(error, {
