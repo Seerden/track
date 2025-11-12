@@ -2,7 +2,7 @@
 begin;
 
 create table if not exists user_settings (
-   user_id serial not null references users on delete cascade,
+   user_id bigint not null references users on delete cascade,
    disable_notifications boolean,
    primary key (user_id)
 );
