@@ -64,7 +64,8 @@ export default defineConfig({
 			workbox: {
 				// defining cached files formats
 				globPatterns: ["**/*.{js,css,html,ico,png,svg,webmanifest}"],
-				cacheId: "seerden/track:trk-139",
+				globIgnores: ["**/api/trpc/**", "**/node_modules/**"],
+				// cacheId: "seerden/track",
 			},
 		}),
 		tsconfigPaths({
