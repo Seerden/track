@@ -63,13 +63,12 @@ self.addEventListener("notificationclick", (event) => {
 // old one.
 // @see https://pushpad.xyz/blog/web-push-error-410-the-push-subscription-has-expired-or-the-user-has-unsubscribed
 self.addEventListener("pushsubscriptionchange", (event) => {
-	console.log("pushsubscriptionchange event handler called");
+	const baseUrl = import.meta.env.DEV
+		? "http://localhost:5000"
+		: `https://${import.meta.env.VITE_DOMAIN}`;
+	const endpoint = "data/push/subscriptionchange";
+	const url = `${baseUrl}/${endpoint}`;
 
-	const url = import.meta.env.DEV
-		? "http://localhost:5000/data/push/subscriptionchange"
-		: `https://${import.meta.env.VITE_DOMAIN}/data/push/subscriptionchange`;
-
-	console.log({ url, event });
 	event.waitUntil(
 		fetch(url, {
 			method: "POST",
