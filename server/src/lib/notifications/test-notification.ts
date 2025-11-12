@@ -4,6 +4,8 @@ import type { PushSubscription as Pushsub } from "web-push";
 import webpush, { WebPushError } from "web-push";
 import { sqlConnection } from "@/db/init";
 
+// TODO: in a follow-up or sub-task to TKR-139, implement an actual notification
+// version for a specific use-case (like a task reminder).
 export async function sendTestNotification() {
 	const subscriptions = await sqlConnection<[PushSubscription?]>`
       select * from ${sqlConnection(TABLES.PUSH_SUBSCRIPTIONS)}
