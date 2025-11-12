@@ -27,20 +27,78 @@ function urlBase64ToUint8Array(base64String: string): Maybe<Uint8Array> {
 	}
 }
 
+/** If permission is not denied, create a push subscription. */
 export async function maybeCreatePushSubscription() {
-	const permission = await requestPermission();
-	console.log({ permission });
-	if (permission === "granted") {
+	const existingPermission = Notification.permission;
+	if (existingPermission === "denied") return;
+
+	let permission: null | typeof Notification.permission = null;
+	if (existingPermission === "default") {
+		permission = await requestPermission();
+	}
+
+	if (existingPermission === "granted" || permission === "granted") {
 		return await createPushSubscription();
+	} else {
+		return await maybeRevokePushSubscription();
 	}
 }
+
+/** If an existing push subscription exists, revoke it. */
+export async function maybeRevokePushSubscription() {
+	try {
+		const permission = Notification.permission;
+
+		if (permission === "granted") return;
+
+		const worker = await navigator.serviceWorker.ready;
+
+		if (!worker) {
+			captureException(
+				"No service worker found when attempting to revokePushSubscription",
+				{ level: "warning" }
+			);
+			return;
+		}
+
+		const subscription = await getExistingPushSubscription();
+		if (subscription) {
+			await subscription.unsubscribe();
+		}
+	} catch (error) {
+		captureException(error, {
+			extra: {
+				function: "revokePushSubscription",
+			},
+			level: "error",
+		});
+	}
+}
+
+export async function getExistingPushSubscription() {
+	const worker = await navigator.serviceWorker.ready;
+
+	if (!worker) return;
+
+	try {
+		const subscription = await worker.pushManager.getSubscription();
+		return subscription;
+	} catch (error) {
+		captureException(error, {
+			extra: {
+				function: "getExistingPushSubscription",
+			},
+			level: "error",
+		});
+	}
+}
+
+// TODO: check existing subscription using worker.pushManager.getSubscription().
+// If it already exists, do not attempt to create a new one.
 
 /** Make the service worker call pushManager.subscribe. */
 export async function createPushSubscription() {
 	const worker = await navigator.serviceWorker.ready;
-
-	console.log({ worker });
-
 	if (!worker) return;
 
 	try {
@@ -51,7 +109,9 @@ export async function createPushSubscription() {
 
 		const applicationServerKey = urlBase64ToUint8Array(vapidPublicKey);
 
-		if (!applicationServerKey?.length) return;
+		if (!applicationServerKey?.length) {
+			throw new Error("Missing (VAPID) applicationServerKey");
+		}
 
 		const subscription = await worker.pushManager.subscribe({
 			userVisibleOnly: true,
@@ -62,9 +122,6 @@ export async function createPushSubscription() {
 
 		return subscription;
 	} catch (error) {
-		console.info("Could not create push subscription");
-		console.error(error);
-		// alert in UI and send a sentry message
 		captureException(error, {
 			level: "error",
 		});
