@@ -8,7 +8,8 @@ export default function useRegister() {
 	const [newUser, setNewUser] = useState<NewUser>({
 		username: "",
 		password: "",
-		email: "",
+		// TODO: implement this for real
+		email: "me@test.com",
 	});
 
 	const [passwordConfirm, setPasswordConfirm] = useState<string>("");

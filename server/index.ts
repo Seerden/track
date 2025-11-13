@@ -13,6 +13,7 @@ import { onError } from "./instrument";
 import { pingDatabase } from "./src/db/init";
 import { NODE__dirname } from "./src/lib/build.utility";
 import { logRequests } from "./src/lib/log-requests";
+import { registerWebpush } from "./src/lib/notifications/register";
 import {
 	initializeRedisConnection,
 	redisSession,
@@ -23,6 +24,8 @@ import { routers } from "./src/routers/routers";
 import { runAtStartup } from "./src/start";
 
 async function start() {
+	registerWebpush();
+
 	const app = express();
 
 	app.use(
@@ -67,8 +70,11 @@ async function start() {
 
 	if (!(process.env.NODE_ENV === "production")) {
 		app.use("/", routers.index); // even in dev, we don't use this, but this is to make sure it's definitely not used in production
-		app.use("/data", routers.data); // deprecated
 	}
+
+	// used for the pushsubscriptionchange endpoint, which is called by the
+	// service worker
+	app.use("/data", routers.data);
 
 	Sentry.setupExpressErrorHandler(app);
 	app.use(onError);

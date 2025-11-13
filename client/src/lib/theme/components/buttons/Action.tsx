@@ -186,7 +186,22 @@ const DefaultText = styled(Default)`
    ${radius.small};
    padding-inline: ${spacingValue.small};
    font-size: 0.9rem; // TODO: theme value
+`;
 
+const Minimal = styled(Unstyled)`
+   --color: #eee;
+   outline: 2px solid var(--color);
+   padding: ${spacingValue.smaller} ${spacingValue.medium};
+   border-radius: 2px;
+   width: max-content;
+   background-color: var(--color);
+   font-size: 0.93rem;
+
+   /* TODO: implement interaction styles for this button */
+   &:hover, &:active, &:focus {
+      // manually overwrite these from Unstyled for selectivity
+      outline: 2px solid #eee;
+   }
 `;
 
 const ActionButtons = {
@@ -198,6 +213,7 @@ const ActionButtons = {
 	CallToAction,
 	Clear,
 	Direction: DirectionButton,
+	Minimal,
 };
 
 export default ActionButtons;

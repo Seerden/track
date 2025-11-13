@@ -1,11 +1,15 @@
 import type { SeverityLevel } from "@sentry/core";
 import * as Sentry from "@sentry/node";
 import databaseScriptCache from "@/db/cache-script-executions";
+import { sendTestNotification } from "./lib/notifications/test-notification";
 
 export async function runAtStartup() {
 	try {
 		await databaseScriptCache.synchronize();
+
+		console.log(await sendTestNotification());
 	} catch (error) {
+		console.error(error);
 		Sentry.captureEvent({
 			message: "Failed to runAtStartup",
 			// @note in v8, Sentry says to use SeverityLevel like this, but in v9

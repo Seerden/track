@@ -1,7 +1,13 @@
 import Today from "@/components/Today/Today";
+import { Protected } from "../wrappers";
 
+/** @deprecated this is never used anywhere */
 function Home() {
-	return <Today />;
+	return (
+		<Protected>
+			<Today />
+		</Protected>
+	);
 }
 
 export default Home;

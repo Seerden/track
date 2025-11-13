@@ -25,6 +25,8 @@
   "css.validate": false,
   "editor.linkedEditing": true,
   "typescript.preferences.importModuleSpecifierEnding": "auto",
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+   "typescript.preferences.importModuleSpecifier": "non-relative",
   "liveServer.settings.donotVerifyTags": true,
   "explorer.confirmDragAndDrop": false,
   "liveServer.settings.donotShowInfoMsg": true,
@@ -304,5 +306,13 @@
   "biome.suggestInstallingGlobally": true,
   "biome.runFromTemporaryLocation": true,
   "typescript.preferences.preferTypeOnlyAutoImports": true,
-  "editor.unicodeHighlight.invisibleCharacters": false
+"editor.unicodeHighlight.invisibleCharacters": false,
+"files.watcherExclude": {
+   "**/.git/objects/**": true,
+   "**/.git/subtree-cache/**": true,
+   "**/.hg/store/**": true,
+   "**/.git/**": true,
+   "**/node_modules/**": true,
+   "**/.vscode/**": true
+}
 }

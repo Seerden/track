@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Buttons from "@/lib/theme/components/buttons";
+import { menuDropdownStyle } from "@/lib/theme/components/containers/popover.style";
 import { font } from "@/lib/theme/font";
-import { border, outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
@@ -11,20 +11,14 @@ const Menu = styled.div`
 	margin-top: ${spacingValue.medium};
 	margin-right: ${spacingValue.small};
 	padding: ${spacingValue.large};
-	${radius.large};
 	font-size: ${font.size["0.93"]};
+
+   ${menuDropdownStyle};
 
 	color: #444;
 	width: max-content;
 
-	${border.primary};
-	${outline.grey};
-
 	background-color: #f3f3f3; // TODO: TRK-231: theme value
-
-	box-shadow:
-		0 0.2rem 0.1rem 0 #bbb,
-		0 0.3rem 1rem 0 #aaa;
 
 	/* Have to target the first and second children, because the first one is
       the FloatingArrow. */

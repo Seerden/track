@@ -8,10 +8,16 @@ import ReactDOM from "react-dom/client";
 import "./index.scss";
 import "./normalize.css";
 
+import { registerSW } from "virtual:pwa-register";
 import { enableMapSet } from "immer";
 import { createRouter } from "@/router";
 
 export const router = createRouter();
+
+// TODO: periodic updates, see https://vite-pwa-org.netlify.app/guide/periodic-sw-updates.html
+registerSW({
+	immediate: true,
+});
 
 Sentry.init({
 	// Note: we could also use an environment variable, but the DSN is public

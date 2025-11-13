@@ -11,4 +11,6 @@ export const TABLES = {
 	HABITS: "habits",
 	HABITS_TAGS: "habits_tags",
 	HABIT_ENTRIES: "habit_entries",
+	PUSH_SUBSCRIPTIONS: "push_subscriptions",
+	USER_SETTINGS: "user_settings",
 } as const;

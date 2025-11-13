@@ -30,8 +30,12 @@ services:
 
   server:
     container_name: track-server
-    image: seerden/track:latest
+    image: seerden/track:${SERVER_TAG:-latest}
+    
     build:
+      args:
+        - VITE_DOMAIN=${VITE_DOMAIN:-}
+        - VITE_VAPID_PUBLIC_KEY=${VITE_VAPID_PUBLIC_KEY:-}
       context: ../
       dockerfile: ./server/Dockerfile.prod
     depends_on:

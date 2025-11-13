@@ -98,7 +98,8 @@ export default function Today() {
 				<Containers.Column
 					padding="medium"
 					gap="medium"
-					style={{ gridArea: "things" }}>
+					style={{ gridArea: "things" }}
+				>
 					<Habits habits={habits} />
 					<Tasks activities={activities.filter((a) => a.is_task)} />
 					<Notes />
@@ -108,14 +109,16 @@ export default function Today() {
 			<Modal
 				modalId={modalIds.activities.tasks.overdue}
 				initialOpen={false}
-				scrollbarVisible>
+				scrollbarVisible
+			>
 				<h1
 					style={{
 						padding: 0,
 						paddingBottom: spacingValue.small,
 						margin: 0,
 						marginTop: spacingValue.medium,
-					}}>
+					}}
+				>
 					Overdue tasks
 				</h1>
 				<Containers.Column
@@ -126,7 +129,8 @@ export default function Today() {
 						minWidth: "500px",
 						maxHeight: "50vh",
 						overflowY: "auto",
-					}}>
+					}}
+				>
 					{!!overdueTasks?.length &&
 						overdueTasks.map((t) => <Task activity={t} key={t.activity_id} />)}
 				</Containers.Column>
