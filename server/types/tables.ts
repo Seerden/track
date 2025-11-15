@@ -11,4 +11,5 @@ export const TABLES = {
 	HABITS: "habits",
 	HABITS_TAGS: "habits_tags",
 	HABIT_ENTRIES: "habit_entries",
+	EMAILS: "emails",
 } as const;
