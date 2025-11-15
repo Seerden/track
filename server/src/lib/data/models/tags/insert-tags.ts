@@ -1,60 +1,53 @@
-import type {
-	NewTag,
-	TagInput,
-	TagWithId,
-	TagWithIds,
-} from "@shared/lib/schemas/tag";
+import type { NewTag, TagInput, TagWithId } from "@shared/lib/schemas/tag";
 import type { TagTagRelation } from "@shared/types/data/relational.types";
 import type { ID } from "@shared/types/data/utility.types";
-import type { QueryFunction } from "types/sql.types";
-import { sqlConnection } from "@/db/init";
+import { createTransaction, query } from "@/lib/query-function";
 
 /** Inserts one or multiple tags into the database. Does not handle tag-tag relationships. */
-export const insertTags: QueryFunction<
-	{ newTags: NewTag[] },
-	Promise<TagWithId[]>
-> = async ({ sql = sqlConnection, newTags }) => {
-	const insertedTags = sql<[TagWithId]>`
+export const insertTags = query(
+	async (sql, { newTags }: { newTags: NewTag[] }) => {
+		const insertedTags = await sql<[TagWithId]>`
         insert into tags 
         ${sql(newTags)}
         returning *
-    `;
-	return insertedTags;
-};
+      `;
+		return insertedTags;
+	}
+);
 
 /** Creates a single parent-child relationship between two tags. */
-export const linkTagToParent: QueryFunction<
-	{ user_id: ID; parent_id: ID; child_id: ID },
-	Promise<TagTagRelation>
-> = async ({ sql = sqlConnection, user_id, parent_id, child_id }) => {
-	const [relation] = await sql<[TagTagRelation]>`
+export const linkTagToParent = query(
+	async (sql, input: { user_id: ID; parent_id: ID; child_id: ID }) => {
+		const [relation] = await sql<[TagTagRelation]>`
         insert into tags_tags
-        ${sql({ user_id, parent_id, child_id })}
+        ${sql(input)}
         returning *
     `;
-	return relation;
-};
+		return relation;
+	}
+);
 
-export const insertTagWithRelations: QueryFunction<
-	TagInput,
-	Promise<TagWithIds>
-> = async ({ sql = sqlConnection, newTag, parent_id }) => {
-	return await sql.begin(async (q) => {
-		const [tag] = await insertTags({ sql: q, newTags: [newTag] });
+export const insertTagWithRelations = query(
+	async ({ newTag, parent_id }: TagInput) => {
+		return await createTransaction(async () => {
+			const [tag] = await insertTags({ newTags: [newTag] });
 
-		if (!parent_id) {
-			return Object.assign(tag, { child_ids: [], parent_id: null });
-		}
+			if (!parent_id) {
+				return Object.assign(tag, { child_ids: [], parent_id: null });
+			}
 
-		// TODO: check if parent_id exists and belongs to the user
+			// TODO: check if parent_id exists and belongs to the user
 
-		const relation = await linkTagToParent({
-			sql: q,
-			user_id: tag.user_id,
-			parent_id,
-			child_id: tag.tag_id,
+			const relation = await linkTagToParent({
+				user_id: tag.user_id,
+				parent_id,
+				child_id: tag.tag_id,
+			});
+
+			return Object.assign(tag, {
+				child_ids: [],
+				parent_id: relation.parent_id,
+			});
 		});
-
-		return Object.assign(tag, { child_ids: [], parent_id: relation.parent_id });
-	});
-};
+	}
+);

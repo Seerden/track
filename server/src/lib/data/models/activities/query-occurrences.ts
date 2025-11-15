@@ -1,32 +1,25 @@
 import type { Occurrence } from "@shared/lib/schemas/activity";
 import type { ID } from "@shared/types/data/utility.types";
-import type { QueryFunction } from "types/sql.types";
-import { sqlConnection } from "@/db/init";
+import { query } from "@/lib/query-function";
 
-export const queryOccurrencesByUser: QueryFunction<
-	{ user_id: ID },
-	Promise<Occurrence[]>
-> = async ({ sql = sqlConnection, user_id }) => {
-	const occurrences = sql<[Occurrence]>`
-      SELECT * FROM occurrences
-      WHERE user_id = ${user_id}
-   `;
+export const queryOccurrencesByUser = query(
+	async (sql, { user_id }: { user_id: ID }) => {
+		return await sql<[Occurrence]>`
+         SELECT * FROM occurrences
+         WHERE user_id = ${user_id}
+      `;
+	}
+);
 
-	return occurrences;
-};
-
-export const queryOccurrencesByRecurrence: QueryFunction<
-	{
-		user_id: ID;
-		recurrence_id: ID;
-	},
-	Promise<Occurrence[]>
-> = async ({ sql = sqlConnection, user_id, recurrence_id }) => {
-	const occurrences = await sql<[Occurrence]>`
-      SELECT * FROM occurrences
-      WHERE recurrence_id = ${recurrence_id}
-      AND user_id = ${user_id}
-   `;
-
-	return occurrences;
-};
+export const queryOccurrencesByRecurrence = query(
+	async (
+		sql,
+		{ user_id, recurrence_id }: { user_id: ID; recurrence_id: ID }
+	) => {
+		return await sql<[Occurrence]>`
+         SELECT * FROM occurrences
+         WHERE recurrence_id = ${recurrence_id}
+         AND user_id = ${user_id}
+      `;
+	}
+);

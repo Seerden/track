@@ -1,7 +1,6 @@
 import { isNullish } from "@shared/lib/is-nullish";
 import type { Timestamp } from "@shared/lib/schemas/timestamp";
-import type { WithSQL } from "types/sql.types";
-import { sqlConnection } from "@/db/init";
+import { getConnectionFromAsyncStore } from "@/lib/query-function";
 
 /** Builder for a time-window-restricted activities filter.
    - if `from` and `to` are both given, we include activities that occur at
@@ -14,8 +13,12 @@ import { sqlConnection } from "@/db/init";
 export function timeWindowFilter({
 	from,
 	to,
-	sql = sqlConnection,
-}: WithSQL<{ from?: Timestamp; to?: Timestamp }>) {
+}: {
+	from?: Timestamp;
+	to?: Timestamp;
+}) {
+	const sql = getConnectionFromAsyncStore();
+
 	let filter = sql``;
 
 	if (!isNullish(from) && !isNullish(to)) {
