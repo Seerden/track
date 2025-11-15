@@ -1,22 +1,25 @@
 import type { NewUser } from "@shared/lib/schemas/user";
 import { compare } from "bcryptjs";
 import { sqlConnection } from "@/db/init";
+import {
+	createTransaction,
+	getConnectionFromAsyncStore,
+} from "@/lib/query-function";
 import { createUser } from "./insert-user";
 import { queryUserByName } from "./query-user";
 
 describe("queryUserByName", () => {
 	it("should return a just-inserted user", async () => {
-		await sqlConnection.begin(async (q) => {
+		await createTransaction(async () => {
 			const newUser: NewUser = {
 				username: "Billy",
 				password: "this should really be a hash",
 				email: "test@me.com",
 			};
 
-			await createUser({ sql: q, newUser });
+			await createUser({ newUser });
 
 			const foundUser = await queryUserByName({
-				sql: q,
 				username: newUser.username,
 			});
 
@@ -28,20 +31,22 @@ describe("queryUserByName", () => {
 				true
 			);
 
-			q`rollback`;
+			const sql = getConnectionFromAsyncStore();
+			await sql`rollback`;
 		});
+		await sqlConnection.begin(async (q) => {});
 	});
 
 	it("should not return a user that doesn't exist", async () => {
-		await sqlConnection.begin(async (sql) => {
+		await createTransaction(async () => {
 			const shouldBeUndefined = await queryUserByName({
-				sql,
 				username: `${Math.random()}`,
 			});
 
 			expect(shouldBeUndefined).toBeUndefined();
 
-			sql`rollback`;
+			const sql = getConnectionFromAsyncStore();
+			await sql`rollback`;
 		});
 	});
 });

@@ -8,19 +8,21 @@ import { createRecurrence } from "@/lib/data/models/activities/insert-recurrence
 import { linkTagsToActivity } from "@/lib/data/models/activities/link-and-unlink-tags-and-activities";
 import { createTransaction, query } from "@/lib/query-function";
 
-export const insertActivity = query(async (sql, activity: NewActivity) => {
-	const [insertedActivity] = await sql<[Activity]>`
+export const insertActivity = query(
+	async (sql, { activity }: { activity: NewActivity }) => {
+		const [insertedActivity] = await sql<[Activity]>`
       insert into activities ${sql(activity)}
       returning *
    `;
 
-	return insertedActivity;
-});
+		return insertedActivity;
+	}
+);
 
 export const insertActivityWithTags = query(
 	async ({ activity, tag_ids }: { activity: NewActivity; tag_ids?: ID[] }) => {
 		return await createTransaction(async () => {
-			const insertedActivity = await insertActivity(activity);
+			const insertedActivity = await insertActivity({ activity });
 			let linkedTagIds: ID[] = [];
 
 			if (Array.isArray(tag_ids) && tag_ids?.length) {
