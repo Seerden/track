@@ -1,6 +1,5 @@
 import type { NewUser } from "@shared/lib/schemas/user";
 import { compare } from "bcryptjs";
-import { sqlConnection } from "@/db/init";
 import {
 	createTransaction,
 	getConnectionFromAsyncStore,
@@ -34,7 +33,6 @@ describe("queryUserByName", () => {
 			const sql = getConnectionFromAsyncStore();
 			await sql`rollback`;
 		});
-		await sqlConnection.begin(async (q) => {});
 	});
 
 	it("should not return a user that doesn't exist", async () => {
