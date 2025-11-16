@@ -14,7 +14,7 @@ const WithToggle = styled.label`
    ${subgridItem};
    align-items: center;
    gap: ${spacingValue.medium};
-   font-size: ${font.size["0.95"]};
+   font-size: ${font.size["0.9"]};
    border-radius: 2px; // TODO: theme
    background-color: #f7f7f7;
    padding: ${spacingValue.small} ${spacingValue.medium};

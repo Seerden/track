@@ -45,6 +45,7 @@ export default function Profile() {
 							onChange={handlers.toggleNotifications}
 							IconOff={LucideToggleLeft}
 							IconOn={LucideToggleRight}
+							size={25}
 						/>
 					</Label.Settings.WithToggle>
 
@@ -58,6 +59,7 @@ export default function Profile() {
 							}}
 							IconOff={LucideToggleLeft}
 							IconOn={LucideToggleRight}
+							size={25}
 						/>
 					</Label.Settings.WithToggle>
 				</S.SettingsGrid>
