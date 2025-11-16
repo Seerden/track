@@ -34,11 +34,12 @@ export function useCreatePushSubscription() {
 				queryClient.invalidateQueries({
 					queryKey: trpc.push.subscription.queryKey(),
 				});
-				// TODO: show a notification like "You will now receive push
-				// notifications. We will only send these to remind you of
+				// TODO (TRK-139): show a notification like "You will now receive
+				// push notifications. We will only send these to remind you of
 				// activities, and only when you've opted into those reminders."
 				if (data) {
-					// TODO: instead of client-side, do this as a sentry log on the server
+					// TODO (TRK-139): instead of client-side, do this as a sentry
+					// log on the server
 					console.log({
 						message: "database registered a new push subscription",
 						data,
