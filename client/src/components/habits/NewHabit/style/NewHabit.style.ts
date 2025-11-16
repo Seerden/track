@@ -52,7 +52,7 @@ const RadioLabelText = styled.span`
 `;
 
 const RadioOption = styled.label`
-	font-size: 0.8rem; // TODO: theme value
+	font-size: ${font.size["0.8"]};
 	width: 50%;
 	padding: ${spacingValue.small};
 	${radius.small};
@@ -62,7 +62,7 @@ const RadioOption = styled.label`
 	box-shadow: 0 0.4rem 0.5rem 0 #e1e1e1;
 
 	${RadioLabelText} {
-		font-size: 0.85rem; // TODO: Theme value
+		font-size: ${font.size["0.85"]};
 		font-weight: 500;
 
 		box-shadow: 0 0.5rem 0 -0.3rem white;
@@ -93,7 +93,7 @@ const RadioOption = styled.label`
 
 const Label = styled.label`
 	margin-top: 0.3rem;
-	font-size: 0.8rem;
+	font-size: ${font.size["0.8"]};
 	${flex.column};
 	justify-content: space-between;
 

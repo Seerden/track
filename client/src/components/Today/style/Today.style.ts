@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import TagCardStyle from "@/components/tags/TagCard/style/TagCard.style";
-import { getFontSize } from "@/lib/theme/font";
+import { font } from "@/lib/theme/font";
 import { column } from "@/lib/theme/snippets/column";
 import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
@@ -64,7 +64,7 @@ const Header = styled.header`
 
 	// this is the element that displays the date
 	h1 {
-		--font-size: ${(p) => getFontSize(p, 1.5)};
+		--font-size: ${font.size["1.5"]};;
 		font-size: var(--font-size);
 		line-height: var(--font-size);
 
@@ -76,7 +76,7 @@ const Header = styled.header`
 		}
 
 		@media (min-width: 1440px) {
-			--font-size: ${(p) => getFontSize(p, 1.5)};
+			--font-size: ${font.size["1.5"]};;
 			font-size: var(--font-size);
 			line-height: var(--font-size);
 		}

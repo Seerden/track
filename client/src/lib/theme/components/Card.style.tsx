@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { getFontSize } from "@/lib/theme/font";
+import { font } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
@@ -19,7 +19,7 @@ const Title = styled.h2`
 		white-space: nowrap;
 		text-overflow: ellipsis;
 	}
-	font-size: ${(p) => getFontSize(p, 1.5)};
+	font-size: ${font.size["1.5"]};;
 	line-height: 2rem;
 	font-weight: bold;
 	margin-bottom: 0.5rem;
@@ -39,7 +39,7 @@ const Datetime = styled.div`
 	${flex.column};
 	width: max-content;
 	align-items: flex-end;
-	font-size: ${(p) => getFontSize(p, 0.8)};
+	font-size: ${font.size["0.8"]};;
 	margin-top: 0.3rem;
 	color: #888;
 	margin-left: 0.3rem;
@@ -52,7 +52,7 @@ const Tags = styled.ul`
 	justify-content: flex-end;
 	margin-top: 0.5rem;
 	gap: 0.4rem;
-	font-size: ${(p) => getFontSize(p, 0.85)};
+	font-size: ${font.size["0.85"]};;
 	margin-left: auto;
 `;
 
@@ -88,7 +88,7 @@ const InfoLine = styled.p`
 
 const InfoLabel = styled.span`
 	${spacing.padding.wide({ size: 0.5, ratio: 2 })};
-	font-size: ${(p) => getFontSize(p, 0.9)};
+	font-size: ${font.size["0.9"]};;
 	color: white;
 	line-height: 0.92rem;
 	background-color: ${(p) => p.theme.colors.purple.main};
@@ -98,7 +98,7 @@ const InfoLabel = styled.span`
 
 const InfoValue = styled.span`
 	${spacing.padding.wide({ size: 0.5, ratio: 2 })};
-	font-size: ${(p) => getFontSize(p, 0.9)};
+	font-size: ${font.size["0.9"]};;
 	line-height: 0.92rem;
 	color: azure;
 	background-color: ${(p) => p.theme.colors.purple.tertiary};

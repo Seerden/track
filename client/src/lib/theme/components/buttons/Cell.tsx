@@ -6,6 +6,7 @@ import {
 	default as Unstyled,
 	default as UnstyledButton,
 } from "@/lib/theme/components/buttons/Unstyled";
+import { font } from "@/lib/theme/font";
 import { outline, thinOutline } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
 import { colors } from "../../colors";
@@ -103,7 +104,7 @@ const Habit = styled(Default)<{
    --inner-color: ${(p) => (p.$cellDone ? "forestgreen" : p.$cellTouched ? colors.purple.tertiary : "#e2e2e2")};
    --outer-color: ${(p) => (p.$intervalDone ? "forestgreen" : p.$cellTouched ? colors.purple.tertiary : "#e2e2e2")};
 
-   font-size: 0.7rem;
+   font-size: ${font.size["0.7"]};;
 
    background-color: var(--inner-color);
    outline: 3px solid var(--outer-color);
@@ -141,7 +142,7 @@ const Habit = styled(Default)<{
 
 const DaySelector = styled(UnstyledButton)<{ $active?: boolean }>`
 	${flex.centered};
-	font-size: 0.85rem;
+	font-size: ${font.size["0.85"]};;
 
 	--cell-size: 22px;
 	width: var(--cell-size);

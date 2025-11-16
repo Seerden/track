@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { font } from "@/lib/theme/font";
 import { spacingValue } from "../../snippets/spacing";
 import { subgridItem } from "../../snippets/subgrid";
 
@@ -13,7 +14,7 @@ const WithToggle = styled.label`
    ${subgridItem};
    align-items: center;
    gap: ${spacingValue.medium};
-   font-size: 0.95rem;
+   font-size: ${font.size["0.95"]};
    border-radius: 2px; // TODO: theme
    background-color: #f7f7f7;
    padding: ${spacingValue.small} ${spacingValue.medium};

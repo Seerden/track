@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import BadgeStyles from "@/lib/theme/components/Badge.style";
-import { getFontSize } from "@/lib/theme/font";
+import { font } from "@/lib/theme/font";
 import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
@@ -17,7 +17,7 @@ const colors = [
 ];
 
 const TagName = styled.label<{ $level: number }>`
-	font-size: ${(p) => getFontSize(p, 0.9)};
+	font-size: ${font.size["0.9"]};;
 	min-width: 50px;
 	position: relative;
 

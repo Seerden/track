@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { getFontSize } from "@/lib/theme/font";
+import { font } from "@/lib/theme/font";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
 
@@ -17,7 +17,7 @@ const Item = styled.li`
 	user-select: none;
 	list-style: none;
 	cursor: pointer;
-	font-size: ${(p) => getFontSize(p, 0.9)};
+	font-size: ${font.size["0.9"]};;
 
 	display: grid;
 	grid-template-columns: subgrid;
@@ -62,7 +62,7 @@ const Info = styled.div`
 	color: #111;
 	${spacing.padding.wide({ size: 0.3, ratio: 3 })};
 	${radius.small};
-	font-size: 0.82rem;
+	font-size: ${font.size["0.82"]};;
 `;
 
 export default {

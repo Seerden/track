@@ -19,7 +19,7 @@ const CalendarTitle = styled.h2`
    ${radius.small};
    border-bottom: 2px solid #bbb;
    color: #333;
-   font-size: 0.85rem;
+   font-size: ${(p) => p.theme.font.size["0.85"]};
 `;
 
 export default { CalendarHeader, CalendarTitle };

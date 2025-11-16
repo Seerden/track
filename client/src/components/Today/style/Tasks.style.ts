@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Containers from "@/lib/theme/components/container.style";
 import ListStyle from "@/lib/theme/components/List.style";
-import { getFontSize } from "@/lib/theme/font";
+import { font } from "@/lib/theme/font";
 import { column } from "@/lib/theme/snippets/column";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
@@ -16,7 +16,7 @@ const Times = styled.div`
 	width: max-content;
 	${flex.column};
 	align-items: flex-end;
-	font-size: ${(p) => getFontSize(p, 0.8)};
+	font-size: ${font.size["0.8"]};
 
 	color: #555;
 `;

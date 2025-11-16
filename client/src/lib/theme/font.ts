@@ -1,8 +1,8 @@
 import type { MainTheme } from "@/lib/style/theme";
 
 const fontSizes = [
-	0.75, 0.8, 0.82, 0.85, 0.86, 0.88, 0.9, 0.93, 1, 1.02, 1.1, 1.2, 1.35, 1.5, 2,
-	3,
+	0.7, 0.75, 0.8, 0.82, 0.85, 0.86, 0.88, 0.9, 0.93, 0.95, 1, 1.02, 1.1, 1.2,
+	1.35, 1.5, 2, 3,
 ] as const;
 
 // TODO: looks hacky, but works
@@ -22,6 +22,9 @@ export const font = {
 
 type Props = object & { theme: MainTheme };
 
+/**
+ * @deprecated just use font.size[value] instead, since font size won't be
+ * theme-dependent. */
 export function getFontSize({ theme }: Props, size: keyof FontSize) {
 	return theme.font.size[size];
 }

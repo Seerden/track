@@ -4,7 +4,7 @@ import {
 	defaultCellHeight,
 	defaultCellWidth,
 } from "@/lib/theme/components/buttons/Cell";
-import { getFontSize } from "@/lib/theme/font";
+import { font } from "@/lib/theme/font";
 import { outline, thinBorder } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
@@ -25,7 +25,7 @@ const Calendar = styled.div`
 
 	background-color: #f9f9f9;
 
-	--font-size: ${(p) => getFontSize(p, 0.8)};
+	--font-size: ${font.size["0.8"]};
 	font-size: var(--font-size);
 	line-height: var(--font-size);
 	font-family: "Roboto";
@@ -49,7 +49,7 @@ const TitleWrapper = styled.div`
 `;
 
 const Title = styled.h2`
-	font-size: ${(p) => getFontSize(p, 1.2)};
+	font-size: ${font.size["1.2"]};
 	color: ${highlightColor};
 `;
 
@@ -73,7 +73,7 @@ const Days = styled.div`
 	background-color: #eee;
 	border-bottom: 2px solid ${highlightColor};
 
-	font-size: ${(p) => getFontSize(p, 0.8)};
+	font-size: ${font.size["0.8"]};;
 	font-weight: 500;
 
 	gap: ${gap};

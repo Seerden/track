@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { inputStyle } from "@lib/theme/snippets/input";
-import { getFontSize } from "@/lib/theme/font";
+import { font } from "@/lib/theme/font";
 import Input from "@/lib/theme/input";
 import { border, outline, thinBorder } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 
 const FormTitle = styled.h1`
    ${flex.row};
-	font-size: ${(p) => getFontSize(p, 1.1)};
+	font-size: ${font.size["1.1"]};
 	margin: 0;
 	margin-left: 0.8rem;
 	margin-top: -1.5rem;
@@ -58,7 +58,7 @@ const CompactRow = styled(Row)`
 
 	${Input.Default} {
 		line-height: 0.93rem;
-		font-size: 0.93rem;
+		font-size: ${font.size["0.93"]};;
 		width: 50px;
 	}
 `;
@@ -72,7 +72,7 @@ const Form = styled.form`
 const Label = styled.label<{ $showWarning?: boolean }>`
 	${flex.column};
 	width: 75%;
-	font-size: ${(p) => getFontSize(p, 0.9)};
+	font-size: ${font.size["0.93"]};;
 
 	&:has(textarea) {
 		width: 100%;
@@ -94,7 +94,7 @@ const Label = styled.label<{ $showWarning?: boolean }>`
 		background-color: #fff;
 		${spacing.padding.wide({ size: 0.2, ratio: 3 })};
 		border-radius: 0 15px 0 0;
-		font-size: ${(p) => getFontSize(p, 0.9)};
+		font-size: ${font.size["0.93"]};;
 	}
 
 	textarea {

@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Buttons from "@/lib/theme/components/buttons";
-import { getFontSize } from "@/lib/theme/font";
+import { font } from "@/lib/theme/font";
 import Input from "@/lib/theme/input";
 import { border } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
@@ -49,7 +49,7 @@ const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
 	${radius.small};
 	box-shadow: 0.2rem 0.1rem 0 0 #ddd;
 	${spacing.padding.wide({ size: 0.2, ratio: 2.5 })};
-	font-size: ${(p) => getFontSize(p, 0.82)};
+	font-size: ${font.size["0.82"]};
 	min-height: calc(4px + 1.24rem); // should be font-size + padding + border
 	height: max-content;
 
@@ -94,7 +94,7 @@ const Title = styled.h3`
 	background-color: #333;
 	color: azure;
 	max-width: max-content;
-	font-size: ${(p) => getFontSize(p, 1.1)};
+	font-size: ${font.size["1.1"]};
 
 	${radius.small};
 	${border.tint};
@@ -188,7 +188,7 @@ const SelectionList = styled.ul`
 	padding-right: 0.4rem; // this is to prevent make scrollbar look better
 	${spacing.margin.tall({ size: 0.4, ratio: 2 })}
 	gap: 0.5rem;
-	font-size: ${(p) => getFontSize(p, 0.85)};
+	font-size: ${font.size["0.85"]};
 
 	user-select: none;
 	max-height: 120px;

@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { rowHeight } from "@/components/Today/style/TimelineRow.style";
 import { colors } from "@/lib/theme/colors";
-import { getFontSize } from "@/lib/theme/font";
+import { font } from "@/lib/theme/font";
 import { outline } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
@@ -25,7 +25,7 @@ const ActivityCard = styled.div<{ $level: number; $offset: number }>`
 		--card-width: ${cardWidth};
 	}
 	left: calc(3rem + ${(p) => p.$level} * (var(--card-gap) + var(--card-width)));
-	font-size: ${(p) => getFontSize(p, 0.85)};
+	font-size: ${font.size["0.85"]};
 	display: flex;
 	width: 100%;
 	height: max-content;

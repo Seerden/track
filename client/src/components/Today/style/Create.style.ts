@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import Buttons from "@/lib/theme/components/buttons";
+import { font } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
@@ -21,7 +22,7 @@ const SpeedDialActions = styled.div`
 	padding: 0 ${spacingValue.medium};
 	${radius.small};
 
-	font-size: 0.8rem;
+	font-size: ${font.size["0.8"]};
 `;
 
 const SpeedDialButton = styled(Buttons.Action.Stylized)`

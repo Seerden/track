@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { getFontSize } from "@/lib/theme/font";
+import { font } from "@/lib/theme/font";
 import { thinOutline } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
@@ -19,7 +19,7 @@ const HourMark = styled.span<{ $highlighted?: boolean }>`
 	width: max-content;
 	user-select: none;
 
-	font-size: ${(p) => getFontSize(p, 0.75)};
+	font-size: ${font.size["0.75"]};;
 	${radius.small};
 	padding: 0 ${spacingValue.small};
 

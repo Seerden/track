@@ -16,8 +16,7 @@ const Badge = styled(Buttons.Unstyled)<{ $size: number; $done?: boolean }>`
 
 	background-color: #fff;
 
-	/* TODO: theme value */
-	font-size: 0.9rem;
+	font-size: ${(p) => p.theme.font.size["0.9"]};
 	font-weight: 700;
 	color: ${(p) => (p.$done ? p.theme.colors.green.main : p.theme.colors.red.main)};
 `;

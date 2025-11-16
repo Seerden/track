@@ -7,6 +7,7 @@ import {
 	getSecondaryColor,
 } from "@/lib/theme/colors";
 import Unstyled from "@/lib/theme/components/buttons/Unstyled";
+import { font } from "@/lib/theme/font";
 import { border, outline, thinOutline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
@@ -185,7 +186,7 @@ const DefaultText = styled(Default)`
    width: max-content;
    ${radius.small};
    padding-inline: ${spacingValue.small};
-   font-size: 0.9rem; // TODO: theme value
+   font-size: ${font.size["0.9"]};
 `;
 
 const Minimal = styled(Unstyled)`
@@ -195,7 +196,7 @@ const Minimal = styled(Unstyled)`
    border-radius: 2px;
    width: max-content;
    background-color: var(--color);
-   font-size: 0.93rem;
+   font-size: ${font.size["0.93"]};
 
    /* TODO: implement interaction styles for this button */
    &:hover, &:active, &:focus {

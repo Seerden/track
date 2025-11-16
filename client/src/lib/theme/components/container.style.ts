@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { font } from "@/lib/theme/font";
 import {
 	border,
 	outline,
@@ -45,7 +46,7 @@ const EmptyState = styled.div`
 	p {
 		background-color: #fff;
 		padding: 1rem;
-		font-size: 1rem;
+		font-size: ${font.size["1"]};;
 		max-width: 400px;
 	}
 `;

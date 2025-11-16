@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { font } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 
@@ -28,14 +29,14 @@ const MenuHeader = styled.h1`
 `;
 
 const MenuSectionHeader = styled.h2`
-   --size: ${(p) => p.theme.font.size["1.02"]};
+   --size: ${font.size["1.02"]};
    font-size: var(--size);
    line-height: var(--size);
    margin-bottom: ${spacingValue.smallest};
 `;
 
 const MenuSubsectionHeader = styled.h3`
-   --size: ${(p) => p.theme.font.size["0.93"]};
+   --size: ${font.size["0.93"]};
    font-size: var(--size);
    line-height: var(--size);
    font-weight: 400;

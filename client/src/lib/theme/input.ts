@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { getFontSize } from "@/lib/theme/font";
+import { font } from "@/lib/theme/font";
 import { noBorders } from "@/lib/theme/snippets/border";
 import { outline } from "@/lib/theme/snippets/edge";
 import { inputStyle } from "@/lib/theme/snippets/input";
@@ -18,7 +18,7 @@ const Default = styled.input`
 const Filter = styled(Default)`
 	max-width: 150px;
 
-	--font-size: ${(p) => getFontSize(p, 0.88)};
+	--font-size: ${font.size["0.88"]};
 	font-size: var(--font-size);
 	// inputStyle does not have this
 	line-height: var(--font-size);

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { getFontSize } from "../../font";
+import { font } from "../../font";
 import { border } from "../../snippets/edge";
 import { radius } from "../../snippets/radius";
 import { spacing } from "../../snippets/spacing";
@@ -12,7 +12,7 @@ const Default = styled(UnstyledButton)`
 
 	align-self: center;
 	width: max-content;
-	font-size: ${(p) => getFontSize(p, 0.9)};
+	font-size: ${font.size["0.9"]};;
 	background-color: #ddd;
 	${radius.medium};
 	${border.grey};
