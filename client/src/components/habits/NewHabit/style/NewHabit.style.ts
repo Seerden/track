@@ -52,7 +52,6 @@ const RadioLabelText = styled.span`
 `;
 
 const RadioOption = styled.label`
-	font-size: ${font.size["0.8"]};
 	width: 50%;
 	padding: ${spacingValue.small};
 	${radius.small};
@@ -93,7 +92,7 @@ const RadioOption = styled.label`
 
 const Label = styled.label`
 	margin-top: 0.3rem;
-	font-size: ${font.size["0.8"]};
+	font-size: ${font.size["0.82"]};
 	${flex.column};
 	justify-content: space-between;
 

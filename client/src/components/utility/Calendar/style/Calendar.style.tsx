@@ -25,7 +25,7 @@ const Calendar = styled.div`
 
 	background-color: #f9f9f9;
 
-	--font-size: ${font.size["0.8"]};
+	--font-size: ${font.size["0.82"]};
 	font-size: var(--font-size);
 	line-height: var(--font-size);
 	font-family: "Roboto";
@@ -73,7 +73,7 @@ const Days = styled.div`
 	background-color: #eee;
 	border-bottom: 2px solid ${highlightColor};
 
-	font-size: ${font.size["0.8"]};;
+	font-size: ${font.size["0.82"]};;
 	font-weight: 500;
 
 	gap: ${gap};

@@ -22,7 +22,7 @@ const SpeedDialActions = styled.div`
 	padding: 0 ${spacingValue.medium};
 	${radius.small};
 
-	font-size: ${font.size["0.8"]};
+	font-size: ${font.size["0.82"]};
 `;
 
 const SpeedDialButton = styled(Buttons.Action.Stylized)`

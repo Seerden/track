@@ -19,7 +19,7 @@ const HourMark = styled.span<{ $highlighted?: boolean }>`
 	width: max-content;
 	user-select: none;
 
-	font-size: ${font.size["0.75"]};;
+	font-size: ${font.size["0.82"]};;
 	${radius.small};
 	padding: 0 ${spacingValue.small};
 

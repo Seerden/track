@@ -104,7 +104,7 @@ const Habit = styled(Default)<{
    --inner-color: ${(p) => (p.$cellDone ? "forestgreen" : p.$cellTouched ? colors.purple.tertiary : "#e2e2e2")};
    --outer-color: ${(p) => (p.$intervalDone ? "forestgreen" : p.$cellTouched ? colors.purple.tertiary : "#e2e2e2")};
 
-   font-size: ${font.size["0.7"]};;
+   font-size: ${font.size["0.82"]};;
 
    background-color: var(--inner-color);
    outline: 3px solid var(--outer-color);

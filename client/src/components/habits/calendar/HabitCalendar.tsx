@@ -115,8 +115,8 @@ export default function HabitCalendar({
 										<div
 											key={`${dayIndex}-null`}
 											style={{
-												width: 23,
-												height: 23,
+												width: 25,
+												height: 25,
 											}}
 										/>
 									);
@@ -208,8 +208,8 @@ function HabitCell({
 			<Popover.Target>
 				<Buttons.Cell.Habit
 					onClick={toggle}
-					$width={23}
-					$height={23}
+					$width={25}
+					$height={25}
 					$cellDone={cellDone}
 					$cellTouched={cellTouched}
 					$intervalDone={intervalDone}

@@ -39,7 +39,7 @@ const Datetime = styled.div`
 	${flex.column};
 	width: max-content;
 	align-items: flex-end;
-	font-size: ${font.size["0.8"]};;
+	font-size: ${font.size["0.82"]};;
 	margin-top: 0.3rem;
 	color: #888;
 	margin-left: 0.3rem;

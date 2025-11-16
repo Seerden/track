@@ -16,7 +16,7 @@ const Times = styled.div`
 	width: max-content;
 	${flex.column};
 	align-items: flex-end;
-	font-size: ${font.size["0.8"]};
+	font-size: ${font.size["0.82"]};
 
 	color: #555;
 `;

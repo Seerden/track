@@ -29,7 +29,7 @@ const Node = styled.li<{ $active?: boolean }>`
 
 	width: max-content;
 
-	font-size: ${font.size["0.8"]};
+	font-size: ${font.size["0.9"]};
 	${spacing.padding.wide({ size: 0.2, ratio: 2.5 })}
 	${radius.small};
 
