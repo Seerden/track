@@ -49,7 +49,7 @@ const TitleWrapper = styled.div`
 `;
 
 const Title = styled.h2`
-	font-size: ${font.size["1.2"]};
+	font-size: ${font.size["1.1"]};
 	color: ${highlightColor};
 `;
 
