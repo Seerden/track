@@ -75,6 +75,7 @@ export async function maybeRevokePushSubscription() {
 	}
 }
 
+/** Get the existing push subscription from the active service worker. */
 export async function getExistingPushSubscription() {
 	const worker = await navigator.serviceWorker.ready;
 
@@ -93,10 +94,12 @@ export async function getExistingPushSubscription() {
 	}
 }
 
-// TODO: check existing subscription using worker.pushManager.getSubscription().
-// If it already exists, do not attempt to create a new one.
-
-/** Make the service worker call pushManager.subscribe. */
+/** Subcribe the active service worker to push notifications.
+ * @note we don't have to check for an existing subscription here; the result of
+ * this function can always be propagated to the database, because if
+ * this function creates a "duplicate" endpoint (i.e. a duplicate subscription),
+ * we just won't add it as a new subscription in the database, since endpoints
+ * are set up to be unique. */
 export async function createPushSubscription() {
 	const worker = await navigator.serviceWorker.ready;
 	if (!worker) return;
