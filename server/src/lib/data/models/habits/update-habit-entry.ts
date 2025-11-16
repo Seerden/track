@@ -2,19 +2,17 @@ import type {
 	HabitEntry,
 	HabitEntryUpdateInput,
 } from "@shared/lib/schemas/habit";
-import type { QueryFunction } from "types/sql.types";
-import { sqlConnection } from "@/db/init";
+import { query } from "@/lib/query-function";
 
-export const updateHabitEntry: QueryFunction<
-	{ input: HabitEntryUpdateInput },
-	Promise<HabitEntry[]>
-> = async ({ sql = sqlConnection, input }) => {
-	const { habit_entry_id, value } = input;
+export const updateHabitEntry = query(
+	async (sql, { input }: { input: HabitEntryUpdateInput }) => {
+		const { habit_entry_id, value } = input;
 
-	return sql<[HabitEntry]>`
-      update habit_entries
-      set ${sql({ value })}
-      where habit_entry_id = ${habit_entry_id}
-      returning *
-   `;
-};
+		return sql<[HabitEntry]>`
+         update habit_entries
+         set ${sql({ value })}
+         where habit_entry_id = ${habit_entry_id}
+         returning *
+      `;
+	}
+);

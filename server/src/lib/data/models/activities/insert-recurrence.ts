@@ -5,47 +5,54 @@ import type {
 	RecurrenceWithIds,
 } from "@shared/lib/schemas/activity";
 import type { ID } from "@shared/types/data/utility.types";
-import type { QueryFunction } from "types/sql.types";
-import { sqlConnection } from "@/db/init";
 import { updateActivityRecurrence } from "@/lib/data/models/activities/update-activity";
+import { query, transaction } from "@/lib/query-function";
 
 /** Insert a new recurrence row. */
-const insertRecurrence: QueryFunction<
-	NewRecurrenceInput & { user_id: ID },
-	Promise<Recurrence>
-> = async ({ sql = sqlConnection, user_id, ...newRecurrence }) => {
-	const withUserId = { ...newRecurrence, user_id };
+const insertRecurrence = query(
+	async (
+		sql,
+		{ user_id, ...newRecurrence }: NewRecurrenceInput & { user_id: ID }
+	) => {
+		const withUserId = { ...newRecurrence, user_id };
 
-	const [recurrence] = await sql<[Recurrence]>`
+		const [recurrence] = await sql<[Recurrence]>`
       INSERT INTO recurrences ${sql(withUserId)}
       RETURNING *
    `;
 
-	return recurrence;
-};
+		return recurrence;
+	}
+);
 
 /** Insert a new recurrent row and assign its id to its progenitor activity. */
-export const createRecurrence: QueryFunction<
-	CreateRecurrenceInput & { user_id: ID },
-	Promise<RecurrenceWithIds>
-> = async ({ sql = sqlConnection, user_id, activity_id, ...newRecurrence }) => {
-	return sql.begin(async (q) => {
-		const withUserId = { ...newRecurrence, user_id };
-
-		const recurrence = await insertRecurrence({
-			sql: q,
-			...withUserId,
-		});
-
-		const updatedActivity = await updateActivityRecurrence({
-			sql: q,
+export const createRecurrence = query(
+	async (
+		sql,
+		{
+			user_id,
 			activity_id,
-			recurrence_id: recurrence.recurrence_id,
-		});
+			...newRecurrence
+		}: CreateRecurrenceInput & { user_id: ID }
+	) => {
+		return await sql.begin(async (q) => {
+			return transaction(q, async () => {
+				const withUserId = { ...newRecurrence, user_id };
 
-		return {
-			...recurrence,
-			activity_id: updatedActivity.activity_id,
-		} as RecurrenceWithIds;
-	});
-};
+				const recurrence = await insertRecurrence({
+					...withUserId,
+				});
+
+				const updatedActivity = await updateActivityRecurrence({
+					activity_id,
+					recurrence_id: recurrence.recurrence_id,
+				});
+
+				return {
+					...recurrence,
+					activity_id: updatedActivity.activity_id,
+				} as RecurrenceWithIds;
+			});
+		});
+	}
+);

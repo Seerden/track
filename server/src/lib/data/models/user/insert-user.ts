@@ -1,7 +1,6 @@
 import type { NewUser, User, UserInput } from "@shared/lib/schemas/user";
 import { hash } from "bcryptjs";
-import type { WithSQL } from "types/sql.types";
-import { sqlConnection } from "@/db/init";
+import { query } from "@/lib/query-function";
 import { queryUserByName } from "./query-user";
 
 async function generatePasswordHash(password: string) {
@@ -10,27 +9,26 @@ async function generatePasswordHash(password: string) {
 
 /** If username is not taken yet, hash the provided password and insert the user
  * into the database. */
-export async function createUser({
-	sql = sqlConnection,
-	newUser,
-}: WithSQL<{ newUser: NewUser }>) {
-	if (await queryUserByName({ sql, username: newUser.username })) return;
+export const createUser = query(
+	async (sql, { newUser }: { newUser: NewUser }) => {
+		if (await queryUserByName({ username: newUser.username })) return;
 
-	const passwordHash = await generatePasswordHash(newUser.password);
-	const userInput: UserInput = {
-		username: newUser.username,
-		password_hash: passwordHash,
-		email: newUser.email,
-	};
+		const passwordHash = await generatePasswordHash(newUser.password);
+		const userInput: UserInput = {
+			username: newUser.username,
+			password_hash: passwordHash,
+			email: newUser.email,
+		};
 
-	// TODO: check if email is unique
-	if (newUser.email) userInput.email = newUser.email;
+		// TODO: check if email is unique
+		if (newUser.email) userInput.email = newUser.email;
 
-	const [insertedUser] = await sql<[User?]>`
+		const [insertedUser] = await sql<[User?]>`
          insert into users 
          ${sql(userInput)}
          returning *
       `;
 
-	return insertedUser;
-}
+		return insertedUser;
+	}
+);
