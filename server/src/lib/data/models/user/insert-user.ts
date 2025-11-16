@@ -1,5 +1,6 @@
 import type { NewUser, User, UserInput } from "@shared/lib/schemas/user";
 import { hash } from "bcryptjs";
+import { createUserSettings } from "@/lib/data/models/user/create-user-settings";
 import { query } from "@/lib/query-function";
 import { queryUserByName } from "./query-user";
 
@@ -21,13 +22,26 @@ export const createUser = query(
 		};
 
 		// TODO: check if email is unique
-		if (newUser.email) userInput.email = newUser.email;
+		if (newUser.email) {
+			userInput.email = newUser.email;
+		}
 
 		const [insertedUser] = await sql<[User?]>`
          insert into users 
          ${sql(userInput)}
          returning *
       `;
+
+		if (insertedUser) {
+			const settings = await createUserSettings({
+				user_id: insertedUser.user_id,
+			});
+			if (!settings) {
+				console.error(
+					`Failed to create user settings object for user ${insertedUser.username}`
+				);
+			}
+		}
 
 		return insertedUser;
 	}

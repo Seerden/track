@@ -3,6 +3,7 @@ import { outline } from "./edge";
 
 const defaultActiveStyles = css`
 	&:active,
+   &:hover,
 	&:focus {
 		${outline.blue}
 	}

@@ -8,7 +8,7 @@
     "test": "vitest",
     "dev": "tsx watch --clear-screen=false ./index.ts",
     "build:local": "tsc -p './tsconfig.json' && npm run sentry:sourcemaps",
-    "build": "node esbuild.config.js --bundle",
+    "build": "tsx esbuild.config.ts --bundle",
     "sentry:sourcemaps": "sentry-cli sourcemaps inject --org track-am --project server ./dist && sentry-cli sourcemaps upload --org track-am --project server ./dist"
   },
   "author": "",
@@ -31,7 +31,8 @@
     "immer": "^10.1.1",
     "ioredis": "^5.4.1",
     "postgres": "^3.4.4",
-    "superjson": "^2.2.2"
+    "superjson": "^2.2.2",
+    "web-push": "3.6.7"
   },
   "devDependencies": {
     "@sentry/types": "10.22.0",

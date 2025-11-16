@@ -73,9 +73,11 @@ export const query: QueryFunction = <TInput, TOutput>(
 /** Small wrapper around `transaction` that calls sql.begin, runs and returns
  * the transaction.
  * @usage only use this inside query() inner functions. */
-export const createTransaction = <T>(transactionQuery: () => Promise<T>) => {
+export const createTransaction = <T>(
+	transactionQuery: (sql: TransactionSql) => Promise<T>
+) => {
 	const sql = getConnectionFromAsyncStore();
 	return sql.begin(async (q) => {
-		return await transaction(q, transactionQuery);
+		return await transaction(q, () => transactionQuery(q));
 	});
 };

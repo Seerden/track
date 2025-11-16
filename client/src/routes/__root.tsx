@@ -20,6 +20,23 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 	head: (_ctx) => {
 		return {
 			meta: [{ title: "Home" }],
+			links: [
+				{
+					rel: "icon",
+					href: "/public/favicon.ico",
+					sizes: "48x48",
+				},
+				{
+					rel: "icon",
+					href: "/public/favicon.svg",
+					type: "image/svg+xml",
+				},
+				{
+					rel: "apple-touch-icon",
+					href: "/public/apple-touch-icon-180x180.png",
+					sizes: "180x180",
+				},
+			],
 		};
 	},
 
