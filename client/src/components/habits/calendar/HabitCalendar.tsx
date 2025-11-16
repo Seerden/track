@@ -17,6 +17,7 @@ import { createDate, now } from "@/lib/datetime/make-date";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import { actionDropdownStyle } from "@/lib/theme/components/containers/popover.style";
+import { font } from "@/lib/theme/font";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 import Completion from "../Habits/Completion";
 import {
@@ -90,7 +91,7 @@ export default function HabitCalendar({
 							key={index}
 							style={{
 								borderRadius: 5,
-								fontSize: "0.85rem",
+								fontSize: font.size["0.85"],
 								backgroundColor: intervalDone ? "forestgreen" : "inherit",
 							}}
 						>

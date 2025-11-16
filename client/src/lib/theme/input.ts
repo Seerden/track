@@ -18,7 +18,7 @@ const Default = styled.input`
 const Filter = styled(Default)`
 	max-width: 150px;
 
-	--font-size: ${font.size["0.88"]};
+	--font-size: ${font.size["0.9"]};
 	font-size: var(--font-size);
 	// inputStyle does not have this
 	line-height: var(--font-size);

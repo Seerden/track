@@ -9,6 +9,7 @@ import { createDate } from "@/lib/datetime/make-date";
 import modalIds from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
+import { font } from "@/lib/theme/font";
 import Input from "@/lib/theme/input";
 import S from "./style/NewHabit.style";
 import useNewHabit, {
@@ -57,7 +58,8 @@ export default function NewHabit() {
 					style={{
 						position: "relative",
 						flexDirection: "column",
-					}}>
+					}}
+				>
 					<S.DateFields>
 						<StartDateField
 							timestamp={habit.start_timestamp}
@@ -123,7 +125,7 @@ function TargetField({ onChange, habit }: FieldProps) {
 			<Input.Default
 				style={{
 					width: "95px",
-					fontSize: "0.82rem",
+					fontSize: font.size["0.82"],
 				}}
 				type="number"
 				name="goal"
@@ -147,7 +149,7 @@ function UnitField({ onChange, habit }: FieldProps) {
 			<Input.Default
 				style={{
 					width: "75px",
-					fontSize: "0.82rem",
+					fontSize: font.size["0.82"],
 				}}
 				type="text"
 				name="goal_unit"

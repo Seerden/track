@@ -13,6 +13,7 @@ import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import Icons from "@/lib/theme/components/icons";
 import List from "@/lib/theme/components/List.style";
+import { font } from "@/lib/theme/font";
 import TagCard from "../tags/TagCard/TagCard";
 import T from "./style/Tasks.style";
 import S from "./style/Today.style";
@@ -35,7 +36,8 @@ export default function Task({ activity }: TaskProps) {
 					// This prevents the task from being opened when the checkbox is
 					// clicked.
 					e.stopPropagation();
-				}}>
+				}}
+			>
 				<Checkbox
 					checked={activity.completed ?? false}
 					onChange={putCompletion}
@@ -48,19 +50,21 @@ export default function Task({ activity }: TaskProps) {
 						height: "100%",
 						justifyContent: "center",
 						alignItems: "center",
-					}}>
+					}}
+				>
 					<Popover opened={opened}>
 						<Popover.Target>
 							<Icons.InBadge
 								$color={colors.red.secondary}
 								size={"23px"}
 								onMouseEnter={open}
-								onMouseLeave={close}>
+								onMouseLeave={close}
+							>
 								<LucideClockAlert size={16} strokeWidth={2} />
 							</Icons.InBadge>
 						</Popover.Target>
 						<Popover.Dropdown>
-							<span style={{ fontSize: "0.90rem" }}>
+							<span style={{ fontSize: font.size["0.9"] }}>
 								<p>This task is overdue.</p>
 								<p>It was due {activityEnd(activity).fromNow()}</p>
 							</span>
