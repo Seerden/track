@@ -1,10 +1,11 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { CSSProperties } from "react";
-import type { ColorKey } from "@/lib/theme/colors";
+import { type ColorKey, colors } from "@/lib/theme/colors";
 import Unstyled from "@/lib/theme/components/buttons/Unstyled";
 import { font } from "@/lib/theme/font";
-import { border, outline, thinOutline } from "@/lib/theme/snippets/edge";
+import { lightDark } from "@/lib/theme/light-dark";
+import { outline, thinOutline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
@@ -105,8 +106,8 @@ const Stylized = styled(Unstyled)<{
    border and shadow. Does that not look ugly for some $color values? */
    /* TODO: redo this getMainColor thing */
 	outline: 2px solid var(--color);
-	${border.secondary};
-	box-shadow: 0 0.2rem 0.5rem 0 #aaa;
+	border: 2px solid #eee;
+	box-shadow: 0 0.2rem 0.5rem 0 ${(p) => lightDark(p, p.theme.colors.background.main[6], p.theme.colors.background.main[1])};
 	background-color: var(--color);
 
 	svg {
@@ -186,6 +187,7 @@ const DefaultText = styled(Default)`
 `;
 
 const Minimal = styled(Unstyled)`
+   cursor: pointer;
    --color: ${(p) => p.theme.colors.light[3]};
    color: ${(p) => p.theme.colors.dark[0]};
    outline: 2px solid var(--color);
@@ -198,7 +200,27 @@ const Minimal = styled(Unstyled)`
    /* TODO: implement interaction styles for this button */
    &:hover, &:active, &:focus {
       // manually overwrite these from Unstyled for selectivity
-      outline: 2px solid #eee;
+      outline: 2px solid var(--color);
+   }
+
+   &:disabled {
+      cursor: default;
+      --color: ${(p) => p.theme.colors.light[5]};
+   }
+`;
+
+const MinimalPlus = styled(Minimal)`
+   transition: all 35ms ease-out;
+
+   --highlight-color: ${(p) => p.theme.colors.purple.tertiary};
+
+   &:not(:disabled) {
+      box-shadow: 0 0.5rem 0 -0.3rem #ccc;
+
+      &:hover, &:active, &:focus {
+         box-shadow: 0 0.6rem 0 -4px var(--highlight-color), 0 0.3rem 0 0 #ccc, 0 0.5rem 0.4rem -0.2rem ${colors.dark[3]};
+         transform: translateY(-2px);
+      }
    }
 `;
 
@@ -212,6 +234,7 @@ const ActionButtons = {
 	Clear,
 	Direction: DirectionButton,
 	Minimal,
+	MinimalPlus,
 };
 
 export default ActionButtons;

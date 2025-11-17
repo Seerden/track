@@ -5,7 +5,7 @@ import {
 	defaultCellWidth,
 } from "@/lib/theme/components/buttons/Cell";
 import { font } from "@/lib/theme/font";
-import { outline, thinBorder } from "@/lib/theme/snippets/edge";
+import { lightDark } from "@/lib/theme/light-dark";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
@@ -31,12 +31,15 @@ const Calendar = styled.div`
 	font-family: "Roboto";
 
 	padding: ${spacingValue.medium};
-	${thinBorder.secondary};
+	
 	${radius.medium};
 	margin-left: 1rem;
 	margin-top: 0.5rem;
-
-	box-shadow: 0 0 0.5rem 0 #ddd;
+   
+   /* NOTE: same as Timeline wrapper */
+   outline: 2px solid ${(p) => lightDark(p, p.theme.colors.light[3], p.theme.colors.dark[1])};
+	box-shadow: 0 0.2rem 1rem -0.3rem ${(p) =>
+		lightDark(p, p.theme.colors.light[5], p.theme.colors.dark[3])};
 `;
 
 const TitleWrapper = styled.div`
@@ -60,9 +63,10 @@ const MonthPickerWrapper = styled.div`
 	left: 5%;
 	top: 5%;
 	background-color: ${(p) => p.theme.colors.background.main[3]};
-	box-shadow: 0 0.5rem 1rem 0 #aaa;
+	box-shadow: 0 0.5rem 1rem 0 ${(p) => lightDark(p, p.theme.colors.light[6], p.theme.colors.dark[1])};
 	${radius.medium};
-	${outline.grey};
+	
+   outline: 2px solid ${(p) => lightDark(p, p.theme.colors.light[5], p.theme.colors.dark[3])};
 	z-index: 3;
 `;
 

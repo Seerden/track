@@ -1,4 +1,4 @@
-import { Popover } from "@mantine/core";
+import { Popover, Switch } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useAtom, useAtomValue } from "jotai";
@@ -14,7 +14,7 @@ import { ProfileMenu } from "@/components/user/profile/Profile";
 import { Protected } from "@/components/wrappers";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import { shortcutMenuAtom } from "@/lib/hooks/useContextMenu";
-import Buttons from "@/lib/theme/components/buttons";
+import { colors, darkColors } from "@/lib/theme/colors";
 import { themeAtom } from "@/lib/theme/theme-atom";
 import S from "./style/NavBar.style";
 
@@ -22,7 +22,6 @@ export default function NavBar() {
 	const shortcutMenu = useAtomValue(shortcutMenuAtom);
 	const { isLoggedIn } = useAuthentication();
 	const [themeValue, setThemeValue] = useAtom(themeAtom);
-	const ThemeIcon = themeValue === "dark" ? LucideMoon : LucideSun;
 	function toggleTheme() {
 		setThemeValue((current) => {
 			return current === "dark" ? "light" : "dark";
@@ -37,23 +36,14 @@ export default function NavBar() {
 				</S.HomeLink>
 			</Link>
 			<S.Actions>
-				<Buttons.Unstyled
-					type="button"
-					onClick={(e) => {
-						e.preventDefault();
-						toggleTheme();
-					}}
-					style={{
-						borderRadius: "50%",
-						width: 30,
-						height: 30,
-						alignSelf: "center",
-						display: "flex",
-						alignItems: "center",
-					}}
-				>
-					<ThemeIcon size={23} />
-				</Buttons.Unstyled>
+				<Switch
+					onLabel={<LucideMoon size={18} fill={darkColors.blue.main} />}
+					offLabel={<LucideSun size={18} fill={colors.yellow.main} />}
+					checked={themeValue === "dark"}
+					onChange={toggleTheme}
+					size="md"
+				/>
+
 				{/* TODO (TRK-257): finish this implementation */}
 				<Popover>
 					<Popover.Target>
@@ -93,6 +83,7 @@ function ProfileAction({ isLoggedIn }: { isLoggedIn: boolean }) {
 					styles={{
 						dropdown: {
 							padding: 0,
+							borderRadius: 10,
 						},
 					}}
 				>

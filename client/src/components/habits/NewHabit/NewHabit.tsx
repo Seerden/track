@@ -79,7 +79,8 @@ export default function NewHabit() {
 					showNewTagButton
 					title="Add tags"
 				/>
-				<Buttons.Submit.Default type="submit">
+				{/* TODO: disable when invalid */}
+				<Buttons.Submit.Default type="submit" disabled={false}>
 					Create habit
 				</Buttons.Submit.Default>
 			</Form.Form>

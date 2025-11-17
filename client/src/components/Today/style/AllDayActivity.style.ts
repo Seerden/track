@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { font } from "@/lib/theme/font";
+import { lightDark } from "@/lib/theme/light-dark";
 import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
@@ -16,7 +17,7 @@ const AllDayActivity = styled.li<{ $completed?: boolean }>`
 	color: white;
 	background-color: ${(p) => p.theme.colors.blue.main};
 	${outline.blue};
-	box-shadow: 0 0.2rem 0.3rem 0 #aaa;
+	box-shadow: 0 0.2rem 0.3rem 0 ${(p) => lightDark(p, p.theme.colors.light[6], p.theme.colors.dark[1])};
 
 	${flex.row};
 	align-items: center;

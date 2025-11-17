@@ -36,6 +36,14 @@ const baseColors = {
 	},
 } as const;
 
+const baseColorsDark = {
+	...baseColors,
+	purple: {
+		...baseColors.purple,
+		main: baseColors.purple.tertiary,
+	},
+};
+
 const light = {
 	0: "#fff",
 	1: "#f7f7f7",
@@ -88,6 +96,7 @@ const backgroundLight = {
 		3: light[3],
 		4: light[4],
 		5: light[5],
+		6: light[6],
 	},
 	contrast: {
 		0: dark[0],
@@ -96,6 +105,7 @@ const backgroundLight = {
 		3: dark[3],
 		4: dark[4],
 		5: dark[5],
+		6: dark[6],
 	},
 } as const;
 
@@ -113,7 +123,7 @@ export const colors = {
 };
 
 export const darkColors = {
-	...baseColors,
+	...baseColorsDark,
 	light,
 	dark,
 	text: textDark,

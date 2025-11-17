@@ -13,8 +13,6 @@ const Wrapper = styled.div<{ $fullSize?: boolean }>`
 	min-width: 100%;
 	margin-top: 0.8rem;
 
-	box-shadow: 0 0 0.5rem 0 #ccc;
-
 	padding: 1rem;
 	z-index: 3;
 	${flex.column};
@@ -22,6 +20,9 @@ const Wrapper = styled.div<{ $fullSize?: boolean }>`
 	max-width: ${(p) => (p.$fullSize ? "100%" : "400px")};
 
 	min-height: 130px; // TODO: this is hardcoded for the current size to prevent layout shift -- should be dynamic
+   
+   border: 1px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 3]};
+	box-shadow: 0.6rem 0.6rem 0 -0.5rem ${(p) => p.theme.colors.dark[4]};
 `;
 
 const List = styled.ul`
@@ -92,13 +93,13 @@ const Title = styled.h3`
 	margin: 0;
 	margin-top: -2rem;
 
-	background-color: #333;
-	color: azure;
+	background-color: ${(p) => p.theme.colors.background.contrast[3]};
+	color: ${(p) => p.theme.colors.text.contrast[2]};
 	max-width: max-content;
 	font-size: ${font.size["1.1"]};
 
 	${radius.small};
-	${border.tint};
+	border: 2px solid ${(p) => p.theme.colors.background.contrast[5]};
 `;
 
 const ClearFilter = styled(Buttons.Action.Default)`

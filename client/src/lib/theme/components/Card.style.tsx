@@ -10,7 +10,6 @@ const Wrapper = styled.section`
 `;
 
 const Title = styled.h2`
-	box-shadow: 0 0 0.3rem 0 #888;
 	position: relative;
 
 	span {
@@ -23,11 +22,14 @@ const Title = styled.h2`
 	line-height: 2rem;
 	font-weight: bold;
 	margin-bottom: 0.5rem;
-	background-color: ${(p) => p.theme.colors.purple.main};
-	color: ${(p) => p.theme.colors.text.contrast[0]};
+	
+   background-color: ${(p) => p.theme.colors.purple.main};
+	color: ${(p) => p.theme.colors.light[0]};
+
 	padding: 0.5rem 1.5rem;
 	border-radius: 3px 3px 10px 3px;
-	${flex.row};
+	
+   ${flex.row};
 	justify-content: space-between;
 	gap: 1rem;
 	width: max-content;

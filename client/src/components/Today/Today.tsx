@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import { Skeleton } from "@mantine/core";
 import { Suspense } from "react";
 import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
@@ -11,6 +12,7 @@ import useToday from "@/components/Today/useToday";
 import Calendar from "@/components/utility/Calendar/Calendar";
 import Modal from "@/components/utility/Modal/Modal";
 import modalIds from "@/lib/modal-ids";
+import type { MainTheme } from "@/lib/style/theme";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
@@ -21,6 +23,20 @@ import { rowHeight } from "./style/TimelineRow.style";
 import S from "./style/Today.style";
 import Task from "./Task";
 import Tasks from "./Tasks";
+
+const overdueTasksColumnCss = (t: MainTheme) => css`
+   padding-top: ${spacingValue.small};
+   min-width: 500px;
+   max-height: 50vh;
+   overflow-y: auto;
+   ${
+			(t as MainTheme).mode === "dark" &&
+			css`
+            & > * {
+            background-color: ${(t as MainTheme).colors.background.main[1]};
+         `
+		}
+`;
 
 export default function Today() {
 	const {
@@ -77,6 +93,8 @@ export default function Today() {
 									key={i}
 									width={"100%"}
 									height={`max(${rowHeight}px, 2vh)`}
+									// TODO: theme-aware like with the border-top on the
+									// regular (non-skeleton) timeline rows
 									style={{ borderTop: "2px solid white" }}
 								/>
 							))}
@@ -124,12 +142,9 @@ export default function Today() {
 				<Containers.Column
 					gap="small"
 					padding="medium"
-					style={{
-						paddingTop: spacingValue.small,
-						minWidth: "500px",
-						maxHeight: "50vh",
-						overflowY: "auto",
-					}}
+					// TODO: instead of this convoluted css prop, add a secondary
+					// prop for the Task cards which makes the background darker
+					css={(t) => overdueTasksColumnCss(t as MainTheme)}
 				>
 					{!!overdueTasks?.length &&
 						overdueTasks.map((t) => <Task activity={t} key={t.activity_id} />)}

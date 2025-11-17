@@ -7,7 +7,7 @@ import {
 	default as UnstyledButton,
 } from "@/lib/theme/components/buttons/Unstyled";
 import { font } from "@/lib/theme/font";
-import { outline, thinOutline } from "@/lib/theme/snippets/edge";
+import { lightDark } from "@/lib/theme/light-dark";
 import { radius } from "@/lib/theme/snippets/radius";
 import { colors } from "../../colors";
 import Active from "../../snippets/active";
@@ -39,13 +39,13 @@ const Default = styled(Unstyled)<{
 			? css`
 					cursor: pointer;
 
-					background-color: ${p.theme.colors.background.main[3]}; // TODO TRK-231: theme value
-					${thinOutline.secondary};
+					background-color: ${p.theme.colors.background.main[3]}; 
+					outline: 1px solid ${lightDark(p, p.theme.colors.light[3], p.theme.colors.dark[1])};
 					${radius.small};
 
 					&:active {
 						background-color: ${highlightColor};
-						color: azure; // TODO: TRK-231: theme value
+						color: ${p.theme.colors.light[1]};
 						outline: none;
 					}
 				`
@@ -57,7 +57,7 @@ const Default = styled(Unstyled)<{
 				`}
 
 	&:focus {
-		${outline.tertiary};
+		outline: 2px solid ${(p) => p.theme.colors.light[3]};
 	}
 
 	&:hover {
@@ -68,15 +68,11 @@ const Default = styled(Unstyled)<{
 				transition: all 35ms linear;
 				background-color: dodgerblue;
 				color: white;
-				box-shadow: 0 0 0.3rem 0 #ddd;
+				box-shadow: 0 0 0.3rem 0 ${lightDark(p, p.theme.colors.light[4], p.theme.colors.dark[1])};
 			`}
 
    }
    
-   &:disabled {
-      outline-color: transparent;
-   }
-
 	${(p) =>
 		p.$highlight &&
 		css`
@@ -90,8 +86,12 @@ const Default = styled(Unstyled)<{
 		css`
 			background-color: ${highlightColor};
 			color: azure; // TODO TRK-231: theme value
-			box-shadow: 0 0 0.2rem 0 #ccc;
+			box-shadow: 0 0 0.2rem 0 ${lightDark(p, p.theme.colors.light[5], p.theme.colors.dark[2])};
 		`}
+
+   &:disabled {
+      outline-color: transparent;
+   }
 `;
 
 const Habit = styled(Default)<{

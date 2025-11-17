@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { inputStyle } from "@lib/theme/snippets/input";
 import { font } from "@/lib/theme/font";
 import Input from "@/lib/theme/input";
-import { border, outline, thinBorder } from "@/lib/theme/snippets/edge";
+import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 
@@ -13,9 +13,12 @@ const Wrapper = styled.div`
 	padding-top: 0.8rem;
 	/* TODO: same note as with the top padding. */
 	margin: 1.2rem;
-	${border.grey};
+
+	border: 2px solid ${(p) => p.theme.colors.background.main[5]};
+   
 	max-width: 500px;
-	box-shadow: 0 0.3rem 1.2rem -0.1rem #ddd;
+
+	box-shadow: 0 0.3rem 1.2rem -0.1rem ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 1]};
 `;
 
 const FormTitle = styled.h1`
@@ -27,13 +30,12 @@ const FormTitle = styled.h1`
 	margin-bottom: 0.9rem;
 
 	max-width: max-content;
-	background-color: ${(p) => p.theme.colors.background.main[4]};
+	background-color: ${(p) => p.theme.colors.background.main[3]};
 	${spacing.padding.wide({ size: 0.5, ratio: 3 })};
 	box-shadow:
-		-0.2rem 0.2rem 0 0 #ccc,
+		-0.2rem 0.2rem 0 0 ${(p) => p.theme.colors.background.main[5]},
 		-0.6rem -0.4rem 0 0 ${(p) => p.theme.colors.blue.main},
-		0 0 0.2rem 0 #333,
-		-0.2rem -0.3rem 0 0 white;
+		0 0 0.2rem 0 #333;
 `;
 
 const Row = styled.fieldset`
@@ -43,9 +45,9 @@ const Row = styled.fieldset`
 
 	width: 100%;
 	max-width: 100%;
-	${thinBorder.primary};
+	border: 1px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 3]};
+	box-shadow: 0.6rem 0.6rem 0 -0.5rem ${(p) => p.theme.colors.dark[4]};
 	justify-content: space-between;
-	box-shadow: 0.6rem 0.6rem 0 -0.5rem #555;
 
 	&:focus-within {
 		/* TODO: use to-be-created highlight color I made a TODO about */

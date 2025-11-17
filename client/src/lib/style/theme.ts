@@ -75,6 +75,6 @@ export const darkTheme = {
 	global: globalDark,
 	font,
 	mode: "dark",
-};
+} as const;
 
 export type MainTheme = typeof lightTheme | typeof darkTheme;

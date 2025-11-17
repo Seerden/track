@@ -18,7 +18,7 @@ const Times = styled.div`
 	align-items: flex-end;
 	font-size: ${font.size["0.82"]};
 
-	color: #555;
+	color: ${(p) => p.theme.colors.text.main[5]};
 `;
 
 const Tasks = styled(Containers.Column)`

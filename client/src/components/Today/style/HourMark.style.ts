@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { font } from "@/lib/theme/font";
-import { thinOutline } from "@/lib/theme/snippets/edge";
+import { lightDark } from "@/lib/theme/light-dark";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 
@@ -27,12 +27,12 @@ const HourMark = styled.span<{ $highlighted?: boolean }>`
 		p.$highlighted
 			? css`
 					background-color: red;
-					${thinOutline.primary};
-					color: white;
+					outline: 1px solid ${p.theme.colors.background.main[0]};
+					color: ${p.theme.colors.light[0]};
 				`
 			: css`
-					background-color: ${p.theme.colors.background.main[3]};
-					${thinOutline.tertiary};
+					background-color: ${lightDark(p, p.theme.colors.light[3], p.theme.colors.dark[2])};
+					outline: 1px solid ${lightDark(p, p.theme.colors.light[3], p.theme.colors.dark[2])};
 					color: ${p.theme.colors.text.main[2]};
 				`}
 `;

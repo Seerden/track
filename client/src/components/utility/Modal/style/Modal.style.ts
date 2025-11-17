@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import Buttons from "@/lib/theme/components/buttons";
+import { lightDark } from "@/lib/theme/light-dark";
 import { thinBorder } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
 import scrollbar from "@/lib/theme/snippets/scroll";
@@ -21,8 +22,8 @@ const ModalWrapper = styled.div`
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(32, 32, 32, 0.8); // TODO: this should be a theme value
-	backdrop-filter: blur(5px);
+   background-color: color-mix(in srgb,rgba(32, 32, 32, 0.8), transparent 2%);
+	backdrop-filter: blur(10px);
 	display: flex;
 	justify-content: center;
 `;
@@ -36,13 +37,13 @@ const Close = styled(Buttons.Action.Stylized)`
 const Modal = styled.div`
 	position: relative;
 	${spacing.padding.wide({ size: 1.2, ratio: 1.25 })}
-	background-color: ${(p) => p.theme.colors.background.main[3]}; // TODO: this should be a theme value
+	background-color: ${(p) => lightDark(p, p.theme.colors.background.main[3], p.theme.colors.dark[2])}; 
 	height: max-content;
 	${thinBorder.darkish};
 	${radius.medium};
 	margin-top: var(--modal-offset);
 	box-shadow:
-		0.8rem 0.8rem 0.1rem -0.2rem #ddd,
+		0.8rem 0.8rem 0.1rem -0.2rem ${(p) => lightDark(p, p.theme.colors.light[4], p.theme.colors.purple.main)},
 		1.1rem -0.5rem 0.1rem -0.2rem ${(p) => p.theme.colors.blue.main};
 `;
 

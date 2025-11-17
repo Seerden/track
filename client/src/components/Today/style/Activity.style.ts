@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { rowHeight } from "@/components/Today/style/TimelineRow.style";
 import { colors } from "@/lib/theme/colors";
 import { font } from "@/lib/theme/font";
-import { outline } from "@/lib/theme/snippets/edge";
+import { lightDark } from "@/lib/theme/light-dark";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
 import S from "./Today.style";
@@ -62,7 +62,7 @@ const Activity = styled.div<{
 	align-items: ${(p) => (p.$durationHours > 2 ? "flex-start" : "center")};
 	color: ${(p) => (p.$isTask ? "azure" : "#000")};
 
-	${outline.secondary};
+	outline: 2px solid ${(p) => lightDark(p, p.theme.colors.light[3], p.theme.colors.dark[2])};
 	width: var(--card-width);
 	${radius.small};
 

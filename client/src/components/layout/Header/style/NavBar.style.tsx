@@ -1,7 +1,8 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Buttons from "@/lib/theme/components/buttons";
 import ActionButtons from "@/lib/theme/components/buttons/Action";
-import { outline } from "@/lib/theme/snippets/edge";
+import { lightDark } from "@/lib/theme/light-dark";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
@@ -10,7 +11,8 @@ const NavBar = styled.nav`
 	position: fixed;
 	top: 0;
 
-	background-color: ${(p) => p.theme.colors.background.main[3]};
+	background-color: color-mix(in srgb, ${(p) => p.theme.colors.background.main[2]}, transparent 10%);
+   backdrop-filter: blur(10px);
 
 	width: 100%;
 
@@ -51,13 +53,16 @@ const Action = styled(ActionButtons.Default)`
 const HomeLink = styled.span`
 	${flex.centered};
 	${radius.medium};
-	${outline.secondary};
+	
+   outline: 2px solid ${(p) => lightDark(p, p.theme.colors.light[3], p.theme.colors.dark[2])};
 
 	min-width: 40px;
 	min-height: 35px;
 
 	background-color: ${(p) => p.theme.colors.background.main[1]}; // TODO TRK-231: theme value
-	box-shadow: 0 0.3rem 0.3rem -0.1rem #aaa;
+
+   --highlight-color: ${(p) => lightDark(p, p.theme.colors.light[5], p.theme.colors.dark[2])};
+	box-shadow: 0 0.3rem 0.3rem -0.1rem var(--highlight-color);;
 
 	svg {
 		color: ${(p) => p.theme.colors.text.main[3]};
@@ -66,9 +71,13 @@ const HomeLink = styled.span`
 	&:hover,
 	&:active,
 	&:focus {
-		${outline.tertiary};
-		background-color: ${(p) => p.theme.colors.background.main[3]};
-		box-shadow: 0 0.3rem 0.3rem -0.2rem #aaa;
+		outline: 2px solid ${(p) => lightDark(p, p.theme.colors.light[4], "inherit")};
+      ${(p) =>
+				p.theme.mode === "light" &&
+				css`
+               background-color: ${p.theme.colors.background.main[4]};
+            `}
+		box-shadow: 0 0.3rem 0.3rem -0.2rem var(--highlight-color);
 		transform: translateY(2px);
 	}
 

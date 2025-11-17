@@ -49,6 +49,7 @@ export function createRouter() {
 						forceColorScheme={themeValue}
 						theme={{
 							...createTheme(DEFAULT_THEME),
+							cursorType: "pointer",
 							components: {
 								...DEFAULT_THEME.components,
 								Tooltip: Tooltip.extend({
