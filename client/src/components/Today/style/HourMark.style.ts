@@ -33,7 +33,7 @@ const HourMark = styled.span<{ $highlighted?: boolean }>`
 			: css`
 					background-color: ${p.theme.colors.background.main[3]};
 					${thinOutline.tertiary};
-					color: #222;
+					color: ${p.theme.colors.text.main[2]};
 				`}
 `;
 

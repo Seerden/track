@@ -59,13 +59,13 @@ const Badge = styled.span`
 	flex-grow: 1;
 	justify-content: center;
 	${radius.small};
-	color: #000;
+	color: ${(p) => p.theme.colors.dark[0]};
 
 	${spacing.padding.wide({ size: 0.25, ratio: 2 })};
 
 	user-select: none;
 
-	background-color: ${(p) => p.theme.colors.background.main[1]};
+	background-color: ${(p) => p.theme.colors.light[0]};
 `;
 
 function CalendarRecurrenceCard({ recurrence }: { recurrence: Recurrence }) {

@@ -46,6 +46,7 @@ export function createRouter() {
 				<QueryClientProvider client={queryClient}>
 					<ReactQueryDevtools initialIsOpen={false} position="bottom" />
 					<MantineProvider
+						forceColorScheme={themeValue}
 						theme={{
 							...createTheme(DEFAULT_THEME),
 							components: {

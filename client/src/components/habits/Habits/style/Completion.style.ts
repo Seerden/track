@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import type { CSSProperties } from "react";
+import { colors } from "@/lib/theme/colors";
 import Floating from "@/lib/theme/components/containers/floating.style";
 import { font } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
@@ -20,6 +21,10 @@ export default { List, FloatingWrapper };
 export const completionTooltipStyles = {
 	regular: {
 		borderRadius: 0,
+		// TODO: make this theme aware:
+		// 1. make this a function that takes the theme from the atom
+		// 2. turn tooltip elements into styled components so we can use the theme
+		//    color
 		backgroundColor: "#f7f7f7",
 		color: "#000",
 		borderEndEndRadius: "3px",
@@ -39,7 +44,7 @@ export const completionTooltipStyles = {
 		fontSize: font.size["0.82"],
 		maxWidth: "300px",
 		backgroundColor: "royalblue",
-		color: "white",
+		color: colors.light[0],
 		display: "inline-flex",
 		flexWrap: "wrap",
 	},

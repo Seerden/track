@@ -80,8 +80,8 @@ const Default = styled(Unstyled)<{
 	${(p) =>
 		p.$highlight &&
 		css`
-			background-color: ${p.theme.colors.background.main[3]};
-			color: #333;
+			background-color: ${p.theme.colors.background.contrast[3]};
+			color: ${p.theme.colors.text.contrast[3]};
 			font-weight: 600;
 		`}
 
@@ -101,8 +101,8 @@ const Habit = styled(Default)<{
 }>`
    border-radius: 50%;
 
-   --inner-color: ${(p) => (p.$cellDone ? "forestgreen" : p.$cellTouched ? colors.purple.tertiary : "#e2e2e2")};
-   --outer-color: ${(p) => (p.$intervalDone ? "forestgreen" : p.$cellTouched ? colors.purple.tertiary : "#e2e2e2")};
+   --inner-color: ${(p) => (p.$cellDone ? "forestgreen" : p.$cellTouched ? colors.purple.tertiary : p.theme.colors.background.main[4])};
+   --outer-color: ${(p) => (p.$intervalDone ? "forestgreen" : p.$cellTouched ? colors.purple.tertiary : p.theme.colors.background.main[4])};
 
    font-size: ${font.size["0.82"]};;
 
@@ -119,7 +119,7 @@ const Habit = styled(Default)<{
       outline-color: transparent;
    };
 
-   color: ${(p) => (p.$cellDone || p.$cellTouched ? "white" : "inherit")};
+   color: ${(p) => (p.$cellDone || p.$cellTouched ? p.theme.colors.text.main[0] : "inherit")};
 
    &:not(:disabled) {
       /* These styles are repeated from above, because otherwise they're

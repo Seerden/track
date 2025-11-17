@@ -68,7 +68,7 @@ const MenuSectionHeader = styled.span`
 	gap: ${spacingValue.medium};
 	margin-left: calc(-1 * ${spacingValue.small});
 
-	color: #222;
+	color: #${(p) => p.theme.colors.text.main[2]};
 	background-color: ${(p) => p.theme.colors.background.main[0]};
 ;
 
@@ -95,7 +95,8 @@ const LinkCard = styled.span`
 	${radius.small};
 	background-color: ${(p) => p.theme.colors.orange.main};
 
-	color: #000;
+   /* TODO: is this unused? */
+	color: ${(p) => p.theme.colors.text.main[0]};
 	max-width: 100px;
 	white-space: nowrap;
 	overflow: hidden;

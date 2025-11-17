@@ -11,7 +11,7 @@ type SpeedDialActionProps = {
 
 function SpeedDialAction({
 	children,
-	$color = "deepskyblue",
+	$color = "royalblue",
 	modalId,
 }: PropsWithChildren<SpeedDialActionProps>) {
 	const { openModal } = useModalState();

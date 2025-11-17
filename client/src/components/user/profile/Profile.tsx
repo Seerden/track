@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import {
 	LucideShieldUser,
 	LucideToggleLeft,
@@ -5,6 +6,7 @@ import {
 } from "lucide-react";
 import { useProfile } from "@/components/user/profile/useProfile";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
+import { colors } from "@/lib/theme/colors";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import { Label } from "@/lib/theme/components/form/label.style";
@@ -27,7 +29,13 @@ export default function Profile() {
 
 	return (
 		<Containers.Column as="section">
-			<Title.Menu.Header>
+			<Title.Menu.Header
+				css={css`
+            * {
+               color: ${colors.light[0]};
+            }
+         `}
+			>
 				<LucideShieldUser size={23} /> <span>Account</span>
 			</Title.Menu.Header>
 

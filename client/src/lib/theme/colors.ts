@@ -31,6 +31,9 @@ const baseColors = {
 		main: "forestgreen",
 		secondary: "limegreen",
 	},
+	darkGreen: {
+		main: "#143516",
+	},
 } as const;
 
 const light = {

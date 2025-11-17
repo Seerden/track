@@ -11,7 +11,7 @@ const lightBody = css`
 `;
 
 const darkBody = css`
-   color: ${colors.text.contrast[0]};
+   color: ${darkColors.text.main[0]};
    background-color: ${colors.background.contrast[0]};
 `;
 
@@ -27,8 +27,8 @@ const global = css`
 		--mantine-font-family: $fonts; // this comes from index.scss I think
 		--mantine-font-size-md: 1rem;
 		--mantine-line-height: unset;
-		--mantine-color-body: #f2f2f2;
-		--mantine-color-text: #000;
+		--mantine-color-body: ${colors.background.main[2]};
+		--mantine-color-text: ${colors.text.main[0]};
 	}
 
    body {
@@ -50,8 +50,8 @@ const globalDark = css`
 		--mantine-font-family: $fonts; // this comes from index.scss I think
 		--mantine-font-size-md: 1rem;
 		--mantine-line-height: unset;
-		--mantine-color-body: #f2f2f2;
-		--mantine-color-text: #000;
+		--mantine-color-body: ${darkColors.background.main[2]};
+		--mantine-color-text: ${darkColors.text.main[0]};
 	}
 
    body {
@@ -66,6 +66,7 @@ export const lightTheme = {
 	constants,
 	global,
 	font,
+	mode: "light",
 } as const;
 
 export const darkTheme = {
@@ -73,6 +74,7 @@ export const darkTheme = {
 	constants,
 	global: globalDark,
 	font,
+	mode: "dark",
 };
 
 export type MainTheme = typeof lightTheme | typeof darkTheme;

@@ -46,11 +46,11 @@ export const Default = styled(Unstyled)<{
    ${(p) =>
 			p.$minimal &&
 			css`
-            color: #000;
+            color: ${p.theme.colors.background.contrast[0]};
             box-shadow: none;
 
             .lucide {
-               color: #000;
+               color: ${p.theme.colors.background.contrast[0]};
             }
       `}
 `;
@@ -90,6 +90,7 @@ const Alternative = styled(Unstyled)<{ light?: boolean }>`
 	}
 `;
 
+// TODO: this thing is SO ugly.
 const Stylized = styled(Unstyled)<{
 	$size?: CSSProperties["width"];
 	$color: ColorKey;
@@ -115,6 +116,7 @@ const Stylized = styled(Unstyled)<{
 	&:hover:not(:disabled) {
 		/* TODO: go one tint lighter or darker. Requires another rework of
 		ColorKey though. */
+      outline: 3px solid var(--color);
 		${radius.medium}
 	}
 
@@ -184,7 +186,8 @@ const DefaultText = styled(Default)`
 `;
 
 const Minimal = styled(Unstyled)`
-   --color: #eee;
+   --color: ${(p) => p.theme.colors.light[3]};
+   color: ${(p) => p.theme.colors.dark[0]};
    outline: 2px solid var(--color);
    padding: ${spacingValue.smaller} ${spacingValue.medium};
    border-radius: 2px;

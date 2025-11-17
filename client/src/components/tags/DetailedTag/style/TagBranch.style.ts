@@ -41,7 +41,7 @@ const Node = styled.li<{ $active?: boolean }>`
 		p.$active &&
 		css`
 			background-color: ${p.theme.colors.purple.main};
-			color: white;
+			color: #fff;
 		`}
 `;
 
@@ -68,7 +68,7 @@ const Row = styled.menu`
 		height: var(--row-gap);
 		bottom: calc(-1 * var(--row-gap));
 		left: 50%;
-		background-color: #ccc;
+		background-color: ${(p) => p.theme.colors.background.main[5]};
 	}
 `;
 

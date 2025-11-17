@@ -16,7 +16,7 @@ function getNotificationColor(theme: MainTheme, type: NotificationType) {
 		case "info":
 			return theme.colors.blue.main;
 		default:
-			return "#000";
+			return theme.colors.text.main[0];
 	}
 }
 

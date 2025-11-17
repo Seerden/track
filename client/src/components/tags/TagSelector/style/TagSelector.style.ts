@@ -80,10 +80,10 @@ const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
 		p.$isSelected &&
 		css`
 			border-color: azure;
-			color: #143516;
+			color: ${p.theme.colors.darkGreen.main};
 			font-weight: 500;
-			background-color: limegreen;
-			box-shadow: 0.3rem 0.3rem 0 -0.1rem limegreen;
+			background-color: ${p.theme.colors.green.secondary};
+			box-shadow: 0.3rem 0.3rem 0 -0.1rem ${p.theme.colors.green.secondary};
 		`}
 `;
 

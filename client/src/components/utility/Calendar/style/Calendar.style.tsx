@@ -111,7 +111,7 @@ const MonthPickerActionWrapper = styled.div`
 
 	svg {
 		cursor: pointer;
-		color: #333;
+		color: ${(p) => p.theme.colors.text.main[3]};
 	}
 `;
 

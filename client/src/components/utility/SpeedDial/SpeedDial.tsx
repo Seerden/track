@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import type { UseFloatingOptions } from "@floating-ui/react";
 import {
 	FloatingFocusManager,
@@ -14,6 +15,7 @@ import {
 } from "@floating-ui/react";
 import { Minus, Plus } from "lucide-react";
 import type { PropsWithChildren } from "react";
+import { colors } from "@/lib/theme/colors";
 import Buttons from "@/lib/theme/components/buttons";
 import S from "./style/SpeedDial.style";
 
@@ -52,13 +54,20 @@ export default function SpeedDial({
 		hover,
 	]);
 
+	const Icon = open ? Minus : Plus;
+
 	return (
 		<S.SpeedDialWrapper ref={refs.setReference} {...getReferenceProps()}>
 			<Buttons.Action.Default
 				$color="royalblue"
+				css={css`
+                  width: 50px;
+                  height: 50px;
+                  color: ${colors.light[0]}
+               `}
 				style={{ width: 50, height: 50 }}
 			>
-				{open ? <Minus strokeWidth={3} /> : <Plus strokeWidth={3} />}
+				<Icon strokeWidth={3} />
 			</Buttons.Action.Default>
 			{open && (
 				<div>

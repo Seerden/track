@@ -1,12 +1,11 @@
 import styled from "@emotion/styled";
-import Buttons from "@/lib/theme/components/buttons";
 import { font } from "@/lib/theme/font";
 import Input from "@/lib/theme/input";
 import { border, outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { inputStyle } from "@/lib/theme/snippets/input";
 import { radius } from "@/lib/theme/snippets/radius";
-import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
+import { spacingValue } from "@/lib/theme/snippets/spacing";
 
 const ClearEndDateButtonWrapper = styled.div`
 	position: absolute;
@@ -15,23 +14,27 @@ const ClearEndDateButtonWrapper = styled.div`
 	right: var(--offset);
 `;
 
-const SetEndDateButton = styled(Buttons.Action.Stylized)`
-	${flex.row};
+/** @deprecated the end date field is always visible, we don't use a button to
+ * toggle it anymore */
+// const SetEndDateButton = styled(Buttons.Action.Stylized)`
+// 	${flex.row};
 
-	width: max-content;
+// 	width: max-content;
 
-   align-self: flex-end;
+//    align-self: flex-end;
 
-	gap: ${spacingValue.medium};
-	${radius.small};
-   ${spacing.padding.small};
+// 	gap: ${spacingValue.medium};
+// 	${radius.small};
+//    ${spacing.padding.small};
 
-	color: #000;
+//    --color: ${(p) => p.theme.colors.text.main[0]}
 
-	svg {
-		color: #000;
-	}
-`;
+// 	color: var(--color);
+
+// 	svg {
+// 		color: var(--color);
+// 	}
+// `;
 
 const RadioButton = styled.input`
 	position: absolute; // visually hidden --- 100% sure this is not the best way to do this
@@ -64,7 +67,7 @@ const RadioOption = styled.label`
 		font-size: ${font.size["0.85"]};
 		font-weight: 500;
 
-		box-shadow: 0 0.5rem 0 -0.3rem white;
+		box-shadow: 0 0.5rem 0 -0.3rem #fff;
 		display: flex;
 		margin-bottom: 0.3rem;
 	}
@@ -97,7 +100,7 @@ const Label = styled.label`
 	justify-content: space-between;
 
 	span {
-		background-color: white;
+		background-color: #fff;
 		color: #777;
 		display: flex;
 		margin-bottom: 0;
@@ -116,7 +119,7 @@ const Label = styled.label`
 		opacity: 0.5;
 
 		input {
-			background-color: white;
+			background-color: #fff;
 		}
 	}
 `;
@@ -129,7 +132,6 @@ const ProgressionFieldset = styled.fieldset`
 	// TODO TRK-231: theme value
 	padding: 1.2rem;
 
-	background-color: white;
 	box-shadow: 0 0 0.3rem 0 #aaa;
 `;
 
@@ -166,7 +168,6 @@ const DateFields = styled.div`
 
 export default {
 	ClearEndDateButtonWrapper,
-	SetEndDateButton,
 	RadioField,
 	RadioButton,
 	RadioOption,

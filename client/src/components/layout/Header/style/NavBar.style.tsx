@@ -60,7 +60,7 @@ const HomeLink = styled.span`
 	box-shadow: 0 0.3rem 0.3rem -0.1rem #aaa;
 
 	svg {
-		color: #333;
+		color: ${(p) => p.theme.colors.text.main[3]};
 	}
 
 	&:hover,

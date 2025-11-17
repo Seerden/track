@@ -91,7 +91,8 @@ const Label = styled.label<{ $showWarning?: boolean }>`
 	}
 
 	span {
-		background-color: ${(p) => p.theme.colors.background.main[0]};
+		background-color: ${(p) => p.theme.colors.light[0]};
+      color: ${(p) => p.theme.colors.dark[0]};
 ;
 		${spacing.padding.wide({ size: 0.2, ratio: 3 })};
 		border-radius: 0 15px 0 0;

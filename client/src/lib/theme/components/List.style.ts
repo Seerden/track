@@ -30,13 +30,13 @@ const Item = styled.li`
 	}
 
 	${radius.medium};
-	background-color: ${(p) => p.theme.colors.background.main[4]}; // TODO: apply some style for completed tasks
+	background-color: ${(p) => p.theme.colors.background.main[2]}; // TODO: apply some style for completed tasks
 	width: 100%;
 	min-width: max-content;
 	${spacing.padding.wide({ size: 0.5, ratio: 2 })};
 	align-items: center;
 	max-height: 90px;
-	box-shadow: 0.25rem 0.25rem 0.2rem -0.1rem #ccc;
+	box-shadow: 0.25rem 0.25rem 0.2rem -0.1rem #ddd;
 
 	max-width: 720px; // TODO: this is temporary, but we do want to limit size
 `;
@@ -49,11 +49,11 @@ const ItemName = styled.div`
 	text-overflow: ellipsis;
 	text-align: start;
 
-	color: #333;
+	color: ${(p) => p.theme.colors.text.main[3]};
 	background-color: ${(p) => p.theme.colors.background.main[3]};
 	${spacing.padding.wide({ size: 0.3, ratio: 2.5 })};
 	${radius.small};
-	box-shadow: 0 0.1rem 0.2rem 0 #aaa;
+	box-shadow: 0 0.1rem 0.2rem 0 #ccc;
 
 	flex-grow: 1;
 `;

@@ -41,7 +41,7 @@ const MenuSubsectionHeader = styled.h3`
    line-height: var(--size);
    font-weight: 400;
 
-   color: #222;
+   color: ${(p) => p.theme.colors.text.main[2]};
 `;
 
 export const Title = {
