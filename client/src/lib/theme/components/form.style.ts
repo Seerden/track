@@ -33,9 +33,8 @@ const FormTitle = styled.h1`
 	background-color: ${(p) => p.theme.colors.background.main[3]};
 	${spacing.padding.wide({ size: 0.5, ratio: 3 })};
 	box-shadow:
-		-0.2rem 0.2rem 0 0 ${(p) => p.theme.colors.background.main[5]},
-		-0.6rem -0.4rem 0 0 ${(p) => p.theme.colors.blue.main},
-		0 0 0.2rem 0 #333;
+		-0.3rem 0.25rem 0 0 ${(p) => p.theme.colors.background.main[5]},
+		-0.6rem -0.4rem 0 0 ${(p) => p.theme.colors.blue.main};		
 `;
 
 const Row = styled.fieldset`

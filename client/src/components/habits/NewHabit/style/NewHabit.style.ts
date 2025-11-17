@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { font } from "@/lib/theme/font";
 import Input from "@/lib/theme/input";
-import { border, outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { inputStyle } from "@/lib/theme/snippets/input";
 import { radius } from "@/lib/theme/snippets/radius";
@@ -14,7 +13,7 @@ const ClearEndDateButtonWrapper = styled.div`
 	right: var(--offset);
 `;
 
-/** @deprecated the end date field is always visible, we don't use a button to
+/** deprecated the end date field is always visible, we don't use a button to
  * toggle it anymore */
 // const SetEndDateButton = styled(Buttons.Action.Stylized)`
 // 	${flex.row};
@@ -58,10 +57,15 @@ const RadioOption = styled.label`
 	width: 50%;
 	padding: ${spacingValue.small};
 	${radius.small};
-	${border.secondary};
-	${outline.primary};
+	
+   border: 2px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 3]};
+	outline: 2px solid 2px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 3 : 1]};
+
 	background-color: ${(p) => p.theme.colors.background.main[3]};
-	box-shadow: 0 0.4rem 0.5rem 0 #ddd;
+
+   --shadow-1: ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 4 : 1]};
+   --shadow-2: ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 2]};
+	box-shadow: 0 0.2rem 0.5rem 0 var(--shadow-1);
 
 	${RadioLabelText} {
 		font-size: ${font.size["0.85"]};
@@ -77,14 +81,14 @@ const RadioOption = styled.label`
 		background-color: ${(p) => p.theme.colors.background.main[3]};
 
 		box-shadow:
-			0 0.6rem 1rem -0.4rem #aaa,
-			0.3rem 0.5rem 0.1rem -0.1rem ${(p) => p.theme.colors.green.secondary};
+			0.3rem 0.4rem 0 -0.1rem ${(p) => p.theme.colors.green.secondary},
+         0 0.6rem 1rem -0.4rem var(--shadow-1);
 
 		&:focus-within {
 			box-shadow:
-				0 0.6rem 1rem -0.4rem #aaa,
-				0 0.3rem 1.2rem 0 #ccc,
-				0.3rem 0.5rem 0.1rem -0.1rem ${(p) => p.theme.colors.green.secondary};
+				0 0.6rem 1rem -0.4rem var(--shadow-1),
+				0.3rem 0.4rem 0 -0.1rem ${(p) => p.theme.colors.green.secondary},
+				0 0.3rem 1.2rem 0 var(--shadow-2);
 		}
 
 		${RadioLabelText} {
@@ -126,13 +130,13 @@ const Label = styled.label`
 
 const ProgressionFieldset = styled.fieldset`
 	${flex.column};
-	${radius.small};
-	${outline.primary};
-
+	
 	// TODO TRK-231: theme value
 	padding: 1.2rem;
 
-	box-shadow: 0 0 0.3rem 0 #aaa;
+	/* TODO: same as other fieldsets */
+   border: 1px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 3]};
+	box-shadow: 0.6rem 0.6rem 0 -0.5rem ${(p) => p.theme.colors.dark[4]};
 `;
 
 const ProgressionTitle = styled.div`

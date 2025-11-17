@@ -1,5 +1,4 @@
 import { Popover, Switch } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useAtom, useAtomValue } from "jotai";
 import {
@@ -10,6 +9,7 @@ import {
 	LucideUserCircle,
 } from "lucide-react";
 import ActivityMenu from "@/components/layout/Header/ActivityMenu/ActivityMenu";
+import Menu from "@/components/layout/Header/Menu";
 import { ProfileMenu } from "@/components/user/profile/Profile";
 import { Protected } from "@/components/wrappers";
 import useAuthentication from "@/lib/hooks/useAuthentication";
@@ -68,41 +68,13 @@ export default function NavBar() {
 
 function ProfileAction({ isLoggedIn }: { isLoggedIn: boolean }) {
 	const navigate = useNavigate();
-	const [opened, { open, close, toggle }] = useDisclosure(false);
 
 	if (isLoggedIn) {
 		return (
 			<Protected key={`${isLoggedIn}`}>
-				<Popover
-					opened={opened}
-					onDismiss={close}
-					onClose={close}
-					closeOnEscape
-					radius={"sm"}
-					withArrow
-					styles={{
-						dropdown: {
-							padding: 0,
-							borderRadius: 10,
-						},
-					}}
-				>
-					<Popover.Target>
-						{/* TODO: styling */}
-						<S.MenuTrigger type="button" onMouseEnter={open} onClick={toggle}>
-							<LucideUserCircle size={23} />
-						</S.MenuTrigger>
-					</Popover.Target>
-					<Popover.Dropdown
-						onMouseLeave={async () => {
-							// wait 100ms, then close
-							await new Promise((resolve) => setTimeout(resolve, 100));
-							close();
-						}}
-					>
-						<ProfileMenu />
-					</Popover.Dropdown>
-				</Popover>
+				<Menu id="ProfileMenu" Target={<LucideUserCircle size={23} />}>
+					<ProfileMenu />
+				</Menu>
 			</Protected>
 		);
 	}

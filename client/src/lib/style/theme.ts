@@ -12,7 +12,7 @@ const lightBody = css`
 
 const darkBody = css`
    color: ${darkColors.text.main[0]};
-   background-color: ${colors.background.contrast[0]};
+   background-color: ${darkColors.background.body};
 `;
 
 const global = css`

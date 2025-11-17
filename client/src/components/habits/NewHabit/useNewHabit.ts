@@ -104,7 +104,11 @@ export default function useNewHabit() {
 				parsedValue = +value;
 				break;
 			case "text":
-				parsedValue = value === "" ? null : value;
+				if (e.target.inputMode === "numeric") {
+					parsedValue = +value;
+				} else {
+					parsedValue = value === "" ? null : value;
+				}
 				break;
 			case "radio":
 				// TODO TRK-231: consider a type for this union of options

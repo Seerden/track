@@ -11,7 +11,9 @@ const NavBar = styled.nav`
 	position: fixed;
 	top: 0;
 
-	background-color: color-mix(in srgb, ${(p) => p.theme.colors.background.main[2]}, transparent 10%);
+   --base-background-color: ${(p) => (p.theme.mode === "light" ? p.theme.colors.background.main[1] : p.theme.colors.background.body)};
+
+	background-color: color-mix(in srgb, var(--base-background-color), transparent 10%);
    backdrop-filter: blur(10px);
 
 	width: 100%;

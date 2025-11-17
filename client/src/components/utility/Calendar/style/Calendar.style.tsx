@@ -39,7 +39,7 @@ const Calendar = styled.div`
    /* NOTE: same as Timeline wrapper */
    outline: 2px solid ${(p) => lightDark(p, p.theme.colors.light[3], p.theme.colors.dark[1])};
 	box-shadow: 0 0.2rem 1rem -0.3rem ${(p) =>
-		lightDark(p, p.theme.colors.light[5], p.theme.colors.dark[3])};
+		lightDark(p, p.theme.colors.light[5], p.theme.colors.dark[0])};
 `;
 
 const TitleWrapper = styled.div`

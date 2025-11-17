@@ -15,10 +15,21 @@ export const inputStyle = ({ theme }: { theme: MainTheme }) => css`
 
 	${noBorders};
 	${spacing.padding.wide({ size: 0.3, ratio: 1.5 })};
-	box-shadow: 0.4rem 0.4rem 0.1rem -0.3rem #ddd;
+	
 	${radius.small};
    border-radius: 0 0 3px 3px;
 
    color: ${theme.colors.dark[0]};
-   background-color: ${theme.colors.light[0]}
+   background-color: ${theme.colors.light[0]};
+
+   &::-webkit-outer-spin-button,
+   &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;  
+   }
+
+   &[type=number] {
+      -moz-appearance: textfield;
+      appearance: textfield;
+   }
 `;

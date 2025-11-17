@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { colors } from "@/lib/theme/colors";
 import Buttons from "@/lib/theme/components/buttons";
 import { menuDropdownStyle } from "@/lib/theme/components/containers/popover.style";
 import { font } from "@/lib/theme/font";
@@ -8,22 +9,14 @@ import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 
 const Menu = styled.div`
 	${flex.column};
-	margin-top: ${spacingValue.medium};
-	margin-right: ${spacingValue.small};
+	/* margin-top: ${spacingValue.medium}; */
+	/* margin-right: ${spacingValue.small}; */
 	padding: ${spacingValue.large};
 	font-size: ${font.size["0.93"]};
 
    ${menuDropdownStyle};
 
 	width: max-content;
-
-	background-color: ${(p) => p.theme.colors.background.main[2]};
-
-	/* Have to target the first and second children, because the first one is
-      the FloatingArrow. */
-	& > *:not(:first-child):not(:nth-child(2)) {
-		border-top: 2px solid #ddd;
-	}
 `;
 
 // TODO: TRK-231: make this a span, and render it inside a <Link /> when using it.
@@ -34,8 +27,9 @@ const Link = styled.span`
 	${spacing.padding.wide({ size: 0.2, ratio: 2.5 })}
 
 	--highlight-color: ${(p) => p.theme.colors.purple.dark};
-	border: 2px solid var(--highlight-color);
-	color: var(--highlight-color);
+
+   background-color: var(--highlight-color);
+	color: ${colors.light[1]};
 
 	align-items: center;
 	font-weight: 500;
@@ -113,15 +107,21 @@ const TriggerButton = styled(Buttons.Unstyled)`
 	position: relative;
 	width: max-content;
 	border: 2px solid transparent;
-	border-bottom-color: #ddd;
-	box-shadow: 0 1.3rem 0 -1rem #ddd;
+	
+   --shadow-color: ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 4 : 3]};
+   --secondary-background-color: ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 2]};
+
+   border-bottom-color: var(--shadow-color);
+
+   --shadow: 0 1.3rem 0 -1rem var(--shadow-color);
+	box-shadow: var(--shadow);
 
 	&:hover,
 	&:active,
 	&:focus {
 		${radius.medium};
-		border-color: #ccc;
-		box-shadow: 0 0.4rem 0.6rem -0.2rem #ccc;
+		border-color: var(--secondary-background-color);
+		box-shadow: var(--shadow), 0 0.4rem 0.6rem -0.2rem var(--secondary-background-color);
 		background-color: ${(p) => p.theme.colors.background.main[0]};
 	}
 `;

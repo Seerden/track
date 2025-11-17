@@ -112,6 +112,7 @@ const backgroundLight = {
 const backgroundDark = {
 	main: backgroundLight.contrast,
 	contrast: backgroundLight.main,
+	body: "#171717",
 } as const;
 
 export const colors = {
