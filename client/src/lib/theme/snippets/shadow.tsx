@@ -9,7 +9,7 @@ const input = css`
 `;
 
 const card = css`
-	box-shadow: 0 0 1rem 0 #bbb;
+	box-shadow: 0 0 1rem 0 #aaa;
 `;
 
 const cardOffset = css`

@@ -27,7 +27,7 @@ const FormTitle = styled.h1`
 	margin-bottom: 0.9rem;
 
 	max-width: max-content;
-	background-color: #ddd;
+	background-color: ${(p) => p.theme.colors.background.main[4]};
 	${spacing.padding.wide({ size: 0.5, ratio: 3 })};
 	box-shadow:
 		-0.2rem 0.2rem 0 0 #ccc,
@@ -91,7 +91,8 @@ const Label = styled.label<{ $showWarning?: boolean }>`
 	}
 
 	span {
-		background-color: #fff;
+		background-color: ${(p) => p.theme.colors.background.main[0]};
+;
 		${spacing.padding.wide({ size: 0.2, ratio: 3 })};
 		border-radius: 0 15px 0 0;
 		font-size: ${font.size["0.93"]};;

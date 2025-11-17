@@ -16,6 +16,6 @@ export const menuDropdownStyle = css`
    ${outline.grey};
    
    box-shadow:
-		0 0.2rem 0.1rem 0 #bbb,
+		0 0.2rem 0.1rem 0 #aaa,
 		0 0.3rem 1rem 0 #aaa;
 `;

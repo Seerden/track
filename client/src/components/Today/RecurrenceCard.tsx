@@ -30,7 +30,7 @@ export function RecurrenceCard({ recurrence }: { recurrence: Recurrence }) {
 					padding: "3px",
 				}}
 			>
-				<LucideRepeat size={"15px"} color="black" />
+				<LucideRepeat size={"15px"} color="#000" />
 			</span>
 			{recurrence.frequency === "calendar" ? (
 				<CalendarRecurrenceCard recurrence={recurrence} />
@@ -59,13 +59,13 @@ const Badge = styled.span`
 	flex-grow: 1;
 	justify-content: center;
 	${radius.small};
-	color: black;
+	color: #000;
 
 	${spacing.padding.wide({ size: 0.25, ratio: 2 })};
 
 	user-select: none;
 
-	background-color: #f7f7f7;
+	background-color: ${(p) => p.theme.colors.background.main[1]};
 `;
 
 function CalendarRecurrenceCard({ recurrence }: { recurrence: Recurrence }) {

@@ -55,8 +55,9 @@ export default function SpeedDial({
 	return (
 		<S.SpeedDialWrapper ref={refs.setReference} {...getReferenceProps()}>
 			<Buttons.Action.Default
-				$color="darkBlue"
-				style={{ width: 50, height: 50 }}>
+				$color="royalblue"
+				style={{ width: 50, height: 50 }}
+			>
 				{open ? <Minus strokeWidth={3} /> : <Plus strokeWidth={3} />}
 			</Buttons.Action.Default>
 			{open && (
@@ -65,7 +66,8 @@ export default function SpeedDial({
 						<div
 							ref={refs.setFloating}
 							style={{ ...floatingStyles }}
-							{...getFloatingProps()}>
+							{...getFloatingProps()}
+						>
 							{children}
 						</div>
 					</FloatingFocusManager>

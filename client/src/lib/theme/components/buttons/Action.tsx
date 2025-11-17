@@ -1,11 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { CSSProperties } from "react";
-import {
-	type ColorKey,
-	getMainColor,
-	getSecondaryColor,
-} from "@/lib/theme/colors";
+import type { ColorKey } from "@/lib/theme/colors";
 import Unstyled from "@/lib/theme/components/buttons/Unstyled";
 import { font } from "@/lib/theme/font";
 import { border, outline, thinOutline } from "@/lib/theme/snippets/edge";
@@ -22,7 +18,7 @@ export const Default = styled(Unstyled)<{
 	${flex.centered};
 	${radius.round};
 
-	--color: ${(p) => (p.$minimal ? "#f2f2f2" : p.theme.colors[p.$color ?? "purple"].main)};
+	--color: ${(p) => (p.$minimal ? "#eee" : p.$color)};
 	background-color: var(--color);
 	box-shadow: 0 0 0.2rem 0 var(--color);
 
@@ -30,11 +26,7 @@ export const Default = styled(Unstyled)<{
 	&:focus,
 	&:active {
 		background-color: ${(p) =>
-			p.$minimal
-				? "#eee"
-				: p.$color
-					? p.theme.colors[p.$color].secondary
-					: "transparent"};
+			p.$minimal ? "#eee" : (p.$color ?? "transparent")};
 		${outline.primary};
 		box-shadow: ${(p) => (p.$minimal ? "none" : `0 0 0.3rem 0 #333`)};
 	}
@@ -42,7 +34,7 @@ export const Default = styled(Unstyled)<{
 	transition: transform 75ms ease-out;
 
 	// Generic defaults
-	color: white;
+	color: ${(p) => p.theme.colors.text.contrast[0]};
 	width: 30px;
 	height: 30px;
 
@@ -54,11 +46,11 @@ export const Default = styled(Unstyled)<{
    ${(p) =>
 			p.$minimal &&
 			css`
-            color: black;
+            color: #000;
             box-shadow: none;
 
             .lucide {
-               color: black;
+               color: #000;
             }
       `}
 `;
@@ -70,7 +62,8 @@ const Alternative = styled(Unstyled)<{ light?: boolean }>`
 	${(p) =>
 		p.light &&
 		css`
-			background-color: #fff;
+			background-color: ${p.theme.colors.background.main[0]};
+;
 		`}
 
 	--size: 30px; // TODO: use size from props by default, otherwise default to 30px
@@ -86,12 +79,12 @@ const Alternative = styled(Unstyled)<{ light?: boolean }>`
 	// and inputs all need this
 	&:focus:not(:active) {
 		${thinOutline.grey};
-		background-color: #fff;
+		background-color: ${(p) => p.theme.colors.background.main[0]};
+;
 	}
 
 	&:hover {
-		// TODO TRK-231: use a color from the theme, or add this to it
-		background-color: #fafafa;
+		background-color: ${(p) => p.theme.colors.background.main[1]};
 		${outline.primary};
 		box-shadow: 0 0.1rem 0.4rem 0 #ccc;
 	}
@@ -101,26 +94,27 @@ const Stylized = styled(Unstyled)<{
 	$size?: CSSProperties["width"];
 	$color: ColorKey;
 }>`
-	--color: ${(p) => p.$color ?? "themeInverted"};
-
+	--color: ${(p) => p.$color ?? "blue"};
+   
 	${flex.centered};
 	${radius.round};
 	color: white;
-
+   
 	/* TODO: we're using getMainColor for the outline and background, but not the
-      border and shadow. Does that not look ugly for some $color values? */
-	outline: 2px solid ${(p) => getMainColor(p.theme, p.$color)};
+   border and shadow. Does that not look ugly for some $color values? */
+   /* TODO: redo this getMainColor thing */
+	outline: 2px solid var(--color);
 	${border.secondary};
-	box-shadow: 0 0.2rem 0.5rem 0 #bbb;
-	background-color: ${(p) => getMainColor(p.theme, p.$color)};
+	box-shadow: 0 0.2rem 0.5rem 0 #aaa;
+	background-color: var(--color);
 
 	svg {
 		color: white;
 	}
 
 	&:hover:not(:disabled) {
-		outline: 2px solid ${(p) => getSecondaryColor(p.theme, p.$color)};
-		background-color: ${(p) => getSecondaryColor(p.theme, p.$color)};
+		/* TODO: go one tint lighter or darker. Requires another rework of
+		ColorKey though. */
 		${radius.medium}
 	}
 
@@ -151,7 +145,7 @@ const WithIcon = styled(Default)`
 const CallToAction = styled(WithIcon)`
 	padding: 1.5rem 1rem;
 	${radius.small};
-	color: black;
+	color: #000;
 
 	margin-top: -0.5rem;
 	margin-left: auto;

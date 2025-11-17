@@ -15,7 +15,7 @@ const Note = styled.li`
 		grid-area: tags;
 	}
 
-	background-color: #ddd;
+	background-color: ${(p) => p.theme.colors.background.main[4]};
 	padding: 0.5rem 0;
 `;
 

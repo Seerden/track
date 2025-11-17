@@ -44,7 +44,8 @@ const EmptyState = styled.div`
 	padding: 2rem;
 
 	p {
-		background-color: #fff;
+		background-color: ${(p) => p.theme.colors.background.main[0]};
+;
 		padding: 1rem;
 		font-size: ${font.size["1"]};;
 		max-width: 400px;
@@ -99,7 +100,7 @@ const ActionBar = styled.div`
 
 	width: max-content;
 
-	background-color: #eee;
+	background-color: ${(p) => p.theme.colors.background.main[3]};
 	box-shadow: 0 0.3rem 0.5rem -0.1rem #333;
 
 	position: sticky;

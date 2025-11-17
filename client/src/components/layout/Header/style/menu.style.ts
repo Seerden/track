@@ -15,10 +15,9 @@ const Menu = styled.div`
 
    ${menuDropdownStyle};
 
-	color: #444;
 	width: max-content;
 
-	background-color: #f3f3f3; // TODO: TRK-231: theme value
+	background-color: ${(p) => p.theme.colors.background.main[2]};
 
 	/* Have to target the first and second children, because the first one is
       the FloatingArrow. */
@@ -70,7 +69,8 @@ const MenuSectionHeader = styled.span`
 	margin-left: calc(-1 * ${spacingValue.small});
 
 	color: #222;
-	background-color: #fff;
+	background-color: ${(p) => p.theme.colors.background.main[0]};
+;
 
 	width: max-content;
 	align-items: center;
@@ -107,7 +107,7 @@ const TriggerButton = styled(Buttons.Unstyled)`
 	font-size: ${font.size["0.93"]};
 	padding: ${spacingValue.small};
 
-	color: #333;
+	color: ${(p) => p.theme.colors.text.main[3]};
 
 	position: relative;
 	width: max-content;
@@ -121,7 +121,7 @@ const TriggerButton = styled(Buttons.Unstyled)`
 		${radius.medium};
 		border-color: #ccc;
 		box-shadow: 0 0.4rem 0.6rem -0.2rem #ccc;
-		background-color: #e9e9e9;
+		background-color: ${(p) => p.theme.colors.background.main[0]};
 	}
 `;
 

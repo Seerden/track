@@ -14,7 +14,7 @@ const Trigger = styled(Buttons.Unstyled)`
 	${radius.largish};
 	margin-top: ${spacingValue.smaller};
 
-	background-color: #fff;
+	background-color: ${(p) => p.theme.colors.background.main[0]};
 	box-shadow: 0 0.2rem 0.2rem 0 #ccc;
 
 	&:hover,
@@ -33,7 +33,7 @@ const FloatingWrapper = styled.div`
 	margin-top: ${spacingValue.small};
 	${radius.medium};
 
-	background-color: #eee;
+	background-color: ${(p) => p.theme.colors.background.main[3]};
 	box-shadow: 0 0.2rem 0.5rem -0.1rem #aaa;
 
 	z-index: 10;
@@ -60,10 +60,10 @@ const NumberInput = styled(Input.Unstyled)`
 const Select = styled.select`
 	${noBorders};
 	${radius.medium};
-	background-color: #eee;
+	background-color: ${(p) => p.theme.colors.background.main[3]};
 
 	option {
-		background-color: #eee;
+		background-color: ${(p) => p.theme.colors.background.main[3]};
 		border: none;
 		outline: none;
 	}
@@ -80,7 +80,7 @@ const ActionBar = styled.div`
 	margin-bottom: ${spacingValue.small};
 	${radius.medium}
 
-	background-color: #fff;
+   background-color: ${(p) => p.theme.colors.background.main[0]};
 	outline: 2px solid #e9e9e9; // TODO: theme value
 `;
 

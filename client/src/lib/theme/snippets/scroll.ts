@@ -19,7 +19,9 @@ const customScrollbar = css`
 	}
 
 	&::-webkit-scrollbar-track-piece {
+      /* TODO: theme-aware */
 		background-color: #fff;
+;
 	}
 
 	&::-webkit-scrollbar-thumb {

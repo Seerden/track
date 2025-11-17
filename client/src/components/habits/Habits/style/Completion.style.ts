@@ -12,13 +12,8 @@ const List = styled.ul<{ $itemCount: number }>`
 	${flex.row};
 `;
 
-const FloatingWrapper = styled(Floating.Wrapper)`
-	* {
-		/* This makes sure the background of each Slider completion entry is
-		      visible. */
-		--slider-track-bg: #aaa;
-	}
-`;
+// TODO: this thing is useless now, just use Floating.Wrapper if anything.
+const FloatingWrapper = styled(Floating.Wrapper)``;
 
 export default { List, FloatingWrapper };
 
@@ -26,7 +21,7 @@ export const completionTooltipStyles = {
 	regular: {
 		borderRadius: 0,
 		backgroundColor: "#f7f7f7",
-		color: "black",
+		color: "#000",
 		borderEndEndRadius: "3px",
 		fontSize: font.size["0.9"],
 		padding: "0.3rem 0.6rem",

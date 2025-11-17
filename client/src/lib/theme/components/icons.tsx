@@ -18,7 +18,7 @@ const Shortcut = styled.span`
 	font-weight: 500;
 	text-transform: uppercase;
 	${spacing.padding.wide({ size: 0.2, ratio: 2.5 })};
-	background-color: #ddd;
+	background-color: ${(p) => p.theme.colors.background.main[4]};
 	width: max-content;
 	display: inline-flex;
 	${radius.small};
@@ -48,7 +48,7 @@ const InBadge = styled.span<{
 
 					outline: 1px solid var(--badge-icon-color);
 
-					background-color: #eee; // TODO: theme value
+					background-color: ${p.theme.colors.background.main[3]};
 					box-shadow: 0 0 0.2rem 0 #333;
 				`
 			: css`

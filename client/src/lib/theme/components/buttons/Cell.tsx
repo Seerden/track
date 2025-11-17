@@ -39,7 +39,7 @@ const Default = styled(Unstyled)<{
 			? css`
 					cursor: pointer;
 
-					background-color: #f9f9f9; // TODO TRK-231: theme value
+					background-color: ${p.theme.colors.background.main[3]}; // TODO TRK-231: theme value
 					${thinOutline.secondary};
 					${radius.small};
 
@@ -80,7 +80,7 @@ const Default = styled(Unstyled)<{
 	${(p) =>
 		p.$highlight &&
 		css`
-			background-color: #eee;
+			background-color: ${p.theme.colors.background.main[3]};
 			color: #333;
 			font-weight: 600;
 		`}
@@ -108,7 +108,7 @@ const Habit = styled(Default)<{
 
    background-color: var(--inner-color);
    outline: 3px solid var(--outer-color);
-   border: 2px solid #f2f2f2;
+   border: 2px solid #eee;
 
    &:disabled {
       background-color: unset;
@@ -135,7 +135,7 @@ const Habit = styled(Default)<{
       }
 
       &:hover {
-         box-shadow: 0 0 0.4rem 0 #666;
+         box-shadow: 0 0 0.4rem 0 #555;
       }
    }
 `;
@@ -149,13 +149,13 @@ const DaySelector = styled(UnstyledButton)<{ $active?: boolean }>`
 	height: var(--cell-size);
 	${spacing.margin.smaller}
 	${radius.small};
-	background-color: #dfdfdf; // TODO: theme value
+	background-color: #fff; // TODO: theme value
 
 	${(p) =>
 		p.$active &&
 		css`
 			background-color: ${p.theme.colors.blue.main};
-			color: #fff;
+			color: ${p.theme.colors.text.main[0]};
 		`}
 
 	${Active.default};

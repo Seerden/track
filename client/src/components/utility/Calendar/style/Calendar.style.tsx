@@ -23,7 +23,7 @@ const Calendar = styled.div`
 	width: max-content;
 	height: max-content;
 
-	background-color: #f9f9f9;
+	background-color: ${(p) => p.theme.colors.background.main[1]};
 
 	--font-size: ${font.size["0.82"]};
 	font-size: var(--font-size);
@@ -59,7 +59,7 @@ const MonthPickerWrapper = styled.div`
 	max-width: 90%;
 	left: 5%;
 	top: 5%;
-	background-color: #eee;
+	background-color: ${(p) => p.theme.colors.background.main[3]};
 	box-shadow: 0 0.5rem 1rem 0 #aaa;
 	${radius.medium};
 	${outline.grey};
@@ -70,7 +70,7 @@ const Days = styled.div`
 	${flex.row};
 	width: max-content;
 
-	background-color: #eee;
+	background-color: ${(p) => p.theme.colors.background.main[3]};
 	border-bottom: 2px solid ${highlightColor};
 
 	font-size: ${font.size["0.82"]};;

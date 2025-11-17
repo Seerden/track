@@ -69,7 +69,7 @@ export default function DetailedActivity({
 				<Buttons.Action.Stylized
 					type="button"
 					title="Edit this activity"
-					$color="blue"
+					$color="royalblue"
 					onClick={(e) => {
 						e.stopPropagation();
 						openModal(modalIds.activities.form);

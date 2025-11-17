@@ -37,11 +37,10 @@ const TabsPanel = styled.div`
 	${spacing.padding.medium};
 	${radius.medium};
 
-	background-color: #eee;
-	background-color: #f5f5f5;
+	background-color: ${(p) => p.theme.colors.background.main[3]};
 	${outline.tertiary};
 	${border.primary};
-	box-shadow: 0 0.6rem 1rem -0.5rem #999;
+	box-shadow: 0 0.6rem 1rem -0.5rem #777;
 
 	transform-origin: bottom center;
 `;
@@ -68,7 +67,7 @@ const TabInner = styled.div<{ $active?: boolean }>`
 		p.$active &&
 		css`
 			background-color: ${p.theme.colors.darkBlue.main};
-			color: #fff;
+			color: ${p.theme.colors.text.main[0]};
 		`}
 
 	transition: all 50ms linear;
@@ -83,7 +82,7 @@ const Label = styled.label<{ $active?: boolean }>`
 		p.$active &&
 		css`
 			background-color: ${p.theme.colors.darkBlue.main};
-			color: #fff;
+			color: ${p.theme.colors.text.main[0]};
 		`}
 `;
 
@@ -112,14 +111,14 @@ const Toggle = styled(Buttons.Unstyled)<{ $active?: boolean }>`
 		p.$active &&
 		css`
 			background-color: ${p.theme.colors.darkBlue.main};
-			color: #fff;
+			color: ${p.theme.colors.text.main[0]};
 		`}
 `;
 
 const Select = styled.select`
 	display: inline-flex;
 	${noBorders};
-	background-color: #ddd;
+	background-color: ${(p) => p.theme.colors.background.main[4]};
 `;
 
 const Input = styled.input`
@@ -157,6 +156,7 @@ function ResetButton(props: Parameters<typeof _ResetButton>[0]) {
 	return <_ResetButton {...props} type="reset" />;
 }
 
+// TODO: theme-aware
 function getTagBackgroundColor(selected?: boolean, active?: boolean) {
 	if (selected && active) return "darkorange";
 	if (selected) return "orange";
@@ -176,7 +176,10 @@ const TagChip = styled(Buttons.Unstyled)<{
 	flex: 1;
 
 	background-color: ${(p) => getTagBackgroundColor(p.$selected, p.$active)};
-	color: ${(p) => (p.$selected || p.$active ? "#fff" : "#000")};
+	color: ${(p) =>
+		p.$selected || p.$active
+			? p.theme.colors.text.contrast[0]
+			: p.theme.colors.text.main[0]};
 `;
 
 const TagSelectionList = styled.div`

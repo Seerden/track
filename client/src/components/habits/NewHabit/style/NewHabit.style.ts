@@ -26,10 +26,10 @@ const SetEndDateButton = styled(Buttons.Action.Stylized)`
 	${radius.small};
    ${spacing.padding.small};
 
-	color: black;
+	color: #000;
 
 	svg {
-		color: black;
+		color: #000;
 	}
 `;
 
@@ -57,8 +57,8 @@ const RadioOption = styled.label`
 	${radius.small};
 	${border.secondary};
 	${outline.primary};
-	background-color: #eee;
-	box-shadow: 0 0.4rem 0.5rem 0 #e1e1e1;
+	background-color: ${(p) => p.theme.colors.background.main[3]};
+	box-shadow: 0 0.4rem 0.5rem 0 #ddd;
 
 	${RadioLabelText} {
 		font-size: ${font.size["0.85"]};
@@ -71,7 +71,7 @@ const RadioOption = styled.label`
 
 	&:has(input[type="radio"]:checked) {
 		border-color: ${(p) => p.theme.colors.green.secondary};
-		background-color: #eee;
+		background-color: ${(p) => p.theme.colors.background.main[3]};
 
 		box-shadow:
 			0 0.6rem 1rem -0.4rem #aaa,

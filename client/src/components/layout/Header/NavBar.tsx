@@ -1,18 +1,33 @@
 import { Popover } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { useAtomValue } from "jotai";
-import { LucideCalendar, LucideKeyboard, LucideUserCircle } from "lucide-react";
+import { useAtom, useAtomValue } from "jotai";
+import {
+	LucideCalendar,
+	LucideKeyboard,
+	LucideMoon,
+	LucideSun,
+	LucideUserCircle,
+} from "lucide-react";
 import ActivityMenu from "@/components/layout/Header/ActivityMenu/ActivityMenu";
 import { ProfileMenu } from "@/components/user/profile/Profile";
 import { Protected } from "@/components/wrappers";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import { shortcutMenuAtom } from "@/lib/hooks/useContextMenu";
+import Buttons from "@/lib/theme/components/buttons";
+import { themeAtom } from "@/lib/theme/theme-atom";
 import S from "./style/NavBar.style";
 
 export default function NavBar() {
 	const shortcutMenu = useAtomValue(shortcutMenuAtom);
 	const { isLoggedIn } = useAuthentication();
+	const [themeValue, setThemeValue] = useAtom(themeAtom);
+	const ThemeIcon = themeValue === "dark" ? LucideMoon : LucideSun;
+	function toggleTheme() {
+		setThemeValue((current) => {
+			return current === "dark" ? "light" : "dark";
+		});
+	}
 
 	return (
 		<S.NavBar>
@@ -22,6 +37,23 @@ export default function NavBar() {
 				</S.HomeLink>
 			</Link>
 			<S.Actions>
+				<Buttons.Unstyled
+					type="button"
+					onClick={(e) => {
+						e.preventDefault();
+						toggleTheme();
+					}}
+					style={{
+						borderRadius: "50%",
+						width: 30,
+						height: 30,
+						alignSelf: "center",
+						display: "flex",
+						alignItems: "center",
+					}}
+				>
+					<ThemeIcon size={23} />
+				</Buttons.Unstyled>
 				{/* TODO (TRK-257): finish this implementation */}
 				<Popover>
 					<Popover.Target>

@@ -10,14 +10,14 @@ const NavBar = styled.nav`
 	position: fixed;
 	top: 0;
 
-	background-color: #eee;
+	background-color: ${(p) => p.theme.colors.background.main[3]};
 
 	width: 100%;
 
 	${spacing.padding.wide({ size: 1.5, ratio: 2 })};
 	z-index: 99;
 
-	border-bottom: 2px solid #666;
+	border-bottom: 2px solid #555;
 
 	display: flex;
 	justify-content: space-between;
@@ -56,8 +56,8 @@ const HomeLink = styled.span`
 	min-width: 40px;
 	min-height: 35px;
 
-	background-color: #f9f9f9; // TODO TRK-231: theme value
-	box-shadow: 0 0.3rem 0.3rem -0.1rem #bbb;
+	background-color: ${(p) => p.theme.colors.background.main[1]}; // TODO TRK-231: theme value
+	box-shadow: 0 0.3rem 0.3rem -0.1rem #aaa;
 
 	svg {
 		color: #333;
@@ -67,8 +67,8 @@ const HomeLink = styled.span`
 	&:active,
 	&:focus {
 		${outline.tertiary};
-		background-color: #eee;
-		box-shadow: 0 0.3rem 0.3rem -0.2rem #bbb;
+		background-color: ${(p) => p.theme.colors.background.main[3]};
+		box-shadow: 0 0.3rem 0.3rem -0.2rem #aaa;
 		transform: translateY(2px);
 	}
 

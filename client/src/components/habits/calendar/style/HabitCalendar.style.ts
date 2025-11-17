@@ -13,11 +13,11 @@ const CalendarHeader = styled.div`
 const CalendarTitle = styled.h2`
    min-width: max-content;
    user-select: none;
-   background-color: ${(p) => p.theme.colors.tint.offwhite.lightest};
+   background-color: ${(p) => p.theme.colors.background.main[1]};
    ${spacing.padding.wide({ size: 0.2, ratio: 2 })};
    box-shadow: 0 0.3rem 0.2rem -0.2rem #ccc;
    ${radius.small};
-   border-bottom: 2px solid #bbb;
+   border-bottom: 2px solid #aaa;
    color: #333;
    font-size: ${(p) => p.theme.font.size["0.85"]};
 `;

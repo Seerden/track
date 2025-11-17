@@ -30,7 +30,7 @@ const Item = styled.li`
 	}
 
 	${radius.medium};
-	background-color: #ddd; // TODO: apply some style for completed tasks
+	background-color: ${(p) => p.theme.colors.background.main[4]}; // TODO: apply some style for completed tasks
 	width: 100%;
 	min-width: max-content;
 	${spacing.padding.wide({ size: 0.5, ratio: 2 })};
@@ -50,16 +50,15 @@ const ItemName = styled.div`
 	text-align: start;
 
 	color: #333;
-	background-color: #eee;
+	background-color: ${(p) => p.theme.colors.background.main[3]};
 	${spacing.padding.wide({ size: 0.3, ratio: 2.5 })};
 	${radius.small};
-	box-shadow: 0 0.1rem 0.2rem 0 #bbb;
+	box-shadow: 0 0.1rem 0.2rem 0 #aaa;
 
 	flex-grow: 1;
 `;
 
 const Info = styled.div`
-	color: #111;
 	${spacing.padding.wide({ size: 0.3, ratio: 3 })};
 	${radius.small};
 	font-size: ${font.size["0.82"]};;

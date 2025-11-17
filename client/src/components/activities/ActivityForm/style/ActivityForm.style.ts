@@ -18,7 +18,7 @@ const Task = styled.label`
 	padding: 0 1rem;
 	gap: 0.2rem;
 
-	background-color: #eaeaea;
+	background-color: #eee;
 `;
 
 export default {

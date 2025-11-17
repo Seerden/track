@@ -26,7 +26,8 @@ const Wrapper = styled.div<{ $fullSize?: boolean }>`
 
 const List = styled.ul`
 	${flex.row};
-	background-color: #fff;
+	background-color: ${(p) => p.theme.colors.background.main[0]};
+;
 	flex-wrap: wrap;
 
 	gap: 0.5rem;
@@ -61,22 +62,22 @@ const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
 		${(p) =>
 			!p.$isSelected &&
 			css`
-				background-color: #eee;
+				background-color: ${p.theme.colors.background.main[3]};
 				border-color: ${p.theme.colors.blue.main};
 				box-shadow: 0.3rem 0.3rem 0 -0.1rem ${p.theme.colors.blue.main};
 			`}
 	}
 
-	${(props) =>
-		!props.$hasParent
+	${(p) =>
+		!p.$hasParent
 			? css`
 					box-shadow: 0rem 0.2rem 0rem 0rem #aaa;
-					background-color: #f2f2f2;
+					background-color: ${p.theme.colors.background.main[3]};
 				`
 			: css``};
 
-	${(props) =>
-		props.$isSelected &&
+	${(p) =>
+		p.$isSelected &&
 		css`
 			border-color: azure;
 			color: #143516;
@@ -166,13 +167,13 @@ const DropdownContent = styled.div`
 
 	${flex.column};
 
-	background-color: #eee;
+	background-color: ${(p) => p.theme.colors.background.main[3]};
 	${border.tertiary};
 	${radius.medium};
 
 	box-shadow:
 		0.2rem 0.2rem 0 0 #333,
-		0 0 0.6rem 0 #999;
+		0 0 0.6rem 0 #777;
 
 	width: calc(
 		100% + calc(2 * var(--inline-offset))

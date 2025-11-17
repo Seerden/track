@@ -1,4 +1,4 @@
-import type { MainTheme } from "@/lib/style/theme";
+import type { DeepValue } from "@shared/types/data/utility.types";
 
 const baseColors = {
 	purple: {
@@ -31,61 +31,92 @@ const baseColors = {
 		main: "forestgreen",
 		secondary: "limegreen",
 	},
-};
+} as const;
 
-const mainAndSecondary = {
-	theme: {
-		main: "#e8e8e8",
-		secondary: "#ddd",
-	},
-	themeInverted: {
-		main: "#666",
-		secondary: "#999",
-	},
-};
+const light = {
+	0: "#fff",
+	1: "#f7f7f7",
+	2: "#f2f2f2",
+	3: "#eee",
+	4: "#ddd",
+	5: "#ccc",
+	6: "#aaa",
+} as const;
 
-const tintColors = {
-	black: "black",
-	white: "white",
-	light: "#fff",
-	secondary: "#eee",
-	tertiary: "#e1e1e1",
-	offwhite: {
-		lightest: "#f7f7f7",
-		light: "#f2f2f2",
-		shade: "#e7e7e7",
-	},
-	shade: {
-		primary: "#ccc",
-		secondary: "#bbb",
-		tertiary: "#aaa",
-	},
-};
+const dark = {
+	0: "#000",
+	1: "#111",
+	2: "#222",
+	3: "#333",
+	4: "#555",
+	5: "#777",
+	6: "#888",
+} as const;
 
-const highlightColors = {
-	primary: baseColors.yellow.main,
-	secondary: baseColors.red.secondary,
-	success: baseColors.green.main,
-	info: baseColors.blue.main,
-	warning: baseColors.red.secondary,
-	danger: baseColors.red.main,
-	light: "azure",
-	dark: "#333",
-};
+export const textLight = {
+	main: {
+		0: dark[0],
+		1: dark[1],
+		2: dark[2],
+		3: dark[3],
+		4: dark[4],
+		5: dark[5],
+	},
+	contrast: {
+		0: light[0],
+		1: light[1],
+		2: light[2],
+		3: light[3],
+		4: light[4],
+		5: light[5],
+	},
+} as const;
+
+export const textDark = {
+	main: textLight.contrast,
+	contrast: textLight.main,
+} as const;
+
+const backgroundLight = {
+	main: {
+		0: light[0],
+		1: light[1],
+		2: light[2],
+		3: light[3],
+		4: light[4],
+		5: light[5],
+	},
+	contrast: {
+		0: dark[0],
+		1: dark[1],
+		2: dark[2],
+		3: dark[3],
+		4: dark[4],
+		5: dark[5],
+	},
+} as const;
+
+const backgroundDark = {
+	main: backgroundLight.contrast,
+	contrast: backgroundLight.main,
+} as const;
 
 export const colors = {
 	...baseColors,
-	...mainAndSecondary,
-	highlight: highlightColors,
-	tint: tintColors,
+	light,
+	dark,
+	text: textLight,
+	background: backgroundLight,
 };
 
-export type ColorKey = keyof typeof baseColors | keyof typeof mainAndSecondary;
+export const darkColors = {
+	...baseColors,
+	light,
+	dark,
+	text: textDark,
+	background: backgroundDark,
+};
 
-export function getMainColor(theme: MainTheme, color?: ColorKey) {
-	return theme.colors[color ?? "theme"].main;
-}
-
-export function getSecondaryColor(theme: MainTheme, color?: ColorKey) {
-	return theme.colors[color ?? "theme"].secondary;
-}
+export type ColorKey = DeepValue<
+	typeof baseColors | typeof light | typeof dark
+>;

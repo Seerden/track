@@ -27,7 +27,8 @@ export default function NewTagButton({
 				type="button"
 				title="Create a tag"
 				onClick={handleOpen}
-				$color="purple">
+				$color="indigo"
+			>
 				<Tags size={size} />
 			</S.Button>
 

@@ -114,7 +114,7 @@ const Tree = styled.ul<{
 		${radius.small};
 		box-shadow: 0 0 1rem 0rem #ccc;
 		${outline.primary};
-		background-color: #eaeaea;
+		background-color: ${(p) => p.theme.colors.background.main[3]};
 
 		> ${TagName} {
 			justify-self: center;

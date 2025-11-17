@@ -17,7 +17,7 @@ const Branch = styled.ol`
 
 	width: max-content;
 
-	background-color: #f2f2f2;
+	background-color: ${(p) => p.theme.colors.background.main[3]};
 	${radius.medium};
 	box-shadow: 0 0.2rem 0.3rem 0 #ccc;
 	${thinOutline.primary};
@@ -87,8 +87,7 @@ const Title = styled.h2`
 	${radius.small};
 	${spacing.padding.wide({ size: 0.3, ratio: 4 })}
 
-	// TODO TRK-231: theme value
-	background-color: #e1e1e1;
+	background-color: ${(p) => p.theme.colors.background.main[1]};
 	${thinOutline.primary};
 	box-shadow: 0 0.2rem 0.3rem 0 #ccc;
 `;

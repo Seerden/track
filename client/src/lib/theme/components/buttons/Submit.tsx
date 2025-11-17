@@ -13,7 +13,7 @@ const Default = styled(UnstyledButton)`
 	align-self: center;
 	width: max-content;
 	font-size: ${font.size["0.9"]};;
-	background-color: #ddd;
+	background-color: ${(p) => p.theme.colors.background.main[4]};
 	${radius.medium};
 	${border.grey};
 	${spacing.padding.wide({ size: 0.6, ratio: 2.5 })};
@@ -27,7 +27,8 @@ const Default = styled(UnstyledButton)`
 	&:hover,
 	&:focus,
 	&:active {
-		background-color: #fff;
+		background-color: ${(p) => p.theme.colors.background.main[0]};
+;
 		transform: translateY(-2px);
 		border-color: ${(p) => p.theme.colors.blue.main};
 		box-shadow: 0.5rem 0.6rem 0 0 ${(p) => p.theme.colors.blue.main};

@@ -11,7 +11,7 @@ const MenuHeader = styled.h1`
    margin-block: 0;
    padding: ${spacingValue.medium};
    border-bottom: 1px solid var(--color);
-   color: #fff;
+   color: ${(p) => p.theme.colors.text.main[0]};
 
    background-color: var(--color);
 
@@ -24,7 +24,7 @@ const MenuHeader = styled.h1`
    }
 
    .lucide {
-      color: #fff;
+      color: ${(p) => p.theme.colors.text.main[0]};
    }
 `;
 
@@ -41,7 +41,7 @@ const MenuSubsectionHeader = styled.h3`
    line-height: var(--size);
    font-weight: 400;
 
-   color: #111;
+   color: #222;
 `;
 
 export const Title = {

@@ -8,7 +8,9 @@ import {
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
-import { theme } from "@/lib/style/theme";
+import { useAtomValue } from "jotai";
+import { darkTheme, lightTheme } from "@/lib/style/theme";
+import { themeAtom } from "@/lib/theme/theme-atom";
 import { trpc } from "@/lib/trpc";
 import { DefaultSkeleton } from "./components/layout/Skeleton";
 import { queryClient } from "./lib/query-client";
@@ -29,13 +31,17 @@ export function createRouter() {
 						style={{
 							padding: "3rem",
 							width: "100%",
-						}}>
+						}}
+					>
 						<DefaultSkeleton />
 					</div>
 				</>
 			);
 		},
 		Wrap: function WrapComponent({ children }) {
+			const themeValue = useAtomValue(themeAtom);
+			const theme = themeValue === "dark" ? darkTheme : lightTheme;
+
 			return (
 				<QueryClientProvider client={queryClient}>
 					<ReactQueryDevtools initialIsOpen={false} position="bottom" />
@@ -54,7 +60,8 @@ export function createRouter() {
 									},
 								}),
 							},
-						}}>
+						}}
+					>
 						<Global styles={theme.global} />
 						<ThemeProvider theme={theme}>{children}</ThemeProvider>
 					</MantineProvider>

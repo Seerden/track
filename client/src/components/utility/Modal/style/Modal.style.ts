@@ -36,7 +36,7 @@ const Close = styled(Buttons.Action.Stylized)`
 const Modal = styled.div`
 	position: relative;
 	${spacing.padding.wide({ size: 1.2, ratio: 1.25 })}
-	background-color: #eee; // TODO: this should be a theme value
+	background-color: ${(p) => p.theme.colors.background.main[3]}; // TODO: this should be a theme value
 	height: max-content;
 	${thinBorder.darkish};
 	${radius.medium};

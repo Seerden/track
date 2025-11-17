@@ -4,8 +4,8 @@ import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
 
 const Empty = styled.p`
-	background-color: #ddd;
-	box-shadow: 0 0.4rem 0.2rem -0.3rem #bbb;
+	background-color: ${(p) => p.theme.colors.background.main[4]};
+	box-shadow: 0 0.4rem 0.2rem -0.3rem #aaa;
 
 	${spacing.padding.wide({ size: 0.5, ratio: 2 })};
 	${radius.small};
@@ -15,7 +15,7 @@ const Empty = styled.p`
 	gap: 0.5rem;
 
 	button {
-		color: #666;
+		color: #555;
 	}
 `;
 

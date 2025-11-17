@@ -48,7 +48,8 @@ const Select = styled.select``;
 
 const Label = styled.label`
 	${flex.column};
-	background-color: #fff;
+	background-color: ${(p) => p.theme.colors.background.main[0]};
+;
 	${spacing.padding.small};
 	${radius.medium}
 	box-shadow: 0 0.2rem 0.3rem 0 #ccc;
@@ -74,7 +75,8 @@ const Label = styled.label`
 			height: 1.5rem;
 		}
 
-		background-color: #fff;
+		background-color: ${(p) => p.theme.colors.background.main[0]};
+;
 
 		font-size: ${font.size["0.93"]};
 		margin: ${spacingValue.smaller};
@@ -88,7 +90,7 @@ const Label = styled.label`
  * @todo extract this Button to theme buttons lib? -- make note of the default margin, which I dislike
  * */
 const _Submit = styled(Buttons.Action.CallToAction)`
-	color: black;
+	color: #000;
 	margin-top: 1rem;
 	margin-left: 0;
 

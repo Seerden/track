@@ -40,7 +40,7 @@ const Wrapper = styled.span`
 		}
 
 		${Unchecked} {
-			color: #bbb;
+			color: #aaa;
 		}
 	}
 `;

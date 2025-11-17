@@ -5,7 +5,8 @@ import { flex } from "@/lib/theme/snippets/flex";
 import shadows from "@/lib/theme/snippets/shadow";
 
 export const pageStyle = css`
-	background-color: #efefef;
+   /* TODO: theme-aware */
+	background-color: #eee;
 	display: flex;
 
 	${shadows.page};
@@ -19,8 +20,8 @@ export const pageStyle = css`
 		width: 75dvw;
 	}
 
-	border-left: 2px solid #666;
-	border-right: 2px solid #666;
+	border-left: 2px solid #555;
+	border-right: 2px solid #555;
 
 	@media (max-width: 768px) {
 		width: 100dvw;

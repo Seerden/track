@@ -26,7 +26,7 @@ export function Filter({
 				value={filter}
 				onChange={updateFilter}
 			/>
-			<S.ClearFilter type="button" onClick={clearFilter} $color="themeInverted">
+			<S.ClearFilter type="button" onClick={clearFilter} $color="orangered">
 				<LucideX size={15} />
 			</S.ClearFilter>
 		</S.FilterWrapper>

@@ -23,7 +23,7 @@ const TimelineWrapper = styled.section`
 		max-width: 1000px;
 	}
 
-	background-color: #f9f9f9;
+	background-color: ${(p) => p.theme.colors.background.main[1]};
 	box-shadow: 0 0.2rem 1rem -0.3rem #ccc;
 
 	height: max-content;

@@ -35,7 +35,7 @@ const ActivityCard = styled.div<{ $level: number; $offset: number }>`
 		top: 0.2rem;
 		right: 0.2rem;
 		${radius.round};
-		background-color: #eee;
+		background-color: ${(p) => p.theme.colors.background.main[3]};
 	}
 `;
 
@@ -60,7 +60,7 @@ const Activity = styled.div<{
 	${spacing.padding.wide({ size: 0.5, ratio: 2 })};
 	background-color: ${(p) => (p.$isTask ? colors.blue.main : colors.green.secondary)};
 	align-items: ${(p) => (p.$durationHours > 2 ? "flex-start" : "center")};
-	color: ${(p) => (p.$isTask ? "azure" : "black")};
+	color: ${(p) => (p.$isTask ? "azure" : "#000")};
 
 	${outline.secondary};
 	width: var(--card-width);

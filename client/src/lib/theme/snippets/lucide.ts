@@ -9,16 +9,8 @@ const PasswordEye = css`
 	}
 `;
 
-const BlackInWhite = css`
-	.lucide {
-		color: black;
-		background-color: white;
-	}
-`;
-
 const Lucide = {
 	PasswordEye,
-	BlackInWhite,
 };
 
 export default Lucide;

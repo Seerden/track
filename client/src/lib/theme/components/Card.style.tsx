@@ -24,7 +24,7 @@ const Title = styled.h2`
 	font-weight: bold;
 	margin-bottom: 0.5rem;
 	background-color: ${(p) => p.theme.colors.purple.main};
-	color: white;
+	color: ${(p) => p.theme.colors.text.contrast[0]};
 	padding: 0.5rem 1.5rem;
 	border-radius: 3px 3px 10px 3px;
 	${flex.row};

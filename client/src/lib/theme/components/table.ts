@@ -27,7 +27,7 @@ const HeaderDark = styled.div`
 	background-color: #333;
 	${outline.tertiary};
 	box-shadow: 0 0 0.3rem 0 #ccc;
-	color: #eee;
+	color: ${(p) => p.theme.colors.text.contrast[3]};
 
 	${subgridItem};
 `;

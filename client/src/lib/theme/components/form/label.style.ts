@@ -16,7 +16,7 @@ const WithToggle = styled.label`
    gap: ${spacingValue.medium};
    font-size: ${font.size["0.9"]};
    border-radius: 2px; // TODO: theme
-   background-color: #f7f7f7;
+   background-color: ${(p) => p.theme.colors.background.main[1]};
    padding: ${spacingValue.small} ${spacingValue.medium};
 `;
 
