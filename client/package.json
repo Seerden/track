@@ -44,6 +44,7 @@
     "@rollup/rollup-win32-x64-msvc": "^4.52.5"
   },
   "devDependencies": {
+    "@babel/preset-react": "7.28.5",
     "@emotion/babel-plugin": "^11.13.5",
     "@tanstack/react-query": "5.81.2",
     "@tanstack/react-query-devtools": "5.81.2",

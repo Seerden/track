@@ -18,6 +18,12 @@ export default defineConfig({
 		}),
 		viteReact({
 			babel: {
+				presets: [
+					[
+						"@babel/preset-react",
+						{ runtime: "automatic", importSource: "@emotion/react" },
+					],
+				],
 				plugins: ["@emotion/babel-plugin", "babel-plugin-react-compiler"],
 				babelrc: false,
 				configFile: false,
