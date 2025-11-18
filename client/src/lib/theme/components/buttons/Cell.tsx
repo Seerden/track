@@ -119,7 +119,8 @@ const Habit = styled(Default)<{
       outline-color: transparent;
    };
 
-   color: ${(p) => (p.$cellDone || p.$cellTouched ? p.theme.colors.text.main[0] : "inherit")};
+   --color: ${(p) => (p.$cellDone || p.$cellTouched ? p.theme.colors.light[0] : p.theme.colors.text.main[0])};
+   color: var(--color);
 
    &:not(:disabled) {
       /* These styles are repeated from above, because otherwise they're
@@ -127,15 +128,15 @@ const Habit = styled(Default)<{
       &:hover, &:active, &:focus {
          background-color: var(--inner-color);
          outline: 3px solid var(--outer-color) ;
-         color: ${(p) => (p.$cellDone || p.$cellTouched ? "white" : "inherit")};
+         color: var(--color);
       }
 
       &:active, &:focus {
-         box-shadow: 0 0 0.5rem 0 #333;
+         box-shadow: 0 0 0.5rem 0 ${(p) => p.theme.colors.dark[3]};
       }
 
       &:hover {
-         box-shadow: 0 0 0.4rem 0 #555;
+         box-shadow: 0 0 0.4rem 0 ${(p) => p.theme.colors.dark[4]};
       }
    }
 `;
