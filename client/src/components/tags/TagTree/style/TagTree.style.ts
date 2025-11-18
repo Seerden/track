@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import BadgeStyles from "@/lib/theme/components/Badge.style";
 import { font } from "@/lib/theme/font";
 import { outline } from "@/lib/theme/snippets/edge";

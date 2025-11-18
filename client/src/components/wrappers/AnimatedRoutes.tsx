@@ -1,6 +1,6 @@
 import { ErrorBoundary } from "@sentry/react";
 import { getRouterContext, Outlet, useLocation } from "@tanstack/react-router";
-import { AnimatePresence, motion, useIsPresent } from "framer-motion";
+import { AnimatePresence, motion, useIsPresent } from "motion/react";
 import { Fragment, forwardRef, useContext, useRef } from "react";
 import Header from "@/components/layout/Header/Header";
 import DetailModals from "@/components/utility/Modal/DetailModals";
