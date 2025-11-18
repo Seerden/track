@@ -19,16 +19,16 @@ export const Default = styled(Unstyled)<{
 	${flex.centered};
 	${radius.round};
 
-   --color-text: ${(p) => p.theme.colors.text.main[3]};
+   --color-text: ${(p) => contrastColor(p.$minimal ? p.theme.colors.background.main[3] : (p.$color ?? p.theme.colors.background.main[3]))};
 	--color-background: ${(p) => (p.$minimal ? p.theme.colors.background.main[3] : (p.$color ?? p.theme.colors.background.main[3]))};
    --color-background-active: ${(p) => p.$interactionColor ?? p.$color ?? p.theme.colors.background.main[1]};
 
-   color: ${(p) => contrastColor(p.$minimal ? p.theme.colors.background.main[3] : (p.$color ?? p.theme.colors.background.main[3]))};
+   color: var(--color-text);
 	background-color: var(--color-background);
 	box-shadow: 0 0 0.3rem -0.1rem var(--color-background);
 
    .lucide {
-      color: var(--color-background);
+      color: var(--color-text);
    }
 
 	&:hover,
