@@ -11,7 +11,6 @@ type RouterContext = {
 export const Route = createRootRouteWithContext<RouterContext>()({
 	component: App,
 	beforeLoad: async ({ context: { queryClient }, location }) => {
-		console.log("In __root beforeLoad");
 		const me = await queryClient.ensureQueryData(trpc.auth.me.queryOptions());
 		if (!me.user && !["/login", "/register"].includes(location.pathname)) {
 			throw redirect({ to: "/login" });
