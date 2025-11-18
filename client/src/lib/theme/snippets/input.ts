@@ -7,7 +7,7 @@ import { spacing } from "@/lib/theme/snippets/spacing";
 
 export const inputStyle = ({ theme }: { theme: MainTheme }) =>
 	css`
-      caret-color: ${theme.colors.background.main[0]};
+      caret-color: ${theme.colors.text.main[0]};
 
       --font-size: ${font.size[0.93]};
       font-size: var(--font-size);

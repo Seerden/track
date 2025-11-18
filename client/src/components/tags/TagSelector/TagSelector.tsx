@@ -93,7 +93,7 @@ export default function TagSelector({
 								{/* TODO: we show this exact thing in two different places -- make it a subcomponent, or at least a render function */}
 								{!!selectedTagIds.length && (
 									<Button onClick={handleSelectionReset}>
-										<LucideFilterX size={20} color="orangered" />
+										<LucideFilterX size={18} color="orangered" />
 									</Button>
 								)}
 								{showNewTagButton && <NewTagButton modalId={modalId} />}
@@ -125,7 +125,7 @@ export default function TagSelector({
 
 								{!!selectedTagIds.length && (
 									<Button onClick={handleSelectionReset}>
-										<LucideFilterX size={20} color="orangered" />
+										<LucideFilterX size={18} color="orangered" />
 									</Button>
 								)}
 

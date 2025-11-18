@@ -8,7 +8,6 @@ import { lightDark } from "@/lib/theme/light-dark";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import Active from "../../snippets/active";
 import { DirectionButton } from "./Direction";
 
 export const Default = styled(Unstyled)<{
@@ -19,9 +18,15 @@ export const Default = styled(Unstyled)<{
 	${flex.centered};
 	${radius.round};
 
-	--color: ${(p) => (p.$minimal ? p.theme.colors.background.main[3] : p.$color)};
-	background-color: var(--color);
-	box-shadow: 0 0 0.3rem -0.1rem var(--color);
+   --color-text: ${(p) => p.theme.colors.text.main[3]};
+	--color-background: ${(p) => (p.$minimal ? p.theme.colors.background.main[3] : p.$color)};
+
+	background-color: var(--color-background);
+	box-shadow: 0 0 0.3rem -0.1rem var(--color-background);
+
+   .lucide {
+      color: var(--color-background);
+   }
 
 	&:hover,
 	&:focus,
@@ -33,9 +38,9 @@ export const Default = styled(Unstyled)<{
       ${(p) =>
 				!p.$interactionColor &&
 				css`
-               color: var(--color);
+               color: var(--color-text);
                .lucide {
-                  color: var(--color);
+                  color: var(--color-text);
                }
             `}
 	}
@@ -43,7 +48,7 @@ export const Default = styled(Unstyled)<{
 	transition: transform 75ms ease-out;
 
 	// Generic defaults
-	color: ${(p) => p.theme.colors.text.contrast[0]};
+	color: var(--color-text);
 	width: 30px;
 	height: 30px;
 
@@ -96,7 +101,7 @@ const Stylized = styled(Unstyled)<{
    
 	${flex.centered};
 	${radius.round};
-	color: white;
+	color: ${(p) => p.theme.colors.text.contrast[0]};
    
 	/* TODO: we're using getMainColor for the outline and background, but not the
    border and shadow. Does that not look ugly for some $color values? */
@@ -106,8 +111,8 @@ const Stylized = styled(Unstyled)<{
 	box-shadow: 0 0.2rem 0.5rem 0 ${(p) => lightDark(p, p.theme.colors.background.main[6], p.theme.colors.background.main[1])};
 	background-color: var(--color);
 
-	svg {
-		color: white;
+	.lucide {
+		color: ${(p) => p.theme.colors.text.contrast[0]};
 	}
 
 	&:hover:not(:disabled) {
@@ -133,10 +138,8 @@ const Stylized = styled(Unstyled)<{
 const WithIcon = styled(Default)`
 	display: flex;
 	width: max-content;
-	color: white;
-
+	
 	${radius.large};
-	margin-left: 1rem;
 	padding: 1.5rem 2.5rem;
 	gap: ${spacingValue.medium};
 `;
@@ -144,11 +147,6 @@ const WithIcon = styled(Default)`
 const CallToAction = styled(WithIcon)`
 	padding: 1.5rem 1rem;
 	${radius.small};
-	color: #000;
-
-	margin-top: -0.5rem;
-	margin-left: auto;
-	margin-right: 4rem;
 
 	@media (max-width: 768px) {
 		margin: 0;
@@ -168,11 +166,9 @@ const Clear = styled(Unstyled)`
 		cursor: unset;
 
 		.lucide {
-			color: #ccc;
+			color: ${(p) => p.theme.colors.light[3]};
 		}
 	}
-
-	${Active.default};
 `;
 
 const DefaultText = styled(Default)`

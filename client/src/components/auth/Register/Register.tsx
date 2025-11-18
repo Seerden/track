@@ -89,9 +89,9 @@ function Register() {
 						</div>
 					</S.Column>
 				</S.Fields>
-				<S.Submit $color="#ddd">
-					register <LucideArrowRight size={15} color="#000" />
-				</S.Submit>
+				<F.Submit $minimal type="submit" style={{ marginTop: "1rem" }}>
+					register <LucideArrowRight size={15} />
+				</F.Submit>
 			</F.Form>
 		</S.Wrapper>
 	);

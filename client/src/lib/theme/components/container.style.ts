@@ -1,22 +1,18 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { font } from "@/lib/theme/font";
-import {
-	border,
-	outline,
-	thickOutline,
-	thinOutline,
-} from "@/lib/theme/snippets/edge";
+import type { MainTheme } from "@/lib/style/theme";
+import { thickOutline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 
-const minimal = css`
+const minimal = ({ theme }: { theme: MainTheme }) => css`
 	${spacing.padding.wide({ size: 0.5, ratio: 2 })}
 	${radius.medium};
-	${outline.secondary};
-	${border.primary};
-	box-shadow: 0 0.5rem 1rem 0 #ccc;
+	
+   outline: 2px solid ${theme.colors.background.main[theme.mode === "light" ? 3 : 2]};
+	border: 2px solid ${theme.colors.background.main[0]};
+	box-shadow: 0 0.5rem 1rem 0 var(--shadow-1, transparent);
 `;
 
 export const containers = {
@@ -27,29 +23,8 @@ const FieldWrapper = styled.div<{ $small?: boolean }>`
 	${(p) => spacing.padding.wide({ size: p.$small ? 0.2 : 0.5, ratio: 2 })}
 
 	${radius.medium};
-	${outline.tertiary};
+	outline: 2px solid ${(p) => p.theme.colors.background.main[4]};
 	margin: ${spacingValue.smaller};
-`;
-
-const EmptyState = styled.div`
-	${flex.column};
-	${thinOutline.primary};
-
-	width: max-content;
-	max-width: 100%;
-
-	box-shadow:
-		0.5rem 0.5rem 0 -0.2rem #555,
-		0 0 0.6rem 0 #ddd;
-	padding: 2rem;
-
-	p {
-		background-color: ${(p) => p.theme.colors.background.main[0]};
-;
-		padding: 1rem;
-		font-size: ${font.size["1"]};;
-		max-width: 400px;
-	}
 `;
 
 // TODO TRK-231: this concept of a generic flex row is work in progress.
@@ -101,7 +76,7 @@ const ActionBar = styled.div`
 	width: max-content;
 
 	background-color: ${(p) => p.theme.colors.background.main[3]};
-	box-shadow: 0 0.3rem 0.5rem -0.1rem #333;
+	box-shadow: 0 0.3rem 0.5rem -0.1rem ${(p) => p.theme.colors.background.contrast[3]};
 
 	position: sticky;
 	z-index: 2;
@@ -110,7 +85,6 @@ const ActionBar = styled.div`
 
 const Containers = {
 	Field: FieldWrapper,
-	EmptyState,
 	Row,
 	Column,
 	ActionBar,

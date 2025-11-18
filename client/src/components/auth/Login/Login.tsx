@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { LucideArrowRight, LucideEye, LucideEyeOff } from "lucide-react";
+import { LucideArrowRight, LucideEye, LucideEyeClosed } from "lucide-react";
 import Notification from "@/components/utility/Notification/Notification";
 import Containers from "@/lib/theme/components/container.style";
 import F from "@/lib/theme/components/form/form.alternate.style";
@@ -51,9 +51,9 @@ function Login() {
 								value={`${passwordVisible ? "Hide" : "Show"} password`}
 							>
 								{passwordVisible ? (
-									<LucideEyeOff size={24} />
+									<LucideEyeClosed size={22} />
 								) : (
-									<LucideEye size={24} />
+									<LucideEye size={22} />
 								)}
 							</S.ShowPassword>
 						</div>
@@ -65,9 +65,9 @@ function Login() {
 						alignItems: "center",
 					}}
 				>
-					<S.Submit $color="#ddd">
-						log in <LucideArrowRight size={15} color="#000" strokeWidth={2} />
-					</S.Submit>
+					<F.Submit $minimal type="submit">
+						log in <LucideArrowRight size={15} strokeWidth={2} />
+					</F.Submit>
 					<Link
 						to="/register"
 						style={{

@@ -1,9 +1,6 @@
 import styled from "@emotion/styled";
 import Buttons from "@/lib/theme/components/buttons";
-import F from "@/lib/theme/components/form/form.alternate.style";
-import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
-import Lucide from "@/lib/theme/snippets/lucide";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 
@@ -23,16 +20,8 @@ const Fields = styled.div`
 const ShowPassword = styled(Buttons.Unstyled)`
 	position: absolute;
 	right: 1rem;
-	top: 0;
+	top: 6px;
 	max-height: max-content;
-
-	${Lucide.PasswordEye};
-`;
-
-// TODO: conflate styles for these submit buttons. I don't like the default
-// padding, so why not just change that instead of overriding it here?
-const Submit = styled(F.Submit)`
-	padding: 0.5rem 1rem;
 `;
 
 // TODO -- this is adapted from NewFieldTemplate.style. Extract it.
@@ -45,8 +34,8 @@ const Column = styled.fieldset`
 	padding: ${spacingValue.small};
 	${radius.medium};
 
-	background-color: #e9e9e9;
-	${outline.tertiary};
+	background-color: ${(p) => p.theme.colors.background.main[2]};
+	outline: 2px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 3 : 2]};
 	height: max-content;
 `;
 
@@ -54,6 +43,5 @@ export default {
 	Wrapper,
 	Fields,
 	ShowPassword,
-	Submit,
 	Column,
 };

@@ -1,7 +1,6 @@
-import { FloatingArrow, FloatingFocusManager } from "@floating-ui/react";
+import { Popover } from "@mantine/core";
 import { LucideXCircle } from "lucide-react";
-import { useState } from "react";
-import useFloatingProps from "@/lib/hooks/useFloatingProps";
+import { usePopover } from "@/lib/hooks/usePopover";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import S from "./style/DaySelector.style";
@@ -54,76 +53,76 @@ export default function DaySelector<T extends Option>({
 	options,
 	optionLabels,
 }: DaySelectorProps<T>) {
-	const [isOpen, setIsOpen] = useState(false);
-	const float = useFloatingProps({
-		click: {},
-		open: isOpen,
-		setOpen: setIsOpen,
-	});
+	const { opened, open, close, toggle } = usePopover("ActivityForm");
 
 	const isActive = (day: T) => selection?.includes(day);
 
 	return (
-		<>
-			<S.Trigger ref={float.refs.setReference} {...float.getReferenceProps()}>
-				{triggerLabel}
-			</S.Trigger>
+		<Popover
+			trapFocus
+			opened={opened("DaySelector")}
+			onOpen={() => open("DaySelector")}
+			onClose={() => close("DaySelector")}
+			onDismiss={() => close("DaySelector")}
+			closeOnEscape={false}
+			radius={"sm"}
+			withArrow
+			styles={{
+				dropdown: {
+					padding: 0,
+					margin: 0,
+				},
+			}}
+		>
+			<Popover.Target>
+				<S.Trigger type="button" onClick={() => toggle("DaySelector")}>
+					{triggerLabel}
+				</S.Trigger>
+			</Popover.Target>
 
-			{isOpen && (
-				<FloatingFocusManager context={float.context}>
-					<S.FloatingWrapper
-						ref={float.refs.setFloating}
-						style={{
-							...float.floatingStyles,
-						}}
-						{...float.getFloatingProps()}>
-						<FloatingArrow
-							ref={float.arrowRef}
-							context={float.context}
-							width={15}
-							height={5}
-							fill={"#ccc"}
-							style={{ marginBottom: "1px" }}
-						/>
-						<S.ActionBar>
-							<Buttons.Action.Clear
-								type="button"
-								disabled={!selection?.length}
-								title="Clear selection"
-								onClick={resetSelection}>
-								<LucideXCircle size={20} strokeWidth={2} />
-							</Buttons.Action.Clear>
-						</S.ActionBar>
-						{isNestedArray(options) ? (
-							<>
-								{options.map((week, index) => (
-									<Containers.Row key={index}>
-										{week.map((day) => (
-											<Buttons.Cell.DaySelector
-												$active={isActive(day)}
-												onClick={() => setSelection(day)}
-												key={day}>
-												{day}
-											</Buttons.Cell.DaySelector>
-										))}
-									</Containers.Row>
-								))}
-							</>
-						) : (
-							<Containers.Row>
-								{options.map((option, index) => (
-									<Buttons.Cell.DaySelector
-										key={option}
-										$active={isActive(option)}
-										onClick={() => setSelection(option)}>
-										{optionLabels?.[index] ?? option}
-									</Buttons.Cell.DaySelector>
-								))}
-							</Containers.Row>
-						)}
-					</S.FloatingWrapper>
-				</FloatingFocusManager>
-			)}
-		</>
+			<Popover.Dropdown>
+				<S.FloatingWrapper>
+					<S.ActionBar>
+						<Buttons.Action.Clear
+							type="button"
+							disabled={!selection?.length}
+							title="Clear selection"
+							onClick={resetSelection}
+						>
+							<LucideXCircle size={18} strokeWidth={2} />
+						</Buttons.Action.Clear>
+					</S.ActionBar>
+					{isNestedArray(options) ? (
+						<>
+							{options.map((week, index) => (
+								<Containers.Row key={index}>
+									{week.map((day) => (
+										<Buttons.Cell.DaySelector
+											$active={isActive(day)}
+											onClick={() => setSelection(day)}
+											key={day}
+										>
+											{day}
+										</Buttons.Cell.DaySelector>
+									))}
+								</Containers.Row>
+							))}
+						</>
+					) : (
+						<Containers.Row>
+							{options.map((option, index) => (
+								<Buttons.Cell.DaySelector
+									key={option}
+									$active={isActive(option)}
+									onClick={() => setSelection(option)}
+								>
+									{optionLabels?.[index] ?? option}
+								</Buttons.Cell.DaySelector>
+							))}
+						</Containers.Row>
+					)}
+				</S.FloatingWrapper>
+			</Popover.Dropdown>
+		</Popover>
 	);
 }

@@ -4,18 +4,19 @@ import formStyle from "@/lib/theme/components/form.style";
 import Input from "@/lib/theme/input";
 import Active from "@/lib/theme/snippets/active";
 import { noBorders } from "@/lib/theme/snippets/border";
-import { border, outline } from "@/lib/theme/snippets/edge";
+import { outline } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 
 const Trigger = styled(Buttons.Unstyled)`
+   font-size: ${(p) => p.theme.font.size["0.93"]};
 	${spacing.padding.small};
-	${border.tertiary};
+	border: 2px solid ${(p) => p.theme.colors.background.main[4]};
 	${radius.largish};
 	margin-top: ${spacingValue.smaller};
 
-	background-color: ${(p) => p.theme.colors.background.main[0]};
-	box-shadow: 0 0.2rem 0.2rem 0 #ccc;
+	background-color: ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 0 : 1]};
+	box-shadow: 0 0.2rem 0.2rem 0 ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 1]};
 
 	&:hover,
 	&:focus {
@@ -23,14 +24,14 @@ const Trigger = styled(Buttons.Unstyled)`
 		transform: translateY(2px);
 	}
 
-	${Active.default};
+   /* TODO: I'm deprecating this for now */
+	/* ${Active.default}; */
 `;
 
 // TODO: put this in floating.style.ts!
 const FloatingWrapper = styled.div`
 	${spacing.padding.small};
 	${outline.grey};
-	margin-top: ${spacingValue.small};
 	${radius.medium};
 
 	background-color: ${(p) => p.theme.colors.background.main[3]};
@@ -81,7 +82,7 @@ const ActionBar = styled.div`
 	${radius.medium}
 
    background-color: ${(p) => p.theme.colors.background.main[0]};
-	outline: 2px solid #e9e9e9; // TODO: theme value
+	outline: 2px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 3 : 4]};
 `;
 
 const Label = styled(formStyle.Label)`

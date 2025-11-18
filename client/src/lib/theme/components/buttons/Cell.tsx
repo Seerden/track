@@ -149,7 +149,7 @@ const DaySelector = styled(UnstyledButton)<{ $active?: boolean }>`
 	height: var(--cell-size);
 	${spacing.margin.smaller}
 	${radius.small};
-	background-color: #fff; // TODO: theme value
+	background-color: ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 0 : 1]};
 
 	${(p) =>
 		p.$active &&

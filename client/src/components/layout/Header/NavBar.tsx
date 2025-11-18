@@ -82,7 +82,6 @@ function ProfileAction({ isLoggedIn }: { isLoggedIn: boolean }) {
 	return (
 		<S.Action
 			type="button"
-			color="darkblue"
 			onClick={() => {
 				navigate({ to: "/login" });
 			}}
