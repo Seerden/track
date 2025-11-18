@@ -5,7 +5,6 @@ import { type ColorKey, colors } from "@/lib/theme/colors";
 import Unstyled from "@/lib/theme/components/buttons/Unstyled";
 import { font } from "@/lib/theme/font";
 import { lightDark } from "@/lib/theme/light-dark";
-import { outline, thinOutline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
@@ -14,22 +13,31 @@ import { DirectionButton } from "./Direction";
 
 export const Default = styled(Unstyled)<{
 	$color?: ColorKey;
+	$interactionColor?: ColorKey;
 	$minimal?: boolean;
 }>`
 	${flex.centered};
 	${radius.round};
 
-	--color: ${(p) => (p.$minimal ? "#eee" : p.$color)};
+	--color: ${(p) => (p.$minimal ? p.theme.colors.background.main[3] : p.$color)};
 	background-color: var(--color);
-	box-shadow: 0 0 0.2rem 0 var(--color);
+	box-shadow: 0 0 0.3rem -0.1rem var(--color);
 
 	&:hover,
 	&:focus,
 	&:active {
-		background-color: ${(p) =>
-			p.$minimal ? "#eee" : (p.$color ?? "transparent")};
-		${outline.primary};
-		box-shadow: ${(p) => (p.$minimal ? "none" : `0 0 0.3rem 0 #333`)};
+		background-color: ${(p) => p.$interactionColor ?? p.theme.colors.background.main[1]};
+		outline: 2px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 0 : 3]};
+		box-shadow: 0 0.1rem 0.4rem 0 ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 0]};
+
+      ${(p) =>
+				!p.$interactionColor &&
+				css`
+               color: var(--color);
+               .lucide {
+                  color: var(--color);
+               }
+            `}
 	}
 
 	transition: transform 75ms ease-out;
@@ -63,7 +71,7 @@ const Alternative = styled(Unstyled)<{ light?: boolean }>`
 	${(p) =>
 		p.light &&
 		css`
-			background-color: ${p.theme.colors.background.main[0]};
+			background-color: ${p.theme.colors.background.main[p.theme.mode === "light" ? 0 : 3]};
 ;
 		`}
 
@@ -71,23 +79,11 @@ const Alternative = styled(Unstyled)<{ light?: boolean }>`
 	width: var(--size);
 	height: var(--size);
 
-	&:active {
-		transform: scale(1.1);
-		background-color: white;
-	}
-
-	// TODO: need this to be a generic focusOutline snippet, because buttons
-	// and inputs all need this
-	&:focus:not(:active) {
-		${thinOutline.grey};
-		background-color: ${(p) => p.theme.colors.background.main[0]};
-;
-	}
-
-	&:hover {
+	&:hover, &:focus, &:active {
+      outline: 2px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 4 : 3]};
 		background-color: ${(p) => p.theme.colors.background.main[1]};
-		${outline.primary};
-		box-shadow: 0 0.1rem 0.4rem 0 #ccc;
+		outline: 2px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 0 : 3]};
+		box-shadow: 0 0.1rem 0.4rem 0 ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 0]};
 	}
 `;
 

@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Buttons from "@/lib/theme/components/buttons";
 import { font } from "@/lib/theme/font";
 import Input from "@/lib/theme/input";
-import { border } from "@/lib/theme/snippets/edge";
+import { lightDark } from "@/lib/theme/light-dark";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
@@ -23,17 +23,18 @@ const Wrapper = styled.div<{ $fullSize?: boolean }>`
    
    border: 1px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 3]};
 	box-shadow: 0.6rem 0.6rem 0 -0.5rem ${(p) => p.theme.colors.dark[4]};
+
+   background-color: ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 1 : 2]}
 `;
 
 const List = styled.ul`
 	${flex.row};
-	background-color: ${(p) => p.theme.colors.background.main[0]};
+	background-color: ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 0 : 1]};
 ;
 	flex-wrap: wrap;
 
 	gap: 0.5rem;
 
-	box-shadow: 0 0 0.5rem 0 #ccc;
 	${spacing.padding.wide({ size: 0.8, ratio: 1.5 })};
 	min-height: 3.6rem; // this currently is the exact size of a single item; prevents layout shift when going from items -> no items
 	max-height: 250px;
@@ -49,7 +50,7 @@ const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
 	justify-content: center;
 	border: 2px solid #ccc;
 	${radius.small};
-	box-shadow: 0.2rem 0.1rem 0 0 #ddd;
+	box-shadow: 0.2rem 0.1rem 0 0 ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 4]};
 	${spacing.padding.wide({ size: 0.2, ratio: 2.5 })};
 	font-size: ${font.size["0.82"]};
 	min-height: calc(4px + 1.24rem); // should be font-size + padding + border
@@ -72,7 +73,7 @@ const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
 	${(p) =>
 		!p.$hasParent
 			? css`
-					box-shadow: 0rem 0.2rem 0rem 0rem #aaa;
+					box-shadow: 0.2rem 0.2rem 0rem -0.1rem ${p.theme.colors.background.main[p.theme.mode === "light" ? 4 : 3]};
 					background-color: ${p.theme.colors.background.main[3]};
 				`
 			: css``};
@@ -86,6 +87,8 @@ const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
 			background-color: ${p.theme.colors.green.secondary};
 			box-shadow: 0.3rem 0.3rem 0 -0.1rem ${p.theme.colors.green.secondary};
 		`}
+
+   transition: all 35ms linear;
 `;
 
 const Title = styled.h3`
@@ -111,7 +114,9 @@ const ClearFilter = styled(Buttons.Action.Default)`
 
 	--size: 20px;
 	width: var(--size);
+   min-width: var(--size);
 	height: var(--size);
+   min-height: var(--size);
 `;
 
 const FilterWrapper = styled.div`
@@ -160,21 +165,21 @@ const DropdownActions = styled.div`
 `;
 
 const DropdownContent = styled.div`
-   --inline-offset: 1.15rem;
+   --inline-offset: 1.1rem;
 
 	position: absolute;
-	top: -0.9rem;
+	top: -0.92rem;
 	left: calc(-1 * var(--inline-offset));
 
 	${flex.column};
 
 	background-color: ${(p) => p.theme.colors.background.main[3]};
-	${border.tertiary};
+	border: 2px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 4]};
 	${radius.medium};
 
 	box-shadow:
-		0.2rem 0.2rem 0 0 #333,
-		0 0 0.6rem 0 #777;
+		0.2rem 0.2rem 0 0 ${(p) => lightDark(p, p.theme.colors.background.contrast[2], p.theme.colors.background.main[1])},
+		0 0 0.6rem 0 ${(p) => lightDark(p, p.theme.colors.background.contrast[5], p.theme.colors.background.main[1])};
 
 	width: calc(
 		100% + calc(2 * var(--inline-offset))
@@ -207,7 +212,7 @@ const SelectionItem = styled.li`
 	${radius.small};
 	background-color: ${(p) => p.theme.colors.blue.main};
 	color: white;
-	box-shadow: 0rem 0.2rem 0.2rem #ccc;
+	box-shadow: 0rem 0.2rem 0rem 0 ${(p) => p.theme.colors.darkBlue.main};
 `;
 
 const PathPart = styled.span<{ $isLeaf: boolean }>`

@@ -63,7 +63,7 @@ const HomeLink = styled.span`
 
 	background-color: ${(p) => p.theme.colors.background.main[1]}; // TODO TRK-231: theme value
 
-   --highlight-color: ${(p) => lightDark(p, p.theme.colors.light[5], p.theme.colors.dark[2])};
+   --highlight-color: ${(p) => lightDark(p, p.theme.colors.light[5], p.theme.colors.dark[1])};
 	box-shadow: 0 0.3rem 0.3rem -0.1rem var(--highlight-color);;
 
 	svg {

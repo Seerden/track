@@ -9,7 +9,7 @@ export default function ActivityMenu() {
 		<Menu
 			id="ActivityMenu"
 			Target={
-				<S.TriggerButton as="button" type="button">
+				<S.TriggerButton as="span" type="button">
 					Activities
 				</S.TriggerButton>
 			}

@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { font } from "@/lib/theme/font";
 import { noBorders } from "@/lib/theme/snippets/border";
-import { outline } from "@/lib/theme/snippets/edge";
 import { inputStyle } from "@/lib/theme/snippets/input";
 
 const Unstyled = styled.input`
@@ -23,11 +22,11 @@ const Filter = styled(Default)`
 	// inputStyle does not have this
 	line-height: var(--font-size);
 
-	${outline.grey};
+	outline: 2px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 3]};
 
 	&:focus {
 		outline-color: ${(p) => p.theme.colors.blue.secondary};
-		box-shadow: 0rem 0.5rem 0.2rem -0.2rem #ccc;
+		box-shadow: 0rem 0.5rem 0.2rem -0.2rem ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 2]};
 	}
 `;
 

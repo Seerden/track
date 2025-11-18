@@ -5,31 +5,34 @@ import { noBorders } from "@/lib/theme/snippets/border";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
 
-export const inputStyle = ({ theme }: { theme: MainTheme }) => css`
-	--font-size: ${font.size[0.93]};
-	font-size: var(--font-size);
+export const inputStyle = ({ theme }: { theme: MainTheme }) =>
+	css`
+      caret-color: ${theme.colors.background.main[0]};
 
-	&:not([type="date"]) {
-		line-height: var(--font-size);
-	}
+      --font-size: ${font.size[0.93]};
+      font-size: var(--font-size);
 
-	${noBorders};
-	${spacing.padding.wide({ size: 0.3, ratio: 1.5 })};
-	
-	${radius.small};
-   border-radius: 0 0 3px 3px;
+      &:not([type="date"]) {
+         line-height: var(--font-size);
+      }
 
-   color: ${theme.colors.dark[0]};
-   background-color: ${theme.colors.light[0]};
+      ${noBorders};
+      ${spacing.padding.wide({ size: 0.3, ratio: 1.5 })};
+      
+      ${radius.small};
+      border-radius: 0 0 3px 3px;
 
-   &::-webkit-outer-spin-button,
-   &::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;  
-   }
+      color: ${theme.colors.text.main[0]};
+      background-color: ${theme.colors.background.main[theme.mode === "light" ? 0 : 2]};
 
-   &[type=number] {
-      -moz-appearance: textfield;
-      appearance: textfield;
-   }
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+         -webkit-appearance: none;
+         margin: 0;  
+      }
+
+      &[type=number] {
+         -moz-appearance: textfield;
+         appearance: textfield;
+      }
 `;
