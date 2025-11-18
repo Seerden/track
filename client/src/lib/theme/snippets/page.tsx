@@ -1,15 +1,14 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { PropsWithChildren } from "react";
+import type { MainTheme } from "@/lib/style/theme";
 import { flex } from "@/lib/theme/snippets/flex";
-import shadows from "@/lib/theme/snippets/shadow";
 
-export const pageStyle = css`
-   /* TODO: theme-aware */
-	background-color: #eee;
+export const pageStyle = ({ theme }: { theme: MainTheme }) => css`
+	background-color: ${theme.colors.background.main[theme.mode === "light" ? 3 : 1]};
 	display: flex;
 
-	${shadows.page};
+	box-shadow: 0.2rem 0.2rem 0.5rem 0 ${theme.colors.background.main[theme.mode === "light" ? 4 : 1]};
 
 	${flex.column}
 

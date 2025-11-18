@@ -72,13 +72,13 @@ export default function Profile() {
 					</Label.Settings.WithToggle>
 				</S.SettingsGrid>
 
-				<Buttons.Action.Minimal
+				<Buttons.Action.MinimalPlus
 					type="button"
 					onClick={() => logout()}
 					style={{ marginTop: spacingValue.medium, alignSelf: "flex-end" }}
 				>
 					Log out
-				</Buttons.Action.Minimal>
+				</Buttons.Action.MinimalPlus>
 			</Containers.Column>
 		</Containers.Column>
 	);

@@ -1,7 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { MainTheme } from "@/lib/style/theme";
-import { thickOutline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
@@ -71,12 +70,12 @@ const ActionBar = styled.div`
 	${radius.small};
 	gap: ${spacingValue.small};
 	margin-bottom: ${spacingValue.medium};
-	${thickOutline.greyer};
+	outline: 3px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 2]};
 
 	width: max-content;
 
 	background-color: ${(p) => p.theme.colors.background.main[3]};
-	box-shadow: 0 0.3rem 0.5rem -0.1rem ${(p) => p.theme.colors.background.contrast[3]};
+	box-shadow: 0 0.3rem 0.5rem -0.1rem ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 3 : 1]};
 
 	position: sticky;
 	z-index: 2;

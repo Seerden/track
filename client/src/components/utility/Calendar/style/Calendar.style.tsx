@@ -32,7 +32,7 @@ const Calendar = styled.div`
 
 	padding: ${spacingValue.medium};
 	
-	${radius.medium};
+	${radius.large};
 	margin-left: 1rem;
 	margin-top: 0.5rem;
    

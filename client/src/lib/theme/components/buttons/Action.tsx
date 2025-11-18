@@ -209,7 +209,10 @@ const MinimalPlus = styled(Minimal)`
       box-shadow: 0 0.5rem 0 -0.3rem #ccc;
 
       &:hover, &:active, &:focus {
-         box-shadow: 0 0.6rem 0 -4px var(--highlight-color), 0 0.3rem 0 0 #ccc, 0 0.5rem 0.4rem -0.2rem ${colors.dark[3]};
+         box-shadow: 
+            0 0.6rem 0 -4px var(--highlight-color), 
+            0 0.3rem 0 0 ${colors.light[5]},
+            0 0.5rem 0.4rem -0.2rem ${colors.dark[3]};
          transform: translateY(-2px);
       }
    }

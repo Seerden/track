@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { outline } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 
@@ -27,11 +26,11 @@ const FloatingWrapper = styled.div`
 
 	z-index: 2;
    
-	${outline.primary};
+	outline: 2px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 0 : 2]};
 	background-color: ${(p) => p.theme.colors.background.main[0]};
 	--highlight: ${(p) => p.theme.colors.darkBlue.main};
 	border: 2px solid var(--highlight);
-	box-shadow: 0 0 1rem -0.2rem var(--highlight);
+	box-shadow: 0 0.3rem 1rem -0.4rem var(--highlight);
 `;
 
 export default {

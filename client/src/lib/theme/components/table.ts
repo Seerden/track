@@ -1,6 +1,5 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
@@ -24,10 +23,10 @@ const HeaderDark = styled.div`
 	padding: ${spacingValue.small} 0;
 	${radius.small}
 
-	background-color: #333;
-	${outline.tertiary};
-	box-shadow: 0 0 0.3rem 0 #ccc;
-	color: ${(p) => p.theme.colors.text.contrast[3]};
+	background-color: ${(p) => p.theme.colors.dark[3]};
+	outline: 2px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 4 : 2]};
+	box-shadow: 0 0 0.3rem 0 ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 2]};
+	color: ${(p) => p.theme.colors.light[3]};
 
 	${subgridItem};
 `;
