@@ -91,11 +91,15 @@ export default function Today() {
 							{Array.from({ length: 25 }).map((_, i) => (
 								<Skeleton
 									key={i}
-									width={"100%"}
+									width={"calc(100% - 2rem)"}
 									height={`max(${rowHeight}px, 2vh)`}
 									// TODO: theme-aware like with the border-top on the
 									// regular (non-skeleton) timeline rows
-									style={{ borderTop: "2px solid white" }}
+									css={(theme) => css`
+                              border-top: 2px solid ${(theme as MainTheme).colors.background.main[3]};
+                              opacity: 0.4;
+                              margin-left: 2rem;
+                           `}
 								/>
 							))}
 						</Containers.Column>
