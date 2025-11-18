@@ -15,7 +15,6 @@ import {
 } from "@floating-ui/react";
 import { Minus as LucideMinus, Plus as LucidePlus } from "lucide-react";
 import type { PropsWithChildren } from "react";
-import { colors } from "@/lib/theme/colors";
 import Buttons from "@/lib/theme/components/buttons";
 import S from "./style/SpeedDial.style";
 
@@ -63,9 +62,7 @@ export default function SpeedDial({
 				css={css`
                   width: 50px;
                   height: 50px;
-                  color: ${colors.light[0]}
                `}
-				style={{ width: 50, height: 50 }}
 			>
 				<Icon strokeWidth={3} />
 			</Buttons.Action.Stylized>

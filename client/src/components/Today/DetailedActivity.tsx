@@ -1,7 +1,7 @@
 import { isNullish } from "@shared/lib/is-nullish";
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { Datelike } from "@shared/lib/schemas/timestamp";
-import { PenLine } from "lucide-react";
+import { PenLine as LucidePenLine } from "lucide-react";
 import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
 import S from "@/components/Today/style/DetailedActivity.style";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
@@ -75,7 +75,7 @@ export default function DetailedActivity({
 						openModal(modalIds.activities.form);
 					}}
 				>
-					<PenLine size={20} />
+					<LucidePenLine size={20} />
 				</Buttons.Action.Stylized>
 			</F.ActionBar>
 

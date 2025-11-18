@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import type { CSSProperties } from "react";
 import { type ColorKey, colors } from "@/lib/theme/colors";
 import Unstyled from "@/lib/theme/components/buttons/Unstyled";
+import { contrastColor } from "@/lib/theme/contrast";
 import { font } from "@/lib/theme/font";
 import { lightDark } from "@/lib/theme/light-dark";
 import { flex } from "@/lib/theme/snippets/flex";
@@ -19,8 +20,10 @@ export const Default = styled(Unstyled)<{
 	${radius.round};
 
    --color-text: ${(p) => p.theme.colors.text.main[3]};
-	--color-background: ${(p) => (p.$minimal ? p.theme.colors.background.main[3] : p.$color)};
+	--color-background: ${(p) => (p.$minimal ? p.theme.colors.background.main[3] : (p.$color ?? p.theme.colors.background.main[3]))};
+   --color-background-active: ${(p) => p.$interactionColor ?? p.$color ?? p.theme.colors.background.main[1]};
 
+   color: ${(p) => contrastColor(p.$minimal ? p.theme.colors.background.main[3] : (p.$color ?? p.theme.colors.background.main[3]))};
 	background-color: var(--color-background);
 	box-shadow: 0 0 0.3rem -0.1rem var(--color-background);
 
@@ -31,14 +34,13 @@ export const Default = styled(Unstyled)<{
 	&:hover,
 	&:focus,
 	&:active {
-		background-color: ${(p) => p.$interactionColor ?? p.theme.colors.background.main[1]};
+		background-color: var(--color-background-active);
 		outline: 2px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 0 : 3]};
 		box-shadow: 0 0.1rem 0.4rem 0 ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 0]};
 
       ${(p) =>
 				!p.$interactionColor &&
 				css`
-               color: var(--color-text);
                .lucide {
                   color: var(--color-text);
                }
@@ -47,8 +49,6 @@ export const Default = styled(Unstyled)<{
 
 	transition: transform 75ms ease-out;
 
-	// Generic defaults
-	color: var(--color-text);
 	width: 30px;
 	height: 30px;
 
@@ -92,27 +92,26 @@ const Alternative = styled(Unstyled)<{ light?: boolean }>`
 	}
 `;
 
-// TODO: this thing is SO ugly.
 const Stylized = styled(Unstyled)<{
 	$size?: CSSProperties["width"];
 	$color: ColorKey;
 }>`
-	--color: ${(p) => p.$color ?? "blue"};
+	--color: ${(p) => p.$color ?? "royalblue"};
    
 	${flex.centered};
 	${radius.round};
-	color: ${(p) => p.theme.colors.text.contrast[0]};
+	color: ${(p) => contrastColor(p.$color ?? "royalblue")};
    
 	/* TODO: we're using getMainColor for the outline and background, but not the
    border and shadow. Does that not look ugly for some $color values? */
    /* TODO: redo this getMainColor thing */
 	outline: 2px solid var(--color);
-	border: 2px solid #eee;
+	border: 2px solid ${(p) => p.theme.colors.background.main[3]};
 	box-shadow: 0 0.2rem 0.5rem 0 ${(p) => lightDark(p, p.theme.colors.background.main[6], p.theme.colors.background.main[1])};
 	background-color: var(--color);
 
 	.lucide {
-		color: ${(p) => p.theme.colors.text.contrast[0]};
+		color: ${(p) => contrastColor(p.$color ?? "royalblue")};
 	}
 
 	&:hover:not(:disabled) {
@@ -124,9 +123,9 @@ const Stylized = styled(Unstyled)<{
 
 	transition: all linear 50ms;
 
-	--default-edit-button-size: 35px;
-	width: ${(p) => p.$size ?? "var(--default-edit-button-size)"};
-	height: ${(p) => p.$size ?? "var(--default-edit-button-size)"};
+	--size: ${(p) => p.$size ?? "35px"};
+	width: var(--size);
+	height: var(--size);
 
    &:disabled {
       opacity: 0.6;

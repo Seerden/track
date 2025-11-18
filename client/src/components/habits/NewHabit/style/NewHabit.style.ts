@@ -13,28 +13,6 @@ const ClearEndDateButtonWrapper = styled.div`
 	right: var(--offset);
 `;
 
-/** deprecated the end date field is always visible, we don't use a button to
- * toggle it anymore */
-// const SetEndDateButton = styled(Buttons.Action.Stylized)`
-// 	${flex.row};
-
-// 	width: max-content;
-
-//    align-self: flex-end;
-
-// 	gap: ${spacingValue.medium};
-// 	${radius.small};
-//    ${spacing.padding.small};
-
-//    --color: ${(p) => p.theme.colors.text.main[0]}
-
-// 	color: var(--color);
-
-// 	svg {
-// 		color: var(--color);
-// 	}
-// `;
-
 const RadioButton = styled.input`
 	position: absolute; // visually hidden --- 100% sure this is not the best way to do this
 	width: 0;
