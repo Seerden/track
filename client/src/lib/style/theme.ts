@@ -5,55 +5,34 @@ import { spacingValue } from "@/lib/theme/snippets/spacing";
 
 const constants = {} as const;
 
-const lightBody = css`
+const global = css`
    :root {
       --bg-body: ${colors.background.main[2]};
-   }
-
-   body {
-      color: ${colors.text.main[0]};
-
-   }
-`;
-
-const darkBody = css`
-   :root {
-      --bg-body: ${darkColors.background.body};
-   }
-
-   body {
-      color: ${darkColors.text.main[0]};
-   }
-`;
-
-const global = css`
-      ${lightBody};
-
-	:root {
-		--page-padding: ${spacingValue.medium};
+      --page-padding: ${spacingValue.medium};
 		@media (min-width: 768px) {
-			--page-padding: ${spacingValue.larger};
+         --page-padding: ${spacingValue.larger};
 		}
-
+      
 		/* TODO TRK-231: mantine is not part of this project, but I'm considering
-         using it, so might as well leave this in here for now.  */
+      using it, so might as well leave this in here for now.  */
 		--mantine-font-family: $fonts; // this comes from index.scss I think
 		--mantine-font-size-md: 1rem;
 		--mantine-line-height: unset;
 		--mantine-color-body: var(--bg-body);
 		--mantine-color-text: ${colors.text.main[0]};
 	}
-
+   
    body {
+      background-color: var(--bg-body);
+      color: ${colors.text.main[0]};
    	margin: 0;
    	padding: 0;
    }
 `;
 
 const globalDark = css`
-   ${darkBody};
-   
-	:root {
+   :root {
+      --bg-body: ${darkColors.background.body};
 		--page-padding: ${spacingValue.medium};
 		@media (min-width: 768px) {
 			--page-padding: ${spacingValue.larger};
@@ -64,11 +43,13 @@ const globalDark = css`
 		--mantine-font-family: $fonts; // this comes from index.scss I think
 		--mantine-font-size-md: 1rem;
 		--mantine-line-height: unset;
-		--mantine-color-body: ${darkColors.background.main[2]};
+		--mantine-color-body: var(--bg-body, red);
 		--mantine-color-text: ${darkColors.text.main[0]};
 	}
 
    body {
+      background-color: var(--bg-body);
+      color: ${darkColors.text.main[0]};
    	margin: 0;
    	padding: 0;
    }

@@ -1,7 +1,9 @@
 import { createRootRouteWithContext, redirect } from "@tanstack/react-router";
 import App from "@/App";
+import indexCss from "@/index.scss?url";
 import { queryClient } from "@/lib/query-client";
 import { trpc } from "@/lib/trpc";
+import normalizeCss from "@/normalize.css?url";
 
 type RouterContext = {
 	queryClient: typeof queryClient;
@@ -25,8 +27,8 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 				// MantineProvider will not be applied, I think because of the order
 				// of things (that gets set first, then the css is imported here
 				// which resets it, or something).
-				// { rel: "stylesheet", href: indexCss },
-				// { rel: "stylesheet", href: normalizeCss },
+				{ rel: "stylesheet", href: indexCss },
+				{ rel: "stylesheet", href: normalizeCss },
 				// { rel: "manifest", href: "/site.webmanifest", color: "#171717" },
 				{
 					rel: "icon",
