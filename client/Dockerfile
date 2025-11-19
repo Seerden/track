@@ -4,6 +4,8 @@ WORKDIR /track
 
 COPY . .
 
+RUN npm install
+
 WORKDIR /track/client
 
 EXPOSE 5175
