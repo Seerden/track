@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { getFontSize } from "@/lib/theme/font";
+import { font } from "@/lib/theme/font";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
 
@@ -12,7 +12,7 @@ const Tag = styled.div`
 	color: azure;
 
 	max-width: max-content;
-	font-size: ${(p) => getFontSize(p, 0.9)};
+	font-size: ${font.size["0.9"]};
 	user-select: none; //  TODO: when tags become clickable, this disappears; use a button insted
 `;
 

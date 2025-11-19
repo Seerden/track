@@ -8,7 +8,8 @@ export default function Page(props: PropsWithChildren) {
 			variants={pageVariants}
 			initial="hidden"
 			animate="appear"
-			exit="exit">
+			exit="exit"
+		>
 			{props.children}
 		</S.Page>
 	);

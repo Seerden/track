@@ -66,7 +66,8 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 						key={tab}
 						role="tab"
 						onClick={() => setActiveTab(tab)}
-						$active={activeTab === tab}>
+						$active={activeTab === tab}
+					>
 						<S.TabInner $active={activeTab === tab}>{tab}</S.TabInner>
 					</S.Tab>
 				))}
@@ -89,7 +90,7 @@ function ClearInputButton({ onClick }: { onClick: () => void }) {
 	return (
 		<LucideXCircle
 			size={20}
-			color="white"
+			color="#fff"
 			fill="royalblue"
 			style={{
 				position: "absolute",
@@ -119,7 +120,8 @@ function DatetimeTab({ filter, actions }: TabProps) {
 					{activityFilterDatetimeModifiers.map((modifier) => (
 						<S.Label
 							key={modifier}
-							$active={filter.datetime.modifier === modifier}>
+							$active={filter.datetime.modifier === modifier}
+						>
 							{modifier}
 							<Input.Hidden
 								name="datetime.modifier"
@@ -133,7 +135,8 @@ function DatetimeTab({ filter, actions }: TabProps) {
 					{activityFilterDatetimeSelectors.map((selector) => (
 						<S.Label
 							key={selector}
-							$active={filter.datetime.selector === selector}>
+							$active={filter.datetime.selector === selector}
+						>
 							{selector}
 							<input
 								style={{ width: 0 }}
@@ -250,14 +253,16 @@ function TagsTab({
 						role="button"
 						onClick={actions.set.tags.toggleExact}
 						$active={filter.tags.exact}
-						title="Exact match?">
+						title="Exact match?"
+					>
 						<LucideBlend size={15} />
 					</S.Toggle>
 					<S.Toggle
 						role="button"
 						onClick={toggleWholeTree}
 						$active={wholeTree}
-						title="Select tree?">
+						title="Select tree?"
+					>
 						<LucideNetwork size={15} />
 					</S.Toggle>
 				</S.SectionActionBar>
@@ -271,7 +276,8 @@ function TagsTab({
 								onMouseLeave={() => actions.set.activeTagIds(tag_id, "off")}
 								key={tag_id}
 								value={tag_id}
-								onClick={actions.set.tags.value}>
+								onClick={actions.set.tags.value}
+							>
 								{name}
 							</S.TagChip>
 						);

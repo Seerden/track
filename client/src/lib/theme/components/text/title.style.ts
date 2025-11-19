@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { font } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 
@@ -10,7 +11,7 @@ const MenuHeader = styled.h1`
    margin-block: 0;
    padding: ${spacingValue.medium};
    border-bottom: 1px solid var(--color);
-   color: #fff;
+   color: ${(p) => p.theme.colors.text.main[0]};
 
    background-color: var(--color);
 
@@ -23,24 +24,24 @@ const MenuHeader = styled.h1`
    }
 
    .lucide {
-      color: #fff;
+      color: ${(p) => p.theme.colors.text.main[0]};
    }
 `;
 
 const MenuSectionHeader = styled.h2`
-   --size: ${(p) => p.theme.font.size["1.02"]};
+   --size: ${font.size["1.02"]};
    font-size: var(--size);
    line-height: var(--size);
    margin-bottom: ${spacingValue.smallest};
 `;
 
 const MenuSubsectionHeader = styled.h3`
-   --size: ${(p) => p.theme.font.size["0.93"]};
+   --size: ${font.size["0.93"]};
    font-size: var(--size);
    line-height: var(--size);
    font-weight: 400;
 
-   color: #111;
+   color: ${(p) => p.theme.colors.text.main[2]};
 `;
 
 export const Title = {

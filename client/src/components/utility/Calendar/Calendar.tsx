@@ -42,7 +42,7 @@ function CalendarRow({
 		<S.Row>
 			{row.map((day, index) => (
 				<Buttons.Cell.Default
-					disabled={day === null}
+					disabled={day.date === null}
 					key={index}
 					onClick={() => selectDate(day.value)}
 					$selected={is(day.value, "selected")}

@@ -1,5 +1,5 @@
 import NewTag from "@components/tags/NewTag/NewTag";
-import { Tags } from "lucide-react";
+import { Tags as LucideTags } from "lucide-react";
 import Modal from "@/components/utility/Modal/Modal";
 import type { ModalId } from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
@@ -27,8 +27,9 @@ export default function NewTagButton({
 				type="button"
 				title="Create a tag"
 				onClick={handleOpen}
-				$color="purple">
-				<Tags size={size} />
+				$color={"darkorchid"}
+			>
+				<LucideTags size={size} />
 			</S.Button>
 
 			{modalIds.includes(modalId) && (

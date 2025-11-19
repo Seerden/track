@@ -2,8 +2,8 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { rowHeight } from "@/components/Today/style/TimelineRow.style";
 import { colors } from "@/lib/theme/colors";
-import { getFontSize } from "@/lib/theme/font";
-import { outline } from "@/lib/theme/snippets/edge";
+import { font } from "@/lib/theme/font";
+import { lightDark } from "@/lib/theme/light-dark";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
 import S from "./Today.style";
@@ -25,7 +25,7 @@ const ActivityCard = styled.div<{ $level: number; $offset: number }>`
 		--card-width: ${cardWidth};
 	}
 	left: calc(3rem + ${(p) => p.$level} * (var(--card-gap) + var(--card-width)));
-	font-size: ${(p) => getFontSize(p, 0.85)};
+	font-size: ${font.size["0.85"]};
 	display: flex;
 	width: 100%;
 	height: max-content;
@@ -35,7 +35,7 @@ const ActivityCard = styled.div<{ $level: number; $offset: number }>`
 		top: 0.2rem;
 		right: 0.2rem;
 		${radius.round};
-		background-color: #eee;
+		background-color: ${(p) => p.theme.colors.background.main[3]};
 	}
 `;
 
@@ -60,9 +60,9 @@ const Activity = styled.div<{
 	${spacing.padding.wide({ size: 0.5, ratio: 2 })};
 	background-color: ${(p) => (p.$isTask ? colors.blue.main : colors.green.secondary)};
 	align-items: ${(p) => (p.$durationHours > 2 ? "flex-start" : "center")};
-	color: ${(p) => (p.$isTask ? "azure" : "black")};
+	color: ${(p) => (p.$isTask ? "azure" : "#000")};
 
-	${outline.secondary};
+	outline: 2px solid ${(p) => lightDark(p, p.theme.colors.light[3], p.theme.colors.dark[2])};
 	width: var(--card-width);
 	${radius.small};
 

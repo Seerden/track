@@ -74,12 +74,14 @@ export default function ActivityForm({
 							justifyContent: "flex-end",
 							gap: spacingValue.medium,
 							padding: spacingValue.small,
-						}}>
+						}}
+					>
 						<Tooltip
 							id="is-task-label"
 							aria-label="Is this a task?"
 							label="Is this a task?"
-							withArrow>
+							withArrow
+						>
 							<label>
 								<Checkbox
 									aria-labelledby="is-task-label"
@@ -95,7 +97,8 @@ export default function ActivityForm({
 							id="all-day-label"
 							aria-label="Does this activity last all day?"
 							label="Does this activity last all day?"
-							withArrow>
+							withArrow
+						>
 							<label>
 								<Checkbox
 									aria-labelledby="all-day-label"
@@ -113,7 +116,8 @@ export default function ActivityForm({
 							id="is-recurring-label"
 							aria-label="Is this a recurring activity?"
 							label="Is this a recurring activity?"
-							withArrow>
+							withArrow
+						>
 							<label>
 								<Checkbox
 									aria-labelledby="is-recurring-label"
@@ -127,7 +131,8 @@ export default function ActivityForm({
 						</Tooltip>
 					</div>
 					<Form.Row
-						style={{ position: "relative", padding: spacingValue.small }}>
+						style={{ position: "relative", padding: spacingValue.small }}
+					>
 						<TextInput
 							style={{ width: "100%" }}
 							label="Activity"
@@ -170,7 +175,8 @@ export default function ActivityForm({
                recurrence fields, etc.) */}
 					<Buttons.Submit.Default
 						type="submit"
-						disabled={!(validActivity && (validRecurrence || !isRecurring))}>
+						disabled={!(validActivity && (validRecurrence || !isRecurring))}
+					>
 						{buttonTitle}
 					</Buttons.Submit.Default>
 				</Form.Form>

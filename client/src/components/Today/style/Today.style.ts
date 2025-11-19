@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import TagCardStyle from "@/components/tags/TagCard/style/TagCard.style";
-import { getFontSize } from "@/lib/theme/font";
+import { font } from "@/lib/theme/font";
+import { lightDark } from "@/lib/theme/light-dark";
 import { column } from "@/lib/theme/snippets/column";
-import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import scrollbar from "@/lib/theme/snippets/scroll";
@@ -14,17 +14,21 @@ const TimelineWrapper = styled.section`
 	gap: ${spacingValue.medium};
 	${radius.large};
 	${spacing.margin.wide({ size: 0.5, ratio: 2 })};
-	${outline.secondary};
-
+	
+   
 	max-width: 100%;
 	min-width: 500px;
-
+   
 	@media (min-width: 1280px) {
-		max-width: 1000px;
+      max-width: 1000px;
 	}
+   
+	background-color: ${(p) => p.theme.colors.background.main[1]};
 
-	background-color: #f9f9f9;
-	box-shadow: 0 0.2rem 1rem -0.3rem #ccc;
+   /* NOTE: same as Calendar wrapper */
+   outline: 2px solid ${(p) => lightDark(p, p.theme.colors.light[3], p.theme.colors.dark[1])};
+	box-shadow: 0 0.2rem 1rem -0.3rem ${(p) =>
+		lightDark(p, p.theme.colors.light[5], p.theme.colors.dark[0])};
 
 	height: max-content;
 	max-height: 80vh;
@@ -64,7 +68,7 @@ const Header = styled.header`
 
 	// this is the element that displays the date
 	h1 {
-		--font-size: ${(p) => getFontSize(p, 1.5)};
+		--font-size: ${font.size["1.5"]};;
 		font-size: var(--font-size);
 		line-height: var(--font-size);
 
@@ -76,7 +80,7 @@ const Header = styled.header`
 		}
 
 		@media (min-width: 1440px) {
-			--font-size: ${(p) => getFontSize(p, 1.5)};
+			--font-size: ${font.size["1.5"]};;
 			font-size: var(--font-size);
 			line-height: var(--font-size);
 		}

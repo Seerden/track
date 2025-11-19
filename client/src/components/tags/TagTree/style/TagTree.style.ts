@@ -1,8 +1,8 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import BadgeStyles from "@/lib/theme/components/Badge.style";
-import { getFontSize } from "@/lib/theme/font";
+import { font } from "@/lib/theme/font";
 import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
@@ -17,7 +17,7 @@ const colors = [
 ];
 
 const TagName = styled.label<{ $level: number }>`
-	font-size: ${(p) => getFontSize(p, 0.9)};
+	font-size: ${font.size["0.9"]};;
 	min-width: 50px;
 	position: relative;
 
@@ -114,7 +114,7 @@ const Tree = styled.ul<{
 		${radius.small};
 		box-shadow: 0 0 1rem 0rem #ccc;
 		${outline.primary};
-		background-color: #eaeaea;
+		background-color: ${(p) => p.theme.colors.background.main[3]};
 
 		> ${TagName} {
 			justify-self: center;

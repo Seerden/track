@@ -2,8 +2,6 @@ html {
 	$fonts: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", Oxygen, Ubuntu,
 		Cantarell, "Meiryo", "Open Sans", "Helvetica Neue", sans-serif;
 	font-family: $fonts;
-	background-color: var(--text-dark);
-	color: var(--text-light);
 	height: 100%;
 
 	overflow-y: scroll;
@@ -15,14 +13,9 @@ html {
 	// Disables overflow when there is at least one open modal.
 	&:has([data-modal-id]) {
 		overflow: hidden;
+      overflow-y: scroll;
 		margin-right: 1rem; // to prevent layout shift because of disappearing scrollbar
 	}
-}
-
-body {
-	background-color: #f2f2f2;
-	margin: 0;
-	padding: 0;
 }
 
 * {

@@ -4,6 +4,7 @@ import { LucideRepeat } from "lucide-react";
 import type { ReactNode } from "react";
 import { colors } from "@/lib/theme/colors";
 import Containers from "@/lib/theme/components/container.style";
+import { font } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
@@ -15,7 +16,8 @@ export function RecurrenceCard({ recurrence }: { recurrence: Recurrence }) {
 			style={{
 				alignItems: "center",
 				maxWidth: "300px",
-			}}>
+			}}
+		>
 			<span
 				// TODO: this is a badge, put it in style/badges or something
 				style={{
@@ -26,8 +28,9 @@ export function RecurrenceCard({ recurrence }: { recurrence: Recurrence }) {
 					alignItems: "center",
 					justifyContent: "center",
 					padding: "3px",
-				}}>
-				<LucideRepeat size={"15px"} color="black" />
+				}}
+			>
+				<LucideRepeat size={"15px"} color="#000" />
 			</span>
 			{recurrence.frequency === "calendar" ? (
 				<CalendarRecurrenceCard recurrence={recurrence} />
@@ -43,7 +46,7 @@ const Container = styled.div`
 	${flex.row};
 	gap: ${spacingValue.small};
 
-	font-size: 0.85rem;
+	font-size: ${font.size["0.85"]};
 
 	max-width: 250px;
 	flex-wrap: wrap;
@@ -56,13 +59,13 @@ const Badge = styled.span`
 	flex-grow: 1;
 	justify-content: center;
 	${radius.small};
-	color: black;
+	color: ${(p) => p.theme.colors.dark[0]};
 
 	${spacing.padding.wide({ size: 0.25, ratio: 2 })};
 
 	user-select: none;
 
-	background-color: #f7f7f7;
+	background-color: ${(p) => p.theme.colors.light[0]};
 `;
 
 function CalendarRecurrenceCard({ recurrence }: { recurrence: Recurrence }) {

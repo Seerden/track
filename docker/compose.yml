@@ -31,32 +31,30 @@ services:
   server:
     container_name: track-server
     build:
-      context: ../server
-      dockerfile: Dockerfile
+      context: ../
+      dockerfile: server/Dockerfile
     volumes:
       - ../:/track
-      - ../server:/track/server
-      - ../server/node_modules:/track/server/node_modules
+      - /track/node_modules
     depends_on:
       - database
       - store
     ports:
       - "5000:5000"
-    command: /bin/sh -c "npm install && npm run dev"
+    command: npm run dev
   client:
     container_name: track-client
     build:
-      context: ../client
-      dockerfile: Dockerfile
+      context: ../
+      dockerfile: client/Dockerfile
     volumes:
       - ../:/track
-      - ../client:/track/client
-      - ../client/node_modules:/track/client/node_modules
+      - /track/node_modules
     ports:
       - "5175:5175"
       - "4173:4173"
       - "6016:6016"
-    command: /bin/sh -c "npm install && npm run dev"
+    command: npm run dev
   test-database:
     container_name: track-test-database
     image: postgres:14-alpine

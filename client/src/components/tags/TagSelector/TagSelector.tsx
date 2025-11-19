@@ -17,15 +17,7 @@ import useTagSelector from "./useTagSelector";
 
 const Button = Buttons.Action.Alternative;
 
-export default function TagSelector({
-	tagSelectorId,
-	modalId,
-	fullSize,
-	maximum,
-	showNewTagButton,
-	tags,
-	title,
-}: {
+type TagSelectorProps = {
 	/** id for tag selection state */
 	tagSelectorId: string;
 	title?: string;
@@ -35,7 +27,17 @@ export default function TagSelector({
 	showNewTagButton?: boolean;
 	/** The modalId that gets passed to `NewTagButton` */
 	modalId: ModalId;
-}) {
+};
+
+export default function TagSelector({
+	tagSelectorId,
+	modalId,
+	fullSize,
+	maximum,
+	showNewTagButton,
+	tags,
+	title,
+}: TagSelectorProps) {
 	const {
 		filter,
 		selectedTagIds,
@@ -62,11 +64,13 @@ export default function TagSelector({
 			<S.Wrapper
 				$fullSize={fullSize}
 				ref={tagSelectorRef}
-				onBlur={handleDropdownBlur}>
+				onBlur={handleDropdownBlur}
+			>
 				{/* TODO: the info tooltip should be in a little info block, not a title on a random element */}
 				{!!title && (
 					<S.Title
-						{...(maximum && { title: `Choose at most ${maximum} tag(s)` })}>
+						{...(maximum && { title: `Choose at most ${maximum} tag(s)` })}
+					>
 						{title}
 					</S.Title>
 				)}
@@ -75,7 +79,8 @@ export default function TagSelector({
 					style={{
 						position: "relative",
 						marginTop: "0.3rem",
-					}}>
+					}}
+				>
 					<S.Actions>
 						{!expanded && (
 							<>
@@ -88,7 +93,7 @@ export default function TagSelector({
 								{/* TODO: we show this exact thing in two different places -- make it a subcomponent, or at least a render function */}
 								{!!selectedTagIds.length && (
 									<Button onClick={handleSelectionReset}>
-										<LucideFilterX size={20} color="orangered" />
+										<LucideFilterX size={18} color="orangered" />
 									</Button>
 								)}
 								{showNewTagButton && <NewTagButton modalId={modalId} />}
@@ -120,7 +125,7 @@ export default function TagSelector({
 
 								{!!selectedTagIds.length && (
 									<Button onClick={handleSelectionReset}>
-										<LucideFilterX size={20} color="orangered" />
+										<LucideFilterX size={18} color="orangered" />
 									</Button>
 								)}
 

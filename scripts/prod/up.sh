@@ -31,4 +31,5 @@ cd ./docker && docker compose \
     up \
     --force-recreate \
     --no-build \
-    --remove-orphans
+    --remove-orphans \
+    -d

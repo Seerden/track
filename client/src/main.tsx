@@ -1,15 +1,12 @@
 import { baseUrl } from "@/lib/fetch/fetch-constants";
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
+import { registerSW } from "virtual:pwa-register";
 import * as Sentry from "@sentry/react";
 import { RouterProvider } from "@tanstack/react-router";
+import { enableMapSet } from "immer";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.scss";
-import "./normalize.css";
-
-import { registerSW } from "virtual:pwa-register";
-import { enableMapSet } from "immer";
 import { createRouter } from "@/router";
 
 export const router = createRouter();

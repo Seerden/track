@@ -9,7 +9,7 @@ const Item = styled.div<{ $isTask: boolean }>`
 	${subgridItem}
 	${radius.small};
 
-	background-color: #f7f7f7;
+	background-color: ${(p) => p.theme.colors.background.main[1]};
 `;
 
 export default {

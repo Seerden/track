@@ -1,36 +1,16 @@
 import styled from "@emotion/styled";
-import Buttons from "@/lib/theme/components/buttons";
 import { font } from "@/lib/theme/font";
 import Input from "@/lib/theme/input";
-import { border, outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { inputStyle } from "@/lib/theme/snippets/input";
 import { radius } from "@/lib/theme/snippets/radius";
-import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
+import { spacingValue } from "@/lib/theme/snippets/spacing";
 
 const ClearEndDateButtonWrapper = styled.div`
 	position: absolute;
 	--offset: 0.1rem;
 	top: var(--offset);
 	right: var(--offset);
-`;
-
-const SetEndDateButton = styled(Buttons.Action.Stylized)`
-	${flex.row};
-
-	width: max-content;
-
-   align-self: flex-end;
-
-	gap: ${spacingValue.medium};
-	${radius.small};
-   ${spacing.padding.small};
-
-	color: black;
-
-	svg {
-		color: black;
-	}
 `;
 
 const RadioButton = styled.input`
@@ -52,37 +32,41 @@ const RadioLabelText = styled.span`
 `;
 
 const RadioOption = styled.label`
-	font-size: 0.8rem; // TODO: theme value
 	width: 50%;
 	padding: ${spacingValue.small};
 	${radius.small};
-	${border.secondary};
-	${outline.primary};
-	background-color: #eee;
-	box-shadow: 0 0.4rem 0.5rem 0 #e1e1e1;
+	
+   border: 2px solid var(--bg-5-3);
+	outline: 2px solid 2px solid var(--bg-3-1);
+
+	background-color: ${(p) => p.theme.colors.background.main[3]};
+
+   --shadow-1: var(--bg-4-1);
+   --shadow-2: var(--bg-5-2);
+	box-shadow: 0 0.2rem 0.5rem 0 var(--shadow-1);
 
 	${RadioLabelText} {
-		font-size: 0.85rem; // TODO: Theme value
+		font-size: ${font.size["0.85"]};
 		font-weight: 500;
 
-		box-shadow: 0 0.5rem 0 -0.3rem white;
+		box-shadow: 0 0.5rem 0 -0.3rem #fff;
 		display: flex;
 		margin-bottom: 0.3rem;
 	}
 
 	&:has(input[type="radio"]:checked) {
 		border-color: ${(p) => p.theme.colors.green.secondary};
-		background-color: #eee;
+		background-color: ${(p) => p.theme.colors.background.main[3]};
 
 		box-shadow:
-			0 0.6rem 1rem -0.4rem #aaa,
-			0.3rem 0.5rem 0.1rem -0.1rem ${(p) => p.theme.colors.green.secondary};
+			0.3rem 0.4rem 0 -0.1rem ${(p) => p.theme.colors.green.secondary},
+         0 0.6rem 1rem -0.4rem var(--shadow-1);
 
 		&:focus-within {
 			box-shadow:
-				0 0.6rem 1rem -0.4rem #aaa,
-				0 0.3rem 1.2rem 0 #ccc,
-				0.3rem 0.5rem 0.1rem -0.1rem ${(p) => p.theme.colors.green.secondary};
+				0 0.6rem 1rem -0.4rem var(--shadow-1),
+				0.3rem 0.4rem 0 -0.1rem ${(p) => p.theme.colors.green.secondary},
+				0 0.3rem 1.2rem 0 var(--shadow-2);
 		}
 
 		${RadioLabelText} {
@@ -93,12 +77,12 @@ const RadioOption = styled.label`
 
 const Label = styled.label`
 	margin-top: 0.3rem;
-	font-size: 0.8rem;
+	font-size: ${font.size["0.82"]};
 	${flex.column};
 	justify-content: space-between;
 
 	span {
-		background-color: white;
+		background-color: #fff;
 		color: #777;
 		display: flex;
 		margin-bottom: 0;
@@ -117,21 +101,20 @@ const Label = styled.label`
 		opacity: 0.5;
 
 		input {
-			background-color: white;
+			background-color: #fff;
 		}
 	}
 `;
 
 const ProgressionFieldset = styled.fieldset`
 	${flex.column};
-	${radius.small};
-	${outline.primary};
-
+	
 	// TODO TRK-231: theme value
 	padding: 1.2rem;
 
-	background-color: white;
-	box-shadow: 0 0 0.3rem 0 #aaa;
+	/* TODO: same as other fieldsets */
+   border: 1px solid var(--bg-5-3);
+	box-shadow: 0.6rem 0.6rem 0 -0.5rem ${(p) => p.theme.colors.dark[4]};
 `;
 
 const ProgressionTitle = styled.div`
@@ -167,7 +150,6 @@ const DateFields = styled.div`
 
 export default {
 	ClearEndDateButtonWrapper,
-	SetEndDateButton,
 	RadioField,
 	RadioButton,
 	RadioOption,

@@ -18,6 +18,12 @@ export default defineConfig({
 		}),
 		viteReact({
 			babel: {
+				presets: [
+					[
+						"@babel/preset-react",
+						{ runtime: "automatic", importSource: "@emotion/react" },
+					],
+				],
 				plugins: ["@emotion/babel-plugin", "babel-plugin-react-compiler"],
 				babelrc: false,
 				configFile: false,
@@ -65,7 +71,7 @@ export default defineConfig({
 				// defining cached files formats
 				globPatterns: ["**/*.{js,css,html,ico,png,svg,webmanifest}"],
 				globIgnores: ["**/api/trpc/**", "**/node_modules/**"],
-				// cacheId: "seerden/track",
+				cacheId: "seerden/track/288",
 			},
 		}),
 		tsconfigPaths({

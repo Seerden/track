@@ -8,7 +8,8 @@ import {
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
-import { theme } from "@/lib/style/theme";
+import { globalShadows } from "@/lib/style/theme";
+import { usePreferredTheme } from "@/lib/theme/theme-atom";
 import { trpc } from "@/lib/trpc";
 import { DefaultSkeleton } from "./components/layout/Skeleton";
 import { queryClient } from "./lib/query-client";
@@ -29,19 +30,25 @@ export function createRouter() {
 						style={{
 							padding: "3rem",
 							width: "100%",
-						}}>
+						}}
+					>
 						<DefaultSkeleton />
 					</div>
 				</>
 			);
 		},
 		Wrap: function WrapComponent({ children }) {
+			const { theme, themeValue } = usePreferredTheme();
+
 			return (
 				<QueryClientProvider client={queryClient}>
 					<ReactQueryDevtools initialIsOpen={false} position="bottom" />
 					<MantineProvider
+						defaultColorScheme={themeValue}
+						forceColorScheme={themeValue}
 						theme={{
 							...createTheme(DEFAULT_THEME),
+							cursorType: "pointer",
 							components: {
 								...DEFAULT_THEME.components,
 								Tooltip: Tooltip.extend({
@@ -54,7 +61,9 @@ export function createRouter() {
 									},
 								}),
 							},
-						}}>
+						}}
+					>
+						<Global styles={globalShadows({ theme })} />
 						<Global styles={theme.global} />
 						<ThemeProvider theme={theme}>{children}</ThemeProvider>
 					</MantineProvider>

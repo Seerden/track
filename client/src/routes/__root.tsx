@@ -1,7 +1,9 @@
 import { createRootRouteWithContext, redirect } from "@tanstack/react-router";
 import App from "@/App";
+import indexCss from "@/index.scss?url";
 import { queryClient } from "@/lib/query-client";
 import { trpc } from "@/lib/trpc";
+import normalizeCss from "@/normalize.css?url";
 
 type RouterContext = {
 	queryClient: typeof queryClient;
@@ -9,11 +11,10 @@ type RouterContext = {
 };
 
 export const Route = createRootRouteWithContext<RouterContext>()({
-	component: App,
+	shellComponent: App,
 	beforeLoad: async ({ context: { queryClient }, location }) => {
-		console.log("In __root beforeLoad");
 		const me = await queryClient.ensureQueryData(trpc.auth.me.queryOptions());
-		if (!me.user && location.pathname !== "/login") {
+		if (!me.user && !["/login", "/register"].includes(location.pathname)) {
 			throw redirect({ to: "/login" });
 		}
 	},
@@ -21,6 +22,14 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 		return {
 			meta: [{ title: "Home" }],
 			links: [
+				// NOTE: if we import the mantine css files here, some things won't
+				// work properly, e.g. our overwrite of the cursor in the
+				// MantineProvider will not be applied, I think because of the order
+				// of things (that gets set first, then the css is imported here
+				// which resets it, or something).
+				{ rel: "stylesheet", href: indexCss },
+				{ rel: "stylesheet", href: normalizeCss },
+				// { rel: "manifest", href: "/site.webmanifest", color: "#171717" },
 				{
 					rel: "icon",
 					href: "/public/favicon.ico",

@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Containers from "@/lib/theme/components/container.style";
 import ListStyle from "@/lib/theme/components/List.style";
-import { getFontSize } from "@/lib/theme/font";
+import { font } from "@/lib/theme/font";
 import { column } from "@/lib/theme/snippets/column";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
@@ -16,9 +16,9 @@ const Times = styled.div`
 	width: max-content;
 	${flex.column};
 	align-items: flex-end;
-	font-size: ${(p) => getFontSize(p, 0.8)};
+	font-size: ${font.size["0.82"]};
 
-	color: #555;
+	color: ${(p) => p.theme.colors.text.main[5]};
 `;
 
 const Tasks = styled(Containers.Column)`
@@ -41,8 +41,8 @@ const Task = styled(ListStyle.Item)<{
 		p.$completed &&
 		css`
 			opacity: 0.6;
-			background-color: #eee;
-			outline: 2px solid #e9e9e9; // TODO TRK-231: add this to outline, or use an existing one
+			background-color: ${p.theme.colors.background.main[3]};
+			outline: 2px solid ${p.theme.colors.background.main[3]}; // TODO TRK-231: add this to outline, or use an existing one
 		`}// TODO: this opacity is the same for completed tasks in all their implementations, so generalize it.
 `;
 

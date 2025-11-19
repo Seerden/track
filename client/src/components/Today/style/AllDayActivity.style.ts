@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { getFontSize } from "@/lib/theme/font";
+import { font } from "@/lib/theme/font";
+import { lightDark } from "@/lib/theme/light-dark";
 import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
@@ -16,14 +17,14 @@ const AllDayActivity = styled.li<{ $completed?: boolean }>`
 	color: white;
 	background-color: ${(p) => p.theme.colors.blue.main};
 	${outline.blue};
-	box-shadow: 0 0.2rem 0.3rem 0 #aaa;
+	box-shadow: 0 0.2rem 0.3rem 0 ${(p) => lightDark(p, p.theme.colors.light[6], p.theme.colors.dark[1])};
 
 	${flex.row};
 	align-items: center;
 	flex-grow: 1;
 	max-width: 500px;
 
-	font-size: ${(p) => getFontSize(p, 0.93)};
+	font-size: ${font.size["0.93"]};
 
 	${spacing.padding.wide({ size: 0.2, ratio: 5 })};
 	padding-left: ${spacingValue.smaller};
