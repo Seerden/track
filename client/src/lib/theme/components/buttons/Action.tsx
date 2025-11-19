@@ -35,8 +35,8 @@ export const Default = styled(Unstyled)<{
 	&:focus,
 	&:active {
 		background-color: var(--color-background-active);
-		outline: 2px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 0 : 3]};
-		box-shadow: 0 0.1rem 0.4rem 0 ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 0]};
+		outline: 2px solid var(--bg-0-3);
+		box-shadow: 0 0.1rem 0.4rem 0 var(--bg-5-0);
 
       ${(p) =>
 				!p.$interactionColor &&
@@ -76,7 +76,7 @@ const Alternative = styled(Unstyled)<{ light?: boolean }>`
 	${(p) =>
 		p.light &&
 		css`
-			background-color: ${p.theme.colors.background.main[p.theme.mode === "light" ? 0 : 3]};
+			background-color: var(--bg-0-3);
 ;
 		`}
 
@@ -85,10 +85,10 @@ const Alternative = styled(Unstyled)<{ light?: boolean }>`
 	height: var(--size);
 
 	&:hover, &:focus, &:active {
-      outline: 2px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 4 : 3]};
+      outline: 2px solid var(--bg-4-3);
 		background-color: ${(p) => p.theme.colors.background.main[1]};
-		outline: 2px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 0 : 3]};
-		box-shadow: 0 0.1rem 0.4rem 0 ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 0]};
+		outline: 2px solid var(--bg-0-3);
+		box-shadow: 0 0.1rem 0.4rem 0 var(--bg-5-0);
 	}
 `;
 

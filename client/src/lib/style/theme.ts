@@ -6,16 +6,29 @@ import { spacingValue } from "@/lib/theme/snippets/spacing";
 const constants = {} as const;
 
 const lightBody = css`
-   color: ${colors.text.main[0]};
-   background-color: ${colors.background.main[0]};
+   :root {
+      --bg-body: ${colors.background.main[2]};
+   }
+
+   body {
+      color: ${colors.text.main[0]};
+
+   }
 `;
 
 const darkBody = css`
-   color: ${darkColors.text.main[0]};
-   background-color: ${darkColors.background.body};
+   :root {
+      --bg-body: ${darkColors.background.body};
+   }
+
+   body {
+      color: ${darkColors.text.main[0]};
+   }
 `;
 
 const global = css`
+      ${lightBody};
+
 	:root {
 		--page-padding: ${spacingValue.medium};
 		@media (min-width: 768px) {
@@ -27,18 +40,19 @@ const global = css`
 		--mantine-font-family: $fonts; // this comes from index.scss I think
 		--mantine-font-size-md: 1rem;
 		--mantine-line-height: unset;
-		--mantine-color-body: ${colors.background.main[2]};
+		--mantine-color-body: var(--bg-body);
 		--mantine-color-text: ${colors.text.main[0]};
 	}
 
    body {
-      ${lightBody};
    	margin: 0;
    	padding: 0;
    }
 `;
 
 const globalDark = css`
+   ${darkBody};
+   
 	:root {
 		--page-padding: ${spacingValue.medium};
 		@media (min-width: 768px) {
@@ -55,7 +69,6 @@ const globalDark = css`
 	}
 
    body {
-      ${darkBody};
    	margin: 0;
    	padding: 0;
    }
@@ -78,3 +91,30 @@ export const darkTheme = {
 } as const;
 
 export type MainTheme = typeof lightTheme | typeof darkTheme;
+
+export const globalShadows = ({ theme }: { theme: MainTheme }) => css`
+   :root {
+      /* --bg-body: ${
+				theme.mode === "light"
+					? theme.colors.background.main[1]
+					: theme.colors.background.body
+			}; */
+      
+      --bg-0-1: ${theme.colors.background.main[theme.mode === "light" ? 0 : 1]};
+      --bg-0-2: ${theme.colors.background.main[theme.mode === "light" ? 0 : 2]};
+      --bg-0-3: ${theme.colors.background.main[theme.mode === "light" ? 0 : 3]};
+      --bg-1-2: ${theme.colors.background.main[theme.mode === "light" ? 1 : 2]};
+      --bg-2-1: ${theme.colors.background.main[theme.mode === "light" ? 2 : 1]};
+      --bg-3-1: ${theme.colors.background.main[theme.mode === "light" ? 3 : 1]};
+      --bg-3-2: ${theme.colors.background.main[theme.mode === "light" ? 3 : 2]};
+      --bg-3-4: ${theme.colors.background.main[theme.mode === "light" ? 3 : 4]};
+      --bg-4-1: ${theme.colors.background.main[theme.mode === "light" ? 4 : 1]};
+      --bg-4-2: ${theme.colors.background.main[theme.mode === "light" ? 4 : 2]};
+      --bg-4-3: ${theme.colors.background.main[theme.mode === "light" ? 4 : 3]};
+      --bg-5-0: ${theme.colors.background.main[theme.mode === "light" ? 5 : 0]};
+      --bg-5-1: ${theme.colors.background.main[theme.mode === "light" ? 5 : 1]};
+      --bg-5-2: ${theme.colors.background.main[theme.mode === "light" ? 5 : 2]};
+      --bg-5-3: ${theme.colors.background.main[theme.mode === "light" ? 5 : 3]};
+      --bg-5-4: ${theme.colors.background.main[theme.mode === "light" ? 5 : 4]};
+   }
+`;

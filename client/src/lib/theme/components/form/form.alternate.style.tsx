@@ -14,7 +14,7 @@ import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
  * forms, for the consistency of the visual design. */
 
 const Form = styled.form`
-   --shadow-1: ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 1]};
+   --shadow-1: var(--bg-5-1);
    --border-1: ${(p) => p.theme.colors.background.main[0]};
 
 	${containers.minimal};

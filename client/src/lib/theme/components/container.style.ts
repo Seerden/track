@@ -9,7 +9,7 @@ const minimal = ({ theme }: { theme: MainTheme }) => css`
 	${spacing.padding.wide({ size: 0.5, ratio: 2 })}
 	${radius.medium};
 	
-   outline: 2px solid ${theme.colors.background.main[theme.mode === "light" ? 3 : 2]};
+   outline: 2px solid var(--bg-3-2);
 	border: 2px solid ${theme.colors.background.main[0]};
 	box-shadow: 0 0.5rem 1rem 0 var(--shadow-1, transparent);
 `;
@@ -70,12 +70,12 @@ const ActionBar = styled.div`
 	${radius.small};
 	gap: ${spacingValue.small};
 	margin-bottom: ${spacingValue.medium};
-	outline: 3px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 2]};
+	outline: 3px solid var(--bg-5-2);
 
 	width: max-content;
 
 	background-color: ${(p) => p.theme.colors.background.main[3]};
-	box-shadow: 0 0.3rem 0.5rem -0.1rem ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 3 : 1]};
+	box-shadow: 0 0.3rem 0.5rem -0.1rem var(--bg-3-1);
 
 	position: sticky;
 	z-index: 2;

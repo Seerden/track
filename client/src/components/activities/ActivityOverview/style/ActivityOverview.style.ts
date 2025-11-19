@@ -26,7 +26,7 @@ const FloatingWrapper = styled.div`
 
 	z-index: 2;
    
-	outline: 2px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 0 : 2]};
+	outline: 2px solid var(--bg-0-2);
 	background-color: ${(p) => p.theme.colors.background.main[0]};
 	--highlight: ${(p) => p.theme.colors.darkBlue.main};
 	border: 2px solid var(--highlight);

@@ -15,8 +15,8 @@ const Trigger = styled(Buttons.Unstyled)`
 	${radius.largish};
 	margin-top: ${spacingValue.smaller};
 
-	background-color: ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 0 : 1]};
-	box-shadow: 0 0.2rem 0.2rem 0 ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 1]};
+	background-color: var(--bg-0-1);
+	box-shadow: 0 0.2rem 0.2rem 0 var(--bg-5-1);
 
 	&:hover,
 	&:focus {
@@ -82,7 +82,7 @@ const ActionBar = styled.div`
 	${radius.medium}
 
    background-color: ${(p) => p.theme.colors.background.main[0]};
-	outline: 2px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 3 : 4]};
+	outline: 2px solid var(--bg-3-4);
 `;
 
 const Label = styled(formStyle.Label)`

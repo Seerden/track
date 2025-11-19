@@ -16,10 +16,9 @@ const Wrapper = styled.div`
 	${flex.column};
 	font-size: ${font.size["0.9"]};
 
-   --background-1: ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 3 : 2]};
-   --background-2: ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 6 : 3]};
-   --background-3: ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 4 : 1]};
-   --background-4: ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 2 : 1]};
+   --background-1: var(--bg-3-2);
+   --background-2: var(--bg-4-2);
+   --background-3: var(--bg-4-1);
 `;
 
 const Section = styled.div``;
@@ -36,17 +35,17 @@ const TabsHeader = styled.div`
 
 	z-index: 2; // to get above the box-shadow of TabsPanel
 
-	border-bottom: 2px solid var(--background-1);
+	border-bottom: 2px solid var(--bg-3-2);
 `;
 
 const TabsPanel = styled.div`
 	${spacing.padding.medium};
 	${radius.medium};
 
-	background-color: var(--background-4);
-	outline: 2px solid var(--background-3);
-	border: 2px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 0 : 2]};
-	box-shadow: 0 0.6rem 1rem -0.5rem ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 4 : 1]};
+	background-color: var(--bg-2-1);
+	outline: 2px solid var(--bg-4-1);
+	border: 2px solid var(--bg-0-2);
+	box-shadow: 0 0.6rem 1rem -0.5rem var(--bg-4-1);
 
 	transform-origin: bottom center;
 `;
@@ -70,9 +69,8 @@ const TabInner = styled.div<{ $active?: boolean }>`
 	margin: 0 ${spacingValue.small};
    font-size: ${font.size["0.9"]};
 
-   // contrast color for the given background-color (below)
-   color: ${(p) => contrastColor(p.$active ? p.theme.colors.blue.main : p.theme.colors.background.main[p.theme.mode === "light" ? 3 : 2])};
-   background-color: ${(p) => (p.$active ? p.theme.colors.blue.main : `var(--background-1)`)};
+   color: ${(p) => contrastColor(p.$active ? p.theme.colors.blue.main : `var(--bg-3-2)`)};
+   background-color: ${(p) => (p.$active ? p.theme.colors.blue.main : `var(--bg-3-2)`)};
 
 	transition: all 50ms linear;
 `;
@@ -138,8 +136,8 @@ const InputWithSelect = styled.div`
 
 	height: max-content;
 
-	border: 2px solid var(--background-2);
-	box-shadow: 0 0.3rem 0.5rem -0.3rem ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 2]};
+	border: 2px solid var(--bg-4-2);
+	box-shadow: 0 0.3rem 0.5rem -0.3rem var(--bg-5-2);
 
 	select {
 		width: 10ch;
@@ -169,7 +167,9 @@ function getTagBackgroundColor(
 	if (selected && active) return "darkorange";
 	if (selected) return "orange";
 	if (active)
+		// bg-?
 		return theme.colors.background.main[theme.mode === "light" ? 4 : 1];
+	// bg-1
 	return theme.colors.background.main[theme.mode === "light" ? 1 : 2];
 }
 
@@ -179,7 +179,7 @@ const TagChip = styled(Buttons.Unstyled)<{
 }>`
 	cursor: pointer;
 
-	outline: 1px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 2]};
+	outline: 1px solid var(--bg-5-2);
 	padding: 0.3rem;
 	${radius.small};
 	flex: 1;

@@ -24,8 +24,8 @@ const HeaderDark = styled.div`
 	${radius.small}
 
 	background-color: ${(p) => p.theme.colors.dark[3]};
-	outline: 2px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 4 : 2]};
-	box-shadow: 0 0 0.3rem 0 ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 2]};
+	outline: 2px solid var(--bg-4-2);
+	box-shadow: 0 0 0.3rem 0 var(--bg-5-2);
 	color: ${(p) => p.theme.colors.light[3]};
 
 	${subgridItem};

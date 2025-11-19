@@ -5,10 +5,10 @@ import type { MainTheme } from "@/lib/style/theme";
 import { flex } from "@/lib/theme/snippets/flex";
 
 export const pageStyle = ({ theme }: { theme: MainTheme }) => css`
-	background-color: ${theme.colors.background.main[theme.mode === "light" ? 3 : 1]};
+	background-color: var(--bg-3-1);
 	display: flex;
 
-	box-shadow: 0.2rem 0.2rem 0.5rem 0 ${theme.colors.background.main[theme.mode === "light" ? 4 : 1]};
+	box-shadow: 0.2rem 0.2rem 0.5rem 0 var(--bg-4-1);
 
 	${flex.column}
 

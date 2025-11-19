@@ -23,7 +23,7 @@ export const inputStyle = ({ theme }: { theme: MainTheme }) =>
       border-radius: 0 0 3px 3px;
 
       color: ${theme.colors.text.main[0]};
-      background-color: ${theme.colors.background.main[theme.mode === "light" ? 0 : 2]};
+      background-color: var(--bg-0-2);
 
       &::-webkit-outer-spin-button,
       &::-webkit-inner-spin-button {

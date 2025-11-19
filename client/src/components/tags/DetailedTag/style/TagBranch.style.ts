@@ -19,8 +19,8 @@ const Branch = styled.ol`
 
 	background-color: ${(p) => p.theme.colors.background.main[3]};
 	${radius.medium};
-	box-shadow: 0 0.2rem 0.3rem 0 ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 1]};
-	outline: 1px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 1 : 2]};
+	box-shadow: 0 0.2rem 0.3rem 0 var(--bg-5-1);
+	outline: 1px solid var(--bg-1-2);
 `;
 
 const Node = styled.li<{ $active?: boolean }>`
@@ -90,8 +90,8 @@ const Title = styled.h2`
 	${spacing.padding.wide({ size: 0.3, ratio: 4 })}
 
 	background-color: ${(p) => p.theme.colors.background.main[1]};
-	outline: 1px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 1 : 2]};
-	box-shadow: 0 0.2rem 0.3rem 0 ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 1]};
+	outline: 1px solid var(--bg-1-2);
+	box-shadow: 0 0.2rem 0.3rem 0 var(--bg-5-1);
 `;
 
 export default {

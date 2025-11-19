@@ -22,11 +22,11 @@ const Filter = styled(Default)`
 	// inputStyle does not have this
 	line-height: var(--font-size);
 
-	outline: 2px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 3]};
+	outline: 2px solid var(--bg-5-3);
 
 	&:focus {
 		outline-color: ${(p) => p.theme.colors.blue.secondary};
-		box-shadow: 0rem 0.5rem 0.2rem -0.2rem ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 2]};
+		box-shadow: 0rem 0.5rem 0.2rem -0.2rem var(--bg-5-2)
 	}
 `;
 

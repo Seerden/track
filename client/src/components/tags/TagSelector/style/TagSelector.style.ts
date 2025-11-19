@@ -21,15 +21,15 @@ const Wrapper = styled.div<{ $fullSize?: boolean }>`
 
 	min-height: 130px; // TODO: this is hardcoded for the current size to prevent layout shift -- should be dynamic
    
-   border: 1px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 3]};
+   border: 1px solid var(--bg-5-3);
 	box-shadow: 0.6rem 0.6rem 0 -0.5rem ${(p) => p.theme.colors.dark[4]};
 
-   background-color: ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 1 : 2]}
+   background-color: var(--bg-1-2);
 `;
 
 const List = styled.ul`
 	${flex.row};
-	background-color: ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 0 : 1]};
+	background-color: var(--bg-0-1);
 ;
 	flex-wrap: wrap;
 
@@ -50,7 +50,7 @@ const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
 	justify-content: center;
 	border: 2px solid #ccc;
 	${radius.small};
-	box-shadow: 0.2rem 0.1rem 0 0 ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 4]};
+	box-shadow: 0.2rem 0.1rem 0 0 var(--bg-5-4);
 	${spacing.padding.wide({ size: 0.2, ratio: 2.5 })};
 	font-size: ${font.size["0.82"]};
 	min-height: calc(4px + 1.24rem); // should be font-size + padding + border
@@ -73,7 +73,7 @@ const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
 	${(p) =>
 		!p.$hasParent
 			? css`
-					box-shadow: 0.2rem 0.2rem 0rem -0.1rem ${p.theme.colors.background.main[p.theme.mode === "light" ? 4 : 3]};
+					box-shadow: 0.2rem 0.2rem 0rem -0.1rem var(--bg-4-3);
 					background-color: ${p.theme.colors.background.main[3]};
 				`
 			: css``};
@@ -174,7 +174,7 @@ const DropdownContent = styled.div`
 	${flex.column};
 
 	background-color: ${(p) => p.theme.colors.background.main[3]};
-	border: 2px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 4]};
+	border: 2px solid var(--bg-5-4);;
 	${radius.medium};
 
 	box-shadow:

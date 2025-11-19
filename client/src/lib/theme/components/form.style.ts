@@ -18,7 +18,7 @@ const Wrapper = styled.div`
    
 	max-width: 500px;
 
-	box-shadow: 0 0.3rem 1.2rem -0.1rem ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 1]};
+	box-shadow: 0 0.3rem 1.2rem -0.1rem var(--bg-5-1);
 `;
 
 const FormTitle = styled.h1`
@@ -44,7 +44,7 @@ const Row = styled.fieldset`
 
 	width: 100%;
 	max-width: 100%;
-	border: 1px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 3]};
+	border: 1px solid var(--bg-5-3);
 	box-shadow: 0.6rem 0.6rem 0 -0.5rem ${(p) => p.theme.colors.dark[4]};
 	justify-content: space-between;
 

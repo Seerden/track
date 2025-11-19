@@ -36,13 +36,13 @@ const RadioOption = styled.label`
 	padding: ${spacingValue.small};
 	${radius.small};
 	
-   border: 2px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 3]};
-	outline: 2px solid 2px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 3 : 1]};
+   border: 2px solid var(--bg-5-3);
+	outline: 2px solid 2px solid var(--bg-3-1);
 
 	background-color: ${(p) => p.theme.colors.background.main[3]};
 
-   --shadow-1: ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 4 : 1]};
-   --shadow-2: ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 2]};
+   --shadow-1: var(--bg-4-1);
+   --shadow-2: var(--bg-5-2);
 	box-shadow: 0 0.2rem 0.5rem 0 var(--shadow-1);
 
 	${RadioLabelText} {
@@ -113,7 +113,7 @@ const ProgressionFieldset = styled.fieldset`
 	padding: 1.2rem;
 
 	/* TODO: same as other fieldsets */
-   border: 1px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 3]};
+   border: 1px solid var(--bg-5-3);
 	box-shadow: 0.6rem 0.6rem 0 -0.5rem ${(p) => p.theme.colors.dark[4]};
 `;
 

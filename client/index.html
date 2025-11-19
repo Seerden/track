@@ -2,6 +2,26 @@
 <html lang="en">
 
 <head>
+   <!-- <script>
+      (function () {
+         // Change these to match your local storage key and class name
+         const storageKey = 'preferred-theme';
+         const className = 'dark';
+
+         const preference = localStorage.getItem(storageKey);
+         const systemPreference = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+         // Apply dark mode if explicitly set to dark, or if not set and system is dark
+         if (preference === 'dark') {
+            document.documentElement.classList.add(className);
+            // add data-mantine-color-scheme: "dark" to :root
+            document.documentElement.setAttribute('data-mantine-color-scheme', 'dark');
+         } else {
+            document.documentElement.classList.remove(className);
+            document.documentElement.setAttribute('data-mantine-color-scheme', 'light');
+         }
+      })();
+   </script> -->
    <meta charset="UTF-8" />
    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
    <title>Track</title>

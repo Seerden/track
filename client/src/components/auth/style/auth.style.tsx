@@ -35,7 +35,7 @@ const Column = styled.fieldset`
 	${radius.medium};
 
 	background-color: ${(p) => p.theme.colors.background.main[2]};
-	outline: 2px solid ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 3 : 2]};
+	outline: 2px solid var(--bg-3-2);
 	height: max-content;
 `;
 

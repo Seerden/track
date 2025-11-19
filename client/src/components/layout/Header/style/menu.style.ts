@@ -108,8 +108,8 @@ const TriggerButton = styled(Buttons.Unstyled)`
 	width: max-content;
 	border: 2px solid transparent;
 	
-   --shadow-color: ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 4 : 3]};
-   --secondary-background-color: ${(p) => p.theme.colors.background.main[p.theme.mode === "light" ? 5 : 2]};
+   --shadow-color: var(--bg-4-3);
+   --secondary-background-color: var(--bg-5-2);
 
    border-bottom-color: var(--shadow-color);
 

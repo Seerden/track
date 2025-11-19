@@ -1,6 +1,6 @@
 import { Popover, Switch } from "@mantine/core";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtomValue } from "jotai";
 import {
 	LucideCalendar,
 	LucideKeyboard,
@@ -15,18 +15,13 @@ import { Protected } from "@/components/wrappers";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import { shortcutMenuAtom } from "@/lib/hooks/useContextMenu";
 import { colors, darkColors } from "@/lib/theme/colors";
-import { themeAtom } from "@/lib/theme/theme-atom";
+import { usePreferredTheme } from "@/lib/theme/theme-atom";
 import S from "./style/NavBar.style";
 
 export default function NavBar() {
 	const shortcutMenu = useAtomValue(shortcutMenuAtom);
 	const { isLoggedIn } = useAuthentication();
-	const [themeValue, setThemeValue] = useAtom(themeAtom);
-	function toggleTheme() {
-		setThemeValue((current) => {
-			return current === "dark" ? "light" : "dark";
-		});
-	}
+	const { themeValue, toggleThemeValue } = usePreferredTheme();
 
 	return (
 		<S.NavBar>
@@ -40,7 +35,7 @@ export default function NavBar() {
 					onLabel={<LucideMoon size={18} fill={darkColors.blue.main} />}
 					offLabel={<LucideSun size={18} fill={colors.yellow.main} />}
 					checked={themeValue === "dark"}
-					onChange={toggleTheme}
+					onChange={toggleThemeValue}
 					size="md"
 				/>
 
