@@ -35,5 +35,5 @@ export function usePreferredTheme() {
 
 	const theme = themeValue === "dark" ? darkTheme : lightTheme;
 
-	return { theme, themeValue, toggleThemeValue };
+	return { theme, themeValue, toggleThemeValue, prefersDark };
 }
