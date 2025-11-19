@@ -18,9 +18,9 @@
     "@sentry/cli": "2.57.0",
     "@sentry/node": "10.22.0",
     "@sentry/profiling-node": "10.22.0",
-    "@trpc/client": "11.3.1",
-    "@trpc/server": "11.3.1",
-    "@trpc/tanstack-react-query": "11.3.1",
+    "@trpc/client": "11.7.1",
+    "@trpc/server": "11.7.1",
+    "@trpc/tanstack-react-query": "11.7.1",
     "bcryptjs": "3.0.2",
     "connect-redis": "^7.1.1",
     "cookie-parser": "1.4.7",
@@ -31,7 +31,7 @@
     "immer": "^10.1.1",
     "ioredis": "^5.4.1",
     "postgres": "^3.4.4",
-    "superjson": "^2.2.2",
+    "superjson": "2.2.5",
     "web-push": "3.6.7"
   },
   "devDependencies": {
@@ -46,6 +46,6 @@
     "tsconfig-paths": "^4.2.0",
     "tsx": "^4.20.3",
     "typescript": "5.8.3",
-    "vitest": "^4.0.6"
+    "vitest": "4.0.10"
   }
 }
