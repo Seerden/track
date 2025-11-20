@@ -4,7 +4,7 @@ import type { Dayjs } from "dayjs";
 import CurrentTimeMark from "@/components/Today/CurrentTimeMark";
 import { isToday } from "@/lib/datetime/compare";
 import useCurrentTime from "@/lib/hooks/useCurrentTime";
-import Activity from "./Activity";
+import Activity from "./activities/Activity";
 import HourMark from "./HourMark";
 import R from "./style/TimelineRow.style";
 

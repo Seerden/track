@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
 import NewHabit from "@/components/habits/NewHabit/NewHabit";
 import NewNote from "@/components/notes/NewNote/NewNote";
-import AllDayActivities from "@/components/Today/AllDayActivities";
+import AllDayActivities from "@/components/Today/activities/AllDayActivities";
 import Create from "@/components/Today/Create";
 import Habits from "@/components/Today/habits/Habits";
 import TimelineRows from "@/components/Today/TimelineRows";

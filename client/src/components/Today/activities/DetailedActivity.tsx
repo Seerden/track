@@ -11,9 +11,9 @@ import { createDate } from "@/lib/datetime/make-date";
 import modalIds from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import Card from "@/lib/theme/components/Card.style";
-import TwoStepDelete from "../utility/Modal/TwoStepDelete";
+import TwoStepDelete from "../../utility/Modal/TwoStepDelete";
+import F from "../style/Detailed.style";
 import { RecurrenceCard } from "./RecurrenceCard";
-import F from "./style/Detailed.style";
 import { useDetailedActivity } from "./useDetailedActivity";
 
 // TODO: instead of this, do time (humanizedDate), with a tooltip on
