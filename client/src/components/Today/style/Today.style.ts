@@ -1,12 +1,20 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { Skeleton } from "@mantine/core";
 import TagCardStyle from "@/components/tags/TagCard/style/TagCard.style";
+import Containers from "@/lib/theme/components/container.style";
 import { font } from "@/lib/theme/font";
 import { lightDark } from "@/lib/theme/light-dark";
-import { column } from "@/lib/theme/snippets/column";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import scrollbar from "@/lib/theme/snippets/scroll";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
+
+const TimelineSkeleton = styled(Skeleton)`
+   border-top: 2px solid ${(p) => p.theme.colors.background.main[3]};
+   opacity: 0.4;
+   margin-left: 2rem;
+`;
 
 const TimelineWrapper = styled.section`
 	${flex.column};
@@ -38,17 +46,9 @@ const TimelineWrapper = styled.section`
 	${scrollbar.customVertical};
 `;
 
-const NotesWrapper = styled.section`
-	${column};
-`;
-
 const BlockTitle = styled.h2`
 	width: max-content;
 	padding: 0.5rem 0;
-`;
-
-const Rows = styled.ul`
-	${flex.column};
 `;
 
 const CheckboxWrapper = styled.label`
@@ -146,26 +146,28 @@ const Tags = styled.div`
 	}
 `;
 
-const AllDayActivityList = styled.ul`
-	${flex.row};
-	flex-wrap: wrap;
-
-	gap: ${spacingValue.small};
-	width: max-content;
-	max-width: 100%;
-	padding-inline: 3rem;
-
-	justify-content: flex-start;
+const OverdueTasksColumn = styled(Containers.Column)`
+   padding-top: ${spacingValue.small};
+   min-width: 500px;
+   max-height: 50vh;
+   overflow-y: auto;
+   ${(p) =>
+			//  TODO: instead of this convoluted css prop, add a secondary
+			// prop for the Task cards which makes the background darker
+			p.theme.mode === "dark" &&
+			css`
+            & > * {
+            background-color: ${p.theme.colors.background.main[1]};
+         `}
 `;
 
 export default {
+	TimelineSkeleton,
 	TimelineWrapper,
-	NotesWrapper,
 	BlockTitle,
-	Rows,
 	CheckboxWrapper,
 	Columns,
 	Header,
 	Tags,
-	AllDayActivityList,
+	OverdueTasksColumn,
 };

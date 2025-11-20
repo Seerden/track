@@ -8,7 +8,7 @@ import usePutTaskCompletion from "@/lib/hooks/usePutTaskCompletion";
 import modalIds from "@/lib/modal-ids";
 import Icons from "@/lib/theme/components/icons";
 import T from "./style/AllDayActivity.style";
-import S from "./style/Today.style";
+import Today from "./style/Today.style";
 
 function useAllDayActivity(activity: PossiblySyntheticActivity) {
 	const { openDetailedItemModal } = useDetailedItemModal(
@@ -44,7 +44,8 @@ export default function AllDayActivity({ activity }: AllDayActivityProps) {
 
 				e.stopPropagation();
 				openDetailedItemModal(activity.activity_id ?? activity.synthetic_id);
-			}}>
+			}}
+		>
 			<Tooltip label="This activity lasts all day" position="top" withArrow>
 				<Icons.InBadge>
 					<LucideHistory size={15} />
@@ -54,12 +55,12 @@ export default function AllDayActivity({ activity }: AllDayActivityProps) {
 			<T.ActivityName>{activity.name}</T.ActivityName>
 
 			{activity.is_task && (
-				<S.CheckboxWrapper ref={checkboxRef}>
+				<Today.CheckboxWrapper ref={checkboxRef}>
 					<Checkbox
 						checked={activity.completed ?? false}
 						onChange={putCompletion}
 					/>
-				</S.CheckboxWrapper>
+				</Today.CheckboxWrapper>
 			)}
 		</T.AllDayActivity>
 	);

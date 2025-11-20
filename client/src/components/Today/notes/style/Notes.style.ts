@@ -1,6 +1,11 @@
 import styled from "@emotion/styled";
+import { column } from "@/lib/theme/snippets/column";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import S from "./Today.style";
+import Today from "../../style/Today.style";
+
+const NotesWrapper = styled.section`
+	${column};
+`;
 
 const Note = styled.li`
 	list-style: none;
@@ -11,7 +16,7 @@ const Note = styled.li`
 		"content content"
 		"content content";
 
-	${S.Tags} {
+	${Today.Tags} {
 		grid-area: tags;
 	}
 
@@ -31,6 +36,7 @@ const NoteContent = styled.div`
 `;
 
 export default {
+	NotesWrapper,
 	Note,
 	NoteTitle,
 	NoteContent,

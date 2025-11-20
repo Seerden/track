@@ -7,8 +7,8 @@ import {
 } from "@/lib/activity";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
+import Today from "../style/Today.style";
 import T from "./style/Tasks.style";
-import S from "./style/Today.style";
 import Task from "./Task";
 
 type TasksProps = {
@@ -28,7 +28,7 @@ export default function Tasks({ activities }: TasksProps) {
 
 	return (
 		<T.TasksWrapper style={{ gridArea: "tasks" }}>
-			<S.BlockTitle>Tasks</S.BlockTitle>
+			<Today.BlockTitle>Tasks</Today.BlockTitle>
 			{activities.length ? (
 				<T.Tasks>
 					{sortedActivities.map((a) => (

@@ -3,7 +3,7 @@ import { Popover } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import { LucideClockAlert } from "lucide-react";
-import { useTask } from "@/components/Today/useTask";
+import { useTask } from "@/components/Today/tasks/useTask";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import { formatToHHmm } from "@/lib/datetime/format-date";
 import { now } from "@/lib/datetime/make-date";
@@ -14,9 +14,9 @@ import Containers from "@/lib/theme/components/container.style";
 import Icons from "@/lib/theme/components/icons";
 import List from "@/lib/theme/components/List.style";
 import { font } from "@/lib/theme/font";
-import TagCard from "../tags/TagCard/TagCard";
+import TagCard from "../../tags/TagCard/TagCard";
+import Today from "../style/Today.style";
 import T from "./style/Tasks.style";
-import S from "./style/Today.style";
 
 type TaskProps = {
 	activity: PossiblySyntheticActivity;
@@ -31,7 +31,7 @@ export default function Task({ activity }: TaskProps) {
 
 	return (
 		<T.Task $completed={activity.completed ?? false} overdue={overdue}>
-			<S.CheckboxWrapper
+			<Today.CheckboxWrapper
 				onClick={(e) => {
 					// This prevents the task from being opened when the checkbox is
 					// clicked.
@@ -42,7 +42,7 @@ export default function Task({ activity }: TaskProps) {
 					checked={activity.completed ?? false}
 					onChange={putCompletion}
 				/>
-			</S.CheckboxWrapper>
+			</Today.CheckboxWrapper>
 
 			{overdue ? (
 				<Containers.Column
@@ -87,11 +87,11 @@ export default function Task({ activity }: TaskProps) {
 			{!!tags.length && (
 				// TODO: make sure the styling of the component doesn't do anything
 				// weird when Tags isn't rendered
-				<S.Tags>
+				<Today.Tags>
 					{tags.map((tag) => (
 						<TagCard key={tag.tag_id} tag={tag} />
 					))}
-				</S.Tags>
+				</Today.Tags>
 			)}
 		</T.Task>
 	);
