@@ -3,13 +3,16 @@ import type { ActivityFilterWithValues } from "@/components/activities/ActivityF
 import { filterByDatetime } from "@/components/activities/ActivityFilter/lib/filter-datetime";
 import { filterByName } from "@/components/activities/ActivityFilter/lib/filter-name";
 import { filterByTags } from "@/components/activities/ActivityFilter/lib/filter-tags";
+import type { TagFilter } from "@/components/activities/ActivityFilter/TagsTab";
 
 export function filterActivities({
 	activities,
 	filter,
+	tagFilter,
 }: {
 	activities: ActivityWithIds[];
 	filter: ActivityFilterWithValues;
+	tagFilter: TagFilter;
 }): ActivityWithIds[] {
 	const filteredByName = filterByName(activities, filter.name);
 
@@ -20,7 +23,7 @@ export function filterActivities({
 		return [];
 	}
 
-	const filteredByTags = filterByTags(filteredByName, filter.tags);
+	const filteredByTags = filterByTags(filteredByName, tagFilter);
 
 	if (!filteredByTags.length) {
 		return [];

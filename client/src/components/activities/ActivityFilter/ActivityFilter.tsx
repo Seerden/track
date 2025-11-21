@@ -1,19 +1,14 @@
 import { DateTimePicker } from "@mantine/dates";
-import {
-	LucideBlend,
-	LucideFilterX,
-	LucideNetwork,
-	LucideXCircle,
-} from "lucide-react";
+import { LucideFilterX, LucideXCircle } from "lucide-react";
 import type { ReactNode } from "react";
 import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import {
 	activityFilterDatetimeModifiers,
 	activityFilterDatetimeSelectors,
 	activityFilterTabs,
-	activityFilterTagsTypes,
 } from "@/components/activities/ActivityFilter/lib/constants";
 import { nameTypeOptions } from "@/components/activities/ActivityFilter/lib/filter-name";
+import TagsTab from "@/components/activities/ActivityFilter/TagsTab";
 import useActivityFilter from "@/components/activities/ActivityFilter/useActivityFilter";
 import Containers from "@/lib/theme/components/container.style";
 import Input from "@/lib/theme/input";
@@ -25,36 +20,14 @@ export type ActivityFilterProps = {
 };
 
 export default function ActivityFilter({ onChange }: ActivityFilterProps) {
-	const {
-		isProbablySuspended,
-		filter,
-		actions,
-		noTagsFound,
-		tags,
-		isActiveTag,
-		isSelectedTag,
-		wholeTree,
-		toggleWholeTree,
-		activeTab,
-		setActiveTab,
-	} = useActivityFilter({ onChange });
+	const { isProbablySuspended, filter, actions, activeTab, setActiveTab } =
+		useActivityFilter({ onChange });
 
 	if (isProbablySuspended) return null;
 
-	const tabMap: Record<typeof activeTab, ReactNode> = {
+	const tabMap: Record<typeof activeTab, ReactNode> & { tags: ReactNode } = {
 		name: <NameTab filter={filter} actions={actions} />,
-		tags: (
-			<TagsTab
-				actions={actions}
-				filter={filter}
-				toggleWholeTree={toggleWholeTree}
-				wholeTree={wholeTree}
-				tags={tags}
-				isSelectedTag={isSelectedTag}
-				isActiveTag={isActiveTag}
-				noTagsFound={noTagsFound}
-			/>
-		),
+		tags: <TagsTab />,
 		datetime: <DatetimeTab filter={filter} actions={actions} />,
 	};
 
@@ -78,7 +51,7 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 	);
 }
 
-function ResetButton({ onClick }: { onClick: () => void }) {
+export function ResetButton({ onClick }: { onClick: () => void }) {
 	return (
 		<S.ResetButton onClick={onClick}>
 			<LucideFilterX size={20} />
@@ -86,7 +59,7 @@ function ResetButton({ onClick }: { onClick: () => void }) {
 	);
 }
 
-function ClearInputButton({ onClick }: { onClick: () => void }) {
+export function ClearInputButton({ onClick }: { onClick: () => void }) {
 	return (
 		<LucideXCircle
 			size={20}
@@ -104,7 +77,7 @@ function ClearInputButton({ onClick }: { onClick: () => void }) {
 	);
 }
 
-type Defined<T> = T extends undefined ? never : T;
+export type Defined<T> = T extends undefined ? never : T;
 
 type TabProps = {
 	filter: ActivityFilterWithValues;
@@ -204,88 +177,6 @@ function NameTab({ filter, actions }: TabProps) {
 					)}
 				</S.InputWithSelect>
 			</Containers.Row>
-		</S.Section>
-	);
-}
-
-function TagsTab({
-	actions,
-	filter,
-	toggleWholeTree,
-	wholeTree,
-	tags,
-	isSelectedTag,
-	isActiveTag,
-	noTagsFound,
-}: {
-	actions: Defined<ReturnType<typeof useActivityFilter>["actions"]>;
-	filter: ActivityFilterWithValues;
-	toggleWholeTree: () => void;
-	wholeTree: boolean;
-	tags: { tag_id: string; name: string }[];
-	isSelectedTag: (tagId: string) => boolean | undefined;
-	isActiveTag: (tagId: string) => boolean;
-	noTagsFound: boolean;
-}) {
-	return (
-		<S.Section>
-			<ResetButton onClick={actions.reset.tags.value} />
-			<S.SectionContent>
-				<S.SectionActionBar>
-					<S.InputWithSelect style={{ position: "relative" }}>
-						<S.Select onChange={actions.set.tags.type}>
-							{activityFilterTagsTypes.map((type) => (
-								<option key={type} value={type}>
-									{type}
-								</option>
-							))}
-						</S.Select>
-						<S.Input
-							type="text"
-							value={filter.tags.search}
-							onChange={actions.set.tags.search}
-						/>
-						{filter.tags.search.length > 0 && (
-							<ClearInputButton onClick={actions.reset.tags.search} />
-						)}
-					</S.InputWithSelect>
-					<S.Toggle
-						role="button"
-						onClick={actions.set.tags.toggleExact}
-						$active={filter.tags.exact}
-						title="Exact match?"
-					>
-						<LucideBlend size={15} />
-					</S.Toggle>
-					<S.Toggle
-						role="button"
-						onClick={toggleWholeTree}
-						$active={wholeTree}
-						title="Select tree?"
-					>
-						<LucideNetwork size={15} />
-					</S.Toggle>
-				</S.SectionActionBar>
-				<S.TagSelectionList>
-					{tags.map(({ tag_id, name }) => {
-						return (
-							<S.TagChip
-								$selected={isSelectedTag(tag_id)}
-								$active={isActiveTag(tag_id)}
-								onMouseEnter={() => actions.set.activeTagIds(tag_id, "on")}
-								onMouseLeave={() => actions.set.activeTagIds(tag_id, "off")}
-								key={tag_id}
-								value={tag_id}
-								onClick={actions.set.tags.value}
-							>
-								{name}
-							</S.TagChip>
-						);
-					})}
-
-					{noTagsFound && <p>No tags found that match the search query.</p>}
-				</S.TagSelectionList>
-			</S.SectionContent>
 		</S.Section>
 	);
 }

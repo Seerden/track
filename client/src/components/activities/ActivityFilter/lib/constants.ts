@@ -2,7 +2,6 @@ import type {
 	ActivityFilterDatetimeModifier,
 	ActivityFilterDatetimeSelector,
 	ActivityFilterTabs,
-	ActivityFilterTagsType,
 	ActivityFilterWithValues,
 } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 
@@ -16,22 +15,14 @@ export const defaultFilter = {
 		type: "includes",
 		value: null,
 	},
-	tags: {
-		type: "includes",
-		exact: true,
-		value: null,
-		search: "",
-	},
 } satisfies ActivityFilterWithValues;
 
+// TODO: the type for ActivityFilterTabs is so convoluted. I tweaked it so I
+// could add "tags" here without typescript erroring.
 export const activityFilterTabs: ActivityFilterTabs[] = [
 	"name",
 	"datetime",
 	"tags",
-];
-export const activityFilterTagsTypes: ActivityFilterTagsType[] = [
-	"includes",
-	"excludes",
 ];
 export const activityFilterDatetimeModifiers: ActivityFilterDatetimeModifier[] =
 	["starts", "ends", "occurs"];

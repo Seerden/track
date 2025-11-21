@@ -10,16 +10,9 @@ export type ActivityFilterState = {
 		modifier: "starts" | "ends" | "occurs";
 		selector: "before" | "between" | "after";
 	};
-	tags: {
-		type: "includes" | "excludes";
-		/** if `!exact`, it considers all ids from the tree that `id` is part of. */
-		exact?: boolean;
-		search: string;
-	};
 };
 
-export type ActivityFilterTabs = keyof ActivityFilterState;
-export type ActivityFilterTagsType = ActivityFilterState["tags"]["type"];
+export type ActivityFilterTabs = keyof ActivityFilterState | "tags";
 export type ActivityFilterDatetimeModifier =
 	ActivityFilterState["datetime"]["modifier"];
 export type ActivityFilterDatetimeSelector =

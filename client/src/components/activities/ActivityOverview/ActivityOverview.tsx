@@ -1,3 +1,4 @@
+import { useAtomValue } from "jotai";
 import {
 	LucideArrowDownWideNarrow,
 	LucideDownload,
@@ -8,6 +9,7 @@ import { useMemo, useState } from "react";
 import ActivityFilter from "@/components/activities/ActivityFilter/ActivityFilter";
 import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import { filterActivities } from "@/components/activities/ActivityFilter/lib/filter";
+import { tagFilterAtom } from "@/components/activities/ActivityFilter/TagsTab";
 import TableItem from "@/components/activities/ActivityOverview/TableItem";
 import useActivityOverview from "@/components/activities/ActivityOverview/useActivityOverview";
 import { filterTagsById } from "@/lib/filter-tags";
@@ -21,12 +23,13 @@ export default function ActivityOverview() {
 	const { isProbablySuspended, activities, tags } = useActivityOverview();
 	const float = useFloatingProps({ click: {} });
 	const [filter, setFilter] = useState<ActivityFilterWithValues>();
+	const tagFilter = useAtomValue(tagFilterAtom);
 
 	const filteredActivities = useMemo(() => {
 		if (!activities || !filter) return [];
 
-		return filterActivities({ activities, filter });
-	}, [activities, filter]);
+		return filterActivities({ activities, filter, tagFilter });
+	}, [activities, filter, tagFilter]);
 
 	if (isProbablySuspended) return null;
 
@@ -38,7 +41,8 @@ export default function ActivityOverview() {
 					light
 					ref={float.refs.setReference}
 					{...float.getReferenceProps()}
-					title="Filter">
+					title="Filter"
+				>
 					<LucideFilter size={15} />
 				</Buttons.Action.Alternative>
 
@@ -49,13 +53,15 @@ export default function ActivityOverview() {
 
 				<Buttons.Action.Alternative
 					disabled
-					title="Export (not yet implemented)">
+					title="Export (not yet implemented)"
+				>
 					<LucideDownload size={15} />
 				</Buttons.Action.Alternative>
 
 				<Buttons.Action.Alternative
 					disabled
-					title="Select (not yet implemented)">
+					title="Select (not yet implemented)"
+				>
 					<LucideSquareDot size={15} />
 				</Buttons.Action.Alternative>
 			</Containers.ActionBar>
@@ -66,7 +72,8 @@ export default function ActivityOverview() {
 					...float.floatingStyles,
 					display: float.open ? "block" : "none",
 				}}
-				{...float.getFloatingProps()}>
+				{...float.getFloatingProps()}
+			>
 				<ActivityFilter onChange={setFilter} />
 			</S.FloatingWrapper>
 
