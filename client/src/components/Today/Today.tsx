@@ -1,6 +1,4 @@
-import { Popover } from "@mantine/core";
 import { Suspense } from "react";
-import TagsTab from "@/components/activities/ActivityFilter/TagsTab";
 import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
 import NewHabit from "@/components/habits/NewHabit/NewHabit";
 import NewNote from "@/components/notes/NewNote/NewNote";
@@ -42,23 +40,6 @@ export default function Today() {
 			<S.Columns>
 				<div style={{ gridArea: "calendar" }}>
 					<Calendar initialDate={currentDate} onChange={setCurrentDate} />
-
-					<Popover>
-						<Popover.Target>
-							<button
-								type="button"
-								style={{
-									marginTop: "1rem",
-									marginLeft: "1rem",
-								}}
-							>
-								tag filter
-							</button>
-						</Popover.Target>
-						<Popover.Dropdown>
-							<TagsTab />
-						</Popover.Dropdown>
-					</Popover>
 				</div>
 
 				<Create />

@@ -1,13 +1,15 @@
-import { Popover, Switch } from "@mantine/core";
+import { Popover, Switch, Tooltip } from "@mantine/core";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useAtomValue } from "jotai";
 import {
 	LucideCalendar,
+	LucideFilter,
 	LucideKeyboard,
 	LucideMoon,
 	LucideSun,
 	LucideUserCircle,
 } from "lucide-react";
+import TagsTab from "@/components/activities/ActivityFilter/TagsTab";
 import ActivityMenu from "@/components/layout/Header/ActivityMenu/ActivityMenu";
 import Menu from "@/components/layout/Header/Menu";
 import { ProfileMenu } from "@/components/user/profile/Profile";
@@ -15,6 +17,7 @@ import { Protected } from "@/components/wrappers";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import { shortcutMenuAtom } from "@/lib/hooks/useContextMenu";
 import { colors, darkColors } from "@/lib/theme/colors";
+import Buttons from "@/lib/theme/components/buttons";
 import { usePreferredTheme } from "@/lib/theme/theme-atom";
 import S from "./style/NavBar.style";
 
@@ -39,15 +42,39 @@ export default function NavBar() {
 					size="md"
 				/>
 
+				<Menu
+					id="TagFilter"
+					Target={
+						<Tooltip position="right" label="Tag filter">
+							<Buttons.Unstyled
+								type="button"
+								style={{
+									alignSelf: "center",
+									display: "flex",
+								}}
+							>
+								<LucideFilter size={23} />
+							</Buttons.Unstyled>
+						</Tooltip>
+					}
+				>
+					<div style={{ padding: "1rem" }}>
+						<TagsTab />
+					</div>
+				</Menu>
+
 				{/* TODO (TRK-257): finish this implementation */}
 				<Popover>
-					<Popover.Target>
-						<LucideKeyboard
-							size={23}
-							role="dialog"
-							style={{ cursor: "pointer" }}
-						/>
-					</Popover.Target>
+					<Tooltip label="Shortcut menu" position="right">
+						<Popover.Target>
+							<LucideKeyboard
+								size={23}
+								role="dialog"
+								style={{ cursor: "pointer" }}
+							/>
+						</Popover.Target>
+					</Tooltip>
+
 					<Popover.Dropdown>
 						{JSON.stringify(Object.fromEntries(shortcutMenu))}
 					</Popover.Dropdown>
