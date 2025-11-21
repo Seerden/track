@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import TagTreeBranch from "@/components/tags/DetailedTag/style/TagBranch.style";
-import CardStyle from "@/lib/theme/components/Card.style";
+import Card from "@/lib/theme/components/Card.style";
 import { flex } from "@/lib/theme/snippets/flex";
 
-const Wrapper = styled(CardStyle.Wrapper)`
+const Wrapper = styled(Card.Wrapper)`
 	${flex.column}
 
 	gap: 0.4rem;
@@ -12,7 +12,7 @@ const Wrapper = styled(CardStyle.Wrapper)`
 		align-self: center;
 	}
 
-	${CardStyle.Datetime} {
+	${Card.Datetime} {
 		align-self: flex-end;
 	}
 `;

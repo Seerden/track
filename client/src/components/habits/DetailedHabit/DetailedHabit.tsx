@@ -1,4 +1,3 @@
-import F from "@components/Today/style/Detailed.style";
 import { isNullish } from "@shared/lib/is-nullish";
 import type { HabitWithEntries } from "@shared/lib/schemas/habit";
 import { useAtomValue } from "jotai";
@@ -11,7 +10,8 @@ import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import useHabitsData from "@/lib/hooks/useHabitsData";
 import modalIds from "@/lib/modal-ids";
 import { timeWindowAtom } from "@/lib/state/time-window.state";
-import C from "@/lib/theme/components/Card.style";
+import Card from "@/lib/theme/components/Card.style";
+import { ActionBar } from "@/lib/theme/components/containers/action-bar.style";
 import HabitCalendar from "../calendar/HabitCalendar";
 import S from "./style/DetailedHabit.style";
 
@@ -56,9 +56,9 @@ export default function DetailedHabit({
 	return (
 		<>
 			<S.DetailedHabitCard>
-				<C.Title>{habit.name}</C.Title>
+				<Card.Title>{habit.name}</Card.Title>
 
-				<F.ActionBar>
+				<ActionBar.DetailModal>
 					<TwoStepDelete
 						disabled={isNullish(habit.habit_id)}
 						title="Delete this habit?"
@@ -66,23 +66,23 @@ export default function DetailedHabit({
 						confirmLabel="Delete"
 						rejectLabel="Keep"
 					/>
-				</F.ActionBar>
+				</ActionBar.DetailModal>
 				<p>{habit.description}</p>
 				<S.InfoFields>
 					{habit.goal_type === "goal" && (
-						<C.InfoLine>
-							<C.InfoLabel>Goal</C.InfoLabel>
-							<C.InfoValue>
+						<Card.InfoLine>
+							<Card.InfoLabel>Goal</Card.InfoLabel>
+							<Card.InfoValue>
 								{habit.goal} {habit.goal_unit}
-							</C.InfoValue>
-						</C.InfoLine>
+							</Card.InfoValue>
+						</Card.InfoLine>
 					)}
-					<C.InfoLine>
-						<C.InfoLabel>How often?</C.InfoLabel>
-						<C.InfoValue>{humanizedFrequency}</C.InfoValue>
-					</C.InfoLine>
+					<Card.InfoLine>
+						<Card.InfoLabel>How often?</Card.InfoLabel>
+						<Card.InfoValue>{humanizedFrequency}</Card.InfoValue>
+					</Card.InfoLine>
 				</S.InfoFields>
-				<C.Datetime
+				<Card.Datetime
 					style={{
 						display: "flex",
 						flexDirection: "column",
@@ -91,12 +91,12 @@ export default function DetailedHabit({
 				>
 					<span>Tracking started {humanizedStart}</span>
 					{habit.end_timestamp && <span>Tracking ends {humanizedEnd}</span>}
-				</C.Datetime>
+				</Card.Datetime>
 
 				{tags && (
-					<C.Tags>
+					<Card.Tags>
 						{habit.tag_ids.map((id) => (
-							<C.Tag
+							<Card.Tag
 								key={id}
 								onClick={(e) => {
 									e.stopPropagation();
@@ -105,9 +105,9 @@ export default function DetailedHabit({
 							>
 								{/* TODO: See #176 */}
 								{tags.get(id)?.name}
-							</C.Tag>
+							</Card.Tag>
 						))}
-					</C.Tags>
+					</Card.Tags>
 				)}
 			</S.DetailedHabitCard>
 			<HabitCalendar habit={habit} date={timeWindow.startDate} />

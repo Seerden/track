@@ -4,7 +4,7 @@ import { LucideRepeat } from "lucide-react";
 import { colors } from "@/lib/theme/colors";
 import { Icon } from "@/lib/theme/components/icons";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import S from "../style/Activity.style";
+import S from "./style/Activity.style";
 import { useActivity } from "./useActivity";
 
 export default function Activity({

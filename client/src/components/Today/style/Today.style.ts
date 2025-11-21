@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Skeleton } from "@mantine/core";
-import TagCardStyle from "@/components/tags/TagCard/style/TagCard.style";
+import TagCard from "@/components/tags/TagCard/style/TagCard.style";
 import Containers from "@/lib/theme/components/container.style";
 import { font } from "@/lib/theme/font";
 import { lightDark } from "@/lib/theme/light-dark";
@@ -135,7 +135,7 @@ const Tags = styled.div`
 	overflow-y: hidden;
 	max-height: 70px;
 
-	${TagCardStyle.Tag} {
+	${TagCard.Tag} {
 		display: flex;
 		max-height: 30px;
 		flex: 1;

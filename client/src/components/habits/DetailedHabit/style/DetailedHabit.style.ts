@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
-import CardStyle from "@/lib/theme/components/Card.style";
+import Card from "@/lib/theme/components/Card.style";
 
 /** TODO: DetailedHabit is only really shown in a modal, which has some padding etc.
  * of its own, so the style for this is very barebones. If we want to show it
  * outside of a modal, we need some additional styling to make it look better. */
-const DetailedHabitCard = styled(CardStyle.Wrapper)`
+const DetailedHabitCard = styled(Card.Wrapper)`
 	max-width: max-content;
 	list-style: none;
 `;
@@ -17,7 +17,7 @@ const InfoFields = styled.section`
 
 	max-width: max-content;
 
-	${CardStyle.InfoLine} {
+	${Card.InfoLine} {
 		width: 100%;
 	}
 

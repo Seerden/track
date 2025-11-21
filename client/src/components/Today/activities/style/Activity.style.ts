@@ -6,7 +6,7 @@ import { font } from "@/lib/theme/font";
 import { lightDark } from "@/lib/theme/light-dark";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import Today from "./Today.style";
+import Today from "../../style/Today.style";
 
 const cardWidth = "8vw";
 const cardGap = "5px";
