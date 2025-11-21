@@ -1,6 +1,6 @@
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { Dayjs } from "dayjs";
-import TimelineRow from "@/components/Today/TimelineRow";
+import TimelineRow from "@/components/Today/timeline/TimelineRow";
 import { activityStartHourOnDate } from "@/lib/activity";
 import Containers from "@/lib/theme/components/container.style";
 import { assignIndentationLevelToActivities } from "@/lib/timeline";

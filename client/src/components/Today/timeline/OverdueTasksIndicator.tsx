@@ -6,7 +6,7 @@ import { colors } from "@/lib/theme/colors";
 import Buttons from "@/lib/theme/components/buttons";
 import Icons from "@/lib/theme/components/icons";
 
-export function OverdueTasksIndicator({
+export default function OverdueTasksIndicator({
 	taskCount,
 	/** Button/icon size in pixels. */
 	size = 30,
@@ -27,16 +27,19 @@ export function OverdueTasksIndicator({
 				position: "absolute",
 				right: "1rem",
 				top: `${Math.floor(size / 2)}px`,
-			}}>
+			}}
+		>
 			<Tooltip
 				// TODO: pluralize properly
 				label={`You have ${taskCount} overdue tasks`}
 				position="top"
-				withArrow>
+				withArrow
+			>
 				<Icons.InBadge
 					$color={colors.red.secondary}
 					invert
-					size={`${Math.floor(size)}px`}>
+					size={`${Math.floor(size)}px`}
+				>
 					<LucideClockAlert strokeWidth={2} size={22} />
 				</Icons.InBadge>
 			</Tooltip>

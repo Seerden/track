@@ -5,7 +5,7 @@ import NewNote from "@/components/notes/NewNote/NewNote";
 import AllDayActivities from "@/components/Today/activities/AllDayActivities";
 import Create from "@/components/Today/Create";
 import Habits from "@/components/Today/habits/Habits";
-import TimelineRows from "@/components/Today/TimelineRows";
+import TimelineRows from "@/components/Today/timeline/TimelineRows";
 import useToday from "@/components/Today/useToday";
 import Calendar from "@/components/utility/Calendar/Calendar";
 import Modal from "@/components/utility/Modal/Modal";
@@ -15,11 +15,11 @@ import Containers from "@/lib/theme/components/container.style";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 import { DefaultSkeleton } from "../layout/Skeleton";
 import Notes from "./notes/Notes";
-import { OverdueTasksIndicator } from "./OverdueTasksIndicator";
-import { rowHeight } from "./style/TimelineRow.style";
 import S from "./style/Today.style";
 import Task from "./tasks/Task";
 import Tasks from "./tasks/Tasks";
+import OverdueTasksIndicator from "./timeline/OverdueTasksIndicator";
+import { rowHeight } from "./timeline/style/TimelineRow.style";
 
 export default function Today() {
 	const {

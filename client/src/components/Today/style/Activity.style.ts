@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { rowHeight } from "@/components/Today/style/TimelineRow.style";
+import { rowHeight } from "@/components/Today/timeline/style/TimelineRow.style";
 import { colors } from "@/lib/theme/colors";
 import { font } from "@/lib/theme/font";
 import { lightDark } from "@/lib/theme/light-dark";
