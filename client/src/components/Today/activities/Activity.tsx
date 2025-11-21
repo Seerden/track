@@ -1,9 +1,10 @@
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { Dayjs } from "dayjs";
 import { LucideRepeat } from "lucide-react";
+import { colors } from "@/lib/theme/colors";
 import { Icon } from "@/lib/theme/components/icons";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import T from "../style/Activity.style";
+import S from "../style/Activity.style";
 import { useActivity } from "./useActivity";
 
 export default function Activity({
@@ -19,7 +20,7 @@ export default function Activity({
 		useActivity(activity, date);
 
 	return (
-		<T.ActivityCard
+		<S.ActivityCard
 			key={activity.activity_id}
 			$level={level}
 			$offset={offset}
@@ -29,17 +30,17 @@ export default function Activity({
 			}}
 		>
 			{/* TODO: on mouseover, display a short humanized time string */}
-			<T.Activity
+			<S.Activity
 				$isTask={activity.is_task}
 				$isRecurring={!!activity.recurrence_id || !!activity.will_recur}
 				$durationHours={durationHoursOnDate}
 				$completed={activity.completed ?? false}
 			>
-				<T.ActivityName>{activity.name}</T.ActivityName>
+				<S.ActivityName>{activity.name}</S.ActivityName>
 
 				{!!recurrence && <RepeatIcon />}
-			</T.Activity>
-		</T.ActivityCard>
+			</S.Activity>
+		</S.ActivityCard>
 	);
 }
 
@@ -59,7 +60,7 @@ function RepeatIcon() {
 		>
 			<Icon
 				style={{
-					backgroundColor: "white",
+					backgroundColor: colors.light[0],
 					padding: icon.padding,
 				}}
 			>
