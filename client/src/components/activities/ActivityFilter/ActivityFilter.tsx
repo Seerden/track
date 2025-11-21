@@ -1,5 +1,6 @@
+import { useTheme } from "@emotion/react";
 import { DateTimePicker } from "@mantine/dates";
-import { LucideFilterX, LucideXCircle } from "lucide-react";
+import { LucideFilterX, LucideX } from "lucide-react";
 import type { ReactNode } from "react";
 import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import {
@@ -10,6 +11,8 @@ import {
 import { nameTypeOptions } from "@/components/activities/ActivityFilter/lib/filter-name";
 import TagsTab from "@/components/activities/ActivityFilter/TagsTab";
 import useActivityFilter from "@/components/activities/ActivityFilter/useActivityFilter";
+import type { MainTheme } from "@/lib/style/theme";
+import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import Input from "@/lib/theme/input";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
@@ -60,20 +63,26 @@ export function ResetButton({ onClick }: { onClick: () => void }) {
 }
 
 export function ClearInputButton({ onClick }: { onClick: () => void }) {
+	const theme = useTheme() as MainTheme;
 	return (
-		<LucideXCircle
-			size={20}
-			color="#fff"
-			fill="royalblue"
+		<Buttons.Unstyled
+			type="button"
 			style={{
+				display: "flex",
+				alignItems: "center",
+				justifyContent: "center",
 				position: "absolute",
-				right: "0.2rem",
+				right: "0.5rem",
 				top: "50%",
 				transform: "translateY(-50%)",
 				cursor: "pointer",
+				height: "max-content",
+				width: "max-content",
 			}}
 			onClick={onClick}
-		/>
+		>
+			<LucideX size={20} color={theme.colors.text.main[0]} />
+		</Buttons.Unstyled>
 	);
 }
 

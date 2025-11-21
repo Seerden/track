@@ -1,9 +1,10 @@
+import { FocusTrap, Select, TextInput, Tooltip } from "@mantine/core";
 import { byIdAsList } from "@shared/lib/map";
 import type { ID, Nullable } from "@shared/types/data/utility.types";
 import { useQuery } from "@tanstack/react-query";
 import { produce } from "immer";
 import { atom, useAtom } from "jotai";
-import { LucideBlend, LucideNetwork } from "lucide-react";
+import { LucideBlend, LucideFilterX, LucideNetwork } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
 	ClearInputButton,
@@ -11,6 +12,8 @@ import {
 } from "@/components/activities/ActivityFilter/ActivityFilter";
 import { getTreeMembers } from "@/components/activities/ActivityFilter/lib/tag-branch";
 import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
+import { font } from "@/lib/theme/font";
+import { spacingValue } from "@/lib/theme/snippets/spacing";
 import { trpc } from "@/lib/trpc";
 import S from "./style/ActivityFilter.style";
 
@@ -21,9 +24,7 @@ export type TagFilter = {
 	search: string;
 	value: Nullable<ID[]>;
 };
-const tagFilterTypes = ["includes", "excludes"] as const satisfies Array<
-	TagFilter["type"]
->;
+
 const defaultTagFilter: TagFilter = {
 	type: "includes",
 	exact: true,
@@ -127,11 +128,11 @@ export default function TagsTab() {
 		);
 	}
 
-	function setTagFilterType(e: React.ChangeEvent<HTMLSelectElement>) {
+	function setTagFilterType(type: TagFilter["type"]) {
 		// actions.set.tags.type
 		setTagFilter(
 			produce((draft) => {
-				draft.type = e.target.value as TagFilter["type"];
+				draft.type = type;
 			})
 		);
 	}
@@ -166,64 +167,138 @@ export default function TagsTab() {
 	}
 
 	return (
-		<S.Section>
-			<ResetButton onClick={resetTagsValue} />
-			<S.SectionContent>
-				<S.SectionActionBar>
-					<S.InputWithSelect style={{ position: "relative" }}>
-						<S.Select onChange={setTagFilterType}>
-							{tagFilterTypes.map((type) => (
-								<option key={type} value={type}>
-									{type}
-								</option>
-							))}
-						</S.Select>
-						<S.Input
+		<FocusTrap>
+			<S.Section
+				style={{
+					width: 300,
+					fontSize: font.size["0.9"],
+				}}
+			>
+				{/* TODO: this should only be here when inside the ActivityFilter, 
+               otherwise it'll be inline with the  rest of the action buttons. */}
+				{false && <ResetButton onClick={resetTagsValue} />}
+				<S.SectionContent>
+					<S.SectionActionBar
+						style={{
+							width: 300,
+							flexDirection: "column",
+							alignItems: "flex-start",
+						}}
+					>
+						<div
+							style={{
+								display: "flex",
+								justifyContent: "space-between",
+								width: "100%",
+							}}
+						>
+							<div>
+								<Select
+									checkIconPosition="right"
+									comboboxProps={{ withinPortal: false }}
+									data={[
+										{
+											value: "includes",
+											label: "Include tags",
+										},
+										{
+											value: "excludes",
+											label: "Exclude tags",
+										},
+									]}
+									value={tagFilter.type}
+									onChange={(value) => {
+										if (!value) return;
+										setTagFilterType(value as TagFilter["type"]);
+									}}
+									styles={{
+										input: {
+											width: "18ch",
+											paddingBlock: "0rem",
+										},
+									}}
+								/>
+							</div>
+							<div
+								style={{
+									height: "max-content",
+									alignItems: "center",
+									alignSelf: "center",
+									display: "flex",
+									justifyContent: "flex-end",
+									width: "100%",
+									gap: spacingValue.small,
+								}}
+							>
+								{/* TODO: this should not be here when rendered inside ActivityFilter */}
+								{true && (
+									<Tooltip label="Clear filter">
+										<S.Toggle
+											role="button"
+											onClick={resetTagsValue}
+											$active={false}
+										>
+											<LucideFilterX size={18} />
+										</S.Toggle>
+									</Tooltip>
+								)}
+								<Tooltip label="Match tag list exactly?">
+									<S.Toggle
+										role="checkbox"
+										onClick={toggleExact}
+										$active={tagFilter.exact}
+									>
+										<LucideBlend size={18} />
+									</S.Toggle>
+								</Tooltip>
+
+								<Tooltip label="Select whole tag tree at once?">
+									<S.Toggle
+										role="checkbox"
+										onClick={toggleWholeTree}
+										$active={wholeTree}
+									>
+										<LucideNetwork size={18} />
+									</S.Toggle>
+								</Tooltip>
+							</div>
+						</div>
+
+						<TextInput
+							rightSection={
+								<>
+									{tagFilter.search.length > 0 && (
+										<ClearInputButton onClick={resetTagSearch} />
+									)}
+								</>
+							}
 							type="text"
 							value={tagFilter.search}
 							onChange={setTagSearch}
+							style={{ width: "100%", position: "relative" }}
 						/>
-						{tagFilter.search.length > 0 && (
-							<ClearInputButton onClick={resetTagSearch} />
-						)}
-					</S.InputWithSelect>
-					<S.Toggle
-						role="button"
-						onClick={toggleExact}
-						$active={tagFilter.exact}
-						title="Exact match?"
-					>
-						<LucideBlend size={15} />
-					</S.Toggle>
-					<S.Toggle
-						role="button"
-						onClick={toggleWholeTree}
-						$active={wholeTree}
-						title="Select tree?"
-					>
-						<LucideNetwork size={15} />
-					</S.Toggle>
-				</S.SectionActionBar>
-				<S.TagSelectionList>
-					{tagList?.map(({ tag_id, name }) => {
-						return (
-							<S.TagChip
-								$selected={isSelectedTag(tag_id)}
-								$active={isActiveTag(tag_id)}
-								onMouseEnter={() => updateActiveTagIds(tag_id, "on")}
-								onMouseLeave={() => updateActiveTagIds(tag_id, "off")}
-								key={tag_id}
-								value={tag_id}
-								onClick={setFilterTags}
-							>
-								{name}
-							</S.TagChip>
-						);
-					})}
+					</S.SectionActionBar>
+					<S.TagSelectionList>
+						{filteredTags?.map(({ tag_id, name }) => {
+							return (
+								<S.TagChip
+									$selected={isSelectedTag(tag_id)}
+									$active={isActiveTag(tag_id)}
+									onMouseEnter={() => updateActiveTagIds(tag_id, "on")}
+									onMouseLeave={() => updateActiveTagIds(tag_id, "off")}
+									key={tag_id}
+									value={tag_id}
+									onClick={setFilterTags}
+								>
+									{name}
+								</S.TagChip>
+							);
+						})}
 
-					{noTagsFound && <p>No tags found that match the search query.</p>}
-				</S.TagSelectionList>
-			</S.SectionContent>
-		</S.Section>
+						{noTagsFound && <p>No tags found that match the search query.</p>}
+					</S.TagSelectionList>
+				</S.SectionContent>
+			</S.Section>
+		</FocusTrap>
 	);
 }
