@@ -187,6 +187,8 @@ const TagChip = styled(Buttons.Unstyled)<{
 	$selected?: boolean;
 	$active?: boolean;
 }>`
+   user-select: none;
+   
 	cursor: pointer;
 
 	outline: 1px solid var(--bg-5-2);
