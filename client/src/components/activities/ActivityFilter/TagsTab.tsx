@@ -165,26 +165,6 @@ export default function TagsTab() {
 		);
 	}
 
-	const actions = {
-		reset: {
-			tags: {
-				value: resetTagsValue,
-			},
-		},
-		set: {
-			activeTagIds: updateActiveTagIds,
-			tags: {
-				// TODO: implement each of these
-				// value: setFilterTags,
-				// type: (e: React.ChangeEvent<HTMLSelectElement>) =>
-				// 	updateFilter({ type: "filter-tags-type", e }),
-				// toggleExact: () => updateFilter({ type: "toggle-exact" }),
-				// search: (e: React.ChangeEvent<HTMLInputElement>) =>
-				// 	updateFilter({ type: "tags-search", e }),
-			},
-		},
-	};
-
 	return (
 		<S.Section>
 			<ResetButton onClick={resetTagsValue} />
