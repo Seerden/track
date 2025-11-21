@@ -1,6 +1,6 @@
 import type { ActivityWithIds } from "@shared/lib/schemas/activity";
 import type { ID, Nullable } from "@shared/types/data/utility.types";
-import type { TagFilter } from "@/components/activities/ActivityFilter/TagsTab";
+import type { TagFilter } from "@/components/activities/ActivityFilter/tag-filter.atom";
 
 export const tagPredicates = {
 	includes: (

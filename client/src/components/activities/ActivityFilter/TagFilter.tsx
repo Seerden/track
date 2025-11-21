@@ -10,7 +10,7 @@ import { spacingValue } from "@/lib/theme/snippets/spacing";
 import S from "./style/ActivityFilter.style";
 import { useTagFilter } from "./useTagFilter";
 
-export default function TagsTab() {
+export default function FilterTags() {
 	const {
 		resetTagsValue,
 		tagFilter,
@@ -144,11 +144,11 @@ export default function TagsTab() {
 						{filteredTags?.map(({ tag_id, name }) => {
 							return (
 								<S.TagChip
+									key={tag_id}
 									$selected={isSelectedTag(tag_id)}
 									$active={isActiveTag(tag_id)}
 									onMouseEnter={() => updateActiveTagIds(tag_id, "on")}
 									onMouseLeave={() => updateActiveTagIds(tag_id, "off")}
-									key={tag_id}
 									value={tag_id}
 									onClick={setFilterTags}
 								>

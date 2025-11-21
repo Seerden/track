@@ -9,7 +9,7 @@ import { useMemo, useState } from "react";
 import ActivityFilter from "@/components/activities/ActivityFilter/ActivityFilter";
 import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import { filterActivities } from "@/components/activities/ActivityFilter/lib/filter";
-import { tagFilterAtom } from "@/components/activities/ActivityFilter/TagsTab";
+import { tagFilterAtom } from "@/components/activities/ActivityFilter/tag-filter.atom";
 import TableItem from "@/components/activities/ActivityOverview/TableItem";
 import useActivityOverview from "@/components/activities/ActivityOverview/useActivityOverview";
 import { filterTagsById } from "@/lib/filter-tags";

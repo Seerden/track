@@ -9,7 +9,7 @@ import {
 	LucideSun,
 	LucideUserCircle,
 } from "lucide-react";
-import TagsTab from "@/components/activities/ActivityFilter/TagsTab";
+import FilterTags from "@/components/activities/ActivityFilter/TagFilter";
 import ActivityMenu from "@/components/layout/Header/ActivityMenu/ActivityMenu";
 import Menu from "@/components/layout/Header/Menu";
 import { ProfileMenu } from "@/components/user/profile/Profile";
@@ -59,7 +59,7 @@ export default function NavBar() {
 					}
 				>
 					<div style={{ padding: "1rem" }}>
-						<TagsTab />
+						<FilterTags />
 					</div>
 				</Menu>
 

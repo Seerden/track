@@ -3,7 +3,7 @@ import type { ActivityFilterWithValues } from "@/components/activities/ActivityF
 import { filterByDatetime } from "@/components/activities/ActivityFilter/lib/filter-datetime";
 import { filterByName } from "@/components/activities/ActivityFilter/lib/filter-name";
 import { filterByTags } from "@/components/activities/ActivityFilter/lib/filter-tags";
-import type { TagFilter } from "@/components/activities/ActivityFilter/TagsTab";
+import type { TagFilter } from "@/components/activities/ActivityFilter/tag-filter.atom";
 
 export function filterActivities({
 	activities,
