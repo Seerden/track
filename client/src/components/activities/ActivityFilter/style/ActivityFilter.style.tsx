@@ -190,13 +190,16 @@ const TagChip = styled(Buttons.Unstyled)<{
 	cursor: pointer;
 
 	outline: 1px solid var(--bg-5-2);
-	padding: 0.3rem;
+	padding-block: 0.3rem;
+   padding-inline: ${spacingValue.small};
 	${radius.small};
 	flex: 1;
 
 	background-color: ${(p) => getTagBackgroundColor({ theme: p.theme }, p.$selected, p.$active)};
 	color: ${(p) =>
 		p.$selected ? p.theme.colors.dark[0] : p.theme.colors.text.main[0]};
+
+   min-width: max-content;
 `;
 
 const TagSelectionList = styled.div`
