@@ -3,7 +3,7 @@ import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { Datelike } from "@shared/lib/schemas/timestamp";
 import { PenLine as LucidePenLine } from "lucide-react";
 import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
-import S from "@/components/Today/style/DetailedActivity.style";
+import S from "@/components/Today/activities/style/DetailedActivity.style";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import Modal from "@/components/utility/Modal/Modal";
 import { activityEnd, activityStart } from "@/lib/activity";
@@ -11,9 +11,9 @@ import { createDate } from "@/lib/datetime/make-date";
 import modalIds from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import Card from "@/lib/theme/components/Card.style";
-import TwoStepDelete from "../utility/Modal/TwoStepDelete";
+import { ActionBar } from "@/lib/theme/components/containers/action-bar.style";
+import TwoStepDelete from "../../utility/Modal/TwoStepDelete";
 import { RecurrenceCard } from "./RecurrenceCard";
-import F from "./style/Detailed.style";
 import { useDetailedActivity } from "./useDetailedActivity";
 
 // TODO: instead of this, do time (humanizedDate), with a tooltip on
@@ -54,7 +54,7 @@ export default function DetailedActivity({
 				<span>{activity.name}</span>
 			</S.Title>
 
-			<F.ActionBar>
+			<ActionBar.DetailModal>
 				<TwoStepDelete
 					confirmLabel="Delete"
 					rejectLabel="Keep"
@@ -77,7 +77,7 @@ export default function DetailedActivity({
 				>
 					<LucidePenLine size={20} />
 				</Buttons.Action.Stylized>
-			</F.ActionBar>
+			</ActionBar.DetailModal>
 
 			{!!activity.description?.length && <div>{activity.description}</div>}
 

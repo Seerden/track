@@ -1,12 +1,12 @@
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { ID } from "@shared/types/data/utility.types";
 import type { Dayjs } from "dayjs";
-import CurrentTimeMark from "@/components/Today/CurrentTimeMark";
+import CurrentTimeMark from "@/components/Today/timeline/CurrentTimeMark";
 import { isToday } from "@/lib/datetime/compare";
 import useCurrentTime from "@/lib/hooks/useCurrentTime";
-import Activity from "./Activity";
+import Activity from "../activities/Activity";
 import HourMark from "./HourMark";
-import R from "./style/TimelineRow.style";
+import S from "./style/TimelineRow.style";
 
 type RowProps = {
 	date: Dayjs;
@@ -29,7 +29,7 @@ export default function TimelineRow({
 	const offset = currentTime.minute() / 60;
 
 	return (
-		<R.Row
+		<S.Row
 			$collapsed={activities.length === 0} // this shouldn't check if activities.length is 0, but if there are no activities that occur at this hour
 		>
 			<HourMark index={index % 24} highlighted={isCurrentHour} />
@@ -44,6 +44,6 @@ export default function TimelineRow({
 					level={indentation.get(a.activity_id ?? a.synthetic_id) ?? 0}
 				/>
 			))}
-		</R.Row>
+		</S.Row>
 	);
 }

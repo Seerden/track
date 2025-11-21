@@ -2,7 +2,7 @@ import type { TagWithIds } from "@shared/lib/schemas/tag";
 import TagBranch from "@/components/tags/DetailedTag/TagBranch";
 import { formatDate } from "@/lib/datetime/format-date";
 import { createDate } from "@/lib/datetime/make-date";
-import C from "@/lib/theme/components/Card.style";
+import Card from "@/lib/theme/components/Card.style";
 import S from "./style/DetailedTag.style";
 
 type DetailedTagProps = {
@@ -14,14 +14,14 @@ export default function DetailedTag({ tag }: DetailedTagProps) {
 
 	return (
 		<S.Wrapper>
-			<C.Title>{tag.name}</C.Title>
+			<Card.Title>{tag.name}</Card.Title>
 			<p>{tag.description}</p>
 			<TagBranch tag={tag} />
-			<C.Datetime>
+			<Card.Datetime>
 				<span title={formatDate(tag.created_at)}>
 					created {humanizedCreatedAt}
 				</span>
-			</C.Datetime>
+			</Card.Datetime>
 		</S.Wrapper>
 	);
 }

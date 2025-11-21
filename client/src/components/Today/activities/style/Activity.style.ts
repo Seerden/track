@@ -1,12 +1,12 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { rowHeight } from "@/components/Today/style/TimelineRow.style";
+import { rowHeight } from "@/components/Today/timeline/style/TimelineRow.style";
 import { colors } from "@/lib/theme/colors";
 import { font } from "@/lib/theme/font";
 import { lightDark } from "@/lib/theme/light-dark";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
-import S from "./Today.style";
+import Today from "../../style/Today.style";
 
 const cardWidth = "8vw";
 const cardGap = "5px";
@@ -30,7 +30,7 @@ const ActivityCard = styled.div<{ $level: number; $offset: number }>`
 	width: 100%;
 	height: max-content;
 
-	${S.CheckboxWrapper} {
+	${Today.CheckboxWrapper} {
 		position: absolute;
 		top: 0.2rem;
 		right: 0.2rem;

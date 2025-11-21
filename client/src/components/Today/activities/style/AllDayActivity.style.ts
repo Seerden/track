@@ -6,7 +6,7 @@ import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
-import S from "./Today.style";
+import Today from "../../style/Today.style";
 
 const AllDayActivity = styled.li<{ $completed?: boolean }>`
 	user-select: none;
@@ -38,7 +38,7 @@ const AllDayActivity = styled.li<{ $completed?: boolean }>`
 		`}
 
 	/* TODO: really should extract all of these checkbox styles */
-	${S.CheckboxWrapper} {
+	${Today.CheckboxWrapper} {
 		margin-left: auto;
 		background-color: white;
 		${radius.round};

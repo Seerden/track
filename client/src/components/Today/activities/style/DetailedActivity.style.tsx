@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
-import CardStyle from "@/lib/theme/components/Card.style";
+import Card from "@/lib/theme/components/Card.style";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 
-const Wrapper = styled(CardStyle.Wrapper)`
+const Wrapper = styled(Card.Wrapper)`
 	display: grid;
 	// TODO: this is obsolete I think
 	grid-template-areas:
@@ -17,7 +17,7 @@ const Wrapper = styled(CardStyle.Wrapper)`
 	grid-column-gap: ${spacingValue.smaller};
 `;
 
-const Title = styled(CardStyle.Title)`
+const Title = styled(Card.Title)`
 	grid-area: title;
 	max-height: max-content;
 `;
@@ -33,7 +33,7 @@ const Task = styled.div`
 	grid-area: task;
 `;
 
-const RecurrenceCardContainer = styled(CardStyle.InfoValue)`
+const RecurrenceCardContainer = styled(Card.InfoValue)`
 	grid-area: recurrence;
 	display: flex;
 	align-items: center;
@@ -76,9 +76,9 @@ const StyledDetailedActivity = {
 	Wrapper,
 	Title,
 	Time,
-	Datetime: CardStyle.Datetime,
-	Tags: CardStyle.Tags,
-	Tag: CardStyle.Tag,
+	Datetime: Card.Datetime,
+	Tags: Card.Tags,
+	Tag: Card.Tag,
 	Task,
 	CheckboxWrapper,
 	RecurrenceCardContainer,
