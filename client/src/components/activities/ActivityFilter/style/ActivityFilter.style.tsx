@@ -186,9 +186,7 @@ const TagChip = styled(Buttons.Unstyled)<{
 
 	background-color: ${(p) => getTagBackgroundColor({ theme: p.theme }, p.$selected, p.$active)};
 	color: ${(p) =>
-		p.$selected || p.$active
-			? p.theme.colors.text.contrast[0]
-			: p.theme.colors.text.main[0]};
+		p.$selected ? p.theme.colors.dark[0] : p.theme.colors.text.main[0]};
 `;
 
 const TagSelectionList = styled.div`
