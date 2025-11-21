@@ -17,7 +17,6 @@ import { Protected } from "@/components/wrappers";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import { shortcutMenuAtom } from "@/lib/hooks/useContextMenu";
 import { colors, darkColors } from "@/lib/theme/colors";
-import Buttons from "@/lib/theme/components/buttons";
 import { usePreferredTheme } from "@/lib/theme/theme-atom";
 import S from "./style/NavBar.style";
 
@@ -46,15 +45,7 @@ export default function NavBar() {
 					id="TagFilter"
 					Target={
 						<Tooltip position="right" label="Tag filter">
-							<Buttons.Unstyled
-								type="button"
-								style={{
-									alignSelf: "center",
-									display: "flex",
-								}}
-							>
-								<LucideFilter size={23} />
-							</Buttons.Unstyled>
+							<LucideFilter size={23} />
 						</Tooltip>
 					}
 				>

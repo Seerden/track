@@ -3,7 +3,7 @@ import type { ID } from "@shared/types/data/utility.types";
 import { useQuery } from "@tanstack/react-query";
 import { produce } from "immer";
 import { useAtom } from "jotai";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { getTreeMembers } from "@/components/activities/ActivityFilter/lib/tag-branch";
 import {
 	type TagFilter,
@@ -20,10 +20,6 @@ export function useTagFilter() {
 	const [activeTagIds, setActiveTagIds] = useState<ID[]>([]);
 	const [[wholeTree], toggleWholeTree] = useToggle(false);
 	const tagList = byIdAsList(tags);
-
-	useEffect(() => {
-		console.log({ tagFilter });
-	}, [tagFilter]);
 
 	const filteredTags = useMemo(() => {
 		// The tags we display are the ones that match the search query, but
