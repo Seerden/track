@@ -37,7 +37,7 @@ export default function useHabitsData() {
 	}, [habits, tagFilter]);
 
 	function getHabitById(id: string) {
-		return habits?.get(id);
+		return habitsData?.get(id);
 	}
 
 	return {
