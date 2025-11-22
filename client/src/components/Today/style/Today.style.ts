@@ -122,8 +122,7 @@ const Columns = styled.div`
 
 	grid-template-columns: auto 1fr 1fr;
 
-	gap: 0.5rem;
-   column-gap: 1rem;
+   gap: 1rem;
 
    padding: 1rem;
 `;

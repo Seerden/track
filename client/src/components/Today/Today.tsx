@@ -14,6 +14,7 @@ import useToday from "@/components/Today/useToday";
 import Calendar from "@/components/utility/Calendar/Calendar";
 import Modal from "@/components/utility/Modal/Modal";
 import { AnimatedIcon } from "@/lib/animate/AnimatedIcon";
+import { useBreakpoints } from "@/lib/hooks/breakpoints";
 import modalIds from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
@@ -40,12 +41,22 @@ export default function Today() {
 		isFetching,
 	} = useToday();
 	const tagFilter = useAtomValue(tagFilterAtom);
-	const state = !!tagFilter.value;
+	const state = !!tagFilter.value?.length;
+
+	const { isMobileWidth } = useBreakpoints();
 
 	return (
 		<Suspense fallback={<DefaultSkeleton />}>
 			<S.Columns>
-				<Containers.Column gap="medium" style={{ gridArea: "calendar" }}>
+				<div
+					style={{
+						gridArea: "calendar",
+						display: "flex",
+						flexDirection: isMobileWidth ? "row" : "column",
+						gap: "1rem",
+						...(isMobileWidth && { justifyContent: "space-between" }),
+					}}
+				>
 					<Calendar initialDate={currentDate} onChange={setCurrentDate} />
 
 					{/* TODO: the location and placement of this thing is temporary. 
@@ -73,7 +84,7 @@ export default function Today() {
 							/>
 						</div>
 					</Tooltip>
-				</Containers.Column>
+				</div>
 
 				<Create />
 
