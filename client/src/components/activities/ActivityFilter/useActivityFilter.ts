@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import type { ActivityFilterProps } from "@/components/activities/ActivityFilter/ActivityFilter";
 import type {
@@ -6,6 +7,8 @@ import type {
 } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import { defaultActivityFilter } from "@/components/activities/ActivityFilter/lib/constants";
 import useActivityFilterActions from "@/components/activities/ActivityFilter/useActivityFilterActions";
+import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
+import { trpc } from "@/lib/trpc";
 
 export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 	const [filter, setFilter] = useState<ActivityFilterState>(
@@ -13,16 +16,20 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 	);
 	const [activeTab, setActiveTab] = useState<`${Tabs}`>("name");
 
-	// TODO: fix this up after finishing the new tag filter.
-	const isProbablySuspended = false;
+	// TODO: these are the queries we use in useTagFilter. Since we refactored
+	// the tag filter out of this hook, we check here for suspension state. Won't
+	// be a thing anymore if we ever switch to Start.
+	const { isPending: tagsQueryPending } = useQueryTags();
+	const { isPending: tagsTreeQueryPending } = useQuery(
+		trpc.tags.tree.queryOptions()
+	);
+	const isProbablySuspended = tagsQueryPending || tagsTreeQueryPending;
 
 	useEffect(() => {
 		onChange(filter);
-	}, [filter, onChange]);
+	}, [onChange, filter]);
 
-	const actions = useActivityFilterActions({
-		setFilter,
-	});
+	const actions = useActivityFilterActions(setFilter);
 
 	if (isProbablySuspended) return { isProbablySuspended };
 
