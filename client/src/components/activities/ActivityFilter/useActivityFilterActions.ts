@@ -4,11 +4,9 @@ import type { ActivityFilterState } from "@/components/activities/ActivityFilter
 import { defaultActivityFilter } from "@/components/activities/ActivityFilter/lib/constants";
 import { createDate } from "@/lib/datetime/make-date";
 
-export default function useActivityFilterActions({
-	setFilter,
-}: {
-	setFilter: Dispatch<SetStateAction<ActivityFilterState>>;
-}) {
+export default function useActivityFilterActions(
+	setFilter: Dispatch<SetStateAction<ActivityFilterState>>
+) {
 	// TODO: maybe don't implement the functions as event handlers, just pass the
 	// values to the reducer.
 

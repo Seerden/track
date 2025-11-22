@@ -23,11 +23,11 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 
 	if (isProbablySuspended) return null;
 
-	const tabMap: Record<typeof activeTab, ReactNode> & { tags: ReactNode } = {
+	const tabMap = {
 		name: <NameTab filter={filter} actions={actions.name} />,
 		tags: <FilterTags />,
 		datetime: <DatetimeTab filter={filter} actions={actions.datetime} />,
-	};
+	} satisfies Record<typeof activeTab, ReactNode>;
 
 	return (
 		<S.Wrapper>
