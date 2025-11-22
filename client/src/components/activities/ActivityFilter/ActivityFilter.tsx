@@ -1,21 +1,16 @@
 import { useTheme } from "@emotion/react";
-import { DateTimePicker } from "@mantine/dates";
+import type { Defined } from "@shared/types/data/utility.types";
 import { LucideFilterX, LucideX } from "lucide-react";
 import type { ReactNode } from "react";
 import type { ActivityFilterState } from "@/components/activities/ActivityFilter/ActivityFilter.types";
-import {
-	activityFilterTabs,
-	datetimeFilterModifiers,
-	datetimeFilterSelectors,
-} from "@/components/activities/ActivityFilter/lib/constants";
-import { nameTypeOptions } from "@/components/activities/ActivityFilter/lib/filter-name";
+import DatetimeTab from "@/components/activities/ActivityFilter/DatetimeTab";
+import { activityFilterTabs } from "@/components/activities/ActivityFilter/lib/constants";
+import NameTab from "@/components/activities/ActivityFilter/NameTab";
 import FilterTags from "@/components/activities/ActivityFilter/TagFilter";
 import useActivityFilter from "@/components/activities/ActivityFilter/useActivityFilter";
+import type { Actions } from "@/components/activities/ActivityFilter/useActivityFilterActions";
 import type { MainTheme } from "@/lib/style/theme";
 import Buttons from "@/lib/theme/components/buttons";
-import Containers from "@/lib/theme/components/container.style";
-import Input from "@/lib/theme/input";
-import { spacingValue } from "@/lib/theme/snippets/spacing";
 import S from "./style/ActivityFilter.style";
 
 export type ActivityFilterProps = {
@@ -29,9 +24,9 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 	if (isProbablySuspended) return null;
 
 	const tabMap: Record<typeof activeTab, ReactNode> & { tags: ReactNode } = {
-		name: <NameTab filter={filter} actions={actions} />,
+		name: <NameTab filter={filter} actions={actions.name} />,
 		tags: <FilterTags />,
-		datetime: <DatetimeTab filter={filter} actions={actions} />,
+		datetime: <DatetimeTab filter={filter} actions={actions.datetime} />,
 	};
 
 	return (
@@ -86,106 +81,7 @@ export function ClearInputButton({ onClick }: { onClick: () => void }) {
 	);
 }
 
-export type Defined<T> = T extends undefined ? never : T;
-
-type TabProps = {
+export type TabProps<T extends keyof Actions> = {
 	filter: ActivityFilterState;
-	actions: Defined<ReturnType<typeof useActivityFilter>["actions"]>;
+	actions: Defined<Actions[T]>;
 };
-
-function DatetimeTab({ filter, actions }: TabProps) {
-	return (
-		<S.Section>
-			<ResetButton onClick={actions.reset.datetime} />
-			<Containers.Row gap="small" style={{ marginTop: spacingValue.small }}>
-				<Containers.Column>
-					{datetimeFilterModifiers.map((modifier) => (
-						<S.Label
-							key={modifier}
-							$active={filter.datetime.modifier === modifier}
-						>
-							{modifier}
-							<Input.Hidden
-								name="datetime.modifier"
-								type="radio"
-								onChange={() => actions.set.datetime.modifier(modifier)}
-							/>
-						</S.Label>
-					))}
-				</Containers.Column>
-				<Containers.Column>
-					{datetimeFilterSelectors.map((selector) => (
-						<S.Label
-							key={selector}
-							$active={filter.datetime.selector === selector}
-						>
-							{selector}
-							<input
-								style={{ width: 0 }}
-								name="datetime.modifier"
-								type="radio"
-								onChange={() => actions.set.datetime.selector(selector)}
-							/>
-						</S.Label>
-					))}
-				</Containers.Column>
-				<Containers.Column>
-					<DateTimePicker
-						size="sm"
-						placeholder={`pick a ${filter.datetime.selector === "between" ? "start" : ""} date`}
-						label={
-							filter.datetime.selector === "between" ? "start" : "datetime"
-						}
-						value={filter.datetime.value?.[0]?.toDate()}
-						onChange={(value) => actions.set.datetime.value(value, 0)}
-						style={{
-							width: "150px",
-						}}
-						maxDate={filter.datetime.value?.[1]?.toDate()}
-					/>
-					{filter.datetime.selector === "between" && (
-						<>
-							<DateTimePicker
-								label="end"
-								placeholder="pick an end date"
-								size="sm"
-								value={filter.datetime.value?.[1]?.toDate()}
-								onChange={(e) => actions.set.datetime.value(e, 1)}
-								minDate={filter.datetime.value?.[0]?.toDate()}
-							/>
-						</>
-					)}
-				</Containers.Column>
-			</Containers.Row>
-		</S.Section>
-	);
-}
-
-// TODO: split actions up into feature, not by action type. Then we only have to
-// pass actions.name into this subcomponent. Same goes for the others.
-function NameTab({ filter, actions }: TabProps) {
-	return (
-		<S.Section>
-			<ResetButton onClick={actions.reset.name.all} />
-			<Containers.Row>
-				<S.InputWithSelect style={{ position: "relative" }}>
-					<S.Select onChange={actions.set.name.type}>
-						{nameTypeOptions.map((type) => (
-							<option key={type} value={type}>
-								{type}
-							</option>
-						))}
-					</S.Select>
-					<S.Input
-						type="text"
-						onChange={actions.set.name.value}
-						value={filter.name.value ?? ""}
-					/>
-					{(filter.name.value || "").length > 0 && (
-						<ClearInputButton onClick={actions.reset.name.value} />
-					)}
-				</S.InputWithSelect>
-			</Containers.Row>
-		</S.Section>
-	);
-}

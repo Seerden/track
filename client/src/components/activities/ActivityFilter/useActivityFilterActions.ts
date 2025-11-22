@@ -84,28 +84,32 @@ export default function useActivityFilterActions({
 		);
 	}
 
-	const actions = {
+	const nameActions = {
 		reset: {
-			name: {
-				all: resetName,
-				value: resetNameValue,
-			},
-			datetime: resetDatetime,
+			all: resetName,
+			value: resetNameValue,
 		},
 		set: {
-			name: {
-				type: setNameType,
-				value: setNameValue,
-			},
-			datetime: {
-				modifier: setDatetimeModifier,
-				selector: setDatetimeSelector,
-				value: setDatetimeValue,
-			},
+			type: setNameType,
+			value: setNameValue,
 		},
+	};
+
+	const datetimeActions = {
+		reset: resetDatetime,
+		set: {
+			modifier: setDatetimeModifier,
+			selector: setDatetimeSelector,
+			value: setDatetimeValue,
+		},
+	};
+
+	const actions = {
+		name: nameActions,
+		datetime: datetimeActions,
 	};
 
 	return actions;
 }
 
-export type ActivityFilterActions = ReturnType<typeof useActivityFilterActions>;
+export type Actions = ReturnType<typeof useActivityFilterActions>;
