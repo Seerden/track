@@ -13,20 +13,13 @@ import { useTagFilter } from "./useTagFilter";
 
 export default function FilterTags() {
 	const {
-		resetTagsValue,
+		actions,
 		tagFilter,
-		setTagFilterType,
-		setTagSearch,
-		resetTagSearch,
 		filteredTags,
 		noTagsFound,
-		toggleExact,
-		toggleWholeTree,
 		wholeTree,
 		isSelectedTag,
 		isActiveTag,
-		updateActiveTagIds,
-		setFilterTags,
 	} = useTagFilter();
 
 	return (
@@ -39,7 +32,7 @@ export default function FilterTags() {
 			>
 				{/* TODO: this should only be here when inside the ActivityFilter, 
                otherwise it'll be inline with the  rest of the action buttons. */}
-				{false && <ResetButton onClick={resetTagsValue} />}
+				{false && <ResetButton onClick={actions.reset.value} />}
 				<ActivityFilter.SectionContent>
 					<ActivityFilter.SectionActionBar
 						style={{
@@ -72,7 +65,7 @@ export default function FilterTags() {
 									value={tagFilter.type}
 									onChange={(value) => {
 										if (!value) return;
-										setTagFilterType(value as TagFilter["type"]);
+										actions.set.type(value as TagFilter["type"]);
 									}}
 									styles={{
 										input: {
@@ -98,7 +91,7 @@ export default function FilterTags() {
 									<Tooltip label="Clear filter">
 										<ActivityFilter.Toggle
 											role="button"
-											onClick={resetTagsValue}
+											onClick={actions.reset.value}
 											$active={false}
 										>
 											<LucideFilterX size={18} />
@@ -108,7 +101,7 @@ export default function FilterTags() {
 								<Tooltip label="Match tag list exactly?">
 									<ActivityFilter.Toggle
 										role="checkbox"
-										onClick={toggleExact}
+										onClick={actions.set.toggleExact}
 										$active={tagFilter.exact}
 									>
 										<LucideBlend size={18} />
@@ -118,7 +111,7 @@ export default function FilterTags() {
 								<Tooltip label="Select whole tag tree at once?">
 									<ActivityFilter.Toggle
 										role="checkbox"
-										onClick={toggleWholeTree}
+										onClick={actions.set.toggleWholeTree}
 										$active={wholeTree}
 									>
 										<LucideNetwork size={18} />
@@ -131,13 +124,13 @@ export default function FilterTags() {
 							rightSection={
 								<>
 									{tagFilter.search.length > 0 && (
-										<ClearInputButton onClick={resetTagSearch} />
+										<ClearInputButton onClick={actions.reset.search} />
 									)}
 								</>
 							}
 							type="text"
 							value={tagFilter.search}
-							onChange={setTagSearch}
+							onChange={actions.set.search}
 							style={{ width: "100%", position: "relative" }}
 						/>
 					</ActivityFilter.SectionActionBar>
@@ -148,10 +141,14 @@ export default function FilterTags() {
 									key={tag_id}
 									$selected={isSelectedTag(tag_id)}
 									$active={isActiveTag(tag_id)}
-									onMouseEnter={() => updateActiveTagIds(tag_id, "on")}
-									onMouseLeave={() => updateActiveTagIds(tag_id, "off")}
+									onMouseEnter={() =>
+										actions.set.updateActiveTagIds(tag_id, "on")
+									}
+									onMouseLeave={() =>
+										actions.set.updateActiveTagIds(tag_id, "off")
+									}
 									value={tag_id}
-									onClick={setFilterTags}
+									onClick={actions.set.tags}
 								>
 									{name}
 								</ActivityFilter.TagChip>

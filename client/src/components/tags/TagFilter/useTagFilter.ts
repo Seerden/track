@@ -37,14 +37,8 @@ export function useTagFilter() {
 		tagFilter.search.length > 0 &&
 		tagList.length > 0;
 
-	function isActiveTag(id: ID) {
-		return activeTagIds.includes(id);
-	}
-
-	function isSelectedTag(id: ID) {
-		// TODO: why is value nullable?
-		return tagFilter.value?.includes(id);
-	}
+	const isActiveTag = (id: ID) => activeTagIds.includes(id);
+	const isSelectedTag = (id: ID) => tagFilter.value?.includes(id);
 
 	const updateActiveTagIds = useCallback(
 		(tag_id: ID, type: "on" | "off") => {
@@ -136,20 +130,28 @@ export function useTagFilter() {
 		);
 	}
 
+	const actions = {
+		reset: {
+			value: resetTagsValue,
+			search: resetTagSearch,
+		},
+		set: {
+			toggleExact,
+			toggleWholeTree,
+			type: setTagFilterType,
+			search: setTagSearch,
+			updateActiveTagIds,
+			tags: setFilterTags,
+		},
+	};
+
 	return {
-		resetTagsValue,
+		actions,
 		tagFilter,
-		setTagFilterType,
-		setTagSearch,
-		resetTagSearch,
 		filteredTags,
 		noTagsFound,
-		toggleExact,
-		toggleWholeTree,
 		wholeTree,
 		isSelectedTag,
 		isActiveTag,
-		updateActiveTagIds,
-		setFilterTags,
 	};
 }
