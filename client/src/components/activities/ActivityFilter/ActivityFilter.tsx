@@ -6,9 +6,9 @@ import type { ActivityFilterState } from "@/components/activities/ActivityFilter
 import DatetimeTab from "@/components/activities/ActivityFilter/DatetimeTab";
 import { activityFilterTabs } from "@/components/activities/ActivityFilter/lib/constants";
 import NameTab from "@/components/activities/ActivityFilter/NameTab";
-import FilterTags from "@/components/activities/ActivityFilter/TagFilter";
 import useActivityFilter from "@/components/activities/ActivityFilter/useActivityFilter";
 import type { Actions } from "@/components/activities/ActivityFilter/useActivityFilterActions";
+import FilterTags from "@/components/tags/TagFilter/TagFilter";
 import type { MainTheme } from "@/lib/style/theme";
 import Buttons from "@/lib/theme/components/buttons";
 import S from "./style/ActivityFilter.style";

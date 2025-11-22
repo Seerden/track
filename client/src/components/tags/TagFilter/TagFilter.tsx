@@ -7,7 +7,8 @@ import {
 import type { TagFilter } from "@/components/activities/ActivityFilter/tag-filter.atom";
 import { font } from "@/lib/theme/font";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import S from "./style/ActivityFilter.style";
+import ActivityFilter from "../../activities/ActivityFilter/style/ActivityFilter.style";
+import S from "./style/TagFilter.style";
 import { useTagFilter } from "./useTagFilter";
 
 export default function FilterTags() {
@@ -30,7 +31,7 @@ export default function FilterTags() {
 
 	return (
 		<FocusTrap>
-			<S.Section
+			<ActivityFilter.Section
 				style={{
 					width: 300,
 					fontSize: font.size["0.9"],
@@ -39,8 +40,8 @@ export default function FilterTags() {
 				{/* TODO: this should only be here when inside the ActivityFilter, 
                otherwise it'll be inline with the  rest of the action buttons. */}
 				{false && <ResetButton onClick={resetTagsValue} />}
-				<S.SectionContent>
-					<S.SectionActionBar
+				<ActivityFilter.SectionContent>
+					<ActivityFilter.SectionActionBar
 						style={{
 							width: 300,
 							flexDirection: "column",
@@ -95,33 +96,33 @@ export default function FilterTags() {
 								{/* TODO: this should not be here when rendered inside ActivityFilter */}
 								{true && (
 									<Tooltip label="Clear filter">
-										<S.Toggle
+										<ActivityFilter.Toggle
 											role="button"
 											onClick={resetTagsValue}
 											$active={false}
 										>
 											<LucideFilterX size={18} />
-										</S.Toggle>
+										</ActivityFilter.Toggle>
 									</Tooltip>
 								)}
 								<Tooltip label="Match tag list exactly?">
-									<S.Toggle
+									<ActivityFilter.Toggle
 										role="checkbox"
 										onClick={toggleExact}
 										$active={tagFilter.exact}
 									>
 										<LucideBlend size={18} />
-									</S.Toggle>
+									</ActivityFilter.Toggle>
 								</Tooltip>
 
 								<Tooltip label="Select whole tag tree at once?">
-									<S.Toggle
+									<ActivityFilter.Toggle
 										role="checkbox"
 										onClick={toggleWholeTree}
 										$active={wholeTree}
 									>
 										<LucideNetwork size={18} />
-									</S.Toggle>
+									</ActivityFilter.Toggle>
 								</Tooltip>
 							</div>
 						</div>
@@ -139,11 +140,11 @@ export default function FilterTags() {
 							onChange={setTagSearch}
 							style={{ width: "100%", position: "relative" }}
 						/>
-					</S.SectionActionBar>
+					</ActivityFilter.SectionActionBar>
 					<S.TagSelectionList>
 						{filteredTags?.map(({ tag_id, name }) => {
 							return (
-								<S.TagChip
+								<ActivityFilter.TagChip
 									key={tag_id}
 									$selected={isSelectedTag(tag_id)}
 									$active={isActiveTag(tag_id)}
@@ -153,14 +154,14 @@ export default function FilterTags() {
 									onClick={setFilterTags}
 								>
 									{name}
-								</S.TagChip>
+								</ActivityFilter.TagChip>
 							);
 						})}
 
 						{noTagsFound && <p>No tags found that match the search query.</p>}
 					</S.TagSelectionList>
-				</S.SectionContent>
-			</S.Section>
+				</ActivityFilter.SectionContent>
+			</ActivityFilter.Section>
 		</FocusTrap>
 	);
 }

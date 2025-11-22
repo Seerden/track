@@ -9,9 +9,9 @@ import {
 	LucideSun,
 	LucideUserCircle,
 } from "lucide-react";
-import FilterTags from "@/components/activities/ActivityFilter/TagFilter";
 import ActivityMenu from "@/components/layout/Header/ActivityMenu/ActivityMenu";
 import Menu from "@/components/layout/Header/Menu";
+import FilterTags from "@/components/tags/TagFilter/TagFilter";
 import { ProfileMenu } from "@/components/user/profile/Profile";
 import { Protected } from "@/components/wrappers";
 import useAuthentication from "@/lib/hooks/useAuthentication";

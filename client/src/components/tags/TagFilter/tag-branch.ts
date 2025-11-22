@@ -3,7 +3,7 @@ import type { ByIdMap, ID } from "@shared/types/data/utility.types";
 
 // TODO: on the server, we have a findRootTag function. Put it in shared and use
 // it both here and there.
-export function getRootTagId(tag_id: ID, tags: ByIdMap<TagWithIds>) {
+function getRootTagId(tag_id: ID, tags: ByIdMap<TagWithIds>) {
 	const tag = tags.get(tag_id);
 
 	if (!tag) {

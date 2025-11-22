@@ -2,8 +2,8 @@ import type { ActivityWithIds } from "@shared/lib/schemas/activity";
 import type { ActivityFilterState } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import { filterByDatetime } from "@/components/activities/ActivityFilter/lib/filter-datetime";
 import { filterByName } from "@/components/activities/ActivityFilter/lib/filter-name";
-import { filterByTags } from "@/components/activities/ActivityFilter/lib/filter-tags";
 import type { TagFilter } from "@/components/activities/ActivityFilter/tag-filter.atom";
+import { filterByTags } from "@/components/tags/TagFilter/filter-tags";
 
 export function filterActivities({
 	activities,

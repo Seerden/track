@@ -4,11 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 import { produce } from "immer";
 import { useAtom } from "jotai";
 import { useCallback, useMemo, useState } from "react";
-import { getTreeMembers } from "@/components/activities/ActivityFilter/lib/tag-branch";
 import {
 	type TagFilter,
 	tagFilterAtom,
 } from "@/components/activities/ActivityFilter/tag-filter.atom";
+import { getTreeMembers } from "@/components/tags/TagFilter/tag-branch";
 import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import { useToggle } from "@/lib/hooks/useToggle";
 import { trpc } from "@/lib/trpc";
