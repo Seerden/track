@@ -33,9 +33,7 @@ const Calendar = styled.div`
 	padding: ${spacingValue.medium};
 	
 	${radius.large};
-	margin-left: 1rem;
-	margin-top: 0.5rem;
-   
+
    /* NOTE: same as Timeline wrapper */
    outline: 2px solid ${(p) => lightDark(p, p.theme.colors.light[3], p.theme.colors.dark[1])};
 	box-shadow: 0 0.2rem 1rem -0.3rem ${(p) =>

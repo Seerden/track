@@ -16,13 +16,14 @@ const TimelineSkeleton = styled(Skeleton)`
    margin-left: 2rem;
 `;
 
+// TODO: move this to subcomponent style file
 const TimelineWrapper = styled.section`
 	${flex.column};
-	${spacing.padding.wide({ size: 1, ratio: 3 })};
+	
 	gap: ${spacingValue.medium};
 	${radius.large};
-	${spacing.margin.wide({ size: 0.5, ratio: 2 })};
 	
+   ${spacing.padding.wide({ size: 1, ratio: 3 })};
    
 	max-width: 100%;
 	min-width: 500px;
@@ -121,7 +122,9 @@ const Columns = styled.div`
 
 	grid-template-columns: auto 1fr 1fr;
 
-	gap: 0.5rem;
+   gap: 1rem;
+
+   padding: 1rem;
 `;
 
 const Tags = styled.div`
