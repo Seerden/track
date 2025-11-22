@@ -1,4 +1,10 @@
+import { coffeemaker, maskSnorkel } from "@lucide/lab";
+import { Tooltip } from "@mantine/core";
+import { colord } from "colord";
+import { useAtomValue } from "jotai";
+import { LucideFilter } from "lucide-react";
 import { Suspense } from "react";
+import { tagFilterAtom } from "@/components/activities/ActivityFilter/tag-filter.atom";
 import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
 import NewHabit from "@/components/habits/NewHabit/NewHabit";
 import NewNote from "@/components/notes/NewNote/NewNote";
@@ -9,7 +15,9 @@ import TimelineRows from "@/components/Today/timeline/TimelineRows";
 import useToday from "@/components/Today/useToday";
 import Calendar from "@/components/utility/Calendar/Calendar";
 import Modal from "@/components/utility/Modal/Modal";
+import { AnimatedIcon } from "@/lib/animate/animate-icon";
 import modalIds from "@/lib/modal-ids";
+import { colors } from "@/lib/theme/colors";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
@@ -34,12 +42,42 @@ export default function Today() {
 		setCurrentDate,
 		isFetching,
 	} = useToday();
+	const tagFilter = useAtomValue(tagFilterAtom);
 
 	return (
 		<Suspense fallback={<DefaultSkeleton />}>
 			<S.Columns>
-				<div style={{ gridArea: "calendar" }}>
+				<div
+					style={{
+						gridArea: "calendar",
+						display: "flex",
+						flexDirection: "column",
+						gap: "1rem",
+					}}
+				>
 					<Calendar initialDate={currentDate} onChange={setCurrentDate} />
+
+					<Tooltip
+						label={
+							tagFilter.value
+								? "Tag filters have been applied"
+								: "No tag filters applied"
+						}
+					>
+						<i
+							style={{
+								display: "flex",
+								width: "max-content",
+								height: "max-content",
+								padding: "0.5rem",
+								borderRadius: "5px",
+								backgroundColor: colord(colors.yellow.main).toHex(),
+							}}
+						>
+							<LucideFilter size={18} />
+						</i>
+					</Tooltip>
+					<AnimatedIcon one={coffeemaker} two={maskSnorkel} />
 				</div>
 
 				<Create />
