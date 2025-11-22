@@ -2,11 +2,11 @@ import { useTheme } from "@emotion/react";
 import { DateTimePicker } from "@mantine/dates";
 import { LucideFilterX, LucideX } from "lucide-react";
 import type { ReactNode } from "react";
-import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
+import type { ActivityFilterState } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import {
-	activityFilterDatetimeModifiers,
-	activityFilterDatetimeSelectors,
 	activityFilterTabs,
+	datetimeFilterModifiers,
+	datetimeFilterSelectors,
 } from "@/components/activities/ActivityFilter/lib/constants";
 import { nameTypeOptions } from "@/components/activities/ActivityFilter/lib/filter-name";
 import FilterTags from "@/components/activities/ActivityFilter/TagFilter";
@@ -19,7 +19,7 @@ import { spacingValue } from "@/lib/theme/snippets/spacing";
 import S from "./style/ActivityFilter.style";
 
 export type ActivityFilterProps = {
-	onChange: (filter: ActivityFilterWithValues) => void;
+	onChange: (filter: ActivityFilterState) => void;
 };
 
 export default function ActivityFilter({ onChange }: ActivityFilterProps) {
@@ -89,7 +89,7 @@ export function ClearInputButton({ onClick }: { onClick: () => void }) {
 export type Defined<T> = T extends undefined ? never : T;
 
 type TabProps = {
-	filter: ActivityFilterWithValues;
+	filter: ActivityFilterState;
 	actions: Defined<ReturnType<typeof useActivityFilter>["actions"]>;
 };
 
@@ -99,7 +99,7 @@ function DatetimeTab({ filter, actions }: TabProps) {
 			<ResetButton onClick={actions.reset.datetime} />
 			<Containers.Row gap="small" style={{ marginTop: spacingValue.small }}>
 				<Containers.Column>
-					{activityFilterDatetimeModifiers.map((modifier) => (
+					{datetimeFilterModifiers.map((modifier) => (
 						<S.Label
 							key={modifier}
 							$active={filter.datetime.modifier === modifier}
@@ -114,7 +114,7 @@ function DatetimeTab({ filter, actions }: TabProps) {
 					))}
 				</Containers.Column>
 				<Containers.Column>
-					{activityFilterDatetimeSelectors.map((selector) => (
+					{datetimeFilterSelectors.map((selector) => (
 						<S.Label
 							key={selector}
 							$active={filter.datetime.selector === selector}

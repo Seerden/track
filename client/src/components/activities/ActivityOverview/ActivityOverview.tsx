@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import ActivityFilter from "@/components/activities/ActivityFilter/ActivityFilter";
-import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
+import type { ActivityFilterState } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import { filterActivities } from "@/components/activities/ActivityFilter/lib/filter";
 import { tagFilterAtom } from "@/components/activities/ActivityFilter/tag-filter.atom";
 import TableItem from "@/components/activities/ActivityOverview/TableItem";
@@ -22,7 +22,7 @@ import S from "./style/ActivityOverview.style";
 export default function ActivityOverview() {
 	const { isProbablySuspended, activities, tags } = useActivityOverview();
 	const float = useFloatingProps({ click: {} });
-	const [filter, setFilter] = useState<ActivityFilterWithValues>();
+	const [filter, setFilter] = useState<ActivityFilterState>();
 	const tagFilter = useAtomValue(tagFilterAtom);
 
 	const filteredActivities = useMemo(() => {

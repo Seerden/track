@@ -1,11 +1,9 @@
 import type {
-	ActivityFilterDatetimeModifier,
-	ActivityFilterDatetimeSelector,
-	ActivityFilterTabs,
-	ActivityFilterWithValues,
+	ActivityFilterState,
+	Tabs,
 } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 
-export const defaultFilter = {
+export const defaultActivityFilter = {
 	datetime: {
 		modifier: "starts",
 		selector: "after",
@@ -15,16 +13,22 @@ export const defaultFilter = {
 		type: "includes",
 		value: null,
 	},
-} satisfies ActivityFilterWithValues;
+} satisfies ActivityFilterState;
 
-// TODO: the type for ActivityFilterTabs is so convoluted. I tweaked it so I
-// could add "tags" here without typescript erroring.
-export const activityFilterTabs: ActivityFilterTabs[] = [
+export const activityFilterTabs = [
 	"name",
 	"datetime",
 	"tags",
-];
-export const activityFilterDatetimeModifiers: ActivityFilterDatetimeModifier[] =
-	["starts", "ends", "occurs"];
-export const activityFilterDatetimeSelectors: ActivityFilterDatetimeSelector[] =
-	["before", "between", "after"];
+] as const satisfies Tabs[];
+
+export const datetimeFilterModifiers = [
+	"starts",
+	"ends",
+	"occurs",
+] as const satisfies ActivityFilterState["datetime"]["modifier"][];
+
+export const datetimeFilterSelectors = [
+	"before",
+	"between",
+	"after",
+] as const satisfies ActivityFilterState["datetime"]["selector"][];

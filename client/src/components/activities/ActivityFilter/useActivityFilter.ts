@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import type { ActivityFilterProps } from "@/components/activities/ActivityFilter/ActivityFilter";
 import type {
-	ActivityFilterTabs,
-	ActivityFilterWithValues,
+	ActivityFilterState,
+	Tabs,
 } from "@/components/activities/ActivityFilter/ActivityFilter.types";
-import { defaultFilter } from "@/components/activities/ActivityFilter/lib/constants";
+import { defaultActivityFilter } from "@/components/activities/ActivityFilter/lib/constants";
 import useActivityFilterActions from "@/components/activities/ActivityFilter/useActivityFilterActions";
 
 export default function useActivityFilter({ onChange }: ActivityFilterProps) {
-	const [filter, setFilter] = useState<ActivityFilterWithValues>(defaultFilter);
-	const [activeTab, setActiveTab] = useState<`${ActivityFilterTabs}`>("name");
+	const [filter, setFilter] = useState<ActivityFilterState>(
+		defaultActivityFilter
+	);
+	const [activeTab, setActiveTab] = useState<`${Tabs}`>("name");
 
 	// TODO: fix this up after finishing the new tag filter.
 	const isProbablySuspended = false;

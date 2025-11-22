@@ -1,5 +1,5 @@
 import type { ActivityWithIds } from "@shared/lib/schemas/activity";
-import type { ActivityFilterWithValues } from "@/components/activities/ActivityFilter/ActivityFilter.types";
+import type { ActivityFilterState } from "@/components/activities/ActivityFilter/ActivityFilter.types";
 import { filterByDatetime } from "@/components/activities/ActivityFilter/lib/filter-datetime";
 import { filterByName } from "@/components/activities/ActivityFilter/lib/filter-name";
 import { filterByTags } from "@/components/activities/ActivityFilter/lib/filter-tags";
@@ -11,7 +11,7 @@ export function filterActivities({
 	tagFilter,
 }: {
 	activities: ActivityWithIds[];
-	filter: ActivityFilterWithValues;
+	filter: ActivityFilterState;
 	tagFilter: TagFilter;
 }): ActivityWithIds[] {
 	const filteredByName = filterByName(activities, filter.name);
