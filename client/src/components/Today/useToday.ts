@@ -4,6 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import type { Dayjs } from "dayjs";
 import { useAtom, useAtomValue } from "jotai";
 import { useEffect, useMemo, useState } from "react";
+import { tagFilterAtom } from "@/components/activities/ActivityFilter/tag-filter.atom";
+import { filterByTags } from "@/components/tags/TagFilter/filter-tags";
 import {
 	activityEnd,
 	activityFallsOnDay,
@@ -24,12 +26,14 @@ export default function useToday() {
 	const { data: recurrences, isFetching: isFetchingRecurrences } = useQuery(
 		trpc.activities.recurrences.all.queryOptions()
 	);
-	const syntheticActivities = useAtomValue(syntheticActivitiesAtom);
 	const { habits } = useHabitsData();
-	const [currentDate, setCurrentDate] = useState<Dayjs>(() => today());
-	const [timeWindow, setTimeWindow] = useAtom(timeWindowAtom);
 	const { data: overdueTasksData, isFetching: isFetchingOverdueTasks } =
 		useQuery(trpc.activities.tasks.overdue.queryOptions());
+
+	const syntheticActivities = useAtomValue(syntheticActivitiesAtom);
+	const tagFilter = useAtomValue(tagFilterAtom);
+	const [currentDate, setCurrentDate] = useState<Dayjs>(() => today());
+	const [timeWindow, setTimeWindow] = useAtom(timeWindowAtom);
 
 	const isFetching =
 		isFetchingActivities || isFetchingRecurrences || isFetchingOverdueTasks;
@@ -68,8 +72,8 @@ export default function useToday() {
 			})
 		);
 
-		return allActivities;
-	}, [activitiesData, timeWindow, recurrences, syntheticActivities]);
+		return filterByTags(allActivities, tagFilter);
+	}, [activitiesData, timeWindow, recurrences, syntheticActivities, tagFilter]);
 
 	// TODO: todayActivities, allDayActivities, timestampedActivities are all
 	// memoized off the same variables, so we could combine them into a single
