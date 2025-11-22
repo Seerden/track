@@ -1,51 +1,46 @@
-import type { ReactNode } from "react";
+import type { Nullable } from "@shared/types/data/utility.types";
+import type { ReactElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
-/**
- * Helper: Extracts an attribute value from a tag string using Regex.
- * Example: getAttr('<circle cx="12" ...>', 'cx') -> 12
- */
+/** extract an attribute value from a tag string using regex.
+ * @example: getAttr('<circle cx="12" ...>', 'cx') -> 12. */
 function getAttr(tagString: string, attr: string): number {
-	// regex parser for `attr`, where attr are the
 	const regex = new RegExp(`${attr}="([^"]*)"`);
 	const match = tagString.match(regex);
-	return match ? Number(match[1]) : 0;
+	return match ? +match[1] : 0;
 }
 
-/**
- * Helper: Convert relative 'm' to absolute 'M' to fix the FunnelX issue.
- */
+/** convert relative 'm' to absolute 'M' to fix issue where the morph animation
+ * would fail with certain lucide icons (e.g. FilterX). */
 function fixMoveCommand(d: string): string {
 	const match = d.match(
 		/^m\s*([-+]?(?:\d*\.\d+|\d+))\s*[,]?\s*([-+]?(?:\d*\.\d+|\d+))\s*(.*)/i
 	);
 	if (!match) return d;
-	const [, x, y, rest] = match;
+	const [_, x, y, rest] = match;
 	const firstCharOfRest = rest.trim()[0];
 	const hasImplicitLineto = firstCharOfRest && /^[-\d.]/.test(firstCharOfRest);
-	return hasImplicitLineto ? `M ${x} ${y} l ${rest}` : `M ${x} ${y} ${rest}`;
+	return `M ${x} ${y} ${hasImplicitLineto ? "l" : ""} ${rest}`;
 }
 
-export function getPathFromIcon(Icon: ReactNode): string {
-	// 1. Render the icon to a simple string
+export function getPathFromIcon(Icon: ReactElement): string {
 	const svgString = renderToStaticMarkup(<>{Icon}</>);
 
-	// 2. Find all shape tags (path, circle, line, etc.)
-	// Group 1: Tag Name
-	// Group 2: The rest of the tag string (attributes)
+	// 2. find all shape tags (path, circle, line, etc.)
+	// group 1: tag name
+	// group 2: rest of the tag string (attributes)
 	const tagRegex = /<(path|circle|line|rect|polyline|polygon)([^>]*)>/g;
 
 	const paths: string[] = [];
-	let match;
+	let match: Nullable<RegExpExecArray>;
 
-	// 3. Loop through every tag found in the string
 	while ((match = tagRegex.exec(svgString)) !== null) {
+		console.log({ match });
 		const [_, tagName, attrs, ..._rest] = match;
 
-		console.log({ attrs });
 		switch (tagName) {
 			case "path": {
-				// Extract 'd' attribute directly
+				// get 'd' attribute directly
 				const dMatch = attrs.match(/d="([^"]*)"/);
 				if (dMatch) {
 					paths.push(fixMoveCommand(dMatch[1]));
@@ -88,12 +83,12 @@ export function getPathFromIcon(Icon: ReactNode): string {
 					const coords = pointsMatch[1].split(" ").map((p) => p.split(","));
 					if (coords[0]) {
 						const [startX, startY] = coords[0];
-						const linePath =
-							`M ${startX},${startY} ` +
-							coords
-								.slice(1)
-								.map(([px, py]) => `L ${px},${py}`)
-								.join(" ");
+						const lineParts = coords
+							.slice(1)
+							.map(([px, py]) => `L ${px},${py}`)
+							.join(" ");
+						const linePath = `M ${startX},${startY} ${lineParts}`;
+
 						paths.push(tagName === "polygon" ? `${linePath} Z` : linePath);
 					}
 				}

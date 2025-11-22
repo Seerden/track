@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import ActivityMenu from "@/components/layout/Header/ActivityMenu/ActivityMenu";
 import Menu from "@/components/layout/Header/Menu";
-import FilterTags from "@/components/tags/TagFilter/TagFilter";
+import TagFilter from "@/components/tags/TagFilter/TagFilter";
 import { ProfileMenu } from "@/components/user/profile/Profile";
 import { Protected } from "@/components/wrappers";
 import useAuthentication from "@/lib/hooks/useAuthentication";
@@ -42,6 +42,7 @@ export default function NavBar() {
 				/>
 
 				<Menu
+					key={"TagFilter"}
 					id="TagFilter"
 					Target={
 						<Tooltip position="right" label="Tag filter">
@@ -50,7 +51,7 @@ export default function NavBar() {
 					}
 				>
 					<div style={{ padding: "1rem" }}>
-						<FilterTags />
+						<TagFilter />
 					</div>
 				</Menu>
 

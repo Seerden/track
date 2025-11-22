@@ -1,4 +1,4 @@
-import { FocusTrap, Select, TextInput, Tooltip } from "@mantine/core";
+import { Select, TextInput, Tooltip } from "@mantine/core";
 import { LucideBlend, LucideFilterX, LucideNetwork } from "lucide-react";
 import {
 	ClearInputButton,
@@ -23,142 +23,141 @@ export default function FilterTags() {
 	} = useTagFilter();
 
 	return (
-		<FocusTrap>
-			<ActivityFilter.Section
-				style={{
-					width: 300,
-					fontSize: font.size["0.9"],
-				}}
-			>
-				{/* TODO: this should only be here when inside the ActivityFilter, 
+		<ActivityFilter.Section
+			style={{
+				width: 300,
+				fontSize: font.size["0.9"],
+			}}
+		>
+			{/* TODO: this should only be here when inside the ActivityFilter, 
                otherwise it'll be inline with the  rest of the action buttons. */}
-				{false && <ResetButton onClick={actions.reset.value} />}
-				<ActivityFilter.SectionContent>
-					<ActivityFilter.SectionActionBar
+			{false && <ResetButton onClick={actions.reset.value} />}
+			<ActivityFilter.SectionContent>
+				<ActivityFilter.SectionActionBar
+					style={{
+						width: 300,
+						flexDirection: "column",
+						alignItems: "flex-start",
+					}}
+				>
+					<div
 						style={{
-							width: 300,
-							flexDirection: "column",
-							alignItems: "flex-start",
+							display: "flex",
+							justifyContent: "space-between",
+							width: "100%",
 						}}
 					>
+						<div>
+							<Select
+								tabIndex={0}
+								checkIconPosition="right"
+								comboboxProps={{ withinPortal: false }}
+								data={[
+									{
+										value: "includes",
+										label: "Include tags",
+									},
+									{
+										value: "excludes",
+										label: "Exclude tags",
+									},
+								]}
+								value={tagFilter.type}
+								onChange={(value) => {
+									if (!value) return;
+									actions.set.type(value as TagFilter["type"]);
+								}}
+								styles={{
+									input: {
+										width: "18ch",
+										paddingBlock: "0rem",
+									},
+								}}
+							/>
+						</div>
 						<div
 							style={{
+								height: "max-content",
+								alignItems: "center",
+								alignSelf: "center",
 								display: "flex",
-								justifyContent: "space-between",
+								justifyContent: "flex-end",
 								width: "100%",
+								gap: spacingValue.small,
 							}}
 						>
-							<div>
-								<Select
-									checkIconPosition="right"
-									comboboxProps={{ withinPortal: false }}
-									data={[
-										{
-											value: "includes",
-											label: "Include tags",
-										},
-										{
-											value: "excludes",
-											label: "Exclude tags",
-										},
-									]}
-									value={tagFilter.type}
-									onChange={(value) => {
-										if (!value) return;
-										actions.set.type(value as TagFilter["type"]);
-									}}
-									styles={{
-										input: {
-											width: "18ch",
-											paddingBlock: "0rem",
-										},
-									}}
-								/>
-							</div>
-							<div
-								style={{
-									height: "max-content",
-									alignItems: "center",
-									alignSelf: "center",
-									display: "flex",
-									justifyContent: "flex-end",
-									width: "100%",
-									gap: spacingValue.small,
-								}}
-							>
-								{/* TODO: this should not be here when rendered inside ActivityFilter */}
-								{true && (
-									<Tooltip label="Clear filter">
-										<ActivityFilter.Toggle
-											role="button"
-											onClick={actions.reset.value}
-											$active={false}
-										>
-											<LucideFilterX size={18} />
-										</ActivityFilter.Toggle>
-									</Tooltip>
-								)}
-								<Tooltip label="Match tag list exactly?">
+							{/* TODO: this should not be here when rendered inside ActivityFilter */}
+							{true && (
+								<Tooltip label="Clear filter">
 									<ActivityFilter.Toggle
-										role="checkbox"
-										onClick={actions.set.toggleExact}
-										$active={tagFilter.exact}
+										type="button"
+										onClick={actions.reset.value}
+										$active={false}
 									>
-										<LucideBlend size={18} />
+										<LucideFilterX size={18} />
 									</ActivityFilter.Toggle>
 								</Tooltip>
-
-								<Tooltip label="Select whole tag tree at once?">
-									<ActivityFilter.Toggle
-										role="checkbox"
-										onClick={actions.set.toggleWholeTree}
-										$active={wholeTree}
-									>
-										<LucideNetwork size={18} />
-									</ActivityFilter.Toggle>
-								</Tooltip>
-							</div>
-						</div>
-
-						<TextInput
-							rightSection={
-								<>
-									{tagFilter.search.length > 0 && (
-										<ClearInputButton onClick={actions.reset.search} />
-									)}
-								</>
-							}
-							type="text"
-							value={tagFilter.search}
-							onChange={actions.set.search}
-							style={{ width: "100%", position: "relative" }}
-						/>
-					</ActivityFilter.SectionActionBar>
-					<S.TagSelectionList>
-						{filteredTags?.map(({ tag_id, name }) => {
-							return (
-								<ActivityFilter.TagChip
-									key={tag_id}
-									$selected={isSelectedTag(tag_id)}
-									$active={isActiveTag(tag_id)}
-									onMouseEnter={() =>
-										actions.set.updateActiveTagIds(tag_id, "on")
-									}
-									onMouseLeave={() =>
-										actions.set.updateActiveTagIds(tag_id, "off")
-									}
-									value={tag_id}
-									onClick={actions.set.tags}
+							)}
+							<Tooltip label="Match tag list exactly?">
+								<ActivityFilter.Toggle
+									role="checkbox"
+									onClick={actions.set.toggleExact}
+									$active={tagFilter.exact}
 								>
-									{name}
-								</ActivityFilter.TagChip>
-							);
-						})}
+									<LucideBlend size={18} />
+								</ActivityFilter.Toggle>
+							</Tooltip>
 
-						{noTagsFound && <p>No tags found that match the search query.</p>}
-					</S.TagSelectionList>
-				</ActivityFilter.SectionContent>
-			</ActivityFilter.Section>
-		</FocusTrap>
+							<Tooltip label="Select whole tag tree at once?">
+								<ActivityFilter.Toggle
+									role="checkbox"
+									onClick={actions.set.toggleWholeTree}
+									$active={wholeTree}
+								>
+									<LucideNetwork size={18} />
+								</ActivityFilter.Toggle>
+							</Tooltip>
+						</div>
+					</div>
+
+					<TextInput
+						rightSection={
+							<>
+								{tagFilter.search.length > 0 && (
+									<ClearInputButton onClick={actions.reset.search} />
+								)}
+							</>
+						}
+						type="text"
+						value={tagFilter.search}
+						onChange={actions.set.search}
+						style={{ width: "100%", position: "relative" }}
+					/>
+				</ActivityFilter.SectionActionBar>
+				<S.TagSelectionList>
+					{filteredTags?.map(({ tag_id, name }) => {
+						return (
+							<ActivityFilter.TagChip
+								key={tag_id}
+								$selected={isSelectedTag(tag_id)}
+								$active={isActiveTag(tag_id)}
+								onMouseEnter={() =>
+									actions.set.updateActiveTagIds(tag_id, "on")
+								}
+								onMouseLeave={() =>
+									actions.set.updateActiveTagIds(tag_id, "off")
+								}
+								value={tag_id}
+								onClick={actions.set.tags}
+							>
+								{name}
+							</ActivityFilter.TagChip>
+						);
+					})}
+
+					{noTagsFound && <p>No tags found that match the search query.</p>}
+				</S.TagSelectionList>
+			</ActivityFilter.SectionContent>
+		</ActivityFilter.Section>
 	);
 }

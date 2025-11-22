@@ -8,7 +8,7 @@ import { activityFilterTabs } from "@/components/activities/ActivityFilter/lib/c
 import NameTab from "@/components/activities/ActivityFilter/NameTab";
 import useActivityFilter from "@/components/activities/ActivityFilter/useActivityFilter";
 import type { Actions } from "@/components/activities/ActivityFilter/useActivityFilterActions";
-import FilterTags from "@/components/tags/TagFilter/TagFilter";
+import TagFilter from "@/components/tags/TagFilter/TagFilter";
 import type { MainTheme } from "@/lib/style/theme";
 import Buttons from "@/lib/theme/components/buttons";
 import S from "./style/ActivityFilter.style";
@@ -25,7 +25,7 @@ export default function ActivityFilter({ onChange }: ActivityFilterProps) {
 
 	const tabMap = {
 		name: <NameTab filter={filter} actions={actions.name} />,
-		tags: <FilterTags />,
+		tags: <TagFilter />,
 		datetime: <DatetimeTab filter={filter} actions={actions.datetime} />,
 	} satisfies Record<typeof activeTab, ReactNode>;
 

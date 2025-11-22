@@ -12,6 +12,8 @@ export default function Menu({
 
 	return (
 		<Popover
+			trapFocus
+			keepMounted
 			opened={opened(id)}
 			onDismiss={() => close(id)}
 			onClose={() => close(id)}
