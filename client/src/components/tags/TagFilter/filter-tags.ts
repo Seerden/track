@@ -23,7 +23,7 @@ const tagPredicates = {
 	) => {
 		if (!tag_ids?.length) return true;
 
-		// TODO: the non-exact case does not work as intended.
+		// TODO: (TRK-297) the non-exact case does not work as intended.
 		return exact
 			? !tag_ids.every((tag_id) => thing.tag_ids.includes(tag_id))
 			: !tag_ids.some((tag_id) => !thing.tag_ids.includes(tag_id));

@@ -14,6 +14,8 @@ export default function NameTab({ filter, actions }: TabProps<"name">) {
 			<Containers.Row>
 				<S.InputWithSelect style={{ position: "relative" }}>
 					<S.Select onChange={actions.set.type}>
+						{/* TODO: use a mantine select with ComboboxItems,
+                      so we can rename the values for UX purposes. */}
 						{nameTypeOptions.map((type) => (
 							<option key={type} value={type}>
 								{type}

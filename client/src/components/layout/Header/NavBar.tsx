@@ -42,7 +42,6 @@ export default function NavBar() {
 				/>
 
 				<Menu
-					key={"TagFilter"}
 					id="TagFilter"
 					Target={
 						<Tooltip position="right" label="Tag filter">

@@ -29,7 +29,7 @@ export default function FilterTags() {
 				fontSize: font.size["0.9"],
 			}}
 		>
-			{/* TODO: this should only be here when inside the ActivityFilter, 
+			{/* TODO (TRK-296): this should only be here when inside the ActivityFilter, 
                otherwise it'll be inline with the  rest of the action buttons. */}
 			{false && <ResetButton onClick={actions.reset.value} />}
 			<ActivityFilter.SectionContent>

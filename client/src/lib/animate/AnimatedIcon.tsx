@@ -58,15 +58,11 @@ export const AnimatedIcon = ({
 			<S.Svg
 				width={size}
 				height={size}
+				// note: this viewbox is what lucide uses by default to render svgs.
+				// Don't mess with it, instead, set `width` and `height` to scale
+				// the svg to the desired size.
 				viewBox={`0 0 24 24`}
-				fill="none"
-				stroke="currentColor"
-				strokeWidth="2"
-				strokeLinecap="round"
-				strokeLinejoin="round"
-				style={{
-					scale,
-				}}
+				style={{ scale }}
 				transition={{ duration, ease: "easeInOut" }}
 			>
 				<motion.path d={path} />
