@@ -113,8 +113,16 @@ const Toggle = styled(Buttons.Unstyled)<{ $active?: boolean }>`
 		p.$active &&
 		css`
 			background-color: ${p.theme.colors.blue.main};
-			color: ${p.theme.colors.text.main[0]};
+			color: ${p.theme.colors.light[0]};
 		`}
+
+   &:hover, &:active, &:focus  {
+      ${(p) =>
+				!p.$active &&
+				css`
+               background-color: var(--bg-3-4)};
+      `}
+   }
 `;
 
 const Select = styled.select`
@@ -129,6 +137,7 @@ const Input = styled.input`
 	background-color: transparent;
 `;
 
+// Think this whole thing is useless now
 const InputWithSelect = styled.div`
 	${flex.row};
 	gap: ${spacingValue.small};
@@ -139,6 +148,7 @@ const InputWithSelect = styled.div`
 	border: 2px solid var(--bg-4-2);
 	box-shadow: 0 0.3rem 0.5rem -0.3rem var(--bg-5-2);
 
+   /* think this useless now we use a mantine Select ouside of InputWithSelect */
 	select {
 		width: 10ch;
 	}
@@ -177,26 +187,21 @@ const TagChip = styled(Buttons.Unstyled)<{
 	$selected?: boolean;
 	$active?: boolean;
 }>`
+   user-select: none;
+   
 	cursor: pointer;
 
 	outline: 1px solid var(--bg-5-2);
-	padding: 0.3rem;
+	padding-block: 0.3rem;
+   padding-inline: ${spacingValue.small};
 	${radius.small};
 	flex: 1;
 
 	background-color: ${(p) => getTagBackgroundColor({ theme: p.theme }, p.$selected, p.$active)};
 	color: ${(p) =>
-		p.$selected || p.$active
-			? p.theme.colors.text.contrast[0]
-			: p.theme.colors.text.main[0]};
-`;
+		p.$selected ? p.theme.colors.dark[0] : p.theme.colors.text.main[0]};
 
-const TagSelectionList = styled.div`
-	${flex.row};
-	flex-wrap: wrap;
-	gap: ${spacingValue.small};
-	margin-top: ${spacingValue.small};
-	max-width: 327px; // TODO: I just hardcoded this to match the 'action bar' for now, but this should be responsive
+   min-width: max-content;
 `;
 
 export default {
@@ -215,5 +220,4 @@ export default {
 	InputWithSelect,
 	ResetButton,
 	TagChip,
-	TagSelectionList,
 };

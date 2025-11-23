@@ -24,7 +24,7 @@ export default defineConfig({
 						{ runtime: "automatic", importSource: "@emotion/react" },
 					],
 				],
-				plugins: ["@emotion/babel-plugin", "babel-plugin-react-compiler"],
+				plugins: ["babel-plugin-react-compiler", "@emotion/babel-plugin"],
 				babelrc: false,
 				configFile: false,
 			},
@@ -42,7 +42,7 @@ export default defineConfig({
 				name: "Track",
 				short_name: "Track",
 				description: "Habit tracking and planning",
-				theme_color: "#f2f2f2",
+				theme_color: "#7746ffff",
 				icons: [
 					{
 						src: "pwa-64x64.png",

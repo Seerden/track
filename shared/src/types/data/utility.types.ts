@@ -71,3 +71,5 @@ export type DayOfWeek = z.infer<typeof dayOfWeekSchema>;
 export type Prettify<T> = {
 	[K in keyof T]: T[K];
 } & {};
+
+export type Defined<T> = T extends undefined ? never : T;
