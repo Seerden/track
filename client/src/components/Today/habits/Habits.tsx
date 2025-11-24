@@ -191,7 +191,12 @@ export default function Habits({
 									: "Filter applied to habits"
 							}
 						>
-							<Buttons.Unstyled onClick={toggleFilter}>
+							<Buttons.Unstyled
+								onClick={toggleFilter}
+								role="button"
+								type="button"
+								aria-label="Toggle habit filter"
+							>
 								<AnimatedIcon
 									size={18}
 									off={
