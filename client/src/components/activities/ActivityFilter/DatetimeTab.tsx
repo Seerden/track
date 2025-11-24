@@ -55,8 +55,11 @@ export default function DatetimeTab({ filter, actions }: TabProps<"datetime">) {
 						label={
 							filter.datetime.selector === "between" ? "start" : "datetime"
 						}
+						/** @see https://mantine.dev/guides/7x-to-8x/#date-string-values */
 						value={filter.datetime.value?.[0]?.toDate()}
-						onChange={(value) => actions.set.value(value, 0)}
+						onChange={(value) =>
+							actions.set.value(value ? new Date(value) : null, 0)
+						}
 						style={{
 							width: "150px",
 						}}
@@ -69,7 +72,8 @@ export default function DatetimeTab({ filter, actions }: TabProps<"datetime">) {
 								placeholder="pick an end date"
 								size="sm"
 								value={filter.datetime.value?.[1]?.toDate()}
-								onChange={(e) => actions.set.value(e, 1)}
+								/** @see https://mantine.dev/guides/7x-to-8x/#date-string-values */
+								onChange={(e) => actions.set.value(e ? new Date(e) : null, 1)}
 								minDate={filter.datetime.value?.[0]?.toDate()}
 							/>
 						</>
