@@ -9,9 +9,10 @@ import S from "./style/Habit.style";
 
 type HabitProps = {
 	habit: HabitWithPossiblySyntheticEntries;
+	hidden?: boolean;
 };
 
-export default function Habit({ habit }: HabitProps) {
+export default function Habit({ habit, hidden }: HabitProps) {
 	// const { mutate } = useHabitDeleteMutation();
 	const { openDetailedItemModal } = useDetailedItemModal(
 		"habit",
@@ -19,7 +20,11 @@ export default function Habit({ habit }: HabitProps) {
 	);
 
 	return (
-		<S.Wrapper>
+		<S.Wrapper
+			style={{
+				visibility: hidden ? "collapse" : "visible",
+			}}
+		>
 			{/* TODO: tooltip or a thing somewhere that indicates that clicking 
             the habit name expands the card into a modal */}
 			<Buttons.Unstyled
