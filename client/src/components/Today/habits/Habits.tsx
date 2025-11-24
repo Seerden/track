@@ -147,13 +147,7 @@ export default function Habits({
 	});
 
 	return (
-		<S.Habits
-			style={{
-				// TODO (TRK-265) add this to Tasks as well. Also, why not a styled
-				// component that Habits and Tasks share?
-				width: "max-content",
-			}}
-		>
+		<S.Habits>
 			{/* TODO: we're gonna use this in more places, so we need to define the styles */}
 			<Popover
 				keepMounted
@@ -190,21 +184,29 @@ export default function Habits({
 							Habits
 						</h2>
 
-						<Buttons.Unstyled onClick={toggleFilter}>
-							<AnimatedIcon
-								size={18}
-								off={
-									habitFilter === HABIT_FILTER.ALL ? (
-										<LucideCircleDot />
-									) : (
-										<LucideFunnelPlus />
-									)
-								}
-								intermediate={null}
-								on={<LucideChevronUp />}
-								state={showFilter}
-							/>
-						</Buttons.Unstyled>
+						<Tooltip
+							label={
+								habitFilter === HABIT_FILTER.ALL && !nameFilter.length
+									? "Showing all habits"
+									: "Filter applied to habits"
+							}
+						>
+							<Buttons.Unstyled onClick={toggleFilter}>
+								<AnimatedIcon
+									size={18}
+									off={
+										habitFilter === HABIT_FILTER.ALL ? (
+											<LucideCircleDot />
+										) : (
+											<LucideFunnelPlus />
+										)
+									}
+									intermediate={null}
+									on={<LucideChevronUp />}
+									state={showFilter}
+								/>
+							</Buttons.Unstyled>
+						</Tooltip>
 					</Today.BlockTitle>
 				</Popover.Target>
 				<Popover.Dropdown>

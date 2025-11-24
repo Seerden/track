@@ -10,6 +10,7 @@ import { spacingValue } from "@/lib/theme/snippets/spacing";
 // TODO: make this shared with Notes for now since they are currently the same
 const TasksWrapper = styled.section`
 	${column};
+   grid-area: tasks;
 `;
 
 const Times = styled.div`
