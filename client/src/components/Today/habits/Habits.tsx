@@ -8,8 +8,8 @@ import {
 	Tooltip,
 } from "@mantine/core";
 import type { HabitWithPossiblySyntheticEntries } from "@shared/lib/schemas/habit";
-import type { DeepValue, MapById } from "@shared/types/data/utility.types";
-import { atom, useAtom, useAtomValue } from "jotai";
+import type { MapById } from "@shared/types/data/utility.types";
+import { useAtomValue } from "jotai";
 import {
 	LucideCheck,
 	LucideCheckCheck,
@@ -20,19 +20,16 @@ import {
 	LucideSearch,
 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
-import {
-	habitSuccessfulInInterval,
-	habitSuccessfulOnDate,
-} from "@/components/habits/Habits/entry-is-completed";
 import Empty from "@/components/Today/Empty";
 import Habit from "@/components/Today/habits/Habit";
+import {
+	type HabitFilter,
+	habitFilterAtom,
+	useHabits,
+} from "@/components/Today/habits/useHabits";
 import { AnimatedIcon } from "@/lib/animate/AnimatedIcon";
-import useHabitsData from "@/lib/hooks/useHabitsData";
-import { useToggle } from "@/lib/hooks/useToggle";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
-import { timeWindowAtom } from "@/lib/state/time-window.state";
 import type { MainTheme } from "@/lib/style/theme";
 import { colors } from "@/lib/theme/colors";
 import Buttons from "@/lib/theme/components/buttons";
@@ -40,16 +37,6 @@ import Containers from "@/lib/theme/components/container.style";
 import { font } from "@/lib/theme/font";
 import Today from "../style/Today.style";
 import S from "./style/Habits.style";
-
-const HABIT_FILTER = {
-	ALL: "all",
-	TODAY: "completed-today",
-	INTERVAL: "completed-interval",
-} as const;
-
-type HabitFilter = DeepValue<typeof HABIT_FILTER>;
-
-export const habitFilterAtom = atom<HabitFilter>(HABIT_FILTER.ALL);
 
 function RadioOption(
 	props: RadioCardProps & { Icon: LucideIcon; tooltipLabel: string }
@@ -96,55 +83,19 @@ export default function Habits({
 }: {
 	habits: MapById<HabitWithPossiblySyntheticEntries>;
 }) {
-	const habitsList = [...habits.values()];
-	// TODO: should probably use a useHabitsDataById(id) here for performance
-	// reasons.
-	// and then move the visibility logic into Habit, where we can return null if
-	// should be hidden.
-	const { getHabitById } = useHabitsData();
+	const {
+		showFilter,
+		setShowFilter,
+		habitFilter,
+		HABIT_FILTER,
+		nameFilter,
+		toggleFilter,
+		setHabitFilter,
+		handleNameFilterChange,
+		habitsList,
+		filteredHabits,
+	} = useHabits(habits);
 	const { openModal } = useModalState();
-	const [habitFilter, setHabitFilter] = useAtom(habitFilterAtom);
-	const [nameFilter, setNameFilter] = useState("");
-	const [[showFilter, setShowFilter], toggleFilter] = useToggle(false);
-	const timeWindow = useAtomValue(timeWindowAtom);
-
-	// TODO: need to get habit completion state from a hook:
-	// - we use habitSuccessfulOnDate/habitSuccessfulIninterval, but these need
-	//   access to all the relevant entries, which we do not do yet for Habits.
-	//   We _do_ do that in HabitCalendar though, so however we end up
-	//   implementing it, we need to share the code between this and that.
-
-	const filteredHabits = habitsList.filter((h) => {
-		const date = timeWindow.startDate;
-
-		const withAllEntries = getHabitById(h.habit_id);
-		// should throw an error if the habit doesn't exist
-		if (!withAllEntries) return false;
-
-		let show: boolean | null;
-		switch (habitFilter) {
-			case HABIT_FILTER.ALL: {
-				show = true;
-				break;
-			}
-			case HABIT_FILTER.TODAY: {
-				show = !habitSuccessfulOnDate(withAllEntries, date);
-				break;
-			}
-			case HABIT_FILTER.INTERVAL: {
-				show = !habitSuccessfulInInterval(withAllEntries, date);
-				break;
-			}
-		}
-
-		if (!show) {
-			return false;
-		}
-
-		if (!nameFilter?.length) return true;
-
-		return h.name.toLowerCase().includes(nameFilter.toLowerCase());
-	});
 
 	return (
 		<S.Habits>
@@ -246,7 +197,7 @@ export default function Habits({
 						</Radio.Group>
 						<TextInput
 							value={nameFilter}
-							onChange={(e) => setNameFilter(e.target.value)}
+							onChange={handleNameFilterChange}
 							w="200"
 							size="sm"
 							rightSection={<LucideSearch size={15} />}
