@@ -57,6 +57,7 @@ export default function Habits({
 				styles={{
 					dropdown: {
 						marginTop: "-0.5rem",
+						backgroundColor: "var(--bg-1-2)",
 					},
 				}}
 			>

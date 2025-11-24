@@ -35,13 +35,13 @@ export default function RadioOption(
 						alignItems: "center",
 						backgroundColor: isChecked
 							? colors.green.secondary
-							: "var(--bg-3-2)",
+							: "var(--bg-1-2)",
 					},
 				}}
 			>
 				<RadioIndicator hidden />
 				<props.Icon
-					size={18}
+					size={16}
 					color={isChecked ? colors.dark[0] : "currentColor"}
 				/>
 			</Radio.Card>

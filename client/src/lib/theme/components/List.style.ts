@@ -40,7 +40,7 @@ const Item = styled.li`
 	}
 
 	${radius.medium};
-	background-color: ${(p) => p.theme.colors.background.main[2]}; // TODO: apply some style for completed tasks
+	background-color: var(--bg-4-2);
 	width: 100%;
 	min-width: max-content;
 	${spacing.padding.wide({ size: 0.5, ratio: 2 })};
