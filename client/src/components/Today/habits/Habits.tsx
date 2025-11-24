@@ -15,18 +15,24 @@ import {
 	LucideCheckCheck,
 	LucideChevronUp,
 	LucideCircleDot,
-	LucideFilter,
+	LucideFunnelPlus,
 	type LucideIcon,
 	LucideSearch,
 } from "lucide-react";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
+import {
+	habitSuccessfulInInterval,
+	habitSuccessfulOnDate,
+} from "@/components/habits/Habits/entry-is-completed";
 import Empty from "@/components/Today/Empty";
 import Habit from "@/components/Today/habits/Habit";
 import { AnimatedIcon } from "@/lib/animate/AnimatedIcon";
+import useHabitsData from "@/lib/hooks/useHabitsData";
 import { useToggle } from "@/lib/hooks/useToggle";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
+import { timeWindowAtom } from "@/lib/state/time-window.state";
 import type { MainTheme } from "@/lib/style/theme";
 import { colors } from "@/lib/theme/colors";
 import Buttons from "@/lib/theme/components/buttons";
@@ -91,13 +97,50 @@ export default function Habits({
 	habits: MapById<HabitWithPossiblySyntheticEntries>;
 }) {
 	const habitsList = [...habits.values()];
+	// TODO: should probably use a useHabitsDataById(id) here for performance
+	// reasons.
+	// and then move the visibility logic into Habit, where we can return null if
+	// should be hidden.
+	const { getHabitById } = useHabitsData();
 	const { openModal } = useModalState();
 	const [habitFilter, setHabitFilter] = useAtom(habitFilterAtom);
 	const [nameFilter, setNameFilter] = useState("");
 	const [[showFilter, setShowFilter], toggleFilter] = useToggle(false);
+	const timeWindow = useAtomValue(timeWindowAtom);
 
-	console.log({ nameFilter });
+	// TODO: need to get habit completion state from a hook:
+	// - we use habitSuccessfulOnDate/habitSuccessfulIninterval, but these need
+	//   access to all the relevant entries, which we do not do yet for Habits.
+	//   We _do_ do that in HabitCalendar though, so however we end up
+	//   implementing it, we need to share the code between this and that.
+
 	const filteredHabits = habitsList.filter((h) => {
+		const date = timeWindow.startDate;
+
+		const withAllEntries = getHabitById(h.habit_id);
+		// should throw an error if the habit doesn't exist
+		if (!withAllEntries) return false;
+
+		let show: boolean | null;
+		switch (habitFilter) {
+			case HABIT_FILTER.ALL: {
+				show = true;
+				break;
+			}
+			case HABIT_FILTER.TODAY: {
+				show = !habitSuccessfulOnDate(withAllEntries, date);
+				break;
+			}
+			case HABIT_FILTER.INTERVAL: {
+				show = !habitSuccessfulInInterval(withAllEntries, date);
+				break;
+			}
+		}
+
+		if (!show) {
+			return false;
+		}
+
 		if (!nameFilter?.length) return true;
 
 		return h.name.toLowerCase().includes(nameFilter.toLowerCase());
@@ -113,6 +156,7 @@ export default function Habits({
 		>
 			{/* TODO: we're gonna use this in more places, so we need to define the styles */}
 			<Popover
+				keepMounted
 				trapFocus
 				width="target"
 				opened={showFilter}
@@ -149,7 +193,13 @@ export default function Habits({
 						<Buttons.Unstyled onClick={toggleFilter}>
 							<AnimatedIcon
 								size={18}
-								off={<LucideFilter />}
+								off={
+									habitFilter === HABIT_FILTER.ALL ? (
+										<LucideCircleDot />
+									) : (
+										<LucideFunnelPlus />
+									)
+								}
 								intermediate={null}
 								on={<LucideChevronUp />}
 								state={showFilter}
@@ -203,13 +253,11 @@ export default function Habits({
 				// around the title the way we do with the tagselector actionbar.
 				<motion.div layout animate={{ marginTop: showFilter ? 70 : 0 }}>
 					<Containers.Column gap="medium">
-						{habitsList.map((habit) => (
-							<Habit
-								key={habit.habit_id}
-								habit={habit}
-								hidden={!filteredHabits.includes(habit)}
-							/>
-						))}
+						<AnimatePresence>
+							{filteredHabits.map((habit) => (
+								<Habit key={habit.habit_id} habit={habit} />
+							))}
+						</AnimatePresence>
 					</Containers.Column>
 				</motion.div>
 			) : (

@@ -7,6 +7,9 @@ import {
 } from "@/lib/data/models/habits/query-habits";
 import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 
+// NOTE (TRK-265) there is functionality (usage of `habitSuccessful<...>`) that
+// requires this function to return _all_ entries, so keep that in mind if we
+// ever change this function to return only a subset of entries.
 export const queryHabitsAndRelations = authenticatedProcedure.query(
 	async ({ ctx: { req } }) => {
 		const user_id = req.session.user.user_id;
