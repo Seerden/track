@@ -35,7 +35,6 @@ export function getPathFromIcon(Icon: ReactElement): string {
 	let match: Nullable<RegExpExecArray>;
 
 	while ((match = tagRegex.exec(svgString)) !== null) {
-		console.log({ match });
 		const [_, tagName, attrs, ..._rest] = match;
 
 		switch (tagName) {

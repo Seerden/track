@@ -27,7 +27,7 @@ export default function Tasks({ activities }: TasksProps) {
 	const sortedActivities = sortActivitiesByTime(activities);
 
 	return (
-		<T.TasksWrapper style={{ gridArea: "tasks" }}>
+		<T.TasksWrapper>
 			<Today.BlockTitle>Tasks</Today.BlockTitle>
 			{activities.length ? (
 				<T.Tasks>

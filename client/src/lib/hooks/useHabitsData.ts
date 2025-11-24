@@ -36,6 +36,9 @@ export default function useHabitsData() {
 		return mapById(filterByTags(byIdAsList(habits), tagFilter), "habit_id");
 	}, [habits, tagFilter]);
 
+	// NOTE (TRK-265) it's very important that this returns the habit from habitsData, and
+	// not a filtered one, or one with filtered entries, because there is
+	// functionality that relies on _all_ entries being present here.
 	function getHabitById(id: string) {
 		return habitsData?.get(id);
 	}
