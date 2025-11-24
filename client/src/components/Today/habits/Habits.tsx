@@ -1,82 +1,29 @@
-import { useTheme } from "@emotion/react";
-import {
-	Popover,
-	Radio,
-	type RadioCardProps,
-	RadioIndicator,
-	TextInput,
-	Tooltip,
-} from "@mantine/core";
+import { Popover, Radio, TextInput, Tooltip } from "@mantine/core";
 import type { HabitWithPossiblySyntheticEntries } from "@shared/lib/schemas/habit";
 import type { MapById } from "@shared/types/data/utility.types";
-import { useAtomValue } from "jotai";
 import {
 	LucideCheck,
 	LucideCheckCheck,
 	LucideChevronUp,
 	LucideCircleDot,
 	LucideFunnelPlus,
-	type LucideIcon,
 	LucideSearch,
 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import Empty from "@/components/Today/Empty";
 import Habit from "@/components/Today/habits/Habit";
+import RadioOption from "@/components/Today/habits/RadioOption";
 import {
 	type HabitFilter,
-	habitFilterAtom,
 	useHabits,
 } from "@/components/Today/habits/useHabits";
 import { AnimatedIcon } from "@/lib/animate/AnimatedIcon";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
-import type { MainTheme } from "@/lib/style/theme";
-import { colors } from "@/lib/theme/colors";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
-import { font } from "@/lib/theme/font";
 import Today from "../style/Today.style";
 import S from "./style/Habits.style";
-
-function RadioOption(
-	props: RadioCardProps & { Icon: LucideIcon; tooltipLabel: string }
-) {
-	const theme = useTheme() as MainTheme;
-	const habitFilter = useAtomValue(habitFilterAtom);
-	const isChecked = habitFilter === props.value;
-
-	return (
-		<Tooltip
-			label={props.tooltipLabel}
-			events={{ hover: true, focus: true, touch: true }}
-		>
-			<Radio.Card
-				{...props}
-				styles={{
-					card: {
-						borderRadius: "50%",
-						display: "flex",
-						width: "max-content",
-						color: theme.colors.text.main[0],
-						padding: "0.3rem",
-						gap: "0.5rem",
-						fontSize: font.size["0.9"],
-						alignItems: "center",
-						backgroundColor: isChecked
-							? colors.green.secondary
-							: "var(--bg-3-2)",
-					},
-				}}
-			>
-				<RadioIndicator hidden />
-				<props.Icon
-					size={18}
-					color={isChecked ? colors.dark[0] : "currentColor"}
-				/>
-			</Radio.Card>
-		</Tooltip>
-	);
-}
 
 export default function Habits({
 	habits,
