@@ -25,6 +25,9 @@ Sentry.init({
 		// See docs for support of different versions of variation of react router
 		// https://docs.sentry.io/platforms/javascript/guides/react/configuration/integrations/react-router/
 		Sentry.tanstackRouterBrowserTracingIntegration(router),
+		Sentry.consoleLoggingIntegration({
+			levels: ["info", "warn", "error"],
+		}),
 	],
 	// Tracing
 	tracesSampleRate: 1.0, //  Capture 100% of the transactions
