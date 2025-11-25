@@ -16,8 +16,8 @@
   "description": "",
   "dependencies": {
     "@sentry/cli": "2.57.0",
-    "@sentry/node": "10.22.0",
-    "@sentry/profiling-node": "10.22.0",
+    "@sentry/node": "10.27.0",
+    "@sentry/profiling-node": "10.27.0",
     "@trpc/client": "11.7.1",
     "@trpc/server": "11.7.1",
     "@trpc/tanstack-react-query": "11.7.1",
@@ -36,7 +36,7 @@
     "web-push": "3.6.7"
   },
   "devDependencies": {
-    "@sentry/types": "10.22.0",
+    "@sentry/types": "10.27.0",
     "@types/connect-redis": "^0.0.23",
     "@types/cookie-parser": "1.4.9",
     "@types/cors": "^2.8.17",
