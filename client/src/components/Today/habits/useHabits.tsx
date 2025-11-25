@@ -10,7 +10,7 @@ import useHabitsData from "@/lib/hooks/useHabitsData";
 import { useToggle } from "@/lib/hooks/useToggle";
 import { timeWindowAtom } from "@/lib/state/time-window.state";
 
-const HABIT_FILTER = {
+export const HABIT_FILTER = {
 	ALL: "all",
 	TODAY: "completed-today",
 	INTERVAL: "completed-interval",

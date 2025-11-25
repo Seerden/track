@@ -11,16 +11,18 @@ import { habitFilterAtom } from "@/components/Today/habits/useHabits";
 import type { MainTheme } from "@/lib/style/theme";
 import { colors } from "@/lib/theme/colors";
 
-export default function RadioOption(
-	props: RadioCardProps & { Icon: LucideIcon; tooltipLabel: string }
-) {
+export default function RadioOption({
+	Icon,
+	tooltipLabel,
+	...props
+}: RadioCardProps & { Icon: LucideIcon; tooltipLabel: string }) {
 	const theme = useTheme() as MainTheme;
 	const habitFilter = useAtomValue(habitFilterAtom);
 	const isChecked = habitFilter === props.value;
 
 	return (
 		<Tooltip
-			label={props.tooltipLabel}
+			label={tooltipLabel}
 			events={{ hover: true, focus: true, touch: true }}
 		>
 			<Radio.Card
@@ -40,10 +42,7 @@ export default function RadioOption(
 				}}
 			>
 				<RadioIndicator hidden />
-				<props.Icon
-					size={16}
-					color={isChecked ? colors.dark[0] : "currentColor"}
-				/>
+				<Icon size={16} color={isChecked ? colors.dark[0] : "currentColor"} />
 			</Radio.Card>
 		</Tooltip>
 	);

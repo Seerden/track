@@ -1,9 +1,18 @@
 import { css } from "@emotion/react";
 import {
+	LucideCheck,
+	LucideCheckCheck,
+	LucideCircleDot,
 	LucideShieldUser,
 	LucideToggleLeft,
 	LucideToggleRight,
 } from "lucide-react";
+import { useEffect, useState } from "react";
+import {
+	HABIT_FILTER,
+	type HabitFilter,
+} from "@/components/Today/habits/useHabits";
+import SettingsRadioGroup from "@/components/user/profile/settings/SettingsRadioGroup";
 import { useProfile } from "@/components/user/profile/useProfile";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import { colors } from "@/lib/theme/colors";
@@ -20,6 +29,12 @@ import S from "./style/Profile.style";
  * Navbar. */
 export default function Profile() {
 	const { handlers, disableNotifications, currentUser, logout } = useProfile();
+	const [defaultHabitSelection, setDefaultHabitSelection] =
+		useState<HabitFilter>(HABIT_FILTER.ALL);
+
+	useEffect(() => {
+		console.log({ defaultHabitSelection });
+	}, [defaultHabitSelection]);
 
 	// this component will be wrapped in Protected, so this won't happen, but it
 	// makes typescript happy.
@@ -57,17 +72,31 @@ export default function Profile() {
 						/>
 					</Label.Settings.WithToggle>
 
-					<Title.Menu.SubsectionHeader>Other</Title.Menu.SubsectionHeader>
-					<Label.Settings.WithToggle>
-						<span>Stub</span>
-						<Checkbox
-							checked={true}
-							onChange={() => {
-								return;
-							}}
-							IconOff={LucideToggleLeft}
-							IconOn={LucideToggleRight}
-							size={25}
+					<Title.Menu.SubsectionHeader>Visibility</Title.Menu.SubsectionHeader>
+					<Label.Settings.WithToggle as="span" role="checkbox">
+						<span>Default habit filter</span>
+						<SettingsRadioGroup
+							value={defaultHabitSelection}
+							onChange={(value) =>
+								setDefaultHabitSelection(value as HabitFilter)
+							}
+							data={[
+								{
+									label: "Show all habits",
+									Icon: LucideCircleDot,
+									value: HABIT_FILTER.ALL,
+								},
+								{
+									label: "Hide habits if completed today",
+									Icon: LucideCheck,
+									value: HABIT_FILTER.TODAY,
+								},
+								{
+									label: "Hide habits if completed in their interval",
+									Icon: LucideCheckCheck,
+									value: HABIT_FILTER.INTERVAL,
+								},
+							]}
 						/>
 					</Label.Settings.WithToggle>
 				</S.SettingsGrid>
