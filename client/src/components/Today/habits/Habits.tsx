@@ -1,28 +1,20 @@
-import { Popover, Radio, TextInput, Tooltip } from "@mantine/core";
 import type { HabitWithPossiblySyntheticEntries } from "@shared/lib/schemas/habit";
 import type { MapById } from "@shared/types/data/utility.types";
-import {
-	LucideCheck,
-	LucideCheckCheck,
-	LucideChevronUp,
-	LucideCircleDot,
-	LucideFunnelPlus,
-	LucideSearch,
-} from "lucide-react";
+import { useAtom } from "jotai";
+import { LucideCheck, LucideCheckCheck, LucideCircleDot } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
+import BlockHeader from "@/components/Today/BlockHeader";
 import Empty from "@/components/Today/Empty";
 import Habit from "@/components/Today/habits/Habit";
-import RadioOption from "@/components/Today/habits/RadioOption";
 import {
+	HABIT_FILTER,
 	type HabitFilter,
+	habitFilterAtom,
 	useHabits,
 } from "@/components/Today/habits/useHabits";
-import { AnimatedIcon } from "@/lib/animate/AnimatedIcon";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
-import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
-import Today from "../style/Today.style";
 import S from "./style/Habits.style";
 
 export default function Habits({
@@ -33,11 +25,8 @@ export default function Habits({
 	const {
 		showFilter,
 		setShowFilter,
-		habitFilter,
-		HABIT_FILTER,
 		nameFilter,
 		toggleFilter,
-		setHabitFilter,
 		handleNameFilterChange,
 		habitsList,
 		filteredHabits,
@@ -46,113 +35,13 @@ export default function Habits({
 
 	return (
 		<S.Habits>
-			{/* TODO: we're gonna use this in more places, so we need to define the styles */}
-			<Popover
-				keepMounted
-				trapFocus
-				width="target"
-				opened={showFilter}
-				onClose={() => setShowFilter(false)}
-				onDismiss={() => setShowFilter(false)}
-				styles={{
-					dropdown: {
-						marginTop: "-0.5rem",
-						backgroundColor: "var(--bg-1-2)",
-					},
-				}}
-			>
-				<Popover.Target>
-					<Today.BlockTitle
-						// TODO: make as much of this as generic as possible, so Tasks can
-						// use it, too.
-						as="header"
-						style={{
-							width: "100%",
-							display: "flex",
-							paddingRight: "0.5rem",
-							justifyContent: "space-between",
-							alignItems: "center",
-						}}
-					>
-						<h2
-							style={{
-								display: "flex",
-								width: "max-content",
-							}}
-						>
-							Habits
-						</h2>
-
-						<Tooltip
-							label={
-								habitFilter === HABIT_FILTER.ALL && !nameFilter.length
-									? "Showing all habits"
-									: "Filter applied to habits"
-							}
-						>
-							<Buttons.Unstyled
-								onClick={toggleFilter}
-								role="button"
-								type="button"
-								aria-label="Toggle habit filter"
-							>
-								<AnimatedIcon
-									size={18}
-									off={
-										habitFilter === HABIT_FILTER.ALL ? (
-											<LucideCircleDot />
-										) : (
-											<LucideFunnelPlus />
-										)
-									}
-									intermediate={null}
-									on={<LucideChevronUp />}
-									state={showFilter}
-								/>
-							</Buttons.Unstyled>
-						</Tooltip>
-					</Today.BlockTitle>
-				</Popover.Target>
-				<Popover.Dropdown>
-					<Containers.Row
-						style={{
-							justifyContent: "space-between",
-							alignItems: "center",
-						}}
-					>
-						<Radio.Group
-							aria-label="Habit filter"
-							onChange={(value) => setHabitFilter(value as HabitFilter)}
-							value={habitFilter}
-						>
-							<Containers.Row gap="small">
-								<RadioOption
-									value={HABIT_FILTER.ALL}
-									tooltipLabel="show all habits"
-									Icon={LucideCircleDot}
-								/>
-								<RadioOption
-									value={HABIT_FILTER.TODAY}
-									tooltipLabel="hide if completed today"
-									Icon={LucideCheck}
-								/>
-								<RadioOption
-									value={HABIT_FILTER.INTERVAL}
-									tooltipLabel="hide if completed interval"
-									Icon={LucideCheckCheck}
-								/>
-							</Containers.Row>
-						</Radio.Group>
-						<TextInput
-							value={nameFilter}
-							onChange={handleNameFilterChange}
-							w="200"
-							size="sm"
-							rightSection={<LucideSearch size={15} />}
-						/>
-					</Containers.Row>
-				</Popover.Dropdown>
-			</Popover>
+			<HabitsHeader
+				showFilter={showFilter}
+				setShowFilter={setShowFilter}
+				nameFilter={nameFilter}
+				toggleFilter={toggleFilter}
+				handleNameFilterChange={handleNameFilterChange}
+			/>
 
 			{habitsList.length > 0 ? (
 				// TODO: instead of this animation, I want to make the filter extend
@@ -172,5 +61,59 @@ export default function Habits({
 				</Empty>
 			)}
 		</S.Habits>
+	);
+}
+
+const habitSelectionRadioOptions = [
+	{
+		value: HABIT_FILTER.ALL,
+		tooltipLabel: "show all habits",
+		Icon: LucideCircleDot,
+	},
+	{
+		value: HABIT_FILTER.TODAY,
+		tooltipLabel: "hide if completed today",
+		Icon: LucideCheck,
+	},
+	{
+		value: HABIT_FILTER.INTERVAL,
+		tooltipLabel: "hide if completed in interval",
+		Icon: LucideCheckCheck,
+	},
+];
+
+function HabitsHeader({
+	showFilter,
+	setShowFilter,
+	toggleFilter,
+	nameFilter,
+	handleNameFilterChange,
+}: Pick<
+	ReturnType<typeof useHabits>,
+	| "showFilter"
+	| "setShowFilter"
+	| "toggleFilter"
+	| "nameFilter"
+	| "handleNameFilterChange"
+>) {
+	const [habitFilter, setHabitFilter] = useAtom(habitFilterAtom);
+	return (
+		<BlockHeader
+			checked={(value: string | undefined) => habitFilter === value}
+			onPopoverClose={() => setShowFilter(false)}
+			onRadioValueChange={(value) => setHabitFilter?.(value as HabitFilter)}
+			onSearchValueChange={handleNameFilterChange}
+			popoverOpened={showFilter}
+			radioGroupLabel="Habit filter"
+			radioOptions={habitSelectionRadioOptions}
+			radioValue={habitFilter}
+			searchValue={nameFilter}
+			title={"Habits"}
+			togglePopover={toggleFilter}
+			triggerAriaLabel={"Toggle habit filter"}
+			triggerTooltipOff={"Showing all habits"}
+			triggerTooltipOn={"Filter applied to habits"}
+			labelOn={habitFilter !== HABIT_FILTER.ALL || !!nameFilter.length}
+		/>
 	);
 }

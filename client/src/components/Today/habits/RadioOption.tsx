@@ -5,20 +5,19 @@ import {
 	RadioIndicator,
 	Tooltip,
 } from "@mantine/core";
-import { useAtomValue } from "jotai";
 import type { LucideIcon } from "lucide-react";
-import { habitFilterAtom } from "@/components/Today/habits/useHabits";
 import type { MainTheme } from "@/lib/style/theme";
 import { colors } from "@/lib/theme/colors";
 
+// TODO: move this to parent folder, since it's shared between all filters on
+// the page
 export default function RadioOption({
 	Icon,
 	tooltipLabel,
+	checked,
 	...props
 }: RadioCardProps & { Icon: LucideIcon; tooltipLabel: string }) {
 	const theme = useTheme() as MainTheme;
-	const habitFilter = useAtomValue(habitFilterAtom);
-	const isChecked = habitFilter === props.value;
 
 	return (
 		<Tooltip
@@ -27,6 +26,7 @@ export default function RadioOption({
 		>
 			<Radio.Card
 				{...props}
+				checked={checked}
 				styles={{
 					card: {
 						borderRadius: "50%",
@@ -35,14 +35,12 @@ export default function RadioOption({
 						color: theme.colors.text.main[0],
 						padding: "0.3rem",
 						alignItems: "center",
-						backgroundColor: isChecked
-							? colors.green.secondary
-							: "var(--bg-1-2)",
+						backgroundColor: checked ? colors.green.secondary : "var(--bg-1-2)",
 					},
 				}}
 			>
 				<RadioIndicator hidden />
-				<Icon size={16} color={isChecked ? colors.dark[0] : "currentColor"} />
+				<Icon size={16} color={checked ? colors.dark[0] : "currentColor"} />
 			</Radio.Card>
 		</Tooltip>
 	);

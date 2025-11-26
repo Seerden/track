@@ -28,7 +28,7 @@ export function useHabits(habits: MapById<HabitWithPossiblySyntheticEntries>) {
 	// should be hidden.
 	const { getHabitById } = useHabitsData();
 
-	const [habitFilter, setHabitFilter] = useAtom(habitFilterAtom);
+	const [habitFilter] = useAtom(habitFilterAtom);
 	const [nameFilter, setNameFilter] = useState("");
 	const [[showFilter, setShowFilter], toggleFilter] = useToggle(false);
 	const timeWindow = useAtomValue(timeWindowAtom);
@@ -78,11 +78,9 @@ export function useHabits(habits: MapById<HabitWithPossiblySyntheticEntries>) {
 	return {
 		showFilter,
 		setShowFilter,
-		habitFilter,
 		HABIT_FILTER,
 		nameFilter,
 		toggleFilter,
-		setHabitFilter,
 		habitsList,
 		filteredHabits,
 		handleNameFilterChange,

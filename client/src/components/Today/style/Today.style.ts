@@ -48,8 +48,12 @@ const TimelineWrapper = styled.section`
 `;
 
 const BlockTitle = styled.h2`
-	width: max-content;
+   width: 100%;
+   display: flex;
 	padding: 0.5rem 0;
+   padding-right: ${spacingValue.small};
+   justify-content: space-between;
+   align-items: center;
 `;
 
 const CheckboxWrapper = styled.label`
