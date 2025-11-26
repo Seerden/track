@@ -1,11 +1,13 @@
 import { useDisclosure } from "@mantine/hooks";
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import { LucideCheck, LucideCircleDot } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import { type ChangeEvent, useEffect, useState } from "react";
 import BlockHeader, {
 	type RadioGroupOption,
 } from "@/components/Today/BlockHeader";
 import Empty from "@/components/Today/Empty";
+import { filterableContainer } from "@/components/Today/style/Today.style";
 import {
 	activityEnd,
 	activityStart,
@@ -49,9 +51,22 @@ export default function Tasks({ activities }: TasksProps) {
 	function handleNameFilterChange(e: ChangeEvent<HTMLInputElement>) {
 		setNameFilter(e.target.value);
 	}
+
 	const [opened, { close, toggle }] = useDisclosure();
 	// TODO: atom, so we can filter tasks by it in useToday or wherever
 	const [taskFilter, setTaskFilter] = useState<"all" | "completed">("all");
+
+	const filteredActivities = sortedActivities.filter((activity) => {
+		if (taskFilter === "completed") {
+			if (activity.completed) {
+				return false;
+			}
+		}
+
+		if (!nameFilter?.length) return true;
+
+		return activity.name.toLowerCase().includes(nameFilter.toLowerCase());
+	});
 
 	useEffect(() => {
 		console.log({ taskFilter });
@@ -78,12 +93,16 @@ export default function Tasks({ activities }: TasksProps) {
 				triggerTooltipOff="Showing all tasks"
 				triggerTooltipOn="Filter applied to tasks"
 			/>
-			{activities.length ? (
-				<T.Tasks>
-					{sortedActivities.map((a) => (
-						<Task key={getActivityKey(a)} activity={a} />
-					))}
-				</T.Tasks>
+			{activities.length > 0 ? (
+				<motion.div {...filterableContainer(opened)}>
+					<T.Tasks>
+						<AnimatePresence>
+							{filteredActivities.map((a) => (
+								<Task key={getActivityKey(a)} activity={a} />
+							))}
+						</AnimatePresence>
+					</T.Tasks>
+				</motion.div>
 			) : (
 				<Empty action={() => openModal(modalIds.activities.newTask)}>
 					No tasks found for today.

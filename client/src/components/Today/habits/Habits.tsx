@@ -12,6 +12,7 @@ import {
 	habitFilterAtom,
 	useHabits,
 } from "@/components/Today/habits/useHabits";
+import { filterableContainer } from "@/components/Today/style/Today.style";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import Containers from "@/lib/theme/components/container.style";
@@ -46,7 +47,7 @@ export default function Habits({
 			{habitsList.length > 0 ? (
 				// TODO: instead of this animation, I want to make the filter extend
 				// around the title the way we do with the tagselector actionbar.
-				<motion.div layout animate={{ marginTop: showFilter ? 70 : 0 }}>
+				<motion.div {...filterableContainer(showFilter)}>
 					<Containers.Column gap="medium">
 						<AnimatePresence>
 							{filteredHabits.map((habit) => (
