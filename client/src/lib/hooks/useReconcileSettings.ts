@@ -6,6 +6,14 @@ import { habitFilterAtom } from "@/components/Today/habits/habit-filter";
 import { tasksFilterAtom } from "@/components/Today/tasks/task-filter";
 import { trpc } from "@/lib/trpc";
 
+/**
+ * Query user settings and set related atom state accordingly.
+ * @usage call this as soon as possible on application mount, in conjunction
+ * with prefetching/ensuring the query data is present for the relevant queries
+ * (like the settings query).
+ * @note As long as we're not doing (partial) SSR, this is probably the easiest way to
+ * handle this, because async atoms is a weird concept to me.
+ */
 export function useReconcileSettings() {
 	const setTaskFilter = useSetAtom(tasksFilterAtom);
 	const setHabitFilter = useSetAtom(habitFilterAtom);
