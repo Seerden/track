@@ -40,44 +40,32 @@ export function useProfile() {
 		[settings, mutateUpdateSettings]
 	);
 
+	// note: we don't set the taskFilter atom on success, because
+	// useReconcileSettings already handles updating the atom when the query
+	// value changes.
 	function handleSetTaskFilter(value: string) {
 		const parsedValue = taskFilterValueSchema.safeParse(value);
 		if (!parsedValue.success) {
 			return;
 		}
 
-		mutateUpdateSettings(
-			{
-				default_task_completion_filter: parsedValue.data,
-			},
-			{
-				onSuccess: (data) => {
-					if (data?.default_task_completion_filter) {
-						setTaskFilter(data.default_task_completion_filter);
-					}
-				},
-			}
-		);
+		mutateUpdateSettings({
+			default_task_completion_filter: parsedValue.data,
+		});
 	}
 
+	// note: we don't set the habitFilter atom on success, because
+	// useReconcileSettings already handles updating the atom when the query
+	// value changes.
 	function handleSetHabitFilter(value: string) {
 		const parsedValue = habitFilterValueSchema.safeParse(value);
 		if (!parsedValue.success) {
 			return;
 		}
 
-		mutateUpdateSettings(
-			{
-				default_habit_completion_filter: parsedValue.data,
-			},
-			{
-				onSuccess: (data) => {
-					if (data?.default_habit_completion_filter) {
-						setHabitFilter(data.default_habit_completion_filter);
-					}
-				},
-			}
-		);
+		mutateUpdateSettings({
+			default_habit_completion_filter: parsedValue.data,
+		});
 	}
 
 	const handlers = {
