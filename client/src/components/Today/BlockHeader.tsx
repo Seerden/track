@@ -54,9 +54,6 @@ export default function BlockHeader({
 	onRadioValueChange,
 	checked,
 }: BlockHeaderProps) {
-	{
-		/* TODO: we're gonna use this in more places, so we need to define the styles */
-	}
 	return (
 		<Popover
 			keepMounted

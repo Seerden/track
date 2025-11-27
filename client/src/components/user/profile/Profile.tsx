@@ -1,8 +1,5 @@
 import { css } from "@emotion/react";
 import {
-	LucideCheck,
-	LucideCheckCheck,
-	LucideCircleDot,
 	LucideShieldUser,
 	LucideToggleLeft,
 	LucideToggleRight,
@@ -11,6 +8,7 @@ import { useEffect, useState } from "react";
 import {
 	HABIT_FILTER,
 	type HabitFilter,
+	habitSelectionRadioOptions,
 } from "@/components/Today/habits/habit-filter";
 import SettingsRadioGroup from "@/components/user/profile/settings/SettingsRadioGroup";
 import { useProfile } from "@/components/user/profile/useProfile";
@@ -80,23 +78,7 @@ export default function Profile() {
 							onChange={(value) =>
 								setDefaultHabitSelection(value as HabitFilter)
 							}
-							data={[
-								{
-									label: "Show all habits",
-									Icon: LucideCircleDot,
-									value: HABIT_FILTER.ALL,
-								},
-								{
-									label: "Hide habits if completed today",
-									Icon: LucideCheck,
-									value: HABIT_FILTER.TODAY,
-								},
-								{
-									label: "Hide habits if completed in their interval",
-									Icon: LucideCheckCheck,
-									value: HABIT_FILTER.INTERVAL,
-								},
-							]}
+							data={habitSelectionRadioOptions}
 						/>
 					</Label.Settings.WithToggle>
 				</S.SettingsGrid>

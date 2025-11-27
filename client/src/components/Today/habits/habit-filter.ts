@@ -1,6 +1,7 @@
 import type { DeepValue } from "@shared/types/data/utility.types";
 import { atom } from "jotai";
 import { LucideCheck, LucideCheckCheck, LucideCircleDot } from "lucide-react";
+import type { RadioGroupOption } from "@/components/Today/BlockHeader";
 
 export const HABIT_FILTER = {
 	ALL: "all",
@@ -10,20 +11,20 @@ export const HABIT_FILTER = {
 
 export type HabitFilter = DeepValue<typeof HABIT_FILTER>;
 
-export const habitSelectionRadioOptions = [
+export const habitSelectionRadioOptions: RadioGroupOption[] = [
 	{
 		value: HABIT_FILTER.ALL,
-		tooltipLabel: "show all habits",
+		tooltipLabel: "Show all habits",
 		Icon: LucideCircleDot,
 	},
 	{
 		value: HABIT_FILTER.TODAY,
-		tooltipLabel: "hide if completed today",
+		tooltipLabel: "Hide habits completed today",
 		Icon: LucideCheck,
 	},
 	{
 		value: HABIT_FILTER.INTERVAL,
-		tooltipLabel: "hide if completed in interval",
+		tooltipLabel: "Hide habits completed in their interval",
 		Icon: LucideCheckCheck,
 	},
 ];

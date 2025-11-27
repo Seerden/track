@@ -6,6 +6,7 @@ import {
 	Tooltip,
 } from "@mantine/core";
 import type { LucideIcon } from "lucide-react";
+import type { RadioGroupOption } from "@/components/Today/BlockHeader";
 import {
 	HABIT_FILTER,
 	type HabitFilter,
@@ -61,12 +62,7 @@ export default function SettingsRadioGroup({
 }: {
 	onChange: (value: string) => void;
 	value: HabitFilter;
-	data: Array<{
-		label: string;
-		Icon: LucideIcon;
-		value: string;
-		checked?: boolean;
-	}>;
+	data: RadioGroupOption[];
 }) {
 	return (
 		<Radio.Group
@@ -82,8 +78,8 @@ export default function SettingsRadioGroup({
 					<RadioOption
 						value={radioOption.value}
 						isChecked={value === radioOption.value}
-						key={radioOption.label}
-						tooltipLabel={radioOption.label}
+						key={radioOption.tooltipLabel}
+						tooltipLabel={radioOption.tooltipLabel}
 						Icon={radioOption.Icon}
 					/>
 				))}
