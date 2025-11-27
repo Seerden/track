@@ -4,12 +4,17 @@ import {
 	LucideToggleLeft,
 	LucideToggleRight,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
 	HABIT_FILTER,
 	type HabitFilter,
 	habitSelectionRadioOptions,
 } from "@/components/Today/habits/habit-filter";
+import {
+	TASK_FILTER,
+	type TaskFilter,
+	taskFilterRadioOptions,
+} from "@/components/Today/tasks/task-filter";
 import SettingsRadioGroup from "@/components/user/profile/settings/SettingsRadioGroup";
 import { useProfile } from "@/components/user/profile/useProfile";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
@@ -29,10 +34,9 @@ export default function Profile() {
 	const { handlers, disableNotifications, currentUser, logout } = useProfile();
 	const [defaultHabitSelection, setDefaultHabitSelection] =
 		useState<HabitFilter>(HABIT_FILTER.ALL);
-
-	useEffect(() => {
-		console.log({ defaultHabitSelection });
-	}, [defaultHabitSelection]);
+	const [defaultTaskSelection, setDefaultTaskSelection] = useState<TaskFilter>(
+		TASK_FILTER.ALL
+	);
 
 	// this component will be wrapped in Protected, so this won't happen, but it
 	// makes typescript happy.
@@ -71,14 +75,26 @@ export default function Profile() {
 					</Label.Settings.WithToggle>
 
 					<Title.Menu.SubsectionHeader>Visibility</Title.Menu.SubsectionHeader>
+
 					<Label.Settings.WithToggle as="span" role="checkbox">
 						<span>Default habit filter</span>
 						<SettingsRadioGroup
+							label="Habit filter selection"
 							value={defaultHabitSelection}
 							onChange={(value) =>
 								setDefaultHabitSelection(value as HabitFilter)
 							}
 							data={habitSelectionRadioOptions}
+						/>
+					</Label.Settings.WithToggle>
+
+					<Label.Settings.WithToggle as="span" role="checkbox">
+						<span>Default task filter</span>
+						<SettingsRadioGroup
+							label="Task filter selection"
+							value={defaultTaskSelection}
+							onChange={(value) => setDefaultTaskSelection(value as TaskFilter)}
+							data={taskFilterRadioOptions}
 						/>
 					</Label.Settings.WithToggle>
 				</S.SettingsGrid>

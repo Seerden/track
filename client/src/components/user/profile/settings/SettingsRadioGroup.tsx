@@ -7,10 +7,8 @@ import {
 } from "@mantine/core";
 import type { LucideIcon } from "lucide-react";
 import type { RadioGroupOption } from "@/components/Today/BlockHeader";
-import {
-	HABIT_FILTER,
-	type HabitFilter,
-} from "@/components/Today/habits/habit-filter";
+import type { HabitFilter } from "@/components/Today/habits/habit-filter";
+import type { TaskFilter } from "@/components/Today/tasks/task-filter";
 import type { MainTheme } from "@/lib/style/theme";
 import { colors } from "@/lib/theme/colors";
 import Containers from "@/lib/theme/components/container.style";
@@ -59,20 +57,17 @@ export default function SettingsRadioGroup({
 	data,
 	value,
 	onChange,
+	label,
 }: {
 	onChange: (value: string) => void;
-	value: HabitFilter;
+	/** @todo to make this more generic, probably need to type this as a string,
+	 * because that's what radio values are, anyway. */
+	value: HabitFilter | TaskFilter;
 	data: RadioGroupOption[];
+	label: string;
 }) {
 	return (
-		<Radio.Group
-			aria-label="Habit filter"
-			onChange={(value) => {
-				console.log({ value, a: 1 });
-				onChange(value);
-			}}
-			value={HABIT_FILTER.ALL}
-		>
+		<Radio.Group aria-label={label} onChange={onChange} value={value}>
 			<Containers.Row gap="small">
 				{data.map((radioOption) => (
 					<RadioOption
