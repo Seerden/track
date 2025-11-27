@@ -8,15 +8,24 @@ import {
 import type { LucideIcon } from "lucide-react";
 import type { MainTheme } from "@/lib/style/theme";
 import { colors } from "@/lib/theme/colors";
+import { spacingValue } from "@/lib/theme/snippets/spacing";
 
-// TODO: move this to parent folder, since it's shared between all filters on
-// the page
+type RadioOptionProps = RadioCardProps & {
+	Icon: LucideIcon;
+	tooltipLabel: string;
+};
+
+/** Small generalization of RadioCard for specific use cases.
+ * @usage use this in a user setting that has multiple options (like the habit
+ *    completion filter preference).
+ * @usage use this in the filters for habits and tasks for completion state.
+ */
 export default function RadioOption({
 	Icon,
 	tooltipLabel,
 	checked,
 	...props
-}: RadioCardProps & { Icon: LucideIcon; tooltipLabel: string }) {
+}: RadioOptionProps) {
 	const theme = useTheme() as MainTheme;
 
 	return (
@@ -29,12 +38,12 @@ export default function RadioOption({
 				checked={checked}
 				styles={{
 					card: {
-						borderRadius: "50%",
 						display: "flex",
+						alignItems: "center",
+						borderRadius: "50%",
 						width: "max-content",
 						color: theme.colors.text.main[0],
-						padding: "0.3rem",
-						alignItems: "center",
+						padding: spacingValue.smaller,
 						backgroundColor: checked ? colors.green.secondary : "var(--bg-1-2)",
 					},
 				}}
