@@ -24,7 +24,8 @@ export default function RadioOption({
 	Icon,
 	tooltipLabel,
 	checked,
-	...props
+	/** destructure these so we can pass them straight to Radio.Card */
+	...radioCardProps
 }: RadioOptionProps) {
 	const theme = useTheme() as MainTheme;
 
@@ -34,7 +35,7 @@ export default function RadioOption({
 			events={{ hover: true, focus: true, touch: true }}
 		>
 			<Radio.Card
-				{...props}
+				{...radioCardProps}
 				checked={checked}
 				styles={{
 					card: {
