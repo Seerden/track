@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Skeleton } from "@mantine/core";
+import type { HTMLMotionProps } from "motion/react";
 import TagCard from "@/components/tags/TagCard/style/TagCard.style";
 import Containers from "@/lib/theme/components/container.style";
 import { font } from "@/lib/theme/font";
@@ -47,9 +48,47 @@ const TimelineWrapper = styled.section`
 	${scrollbar.customVertical};
 `;
 
+/** a `filterableItem` is e.g. a task in Tasks, or a habit in Habits. Their
+ * respective filters may cause them to be animated in/out. */
+export const filterableItem: HTMLMotionProps<"div"> = {
+	layout: true,
+	initial: {
+		opacity: 0,
+		x: -10,
+	},
+	animate: {
+		opacity: 1,
+		x: 0,
+	},
+	exit: {
+		opacity: 0,
+		x: 10,
+	},
+	transition: {
+		duration: 0.1,
+		ease: "easeOut",
+	},
+};
+
+/** a `filterableContainer` is what wraps the list of tasks in Tasks, or habits in
+ * Habits. The container is animated down when the filter appears, so that all
+ * the items remain visible. */
+export const filterableContainer: (
+	filtering: boolean
+) => HTMLMotionProps<"div"> = (filtering) => ({
+	layout: true,
+	animate: {
+		marginTop: filtering ? 70 : 0,
+	},
+});
+
 const BlockTitle = styled.h2`
-	width: max-content;
+   width: 100%;
+   display: flex;
 	padding: 0.5rem 0;
+   padding-right: ${spacingValue.small};
+   justify-content: space-between;
+   align-items: center;
 `;
 
 const CheckboxWrapper = styled.label`
@@ -164,6 +203,10 @@ const OverdueTasksColumn = styled(Containers.Column)`
          `}
 `;
 
+const Section = styled(Containers.Column)`
+   gap: ${spacingValue.medium};
+`;
+
 export default {
 	TimelineSkeleton,
 	TimelineWrapper,
@@ -173,4 +216,5 @@ export default {
 	Header,
 	Tags,
 	OverdueTasksColumn,
+	Section,
 };

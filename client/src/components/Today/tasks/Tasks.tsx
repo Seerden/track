@@ -1,45 +1,44 @@
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
+import { AnimatePresence, motion } from "motion/react";
+import BlockHeader from "@/components/Today/BlockHeader";
 import Empty from "@/components/Today/Empty";
-import {
-	activityEnd,
-	activityStart,
-	sortActivitiesByTime,
-} from "@/lib/activity";
+import Today, {
+	filterableContainer,
+} from "@/components/Today/style/Today.style";
+import { getActivityKey } from "@/components/Today/tasks/get-activity-key";
+import { useTasks } from "@/components/Today/tasks/useTasks";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
-import Today from "../style/Today.style";
-import T from "./style/Tasks.style";
+import S from "./style/Tasks.style";
 import Task from "./Task";
 
-type TasksProps = {
+export default function Tasks({
+	activities,
+}: {
 	activities: PossiblySyntheticActivity[];
-};
-
-function getActivityKey(activity: PossiblySyntheticActivity) {
-	return `
-      ${activityStart(activity).valueOf()}-${activityEnd(activity).valueOf()}-${activity.name}
-   `;
-}
-
-export default function Tasks({ activities }: TasksProps) {
+}) {
+	const { opened, filteredActivities, headerProps } = useTasks(activities);
 	const { openModal } = useModalState();
 
-	const sortedActivities = sortActivitiesByTime(activities);
-
 	return (
-		<T.TasksWrapper>
-			<Today.BlockTitle>Tasks</Today.BlockTitle>
-			{activities.length ? (
-				<T.Tasks>
-					{sortedActivities.map((a) => (
-						<Task key={getActivityKey(a)} activity={a} />
-					))}
-				</T.Tasks>
+		<S.TasksWrapper>
+			<BlockHeader {...headerProps} />
+
+			{activities.length > 0 ? (
+				<motion.div {...filterableContainer(opened)}>
+					<Today.Section>
+						<AnimatePresence>
+							{filteredActivities.map((a) => (
+								<Task key={getActivityKey(a)} activity={a} />
+							))}
+						</AnimatePresence>
+					</Today.Section>
+				</motion.div>
 			) : (
 				<Empty action={() => openModal(modalIds.activities.newTask)}>
 					No tasks found for today.
 				</Empty>
 			)}
-		</T.TasksWrapper>
+		</S.TasksWrapper>
 	);
 }

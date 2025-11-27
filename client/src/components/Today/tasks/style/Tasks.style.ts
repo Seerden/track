@@ -1,11 +1,9 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import Containers from "@/lib/theme/components/container.style";
 import ListStyle from "@/lib/theme/components/List.style";
 import { font } from "@/lib/theme/font";
 import { column } from "@/lib/theme/snippets/column";
 import { flex } from "@/lib/theme/snippets/flex";
-import { spacingValue } from "@/lib/theme/snippets/spacing";
 
 // TODO: make this shared with Notes for now since they are currently the same
 const TasksWrapper = styled.section`
@@ -20,10 +18,6 @@ const Times = styled.div`
 	font-size: ${font.size["0.82"]};
 
 	color: ${(p) => p.theme.colors.text.main[5]};
-`;
-
-const Tasks = styled(Containers.Column)`
-	gap: ${spacingValue.medium}; // same as Habits
 `;
 
 const Task = styled(ListStyle.Item)<{
@@ -50,6 +44,5 @@ const Task = styled(ListStyle.Item)<{
 export default {
 	TasksWrapper,
 	Times,
-	Tasks,
 	Task,
 };
