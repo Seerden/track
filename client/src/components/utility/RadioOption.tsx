@@ -7,8 +7,11 @@ import {
 } from "@mantine/core";
 import type { LucideIcon } from "lucide-react";
 import type { MainTheme } from "@/lib/style/theme";
-import { colors } from "@/lib/theme/colors";
-import { spacingValue } from "@/lib/theme/snippets/spacing";
+import {
+	radioCardBackgroundColor,
+	radioCardColor,
+	radioCardStyles,
+} from "@/lib/theme/components/form/radio.style";
 
 type RadioOptionProps = RadioCardProps & {
 	Icon: LucideIcon;
@@ -36,18 +39,13 @@ export default function RadioOption({
 				checked={checked}
 				styles={{
 					card: {
-						borderRadius: "50%",
-						display: "flex",
-						width: "max-content",
-						alignItems: "center",
-						color: theme.colors.text.main[0],
-						padding: spacingValue.smaller,
-						backgroundColor: checked ? colors.green.secondary : "var(--bg-1-2)",
+						...radioCardStyles(theme),
+						backgroundColor: radioCardBackgroundColor(checked),
 					},
 				}}
 			>
 				<RadioIndicator hidden />
-				<Icon size={16} color={checked ? colors.dark[0] : "currentColor"} />
+				<Icon size={16} color={radioCardColor(checked)} />
 			</Radio.Card>
 		</Tooltip>
 	);
