@@ -1,23 +1,14 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useSetAtom } from "jotai";
 import { type ChangeEvent, useCallback } from "react";
-import {
-	habitFilterAtom,
-	habitFilterValueSchema,
-} from "@/components/Today/habits/habit-filter";
-import {
-	taskFilterValueSchema,
-	tasksFilterAtom,
-} from "@/components/Today/tasks/task-filter";
+import { habitFilterValueSchema } from "@/components/Today/habits/habit-filter";
+import { taskFilterValueSchema } from "@/components/Today/tasks/task-filter";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import { queryClient } from "@/lib/query-client";
 import { trpc } from "@/lib/trpc";
 
-export function useProfile() {
+export function useSettings() {
 	const { currentUser, logout } = useAuthentication();
 	const { data: settings } = useQuery(trpc.user.settings.query.queryOptions());
-	const setHabitFilter = useSetAtom(habitFilterAtom);
-	const setTaskFilter = useSetAtom(tasksFilterAtom);
 	const { mutate: mutateUpdateSettings } = useMutation(
 		trpc.user.settings.update.mutationOptions({
 			onSuccess: (_data) => {
