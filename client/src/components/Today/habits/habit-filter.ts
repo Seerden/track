@@ -1,13 +1,12 @@
+import {
+	HABIT_FILTER,
+	habitFilterValueSchema,
+} from "@shared/lib/schemas/settings";
 import type { DeepValue } from "@shared/types/data/utility.types";
 import { atom } from "jotai";
 import { LucideCheck, LucideCheckCheck, LucideCircleDot } from "lucide-react";
 import type { RadioGroupOption } from "@/components/Today/BlockHeader";
-
-export const HABIT_FILTER = {
-	ALL: "all",
-	TODAY: "completed-today",
-	INTERVAL: "completed-interval",
-} as const;
+export { HABIT_FILTER, habitFilterValueSchema };
 
 export type HabitFilter = DeepValue<typeof HABIT_FILTER>;
 

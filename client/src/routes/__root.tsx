@@ -11,12 +11,19 @@ type RouterContext = {
 };
 
 export const Route = createRootRouteWithContext<RouterContext>()({
-	shellComponent: App,
-	beforeLoad: async ({ context: { queryClient }, location }) => {
+	component: App,
+	/** @see https://tanstack.com/router/v1/docs/eslint/create-route-property-order */
+	beforeLoad: async ({ context: { queryClient, trpc }, location }) => {
 		const me = await queryClient.ensureQueryData(trpc.auth.me.queryOptions());
+
 		if (!me.user && !["/login", "/register"].includes(location.pathname)) {
 			throw redirect({ to: "/login" });
 		}
+	},
+	loader: async ({ context: { queryClient, trpc } }) => {
+		// ensure settings query was fetched, so that we can reconcile the
+		// atoms derived from settings on mount without rerendering etc.
+		await queryClient.ensureQueryData(trpc.user.settings.query.queryOptions());
 	},
 	head: (_ctx) => {
 		return {

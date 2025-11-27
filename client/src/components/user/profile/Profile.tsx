@@ -1,19 +1,17 @@
 import { css } from "@emotion/react";
+import { useAtomValue } from "jotai";
 import {
 	LucideShieldUser,
 	LucideToggleLeft,
 	LucideToggleRight,
 } from "lucide-react";
-import { useState } from "react";
 import {
-	HABIT_FILTER,
-	type HabitFilter,
+	habitFilterAtom,
 	habitSelectionRadioOptions,
 } from "@/components/Today/habits/habit-filter";
 import {
-	TASK_FILTER,
-	type TaskFilter,
 	taskFilterRadioOptions,
+	tasksFilterAtom,
 } from "@/components/Today/tasks/task-filter";
 import SettingsRadioGroup from "@/components/user/profile/settings/SettingsRadioGroup";
 import { useProfile } from "@/components/user/profile/useProfile";
@@ -31,12 +29,10 @@ import S from "./style/Profile.style";
  * @note (TRK-139) currently we only render Profile as ProfileMenu inside
  * Navbar. */
 export default function Profile() {
-	const { handlers, disableNotifications, currentUser, logout } = useProfile();
-	const [defaultHabitSelection, setDefaultHabitSelection] =
-		useState<HabitFilter>(HABIT_FILTER.ALL);
-	const [defaultTaskSelection, setDefaultTaskSelection] = useState<TaskFilter>(
-		TASK_FILTER.ALL
-	);
+	const { handlers, disableNotifications, currentUser, logout, settings } =
+		useProfile();
+	const habitFilter = useAtomValue(habitFilterAtom);
+	const taskFilter = useAtomValue(tasksFilterAtom);
 
 	// this component will be wrapped in Protected, so this won't happen, but it
 	// makes typescript happy.
@@ -80,10 +76,8 @@ export default function Profile() {
 						<span>Default habit filter</span>
 						<SettingsRadioGroup
 							label="Habit filter selection"
-							value={defaultHabitSelection}
-							onChange={(value) =>
-								setDefaultHabitSelection(value as HabitFilter)
-							}
+							value={settings?.default_habit_completion_filter ?? habitFilter}
+							onChange={handlers.updateHabitFilter}
 							data={habitSelectionRadioOptions}
 						/>
 					</Label.Settings.WithToggle>
@@ -92,8 +86,8 @@ export default function Profile() {
 						<span>Default task filter</span>
 						<SettingsRadioGroup
 							label="Task filter selection"
-							value={defaultTaskSelection}
-							onChange={(value) => setDefaultTaskSelection(value as TaskFilter)}
+							value={settings?.default_task_completion_filter ?? taskFilter}
+							onChange={handlers.updateTaskFilter}
 							data={taskFilterRadioOptions}
 						/>
 					</Label.Settings.WithToggle>
