@@ -20,10 +20,14 @@ export function useReconcileSettings() {
 	const { data: settings } = useSuspenseQuery(
 		trpc.user.settings.query.queryOptions()
 	);
+
 	useEffect(() => {
 		setTaskFilter(settings.default_task_completion_filter ?? TASK_FILTER.ALL);
 		setHabitFilter(
 			settings.default_habit_completion_filter ?? HABIT_FILTER.ALL
 		);
-	}, []);
+	}, [
+		settings.default_habit_completion_filter,
+		settings.default_task_completion_filter,
+	]);
 }
