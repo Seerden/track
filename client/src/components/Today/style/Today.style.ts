@@ -198,6 +198,10 @@ const OverdueTasksColumn = styled(Containers.Column)`
          `}
 `;
 
+const Section = styled(Containers.Column)`
+   gap: ${spacingValue.medium};
+`;
+
 export default {
 	TimelineSkeleton,
 	TimelineWrapper,
@@ -207,4 +211,5 @@ export default {
 	Header,
 	Tags,
 	OverdueTasksColumn,
+	Section,
 };

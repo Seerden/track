@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import {
 	HABIT_FILTER,
 	type HabitFilter,
-} from "@/components/Today/habits/useHabits";
+} from "@/components/Today/habits/habit-filter";
 import SettingsRadioGroup from "@/components/user/profile/settings/SettingsRadioGroup";
 import { useProfile } from "@/components/user/profile/useProfile";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";

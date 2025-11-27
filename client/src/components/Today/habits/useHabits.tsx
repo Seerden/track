@@ -1,24 +1,20 @@
 import type { HabitWithPossiblySyntheticEntries } from "@shared/lib/schemas/habit";
-import type { DeepValue, MapById } from "@shared/types/data/utility.types";
-import { atom, useAtom, useAtomValue } from "jotai";
+import type { MapById } from "@shared/types/data/utility.types";
+import { useAtom, useAtomValue } from "jotai";
 import { type ChangeEvent, useState } from "react";
 import {
 	habitSuccessfulInInterval,
 	habitSuccessfulOnDate,
 } from "@/components/habits/Habits/entry-is-completed";
+import {
+	HABIT_FILTER,
+	type HabitFilter,
+	habitFilterAtom,
+	habitSelectionRadioOptions,
+} from "@/components/Today/habits/habit-filter";
 import useHabitsData from "@/lib/hooks/useHabitsData";
 import { useToggle } from "@/lib/hooks/useToggle";
 import { timeWindowAtom } from "@/lib/state/time-window.state";
-
-export const HABIT_FILTER = {
-	ALL: "all",
-	TODAY: "completed-today",
-	INTERVAL: "completed-interval",
-} as const;
-
-export type HabitFilter = DeepValue<typeof HABIT_FILTER>;
-
-export const habitFilterAtom = atom<HabitFilter>(HABIT_FILTER.ALL);
 
 export function useHabits(habits: MapById<HabitWithPossiblySyntheticEntries>) {
 	const habitsList = [...habits.values()];
@@ -28,7 +24,7 @@ export function useHabits(habits: MapById<HabitWithPossiblySyntheticEntries>) {
 	// should be hidden.
 	const { getHabitById } = useHabitsData();
 
-	const [habitFilter] = useAtom(habitFilterAtom);
+	const [habitFilter, setHabitFilter] = useAtom(habitFilterAtom);
 	const [nameFilter, setNameFilter] = useState("");
 	const [[showFilter, setShowFilter], toggleFilter] = useToggle(false);
 	const timeWindow = useAtomValue(timeWindowAtom);
@@ -75,14 +71,29 @@ export function useHabits(habits: MapById<HabitWithPossiblySyntheticEntries>) {
 		setNameFilter(e.target.value);
 	}
 
+	const headerProps = {
+		checked: (value: string | undefined) => habitFilter === value,
+		onPopoverClose: () => setShowFilter(false),
+		onRadioValueChange: (value: string | undefined) =>
+			setHabitFilter?.(value as HabitFilter),
+		onSearchValueChange: handleNameFilterChange,
+		popoverOpened: showFilter,
+		radioGroupLabel: "Habit filter",
+		radioOptions: habitSelectionRadioOptions,
+		radioValue: habitFilter,
+		searchValue: nameFilter,
+		title: "Habits",
+		togglePopover: toggleFilter,
+		triggerAriaLabel: "Toggle habit filter",
+		triggerTooltipOff: "Showing all habits",
+		triggerTooltipOn: "Filter applied to habits",
+		labelOn: habitFilter !== HABIT_FILTER.ALL || !!nameFilter.length,
+	};
+
 	return {
 		showFilter,
-		setShowFilter,
-		HABIT_FILTER,
-		nameFilter,
-		toggleFilter,
 		habitsList,
 		filteredHabits,
-		handleNameFilterChange,
+		headerProps,
 	} as const;
 }

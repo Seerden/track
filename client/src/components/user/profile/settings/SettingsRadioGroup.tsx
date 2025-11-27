@@ -9,7 +9,7 @@ import type { LucideIcon } from "lucide-react";
 import {
 	HABIT_FILTER,
 	type HabitFilter,
-} from "@/components/Today/habits/useHabits";
+} from "@/components/Today/habits/habit-filter";
 import type { MainTheme } from "@/lib/style/theme";
 import { colors } from "@/lib/theme/colors";
 import Containers from "@/lib/theme/components/container.style";
