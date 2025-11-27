@@ -30,10 +30,7 @@ export default function RadioOption({
 	const theme = useTheme() as MainTheme;
 
 	return (
-		<Tooltip
-			label={tooltipLabel}
-			events={{ hover: true, focus: true, touch: true }}
-		>
+		<Tooltip label={tooltipLabel}>
 			<Radio.Card
 				{...radioCardProps}
 				checked={checked}
