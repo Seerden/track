@@ -38,10 +38,10 @@ export default function RadioOption({
 				checked={checked}
 				styles={{
 					card: {
-						display: "flex",
-						alignItems: "center",
 						borderRadius: "50%",
+						display: "flex",
 						width: "max-content",
+						alignItems: "center",
 						color: theme.colors.text.main[0],
 						padding: spacingValue.smaller,
 						backgroundColor: checked ? colors.green.secondary : "var(--bg-1-2)",
