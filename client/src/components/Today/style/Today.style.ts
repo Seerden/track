@@ -198,7 +198,7 @@ const OverdueTasksColumn = styled(Containers.Column)`
 			// prop for the Task cards which makes the background darker
 			p.theme.mode === "dark" &&
 			css`
-            & > * {
+            & > * > * {
             background-color: ${p.theme.colors.background.main[1]};
          `}
 `;
