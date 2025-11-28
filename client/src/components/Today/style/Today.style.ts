@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Skeleton } from "@mantine/core";
 import type { HTMLMotionProps } from "motion/react";
@@ -193,14 +192,6 @@ const OverdueTasksColumn = styled(Containers.Column)`
    min-width: 500px;
    max-height: 50vh;
    overflow-y: auto;
-   ${(p) =>
-			//  TODO: instead of this convoluted css prop, add a secondary
-			// prop for the Task cards which makes the background darker
-			p.theme.mode === "dark" &&
-			css`
-            & > * > * {
-            background-color: ${p.theme.colors.background.main[1]};
-         `}
 `;
 
 const Section = styled(Containers.Column)`
