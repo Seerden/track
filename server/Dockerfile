@@ -1,10 +1,11 @@
-FROM node:22-alpine
+FROM node:22-alpine as base
 
 WORKDIR /track
 
 COPY . .
 
-RUN npm install
+RUN npm i -gE bun@1.3.3
+RUN bun install
 
 WORKDIR /track/server
 

@@ -35,7 +35,7 @@ services:
       dockerfile: server/Dockerfile
     volumes:
       - ../:/track
-      - /track/node_modules
+      - ../node_modules:/track/node_modules
     depends_on:
       - database
       - store
@@ -49,7 +49,7 @@ services:
       dockerfile: client/Dockerfile
     volumes:
       - ../:/track
-      - /track/node_modules
+      - ../node_modules:/track/node_modules
     ports:
       - "5175:5175"
       - "4173:4173"
