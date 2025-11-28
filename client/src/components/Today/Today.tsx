@@ -165,7 +165,9 @@ export default function Today() {
 				</h1>
 				<S.OverdueTasksColumn gap="small" padding="medium">
 					{!!overdueTasks?.length &&
-						overdueTasks.map((t) => <Task activity={t} key={t.activity_id} />)}
+						overdueTasks.map((t) => (
+							<Task activity={t} key={t.activity_id} secondary />
+						))}
 				</S.OverdueTasksColumn>
 			</Modal>
 

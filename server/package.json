@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "vitest",
-    "dev": "tsx watch --clear-screen=false ./index.ts",
+    "dev": "NODE_OPTIONS='--import ./instrument.ts' tsx watch --clear-screen=false ./index.ts",
     "build:local": "tsc -p './tsconfig.json' && npm run sentry:sourcemaps",
     "build": "tsx esbuild.config.ts --bundle",
     "sentry:sourcemaps": "sentry-cli sourcemaps inject --org track-am --project server ./dist && sentry-cli sourcemaps upload --org track-am --project server ./dist"

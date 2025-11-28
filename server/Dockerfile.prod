@@ -12,14 +12,14 @@ ENV VITE_DOMAIN=${VITE_DOMAIN}
 ENV VITE_VAPID_PUBLIC_KEY=${VITE_VAPID_PUBLIC_KEY}
 
 COPY package*.json ./
+COPY bunfig.toml ./
+COPY bun.lock* ./
 COPY shared/package*.json ./shared/
 COPY server/package*.json ./server/
 COPY client/package*.json ./client/
 
-RUN npm install
-RUN npm install --prefix ./shared
-RUN npm install --prefix ./server
-RUN npm install --prefix ./client
+RUN npm i -gE bun@1.3.3
+RUN bun i 
 
 COPY . .
 
@@ -36,7 +36,8 @@ WORKDIR /track
 
 COPY --from=deps /track/server/dist /track/server/dist
 COPY --from=deps /track/client/dist/ /track/server/dist/
-COPY --from=deps /track/server/node_modules /track/server/node_modules
+
+COPY --from=deps /track/node_modules/ /track/node_modules/
 
 # Set environment variables for production
 ENV NODE_ENV=production

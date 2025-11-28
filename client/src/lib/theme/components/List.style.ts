@@ -23,7 +23,7 @@ const ItemList = styled.ul`
 	outline: 2px solid red;
 `;
 
-const Item = styled.li`
+const Item = styled.li<{ $secondary?: boolean }>`
 	user-select: none;
 	list-style: none;
 	cursor: pointer;
@@ -40,7 +40,7 @@ const Item = styled.li`
 	}
 
 	${radius.medium};
-	background-color: var(--bg-4-2);
+	background-color: ${(p) => (p.$secondary ? "var(--bg-4-1)" : "var(--bg-4-2)")};
 	width: 100%;
 	min-width: max-content;
 	${spacing.padding.wide({ size: 0.5, ratio: 2 })};

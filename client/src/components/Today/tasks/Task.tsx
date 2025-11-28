@@ -21,9 +21,10 @@ import T from "./style/Tasks.style";
 
 type TaskProps = {
 	activity: PossiblySyntheticActivity;
+	secondary?: boolean;
 };
 
-export default function Task({ activity }: TaskProps) {
+export default function Task({ activity, secondary }: TaskProps) {
 	const { handleModalOpen, putCompletion } = useTask(activity);
 	const tags = useQueryTagsByActivity(activity);
 	const [opened, { close, open }] = useDisclosure(false);
@@ -32,7 +33,11 @@ export default function Task({ activity }: TaskProps) {
 
 	return (
 		<motion.div {...filterableItem}>
-			<T.Task $completed={activity.completed ?? false} overdue={overdue}>
+			<T.Task
+				$completed={activity.completed ?? false}
+				overdue={overdue}
+				$secondary={secondary}
+			>
 				<Today.CheckboxWrapper
 					onClick={(e) => {
 						// This prevents the task from being opened when the checkbox is
