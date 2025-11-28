@@ -20,9 +20,6 @@ COPY client/package*.json ./client/
 
 RUN npm i -gE bun@1.3.3
 RUN bun i 
-# RUN bun i --prefix ./shared
-# RUN bun i --prefix ./server
-# RUN bun i --prefix ./client
 
 COPY . .
 
@@ -39,6 +36,7 @@ WORKDIR /track
 
 COPY --from=deps /track/server/dist /track/server/dist
 COPY --from=deps /track/client/dist/ /track/server/dist/
+
 COPY --from=deps /track/node_modules/ /track/node_modules/
 
 # Set environment variables for production

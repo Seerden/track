@@ -5,7 +5,6 @@ WORKDIR /track
 COPY . .
 
 RUN npm i -gE bun@1.3.3
-RUN bun install
 
 WORKDIR /track/server
 
