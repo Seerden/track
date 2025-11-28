@@ -16,7 +16,7 @@ const NavBar = styled.nav`
 	background-color: color-mix(in srgb, var(--base-background-color), transparent 10%);
    backdrop-filter: blur(10px);
 
-	width: 100%;
+	width: 100dvw;
 
 	${spacing.padding.wide({ size: 1.5, ratio: 2 })};
 	z-index: 99;
