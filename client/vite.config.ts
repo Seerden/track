@@ -96,6 +96,14 @@ export default defineConfig({
 		watch: {
 			usePolling: true,
 		},
+		proxy: {
+			"/api": {
+				target: "http://server:5000",
+				changeOrigin: true,
+				secure: false,
+				ws: true,
+			},
+		},
 	},
 	publicDir: "public",
 	build: {
