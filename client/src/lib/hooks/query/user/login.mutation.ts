@@ -1,3 +1,4 @@
+import { captureMessage } from "@sentry/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { defaultQueryConfig } from "@/lib/query-client";
 import { trpc } from "@/lib/trpc";
@@ -19,6 +20,8 @@ export function useLoginMutation() {
 					},
 				});
 				queryClient.invalidateQueries({ queryKey: trpc.auth.me.queryKey() });
+
+				captureMessage(`User "${user.username}" logged in`, "log");
 			},
 		})
 	);
