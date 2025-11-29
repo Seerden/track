@@ -19,11 +19,17 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 		if (!me.user && !["/login", "/register"].includes(location.pathname)) {
 			throw redirect({ to: "/login" });
 		}
+
+		return { user: me.user };
 	},
-	loader: async ({ context: { queryClient, trpc } }) => {
-		// ensure settings query was fetched, so that we can reconcile the
-		// atoms derived from settings on mount without rerendering etc.
-		await queryClient.ensureQueryData(trpc.user.settings.query.queryOptions());
+	loader: async ({ context: { queryClient, trpc, user } }) => {
+		if (user) {
+			// ensure settings query was fetched, so that we can reconcile the
+			// atoms derived from settings on mount without rerendering etc.
+			await queryClient.ensureQueryData(
+				trpc.user.settings.query.queryOptions()
+			);
+		}
 	},
 	head: (_ctx) => {
 		return {
