@@ -1,8 +1,17 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { font } from "@/lib/theme/font";
 import { lightDark } from "@/lib/theme/light-dark";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
+
+export const itemSizeCss = css`
+   max-width: 500px;
+
+   @media (width < 720px) {
+      max-width: 100%;
+   }
+`;
 
 const ItemList = styled.ul`
 	gap: 0.6rem; // TODO: theem value;
@@ -14,7 +23,7 @@ const ItemList = styled.ul`
 	outline: 2px solid red;
 `;
 
-const Item = styled.li`
+const Item = styled.li<{ $secondary?: boolean }>`
 	user-select: none;
 	list-style: none;
 	cursor: pointer;
@@ -31,7 +40,7 @@ const Item = styled.li`
 	}
 
 	${radius.medium};
-	background-color: ${(p) => p.theme.colors.background.main[2]}; // TODO: apply some style for completed tasks
+	background-color: ${(p) => (p.$secondary ? "var(--bg-4-1)" : "var(--bg-4-2)")};
 	width: 100%;
 	min-width: max-content;
 	${spacing.padding.wide({ size: 0.5, ratio: 2 })};
@@ -39,7 +48,7 @@ const Item = styled.li`
 	max-height: 90px;
 	box-shadow: 0.25rem 0.25rem 0.2rem -0.1rem ${(p) => (p.theme.mode === "dark" ? p.theme.colors.dark[2] : p.theme.colors.light[4])};
 
-	max-width: 720px; // TODO: this is temporary, but we do want to limit size
+	${itemSizeCss};
 `;
 
 // TODO: I don't like that this is a div

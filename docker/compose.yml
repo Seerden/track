@@ -35,13 +35,13 @@ services:
       dockerfile: server/Dockerfile
     volumes:
       - ../:/track
-      - /track/node_modules
+      - ../node_modules:/track/node_modules
     depends_on:
       - database
       - store
     ports:
       - "5000:5000"
-    command: npm run dev
+    command: //bin/sh -c "bun install && npm run dev"
   client:
     container_name: track-client
     build:
@@ -49,12 +49,12 @@ services:
       dockerfile: client/Dockerfile
     volumes:
       - ../:/track
-      - /track/node_modules
+      - ../node_modules:/track/node_modules
     ports:
       - "5175:5175"
       - "4173:4173"
       - "6016:6016"
-    command: npm run dev
+    command: //bin/sh -c "bun install && npm run dev"
   test-database:
     container_name: track-test-database
     image: postgres:14-alpine

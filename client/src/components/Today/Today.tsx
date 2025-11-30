@@ -1,42 +1,31 @@
-import { css } from "@emotion/react";
-import { Skeleton } from "@mantine/core";
+import { Tooltip } from "@mantine/core";
+import { useAtomValue } from "jotai";
+import { LucideCircleDot, LucideTag } from "lucide-react";
 import { Suspense } from "react";
+import { tagFilterAtom } from "@/components/activities/ActivityFilter/tag-filter.atom";
 import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
 import NewHabit from "@/components/habits/NewHabit/NewHabit";
 import NewNote from "@/components/notes/NewNote/NewNote";
-import AllDayActivities from "@/components/Today/AllDayActivities";
+import AllDayActivities from "@/components/Today/activities/AllDayActivities";
 import Create from "@/components/Today/Create";
-import Habits from "@/components/Today/Habits";
-import TimelineRows from "@/components/Today/TimelineRows";
+import Habits from "@/components/Today/habits/Habits";
+import TimelineRows from "@/components/Today/timeline/TimelineRows";
 import useToday from "@/components/Today/useToday";
 import Calendar from "@/components/utility/Calendar/Calendar";
 import Modal from "@/components/utility/Modal/Modal";
+import { AnimatedIcon } from "@/lib/animate/AnimatedIcon";
+import { useBreakpoints } from "@/lib/hooks/breakpoints";
 import modalIds from "@/lib/modal-ids";
-import type { MainTheme } from "@/lib/style/theme";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 import { DefaultSkeleton } from "../layout/Skeleton";
-import Notes from "./Notes";
-import { OverdueTasksIndicator } from "./OverdueTasksIndicator";
-import { rowHeight } from "./style/TimelineRow.style";
+import Notes from "./notes/Notes";
 import S from "./style/Today.style";
-import Task from "./Task";
-import Tasks from "./Tasks";
-
-const overdueTasksColumnCss = (t: MainTheme) => css`
-   padding-top: ${spacingValue.small};
-   min-width: 500px;
-   max-height: 50vh;
-   overflow-y: auto;
-   ${
-			(t as MainTheme).mode === "dark" &&
-			css`
-            & > * {
-            background-color: ${(t as MainTheme).colors.background.main[1]};
-         `
-		}
-`;
+import Task from "./tasks/Task";
+import Tasks from "./tasks/Tasks";
+import OverdueTasksIndicator from "./timeline/OverdueTasksIndicator";
+import { rowHeight } from "./timeline/style/TimelineRow.style";
 
 export default function Today() {
 	const {
@@ -51,12 +40,50 @@ export default function Today() {
 		setCurrentDate,
 		isFetching,
 	} = useToday();
+	const tagFilter = useAtomValue(tagFilterAtom);
+	const state = !!tagFilter.value?.length;
+
+	const { isMobileWidth } = useBreakpoints();
 
 	return (
 		<Suspense fallback={<DefaultSkeleton />}>
 			<S.Columns>
-				<div style={{ gridArea: "calendar" }}>
+				<div
+					style={{
+						gridArea: "calendar",
+						display: "flex",
+						flexDirection: isMobileWidth ? "row" : "column",
+						gap: "1rem",
+						...(isMobileWidth && { justifyContent: "space-between" }),
+					}}
+				>
 					<Calendar initialDate={currentDate} onChange={setCurrentDate} />
+
+					{/* TODO: the location and placement of this thing is temporary. 
+                  Figure it out as a follow-up to TRK-295 */}
+					<Tooltip
+						label={
+							tagFilter.value
+								? "Tag filters have been applied"
+								: "No tag filters applied"
+						}
+					>
+						<div
+							style={{
+								display: "flex",
+								maxWidth: "max-content",
+								alignSelf: "flex-end",
+							}}
+						>
+							<AnimatedIcon
+								off={<LucideCircleDot />}
+								intermediate={null}
+								on={<LucideTag />}
+								state={state}
+								size={24}
+							/>
+						</div>
+					</Tooltip>
 				</div>
 
 				<Create />
@@ -89,17 +116,10 @@ export default function Today() {
 					{isFetching ? (
 						<Containers.Column>
 							{Array.from({ length: 25 }).map((_, i) => (
-								<Skeleton
+								<S.TimelineSkeleton
 									key={i}
 									width={"calc(100% - 2rem)"}
 									height={`max(${rowHeight}px, 2vh)`}
-									// TODO: theme-aware like with the border-top on the
-									// regular (non-skeleton) timeline rows
-									css={(theme) => css`
-                              border-top: 2px solid ${(theme as MainTheme).colors.background.main[3]};
-                              opacity: 0.4;
-                              margin-left: 2rem;
-                           `}
 								/>
 							))}
 						</Containers.Column>
@@ -143,16 +163,12 @@ export default function Today() {
 				>
 					Overdue tasks
 				</h1>
-				<Containers.Column
-					gap="small"
-					padding="medium"
-					// TODO: instead of this convoluted css prop, add a secondary
-					// prop for the Task cards which makes the background darker
-					css={(t) => overdueTasksColumnCss(t as MainTheme)}
-				>
+				<S.OverdueTasksColumn gap="small" padding="medium">
 					{!!overdueTasks?.length &&
-						overdueTasks.map((t) => <Task activity={t} key={t.activity_id} />)}
-				</Containers.Column>
+						overdueTasks.map((t) => (
+							<Task activity={t} key={t.activity_id} secondary />
+						))}
+				</S.OverdueTasksColumn>
 			</Modal>
 
 			{/* TODO: see modal rework issue (TRK-211) */}

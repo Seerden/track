@@ -21,7 +21,10 @@ export const updateUserSettings = query(
 			const [key, val] = cur;
 
 			if (val !== undefined) {
-				acc[key as keyof UserSettingsUpdateInput] = val;
+				acc = {
+					...acc,
+					[key]: val,
+				};
 			}
 
 			return acc;

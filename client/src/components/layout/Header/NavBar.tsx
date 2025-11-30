@@ -1,8 +1,9 @@
-import { Popover, Switch } from "@mantine/core";
+import { Popover, Switch, Tooltip } from "@mantine/core";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useAtomValue } from "jotai";
 import {
 	LucideCalendar,
+	LucideFilter,
 	LucideKeyboard,
 	LucideMoon,
 	LucideSun,
@@ -10,6 +11,7 @@ import {
 } from "lucide-react";
 import ActivityMenu from "@/components/layout/Header/ActivityMenu/ActivityMenu";
 import Menu from "@/components/layout/Header/Menu";
+import TagFilter from "@/components/tags/TagFilter/TagFilter";
 import { ProfileMenu } from "@/components/user/profile/Profile";
 import { Protected } from "@/components/wrappers";
 import useAuthentication from "@/lib/hooks/useAuthentication";
@@ -39,15 +41,31 @@ export default function NavBar() {
 					size="md"
 				/>
 
+				<Menu
+					id="TagFilter"
+					Target={
+						<Tooltip position="right" label="Tag filter">
+							<LucideFilter size={23} />
+						</Tooltip>
+					}
+				>
+					<div style={{ padding: "1rem" }}>
+						<TagFilter />
+					</div>
+				</Menu>
+
 				{/* TODO (TRK-257): finish this implementation */}
 				<Popover>
-					<Popover.Target>
-						<LucideKeyboard
-							size={23}
-							role="dialog"
-							style={{ cursor: "pointer" }}
-						/>
-					</Popover.Target>
+					<Tooltip label="Shortcut menu" position="right">
+						<Popover.Target>
+							<LucideKeyboard
+								size={23}
+								role="dialog"
+								style={{ cursor: "pointer" }}
+							/>
+						</Popover.Target>
+					</Tooltip>
+
 					<Popover.Dropdown>
 						{JSON.stringify(Object.fromEntries(shortcutMenu))}
 					</Popover.Dropdown>

@@ -15,7 +15,11 @@ export default function Empty({
 		<S.Empty>
 			{children}
 			{!!action && (
-				<Buttons.Action.Default type="button" $color="theme" onClick={action}>
+				<Buttons.Action.Default
+					type="button"
+					$color="royalblue"
+					onClick={action}
+				>
 					<LucidePlus />
 				</Buttons.Action.Default>
 			)}

@@ -10,6 +10,14 @@ export const defaultQueryConfig = {
 	},
 } as const;
 
-export const queryClient = new QueryClient({
+const _queryClient = new QueryClient({
 	defaultOptions: defaultQueryConfig,
 });
+
+export function getQueryClient() {
+	return new QueryClient({
+		defaultOptions: defaultQueryConfig,
+	});
+}
+
+export const queryClient = getQueryClient();

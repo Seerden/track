@@ -3,7 +3,11 @@ import { atom, useAtom } from "jotai";
 import { useCallback } from "react";
 
 // TODO: group these by scope and get the scope-specific options inside the hook
-export type PopoverId = "ActivityMenu" | "ProfileMenu" | "DaySelector";
+export type PopoverId =
+	| "ActivityMenu"
+	| "ProfileMenu"
+	| "DaySelector"
+	| "TagFilter";
 export type PopoverScope = "header" | "ActivityForm";
 
 export const popoverAtom = atom<Map<PopoverScope, Set<PopoverId>>>(new Map());

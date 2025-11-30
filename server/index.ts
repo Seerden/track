@@ -51,7 +51,7 @@ async function start() {
 	app.use(session(redisSession));
 
 	// Have to parse the body as text to forward to Sentry
-	app.use("/sentry", express.text({ limit: "5mb" }), routers.sentry);
+	app.use("/api/sentry", express.text({ limit: "5mb" }), routers.sentry);
 
 	// For the non-sentry routes, we can parse the body as JSON.
 	app.use(express.json() as RequestHandler);
@@ -103,13 +103,15 @@ async function start() {
 		},
 	});
 
-	app.listen(port, () => {
-		console.log(`Express server started on port ${port} at ${new Date()}`);
+	app.listen(+port, "::", () => {
+		console.log(
+			`Express server started on 0.0.0.0, port ${port} at ${new Date()}`
+		);
 	});
 }
 
 try {
-	start();
+	await start();
 } catch (error) {
 	console.error(error);
 }
