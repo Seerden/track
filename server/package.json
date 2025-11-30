@@ -9,7 +9,9 @@
     "dev": "NODE_OPTIONS='--import ./instrument.ts' tsx watch --clear-screen=false ./index.ts",
     "build:local": "tsc -p './tsconfig.json' && npm run sentry:sourcemaps",
     "build": "tsx esbuild.config.ts --bundle",
-    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org track-am --project server ./dist && sentry-cli sourcemaps upload --org track-am --project server ./dist"
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org track-am --project server ./dist && sentry-cli sourcemaps upload --org track-am --project server ./dist",
+    "auth:generate": "npx @better-auth/cli generate --config ./src/auth.ts",
+    "auth:migrate": "npx @better-auth/cli migrate --config ./src/auth.ts"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +24,7 @@
     "@trpc/server": "11.7.1",
     "@trpc/tanstack-react-query": "11.7.1",
     "bcryptjs": "3.0.2",
+    "better-auth": "1.4.3",
     "colord": "2.9.3",
     "connect-redis": "^7.1.1",
     "cookie-parser": "1.4.7",
@@ -31,6 +34,8 @@
     "express-session": "^1.18.0",
     "immer": "^10.1.1",
     "ioredis": "^5.4.1",
+    "kysely": "0.28.8",
+    "kysely-postgres-js": "3.0.0",
     "postgres": "^3.4.4",
     "superjson": "2.2.5",
     "web-push": "3.6.7"

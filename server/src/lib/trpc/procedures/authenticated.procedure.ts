@@ -32,3 +32,16 @@ export const authenticatedProcedure = publicProcedure.use(async (opts) => {
 		},
 	});
 });
+
+export const betterAuthProcedure = publicProcedure.use(async (opts) => {
+	if (!opts.ctx.session || !opts.ctx.user) {
+		throw new TRPCError({ code: "UNAUTHORIZED" });
+	}
+
+	return opts.next({
+		ctx: {
+			user: opts.ctx.user,
+			session: opts.ctx.session,
+		},
+	});
+});

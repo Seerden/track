@@ -5,11 +5,13 @@ import * as Sentry from "@sentry/node";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import cors from "cors";
 import "dotenv/config";
+import { toNodeHandler } from "better-auth/node";
 import type { RequestHandler } from "express";
 import express from "express";
 import session from "express-session";
 import path from "path";
 import { onError } from "./instrument";
+import { auth } from "./src/auth";
 import { pingDatabase } from "./src/db/init";
 import { NODE__dirname } from "./src/lib/build.utility";
 import { logRequests } from "./src/lib/log-requests";
@@ -52,6 +54,11 @@ async function start() {
 
 	// Have to parse the body as text to forward to Sentry
 	app.use("/api/sentry", express.text({ limit: "5mb" }), routers.sentry);
+
+	/**
+	 * @see https://www.better-auth.com/docs/integrations/express
+	 * @note from ^, do not put express.json() before this. */
+	app.use("/api/auth/*splat", toNodeHandler(auth));
 
 	// For the non-sentry routes, we can parse the body as JSON.
 	app.use(express.json() as RequestHandler);
@@ -103,10 +110,8 @@ async function start() {
 		},
 	});
 
-	app.listen(+port, "::", () => {
-		console.log(
-			`Express server started on 0.0.0.0, port ${port} at ${new Date()}`
-		);
+	app.listen(+port, "0.0.0.0", () => {
+		console.log(`Express server started on port ${port} at ${new Date()}`);
 	});
 }
 
