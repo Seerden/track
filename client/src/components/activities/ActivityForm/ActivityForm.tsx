@@ -34,6 +34,7 @@ import {
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
 import type { MainTheme } from "@/lib/style/theme";
+import { colors } from "@/lib/theme/colors";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import Form from "@/lib/theme/components/form.style";
@@ -139,7 +140,11 @@ export default function ActivityForm({
 				key={option.value}
 				style={{
 					width: "100%",
-					backgroundColor: isSelected ? "red" : "inherit",
+					padding: "0.3rem 0.5rem",
+					borderRadius: 4,
+					// to give some breathing room nexst to the scrollbar
+					backgroundColor: isSelected ? "var(--bg-3-2)" : "inherit",
+					boxShadow: `-0.5rem 0.5rem 0 -0.35rem ${isSelected ? colors.green.main : "transparent"}`,
 				}}
 			>
 				<header>
@@ -149,7 +154,7 @@ export default function ActivityForm({
 				<Containers.Row
 					style={{
 						fontSize: font.size["0.82"],
-						color: theme.colors.text.main[4],
+						color: theme.colors.text.main[3],
 					}}
 				>
 					<p>
@@ -294,6 +299,9 @@ export default function ActivityForm({
 										);
 									}
 								}}
+								// TODO: target these with a styled component so we can
+								// target selectors more easily (especially e.g. :hover,
+								// :focus).
 								styles={{
 									root: {
 										position: "relative",
@@ -307,7 +315,17 @@ export default function ActivityForm({
 										top: "unset",
 										height: "max-content",
 										maxHeight: 250,
-										overflowY: "scroll",
+										overflowY: "auto",
+									},
+									options: {
+										padding: "0.2rem",
+										gap: spacingValue.smaller,
+										display: "flex",
+										flexDirection: "column",
+									},
+									option: {
+										padding: 0,
+										marginRight: spacingValue.smaller,
 									},
 									input: {
 										position: "relative",
