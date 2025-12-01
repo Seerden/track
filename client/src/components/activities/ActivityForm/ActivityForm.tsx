@@ -13,13 +13,16 @@ import type {
 	PossiblySyntheticActivity,
 } from "@shared/lib/schemas/activity";
 import { useQuery } from "@tanstack/react-query";
+import { produce } from "immer";
 import {
 	LucideCalendarClock,
 	LucideDotSquare,
 	LucideHexagon,
 	LucideRepeat,
+	LucideTags,
 	LucideWaypoints,
 } from "lucide-react";
+import { useEffect } from "react";
 import RecurrenceForm from "@/components/activities/ActivityForm/RecurrenceForm/RecurrenceForm";
 import { TAG_SELECTOR_IDS } from "@/components/tags/TagSelector/constants";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
@@ -79,6 +82,10 @@ export default function ActivityForm({
 		activity: initialActivity,
 	});
 
+	useEffect(() => {
+		console.log({ parent_id: activity.parent_id });
+	}, [activity.parent_id]);
+
 	const { data: activities } = useQuery(trpc.activities.all.queryOptions());
 	const activityParentSelectionComboboxData = sortActivitiesByTime(
 		byIdAsList(activities).filter(
@@ -102,7 +109,15 @@ export default function ActivityForm({
 		const activity = activities?.get(option.value);
 		if (!activity) return null;
 		return (
-			<Containers.Column gap="smallest">
+			<Containers.Column
+				gap="smallest"
+				key={option.value}
+				style={{
+					backgroundColor: checked
+						? "color-mix(in rgb, blue, currentColor 60%)"
+						: "inherit",
+				}}
+			>
 				<header>{activity.name}</header>
 				<Containers.Row
 					style={{
@@ -110,8 +125,10 @@ export default function ActivityForm({
 						color: theme.colors.text.main[4],
 					}}
 				>
-					from {activityStart(activity).fromNow()} to{" "}
-					{activityEnd(activity).fromNow()}
+					<p>
+						from {activityStart(activity).fromNow()} to{" "}
+						{activityEnd(activity).fromNow()}
+					</p>
 				</Containers.Row>
 			</Containers.Column>
 		);
@@ -225,12 +242,25 @@ export default function ActivityForm({
 
 					{isSequence && (
 						<Form.Row style={{ flexDirection: "column", marginTop: "1rem" }}>
-							<Form.RowTitle $inverted>List</Form.RowTitle>
+							<Form.RowTitle $inverted $inline>
+								List
+							</Form.RowTitle>
 
 							<Autocomplete
+								leftSection={<LucideTags size={18} />}
 								clearable
+								placeholder="Choose a parent activity"
 								dropdownOpened
 								withScrollArea={false}
+								selectFirstOptionOnChange
+								value={activity.parent_id ?? undefined}
+								onChange={(value) =>
+									setActivity(
+										produce((draft) => {
+											draft.parent_id = value;
+										})
+									)
+								}
 								styles={{
 									root: {
 										position: "relative",

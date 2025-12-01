@@ -38,10 +38,15 @@ const FormTitle = styled.h1`
 		-0.6rem -0.4rem 0 0 ${(p) => p.theme.colors.blue.main};		
 `;
 
-const RowTitle = styled.h3<{ $inverted?: boolean }>`
+const RowTitle = styled.h3<{ $inverted?: boolean; $inline?: boolean }>`
 	${spacing.padding.wide({ size: 0.3, ratio: 2.5 })};
-	margin: 0;
-	margin-top: -2rem;
+
+   ${(p) =>
+			!p.$inline &&
+			`
+            margin: 0;
+            margin-top: -2rem;
+         `}
 
 	background-color: ${(p) => (p.$inverted ? p.theme.colors.background.main[3] : p.theme.colors.background.contrast[3])};
 	color: ${(p) => (p.$inverted ? p.theme.colors.text.main[2] : p.theme.colors.text.contrast[2])};
