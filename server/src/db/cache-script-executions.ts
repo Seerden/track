@@ -58,15 +58,22 @@ export async function runAndCacheNewScripts() {
 		(filename) => !executedScriptFilenames.includes(filename)
 	);
 
+	console.log(
+		`${unexecutedScriptFilenames.length} script migrations to execute`
+	);
 	for (const filename of unexecutedScriptFilenames) {
 		const queryAsString = await readFile(
 			path.join(scriptsFolder, `${filename}.sql`),
 			"utf-8"
 		);
 		await sqlConnection.begin(async (q) => {
-			const response = await q.unsafe(queryAsString);
-			console.log({ message: `Ran migration ${filename}`, response });
-			await markScriptAsRun(filename);
+			try {
+				const response = await q.unsafe(queryAsString);
+				console.log({ message: `Ran migration ${filename}`, response });
+				await markScriptAsRun(filename);
+			} catch (_error) {
+				console.error("Script synchronization failed.");
+			}
 		});
 	}
 }
