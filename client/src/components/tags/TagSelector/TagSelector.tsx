@@ -1,3 +1,4 @@
+import Form from "@lib/theme/components/form.style";
 import type { TagsInTree } from "@shared/lib/schemas/tag";
 import {
 	LucideChevronDown,
@@ -68,11 +69,11 @@ export default function TagSelector({
 			>
 				{/* TODO: the info tooltip should be in a little info block, not a title on a random element */}
 				{!!title && (
-					<S.Title
+					<Form.RowTitle
 						{...(maximum && { title: `Choose at most ${maximum} tag(s)` })}
 					>
 						{title}
-					</S.Title>
+					</Form.RowTitle>
 				)}
 
 				<div

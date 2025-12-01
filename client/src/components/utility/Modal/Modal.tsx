@@ -48,7 +48,7 @@ export default function Modal({
 			>
 				<S.Modal ref={modalRef} data-modal-id={modalId}>
 					<S.Close onClick={handleModalClose} $color="orangered" />
-					<S.ModalChildWrapper scrollbarVisible={scrollbarVisible}>
+					<S.ModalChildWrapper $scrollbarHidden={!scrollbarVisible}>
 						{children}
 					</S.ModalChildWrapper>
 				</S.Modal>

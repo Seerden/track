@@ -91,20 +91,6 @@ const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
    transition: all 35ms linear;
 `;
 
-const Title = styled.h3`
-	${spacing.padding.wide({ size: 0.3, ratio: 2.5 })};
-	margin: 0;
-	margin-top: -2rem;
-
-	background-color: ${(p) => p.theme.colors.background.contrast[3]};
-	color: ${(p) => p.theme.colors.text.contrast[2]};
-	max-width: max-content;
-	font-size: ${font.size["1.1"]};
-
-	${radius.small};
-	border: 2px solid ${(p) => p.theme.colors.background.contrast[5]};
-`;
-
 const ClearFilter = styled(Buttons.Action.Default)`
 	position: absolute;
 	right: 0.3rem;
@@ -258,7 +244,6 @@ export default {
 	Wrapper,
 	List,
 	ListItem,
-	Title,
 	ClearFilter,
 	FilterWrapper,
 	Actions,

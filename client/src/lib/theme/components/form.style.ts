@@ -5,6 +5,7 @@ import { font } from "@/lib/theme/font";
 import Input from "@/lib/theme/input";
 import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
+import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 
 const Wrapper = styled.div`
@@ -37,6 +38,22 @@ const FormTitle = styled.h1`
 		-0.6rem -0.4rem 0 0 ${(p) => p.theme.colors.blue.main};		
 `;
 
+const RowTitle = styled.h3<{ $inverted?: boolean }>`
+	${spacing.padding.wide({ size: 0.3, ratio: 2.5 })};
+	margin: 0;
+	margin-top: -2rem;
+
+	background-color: ${(p) => (p.$inverted ? p.theme.colors.background.main[3] : p.theme.colors.background.contrast[3])};
+	color: ${(p) => (p.$inverted ? p.theme.colors.text.main[2] : p.theme.colors.text.contrast[2])};
+	max-width: max-content;
+	font-size: ${font.size["1.1"]};
+
+	${radius.small};
+	border: 2px solid ${(p) => p.theme.colors.background.contrast[5]};
+`;
+
+// TODO: I copy-pasted this from the TagSelector Title to see how it looks.
+// Generalize if we want to reuse it here.
 const Row = styled.fieldset`
 	${flex.row};
 	padding: ${spacingValue.small};
@@ -121,6 +138,7 @@ const formStyle = {
 	Wrapper,
 	FormTitle,
 	Row,
+	RowTitle,
 	CompactRow,
 	Form,
 	Label,

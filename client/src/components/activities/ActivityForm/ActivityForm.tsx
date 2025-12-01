@@ -1,22 +1,42 @@
 import TagSelector from "@components/tags/TagSelector/TagSelector";
-import { FocusTrap, TextInput, Tooltip } from "@mantine/core";
+import { useTheme } from "@emotion/react";
+import {
+	Autocomplete,
+	type AutocompleteProps,
+	FocusTrap,
+	TextInput,
+	Tooltip,
+} from "@mantine/core";
+import { byIdAsList } from "@shared/lib/map";
 import type {
 	NewActivityInput,
 	PossiblySyntheticActivity,
 } from "@shared/lib/schemas/activity";
+import { useQuery } from "@tanstack/react-query";
 import {
 	LucideCalendarClock,
 	LucideDotSquare,
+	LucideHexagon,
 	LucideRepeat,
+	LucideWaypoints,
 } from "lucide-react";
 import RecurrenceForm from "@/components/activities/ActivityForm/RecurrenceForm/RecurrenceForm";
 import { TAG_SELECTOR_IDS } from "@/components/tags/TagSelector/constants";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
+import {
+	activityEnd,
+	activityStart,
+	sortActivitiesByTime,
+} from "@/lib/activity";
 import type { ModalId } from "@/lib/modal-ids";
 import modalIds from "@/lib/modal-ids";
+import type { MainTheme } from "@/lib/style/theme";
 import Buttons from "@/lib/theme/components/buttons";
+import Containers from "@/lib/theme/components/container.style";
 import Form from "@/lib/theme/components/form.style";
+import { font } from "@/lib/theme/font";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
+import { trpc } from "@/lib/trpc";
 import DateTimePicker from "./DateTimePicker";
 import useActivityForm from "./useActivityForm";
 import useDateTimePicker from "./useDateTimePicker";
@@ -40,6 +60,8 @@ export default function ActivityForm({
 		setActivity,
 		activity,
 		isTask,
+		isSequence,
+		handleIsSequenceChange,
 		title,
 		buttonTitle,
 		isRecurring,
@@ -56,6 +78,44 @@ export default function ActivityForm({
 		modalId,
 		activity: initialActivity,
 	});
+
+	const { data: activities } = useQuery(trpc.activities.all.queryOptions());
+	const activityParentSelectionComboboxData = sortActivitiesByTime(
+		byIdAsList(activities).filter(
+			(activity) => !activity.will_recur && !activity.recurrence_id
+		)
+	)
+		.map((activity) => ({
+			label: activity.name,
+			// TODO: sortActivitiesByTime assumes it can return synthetic entries,
+			// where we know from the data that none of the entries are synthetic, so
+			// we can type-alias for now, but figure something more robust out later.
+			value: activity.activity_id as string,
+		}))
+		.reverse();
+
+	const theme = useTheme() as MainTheme;
+	const renderParentSelectionCard: AutocompleteProps["renderOption"] = ({
+		checked,
+		option,
+	}) => {
+		const activity = activities?.get(option.value);
+		if (!activity) return null;
+		return (
+			<Containers.Column gap="smallest">
+				<header>{activity.name}</header>
+				<Containers.Row
+					style={{
+						fontSize: font.size["0.82"],
+						color: theme.colors.text.main[4],
+					}}
+				>
+					from {activityStart(activity).fromNow()} to{" "}
+					{activityEnd(activity).fromNow()}
+				</Containers.Row>
+			</Containers.Column>
+		);
+	};
 
 	const { handleDateChange, handleAllDayChange, allDay, dates } =
 		useDateTimePicker({
@@ -113,6 +173,25 @@ export default function ActivityForm({
 						</Tooltip>
 
 						<Tooltip
+							label="Is this activity part of a list?"
+							aria-label="Is this activity part of a list?"
+							id="is-sequence-label"
+							withArrow
+						>
+							<label>
+								<Checkbox
+									aria-labelledby="is-sequence-label"
+									size={23}
+									name="is_sequence"
+									checked={isSequence}
+									onChange={handleIsSequenceChange}
+									IconOn={LucideWaypoints}
+									IconOff={LucideHexagon}
+								/>
+							</label>
+						</Tooltip>
+
+						<Tooltip
 							id="is-recurring-label"
 							aria-label="Is this a recurring activity?"
 							label="Is this a recurring activity?"
@@ -143,6 +222,42 @@ export default function ActivityForm({
 							required
 						/>
 					</Form.Row>
+
+					{isSequence && (
+						<Form.Row style={{ flexDirection: "column", marginTop: "1rem" }}>
+							<Form.RowTitle $inverted>List</Form.RowTitle>
+
+							<Autocomplete
+								clearable
+								dropdownOpened
+								withScrollArea={false}
+								styles={{
+									root: {
+										position: "relative",
+										height: "max-content",
+										display: "flex",
+										flexDirection: "column",
+									},
+									dropdown: {
+										position: "relative",
+										left: "unset",
+										top: "unset",
+										height: "max-content",
+										maxHeight: 250,
+										overflowY: "scroll",
+									},
+									input: {
+										position: "relative",
+										height: "max-content",
+									},
+								}}
+								w="100%"
+								comboboxProps={{ withinPortal: false }}
+								data={activityParentSelectionComboboxData}
+								renderOption={renderParentSelectionCard}
+							/>
+						</Form.Row>
+					)}
 
 					<DateTimePicker
 						allDay={allDay}
