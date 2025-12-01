@@ -22,7 +22,7 @@ import {
 	LucideTags,
 	LucideWaypoints,
 } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import RecurrenceForm from "@/components/activities/ActivityForm/RecurrenceForm/RecurrenceForm";
 import { TAG_SELECTOR_IDS } from "@/components/tags/TagSelector/constants";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
@@ -43,6 +43,26 @@ import { trpc } from "@/lib/trpc";
 import DateTimePicker from "./DateTimePicker";
 import useActivityForm from "./useActivityForm";
 import useDateTimePicker from "./useDateTimePicker";
+
+function makeUniqueLabel(activity: PossiblySyntheticActivity) {
+	return `${activity.activity_id}/${activity.name}`;
+}
+
+function getIdFromLabel(label: string) {
+	const split = label.split("/");
+	if (split.length < 2) {
+		return label;
+	}
+	return split[0];
+}
+
+function getNameFromLabel(label: string) {
+	const split = label.split("/");
+	if (split.length < 2) {
+		return label;
+	}
+	return split.slice(1).join("/");
+}
 
 /** This component functions as a form to create a new activity, or to update an
  * existing one. As such, when you pass `activity` as a prop, this indicates you
@@ -93,7 +113,7 @@ export default function ActivityForm({
 		)
 	)
 		.map((activity) => ({
-			label: activity.name,
+			label: makeUniqueLabel(activity),
 			// TODO: sortActivitiesByTime assumes it can return synthetic entries,
 			// where we know from the data that none of the entries are synthetic, so
 			// we can type-alias for now, but figure something more robust out later.
@@ -101,24 +121,31 @@ export default function ActivityForm({
 		}))
 		.reverse();
 
+	const [searchValue, setSearchValue] = useState("");
+
 	const theme = useTheme() as MainTheme;
 	const renderParentSelectionCard: AutocompleteProps["renderOption"] = ({
 		checked,
 		option,
 	}) => {
-		const activity = activities?.get(option.value);
-		if (!activity) return null;
+		const ac = activities?.get(option.value);
+		if (!ac) return null;
+
+		const isSelected = ac.activity_id === activity.parent_id;
+
 		return (
 			<Containers.Column
 				gap="smallest"
 				key={option.value}
 				style={{
-					backgroundColor: checked
-						? "color-mix(in rgb, blue, currentColor 60%)"
-						: "inherit",
+					width: "100%",
+					backgroundColor: isSelected ? "red" : "inherit",
 				}}
 			>
-				<header>{activity.name}</header>
+				<header>
+					{/* @ts-ignore */}
+					{getNameFromLabel(option.label)}
+				</header>
 				<Containers.Row
 					style={{
 						fontSize: font.size["0.82"],
@@ -126,8 +153,7 @@ export default function ActivityForm({
 					}}
 				>
 					<p>
-						from {activityStart(activity).fromNow()} to{" "}
-						{activityEnd(activity).fromNow()}
+						from {activityStart(ac).fromNow()} to {activityEnd(ac).fromNow()}
 					</p>
 				</Containers.Row>
 			</Containers.Column>
@@ -253,14 +279,21 @@ export default function ActivityForm({
 								dropdownOpened
 								withScrollArea={false}
 								selectFirstOptionOnChange
-								value={activity.parent_id ?? undefined}
-								onChange={(value) =>
-									setActivity(
-										produce((draft) => {
-											draft.parent_id = value;
-										})
-									)
-								}
+								value={searchValue}
+								onChange={(value) => {
+									const id = getIdFromLabel(value);
+									const name = getNameFromLabel(value);
+
+									setSearchValue(name);
+
+									if (activities?.size && activities.has(id)) {
+										setActivity(
+											produce((draft) => {
+												draft.parent_id = id;
+											})
+										);
+									}
+								}}
 								styles={{
 									root: {
 										position: "relative",
