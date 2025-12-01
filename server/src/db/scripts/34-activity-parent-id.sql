@@ -1,0 +1,1 @@
+alter table activities add column parent_id bigint references activities(activity_id) on delete set null;

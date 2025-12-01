@@ -114,6 +114,7 @@ export const newActivityBaseSchema = z.object({
 		.string()
 		.min(1, "Activity needs a name")
 		.max(64, "Activity name can contain at most 64 characters"),
+	parent_id: z.string().nullable().optional().default(null),
 	description: z.string().nullable(),
 	duration_milliseconds: z.number().nullable().optional().default(null),
 	is_task: z.boolean().optional().default(false),
