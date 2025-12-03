@@ -69,18 +69,6 @@ export const filterableItem: HTMLMotionProps<"div"> = {
 	},
 };
 
-/** a `filterableContainer` is what wraps the list of tasks in Tasks, or habits in
- * Habits. The container is animated down when the filter appears, so that all
- * the items remain visible. */
-export const filterableContainer: (
-	filtering: boolean
-) => HTMLMotionProps<"div"> = (filtering) => ({
-	layout: true,
-	animate: {
-		marginTop: filtering ? 70 : 0,
-	},
-});
-
 const BlockTitle = styled.h2`
    width: 100%;
    display: flex;

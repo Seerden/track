@@ -28,6 +28,16 @@ const global = css`
    	margin: 0;
    	padding: 0;
    }
+   
+   #root {  
+      display: flex;
+      flex-direction: column;
+      min-height: calc(100dvh);
+
+      footer {
+         margin-top: auto;
+      }
+   }
 `;
 
 const globalDark = css`
@@ -46,6 +56,16 @@ const globalDark = css`
 		--mantine-color-body: var(--bg-body, red);
 		--mantine-color-text: ${darkColors.text.main[0]};
 	}
+
+   #root {  
+      display: flex;
+      flex-direction: column;
+      min-height: calc(100dvh);
+
+      footer {
+         margin-top: auto;
+      }
+   }
 
    body {
       background-color: var(--bg-body);
