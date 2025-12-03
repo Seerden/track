@@ -26,7 +26,7 @@ export function useHabits(habits: MapById<HabitWithPossiblySyntheticEntries>) {
 
 	const [habitFilter, setHabitFilter] = useAtom(habitFilterAtom);
 	const [nameFilter, setNameFilter] = useState("");
-	const [[showFilter, setShowFilter], toggleFilter] = useToggle(false);
+	const [[showFilter], toggleFilter] = useToggle(false);
 	const timeWindow = useAtomValue(timeWindowAtom);
 
 	// TODO: need to get habit completion state from a hook:
@@ -73,7 +73,6 @@ export function useHabits(habits: MapById<HabitWithPossiblySyntheticEntries>) {
 
 	const headerProps = {
 		checked: (value: string | undefined) => habitFilter === value,
-		onPopoverClose: () => setShowFilter(false),
 		onRadioValueChange: (value: string | undefined) =>
 			setHabitFilter?.(value as HabitFilter),
 		onSearchValueChange: handleNameFilterChange,
@@ -91,7 +90,6 @@ export function useHabits(habits: MapById<HabitWithPossiblySyntheticEntries>) {
 	};
 
 	return {
-		showFilter,
 		habitsList,
 		filteredHabits,
 		headerProps,

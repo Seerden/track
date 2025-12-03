@@ -47,12 +47,14 @@ const Modal = styled.div`
 		1.1rem -0.5rem 0.1rem -0.2rem ${(p) => p.theme.colors.blue.main};
 `;
 
-const ModalChildWrapper = styled.div<{ scrollbarVisible?: boolean }>`
+const ModalChildWrapper = styled.div<{ $scrollbarHidden?: boolean }>`
 /* I disabled this so that e.g. the TagSelector dropdown stays visible even when
    overflowing. If issues arise because of this, make it an optional prop. */
 	/* overflow-y: auto; */
-	${(p) => !p.scrollbarVisible && scrollbar.hidden}
+	${(p) => p.$scrollbarHidden && scrollbar.hidden}
 	max-height: calc(90vh - var(--modal-offset));
+
+   /* overflow-y: auto; */
 `;
 
 export default { ModalWrapper, Close, Modal, ModalChildWrapper };
