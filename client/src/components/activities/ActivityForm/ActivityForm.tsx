@@ -22,8 +22,13 @@ import {
 	LucideTags,
 	LucideWaypoints,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import RecurrenceForm from "@/components/activities/ActivityForm/RecurrenceForm/RecurrenceForm";
+import {
+	getIdFromLabel,
+	getNameFromLabel,
+	makeUniqueLabel,
+} from "@/components/activities/ActivityForm/sequence/label";
 import { TAG_SELECTOR_IDS } from "@/components/tags/TagSelector/constants";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import {
@@ -44,26 +49,6 @@ import { trpc } from "@/lib/trpc";
 import DateTimePicker from "./DateTimePicker";
 import useActivityForm from "./useActivityForm";
 import useDateTimePicker from "./useDateTimePicker";
-
-function makeUniqueLabel(activity: PossiblySyntheticActivity) {
-	return `${activity.activity_id}/${activity.name}`;
-}
-
-function getIdFromLabel(label: string) {
-	const split = label.split("/");
-	if (split.length < 2) {
-		return label;
-	}
-	return split[0];
-}
-
-function getNameFromLabel(label: string) {
-	const split = label.split("/");
-	if (split.length < 2) {
-		return label;
-	}
-	return split.slice(1).join("/");
-}
 
 /** This component functions as a form to create a new activity, or to update an
  * existing one. As such, when you pass `activity` as a prop, this indicates you
@@ -103,10 +88,7 @@ export default function ActivityForm({
 		activity: initialActivity,
 	});
 
-	useEffect(() => {
-		console.log({ parent_id: activity.parent_id });
-	}, [activity.parent_id]);
-
+	// TODO (TRK-320) put this in the component hook
 	const { data: activities } = useQuery(trpc.activities.all.queryOptions());
 	const activityParentSelectionComboboxData = sortActivitiesByTime(
 		byIdAsList(activities).filter(
@@ -126,7 +108,6 @@ export default function ActivityForm({
 
 	const theme = useTheme() as MainTheme;
 	const renderParentSelectionCard: AutocompleteProps["renderOption"] = ({
-		checked,
 		option,
 	}) => {
 		const ac = activities?.get(option.value);
@@ -138,6 +119,7 @@ export default function ActivityForm({
 			<Containers.Column
 				gap="smallest"
 				key={option.value}
+				// TODO (TRK-320) styled subcomponent
 				style={{
 					width: "100%",
 					padding: "0.3rem 0.5rem",
@@ -148,7 +130,7 @@ export default function ActivityForm({
 				}}
 			>
 				<header>
-					{/* @ts-ignore */}
+					{/* @ts-ignore label is actually present, but mantine's type thinks it isn't.*/}
 					{getNameFromLabel(option.label)}
 				</header>
 				<Containers.Row
@@ -158,6 +140,8 @@ export default function ActivityForm({
 					}}
 				>
 					<p>
+						{/* TODO (TRK-320) customize this: only render both "from" and "to" when they're not the same. 
+                     Also account for future activities */}
 						from {activityStart(ac).fromNow()} to {activityEnd(ac).fromNow()}
 					</p>
 				</Containers.Row>
@@ -277,6 +261,7 @@ export default function ActivityForm({
 								List
 							</Form.RowTitle>
 
+							{/* TODO (TRK-320) clean this up */}
 							<Autocomplete
 								leftSection={<LucideTags size={18} />}
 								clearable

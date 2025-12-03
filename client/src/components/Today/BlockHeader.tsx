@@ -56,7 +56,6 @@ export default function BlockHeader({
 	const targetRef = useRef<HTMLButtonElement>(null);
 	const filterRef = useClickOutside((e) => {
 		if (popoverOpened) {
-			console.log({ path: e.composedPath() });
 			if (e.composedPath().includes(targetRef.current as Node)) {
 				return;
 			}

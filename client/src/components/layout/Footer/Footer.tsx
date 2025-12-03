@@ -1,8 +1,8 @@
 const size = "80px";
 
+/** @todo functionality */
 export default function Footer() {
 	return (
-		// footer that is fixed to the bottom with lorem ipsum content
 		<footer
 			style={{
 				width: "100%",
