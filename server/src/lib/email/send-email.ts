@@ -1,4 +1,4 @@
-import { captureException } from "@sentry/node";
+import { captureEvent, captureException } from "@sentry/node";
 import type { CreateEmailOptions, CreateEmailRequestOptions } from "resend";
 import { query } from "@/lib/query-function";
 import { insertEmail } from "../data/models/email/insert-email";
@@ -9,13 +9,13 @@ import { resendClient } from "./resend";
 export const emailFrom = "Chris from Track <auth@track-mail.seerden.dev>";
 
 export const sendEmail = query(
-	async (
-		sql,
-		{
-			payload,
-			options = {},
-		}: { payload: CreateEmailOptions; options?: CreateEmailRequestOptions }
-	) => {
+	async ({
+		payload,
+		options = {},
+	}: {
+		payload: CreateEmailOptions;
+		options?: CreateEmailRequestOptions;
+	}) => {
 		const { data, error } = await resendClient.emails.send(
 			{
 				...payload,
@@ -44,12 +44,19 @@ export const sendEmail = query(
 		// store the email in the database, since the free tier of Resend only
 		// stores emails for a very short period of time.
 		if (data?.id) {
-			console.log({ data, a: 1 });
 			const email = await getEmailById(data.id);
-			return await insertEmail({ sql, email });
+			return await insertEmail({ email });
 		}
 
-		throw new Error("Resend did not return an email ID.");
+		const err = new Error("Resend did not return an email ID.");
+		captureEvent({
+			message: err.message,
+			level: "error",
+			extra: {
+				email: data,
+			},
+		});
+		throw err;
 	}
 );
 
