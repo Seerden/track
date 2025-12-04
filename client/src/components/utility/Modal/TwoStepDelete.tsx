@@ -46,7 +46,7 @@ export default function TwoStepDelete({
 				{title}
 				<Containers.Row gap="small" style={{ marginTop: spacingValue.smaller }}>
 					<Buttons.Action.DefaultText
-						$color="red"
+						$color="orangered"
 						type="button"
 						onClick={handleConfirmClick}
 					>

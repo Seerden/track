@@ -44,10 +44,11 @@ export default function Modal({
 						handleModalClose(e);
 					}
 				}}
-				data-modal-id={modalId}>
+				data-modal-id={modalId}
+			>
 				<S.Modal ref={modalRef} data-modal-id={modalId}>
-					<S.Close onClick={handleModalClose} $color="red" />
-					<S.ModalChildWrapper scrollbarVisible={scrollbarVisible}>
+					<S.Close onClick={handleModalClose} $color="orangered" />
+					<S.ModalChildWrapper $scrollbarHidden={!scrollbarVisible}>
 						{children}
 					</S.ModalChildWrapper>
 				</S.Modal>

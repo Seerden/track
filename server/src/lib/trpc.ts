@@ -13,6 +13,8 @@ import { noteRouter } from "@/lib/trpc/routers/notes.router";
 import { tagRouter } from "@/lib/trpc/routers/tags.router";
 import { t } from "./trpc/trpc-context";
 import "dotenv/config";
+import { pushRouter } from "./trpc/routers/push.router";
+import { userRouter } from "./trpc/routers/user.router";
 
 export const appRouter = t.router({
 	auth: authRouter,
@@ -20,6 +22,8 @@ export const appRouter = t.router({
 	notes: noteRouter,
 	activities: activityRouter,
 	tags: tagRouter,
+	push: pushRouter,
+	user: userRouter,
 });
 
 export type AppRouter = typeof appRouter;

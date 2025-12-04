@@ -4,18 +4,19 @@ import formStyle from "@/lib/theme/components/form.style";
 import Input from "@/lib/theme/input";
 import Active from "@/lib/theme/snippets/active";
 import { noBorders } from "@/lib/theme/snippets/border";
-import { border, outline } from "@/lib/theme/snippets/edge";
+import { outline } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 
 const Trigger = styled(Buttons.Unstyled)`
+   font-size: ${(p) => p.theme.font.size["0.93"]};
 	${spacing.padding.small};
-	${border.tertiary};
+	border: 2px solid ${(p) => p.theme.colors.background.main[4]};
 	${radius.largish};
 	margin-top: ${spacingValue.smaller};
 
-	background-color: #fff;
-	box-shadow: 0 0.2rem 0.2rem 0 #ccc;
+	background-color: var(--bg-0-1);
+	box-shadow: 0 0.2rem 0.2rem 0 var(--bg-5-1);
 
 	&:hover,
 	&:focus {
@@ -23,17 +24,17 @@ const Trigger = styled(Buttons.Unstyled)`
 		transform: translateY(2px);
 	}
 
-	${Active.default};
+   /* TODO: I'm deprecating this for now */
+	/* ${Active.default}; */
 `;
 
 // TODO: put this in floating.style.ts!
 const FloatingWrapper = styled.div`
 	${spacing.padding.small};
 	${outline.grey};
-	margin-top: ${spacingValue.small};
 	${radius.medium};
 
-	background-color: #eee;
+	background-color: ${(p) => p.theme.colors.background.main[3]};
 	box-shadow: 0 0.2rem 0.5rem -0.1rem #aaa;
 
 	z-index: 10;
@@ -60,10 +61,10 @@ const NumberInput = styled(Input.Unstyled)`
 const Select = styled.select`
 	${noBorders};
 	${radius.medium};
-	background-color: #eee;
+	background-color: ${(p) => p.theme.colors.background.main[3]};
 
 	option {
-		background-color: #eee;
+		background-color: ${(p) => p.theme.colors.background.main[3]};
 		border: none;
 		outline: none;
 	}
@@ -80,8 +81,8 @@ const ActionBar = styled.div`
 	margin-bottom: ${spacingValue.small};
 	${radius.medium}
 
-	background-color: #fff;
-	outline: 2px solid #e9e9e9; // TODO: theme value
+   background-color: ${(p) => p.theme.colors.background.main[0]};
+	outline: 2px solid var(--bg-3-4);
 `;
 
 const Label = styled(formStyle.Label)`

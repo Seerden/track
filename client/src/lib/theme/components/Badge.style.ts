@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import type { CSSProperties } from "react";
-import { getFontSize } from "@/lib/theme/font";
+import { font } from "@/lib/theme/font";
 import { outline } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
@@ -10,7 +10,7 @@ const Badge = styled.div<{ height?: CSSProperties["height"] }>`
 	display: flex;
 	place-items: center;
 	${radius.largish};
-	font-size: ${(p) => getFontSize(p, 0.82)};
+	font-size: ${font.size["0.82"]};
 
 	background-color: ${(p) => p.color ?? "#ccc"};
 	width: max-content;

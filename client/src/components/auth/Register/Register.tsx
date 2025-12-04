@@ -38,7 +38,8 @@ function Register() {
 								display: "flex",
 								flexDirection: "row",
 								gap: "0.5rem",
-							}}>
+							}}
+						>
 							<F.Label>
 								<span>password</span>
 								<div style={{ position: "relative" }}>
@@ -52,7 +53,8 @@ function Register() {
 										tabIndex={-1}
 										type="button"
 										onClick={togglePasswordVisible}
-										value={`${passwordVisible ? "Hide" : "Show"} password`}>
+										value={`${passwordVisible ? "Hide" : "Show"} password`}
+									>
 										{passwordVisible ? (
 											<LucideEyeOff size={24} />
 										) : (
@@ -74,7 +76,8 @@ function Register() {
 										tabIndex={-1}
 										type="button"
 										onClick={togglePasswordVisible}
-										value={`${passwordVisible ? "Hide" : "Show"} password`}>
+										value={`${passwordVisible ? "Hide" : "Show"} password`}
+									>
 										{passwordVisible ? (
 											<LucideEyeOff size={24} />
 										) : (
@@ -86,9 +89,9 @@ function Register() {
 						</div>
 					</S.Column>
 				</S.Fields>
-				<S.Submit $color="theme">
-					register <LucideArrowRight size={15} color="black" />
-				</S.Submit>
+				<F.Submit $minimal type="submit" style={{ marginTop: "1rem" }}>
+					register <LucideArrowRight size={15} />
+				</F.Submit>
 			</F.Form>
 		</S.Wrapper>
 	);

@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { contrastColor } from "@/lib/theme/contrast";
 import { font } from "@/lib/theme/font";
-import { thinOutline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
@@ -17,10 +17,10 @@ const Branch = styled.ol`
 
 	width: max-content;
 
-	background-color: #f2f2f2;
+	background-color: ${(p) => p.theme.colors.background.main[3]};
 	${radius.medium};
-	box-shadow: 0 0.2rem 0.3rem 0 #ccc;
-	${thinOutline.primary};
+	box-shadow: 0 0.2rem 0.3rem 0 var(--bg-5-1);
+	outline: 1px solid var(--bg-1-2);
 `;
 
 const Node = styled.li<{ $active?: boolean }>`
@@ -29,19 +29,21 @@ const Node = styled.li<{ $active?: boolean }>`
 
 	width: max-content;
 
-	font-size: ${font.size["0.8"]};
+	font-size: ${font.size["0.9"]};
 	${spacing.padding.wide({ size: 0.2, ratio: 2.5 })}
 	${radius.small};
 
 	box-shadow:
-		0 0.3rem 0.3rem 0 #ddd,
-		0 0 0.3rem 0 #aaa;
+		0 0.2rem 0.3rem -0.1rem ${(p) => p.theme.colors.background.main[1]};
+
+   background-color: ${(p) => p.theme.colors.background.main[1]};
 
 	${(p) =>
 		p.$active &&
 		css`
-			background-color: ${p.theme.colors.purple.main};
-			color: white;
+         --bg: ${p.theme.colors.purple.main};
+			background-color: var(--bg);
+			color: ${contrastColor(p.theme.colors.purple.main)};
 		`}
 `;
 
@@ -68,7 +70,7 @@ const Row = styled.menu`
 		height: var(--row-gap);
 		bottom: calc(-1 * var(--row-gap));
 		left: 50%;
-		background-color: #ccc;
+		background-color: ${(p) => p.theme.colors.background.main[5]};
 	}
 `;
 
@@ -87,10 +89,9 @@ const Title = styled.h2`
 	${radius.small};
 	${spacing.padding.wide({ size: 0.3, ratio: 4 })}
 
-	// TODO TRK-231: theme value
-	background-color: #e1e1e1;
-	${thinOutline.primary};
-	box-shadow: 0 0.2rem 0.3rem 0 #ccc;
+	background-color: ${(p) => p.theme.colors.background.main[1]};
+	outline: 1px solid var(--bg-1-2);
+	box-shadow: 0 0.2rem 0.3rem 0 var(--bg-5-1);
 `;
 
 export default {

@@ -1,10 +1,11 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { inputStyle } from "@lib/theme/snippets/input";
-import { getFontSize } from "@/lib/theme/font";
+import { font } from "@/lib/theme/font";
 import Input from "@/lib/theme/input";
-import { border, outline, thinBorder } from "@/lib/theme/snippets/edge";
+import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
+import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 
 const Wrapper = styled.div`
@@ -13,29 +14,51 @@ const Wrapper = styled.div`
 	padding-top: 0.8rem;
 	/* TODO: same note as with the top padding. */
 	margin: 1.2rem;
-	${border.grey};
+
+	border: 2px solid ${(p) => p.theme.colors.background.main[5]};
+   
 	max-width: 500px;
-	box-shadow: 0 0.3rem 1.2rem -0.1rem #ddd;
+
+	box-shadow: 0 0.3rem 1.2rem -0.1rem var(--bg-5-1);
 `;
 
 const FormTitle = styled.h1`
    ${flex.row};
-	font-size: ${(p) => getFontSize(p, 1.1)};
+	font-size: ${font.size["1.1"]};
 	margin: 0;
 	margin-left: 0.8rem;
 	margin-top: -1.5rem;
 	margin-bottom: 0.9rem;
 
 	max-width: max-content;
-	background-color: #ddd;
+	background-color: ${(p) => p.theme.colors.background.main[3]};
 	${spacing.padding.wide({ size: 0.5, ratio: 3 })};
 	box-shadow:
-		-0.2rem 0.2rem 0 0 #ccc,
-		-0.6rem -0.4rem 0 0 ${(p) => p.theme.colors.blue.main},
-		0 0 0.2rem 0 #333,
-		-0.2rem -0.3rem 0 0 white;
+		-0.3rem 0.25rem 0 0 ${(p) => p.theme.colors.background.main[5]},
+		-0.6rem -0.4rem 0 0 ${(p) => p.theme.colors.blue.main};		
 `;
 
+const RowTitle = styled.h3<{ $inverted?: boolean; $inline?: boolean }>`
+	${spacing.padding.wide({ size: 0.3, ratio: 2.5 })};
+
+   ${(p) =>
+			!p.$inline &&
+			`
+            margin: 0;
+            margin-top: -2rem;
+         `}
+
+	background-color: ${(p) => (p.$inverted ? p.theme.colors.background.main[3] : p.theme.colors.background.contrast[3])};
+	color: ${(p) => (p.$inverted ? p.theme.colors.text.main[2] : p.theme.colors.text.contrast[2])};
+	max-width: max-content;
+	font-size: ${font.size["1.1"]};
+
+	${radius.small};
+	border: 2px solid ${(p) => p.theme.colors.background.contrast[5]};
+`;
+
+// TODO: I copy-pasted this from the TagSelector Title to see how it looks.
+// Generalize if we want to reuse it here.
 const Row = styled.fieldset`
 	${flex.row};
 	padding: ${spacingValue.small};
@@ -43,9 +66,9 @@ const Row = styled.fieldset`
 
 	width: 100%;
 	max-width: 100%;
-	${thinBorder.primary};
+	border: 1px solid var(--bg-5-3);
+	box-shadow: 0.6rem 0.6rem 0 -0.5rem ${(p) => p.theme.colors.dark[4]};
 	justify-content: space-between;
-	box-shadow: 0.6rem 0.6rem 0 -0.5rem #555;
 
 	&:focus-within {
 		/* TODO: use to-be-created highlight color I made a TODO about */
@@ -58,7 +81,7 @@ const CompactRow = styled(Row)`
 
 	${Input.Default} {
 		line-height: 0.93rem;
-		font-size: 0.93rem;
+		font-size: ${font.size["0.93"]};;
 		width: 50px;
 	}
 `;
@@ -72,7 +95,7 @@ const Form = styled.form`
 const Label = styled.label<{ $showWarning?: boolean }>`
 	${flex.column};
 	width: 75%;
-	font-size: ${(p) => getFontSize(p, 0.9)};
+	font-size: ${font.size["0.93"]};;
 
 	&:has(textarea) {
 		width: 100%;
@@ -91,10 +114,12 @@ const Label = styled.label<{ $showWarning?: boolean }>`
 	}
 
 	span {
-		background-color: #fff;
+		background-color: ${(p) => p.theme.colors.light[0]};
+      color: ${(p) => p.theme.colors.dark[0]};
+;
 		${spacing.padding.wide({ size: 0.2, ratio: 3 })};
 		border-radius: 0 15px 0 0;
-		font-size: ${(p) => getFontSize(p, 0.9)};
+		font-size: ${font.size["0.93"]};;
 	}
 
 	textarea {
@@ -118,6 +143,7 @@ const formStyle = {
 	Wrapper,
 	FormTitle,
 	Row,
+	RowTitle,
 	CompactRow,
 	Form,
 	Label,

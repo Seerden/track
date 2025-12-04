@@ -4,8 +4,8 @@ import {
 	defaultCellHeight,
 	defaultCellWidth,
 } from "@/lib/theme/components/buttons/Cell";
-import { getFontSize } from "@/lib/theme/font";
-import { outline, thinBorder } from "@/lib/theme/snippets/edge";
+import { font } from "@/lib/theme/font";
+import { lightDark } from "@/lib/theme/light-dark";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
@@ -23,20 +23,21 @@ const Calendar = styled.div`
 	width: max-content;
 	height: max-content;
 
-	background-color: #f9f9f9;
+	background-color: ${(p) => p.theme.colors.background.main[1]};
 
-	--font-size: ${(p) => getFontSize(p, 0.8)};
+	--font-size: ${font.size["0.82"]};
 	font-size: var(--font-size);
 	line-height: var(--font-size);
 	font-family: "Roboto";
 
 	padding: ${spacingValue.medium};
-	${thinBorder.secondary};
-	${radius.medium};
-	margin-left: 1rem;
-	margin-top: 0.5rem;
+	
+	${radius.large};
 
-	box-shadow: 0 0 0.5rem 0 #ddd;
+   /* NOTE: same as Timeline wrapper */
+   outline: 2px solid ${(p) => lightDark(p, p.theme.colors.light[3], p.theme.colors.dark[1])};
+	box-shadow: 0 0.2rem 1rem -0.3rem ${(p) =>
+		lightDark(p, p.theme.colors.light[5], p.theme.colors.dark[0])};
 `;
 
 const TitleWrapper = styled.div`
@@ -49,7 +50,7 @@ const TitleWrapper = styled.div`
 `;
 
 const Title = styled.h2`
-	font-size: ${(p) => getFontSize(p, 1.2)};
+	font-size: ${font.size["1.1"]};
 	color: ${highlightColor};
 `;
 
@@ -59,10 +60,11 @@ const MonthPickerWrapper = styled.div`
 	max-width: 90%;
 	left: 5%;
 	top: 5%;
-	background-color: #eee;
-	box-shadow: 0 0.5rem 1rem 0 #aaa;
+	background-color: ${(p) => p.theme.colors.background.main[3]};
+	box-shadow: 0 0.5rem 1rem 0 ${(p) => lightDark(p, p.theme.colors.light[6], p.theme.colors.dark[1])};
 	${radius.medium};
-	${outline.grey};
+	
+   outline: 2px solid ${(p) => lightDark(p, p.theme.colors.light[5], p.theme.colors.dark[3])};
 	z-index: 3;
 `;
 
@@ -70,10 +72,10 @@ const Days = styled.div`
 	${flex.row};
 	width: max-content;
 
-	background-color: #eee;
+	background-color: ${(p) => p.theme.colors.background.main[3]};
 	border-bottom: 2px solid ${highlightColor};
 
-	font-size: ${(p) => getFontSize(p, 0.8)};
+	font-size: ${font.size["0.82"]};;
 	font-weight: 500;
 
 	gap: ${gap};
@@ -111,7 +113,7 @@ const MonthPickerActionWrapper = styled.div`
 
 	svg {
 		cursor: pointer;
-		color: #333;
+		color: ${(p) => p.theme.colors.text.main[3]};
 	}
 `;
 

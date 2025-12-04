@@ -18,7 +18,7 @@ const Wrapper = styled.div`
 	${radius.largish};
 	gap: ${spacingValue.small};
 
-	background-color: #eee;
+	background-color: ${(p) => p.theme.colors.background.main[3]};
 	box-shadow:
 		0 0 0.3rem 0 #777,
 		0 0.4rem 0 0 #ccc;

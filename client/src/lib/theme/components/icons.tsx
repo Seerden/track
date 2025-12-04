@@ -2,7 +2,6 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { CSSProperties } from "react";
 import { font } from "../font";
-import { outline } from "../snippets/edge";
 import { flex } from "../snippets/flex";
 import { radius } from "../snippets/radius";
 import { spacing } from "../snippets/spacing";
@@ -18,7 +17,7 @@ const Shortcut = styled.span`
 	font-weight: 500;
 	text-transform: uppercase;
 	${spacing.padding.wide({ size: 0.2, ratio: 2.5 })};
-	background-color: #ddd;
+	background-color: ${(p) => p.theme.colors.background.main[4]};
 	width: max-content;
 	display: inline-flex;
 	${radius.small};
@@ -48,7 +47,7 @@ const InBadge = styled.span<{
 
 					outline: 1px solid var(--badge-icon-color);
 
-					background-color: #eee; // TODO: theme value
+					background-color: ${p.theme.colors.light[3]};
 					box-shadow: 0 0 0.2rem 0 #333;
 				`
 			: css`
@@ -56,9 +55,9 @@ const InBadge = styled.span<{
 						color: white;
 					}
 
-					${outline.primary}
+					outline: 2px solid ${p.theme.colors.background.main[0]};
 					background-color: var(--badge-icon-color);
-					box-shadow: 0 0 0.3rem 0 #ddd;
+					box-shadow: 0 0 0.3rem 0 ${p.theme.colors.background.main[4]};
 				`}
 `;
 

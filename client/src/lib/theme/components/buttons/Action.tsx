@@ -1,47 +1,54 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { CSSProperties } from "react";
-import {
-	type ColorKey,
-	getMainColor,
-	getSecondaryColor,
-} from "@/lib/theme/colors";
+import { type ColorKey, colors } from "@/lib/theme/colors";
 import Unstyled from "@/lib/theme/components/buttons/Unstyled";
-import { border, outline, thinOutline } from "@/lib/theme/snippets/edge";
+import { contrastColor } from "@/lib/theme/contrast";
+import { font } from "@/lib/theme/font";
+import { lightDark } from "@/lib/theme/light-dark";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import Active from "../../snippets/active";
 import { DirectionButton } from "./Direction";
 
 export const Default = styled(Unstyled)<{
 	$color?: ColorKey;
+	$interactionColor?: ColorKey;
 	$minimal?: boolean;
 }>`
 	${flex.centered};
 	${radius.round};
 
-	--color: ${(p) => (p.$minimal ? "#f2f2f2" : p.theme.colors[p.$color ?? "purple"].main)};
-	background-color: var(--color);
-	box-shadow: 0 0 0.2rem 0 var(--color);
+   --color-text: ${(p) => contrastColor(p.$minimal ? p.theme.colors.background.main[3] : (p.$color ?? p.theme.colors.background.main[3]))};
+	--color-background: ${(p) => (p.$minimal ? p.theme.colors.background.main[3] : (p.$color ?? p.theme.colors.background.main[3]))};
+   --color-background-active: ${(p) => p.$interactionColor ?? p.$color ?? p.theme.colors.background.main[1]};
+
+   color: var(--color-text);
+	background-color: var(--color-background);
+	box-shadow: 0 0 0.3rem -0.1rem var(--color-background);
+
+   .lucide {
+      color: var(--color-text);
+   }
 
 	&:hover,
 	&:focus,
 	&:active {
-		background-color: ${(p) =>
-			p.$minimal
-				? "#eee"
-				: p.$color
-					? p.theme.colors[p.$color].secondary
-					: "transparent"};
-		${outline.primary};
-		box-shadow: ${(p) => (p.$minimal ? "none" : `0 0 0.3rem 0 #333`)};
+		background-color: var(--color-background-active);
+		outline: 2px solid var(--bg-0-3);
+		box-shadow: 0 0.1rem 0.4rem 0 var(--bg-5-0);
+
+      ${(p) =>
+				!p.$interactionColor &&
+				css`
+               .lucide {
+                  color: var(--color-text);
+               }
+            `}
 	}
 
 	transition: transform 75ms ease-out;
 
-	// Generic defaults
-	color: white;
 	width: 30px;
 	height: 30px;
 
@@ -53,11 +60,11 @@ export const Default = styled(Unstyled)<{
    ${(p) =>
 			p.$minimal &&
 			css`
-            color: black;
+            color: ${p.theme.colors.background.contrast[0]};
             box-shadow: none;
 
             .lucide {
-               color: black;
+               color: ${p.theme.colors.background.contrast[0]};
             }
       `}
 `;
@@ -69,30 +76,19 @@ const Alternative = styled(Unstyled)<{ light?: boolean }>`
 	${(p) =>
 		p.light &&
 		css`
-			background-color: #fff;
+			background-color: var(--bg-0-3);
+;
 		`}
 
 	--size: 30px; // TODO: use size from props by default, otherwise default to 30px
 	width: var(--size);
 	height: var(--size);
 
-	&:active {
-		transform: scale(1.1);
-		background-color: white;
-	}
-
-	// TODO: need this to be a generic focusOutline snippet, because buttons
-	// and inputs all need this
-	&:focus:not(:active) {
-		${thinOutline.grey};
-		background-color: #fff;
-	}
-
-	&:hover {
-		// TODO TRK-231: use a color from the theme, or add this to it
-		background-color: #fafafa;
-		${outline.primary};
-		box-shadow: 0 0.1rem 0.4rem 0 #ccc;
+	&:hover, &:focus, &:active {
+      outline: 2px solid var(--bg-4-3);
+		background-color: ${(p) => p.theme.colors.background.main[1]};
+		outline: 2px solid var(--bg-0-3);
+		box-shadow: 0 0.1rem 0.4rem 0 var(--bg-5-0);
 	}
 `;
 
@@ -100,34 +96,36 @@ const Stylized = styled(Unstyled)<{
 	$size?: CSSProperties["width"];
 	$color: ColorKey;
 }>`
-	--color: ${(p) => p.$color ?? "themeInverted"};
-
+	--color: ${(p) => p.$color ?? "royalblue"};
+   
 	${flex.centered};
 	${radius.round};
-	color: white;
-
+	color: ${(p) => contrastColor(p.$color ?? "royalblue")};
+   
 	/* TODO: we're using getMainColor for the outline and background, but not the
-      border and shadow. Does that not look ugly for some $color values? */
-	outline: 2px solid ${(p) => getMainColor(p.theme, p.$color)};
-	${border.secondary};
-	box-shadow: 0 0.2rem 0.5rem 0 #bbb;
-	background-color: ${(p) => getMainColor(p.theme, p.$color)};
+   border and shadow. Does that not look ugly for some $color values? */
+   /* TODO: redo this getMainColor thing */
+	outline: 2px solid var(--color);
+	border: 2px solid ${(p) => p.theme.colors.background.main[3]};
+	box-shadow: 0 0.2rem 0.5rem 0 ${(p) => lightDark(p, p.theme.colors.background.main[6], p.theme.colors.background.main[1])};
+	background-color: var(--color);
 
-	svg {
-		color: white;
+	.lucide {
+		color: ${(p) => contrastColor(p.$color ?? "royalblue")};
 	}
 
 	&:hover:not(:disabled) {
-		outline: 2px solid ${(p) => getSecondaryColor(p.theme, p.$color)};
-		background-color: ${(p) => getSecondaryColor(p.theme, p.$color)};
+		/* TODO: go one tint lighter or darker. Requires another rework of
+		ColorKey though. */
+      outline: 3px solid var(--color);
 		${radius.medium}
 	}
 
 	transition: all linear 50ms;
 
-	--default-edit-button-size: 35px;
-	width: ${(p) => p.$size ?? "var(--default-edit-button-size)"};
-	height: ${(p) => p.$size ?? "var(--default-edit-button-size)"};
+	--size: ${(p) => p.$size ?? "35px"};
+	width: var(--size);
+	height: var(--size);
 
    &:disabled {
       opacity: 0.6;
@@ -139,10 +137,8 @@ const Stylized = styled(Unstyled)<{
 const WithIcon = styled(Default)`
 	display: flex;
 	width: max-content;
-	color: white;
-
+	
 	${radius.large};
-	margin-left: 1rem;
 	padding: 1.5rem 2.5rem;
 	gap: ${spacingValue.medium};
 `;
@@ -150,11 +146,6 @@ const WithIcon = styled(Default)`
 const CallToAction = styled(WithIcon)`
 	padding: 1.5rem 1rem;
 	${radius.small};
-	color: black;
-
-	margin-top: -0.5rem;
-	margin-left: auto;
-	margin-right: 4rem;
 
 	@media (max-width: 768px) {
 		margin: 0;
@@ -174,19 +165,57 @@ const Clear = styled(Unstyled)`
 		cursor: unset;
 
 		.lucide {
-			color: #ccc;
+			color: ${(p) => p.theme.colors.light[3]};
 		}
 	}
-
-	${Active.default};
 `;
 
 const DefaultText = styled(Default)`
    width: max-content;
    ${radius.small};
    padding-inline: ${spacingValue.small};
-   font-size: 0.9rem; // TODO: theme value
+   font-size: ${font.size["0.9"]};
+`;
 
+const Minimal = styled(Unstyled)`
+   cursor: pointer;
+   --color: ${(p) => p.theme.colors.light[3]};
+   color: ${(p) => p.theme.colors.dark[0]};
+   outline: 2px solid var(--color);
+   padding: ${spacingValue.smaller} ${spacingValue.medium};
+   border-radius: 2px;
+   width: max-content;
+   background-color: var(--color);
+   font-size: ${font.size["0.93"]};
+
+   /* TODO: implement interaction styles for this button */
+   &:hover, &:active, &:focus {
+      // manually overwrite these from Unstyled for selectivity
+      outline: 2px solid var(--color);
+   }
+
+   &:disabled {
+      cursor: default;
+      --color: ${(p) => p.theme.colors.light[5]};
+   }
+`;
+
+const MinimalPlus = styled(Minimal)`
+   transition: all 35ms ease-out;
+
+   --highlight-color: ${(p) => p.theme.colors.purple.tertiary};
+
+   &:not(:disabled) {
+      box-shadow: 0 0.5rem 0 -0.3rem #ccc;
+
+      &:hover, &:active, &:focus {
+         box-shadow: 
+            0 0.6rem 0 -4px var(--highlight-color), 
+            0 0.3rem 0 0 ${colors.light[5]},
+            0 0.5rem 0.4rem -0.2rem ${colors.dark[3]};
+         transform: translateY(-2px);
+      }
+   }
 `;
 
 const ActionButtons = {
@@ -198,6 +227,8 @@ const ActionButtons = {
 	CallToAction,
 	Clear,
 	Direction: DirectionButton,
+	Minimal,
+	MinimalPlus,
 };
 
 export default ActionButtons;

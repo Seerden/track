@@ -2,6 +2,7 @@ import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import { fileURLToPath } from "url";
 import { defineConfig } from "vite";
+import { VitePWA } from "vite-plugin-pwa";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 // https://vitejs.dev/config/
@@ -17,12 +18,65 @@ export default defineConfig({
 		}),
 		viteReact({
 			babel: {
-				plugins: ["@emotion/babel-plugin", "babel-plugin-react-compiler"],
+				presets: [
+					[
+						"@babel/preset-react",
+						{ runtime: "automatic", importSource: "@emotion/react" },
+					],
+				],
+				plugins: ["babel-plugin-react-compiler", "@emotion/babel-plugin"],
 				babelrc: false,
 				configFile: false,
 			},
 		}),
-		tsconfigPaths(),
+		VitePWA({
+			strategies: "injectManifest",
+			srcDir: "src",
+			filename: "sw.ts",
+			registerType: "autoUpdate",
+			devOptions: {
+				enabled: true,
+				type: "module",
+			},
+			manifest: {
+				name: "Track",
+				short_name: "Track",
+				description: "Habit tracking and planning",
+				theme_color: "#7746ffff",
+				icons: [
+					{
+						src: "pwa-64x64.png",
+						sizes: "64x64",
+						type: "image/png",
+					},
+					{
+						src: "pwa-192x192.png",
+						sizes: "192x192",
+						type: "image/png",
+					},
+					{
+						src: "pwa-512x512.png",
+						sizes: "512x512",
+						type: "image/png",
+					},
+					{
+						src: "maskable-icon-512x512.png",
+						sizes: "512x512",
+						type: "image/png",
+						purpose: "maskable",
+					},
+				],
+			},
+			workbox: {
+				// defining cached files formats
+				globPatterns: ["**/*.{js,css,html,ico,png,svg,webmanifest}"],
+				globIgnores: ["**/api/trpc/**", "**/node_modules/**"],
+				cacheId: "seerden/track/288",
+			},
+		}),
+		tsconfigPaths({
+			ignoreConfigErrors: true,
+		}),
 	],
 	resolve: {
 		alias: {
@@ -42,7 +96,16 @@ export default defineConfig({
 		watch: {
 			usePolling: true,
 		},
+		proxy: {
+			"/api": {
+				target: "http://server:5000",
+				changeOrigin: true,
+				secure: false,
+				ws: true,
+			},
+		},
 	},
+	publicDir: "public",
 	build: {
 		emptyOutDir: true,
 		outDir: "./dist/public",

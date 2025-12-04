@@ -6,7 +6,8 @@ import {
 	default as Unstyled,
 	default as UnstyledButton,
 } from "@/lib/theme/components/buttons/Unstyled";
-import { outline, thinOutline } from "@/lib/theme/snippets/edge";
+import { font } from "@/lib/theme/font";
+import { lightDark } from "@/lib/theme/light-dark";
 import { radius } from "@/lib/theme/snippets/radius";
 import { colors } from "../../colors";
 import Active from "../../snippets/active";
@@ -38,13 +39,13 @@ const Default = styled(Unstyled)<{
 			? css`
 					cursor: pointer;
 
-					background-color: #f9f9f9; // TODO TRK-231: theme value
-					${thinOutline.secondary};
+					background-color: ${p.theme.colors.background.main[3]}; 
+					outline: 1px solid ${lightDark(p, p.theme.colors.light[3], p.theme.colors.dark[1])};
 					${radius.small};
 
 					&:active {
 						background-color: ${highlightColor};
-						color: azure; // TODO: TRK-231: theme value
+						color: ${p.theme.colors.light[1]};
 						outline: none;
 					}
 				`
@@ -56,7 +57,7 @@ const Default = styled(Unstyled)<{
 				`}
 
 	&:focus {
-		${outline.tertiary};
+		outline: 2px solid ${(p) => p.theme.colors.light[3]};
 	}
 
 	&:hover {
@@ -67,20 +68,16 @@ const Default = styled(Unstyled)<{
 				transition: all 35ms linear;
 				background-color: dodgerblue;
 				color: white;
-				box-shadow: 0 0 0.3rem 0 #ddd;
+				box-shadow: 0 0 0.3rem 0 ${lightDark(p, p.theme.colors.light[4], p.theme.colors.dark[1])};
 			`}
 
    }
    
-   &:disabled {
-      outline-color: transparent;
-   }
-
 	${(p) =>
 		p.$highlight &&
 		css`
-			background-color: #eee;
-			color: #333;
+			background-color: ${p.theme.colors.background.contrast[3]};
+			color: ${p.theme.colors.text.contrast[3]};
 			font-weight: 600;
 		`}
 
@@ -89,8 +86,12 @@ const Default = styled(Unstyled)<{
 		css`
 			background-color: ${highlightColor};
 			color: azure; // TODO TRK-231: theme value
-			box-shadow: 0 0 0.2rem 0 #ccc;
+			box-shadow: 0 0 0.2rem 0 ${lightDark(p, p.theme.colors.light[5], p.theme.colors.dark[2])};
 		`}
+
+   &:disabled {
+      outline-color: transparent;
+   }
 `;
 
 const Habit = styled(Default)<{
@@ -100,14 +101,14 @@ const Habit = styled(Default)<{
 }>`
    border-radius: 50%;
 
-   --inner-color: ${(p) => (p.$cellDone ? "forestgreen" : p.$cellTouched ? colors.purple.tertiary : "#e2e2e2")};
-   --outer-color: ${(p) => (p.$intervalDone ? "forestgreen" : p.$cellTouched ? colors.purple.tertiary : "#e2e2e2")};
+   --inner-color: ${(p) => (p.$cellDone ? "forestgreen" : p.$cellTouched ? colors.purple.tertiary : p.theme.colors.background.main[4])};
+   --outer-color: ${(p) => (p.$intervalDone ? "forestgreen" : p.$cellTouched ? colors.purple.tertiary : p.theme.colors.background.main[4])};
 
-   font-size: 0.7rem;
+   font-size: ${font.size["0.82"]};;
 
    background-color: var(--inner-color);
    outline: 3px solid var(--outer-color);
-   border: 2px solid #f2f2f2;
+   border: 2px solid #eee;
 
    &:disabled {
       background-color: unset;
@@ -118,7 +119,8 @@ const Habit = styled(Default)<{
       outline-color: transparent;
    };
 
-   color: ${(p) => (p.$cellDone || p.$cellTouched ? "white" : "inherit")};
+   --color: ${(p) => (p.$cellDone || p.$cellTouched ? p.theme.colors.light[0] : p.theme.colors.text.main[0])};
+   color: var(--color);
 
    &:not(:disabled) {
       /* These styles are repeated from above, because otherwise they're
@@ -126,35 +128,35 @@ const Habit = styled(Default)<{
       &:hover, &:active, &:focus {
          background-color: var(--inner-color);
          outline: 3px solid var(--outer-color) ;
-         color: ${(p) => (p.$cellDone || p.$cellTouched ? "white" : "inherit")};
+         color: var(--color);
       }
 
       &:active, &:focus {
-         box-shadow: 0 0 0.5rem 0 #333;
+         box-shadow: 0 0 0.5rem 0 ${(p) => p.theme.colors.dark[3]};
       }
 
       &:hover {
-         box-shadow: 0 0 0.4rem 0 #666;
+         box-shadow: 0 0 0.4rem 0 ${(p) => p.theme.colors.dark[4]};
       }
    }
 `;
 
 const DaySelector = styled(UnstyledButton)<{ $active?: boolean }>`
 	${flex.centered};
-	font-size: 0.85rem;
+	font-size: ${font.size["0.85"]};;
 
 	--cell-size: 22px;
 	width: var(--cell-size);
 	height: var(--cell-size);
 	${spacing.margin.smaller}
 	${radius.small};
-	background-color: #dfdfdf; // TODO: theme value
+	background-color: var(--bg-0-1);
 
 	${(p) =>
 		p.$active &&
 		css`
 			background-color: ${p.theme.colors.blue.main};
-			color: #fff;
+			color: ${p.theme.colors.text.main[0]};
 		`}
 
 	${Active.default};

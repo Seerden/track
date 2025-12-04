@@ -16,7 +16,7 @@ function getNotificationColor(theme: MainTheme, type: NotificationType) {
 		case "info":
 			return theme.colors.blue.main;
 		default:
-			return theme.colors.tint.black;
+			return theme.colors.text.main[0];
 	}
 }
 
@@ -33,7 +33,7 @@ const Container = styled.div<{
 	border: 2px solid #fff;
 
 	--main: ${(p) => getNotificationColor(p.theme, p.$type)};
-	--contrast: ${(p) => p.theme.colors.tint.white};
+	--contrast: #fff;
 
 	${(p) =>
 		p.$invert

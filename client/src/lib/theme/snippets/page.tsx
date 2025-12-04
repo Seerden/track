@@ -1,14 +1,14 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { PropsWithChildren } from "react";
+import type { MainTheme } from "@/lib/style/theme";
 import { flex } from "@/lib/theme/snippets/flex";
-import shadows from "@/lib/theme/snippets/shadow";
 
-export const pageStyle = css`
-	background-color: #efefef;
+export const pageStyle = ({ theme }: { theme: MainTheme }) => css`
+	background-color: var(--bg-3-1);
 	display: flex;
 
-	${shadows.page};
+	box-shadow: 0.2rem 0.2rem 0.5rem 0 var(--bg-4-1);
 
 	${flex.column}
 
@@ -19,8 +19,8 @@ export const pageStyle = css`
 		width: 75dvw;
 	}
 
-	border-left: 2px solid #666;
-	border-right: 2px solid #666;
+	border-left: 2px solid #555;
+	border-right: 2px solid #555;
 
 	@media (max-width: 768px) {
 		width: 100dvw;

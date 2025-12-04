@@ -13,6 +13,7 @@ import { onError } from "./instrument";
 import { pingDatabase } from "./src/db/init";
 import { NODE__dirname } from "./src/lib/build.utility";
 import { logRequests } from "./src/lib/log-requests";
+import { registerWebpush } from "./src/lib/notifications/register";
 import {
 	initializeRedisConnection,
 	redisSession,
@@ -23,6 +24,8 @@ import { routers } from "./src/routers/routers";
 import { runAtStartup } from "./src/start";
 
 async function start() {
+	registerWebpush();
+
 	const app = express();
 
 	app.use(
@@ -48,7 +51,7 @@ async function start() {
 	app.use(session(redisSession));
 
 	// Have to parse the body as text to forward to Sentry
-	app.use("/sentry", express.text({ limit: "5mb" }), routers.sentry);
+	app.use("/api/sentry", express.text({ limit: "5mb" }), routers.sentry);
 
 	// For the non-sentry routes, we can parse the body as JSON.
 	app.use(express.json() as RequestHandler);
@@ -67,8 +70,11 @@ async function start() {
 
 	if (!(process.env.NODE_ENV === "production")) {
 		app.use("/", routers.index); // even in dev, we don't use this, but this is to make sure it's definitely not used in production
-		app.use("/data", routers.data); // deprecated
 	}
+
+	// used for the pushsubscriptionchange endpoint, which is called by the
+	// service worker
+	app.use("/data", routers.data);
 
 	Sentry.setupExpressErrorHandler(app);
 	app.use(onError);
@@ -97,13 +103,15 @@ async function start() {
 		},
 	});
 
-	app.listen(port, () => {
-		console.log(`Express server started on port ${port} at ${new Date()}`);
+	app.listen(+port, "::", () => {
+		console.log(
+			`Express server started on 0.0.0.0, port ${port} at ${new Date()}`
+		);
 	});
 }
 
 try {
-	start();
+	await start();
 } catch (error) {
 	console.error(error);
 }

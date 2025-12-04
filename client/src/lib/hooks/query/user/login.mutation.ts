@@ -1,14 +1,27 @@
-import { useMutation } from "@tanstack/react-query";
-import { queryClient } from "@/lib/query-client";
+import { captureMessage } from "@sentry/react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { defaultQueryConfig } from "@/lib/query-client";
 import { trpc } from "@/lib/trpc";
 import { localUser } from "@/lib/user-storage";
 
 export function useLoginMutation() {
+	const queryClient = useQueryClient();
+
 	return useMutation(
 		trpc.auth.login.mutationOptions({
 			onSuccess: ({ user }) => {
 				localUser.set(user);
+
+				queryClient.setDefaultOptions({
+					...defaultQueryConfig,
+					queries: {
+						...defaultQueryConfig,
+						enabled: true,
+					},
+				});
 				queryClient.invalidateQueries({ queryKey: trpc.auth.me.queryKey() });
+
+				captureMessage(`User "${user.username}" logged in`, "log");
 			},
 		})
 	);

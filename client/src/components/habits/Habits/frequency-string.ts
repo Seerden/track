@@ -1,4 +1,4 @@
-import type { HabitWithEntries } from "@shared/lib/schemas/habit";
+import type { HabitWithPossiblySyntheticEntries } from "@shared/lib/schemas/habit";
 
 /**
  * Generates humanized string to display a habit's repetition settings, like "3
@@ -11,7 +11,7 @@ export function frequencyString({
 	goal,
 	goal_unit,
 	goal_type,
-}: HabitWithEntries) {
+}: HabitWithPossiblySyntheticEntries) {
 	const intervalSuffix = interval > 1 ? "s" : "";
 
 	const frequencyLine =

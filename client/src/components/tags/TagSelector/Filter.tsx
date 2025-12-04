@@ -22,11 +22,16 @@ export function Filter({
 				onFocus={(e) => onFocus?.(e)}
 				autoFocus={hasAutoFocus}
 				type="text"
-				placeholder="search categories"
+				placeholder="search tags"
 				value={filter}
 				onChange={updateFilter}
 			/>
-			<S.ClearFilter type="button" onClick={clearFilter} $color="themeInverted">
+			<S.ClearFilter
+				type="button"
+				onClick={clearFilter}
+				$color="orangered"
+				$interactionColor="tomato"
+			>
 				<LucideX size={15} />
 			</S.ClearFilter>
 		</S.FilterWrapper>

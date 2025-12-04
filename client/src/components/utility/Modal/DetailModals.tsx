@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useAtomValue } from "jotai";
 import DetailedHabit from "@/components/habits/DetailedHabit/DetailedHabit";
-import DetailedActivity from "@/components/Today/DetailedActivity";
+import DetailedActivity from "@/components/Today/activities/DetailedActivity";
 import DetailedTag from "@/components/tags/DetailedTag/DetailedTag";
 import Modal from "@/components/utility/Modal/Modal";
 import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";

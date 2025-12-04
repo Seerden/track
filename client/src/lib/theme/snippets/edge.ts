@@ -16,6 +16,7 @@ export const edge = {
 	size,
 };
 
+// TODO: redo this
 export const border = {
 	primary: css`
 		border: 2px solid #fff;
@@ -34,6 +35,7 @@ export const border = {
 	`,
 };
 
+// TODO: redo this
 export const thinBorder = {
 	primary: css`
 		border: 1px solid #ccc;
@@ -48,10 +50,11 @@ export const thinBorder = {
 		border: 1px solid #fff;
 	`,
 	darkish: css`
-		border: 1px solid #444;
+		border: 1px solid #333;
 	`,
 };
 
+// TODO: redo this
 export const thickOutline = {
 	grey: css`
 		outline: 3px solid #ccc;
@@ -61,6 +64,7 @@ export const thickOutline = {
 	`,
 };
 
+// TODO: redo this
 export const outline = {
 	primary: css`
 		outline: 2px solid #fff;
@@ -82,6 +86,7 @@ export const outline = {
 	`,
 };
 
+// TODO: redo this
 export const thinOutline = {
 	primary: css`
 		outline: 1px solid #fff;

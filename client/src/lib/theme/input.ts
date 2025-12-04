@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
-import { getFontSize } from "@/lib/theme/font";
+import { font } from "@/lib/theme/font";
 import { noBorders } from "@/lib/theme/snippets/border";
-import { outline } from "@/lib/theme/snippets/edge";
 import { inputStyle } from "@/lib/theme/snippets/input";
 
 const Unstyled = styled.input`
@@ -18,16 +17,16 @@ const Default = styled.input`
 const Filter = styled(Default)`
 	max-width: 150px;
 
-	--font-size: ${(p) => getFontSize(p, 0.88)};
+	--font-size: ${font.size["0.9"]};
 	font-size: var(--font-size);
 	// inputStyle does not have this
 	line-height: var(--font-size);
 
-	${outline.grey};
+	outline: 2px solid var(--bg-5-3);
 
 	&:focus {
 		outline-color: ${(p) => p.theme.colors.blue.secondary};
-		box-shadow: 0rem 0.5rem 0.2rem -0.2rem #ccc;
+		box-shadow: 0rem 0.5rem 0.2rem -0.2rem var(--bg-5-2)
 	}
 `;
 

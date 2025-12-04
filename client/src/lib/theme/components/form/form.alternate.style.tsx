@@ -2,8 +2,8 @@ import styled from "@emotion/styled";
 import Buttons from "@/lib/theme/components/buttons";
 import { containers } from "@/lib/theme/components/container.style";
 import { font } from "@/lib/theme/font";
-import { thinBorder } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
+import { inputStyle } from "@/lib/theme/snippets/input";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 
@@ -14,6 +14,9 @@ import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
  * forms, for the consistency of the visual design. */
 
 const Form = styled.form`
+   --shadow-1: var(--bg-5-1);
+   --border-1: ${(p) => p.theme.colors.background.main[0]};
+
 	${containers.minimal};
 
 	width: max-content;
@@ -24,9 +27,9 @@ const FormTitle = styled.h1`
 	gap: ${spacingValue.medium};
 
 	font-size: ${font.size["2"]};
-	box-shadow: 0 0.5rem 1.5rem -0.6rem #ccc;
+	box-shadow: 0 0.5rem 1.5rem -0.6rem var(--shadow-1);
 
-	border-bottom: 3px solid #fff;
+	border-bottom: 3px solid var(--border-1);
 
 	display: flex;
 	align-items: center;
@@ -48,14 +51,15 @@ const Select = styled.select``;
 
 const Label = styled.label`
 	${flex.column};
-	background-color: #fff;
+	background-color: ${(p) => p.theme.colors.background.main[0]};
+;
 	${spacing.padding.small};
 	${radius.medium}
-	box-shadow: 0 0.2rem 0.3rem 0 #ccc;
+	box-shadow: 0 0.2rem 0.3rem 0 var(--shadow-1);
 
 	span {
 		font-size: ${font.size["0.9"]};
-		color: #333;
+		color: ${(p) => p.theme.colors.text.main[3]};
 		padding-left: 0.5rem;
 
 		// The following rules are here because of cases where we alias Label to
@@ -67,6 +71,8 @@ const Label = styled.label`
 	${Input},
 	${TextArea},
 	${Select} {
+      ${inputStyle};
+
 		resize: none;
 
 		line-height: 1.5rem;
@@ -74,33 +80,26 @@ const Label = styled.label`
 			height: 1.5rem;
 		}
 
-		background-color: #fff;
+		background-color: ${(p) => p.theme.colors.background.main[1]};
 
-		font-size: ${font.size["0.93"]};
+      font-size: ${font.size["0.93"]};
 		margin: ${spacingValue.smaller};
 		${spacing.padding.wide({ size: 0.3, ratio: 2 })}
-		${thinBorder.tertiary};
 		${radius.small};
+
 	}
+
+   .lucide {
+      color: ${(p) => p.theme.colors.text.main[1]};
+   }
 `;
 
 /**
  * @todo extract this Button to theme buttons lib? -- make note of the default margin, which I dislike
  * */
-const _Submit = styled(Buttons.Action.CallToAction)`
-	color: black;
-	margin-top: 1rem;
-	margin-left: 0;
-
-	/* TODO TRK-231: lucide.ts */
-	svg {
-		color: royalblue;
-		stroke-width: 3;
-	}
+const Submit = styled(Buttons.Action.CallToAction)`
+   margin-top: 1rem;
+   padding: 0.5rem 1rem;
 `;
-
-function Submit(props: Parameters<typeof _Submit>[0]) {
-	return <_Submit type="submit" {...props} />;
-}
 
 export default { Form, FormTitle, Label, Submit, Input, TextArea, Select };
