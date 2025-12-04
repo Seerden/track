@@ -2,9 +2,7 @@ import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import { AnimatePresence, motion } from "motion/react";
 import BlockHeader from "@/components/Today/BlockHeader";
 import Empty from "@/components/Today/Empty";
-import Today, {
-	filterableContainer,
-} from "@/components/Today/style/Today.style";
+import Today from "@/components/Today/style/Today.style";
 import { getActivityKey } from "@/components/Today/tasks/get-activity-key";
 import { useTasks } from "@/components/Today/tasks/useTasks";
 import modalIds from "@/lib/modal-ids";
@@ -17,7 +15,7 @@ export default function Tasks({
 }: {
 	activities: PossiblySyntheticActivity[];
 }) {
-	const { opened, filteredActivities, headerProps } = useTasks(activities);
+	const { filteredActivities, headerProps } = useTasks(activities);
 	const { openModal } = useModalState();
 
 	return (
@@ -25,7 +23,7 @@ export default function Tasks({
 			<BlockHeader {...headerProps} />
 
 			{activities.length > 0 ? (
-				<motion.div {...filterableContainer(opened)}>
+				<motion.div>
 					<Today.Section>
 						<AnimatePresence>
 							{filteredActivities.map((a) => (

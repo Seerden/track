@@ -12,7 +12,7 @@ import { sortActivitiesByTime } from "@/lib/activity";
 export function useTasks(activities: PossiblySyntheticActivity[]) {
 	const [taskFilter, setTaskFilter] = useAtom(tasksFilterAtom);
 	const [nameFilter, setNameFilter] = useState(""); // TODO: atom?
-	const [opened, { close, toggle }] = useDisclosure();
+	const [opened, { toggle }] = useDisclosure();
 
 	const sortedActivities = sortActivitiesByTime(activities);
 
@@ -28,7 +28,6 @@ export function useTasks(activities: PossiblySyntheticActivity[]) {
 
 	const headerProps = {
 		checked: (value: string | undefined) => taskFilter === value,
-		onPopoverClose: close,
 		onRadioValueChange: (value: string) =>
 			setTaskFilter(value as typeof taskFilter),
 		labelOn: taskFilter !== TASK_FILTER.ALL || !!nameFilter.length,
@@ -46,7 +45,6 @@ export function useTasks(activities: PossiblySyntheticActivity[]) {
 	};
 
 	return {
-		opened,
 		filteredActivities,
 		headerProps,
 	};

@@ -7,7 +7,7 @@ import {
 import type { DayOfWeek, IntervalUnit } from "@shared/types/data/utility.types";
 import { produce } from "immer";
 import { useAtomValue } from "jotai";
-import { useEffect, useState } from "react";
+import { type ChangeEvent, useEffect, useState } from "react";
 import { TAG_SELECTOR_IDS } from "@/components/tags/TagSelector/constants";
 import type { ModalId } from "@/lib/modal-ids";
 import { timeWindowAtom } from "@/lib/state/time-window.state";
@@ -192,6 +192,11 @@ export default function useActivityForm({
 		}
 	}
 
+	const [isSequence, setIsSequence] = useState(false);
+	function handleIsSequenceChange(e: ChangeEvent<HTMLInputElement>) {
+		setIsSequence(e.target.checked);
+	}
+
 	return {
 		handleSubmit,
 		handleInputChange,
@@ -209,5 +214,7 @@ export default function useActivityForm({
 		resetSelection: resetRecurrenceSelection,
 		validActivity,
 		validRecurrence,
+		isSequence,
+		handleIsSequenceChange,
 	};
 }
