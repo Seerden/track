@@ -3,6 +3,7 @@ import { TRPCError } from "@trpc/server";
 import type { Session, SessionData } from "express-session";
 import { publicProcedure } from "@/lib/trpc/procedures/public.procedure";
 
+// TODO: replace this completely with the better-auth compatible authentication procedure.
 export const authenticatedProcedure = publicProcedure.use(async (opts) => {
 	if (!opts.ctx.req.session.user) {
 		throw new TRPCError({

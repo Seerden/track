@@ -3,6 +3,7 @@ import { username } from "better-auth/plugins";
 import { PostgresJSDialect } from "kysely-postgres-js";
 import { sqlConnection } from "@/db/init";
 
+// TODO: redis store?
 export const auth = betterAuth({
 	// TODO: production-aware
 	basePath: "/api/auth",
@@ -14,10 +15,12 @@ export const auth = betterAuth({
 	},
 	emailVerification: {
 		sendVerificationEmail: async () => {
+			// TODO: implement this!
 			return;
 		},
 	},
 	plugins: [username()],
+	// TODO: enviroment aware (localhost in dev, VITE_DOMAIN in prod)
 	trustedOrigins: ["http://localhost:5175"],
 	// TODO: make this production-aware
 	advanced: {
