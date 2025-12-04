@@ -1,24 +1,22 @@
-import type { QueryFunction } from "types/sql.types";
+import { captureException } from "@sentry/node";
 import { TABLES } from "types/tables";
-import { sqlConnection } from "@/db/init";
 import { type Email, emailSchema } from "@/lib/email/email.schema";
+import { query } from "@/lib/query-function";
 
 /** Takes an `email`, which we got elsewhere from the resend API, and inserts it
  * in the database so we can refer to it later. */
-export const insertEmail: QueryFunction<
-	{
-		email: Email;
-	},
-	Promise<Email>
-> = async ({ sql = sqlConnection, email }) => {
-	console.log({ email });
+export const insertEmail = query(async (sql, { email }: { email: Email }) => {
+	const parsedEmail = emailSchema.safeParse(email);
 
-	emailSchema.parse(email);
+	if (!parsedEmail.success) {
+		captureException(parsedEmail.error);
+		throw parsedEmail.error;
+	}
 
 	const [insertedEmail] = await sql<[Email]>`
-         insert into ${sql(TABLES.EMAILS)} ${sql(email)} 
+         insert into ${sql(TABLES.EMAILS)} ${sql(parsedEmail.data)} 
          returning *;
       `;
 
 	return insertedEmail;
-};
+});
