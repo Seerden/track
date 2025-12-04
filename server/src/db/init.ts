@@ -1,4 +1,7 @@
+import { config } from "dotenv";
 import postgres from "postgres";
+
+config();
 
 const {
 	PG_USER,
