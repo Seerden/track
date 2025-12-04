@@ -1,41 +1,57 @@
+import { captureException } from "@sentry/node";
 import type { CreateEmailOptions, CreateEmailRequestOptions } from "resend";
-import type { QueryFunction } from "types/sql.types";
-import { sqlConnection } from "@/db/init";
+import { query } from "@/lib/query-function";
 import { insertEmail } from "../data/models/email/insert-email";
-import { type Email, emailSchema } from "./email.schema";
+import { emailSchema } from "./email.schema";
 import { generateEntityId } from "./generate-id";
 import { resendClient } from "./resend";
 
 export const emailFrom = "Chris from Track <auth@track-mail.seerden.dev>";
 
-export const sendEmail: QueryFunction<
-	{ payload: CreateEmailOptions; options?: CreateEmailRequestOptions },
-	Promise<Email>
-> = async ({ sql = sqlConnection, payload, options = {} }) => {
-	const { data, error } = await resendClient.emails.send(
+export const sendEmail = query(
+	async (
+		sql,
 		{
-			...payload,
-			headers: {
-				...payload.headers,
-				...generateEntityId(), // got this from an example in the docs, this prevents threads in gmail
+			payload,
+			options = {},
+		}: { payload: CreateEmailOptions; options?: CreateEmailRequestOptions }
+	) => {
+		const { data, error } = await resendClient.emails.send(
+			{
+				...payload,
+				headers: {
+					...payload.headers,
+					...generateEntityId(), // got this from an example in the docs, this prevents threads in gmail
+				},
 			},
-		},
-		options
-	);
-	if (error) {
-		throw error;
-	}
+			options
+		);
+		if (error) {
+			captureException({
+				message: "Failed to send email",
+				level: "error",
+				extra: {
+					error,
+					email: {
+						payload,
+						options,
+					},
+				},
+			});
+			throw error;
+		}
 
-	// store the email in the database, since the free tier of Resend only
-	// stores emails for a very short period of time.
-	if (data?.id) {
-		console.log({ data, a: 1 });
-		const email = await getEmailById(data.id);
-		return await insertEmail({ sql, email });
-	}
+		// store the email in the database, since the free tier of Resend only
+		// stores emails for a very short period of time.
+		if (data?.id) {
+			console.log({ data, a: 1 });
+			const email = await getEmailById(data.id);
+			return await insertEmail({ sql, email });
+		}
 
-	throw new Error("Resend did not return an email ID.");
-};
+		throw new Error("Resend did not return an email ID.");
+	}
+);
 
 /** Gets a single email from resend.
  * @note because of the limitationg of the free tier of Resend, we need to store
