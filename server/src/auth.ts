@@ -9,9 +9,8 @@ const baseUrl =
 		? "https://track.seerden.dev"
 		: "http://localhost:5175";
 
-// TODO: redis store?
 export const auth = betterAuth({
-	// TODO: production-aware
+	secret: process.env.BETTER_AUTH_SECRET,
 	basePath: "/api/auth",
 	database: new PostgresJSDialect({
 		postgres: authSqlConnection,
@@ -53,14 +52,11 @@ export const auth = betterAuth({
 		autoSignInAfterVerification: true,
 		sendOnSignUp: true,
 		sendVerificationEmail: async ({ token, user }) => {
-			// TODO: implement this!
-			console.log({ user, token });
 			if (user.emailVerified) return;
 
 			const url = new URL(`${baseUrl}/auth/verify-email/`);
 			url.searchParams.append("token", token);
 
-			// TODO:
 			await sendEmail({
 				payload: {
 					to: user.email,
@@ -85,14 +81,13 @@ export const auth = betterAuth({
 		},
 	},
 	plugins: [admin(), username()],
-	// TODO: enviroment aware (localhost in dev, VITE_DOMAIN in prod)
-	trustedOrigins: ["http://localhost:5175"],
+	trustedOrigins: [baseUrl],
 	advanced: {
 		database: {
 			// @see https://github.com/better-auth/better-auth/pull/5809
 			generateId: "serial",
 		},
-		cookiePrefix: "track-better-auth",
+		cookiePrefix: "track-auth",
 		// TODO: make all of this production-aware
 		useSecureCookies: process.env.NODE_ENV === "production",
 		defaultCookieAttributes: {
