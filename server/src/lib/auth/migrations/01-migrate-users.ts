@@ -25,7 +25,7 @@ export const migrateUsers = query(async () => {
 		for (const user of users) {
 			await sql`
             update ${sql(TABLES.BETTER_AUTH.USERS)}
-            set "emailVerified" = true
+            set "emailVerified" = 1
             where email = ${user.email}
          `;
 			console.log({ message: "verified user", username: user.username });

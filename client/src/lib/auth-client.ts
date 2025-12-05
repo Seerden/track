@@ -6,15 +6,8 @@ import {
 } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
 
-const baseURL =
-	import.meta.env.MODE === "production"
-		? // In production, we can't use the port; the express server on the backend
-			// should handle deciding between the trpc router and serving the client bundle.
-			`https://track.seerden.dev/api/auth`
-		: `/api/auth`;
-
 export const authClient = createAuthClient({
-	basePath: baseURL,
+	basePath: "/api/auth",
 	plugins: [
 		adminClient(),
 		usernameClient(),

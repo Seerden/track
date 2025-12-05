@@ -71,7 +71,7 @@ export const migrateUserIdConstraints = query(async () => {
 		for (const entry of constraints) {
 			await sql`
             alter table ${sql(entry.table_name)}
-            drop constraint ${sql(entry.constraint_name)}
+            drop constraint if exists ${sql(entry.constraint_name)}
          `;
 		}
 
