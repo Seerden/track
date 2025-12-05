@@ -10,6 +10,7 @@ import { createSyntheticActivity } from "./recurrence";
 
 describe("activityFallsOnDay", () => {
 	const mockActivity: ActivityWithIds = {
+		parent_id: null,
 		start_date: "2024-01-01",
 		end_date: "2024-01-02",
 		started_at: null,
@@ -43,6 +44,7 @@ describe("activityFallsOnDay", () => {
 
 describe("activityFallsInTimeWindow", () => {
 	const mockActivity: ActivityWithIds = {
+		parent_id: null,
 		start_date: new Date("2025-01-01"),
 		end_date: new Date("2025-01-02"),
 		started_at: null,
@@ -84,6 +86,7 @@ describe("activityFallsInTimeWindow", () => {
 
 describe("getActivityId", () => {
 	const activity: ActivityWithIds = {
+		parent_id: null,
 		start_date: "2024-01-01",
 		end_date: "2024-01-02",
 		started_at: null,

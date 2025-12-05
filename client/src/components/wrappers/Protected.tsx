@@ -6,6 +6,9 @@ export default function Protected({ children }: PropsWithChildren) {
 	const { isLoggedIn, data } = useAuthentication();
 
 	if (!data) {
+		// TODO: this is a suspended state. Should probably throw an error state,
+		// instead of returning an empty fragment, because the router loaders
+		// should really always ensure the query was fetched.
 		return <></>;
 	}
 

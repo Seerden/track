@@ -4,6 +4,7 @@ import { auth } from "@/auth";
 config();
 
 // TODO: pass these from CLI args
+// biome-ignore lint/suspicious/noExplicitAny: one-time migration
 const { email, name, password, role } = process.env as any;
 
 async function resetAdminUserPassword() {

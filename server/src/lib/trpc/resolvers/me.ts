@@ -2,7 +2,7 @@ import { publicProcedure } from "@/lib/trpc/procedures/public.procedure";
 
 export const me = publicProcedure.query(async ({ ctx }) => {
 	// TODO: auth context (get from `dash`)
-	const user = ctx.req.session.user;
+	const user = ctx.user;
 	if (!user) {
 		return { user: null, message: "No active user." };
 	}

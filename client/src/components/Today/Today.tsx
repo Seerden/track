@@ -14,7 +14,6 @@ import useToday from "@/components/Today/useToday";
 import Calendar from "@/components/utility/Calendar/Calendar";
 import Modal from "@/components/utility/Modal/Modal";
 import { AnimatedIcon } from "@/lib/animate/AnimatedIcon";
-import { authClient } from "@/lib/auth-client";
 import { useBreakpoints } from "@/lib/hooks/breakpoints";
 import modalIds from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
@@ -43,9 +42,6 @@ export default function Today() {
 	} = useToday();
 	const tagFilter = useAtomValue(tagFilterAtom);
 	const state = !!tagFilter.value?.length;
-
-	const { data: me } = authClient.useSession();
-	console.log({ me });
 
 	const { isMobileWidth } = useBreakpoints();
 
