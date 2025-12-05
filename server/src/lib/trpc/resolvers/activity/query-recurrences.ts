@@ -9,35 +9,35 @@ import {
 	queryRecurrencesById,
 	queryRecurrencesByUser,
 } from "@/lib/data/models/activities/query-recurrences";
-import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
+import { betterAuthProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 
-export const _queryOccurrencesByUser = authenticatedProcedure.query(
-	async ({ ctx: { req } }) => {
+export const _queryOccurrencesByUser = betterAuthProcedure.query(
+	async ({ ctx }) => {
 		return await queryOccurrencesByUser({
-			user_id: req.session.user.user_id,
+			user_id: ctx.user.id,
 		});
 	}
 );
 
-export const _queryOccurrencesByRecurrence = authenticatedProcedure
+export const _queryOccurrencesByRecurrence = betterAuthProcedure
 	.input(z.string())
-	.query(async ({ input, ctx: { req } }) => {
+	.query(async ({ input, ctx }) => {
 		return await queryOccurrencesByRecurrence({
 			recurrence_id: input,
-			user_id: req.session.user.user_id,
+			user_id: ctx.user.id,
 		});
 	});
 
-export const _getRecurrencesByUser = authenticatedProcedure.query(
+export const _getRecurrencesByUser = betterAuthProcedure.query(
 	async ({ ctx }) => {
 		return groupById(
-			await queryRecurrencesByUser({ user_id: ctx.req.session.user.user_id }),
+			await queryRecurrencesByUser({ user_id: ctx.user.id }),
 			"recurrence_id"
 		);
 	}
 );
 
-export const _getRecurrenceByActivity = authenticatedProcedure
+export const _getRecurrenceByActivity = betterAuthProcedure
 	.input(
 		z.union([
 			z.object({
@@ -53,15 +53,15 @@ export const _getRecurrenceByActivity = authenticatedProcedure
 	.query(async ({ input, ctx }) => {
 		return await queryRecurrenceByActivity({
 			...input,
-			user_id: ctx.req.session.user.user_id,
+			user_id: ctx.user.id,
 		});
 	});
 
-export const getRecurrencesById = authenticatedProcedure
+export const getRecurrencesById = betterAuthProcedure
 	.input(z.object({ recurrence_ids: z.array(z.string()) }))
 	.query(async ({ input, ctx }) => {
 		return queryRecurrencesById({
-			user_id: ctx.req.session.user.user_id,
+			user_id: ctx.user.id,
 			recurrence_ids: input.recurrence_ids,
 		});
 	});

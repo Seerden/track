@@ -1,5 +1,5 @@
-import type { User } from "@shared/lib/schemas/user";
 import type { Maybe } from "@shared/types/data/utility.types";
+import type { User } from "better-auth";
 
 function setLocalUser(user: User) {
 	if (!user) return;

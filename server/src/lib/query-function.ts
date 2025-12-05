@@ -38,7 +38,7 @@ type QueryFunction = {
 	 */
 	<TInput, TOutput>(
 		queryFunction: (sql: Connection, input: TInput) => Promise<TOutput>
-	): (input: TInput) => Promise<TOutput>;
+	): (input?: TInput) => Promise<TOutput>;
 
 	/**
 	 * Overload 2: For functions that only take (input)

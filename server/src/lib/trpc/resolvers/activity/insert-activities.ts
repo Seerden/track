@@ -10,13 +10,13 @@ import {
 	insertActivity,
 	insertActivityWithTags,
 } from "@/lib/data/models/activities/insert-activity";
-import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
+import { betterAuthProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 
 /** A synthetic activity, as of writing this, is an entry in a recurrence
  * relation that has been interacted with somehow. It does not have tags linked
  * to it, because we'll reuse the tags of the activity that the synthetic one stems
  * from. */
-export const createRealSyntheticActivity = authenticatedProcedure
+export const createRealSyntheticActivity = betterAuthProcedure
 	.input(syntheticActivitySchema)
 	.mutation(async ({ input }) => {
 		try {
@@ -37,12 +37,12 @@ export const createRealSyntheticActivity = authenticatedProcedure
 		}
 	});
 
-export const createActivity = authenticatedProcedure
+export const createActivity = betterAuthProcedure
 	.input(activityInputSchema)
 	.mutation(async ({ input: { activity, tagIds }, ctx }) => {
 		const activityWithUserId: NewActivity = {
 			...activity,
-			user_id: ctx.req.session.user.user_id,
+			user_id: ctx.user.id,
 		};
 
 		return await insertActivityWithTags({
@@ -51,12 +51,12 @@ export const createActivity = authenticatedProcedure
 		});
 	});
 
-export const createRecurringActivity = authenticatedProcedure
+export const createRecurringActivity = betterAuthProcedure
 	.input(recurringActivityInputSchema)
 	.mutation(async ({ input: { activity, tagIds, recurrence }, ctx }) => {
 		const activityWithUserId: NewActivity = {
 			...activity,
-			user_id: ctx.req.session.user.user_id,
+			user_id: ctx.user.id,
 		};
 
 		return await _createRecurringActivity({

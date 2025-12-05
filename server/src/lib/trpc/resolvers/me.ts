@@ -1,4 +1,3 @@
-import { queryUserbyId } from "@/lib/data/models/user/query-user";
 import { publicProcedure } from "@/lib/trpc/procedures/public.procedure";
 
 export const me = publicProcedure.query(async ({ ctx }) => {
@@ -13,8 +12,8 @@ export const me = publicProcedure.query(async ({ ctx }) => {
 	console.log({ session });
 
 	return {
-		user: await queryUserbyId({ user_id: user.user_id }),
-		betterAuthSessionUser: ctx.user,
+		// user: await queryUserbyId({ user_id: user.user_id }),
+		user: ctx.user,
 		message: "User retrieved successfully.",
 	};
 });

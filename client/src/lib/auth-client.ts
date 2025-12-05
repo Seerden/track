@@ -1,5 +1,6 @@
 import type { auth } from "@server/auth";
 import {
+	adminClient,
 	inferAdditionalFields,
 	usernameClient,
 } from "better-auth/client/plugins";
@@ -14,7 +15,12 @@ const baseURL =
 
 export const authClient = createAuthClient({
 	basePath: baseURL,
-	plugins: [usernameClient(), inferAdditionalFields<typeof auth>()],
+	plugins: [
+		adminClient(),
+		usernameClient(),
+		// TODO: implement this in server auth.ts if necessary
+		inferAdditionalFields<typeof auth>(),
+	],
 });
 
 type Session = typeof authClient.$Infer.Session;

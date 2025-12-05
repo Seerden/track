@@ -1,9 +1,20 @@
 import type { NewUser } from "@shared/lib/schemas/user";
+import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
+import type { User } from "better-auth";
 import { useEffect, useState } from "react";
-import { useLoginMutation } from "@/lib/hooks/query/user/login.mutation";
+import { authClient } from "@/lib/auth-client";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import { localUser } from "@/lib/user-storage";
+
+function useBetterAuthLoginMutation() {
+	return useMutation<User | undefined, unknown, NewUser>({
+		mutationFn: async (user) => {
+			const u = await authClient.signIn.username(user);
+			return u.data?.user;
+		},
+	});
+}
 
 export default function useLogin() {
 	const navigate = useNavigate();
@@ -25,7 +36,10 @@ export default function useLogin() {
 		// TODO: implement this for real
 		email: "me@test.com",
 	});
-	const { mutate: login, isError } = useLoginMutation();
+	// const { mutate: login, isError } = useLoginMutation();
+	// TODO: make sure to refactor useLoginMutation ^ properly, then remove it in
+	// favor of this one
+	const { mutate: login, isError } = useBetterAuthLoginMutation();
 
 	const isValidLogin =
 		!!userLogin.username.length && !!userLogin.password.length;
@@ -46,7 +60,11 @@ export default function useLogin() {
 		}
 
 		login(userLogin, {
-			onSuccess: ({ user }) => {
+			onSuccess: (user) => {
+				if (!user) {
+					// TODO: this shouldn't happen.
+					return;
+				}
 				// redirect if we're on a login page, otherwise just close the
 				// modal. probably we redirect to the user's home page, because I
 				// expect almost everyting will be behind a login wall.

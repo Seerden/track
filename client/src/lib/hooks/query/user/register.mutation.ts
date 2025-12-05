@@ -2,6 +2,8 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { trpc } from "@/lib/trpc";
 
+// TODO: is this whole thing obsolete now?
+
 export function useRegisterMutation() {
 	const navigate = useNavigate();
 	return useMutation(
@@ -9,7 +11,7 @@ export function useRegisterMutation() {
 			onSuccess: () => {
 				// TODO: decide: either redirect here, or call the login mutation.
 				// Either way, only do it in one place: here, or in the useRegister hook.
-				navigate({ to: "/login" });
+				// navigate({ to: "/login" });
 			},
 		})
 	);

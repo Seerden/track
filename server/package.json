@@ -36,6 +36,7 @@
     "ioredis": "^5.4.1",
     "kysely": "0.28.8",
     "kysely-postgres-js": "3.0.0",
+    "pg": "8.16.3",
     "postgres": "^3.4.4",
     "resend": "6.5.2",
     "superjson": "2.2.5",

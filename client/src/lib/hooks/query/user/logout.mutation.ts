@@ -6,6 +6,7 @@ import { defaultQueryConfig } from "@/lib/query-client";
 import { trpc } from "@/lib/trpc";
 import { localUser } from "@/lib/user-storage";
 
+// TODO: port all this to the better auth implementation
 export function useLogoutMutation() {
 	const setPopoverState = useSetAtom(popoverAtom);
 	const queryClient = useQueryClient();

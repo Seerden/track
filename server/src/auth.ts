@@ -1,30 +1,99 @@
 import { betterAuth } from "better-auth";
-import { username } from "better-auth/plugins";
+import { admin, username } from "better-auth/plugins";
 import { PostgresJSDialect } from "kysely-postgres-js";
-import { sqlConnection } from "@/db/init";
+import { authSqlConnection } from "@/db/init";
+import { emailFrom, sendEmail } from "@/lib/email/send-email";
+
+const baseUrl =
+	process.env.NODE_ENV === "production"
+		? "https://track.seerden.dev"
+		: "http://localhost:5175";
 
 // TODO: redis store?
 export const auth = betterAuth({
 	// TODO: production-aware
 	basePath: "/api/auth",
 	database: new PostgresJSDialect({
-		postgres: sqlConnection,
+		postgres: authSqlConnection,
 	}),
 	emailAndPassword: {
 		enabled: true,
+		requireEmailVerification: true,
+		sendResetPassword: async ({ token, user }, request) => {
+			const url = new URL(`${baseUrl}/auth/request-password-reset/`);
+			url.searchParams.append("token", token);
+			await sendEmail({
+				payload: {
+					from: emailFrom,
+					to: user.email,
+					subject: "Reset your Track password",
+					html: `
+                  <h1>Reset your Track password</h1>
+                  
+                  <p>
+                     Click the following link to reset your password.
+                  </p>
+                  
+                  <a href="${url}">${url}</a>
+
+                  <p>
+                     If you didn't attempt to reset your password, you can ignore this email.
+                  </p>
+                  
+               `,
+				},
+			});
+		},
+		revokeSessionsOnPasswordReset: true,
+		onPasswordReset: async ({ user }) => {
+			console.log({ message: "User reset their password", user });
+		},
 	},
 	emailVerification: {
-		sendVerificationEmail: async () => {
+		autoSignInAfterVerification: true,
+		sendOnSignUp: true,
+		sendVerificationEmail: async ({ token, user }) => {
 			// TODO: implement this!
+			console.log({ user, token });
+			if (user.emailVerified) return;
+
+			const url = new URL(`${baseUrl}/auth/verify-email/`);
+			url.searchParams.append("token", token);
+
+			// TODO:
+			await sendEmail({
+				payload: {
+					to: user.email,
+					subject: "Verify your email address",
+					html: `
+               <h1>Verify your Track email address</h1>
+               
+               <p>
+                  Click the following link to verify your email address.
+               </p>
+               
+               <a href="${url}">${url}</a>
+
+               <p>
+                  If you did not attempt to sign up, you can ignore this email.
+               </p>
+            `,
+					from: emailFrom,
+				},
+			});
 			return;
 		},
 	},
-	plugins: [username()],
+	plugins: [admin(), username()],
 	// TODO: enviroment aware (localhost in dev, VITE_DOMAIN in prod)
 	trustedOrigins: ["http://localhost:5175"],
-	// TODO: make this production-aware
 	advanced: {
+		database: {
+			// @see https://github.com/better-auth/better-auth/pull/5809
+			generateId: "serial",
+		},
 		cookiePrefix: "track-better-auth",
+		// TODO: make all of this production-aware
 		useSecureCookies: process.env.NODE_ENV === "production",
 		defaultCookieAttributes: {
 			sameSite: "Lax",

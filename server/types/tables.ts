@@ -14,4 +14,10 @@ export const TABLES = {
 	EMAILS: "emails",
 	PUSH_SUBSCRIPTIONS: "push_subscriptions",
 	USER_SETTINGS: "user_settings",
+	BETTER_AUTH: {
+		USERS: "auth.user",
+		ACCOUNT: "auth.account",
+		SESSION: "auth.session",
+		VERIFICATION: "auth.verification",
+	},
 } as const;

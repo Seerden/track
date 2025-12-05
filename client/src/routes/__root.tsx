@@ -20,7 +20,11 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 		const session = await queryClient.ensureQueryData(useSessionOpts);
 		console.log({ session });
 
-		if (!me.user && !["/login", "/register"].includes(location.pathname)) {
+		// TODO: this is WIP still.
+		if (
+			(!me.user && !["/login", "/register"].includes(location.pathname)) ||
+			!location.pathname.startsWith("/auth/")
+		) {
 			throw redirect({ to: "/login" });
 		}
 
