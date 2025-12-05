@@ -1,7 +1,6 @@
 import { createRootRouteWithContext, redirect } from "@tanstack/react-router";
 import App from "@/App";
 import indexCss from "@/index.scss?url";
-import { useSessionOpts } from "@/lib/hooks/useBetterAuth";
 import { queryClient } from "@/lib/query-client";
 import { trpc } from "@/lib/trpc";
 import normalizeCss from "@/normalize.css?url";
@@ -17,15 +16,16 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 	beforeLoad: async ({ context: { queryClient, trpc }, location }) => {
 		const me = await queryClient.ensureQueryData(trpc.auth.me.queryOptions());
 
-		const session = await queryClient.ensureQueryData(useSessionOpts);
-		console.log({ session });
-
 		// TODO: this is WIP still.
 		if (
-			(!me.user && !["/login", "/register"].includes(location.pathname)) ||
-			!location.pathname.startsWith("/auth/")
+			["/login", "/register"].includes(location.pathname) ||
+			location.pathname.startsWith("/auth/")
 		) {
-			throw redirect({ to: "/login" });
+			// don't have to do anything, we're on an unauthenticated route.
+		} else {
+			if (!me.user) {
+				throw redirect({ to: "/login" });
+			}
 		}
 
 		return { user: me.user };
