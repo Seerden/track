@@ -1,15 +1,18 @@
+import { TextInput } from "@mantine/core";
 import { LucideArrowRight, LucideEye, LucideEyeOff } from "lucide-react";
+import useRegisterBetterAuth from "@/components/auth/Register/useRegisterBetterAuth";
+import { AnimatedIcon } from "@/lib/animate/AnimatedIcon";
 import F from "@/lib/theme/components/form/form.alternate.style";
 import S from "../style/auth.style";
-import useRegister from "./useRegister";
 
-function Register() {
+export default function RegisterBetterAuth() {
 	const {
 		handleInputChange,
 		handleSubmit,
 		passwordVisible,
 		togglePasswordVisible,
-	} = useRegister();
+	} = useRegisterBetterAuth();
+
 	return (
 		// TODO: like in the login form, this probably becomes a modal that expands from the navigation/header
 		<S.Wrapper>
@@ -18,7 +21,7 @@ function Register() {
 				<S.Fields>
 					<F.Label>
 						<span>username</span>
-						<F.Input
+						<TextInput
 							onChange={handleInputChange}
 							type="text"
 							required
@@ -28,7 +31,7 @@ function Register() {
 					</F.Label>
 					<F.Label>
 						<span>email</span>
-						<F.Input onChange={handleInputChange} type="email" name="email" />
+						<TextInput onChange={handleInputChange} type="email" name="email" />
 					</F.Label>
 					{/* TODO: instead of using a label, use a fieldset, and try the 
                   styling from ItemTemplateForm  */}
@@ -43,47 +46,53 @@ function Register() {
 							<F.Label>
 								<span>password</span>
 								<div style={{ position: "relative" }}>
-									<F.Input
+									<TextInput
 										onChange={handleInputChange}
 										type={passwordVisible ? "text" : "password"}
 										required
 										name="password"
+										rightSection={
+											<S.ShowPassword
+												tabIndex={-1}
+												type="button"
+												onClick={togglePasswordVisible}
+												value={`${passwordVisible ? "Hide" : "Show"} password`}
+											>
+												<AnimatedIcon
+													intermediate={null}
+													on={<LucideEye />}
+													off={<LucideEyeOff />}
+													state={passwordVisible}
+													size={24}
+												/>
+											</S.ShowPassword>
+										}
 									/>
-									<S.ShowPassword
-										tabIndex={-1}
-										type="button"
-										onClick={togglePasswordVisible}
-										value={`${passwordVisible ? "Hide" : "Show"} password`}
-									>
-										{passwordVisible ? (
-											<LucideEyeOff size={24} />
-										) : (
-											<LucideEye size={24} />
-										)}
-									</S.ShowPassword>
 								</div>
 							</F.Label>
 							<F.Label>
 								<span>confirm password</span>
 								<div style={{ position: "relative" }}>
-									<F.Input
+									<TextInput
 										onChange={handleInputChange}
 										type={passwordVisible ? "text" : "password"}
 										required
 										name="passwordConfirm"
+										rightSection={
+											<S.ShowPassword
+												tabIndex={-1}
+												type="button"
+												onClick={togglePasswordVisible}
+												value={`${passwordVisible ? "Hide" : "Show"} password`}
+											>
+												{passwordVisible ? (
+													<LucideEyeOff size={24} />
+												) : (
+													<LucideEye size={24} />
+												)}
+											</S.ShowPassword>
+										}
 									/>
-									<S.ShowPassword
-										tabIndex={-1}
-										type="button"
-										onClick={togglePasswordVisible}
-										value={`${passwordVisible ? "Hide" : "Show"} password`}
-									>
-										{passwordVisible ? (
-											<LucideEyeOff size={24} />
-										) : (
-											<LucideEye size={24} />
-										)}
-									</S.ShowPassword>
 								</div>
 							</F.Label>
 						</div>
@@ -96,5 +105,3 @@ function Register() {
 		</S.Wrapper>
 	);
 }
-
-export default Register;

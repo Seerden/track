@@ -314,5 +314,8 @@
    "**/.git/**": true,
    "**/node_modules/**": true,
    "**/.vscode/**": true
+},
+"[sql]": {
+   "editor.defaultFormatter": "inferrinizzard.prettier-sql-vscode"
 }
 }

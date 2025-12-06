@@ -42,6 +42,10 @@ export const sqlConnection = postgres(
 	IS_TEST_ENVIRONMENT === "true" ? testOptions : options
 );
 
+// TODO: try to get this to work with options objects again.
+export const authSqlConnectionString = `postgres://${PG_USER}:${PG_PASS}@${DB_HOST}:${+(PG_PORT ?? 5432)}/${PG_DB}?options=-c search_path=auth`;
+export const authSqlConnection = postgres(authSqlConnectionString);
+
 export async function pingDatabase() {
 	try {
 		const [result] = await sqlConnection`SELECT array[1]`;

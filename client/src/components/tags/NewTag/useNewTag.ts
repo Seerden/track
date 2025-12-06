@@ -22,7 +22,7 @@ export default function useNewTag({
 		name: "",
 		// TODO: remove userId here nad handle it server-side
 		// biome-ignore lint/style/noNonNullAssertion: ^
-		user_id: currentUser!.user_id,
+		user_id: currentUser!.id,
 	});
 
 	const { selectedTagIds, resetTagSelection } = useTagSelection(tagSelectorId);

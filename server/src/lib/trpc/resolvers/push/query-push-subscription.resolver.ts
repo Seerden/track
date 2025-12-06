@@ -1,16 +1,14 @@
 import { captureException } from "@sentry/node";
-import { sqlConnection } from "@/db/init";
 import { queryPushSubscriptionsByUser } from "@/lib/data/models/push/query-push-subscriptions";
-import { authenticatedProcedure } from "../../procedures/authenticated.procedure";
+import { betterAuthProcedure } from "../../procedures/authenticated.procedure";
 
 // This is an auth procedure, because we only provide push notifications for
 // authenticated users.
-export const queryPushSubscriptionResolver = authenticatedProcedure.query(
+export const queryPushSubscriptionResolver = betterAuthProcedure.query(
 	async ({ ctx }) => {
 		try {
 			return await queryPushSubscriptionsByUser({
-				sql: sqlConnection,
-				user_id: ctx.req.session.user.user_id,
+				user_id: ctx.user.id,
 			});
 		} catch (error) {
 			console.error(error);

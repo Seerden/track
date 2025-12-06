@@ -3,6 +3,7 @@ import { LucideArrowRight, LucideEye, LucideEyeClosed } from "lucide-react";
 import Notification from "@/components/utility/Notification/Notification";
 import Containers from "@/lib/theme/components/container.style";
 import F from "@/lib/theme/components/form/form.alternate.style";
+import { spacingValue } from "@/lib/theme/snippets/spacing";
 import S from "../style/auth.style";
 import useLogin from "./useLogin";
 
@@ -63,6 +64,7 @@ function Login() {
 					style={{
 						justifyContent: "space-between",
 						alignItems: "center",
+						gap: spacingValue.small,
 					}}
 				>
 					<F.Submit $minimal type="submit">
@@ -75,6 +77,12 @@ function Login() {
 						}}
 					>
 						register
+					</Link>
+					<Link
+						to="/auth/request-password-reset"
+						style={{ marginTop: spacingValue.medium }}
+					>
+						forgot password
 					</Link>
 				</Containers.Row>
 			</F.Form>

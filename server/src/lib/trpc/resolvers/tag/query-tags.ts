@@ -6,11 +6,11 @@ import {
 	getTagsWithRelations,
 } from "@/lib/data/models/tags/merge-tags-and-relations";
 import { buildTagDepthTree } from "@/lib/data/models/tags/tree-depth";
-import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
+import { betterAuthProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 
-export const queryTags = authenticatedProcedure.query(async ({ ctx }) => {
+export const queryTags = betterAuthProcedure.query(async ({ ctx }) => {
 	const tags = await getTagsWithRelations({
-		user_id: ctx.req.session.user.user_id,
+		user_id: ctx.user.id,
 	});
 	const treeDepth = buildTagDepthTree(tags);
 
@@ -31,9 +31,9 @@ export const queryTags = authenticatedProcedure.query(async ({ ctx }) => {
 	return tagsInTree;
 });
 
-export const queryTagTree = authenticatedProcedure.query(async ({ ctx }) => {
+export const queryTagTree = betterAuthProcedure.query(async ({ ctx }) => {
 	const tags = await getTagsWithRelations({
-		user_id: ctx.req.session.user.user_id,
+		user_id: ctx.user.id,
 	});
 	return createTagTreeMap(tags);
 });

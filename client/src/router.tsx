@@ -5,6 +5,7 @@ import {
 	MantineProvider,
 	Tooltip,
 } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createRouter as createTanStackRouter } from "@tanstack/react-router";
@@ -65,6 +66,7 @@ export function createRouter() {
 					>
 						<Global styles={globalShadows({ theme })} />
 						<Global styles={theme.global} />
+						<Notifications />
 						<ThemeProvider theme={theme}>{children}</ThemeProvider>
 					</MantineProvider>
 				</QueryClientProvider>

@@ -19,7 +19,7 @@ export default function useNewNote() {
 	);
 	const [note, setNote] = useState<Partial<NewNote>>({
 		content: "",
-		user_id: currentUser?.user_id,
+		user_id: currentUser?.id,
 	});
 
 	useEffect(() => {

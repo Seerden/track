@@ -1,9 +1,7 @@
 import type { NewUser } from "@shared/lib/schemas/user";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { useLoginMutation } from "@/lib/hooks/query/user/login.mutation";
 import useAuthentication from "@/lib/hooks/useAuthentication";
-import { localUser } from "@/lib/user-storage";
 
 export default function useLogin() {
 	const navigate = useNavigate();
@@ -11,7 +9,7 @@ export default function useLogin() {
 	function togglePasswordVisible() {
 		setPasswordVisible((current) => !current);
 	}
-	const { isLoggedIn } = useAuthentication();
+	const { isLoggedIn, login, isLoginError: isError } = useAuthentication();
 
 	useEffect(() => {
 		if (isLoggedIn) {
@@ -25,7 +23,6 @@ export default function useLogin() {
 		// TODO: implement this for real
 		email: "me@test.com",
 	});
-	const { mutate: login, isError } = useLoginMutation();
 
 	const isValidLogin =
 		!!userLogin.username.length && !!userLogin.password.length;
@@ -46,11 +43,10 @@ export default function useLogin() {
 		}
 
 		login(userLogin, {
-			onSuccess: ({ user }) => {
+			onSuccess: (user) => {
 				// redirect if we're on a login page, otherwise just close the
 				// modal. probably we redirect to the user's home page, because I
 				// expect almost everyting will be behind a login wall.
-				localUser.set(user);
 				navigate({ to: "/" });
 			},
 		});

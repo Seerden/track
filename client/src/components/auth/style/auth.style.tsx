@@ -18,9 +18,6 @@ const Fields = styled.div`
 `;
 
 const ShowPassword = styled(Buttons.Unstyled)`
-	position: absolute;
-	right: 1rem;
-	top: 6px;
 	max-height: max-content;
 `;
 

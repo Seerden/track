@@ -16,6 +16,8 @@ export const sendEmail = query(
 		payload: CreateEmailOptions;
 		options?: CreateEmailRequestOptions;
 	}) => {
+		// TODO: sentry log
+		console.log("Sending email...");
 		const { data, error } = await resendClient.emails.send(
 			{
 				...payload,
@@ -47,6 +49,9 @@ export const sendEmail = query(
 			const email = await getEmailById(data.id);
 			return await insertEmail({ email });
 		}
+
+		// TODO: log properly
+		console.log("No data.id");
 
 		const err = new Error("Resend did not return an email ID.");
 		captureEvent({

@@ -1,8 +1,8 @@
 import { newNoteInputSchema } from "@shared/lib/schemas/note";
 import { insertNoteWithTags } from "@/lib/data/models/notes/insert-note";
-import { authenticatedProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
+import { betterAuthProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 
-export const createNote = authenticatedProcedure
+export const createNote = betterAuthProcedure
 	.input(newNoteInputSchema)
 	.mutation(async ({ input: { note, tagIds } }) => {
 		return await insertNoteWithTags({
