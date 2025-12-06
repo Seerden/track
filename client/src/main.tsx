@@ -1,5 +1,6 @@
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
+import "@mantine/notifications/styles.css";
 import { registerSW } from "virtual:pwa-register";
 import * as Sentry from "@sentry/react";
 import { RouterProvider } from "@tanstack/react-router";
