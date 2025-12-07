@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Skeleton } from "@mantine/core";
-import type { HTMLMotionProps } from "motion/react";
+import { type HTMLMotionProps, motion } from "motion/react";
 import TagCard from "@/components/tags/TagCard/style/TagCard.style";
 import Containers from "@/lib/theme/components/container.style";
 import { font } from "@/lib/theme/font";
@@ -123,7 +123,7 @@ const Header = styled.header`
 	}
 `; // is a header the right tag, semantically?
 
-const Columns = styled.div`
+const Columns = styled(motion.div)`
 	display: grid;
 
 	grid-template-areas:

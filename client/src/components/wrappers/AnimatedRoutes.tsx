@@ -1,7 +1,13 @@
 import { ErrorBoundary } from "@sentry/react";
-import { getRouterContext, Outlet, useLocation } from "@tanstack/react-router";
+import {
+	getRouterContext,
+	Outlet,
+	useMatch,
+	useMatches,
+} from "@tanstack/react-router";
+import { cloneDeep } from "lodash";
 import { AnimatePresence, motion, useIsPresent } from "motion/react";
-import { Fragment, forwardRef, useContext, useRef } from "react";
+import { forwardRef, useContext, useRef } from "react";
 import DetailModals from "@/components/utility/Modal/DetailModals";
 import PageWrapper from "@/lib/theme/snippets/page";
 
@@ -16,11 +22,21 @@ const AnimatedOutlet = forwardRef<HTMLDivElement>((_, ref) => {
 	const isPresent = useIsPresent();
 
 	if (isPresent) {
-		renderedContext.current = routerContext;
+		renderedContext.current = cloneDeep(routerContext);
 	}
 
 	return (
-		<motion.div ref={ref}>
+		<motion.div
+			ref={ref}
+			initial={{ x: -50, opacity: 0 }}
+			animate={{ x: 0, opacity: 1 }}
+			exit={{ x: 50, opacity: 0 }}
+			transition={{
+				duration: 0.5,
+				type: "tween",
+				ease: "easeInOut",
+			}}
+		>
 			<ErrorBoundary fallback={<p>An error occurred</p>}>
 				<RouterContext.Provider value={renderedContext.current}>
 					<Outlet />
@@ -31,16 +47,18 @@ const AnimatedOutlet = forwardRef<HTMLDivElement>((_, ref) => {
 	);
 });
 
+/** @see https://github.com/TanStack/router/discussions/823 */
 export default function AnimatedRoutes() {
-	const location = useLocation();
+	const matches = useMatches();
+	const match = useMatch({ strict: false });
+	const nextMatchIndex = matches.findIndex((d) => d.id === match.id) + 1;
+	const nextMatch = matches[nextMatchIndex];
 
 	return (
 		<>
 			<PageWrapper>
-				<AnimatePresence mode="wait">
-					<Fragment key={location.pathname}>
-						<AnimatedOutlet />
-					</Fragment>
+				<AnimatePresence mode="popLayout">
+					<AnimatedOutlet key={nextMatch.id} />
 				</AnimatePresence>
 			</PageWrapper>
 		</>

@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { motion } from "motion/react";
 import type { MainTheme } from "@/lib/style/theme";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
@@ -45,7 +46,7 @@ const Row = styled.div<{
 		`}
 `;
 
-const Column = styled.div<{
+const Column = styled(motion.div)<{
 	gap?: keyof typeof spacingValue;
 	padding?: keyof typeof spacingValue;
 }>`

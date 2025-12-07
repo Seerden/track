@@ -34,6 +34,7 @@
         "flubber": "0.4.2",
         "immer": "^10.1.1",
         "jotai": "2.12.5",
+        "lodash": "4.17.21",
         "lucide-react": "0.553.0",
         "motion": "12.23.24",
         "msw": "^2.3.5",
@@ -55,6 +56,7 @@
         "@testing-library/jest-dom": "^6.6.3",
         "@testing-library/react": "^16.0.1",
         "@types/flubber": "0.4.0",
+        "@types/lodash": "4.17.21",
         "@types/react": "19.2.6",
         "@types/react-dom": "19.2.3",
         "@types/web-push": "3.6.4",
@@ -827,6 +829,8 @@
     "@types/flubber": ["@types/flubber@0.4.0", "", {}, "sha512-q9u6zseKgOBc0sAn/aPyi0vMNtXiLrNHSvj/tMXg+X2vk0jwX7obXgLISBmryGFvfszbId1JGT/8CcwB3vC6yg=="],
 
     "@types/http-errors": ["@types/http-errors@2.0.5", "", {}, "sha512-r8Tayk8HJnX0FztbZN7oVqGccWgw98T/0neJphO91KkmOzug1KkofZURD4UaD5uH8AqcFLfdPErnBod0u71/qg=="],
+
+    "@types/lodash": ["@types/lodash@4.17.21", "", {}, "sha512-FOvQ0YPD5NOfPgMzJihoT+Za5pdkDJWcbpuj1DjaKZIr/gxodQjY/uWEFlTNqW2ugXHUiL8lRQgw63dzKHZdeQ=="],
 
     "@types/mime": ["@types/mime@1.3.5", "", {}, "sha512-/pyBZWSLD2n0dcHE3hq8s8ZvcETHtEuF+3E7XVt0Ig2nvsVQXdghHVcEkIWjy9A0wKfTn97a/PSDYohKIlnP/w=="],
 

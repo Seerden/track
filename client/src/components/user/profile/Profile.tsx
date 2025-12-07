@@ -24,7 +24,7 @@ export default function Profile() {
 	}
 
 	return (
-		<Containers.Column as="section">
+		<Containers.Column>
 			<Title.Menu.Header
 				css={css`
             * {
