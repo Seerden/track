@@ -178,9 +178,12 @@ const DefaultText = styled(Default)`
 `;
 
 const Minimal = styled(Unstyled)`
+   display: flex;
+   justify-content: space-between;
+
    cursor: pointer;
-   --color: ${(p) => p.theme.colors.light[3]};
-   color: ${(p) => p.theme.colors.dark[0]};
+   --color: ${(p) => (p.theme.mode === "dark" ? p.theme.colors.dark[3] : p.theme.colors.light[3])};
+   color: ${(p) => (p.theme.mode === "dark" ? p.theme.colors.light[0] : p.theme.colors.dark[0])};
    outline: 2px solid var(--color);
    padding: ${spacingValue.smaller} ${spacingValue.medium};
    border-radius: 2px;
@@ -196,7 +199,7 @@ const Minimal = styled(Unstyled)`
 
    &:disabled {
       cursor: default;
-      --color: ${(p) => p.theme.colors.light[5]};
+      --color: ${(p) => (p.theme.mode === "dark" ? p.theme.colors.dark[5] : p.theme.colors.light[4])};
    }
 `;
 
@@ -204,14 +207,15 @@ const MinimalPlus = styled(Minimal)`
    transition: all 35ms ease-out;
 
    --highlight-color: ${(p) => p.theme.colors.purple.tertiary};
+   --shadow-color-1: ${(p) => (p.theme.mode === "dark" ? colors.dark[4] : colors.light[5])};
 
    &:not(:disabled) {
-      box-shadow: 0 0.5rem 0 -0.3rem #ccc;
+      box-shadow: 0 0.5rem 0 -0.3rem var(--shadow-color-1);
 
       &:hover, &:active, &:focus {
          box-shadow: 
             0 0.6rem 0 -4px var(--highlight-color), 
-            0 0.3rem 0 0 ${colors.light[5]},
+            0 0.3rem 0 0 var(--shadow-color-1),
             0 0.5rem 0.4rem -0.2rem ${colors.dark[3]};
          transform: translateY(-2px);
       }
