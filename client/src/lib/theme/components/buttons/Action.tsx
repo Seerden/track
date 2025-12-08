@@ -207,15 +207,15 @@ const MinimalPlus = styled(Minimal)`
    transition: all 35ms ease-out;
 
    --highlight-color: ${(p) => p.theme.colors.purple.tertiary};
-   --shadow-color-1: ${(p) => lightDark(p, colors.light[5], colors.dark[4])};
+   --shadow-color: ${(p) => lightDark(p, colors.light[5], colors.dark[4])};
 
    &:not(:disabled) {
-      box-shadow: 0 0.5rem 0 -0.3rem var(--shadow-color-1);
+      box-shadow: 0 0.5rem 0 -0.3rem var(--shadow-color);
 
       &:hover, &:active, &:focus {
          box-shadow: 
             0 0.6rem 0 -4px var(--highlight-color), 
-            0 0.3rem 0 0 var(--shadow-color-1),
+            0 0.3rem 0 0 var(--shadow-color),
             0 0.5rem 0.4rem -0.2rem ${colors.dark[3]};
          transform: translateY(-2px);
       }
