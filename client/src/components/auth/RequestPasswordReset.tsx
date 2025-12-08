@@ -1,6 +1,7 @@
 import { notifications } from "@mantine/notifications";
 import { z } from "@shared/lib/zod";
 import { useMutation } from "@tanstack/react-query";
+import { LucideSendHorizontal } from "lucide-react";
 import { type FormEvent, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import F from "@/lib/theme/components/form/form.alternate.style";
@@ -53,7 +54,10 @@ export default function RequestPasswordReset() {
 					</F.Label>
 				</S.Fields>
 
-				<F.Submit type="submit">Request password reset</F.Submit>
+				<F.Submit type="submit">
+					<span>Request password reset</span>
+					<LucideSendHorizontal size={18} strokeWidth="1.5" />
+				</F.Submit>
 			</F.Form>
 		</S.Wrapper>
 	);
