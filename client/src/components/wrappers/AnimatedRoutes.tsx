@@ -5,7 +5,7 @@ import {
 	useMatch,
 	useMatches,
 } from "@tanstack/react-router";
-import { cloneDeep } from "lodash";
+import cloneDeep from "lodash.clonedeep";
 import {
 	AnimatePresence,
 	motion,
