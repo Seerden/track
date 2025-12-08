@@ -4,12 +4,14 @@ import {
 	LucideChevronRight,
 	LucideShieldUser,
 } from "lucide-react";
+import { motion } from "motion/react";
 import Settings from "@/components/user/profile/settings/Settings";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import { colors } from "@/lib/theme/colors";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import { Title } from "@/lib/theme/components/text/title.style";
+import { spacingValue } from "@/lib/theme/snippets/spacing";
 import S from "./style/Account.style";
 
 export default function Account() {
@@ -60,11 +62,28 @@ export default function Account() {
 						</li>
 						<li>
 							<Link to="/auth/request-password-reset">
-								<Buttons.Action.MinimalPlus style={{ width: "100%" }}>
-									<span>forgot password</span>{" "}
-									<span style={{ display: "flex", marginLeft: "auto" }}>
+								<Buttons.Action.MinimalPlus
+									style={{ width: "100%", position: "relative" }}
+									whileHover="moveArrow"
+								>
+									<span>forgot password</span>
+									<motion.i
+										style={{
+											position: "absolute",
+											right: spacingValue.smallest,
+										}}
+										variants={{
+											moveArrow: {
+												x: 2,
+												transition: {
+													type: "tween",
+													duration: 0.015,
+												},
+											},
+										}}
+									>
 										<LucideChevronRight size={15} />
-									</span>
+									</motion.i>
 								</Buttons.Action.MinimalPlus>
 							</Link>
 						</li>

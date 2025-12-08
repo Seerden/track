@@ -47,8 +47,8 @@ const Link = styled.span`
 export const profileLinkStyles: CSSProperties = {
 	maxWidth: "max-content",
 	margin: spacingValue.small,
+	alignSelf: "flex-end",
 	marginBottom: 0,
-	justifySelf: "flex-end",
 };
 
 const MenuSection = styled.div`

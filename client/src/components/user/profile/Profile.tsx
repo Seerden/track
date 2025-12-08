@@ -35,8 +35,8 @@ export default function Profile() {
 			>
 				<LucideShieldUser size={23} /> <span>Account</span>
 			</Title.Menu.Header>
-			<Link to="/auth/account">
-				<Menu.Link style={profileLinkStyles}>
+			<Link to="/auth/account" style={profileLinkStyles}>
+				<Menu.Link>
 					Profile <LucideChevronRight size={15} />
 				</Menu.Link>
 			</Link>{" "}
