@@ -20,20 +20,20 @@ function App() {
 			<Scripts />
 			<Suspense fallback={<DefaultSkeleton />}>
 				<Header />
-				<motion.main
-					variants={pageVariants}
-					initial="hidden"
-					animate="appear"
-					exit="exit"
-					transition={{
-						duration: 0.25,
-						type: "tween",
-						ease: "easeInOut",
-					}}
-				>
-					<main className="[view-transition-name:page]">
+				<motion.main className="[view-transition-name:page]">
+					<motion.div
+						variants={pageVariants}
+						initial="hidden"
+						animate="appear"
+						exit="exit"
+						transition={{
+							duration: 0.25,
+							type: "tween",
+							ease: "easeInOut",
+						}}
+					>
 						<AnimatedRoutes />
-					</main>
+					</motion.div>
 				</motion.main>
 				<Footer />
 			</Suspense>
