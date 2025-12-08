@@ -137,7 +137,7 @@ const Stylized = styled(Unstyled)<{
 const WithIcon = styled(Default)`
 	display: flex;
 	width: max-content;
-	
+
 	${radius.large};
 	padding: 1.5rem 2.5rem;
 	gap: ${spacingValue.medium};
