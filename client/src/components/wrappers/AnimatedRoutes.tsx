@@ -6,10 +6,30 @@ import {
 	useMatches,
 } from "@tanstack/react-router";
 import { cloneDeep } from "lodash";
-import { AnimatePresence, motion, useIsPresent } from "motion/react";
+import {
+	AnimatePresence,
+	motion,
+	useIsPresent,
+	type Variants,
+} from "motion/react";
 import { forwardRef, useContext, useRef } from "react";
 import DetailModals from "@/components/utility/Modal/DetailModals";
 import PageWrapper from "@/lib/theme/snippets/page";
+
+const pageMotionVariants: Variants = {
+	initial: {
+		x: -50,
+		opacity: 0,
+	},
+	animate: {
+		x: 0,
+		opacity: 1,
+	},
+	exit: {
+		x: 50,
+		opacity: 0,
+	},
+};
 
 /**
  * @see https://stackoverflow.com/questions/74190609/exit-animations-with-animatepresence-framer-motion-and-createbrowserrouter-r
@@ -28,11 +48,12 @@ const AnimatedOutlet = forwardRef<HTMLDivElement>((_, ref) => {
 	return (
 		<motion.div
 			ref={ref}
-			initial={{ x: -50, opacity: 0 }}
-			animate={{ x: 0, opacity: 1 }}
-			exit={{ x: 50, opacity: 0 }}
+			variants={pageMotionVariants}
+			initial="initial"
+			animate="animate"
+			exit="exit"
 			transition={{
-				duration: 0.5,
+				duration: 0.15,
 				type: "tween",
 				ease: "easeInOut",
 			}}
