@@ -182,8 +182,8 @@ const Minimal = styled(Unstyled)`
    justify-content: space-between;
 
    cursor: pointer;
-   --color: ${(p) => (p.theme.mode === "dark" ? p.theme.colors.dark[3] : p.theme.colors.light[3])};
-   color: ${(p) => (p.theme.mode === "dark" ? p.theme.colors.light[0] : p.theme.colors.dark[0])};
+   --color: ${(p) => lightDark(p, p.theme.colors.light[3], p.theme.colors.dark[3])};
+   color: ${(p) => lightDark(p, p.theme.colors.dark[0], p.theme.colors.light[0])};
    outline: 2px solid var(--color);
    padding: ${spacingValue.smaller} ${spacingValue.medium};
    border-radius: 2px;
@@ -199,7 +199,7 @@ const Minimal = styled(Unstyled)`
 
    &:disabled {
       cursor: default;
-      --color: ${(p) => (p.theme.mode === "dark" ? p.theme.colors.dark[5] : p.theme.colors.light[4])};
+      --color: ${(p) => lightDark(p, p.theme.colors.light[4], p.theme.colors.dark[5])};
    }
 `;
 
@@ -207,7 +207,7 @@ const MinimalPlus = styled(Minimal)`
    transition: all 35ms ease-out;
 
    --highlight-color: ${(p) => p.theme.colors.purple.tertiary};
-   --shadow-color-1: ${(p) => (p.theme.mode === "dark" ? colors.dark[4] : colors.light[5])};
+   --shadow-color-1: ${(p) => lightDark(p, colors.light[5], colors.dark[4])};
 
    &:not(:disabled) {
       box-shadow: 0 0.5rem 0 -0.3rem var(--shadow-color-1);

@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import type { CSSProperties } from "react";
 import { colors } from "@/lib/theme/colors";
 import Buttons from "@/lib/theme/components/buttons";
 import { menuDropdownStyle } from "@/lib/theme/components/containers/popover.style";
@@ -42,6 +43,13 @@ const Link = styled.span`
 		margin-top: ${spacingValue.small};
 	}
 `;
+
+export const profileLinkStyles: CSSProperties = {
+	maxWidth: "max-content",
+	margin: spacingValue.small,
+	marginBottom: 0,
+	justifySelf: "flex-end",
+};
 
 const MenuSection = styled.div`
 	${flex.column};
