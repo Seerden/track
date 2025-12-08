@@ -11,6 +11,9 @@ export const modalWrapperMotionVariants: Variants = {
 	closed: {
 		"--blur": "2px",
 		"--color-mix-percentage": "2%",
+		transition: {
+			when: false,
+		},
 	},
 	opened: {
 		"--blur": "10px",

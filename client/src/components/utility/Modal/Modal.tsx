@@ -47,7 +47,7 @@ export default function Modal({
 						animate="opened"
 						exit="closed"
 						transition={{
-							duration: 0.125,
+							duration: 0.075,
 							type: "tween",
 							ease: "easeOut",
 						}}
@@ -65,7 +65,7 @@ export default function Modal({
 							animate="opened"
 							exit="exit"
 							transition={{
-								duration: 0.125,
+								duration: 0.075,
 								type: "tween",
 								ease: "easeOut",
 							}}
