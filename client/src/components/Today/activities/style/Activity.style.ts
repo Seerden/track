@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { motion } from "motion/react";
 import { rowHeight } from "@/components/Today/timeline/style/TimelineRow.style";
 import { colors } from "@/lib/theme/colors";
 import { font } from "@/lib/theme/font";
@@ -11,7 +12,7 @@ import Today from "../../style/Today.style";
 const cardWidth = "8vw";
 const cardGap = "5px";
 
-const ActivityCard = styled.div<{ $level: number; $offset: number }>`
+const ActivityCard = styled(motion.div)<{ $level: number; $offset: number }>`
 	position: absolute;
 	cursor: pointer;
 	user-select: none;
