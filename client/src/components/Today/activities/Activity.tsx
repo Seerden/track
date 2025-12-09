@@ -21,35 +21,7 @@ export default function Activity({
 
 	return (
 		<S.ActivityCard
-			layout
-			style={{
-				transformOrigin: "center",
-				originX: "center",
-				originY: "center",
-				zIndex: 100,
-			}}
-			// initial={{
-			// 	opacity: 0,
-			// 	// scale: 0.95
-			// }}
-			// animate={{
-			// 	opacity: 1,
-			// 	// scale: 1,
-			// 	transition: {
-			// 		delay: 0.25,
-			// 	},
-			// }}
-			// exit={{
-			// 	// scale: 0.95,
-			// 	transition: {
-			// 		ease: "easeOut",
-			// 		duration: 0.15,
-			// 	},
-			// }}
-			// transition={{
-			// 	duration: 0.15,
-			// 	type: "tween",
-			// }}
+			key={activity.activity_id}
 			$level={level}
 			$offset={offset}
 			onClick={(e) => {

@@ -1,12 +1,11 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { motion } from "motion/react";
 import { font } from "@/lib/theme/font";
 import { lightDark } from "@/lib/theme/light-dark";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 
-const HourMark = styled(motion.span)<{ $highlighted?: boolean }>`
+const HourMark = styled.span<{ $highlighted?: boolean }>`
 	display: flex;
 	align-self: center;
 	position: absolute;
