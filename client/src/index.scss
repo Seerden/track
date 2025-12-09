@@ -10,10 +10,12 @@ html {
 		overflow-y: auto;
 	}
 
+   scrollbar-gutter: stable;
+   overflow-y: scroll;
+
 	// Disables overflow when there is at least one open modal.
 	&:has([data-modal-id]) {
 		overflow: hidden;
-      scrollbar-gutter: stable;
 		margin-right: 1rem; // to prevent layout shift because of disappearing scrollbar
 	}
 
@@ -34,4 +36,8 @@ fieldset {
 
 label {
 	user-select: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 0
 }

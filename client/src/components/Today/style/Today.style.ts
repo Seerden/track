@@ -1,7 +1,9 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Skeleton } from "@mantine/core";
 import { type HTMLMotionProps, motion } from "motion/react";
 import TagCard from "@/components/tags/TagCard/style/TagCard.style";
+import type { MainTheme } from "@/lib/style/theme";
 import Containers from "@/lib/theme/components/container.style";
 import { font } from "@/lib/theme/font";
 import { lightDark } from "@/lib/theme/light-dark";
@@ -9,6 +11,12 @@ import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import scrollbar from "@/lib/theme/snippets/scroll";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
+
+export const roundedSectionStyle = ({ theme }: { theme: MainTheme }) => css`
+   background-color: ${theme.colors.background.main[1]};
+   outline: 2px solid ${lightDark({ theme }, theme.colors.light[3], theme.colors.dark[1])};
+	box-shadow: 0 0.2rem 1rem -0.3rem ${lightDark({ theme }, theme.colors.light[5], theme.colors.dark[0])};
+`;
 
 const TimelineSkeleton = styled(Skeleton)`
    border-top: 2px solid ${(p) => p.theme.colors.background.main[3]};
@@ -32,12 +40,7 @@ const TimelineWrapper = styled.section`
       max-width: 1000px;
 	}
    
-	background-color: ${(p) => p.theme.colors.background.main[1]};
-
-   /* NOTE: same as Calendar wrapper */
-   outline: 2px solid ${(p) => lightDark(p, p.theme.colors.light[3], p.theme.colors.dark[1])};
-	box-shadow: 0 0.2rem 1rem -0.3rem ${(p) =>
-		lightDark(p, p.theme.colors.light[5], p.theme.colors.dark[0])};
+   ${roundedSectionStyle};
 
 	height: max-content;
 	max-height: 80vh;

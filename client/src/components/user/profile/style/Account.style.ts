@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { roundedSectionStyle } from "@/components/Today/style/Today.style";
 import SettingsStyle from "@/components/user/profile/settings/style/Settings.style";
 import Containers from "@/lib/theme/components/container.style";
 import { Title } from "@/lib/theme/components/text/title.style";
@@ -7,7 +8,13 @@ import { flex } from "@/lib/theme/snippets/flex";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 
 const Wrapper = styled(Containers.Column)`
-   padding: 1rem 2.5rem;
+   ${roundedSectionStyle};
+   padding: 2rem 2.5rem;
+
+   @media (width < 768px) {
+      padding: 1rem 2rem;
+      width: 100dvw;
+   }
 
    /** This limits content width and centers it. Should be generalized. I think
    * We should just be using page.tsx styles. */
@@ -18,16 +25,15 @@ const Wrapper = styled(Containers.Column)`
 
    justify-self: center;
    
-   /** 5.4rem is the height of the Navbar (TODO) define navbar height in theme
-    * or as a constant. */
-   margin-top: calc(5.4rem + ${spacingValue.medium});
    border-radius: 3px;
-   background-color: var(--bg-2-1);
-   box-shadow: 0 0.3rem 0.3rem 0 var(--bg-2-1),
-      0 0.3rem 0.4rem -0.2rem var(--bg-3-4);
 
    ${SettingsStyle.Wrapper} {
-      background-color: var(--bg-3-2);
+      @media (width > 768px) {
+         background-color: var(--bg-0-1);
+         border-radius: 3px;
+         border: 1px solid ${(p) => p.theme.colors.background.main[3]};
+         box-shadow: 0 0 0.3rem 0 var(--bg-4-1), 0.6rem 0.6rem 0 -0.3rem var(--bg-3-4);
+      }
    }
 
    /** This targets the "Account information", "Update settings" and "Settings"
@@ -36,7 +42,6 @@ const Wrapper = styled(Containers.Column)`
       --size: ${font.size["1.1"]};
       line-height: 1.2;
    }
-
 `;
 
 const Header = styled.h1`
@@ -44,10 +49,13 @@ const Header = styled.h1`
    align-items: center;
    gap: ${spacingValue.medium};
    padding-bottom: ${spacingValue.small};
-   border-bottom: 3px solid var(--bg-3-4);
-   border-radius: 3px;
-   margin-bottom: ${spacingValue.larger};
-   box-shadow: 0 0.6rem 0 -0.45rem var(--bg-3-4);
+
+   @media (width > 768px) {
+      border-bottom: 3px solid var(--bg-3-4);
+      border-radius: 3px;
+      margin-bottom: ${spacingValue.medium};
+      box-shadow: 0 0.6rem 0 -0.45rem var(--bg-3-4);
+   }
 `;
 
 const Sections = styled(Containers.Row)`
@@ -90,7 +98,11 @@ const Datum = styled(Containers.Column)`
    gap: 0.1rem;
 
    width: 100%;
-   max-width: 250px;
+
+   @media (width > 768px) {
+      max-width: 250px;
+   }
+
    box-shadow: 0.5rem 0.5rem 0 -0.35rem var(--bg-3-4);
 
    div {

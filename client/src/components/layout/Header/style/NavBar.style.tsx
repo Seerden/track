@@ -26,6 +26,8 @@ const NavBar = styled.nav`
 	justify-content: space-between;
 	align-items: center;
 	gap: 2rem;
+
+   height: var(--header-height);
 `;
 
 const Actions = styled.div`
