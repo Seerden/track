@@ -1,5 +1,6 @@
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { Dayjs } from "dayjs";
+import { AnimatePresence } from "motion/react";
 import TimelineRow from "@/components/Today/timeline/TimelineRow";
 import { activityStartHourOnDate } from "@/lib/activity";
 import Containers from "@/lib/theme/components/container.style";
@@ -22,21 +23,31 @@ export default function TimelineRows({ activities, currentDate }: RowsProps) {
 	const { indentation } = useRows({ activities, currentDate });
 
 	return (
-		<Containers.Column as="ul" style={{ gridArea: "timeline" }}>
-			{Array.from(
-				{ length: 25 }, // render a row for every hour of the day
-				(_, i) => (
-					<TimelineRow
-						date={currentDate}
-						key={i}
-						index={i}
-						activities={activities.filter(
-							(a) => activityStartHourOnDate(a, currentDate) === i
-						)}
-						indentation={indentation}
-					/>
-				)
-			)}
+		<Containers.Column
+			/** @ts-ignore  */
+			as="ul"
+			layout="size"
+			transition={{
+				type: "tween",
+			}}
+			style={{ gridArea: "timeline" }}
+		>
+			<AnimatePresence mode="popLayout">
+				{Array.from(
+					{ length: 25 }, // render a row for every hour of the day
+					(_, i) => (
+						<TimelineRow
+							date={currentDate}
+							key={i}
+							index={i}
+							activities={activities.filter(
+								(a) => activityStartHourOnDate(a, currentDate) === i
+							)}
+							indentation={indentation}
+						/>
+					)
+				)}
+			</AnimatePresence>
 		</Containers.Column>
 	);
 }

@@ -1,6 +1,8 @@
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { ID } from "@shared/types/data/utility.types";
 import type { Dayjs } from "dayjs";
+import { AnimatePresence } from "motion/react";
+import { getActivityKey } from "@/components/Today/tasks/get-activity-key";
 import CurrentTimeMark from "@/components/Today/timeline/CurrentTimeMark";
 import { isToday } from "@/lib/datetime/compare";
 import useCurrentTime from "@/lib/hooks/useCurrentTime";
@@ -30,20 +32,34 @@ export default function TimelineRow({
 
 	return (
 		<S.Row
+			layout
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			exit={{ opacity: 0 }}
+			transition={{
+				type: "tween",
+				duration: 0.15,
+			}}
 			$collapsed={activities.length === 0} // this shouldn't check if activities.length is 0, but if there are no activities that occur at this hour
 		>
-			<HourMark index={index % 24} highlighted={isCurrentHour} />
+			<HourMark
+				key={index % 24}
+				index={index % 24}
+				highlighted={isCurrentHour}
+			/>
 
 			{isCurrentHour && <CurrentTimeMark offset={offset} />}
 
-			{activities.map((a) => (
-				<Activity
-					key={a.activity_id ?? a.synthetic_id}
-					date={date}
-					activity={a}
-					level={indentation.get(a.activity_id ?? a.synthetic_id) ?? 0}
-				/>
-			))}
+			<AnimatePresence mode="popLayout">
+				{activities.map((a) => (
+					<Activity
+						key={getActivityKey(a)}
+						date={date}
+						activity={a}
+						level={indentation.get(a.activity_id ?? a.synthetic_id) ?? 0}
+					/>
+				))}
+			</AnimatePresence>
 		</S.Row>
 	);
 }
