@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { motion } from "motion/react";
 import Buttons from "@/lib/theme/components/buttons";
 import { font } from "@/lib/theme/font";
 import Input from "@/lib/theme/input";
@@ -27,7 +28,7 @@ const Wrapper = styled.div<{ $fullSize?: boolean }>`
    background-color: var(--bg-1-2);
 `;
 
-const List = styled.ul`
+const List = styled(motion.ul)`
 	${flex.row};
 	background-color: var(--bg-0-1);
 ;
@@ -127,7 +128,7 @@ const Actions = styled.div`
 	}
 `;
 
-const DropdownActions = styled.div`
+const DropdownActions = styled(motion.div)`
 	${flex.row};
 	align-items: flex-end;
 	justify-content: space-between;
@@ -150,7 +151,7 @@ const DropdownActions = styled.div`
 	}
 `;
 
-const DropdownContent = styled.div`
+const DropdownContent = styled(motion.div)`
    --inline-offset: 1.1rem;
 
 	position: absolute;
@@ -188,7 +189,7 @@ const SelectionList = styled.ul`
 	overflow-y: scroll;
 `;
 
-const SelectionItem = styled.li`
+const SelectionItem = styled(motion.li)`
 	${flex.centered};
 	flex: 1;
 
