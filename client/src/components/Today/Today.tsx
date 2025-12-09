@@ -1,7 +1,7 @@
 import { Tooltip } from "@mantine/core";
 import { useAtomValue } from "jotai";
 import { LucideCircleDot, LucideTag } from "lucide-react";
-import { Suspense, useEffect } from "react";
+import { Suspense } from "react";
 import { tagFilterAtom } from "@/components/activities/ActivityFilter/tag-filter.atom";
 import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
 import NewHabit from "@/components/habits/NewHabit/NewHabit";
@@ -42,10 +42,6 @@ export default function Today() {
 	} = useToday();
 	const tagFilter = useAtomValue(tagFilterAtom);
 	const state = !!tagFilter.value?.length;
-
-	useEffect(() => {
-		console.log({ currentDate });
-	}, [currentDate]);
 
 	const { isMobileWidth } = useBreakpoints();
 

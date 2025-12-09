@@ -4,7 +4,7 @@ import { LucideRepeat } from "lucide-react";
 import { colors } from "@/lib/theme/colors";
 import { Icon } from "@/lib/theme/components/icons";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import S from "./style/Activity.style";
+import S, { activityMotionVariants } from "./style/Activity.style";
 import { useActivity } from "./useActivity";
 
 export default function Activity({
@@ -23,39 +23,20 @@ export default function Activity({
 		<S.ActivityCard
 			layout
 			style={{
-				transformOrigin: "center",
-				originX: "center",
-				originY: "center",
 				zIndex: 100,
+				transformOrigin: "left center",
 			}}
-			// initial={{
-			// 	opacity: 0,
-			// 	// scale: 0.95
-			// }}
-			// animate={{
-			// 	opacity: 1,
-			// 	// scale: 1,
-			// 	transition: {
-			// 		delay: 0.25,
-			// 	},
-			// }}
-			// exit={{
-			// 	// scale: 0.95,
-			// 	transition: {
-			// 		ease: "easeOut",
-			// 		duration: 0.15,
-			// 	},
-			// }}
-			// transition={{
-			// 	duration: 0.15,
-			// 	type: "tween",
-			// }}
+			variants={activityMotionVariants}
+			initial="initial"
+			animate="animate"
+			exit="exit"
 			$level={level}
 			$offset={offset}
 			onClick={(e) => {
 				e.stopPropagation();
 				openDetailedItemModal(activity.activity_id ?? activity.synthetic_id);
 			}}
+			transition={{ duration: 0.075, delay: 0, ease: "easeOut" }}
 		>
 			{/* TODO: on mouseover, display a short humanized time string */}
 			<S.Activity
