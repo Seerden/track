@@ -19,7 +19,6 @@ import PageWrapper from "@/lib/theme/snippets/page";
 const pageMotionVariants: Variants = {
 	initial: {
 		clipPath: "circle(0% at 0% 0%)",
-		opacity: 0,
 		filter: "blur(2px)",
 		transition: {
 			duration: 0.25,
@@ -28,7 +27,6 @@ const pageMotionVariants: Variants = {
 	},
 	animate: {
 		clipPath: `circle(150% at 50% 0%)`,
-		opacity: 1,
 		filter: "blur(0)",
 		transition: {
 			duration: 0.25,
@@ -37,7 +35,6 @@ const pageMotionVariants: Variants = {
 	},
 	exit: {
 		clipPath: "circle(0% at 100% 100%)",
-		opacity: 0,
 		filter: "blur(2px)",
 		transition: {
 			duration: 0.25,
