@@ -30,7 +30,7 @@ export const auth = betterAuth({
                   <h1>Reset your Track password</h1>
                   
                   <p>
-                     Click the following link to reset your password.
+                     Click the following link to reset your password. The link is valid for one hour.
                   </p>
                   
                   <a href="${url}">${url}</a>

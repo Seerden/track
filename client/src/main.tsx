@@ -21,6 +21,8 @@ Sentry.init({
 	// anyway and we're probably not going to use different DSNs for different
 	// environments anyway.
 	dsn: "https://b0e7e65134d60f61d0dda728b3c918be@o4508463516680192.ingest.de.sentry.io/4508463529984080",
+	transport: Sentry.makeBrowserOfflineTransport(Sentry.makeFetchTransport),
+	transportOptions: { tunnel: "/api/sentry" },
 	integrations: [
 		// See docs for support of different versions of variation of react router
 		// https://docs.sentry.io/platforms/javascript/guides/react/configuration/integrations/react-router/

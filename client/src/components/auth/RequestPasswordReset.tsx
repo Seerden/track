@@ -1,9 +1,11 @@
 import { notifications } from "@mantine/notifications";
 import { z } from "@shared/lib/zod";
 import { useMutation } from "@tanstack/react-query";
-import { LucideSendHorizontal } from "lucide-react";
+import { LucideAsterisk, LucideSendHorizontal } from "lucide-react";
 import { type FormEvent, useState } from "react";
 import { authClient } from "@/lib/auth-client";
+import useAuthentication from "@/lib/hooks/useAuthentication";
+import { colors } from "@/lib/theme/colors";
 import F from "@/lib/theme/components/form/form.alternate.style";
 import S from "./style/auth.style";
 
@@ -18,21 +20,39 @@ function useRequestResetMutation() {
 }
 
 export default function RequestPasswordReset() {
-	const [email, setEmail] = useState("");
+	const { currentUser } = useAuthentication();
+
+	const [email, setEmail] = useState(currentUser?.email ?? "");
 	const { mutate } = useRequestResetMutation();
 
 	function handleSubmit(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 		if (z.email().parse(email)) {
 			mutate(email, {
-				onSuccess: () => {
-					console.log("Successfully requested password reset");
+				onError: (error) => {
 					notifications.show({
 						position: "top-center",
-						message: `If there is an account associated with the 
-                     email address you provided, we will email you 
-                     a link to use to reset your password`,
+						color: colors.red.main,
+						message: error.message ?? error.name,
 					});
+				},
+				onSuccess: ({ error, data }) => {
+					if (error) {
+						notifications.show({
+							position: "top-center",
+							color: "orangered",
+							message: error.message ?? error.code,
+						});
+					} else {
+						if (data.message) {
+							notifications.show({
+								position: "top-center",
+								icon: <LucideAsterisk />,
+								color: "royalblue",
+								message: data.message,
+							});
+						}
+					}
 				},
 			});
 		}
