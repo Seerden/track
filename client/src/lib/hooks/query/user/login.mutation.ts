@@ -1,28 +1,33 @@
 import { captureMessage } from "@sentry/react";
+import type { NewUser } from "@shared/lib/schemas/user";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import type { User } from "better-auth";
+import { authClient } from "@/lib/auth-client";
 import { defaultQueryConfig } from "@/lib/query-client";
 import { trpc } from "@/lib/trpc";
-import { localUser } from "@/lib/user-storage";
 
 export function useLoginMutation() {
 	const queryClient = useQueryClient();
 
-	return useMutation(
-		trpc.auth.login.mutationOptions({
-			onSuccess: ({ user }) => {
-				localUser.set(user);
-
-				queryClient.setDefaultOptions({
+	return useMutation<User, unknown, NewUser>({
+		mutationFn: async (input) => {
+			const { data } = await authClient.signIn.username(input);
+			if (!data) {
+				throw new Error("username signIn did not return any data");
+			}
+			return data.user;
+		},
+		onSuccess: (user) => {
+			queryClient.setDefaultOptions({
+				...defaultQueryConfig,
+				queries: {
 					...defaultQueryConfig,
-					queries: {
-						...defaultQueryConfig,
-						enabled: true,
-					},
-				});
-				queryClient.invalidateQueries({ queryKey: trpc.auth.me.queryKey() });
+					enabled: true,
+				},
+			});
+			queryClient.invalidateQueries({ queryKey: trpc.auth.me.queryKey() });
 
-				captureMessage(`User "${user.username}" logged in`, "log");
-			},
-		})
-	);
+			captureMessage(`User "${user?.email}" logged in`, "log");
+		},
+	});
 }

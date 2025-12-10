@@ -5,18 +5,18 @@ import {
 } from "@shared/types/push.types";
 import { sqlConnection } from "@/db/init";
 import { insertPushSubscription } from "@/lib/data/models/push/insert-push-subscription";
-import { authenticatedProcedure } from "../../procedures/authenticated.procedure";
+import { betterAuthProcedure } from "../../procedures/authenticated.procedure";
 
 // This is an auth procedure, because we only provide push notifications for
 // authenticated users.
-export const subscribeResolver = authenticatedProcedure
+export const subscribeResolver = betterAuthProcedure
 	.input(pushSubscriptionInputSchema)
 	.mutation(async ({ input, ctx }) => {
 		try {
 			// check if user_id/endpoint already exists
 			const existing = await sqlConnection<PushSubscription[]>`
             select * from push_subscriptions
-            where user_id = ${ctx.req.session.user.user_id}
+            where user_id = ${ctx.user.id}
          `;
 
 			if (
@@ -29,7 +29,7 @@ export const subscribeResolver = authenticatedProcedure
 			}
 
 			return await insertPushSubscription({
-				user_id: ctx.req.session.user.user_id,
+				user_id: ctx.user.id,
 				push_subscription: input,
 			});
 		} catch (error) {

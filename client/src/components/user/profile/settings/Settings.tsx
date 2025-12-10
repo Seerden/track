@@ -13,7 +13,6 @@ import { useSettings } from "@/components/user/profile/settings/useSettings";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import Buttons from "@/lib/theme/components/buttons";
-import Containers from "@/lib/theme/components/container.style";
 import { Label } from "@/lib/theme/components/form/label.style";
 import { Title } from "@/lib/theme/components/text/title.style";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
@@ -26,7 +25,7 @@ export default function Settings() {
 	const taskFilter = useAtomValue(tasksFilterAtom);
 
 	return (
-		<Containers.Column gap={"small"} style={{ padding: spacingValue.medium }}>
+		<S.Wrapper gap={"small"}>
 			<Title.Menu.SectionHeader>Settings</Title.Menu.SectionHeader>
 			<S.SettingsGrid>
 				<Title.Menu.SubsectionHeader>Notifications</Title.Menu.SubsectionHeader>
@@ -72,6 +71,6 @@ export default function Settings() {
 			>
 				Log out
 			</Buttons.Action.MinimalPlus>
-		</Containers.Column>
+		</S.Wrapper>
 	);
 }

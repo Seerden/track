@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import type { CSSProperties } from "react";
+import { roundedSectionStyle } from "@/components/Today/style/Today.style";
 import {
 	defaultCellHeight,
 	defaultCellWidth,
@@ -23,7 +24,6 @@ const Calendar = styled.div`
 	width: max-content;
 	height: max-content;
 
-	background-color: ${(p) => p.theme.colors.background.main[1]};
 
 	--font-size: ${font.size["0.82"]};
 	font-size: var(--font-size);
@@ -34,10 +34,7 @@ const Calendar = styled.div`
 	
 	${radius.large};
 
-   /* NOTE: same as Timeline wrapper */
-   outline: 2px solid ${(p) => lightDark(p, p.theme.colors.light[3], p.theme.colors.dark[1])};
-	box-shadow: 0 0.2rem 1rem -0.3rem ${(p) =>
-		lightDark(p, p.theme.colors.light[5], p.theme.colors.dark[0])};
+   ${roundedSectionStyle};
 `;
 
 const TitleWrapper = styled.div`

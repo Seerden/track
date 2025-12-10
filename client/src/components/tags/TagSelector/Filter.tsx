@@ -9,16 +9,19 @@ export function Filter({
 	clearFilter,
 	onFocus,
 	hasAutoFocus,
+	disabled,
 }: {
 	filter: string;
 	updateFilter: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	clearFilter: (e: MouseEvent<HTMLButtonElement>) => void;
 	onFocus?: <T>(e?: FocusEvent<T>) => void;
 	hasAutoFocus?: boolean;
+	disabled?: boolean;
 }) {
 	return (
 		<S.FilterWrapper>
 			<Input.Filter
+				disabled={disabled}
 				onFocus={(e) => onFocus?.(e)}
 				autoFocus={hasAutoFocus}
 				type="text"

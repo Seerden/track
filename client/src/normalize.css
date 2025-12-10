@@ -39,7 +39,9 @@ main {
 
 h1 {
 	font-size: 2em;
-	margin: 0.67em 0;
+	/* NOTE (TRK-325) removed this, but it's part of the base normalize.css so
+	   I'm not deleting the line. */
+	/* margin: 0.67em 0; */
 }
 
 /* Grouping content

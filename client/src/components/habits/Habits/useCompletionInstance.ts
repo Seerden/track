@@ -18,7 +18,7 @@ export default function useCompletionInstance() {
 	);
 	const { currentUser } = useAuthentication();
 
-	const user_id = currentUser?.user_id;
+	const user_id = currentUser?.id;
 
 	function doMutation({
 		input,

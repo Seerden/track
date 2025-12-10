@@ -16,8 +16,16 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 	beforeLoad: async ({ context: { queryClient, trpc }, location }) => {
 		const me = await queryClient.ensureQueryData(trpc.auth.me.queryOptions());
 
-		if (!me.user && !["/login", "/register"].includes(location.pathname)) {
-			throw redirect({ to: "/login" });
+		// TODO: this is WIP still.
+		if (
+			["/login", "/register"].includes(location.pathname) ||
+			location.pathname.startsWith("/auth/")
+		) {
+			// don't have to do anything, we're on an unauthenticated route.
+		} else {
+			if (!me.user) {
+				throw redirect({ to: "/login" });
+			}
 		}
 
 		return { user: me.user };

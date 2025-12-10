@@ -1,10 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import Today from "@/components/Today/Today";
+import { Protected } from "@/components/wrappers";
 
 export const Route = createFileRoute("/")({
 	component: Home,
 });
 
 function Home() {
-	return <Today />;
+	return (
+		<Protected>
+			<Today />
+		</Protected>
+	);
 }

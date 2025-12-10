@@ -1,5 +1,9 @@
 import { css } from "@emotion/react";
-import { LucideShieldUser } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { LucideChevronRight, LucideShieldUser } from "lucide-react";
+import Menu, {
+	profileLinkStyles,
+} from "@/components/layout/Header/style/menu.style";
 import Settings from "@/components/user/profile/settings/Settings";
 import useAuthentication from "@/lib/hooks/useAuthentication";
 import { colors } from "@/lib/theme/colors";
@@ -21,7 +25,7 @@ export default function Profile() {
 	}
 
 	return (
-		<Containers.Column as="section">
+		<Containers.Column>
 			<Title.Menu.Header
 				css={css`
             * {
@@ -31,6 +35,11 @@ export default function Profile() {
 			>
 				<LucideShieldUser size={23} /> <span>Account</span>
 			</Title.Menu.Header>
+			<Link to="/auth/account" style={profileLinkStyles}>
+				<Menu.Link>
+					Profile <LucideChevronRight size={15} />
+				</Menu.Link>
+			</Link>{" "}
 			<Settings />
 		</Containers.Column>
 	);

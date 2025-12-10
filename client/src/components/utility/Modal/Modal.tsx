@@ -1,10 +1,14 @@
 import { FocusTrap } from "@mantine/core";
+import { AnimatePresence } from "motion/react";
 import type { PropsWithChildren } from "react";
 import { useRef } from "react";
 import { createPortal } from "react-dom";
 import useModal from "@/lib/hooks/useModal";
 import type { ModalId } from "@/lib/modal-ids";
-import S from "./style/Modal.style";
+import S, {
+	modalMotionVariants,
+	modalWrapperMotionVariants,
+} from "./style/Modal.style";
 
 type ModalProps = {
 	modalId: ModalId;
@@ -32,27 +36,51 @@ export default function Modal({
 		closeModal(modalId);
 	}
 
-	if (!isOpen) {
-		return null;
-	}
-
 	return createPortal(
 		<FocusTrap>
-			<S.ModalWrapper
-				onClick={(e) => {
-					if (e.target === e.currentTarget) {
-						handleModalClose(e);
-					}
-				}}
-				data-modal-id={modalId}
-			>
-				<S.Modal ref={modalRef} data-modal-id={modalId}>
-					<S.Close onClick={handleModalClose} $color="orangered" />
-					<S.ModalChildWrapper $scrollbarHidden={!scrollbarVisible}>
-						{children}
-					</S.ModalChildWrapper>
-				</S.Modal>
-			</S.ModalWrapper>
+			<AnimatePresence>
+				{isOpen && (
+					<S.ModalWrapper
+						layout
+						variants={modalWrapperMotionVariants}
+						initial="closed"
+						animate="opened"
+						exit="closed"
+						transition={{
+							duration: 0.075,
+							type: "tween",
+							ease: "easeOut",
+						}}
+						onClick={(e) => {
+							if (e.target === e.currentTarget) {
+								handleModalClose(e);
+							}
+						}}
+						data-modal-id={modalId}
+					>
+						<S.Modal
+							layout
+							variants={modalMotionVariants}
+							initial="closed"
+							animate="opened"
+							exit="exit"
+							transition={{
+								duration: 0.075,
+								type: "tween",
+								ease: "easeOut",
+							}}
+							ref={modalRef}
+							key={`motion-${modalId}`}
+							data-modal-id={modalId}
+						>
+							<S.Close onClick={handleModalClose} $color="orangered" />
+							<S.ModalChildWrapper $scrollbarHidden={!scrollbarVisible}>
+								{children}
+							</S.ModalChildWrapper>
+						</S.Modal>
+					</S.ModalWrapper>
+				)}
+			</AnimatePresence>
 		</FocusTrap>,
 		document.querySelector("#root") as HTMLElement
 	);

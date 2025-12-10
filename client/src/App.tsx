@@ -18,7 +18,7 @@ function App() {
 			<Scripts />
 			<Suspense fallback={<DefaultSkeleton />}>
 				<Header />
-				<main>
+				<main className="[view-transition-name:page]">
 					<AnimatedRoutes />
 				</main>
 				<Footer />

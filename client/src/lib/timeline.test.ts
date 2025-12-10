@@ -8,6 +8,7 @@ describe("activityFallsInGap", () => {
 		const endOfDay = startOfDay.endOf("day");
 
 		const activity: ActivityWithIds = {
+			parent_id: null,
 			activity_id: "1",
 			started_at: createDate(startOfDay.hour(9).minute(0)),
 			ended_at: createDate(startOfDay.hour(10).minute(0)),

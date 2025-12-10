@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import type { PropsWithChildren } from "react";
 import type { MainTheme } from "@/lib/style/theme";
 import { flex } from "@/lib/theme/snippets/flex";
+import { spacingValue } from "@/lib/theme/snippets/spacing";
 
 export const pageStyle = ({ theme }: { theme: MainTheme }) => css`
 	background-color: var(--bg-3-1);
@@ -42,7 +43,8 @@ export const pageStyle = ({ theme }: { theme: MainTheme }) => css`
 `;
 
 const StyledPageWrapper = styled.div`
-	margin-top: 5.4rem;
+	margin-top: var(--header-height);
+   padding-top: ${spacingValue.small};
 
 	width: calc(100dvw - 17px);
 `;

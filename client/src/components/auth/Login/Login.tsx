@@ -1,8 +1,11 @@
+import { TextInput } from "@mantine/core";
 import { Link } from "@tanstack/react-router";
 import { LucideArrowRight, LucideEye, LucideEyeClosed } from "lucide-react";
 import Notification from "@/components/utility/Notification/Notification";
+import { AnimatedIcon } from "@/lib/animate/AnimatedIcon";
 import Containers from "@/lib/theme/components/container.style";
 import F from "@/lib/theme/components/form/form.alternate.style";
+import { spacingValue } from "@/lib/theme/snippets/spacing";
 import S from "../style/auth.style";
 import useLogin from "./useLogin";
 
@@ -28,34 +31,36 @@ function Login() {
 				<S.Fields>
 					<F.Label>
 						<span>username</span>
-						<F.Input
-							onChange={handleInputChange}
-							type="text"
-							required
-							name="username"
-						/>
+						<TextInput onChange={handleInputChange} required name="username" />
 					</F.Label>
 					<F.Label>
 						<span>password</span>
 						<div style={{ position: "relative" }}>
-							<F.Input
+							{/* TOOD: I want this to _be_ a mantine TextInput, but use the styling 
+                        of F.Input. For now, it's like this so I can easily have the 
+                        AnimatedIcon in rightSection. */}
+							<TextInput
 								onChange={handleInputChange}
 								type={passwordVisible ? "text" : "password"}
 								required
 								name="password"
+								rightSection={
+									<S.ShowPassword
+										tabIndex={-1}
+										type="button"
+										onClick={togglePasswordVisible}
+										value={`${passwordVisible ? "Hide" : "Show"} password`}
+									>
+										<AnimatedIcon
+											off={<LucideEyeClosed />}
+											on={<LucideEye />}
+											intermediate={null}
+											size={18}
+											state={passwordVisible}
+										/>
+									</S.ShowPassword>
+								}
 							/>
-							<S.ShowPassword
-								tabIndex={-1}
-								type="button"
-								onClick={togglePasswordVisible}
-								value={`${passwordVisible ? "Hide" : "Show"} password`}
-							>
-								{passwordVisible ? (
-									<LucideEyeClosed size={22} />
-								) : (
-									<LucideEye size={22} />
-								)}
-							</S.ShowPassword>
 						</div>
 					</F.Label>
 				</S.Fields>
@@ -63,6 +68,7 @@ function Login() {
 					style={{
 						justifyContent: "space-between",
 						alignItems: "center",
+						gap: spacingValue.small,
 					}}
 				>
 					<F.Submit $minimal type="submit">
@@ -75,6 +81,12 @@ function Login() {
 						}}
 					>
 						register
+					</Link>
+					<Link
+						to="/auth/request-password-reset"
+						style={{ marginTop: spacingValue.medium }}
+					>
+						forgot password
 					</Link>
 				</Containers.Row>
 			</F.Form>

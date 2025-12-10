@@ -1,10 +1,11 @@
 import styled from "@emotion/styled";
+import { motion } from "motion/react";
 import Buttons from "@/lib/theme/components/buttons";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 
-const Wrapper = styled.div`
+const Wrapper = styled(motion.div)`
 	justify-self: center;
 	// TODO: this should be part of the page wrapper -- but first Register should
 	// be put inside a page wrapper :)
@@ -18,9 +19,6 @@ const Fields = styled.div`
 `;
 
 const ShowPassword = styled(Buttons.Unstyled)`
-	position: absolute;
-	right: 1rem;
-	top: 6px;
 	max-height: max-content;
 `;
 

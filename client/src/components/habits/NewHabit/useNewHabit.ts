@@ -55,7 +55,7 @@ export default function useNewHabit() {
 	const [habit, setHabit] = useState<NewHabitWithoutUserId>(defaultNewHabit);
 
 	const habitWithUserIdField = useMemo(() => {
-		return Object.assign({}, habit, { user_id: currentUser?.user_id ?? null });
+		return Object.assign({}, habit, { user_id: currentUser?.id ?? null });
 	}, [habit, currentUser]);
 
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {

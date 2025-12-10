@@ -16,6 +16,10 @@ import { Route as IndexRouteImport } from "./routes/index"
 import { Route as ActivitiesIndexRouteImport } from "./routes/activities/index"
 import { Route as NotesNewRouteImport } from "./routes/notes/new"
 import { Route as HabitsNewRouteImport } from "./routes/habits/new"
+import { Route as AuthVerifyEmailRouteImport } from "./routes/auth/verify-email"
+import { Route as AuthResetPasswordRouteImport } from "./routes/auth/reset-password"
+import { Route as AuthRequestPasswordResetRouteImport } from "./routes/auth/request-password-reset"
+import { Route as AuthAccountRouteImport } from "./routes/auth/account"
 import { Route as ActivitiesNewRouteImport } from "./routes/activities/new"
 
 const TodayRoute = TodayRouteImport.update({
@@ -53,6 +57,27 @@ const HabitsNewRoute = HabitsNewRouteImport.update({
   path: "/habits/new",
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthVerifyEmailRoute = AuthVerifyEmailRouteImport.update({
+  id: "/auth/verify-email",
+  path: "/auth/verify-email",
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthResetPasswordRoute = AuthResetPasswordRouteImport.update({
+  id: "/auth/reset-password",
+  path: "/auth/reset-password",
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRequestPasswordResetRoute =
+  AuthRequestPasswordResetRouteImport.update({
+    id: "/auth/request-password-reset",
+    path: "/auth/request-password-reset",
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AuthAccountRoute = AuthAccountRouteImport.update({
+  id: "/auth/account",
+  path: "/auth/account",
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ActivitiesNewRoute = ActivitiesNewRouteImport.update({
   id: "/activities/new",
   path: "/activities/new",
@@ -65,6 +90,10 @@ export interface FileRoutesByFullPath {
   "/register": typeof RegisterRoute
   "/today": typeof TodayRoute
   "/activities/new": typeof ActivitiesNewRoute
+  "/auth/account": typeof AuthAccountRoute
+  "/auth/request-password-reset": typeof AuthRequestPasswordResetRoute
+  "/auth/reset-password": typeof AuthResetPasswordRoute
+  "/auth/verify-email": typeof AuthVerifyEmailRoute
   "/habits/new": typeof HabitsNewRoute
   "/notes/new": typeof NotesNewRoute
   "/activities": typeof ActivitiesIndexRoute
@@ -75,6 +104,10 @@ export interface FileRoutesByTo {
   "/register": typeof RegisterRoute
   "/today": typeof TodayRoute
   "/activities/new": typeof ActivitiesNewRoute
+  "/auth/account": typeof AuthAccountRoute
+  "/auth/request-password-reset": typeof AuthRequestPasswordResetRoute
+  "/auth/reset-password": typeof AuthResetPasswordRoute
+  "/auth/verify-email": typeof AuthVerifyEmailRoute
   "/habits/new": typeof HabitsNewRoute
   "/notes/new": typeof NotesNewRoute
   "/activities": typeof ActivitiesIndexRoute
@@ -86,6 +119,10 @@ export interface FileRoutesById {
   "/register": typeof RegisterRoute
   "/today": typeof TodayRoute
   "/activities/new": typeof ActivitiesNewRoute
+  "/auth/account": typeof AuthAccountRoute
+  "/auth/request-password-reset": typeof AuthRequestPasswordResetRoute
+  "/auth/reset-password": typeof AuthResetPasswordRoute
+  "/auth/verify-email": typeof AuthVerifyEmailRoute
   "/habits/new": typeof HabitsNewRoute
   "/notes/new": typeof NotesNewRoute
   "/activities/": typeof ActivitiesIndexRoute
@@ -98,6 +135,10 @@ export interface FileRouteTypes {
     | "/register"
     | "/today"
     | "/activities/new"
+    | "/auth/account"
+    | "/auth/request-password-reset"
+    | "/auth/reset-password"
+    | "/auth/verify-email"
     | "/habits/new"
     | "/notes/new"
     | "/activities"
@@ -108,6 +149,10 @@ export interface FileRouteTypes {
     | "/register"
     | "/today"
     | "/activities/new"
+    | "/auth/account"
+    | "/auth/request-password-reset"
+    | "/auth/reset-password"
+    | "/auth/verify-email"
     | "/habits/new"
     | "/notes/new"
     | "/activities"
@@ -118,6 +163,10 @@ export interface FileRouteTypes {
     | "/register"
     | "/today"
     | "/activities/new"
+    | "/auth/account"
+    | "/auth/request-password-reset"
+    | "/auth/reset-password"
+    | "/auth/verify-email"
     | "/habits/new"
     | "/notes/new"
     | "/activities/"
@@ -129,6 +178,10 @@ export interface RootRouteChildren {
   RegisterRoute: typeof RegisterRoute
   TodayRoute: typeof TodayRoute
   ActivitiesNewRoute: typeof ActivitiesNewRoute
+  AuthAccountRoute: typeof AuthAccountRoute
+  AuthRequestPasswordResetRoute: typeof AuthRequestPasswordResetRoute
+  AuthResetPasswordRoute: typeof AuthResetPasswordRoute
+  AuthVerifyEmailRoute: typeof AuthVerifyEmailRoute
   HabitsNewRoute: typeof HabitsNewRoute
   NotesNewRoute: typeof NotesNewRoute
   ActivitiesIndexRoute: typeof ActivitiesIndexRoute
@@ -185,6 +238,34 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof HabitsNewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    "/auth/verify-email": {
+      id: "/auth/verify-email"
+      path: "/auth/verify-email"
+      fullPath: "/auth/verify-email"
+      preLoaderRoute: typeof AuthVerifyEmailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    "/auth/reset-password": {
+      id: "/auth/reset-password"
+      path: "/auth/reset-password"
+      fullPath: "/auth/reset-password"
+      preLoaderRoute: typeof AuthResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    "/auth/request-password-reset": {
+      id: "/auth/request-password-reset"
+      path: "/auth/request-password-reset"
+      fullPath: "/auth/request-password-reset"
+      preLoaderRoute: typeof AuthRequestPasswordResetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    "/auth/account": {
+      id: "/auth/account"
+      path: "/auth/account"
+      fullPath: "/auth/account"
+      preLoaderRoute: typeof AuthAccountRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     "/activities/new": {
       id: "/activities/new"
       path: "/activities/new"
@@ -201,6 +282,10 @@ const rootRouteChildren: RootRouteChildren = {
   RegisterRoute: RegisterRoute,
   TodayRoute: TodayRoute,
   ActivitiesNewRoute: ActivitiesNewRoute,
+  AuthAccountRoute: AuthAccountRoute,
+  AuthRequestPasswordResetRoute: AuthRequestPasswordResetRoute,
+  AuthResetPasswordRoute: AuthResetPasswordRoute,
+  AuthVerifyEmailRoute: AuthVerifyEmailRoute,
   HabitsNewRoute: HabitsNewRoute,
   NotesNewRoute: NotesNewRoute,
   ActivitiesIndexRoute: ActivitiesIndexRoute,

@@ -1,0 +1,1 @@
+alter table if exists habit_entries add constraint fk_habit_entries_users foreign key (user_id) references auth.user (id) on delete cascade;

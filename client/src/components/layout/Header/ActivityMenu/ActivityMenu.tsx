@@ -8,11 +8,7 @@ export default function ActivityMenu() {
 	return (
 		<Menu
 			id="ActivityMenu"
-			Target={
-				<S.TriggerButton as="span" type="button">
-					Activities
-				</S.TriggerButton>
-			}
+			Target={<S.TriggerButton type="button">Activities</S.TriggerButton>}
 		>
 			<S.Menu>
 				<S.MenuSection>
