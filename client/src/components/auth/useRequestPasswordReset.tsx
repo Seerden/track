@@ -1,6 +1,6 @@
 import { notifications } from "@mantine/notifications";
+import { z } from "@shared/lib/zod";
 import { useMutation } from "@tanstack/react-query";
-import { z } from "better-auth";
 import { LucideAsterisk } from "lucide-react";
 import { type FormEvent, useState } from "react";
 import { authClient } from "@/lib/auth-client";
