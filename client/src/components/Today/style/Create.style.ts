@@ -9,8 +9,8 @@ import { spacingValue } from "@/lib/theme/snippets/spacing";
 // the header, instead of as a SpeedDial.
 const Create = styled.div`
 	position: fixed;
-	bottom: 10rem;
-	right: 10rem;
+	bottom: 10dvw;
+	right: 10dvw;
 	z-index: 100;
 `;
 

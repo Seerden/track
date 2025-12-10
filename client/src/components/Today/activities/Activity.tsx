@@ -4,7 +4,7 @@ import { LucideRepeat } from "lucide-react";
 import { colors } from "@/lib/theme/colors";
 import { Icon } from "@/lib/theme/components/icons";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import S from "./style/Activity.style";
+import S, { activityMotionVariants } from "./style/Activity.style";
 import { useActivity } from "./useActivity";
 
 export default function Activity({
@@ -21,7 +21,15 @@ export default function Activity({
 
 	return (
 		<S.ActivityCard
-			key={activity.activity_id}
+			layout
+			style={{
+				zIndex: 100,
+				transformOrigin: "left center",
+			}}
+			variants={activityMotionVariants}
+			initial="initial"
+			animate="animate"
+			exit="exit"
 			$level={level}
 			$offset={offset}
 			onClick={(e) => {

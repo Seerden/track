@@ -30,7 +30,7 @@ export default function Menu({
 			<Popover.Target>
 				{/* TODO: styling */}
 				<S.MenuTrigger
-					type="button"
+					role="button"
 					onMouseEnter={() => {
 						open(id);
 					}}

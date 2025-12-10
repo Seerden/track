@@ -6,6 +6,7 @@ import {
 	LucideFilterX,
 	LucideMaximize,
 } from "lucide-react";
+import { AnimatePresence, stagger } from "motion/react";
 import { Filter } from "@/components/tags/TagSelector/Filter";
 import { Selection } from "@/components/tags/TagSelector/Selection";
 import { TagSelectorItems } from "@/components/tags/TagSelector/TagSelectorItems";
@@ -13,7 +14,7 @@ import TagTree from "@/components/tags/TagTree/TagTree";
 import type { ModalId } from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import NewTagButton from "./NewTagButton";
-import S from "./style/TagSelector.style";
+import S, { tagSelectorMotionVariants } from "./style/TagSelector.style";
 import useTagSelector from "./useTagSelector";
 
 const Button = Buttons.Action.Alternative;
@@ -83,14 +84,15 @@ export default function TagSelector({
 					}}
 				>
 					<S.Actions>
+						<Filter
+							disabled={expanded}
+							filter={filter}
+							updateFilter={updateFilter}
+							clearFilter={clearFilter}
+							onFocus={expandFilter}
+						/>
 						{!expanded && (
 							<>
-								<Filter
-									filter={filter}
-									updateFilter={updateFilter}
-									clearFilter={clearFilter}
-									onFocus={expandFilter}
-								/>
 								{/* TODO: we show this exact thing in two different places -- make it a subcomponent, or at least a render function */}
 								{!!selectedTagIds.length && (
 									<Button onClick={handleSelectionReset}>
@@ -114,55 +116,70 @@ export default function TagSelector({
 						<Selection tags={selectorTags} selectedTags={selectedTags} />
 					)}
 
-					{expanded && (
-						<S.DropdownContent ref={dropdownRef}>
-							<S.DropdownActions>
-								<Filter
-									filter={filter}
-									clearFilter={clearFilter}
-									updateFilter={updateFilter}
-									hasAutoFocus
-								/>
+					<AnimatePresence>
+						{expanded && (
+							<S.DropdownContent
+								ref={dropdownRef}
+								variants={tagSelectorMotionVariants}
+								initial="initial"
+								animate="animate"
+								exit="exit"
+								transition={{
+									duration: 0.25,
+									ease: "easeOut",
+									delayChildren: stagger(0.1),
+								}}
+							>
+								<AnimatePresence>
+									<S.DropdownActions>
+										<Filter
+											filter={filter}
+											clearFilter={clearFilter}
+											updateFilter={updateFilter}
+											hasAutoFocus
+										/>
 
-								{!!selectedTagIds.length && (
-									<Button onClick={handleSelectionReset}>
-										<LucideFilterX size={18} color="orangered" />
-									</Button>
-								)}
+										{!!selectedTagIds.length && (
+											<Button onClick={handleSelectionReset}>
+												<LucideFilterX size={18} color="orangered" />
+											</Button>
+										)}
 
-								<Button onClick={handleModalOpen}>
-									<LucideMaximize size={20} color="dodgerblue" />
-								</Button>
+										<Button onClick={handleModalOpen}>
+											<LucideMaximize size={20} color="dodgerblue" />
+										</Button>
 
-								{showNewTagButton && <NewTagButton modalId={modalId} />}
+										{showNewTagButton && <NewTagButton modalId={modalId} />}
 
-								<Button onClick={minimizeFilter}>
-									<LucideChevronUp size={20} color={"forestgreen"} />
-								</Button>
-							</S.DropdownActions>
+										<Button onClick={minimizeFilter}>
+											<LucideChevronUp size={20} color={"forestgreen"} />
+										</Button>
+									</S.DropdownActions>
 
-							<S.List>
-								<TagSelectorItems
-									id={tagSelectorId}
-									modalId={modalId}
-									filteredTags={filteredTags}
-									tagSelection={tagSelection}
-									// TODO (TRK-209) updateTagSelection is exported from
-									// the state hook, so we could just call the hook
-									// inside here, instead of prop-drilling it. Only
-									// difference is we'd have to manually pass
-									// `maximum`.
-									updateTagSelection={updateTagSelection}
-								/>
-							</S.List>
+									<S.List>
+										<TagSelectorItems
+											id={tagSelectorId}
+											modalId={modalId}
+											filteredTags={filteredTags}
+											tagSelection={tagSelection}
+											// TODO (TRK-209) updateTagSelection is exported from
+											// the state hook, so we could just call the hook
+											// inside here, instead of prop-drilling it. Only
+											// difference is we'd have to manually pass
+											// `maximum`.
+											updateTagSelection={updateTagSelection}
+										/>
+									</S.List>
 
-							<Selection
-								fullPaths
-								tags={selectorTags}
-								selectedTags={selectedTags}
-							/>
-						</S.DropdownContent>
-					)}
+									<Selection
+										fullPaths
+										tags={selectorTags}
+										selectedTags={selectedTags}
+									/>
+								</AnimatePresence>
+							</S.DropdownContent>
+						)}
+					</AnimatePresence>
 				</div>
 			</S.Wrapper>
 			{/* NOTE I don't think we need to conditionally render TagTree based on !!state.isOpen, 

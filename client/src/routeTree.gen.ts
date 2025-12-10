@@ -19,6 +19,7 @@ import { Route as HabitsNewRouteImport } from "./routes/habits/new"
 import { Route as AuthVerifyEmailRouteImport } from "./routes/auth/verify-email"
 import { Route as AuthResetPasswordRouteImport } from "./routes/auth/reset-password"
 import { Route as AuthRequestPasswordResetRouteImport } from "./routes/auth/request-password-reset"
+import { Route as AuthAccountRouteImport } from "./routes/auth/account"
 import { Route as ActivitiesNewRouteImport } from "./routes/activities/new"
 
 const TodayRoute = TodayRouteImport.update({
@@ -72,6 +73,11 @@ const AuthRequestPasswordResetRoute =
     path: "/auth/request-password-reset",
     getParentRoute: () => rootRouteImport,
   } as any)
+const AuthAccountRoute = AuthAccountRouteImport.update({
+  id: "/auth/account",
+  path: "/auth/account",
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ActivitiesNewRoute = ActivitiesNewRouteImport.update({
   id: "/activities/new",
   path: "/activities/new",
@@ -84,6 +90,7 @@ export interface FileRoutesByFullPath {
   "/register": typeof RegisterRoute
   "/today": typeof TodayRoute
   "/activities/new": typeof ActivitiesNewRoute
+  "/auth/account": typeof AuthAccountRoute
   "/auth/request-password-reset": typeof AuthRequestPasswordResetRoute
   "/auth/reset-password": typeof AuthResetPasswordRoute
   "/auth/verify-email": typeof AuthVerifyEmailRoute
@@ -97,6 +104,7 @@ export interface FileRoutesByTo {
   "/register": typeof RegisterRoute
   "/today": typeof TodayRoute
   "/activities/new": typeof ActivitiesNewRoute
+  "/auth/account": typeof AuthAccountRoute
   "/auth/request-password-reset": typeof AuthRequestPasswordResetRoute
   "/auth/reset-password": typeof AuthResetPasswordRoute
   "/auth/verify-email": typeof AuthVerifyEmailRoute
@@ -111,6 +119,7 @@ export interface FileRoutesById {
   "/register": typeof RegisterRoute
   "/today": typeof TodayRoute
   "/activities/new": typeof ActivitiesNewRoute
+  "/auth/account": typeof AuthAccountRoute
   "/auth/request-password-reset": typeof AuthRequestPasswordResetRoute
   "/auth/reset-password": typeof AuthResetPasswordRoute
   "/auth/verify-email": typeof AuthVerifyEmailRoute
@@ -126,6 +135,7 @@ export interface FileRouteTypes {
     | "/register"
     | "/today"
     | "/activities/new"
+    | "/auth/account"
     | "/auth/request-password-reset"
     | "/auth/reset-password"
     | "/auth/verify-email"
@@ -139,6 +149,7 @@ export interface FileRouteTypes {
     | "/register"
     | "/today"
     | "/activities/new"
+    | "/auth/account"
     | "/auth/request-password-reset"
     | "/auth/reset-password"
     | "/auth/verify-email"
@@ -152,6 +163,7 @@ export interface FileRouteTypes {
     | "/register"
     | "/today"
     | "/activities/new"
+    | "/auth/account"
     | "/auth/request-password-reset"
     | "/auth/reset-password"
     | "/auth/verify-email"
@@ -166,6 +178,7 @@ export interface RootRouteChildren {
   RegisterRoute: typeof RegisterRoute
   TodayRoute: typeof TodayRoute
   ActivitiesNewRoute: typeof ActivitiesNewRoute
+  AuthAccountRoute: typeof AuthAccountRoute
   AuthRequestPasswordResetRoute: typeof AuthRequestPasswordResetRoute
   AuthResetPasswordRoute: typeof AuthResetPasswordRoute
   AuthVerifyEmailRoute: typeof AuthVerifyEmailRoute
@@ -246,6 +259,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AuthRequestPasswordResetRouteImport
       parentRoute: typeof rootRouteImport
     }
+    "/auth/account": {
+      id: "/auth/account"
+      path: "/auth/account"
+      fullPath: "/auth/account"
+      preLoaderRoute: typeof AuthAccountRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     "/activities/new": {
       id: "/activities/new"
       path: "/activities/new"
@@ -262,6 +282,7 @@ const rootRouteChildren: RootRouteChildren = {
   RegisterRoute: RegisterRoute,
   TodayRoute: TodayRoute,
   ActivitiesNewRoute: ActivitiesNewRoute,
+  AuthAccountRoute: AuthAccountRoute,
   AuthRequestPasswordResetRoute: AuthRequestPasswordResetRoute,
   AuthResetPasswordRoute: AuthResetPasswordRoute,
   AuthVerifyEmailRoute: AuthVerifyEmailRoute,

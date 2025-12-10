@@ -7,6 +7,8 @@ const constants = {} as const;
 
 const global = css`
    :root {
+      --header-height: 5.3rem;
+      --footer-height: 80px;
       --bg-body: ${colors.background.main[2]};
       --page-padding: ${spacingValue.medium};
 		@media (min-width: 768px) {
@@ -42,6 +44,8 @@ const global = css`
 
 const globalDark = css`
    :root {
+      --header-height: 5.3rem;
+      --footer-height: 80px;
       --bg-body: ${darkColors.background.body};
 		--page-padding: ${spacingValue.medium};
 		@media (min-width: 768px) {
@@ -104,7 +108,9 @@ export const globalShadows = ({ theme }: { theme: MainTheme }) => css`
       --bg-0-1: ${theme.colors.background.main[theme.mode === "light" ? 0 : 1]};
       --bg-0-2: ${theme.colors.background.main[theme.mode === "light" ? 0 : 2]};
       --bg-0-3: ${theme.colors.background.main[theme.mode === "light" ? 0 : 3]};
+      --bg-1-0: ${theme.colors.background.main[theme.mode === "light" ? 1 : 0]};
       --bg-1-2: ${theme.colors.background.main[theme.mode === "light" ? 1 : 2]};
+      --bg-1-3: ${theme.colors.background.main[theme.mode === "light" ? 1 : 3]};
       --bg-2-1: ${theme.colors.background.main[theme.mode === "light" ? 2 : 1]};
       --bg-3-1: ${theme.colors.background.main[theme.mode === "light" ? 3 : 1]};
       --bg-3-2: ${theme.colors.background.main[theme.mode === "light" ? 3 : 2]};

@@ -1,6 +1,8 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { inputStyle } from "@lib/theme/snippets/input";
+import { motion, type Variants } from "motion/react";
+import type { PropsWithChildren } from "react";
 import { font } from "@/lib/theme/font";
 import Input from "@/lib/theme/input";
 import { outline } from "@/lib/theme/snippets/edge";
@@ -22,7 +24,11 @@ const Wrapper = styled.div`
 	box-shadow: 0 0.3rem 1.2rem -0.1rem var(--bg-5-1);
 `;
 
-const FormTitle = styled.h1`
+const FormTitle = styled(motion.h1)`
+   /* NOTE: formTitleMotionVariants depends on this */
+   --shadow-1: -0.3rem 0.25rem 0 0 ${(p) => p.theme.colors.background.main[5]},
+		-0.6rem -0.4rem 0 0 ${(p) => p.theme.colors.blue.main};		
+
    ${flex.row};
 	font-size: ${font.size["1.1"]};
 	margin: 0;
@@ -33,10 +39,34 @@ const FormTitle = styled.h1`
 	max-width: max-content;
 	background-color: ${(p) => p.theme.colors.background.main[3]};
 	${spacing.padding.wide({ size: 0.5, ratio: 3 })};
-	box-shadow:
-		-0.3rem 0.25rem 0 0 ${(p) => p.theme.colors.background.main[5]},
-		-0.6rem -0.4rem 0 0 ${(p) => p.theme.colors.blue.main};		
+	box-shadow: var(--shadow-1)
 `;
+
+const formTitleMotionVariants: Variants = {
+	closed: {
+		boxShadow: "none",
+	},
+	opened: {
+		boxShadow: "var(--shadow-1)",
+	},
+};
+
+function MotionFormTitle({
+	children,
+	...props
+}: PropsWithChildren<Parameters<typeof FormTitle>[0]>) {
+	return (
+		<FormTitle
+			variants={formTitleMotionVariants}
+			initial="closed"
+			animate="opened"
+			exit="closed"
+			{...props}
+		>
+			{children}
+		</FormTitle>
+	);
+}
 
 const RowTitle = styled.h3<{ $inverted?: boolean; $inline?: boolean }>`
 	${spacing.padding.wide({ size: 0.3, ratio: 2.5 })};
@@ -141,7 +171,7 @@ const Label = styled.label<{ $showWarning?: boolean }>`
 
 const formStyle = {
 	Wrapper,
-	FormTitle,
+	FormTitle: MotionFormTitle,
 	Row,
 	RowTitle,
 	CompactRow,

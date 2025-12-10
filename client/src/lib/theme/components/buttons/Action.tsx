@@ -137,7 +137,7 @@ const Stylized = styled(Unstyled)<{
 const WithIcon = styled(Default)`
 	display: flex;
 	width: max-content;
-	
+
 	${radius.large};
 	padding: 1.5rem 2.5rem;
 	gap: ${spacingValue.medium};
@@ -178,9 +178,12 @@ const DefaultText = styled(Default)`
 `;
 
 const Minimal = styled(Unstyled)`
+   display: flex;
+   justify-content: space-between;
+
    cursor: pointer;
-   --color: ${(p) => p.theme.colors.light[3]};
-   color: ${(p) => p.theme.colors.dark[0]};
+   --color: ${(p) => lightDark(p, p.theme.colors.light[3], p.theme.colors.dark[3])};
+   color: ${(p) => lightDark(p, p.theme.colors.dark[0], p.theme.colors.light[0])};
    outline: 2px solid var(--color);
    padding: ${spacingValue.smaller} ${spacingValue.medium};
    border-radius: 2px;
@@ -196,7 +199,7 @@ const Minimal = styled(Unstyled)`
 
    &:disabled {
       cursor: default;
-      --color: ${(p) => p.theme.colors.light[5]};
+      --color: ${(p) => lightDark(p, p.theme.colors.light[4], p.theme.colors.dark[5])};
    }
 `;
 
@@ -204,14 +207,15 @@ const MinimalPlus = styled(Minimal)`
    transition: all 35ms ease-out;
 
    --highlight-color: ${(p) => p.theme.colors.purple.tertiary};
+   --shadow-color: ${(p) => lightDark(p, colors.light[5], colors.dark[4])};
 
    &:not(:disabled) {
-      box-shadow: 0 0.5rem 0 -0.3rem #ccc;
+      box-shadow: 0 0.5rem 0 -0.3rem var(--shadow-color);
 
       &:hover, &:active, &:focus {
          box-shadow: 
             0 0.6rem 0 -4px var(--highlight-color), 
-            0 0.3rem 0 0 ${colors.light[5]},
+            0 0.3rem 0 0 var(--shadow-color),
             0 0.5rem 0.4rem -0.2rem ${colors.dark[3]};
          transform: translateY(-2px);
       }

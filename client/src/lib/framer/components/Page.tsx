@@ -9,6 +9,11 @@ export default function Page(props: PropsWithChildren) {
 			initial="hidden"
 			animate="appear"
 			exit="exit"
+			transition={{
+				duration: 0.25,
+				type: "tween",
+				ease: "easeInOut",
+			}}
 		>
 			{props.children}
 		</S.Page>

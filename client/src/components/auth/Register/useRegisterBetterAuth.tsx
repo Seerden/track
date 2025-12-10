@@ -32,7 +32,7 @@ function useRegisterMutation() {
 	});
 }
 
-export default function useRegisterBetterAuth() {
+export function useRegister() {
 	const { mutate: register } = useRegisterMutation();
 
 	const [newUser, setNewUser] = useState<Partial<RegisterInput>>({});

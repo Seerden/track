@@ -1,4 +1,5 @@
 import { type PropsWithChildren, useState } from "react";
+import { createPortal } from "react-dom";
 import SpeedDial from "@/components/utility/SpeedDial/SpeedDial";
 import modalIds, { type ModalId } from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
@@ -34,7 +35,7 @@ function SpeedDialAction({
 export default function Create() {
 	const [speedDialOpen, setSpeedDialOpen] = useState(false);
 
-	return (
+	return createPortal(
 		<S.Create>
 			<SpeedDial open={speedDialOpen} setOpen={setSpeedDialOpen}>
 				<S.SpeedDialActions>
@@ -48,6 +49,7 @@ export default function Create() {
 					<SpeedDialAction modalId={modalIds.notes.new}>note</SpeedDialAction>
 				</S.SpeedDialActions>
 			</SpeedDial>
-		</S.Create>
+		</S.Create>,
+		document.querySelector("#root") as HTMLElement
 	);
 }

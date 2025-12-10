@@ -1,6 +1,5 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import Buttons from "@/lib/theme/components/buttons";
 import ActionButtons from "@/lib/theme/components/buttons/Action";
 import { lightDark } from "@/lib/theme/light-dark";
 import { flex } from "@/lib/theme/snippets/flex";
@@ -27,6 +26,8 @@ const NavBar = styled.nav`
 	justify-content: space-between;
 	align-items: center;
 	gap: 2rem;
+
+   height: var(--header-height);
 `;
 
 const Actions = styled.div`
@@ -89,7 +90,8 @@ const HomeLink = styled.span`
 	}
 `;
 
-const MenuTrigger = styled(Buttons.Unstyled)`
+const MenuTrigger = styled.span`
+   cursor: pointer;
    display: flex;
 
    &:hover, &:focus {

@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { motion, type Variants } from "motion/react";
 import { rowHeight } from "@/components/Today/timeline/style/TimelineRow.style";
 import { colors } from "@/lib/theme/colors";
 import { font } from "@/lib/theme/font";
@@ -8,22 +9,46 @@ import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
 import Today from "../../style/Today.style";
 
+export const activityMotionVariants: Variants = {
+	initial: {
+		opacity: 0,
+		transition: {
+			duration: 0.15,
+		},
+	},
+	animate: {
+		opacity: 1,
+		transition: {
+			delay: 0.15,
+			duration: 0.15,
+		},
+	},
+	exit: {
+		opacity: 0,
+		transition: {
+			duration: 0.15,
+		},
+	},
+};
+
 const cardWidth = "8vw";
 const cardGap = "5px";
 
-const ActivityCard = styled.div<{ $level: number; $offset: number }>`
+const ActivityCard = styled(motion.div)<{ $level: number; $offset: number }>`
 	position: absolute;
 	cursor: pointer;
 	user-select: none;
 	top: calc(${(p) => p.$offset * 100}%);
-
+   
 	--card-gap: 3px;
 	--card-width: 100px;
-
+   
 	@media (min-width: 1440px) {
-		--card-gap: ${cardGap};
+      --card-gap: ${cardGap};
 		--card-width: ${cardWidth};
 	}
+   
+   max-width: var(--card-width);
 	left: calc(3rem + ${(p) => p.$level} * (var(--card-gap) + var(--card-width)));
 	font-size: ${font.size["0.85"]};
 	display: flex;
@@ -37,16 +62,18 @@ const ActivityCard = styled.div<{ $level: number; $offset: number }>`
 		${radius.round};
 		background-color: ${(p) => p.theme.colors.background.main[3]};
 	}
+
+   
 `;
 
-const Activity = styled.div<{
+const Activity = styled(motion.div)<{
 	$durationHours: number;
 	$isTask?: boolean;
 	$completed?: boolean;
 	$isRecurring?: boolean;
 }>`
 	display: flex;
-	position: absolute;
+
 	z-index: 2;
 
 	--row-height: ${rowHeight}px;

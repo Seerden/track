@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { motion, type Variants } from "motion/react";
 import Buttons from "@/lib/theme/components/buttons";
 import { font } from "@/lib/theme/font";
 import Input from "@/lib/theme/input";
@@ -7,6 +8,12 @@ import { lightDark } from "@/lib/theme/light-dark";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
+
+export const tagSelectorMotionVariants: Variants = {
+	initial: { clipPath: "circle(0% at 90% 0%)" },
+	animate: { clipPath: "circle(150% at 50% 0%)" },
+	exit: { clipPath: "circle(0% at 92.5% 12%)" },
+};
 
 const Wrapper = styled.div<{ $fullSize?: boolean }>`
 	position: relative;
@@ -27,7 +34,7 @@ const Wrapper = styled.div<{ $fullSize?: boolean }>`
    background-color: var(--bg-1-2);
 `;
 
-const List = styled.ul`
+const List = styled(motion.ul)`
 	${flex.row};
 	background-color: var(--bg-0-1);
 ;
@@ -127,7 +134,7 @@ const Actions = styled.div`
 	}
 `;
 
-const DropdownActions = styled.div`
+const DropdownActions = styled(motion.div)`
 	${flex.row};
 	align-items: flex-end;
 	justify-content: space-between;
@@ -150,7 +157,7 @@ const DropdownActions = styled.div`
 	}
 `;
 
-const DropdownContent = styled.div`
+const DropdownContent = styled(motion.div)`
    --inline-offset: 1.1rem;
 
 	position: absolute;
@@ -188,7 +195,7 @@ const SelectionList = styled.ul`
 	overflow-y: scroll;
 `;
 
-const SelectionItem = styled.li`
+const SelectionItem = styled(motion.li)`
 	${flex.centered};
 	flex: 1;
 

@@ -1,6 +1,6 @@
 import { TextInput } from "@mantine/core";
 import { LucideArrowRight, LucideEye, LucideEyeOff } from "lucide-react";
-import useRegisterBetterAuth from "@/components/auth/Register/useRegisterBetterAuth";
+import { useRegister } from "@/components/auth/Register/useRegisterBetterAuth";
 import { AnimatedIcon } from "@/lib/animate/AnimatedIcon";
 import F from "@/lib/theme/components/form/form.alternate.style";
 import S from "../style/auth.style";
@@ -11,7 +11,7 @@ export default function RegisterBetterAuth() {
 		handleSubmit,
 		passwordVisible,
 		togglePasswordVisible,
-	} = useRegisterBetterAuth();
+	} = useRegister();
 
 	return (
 		// TODO: like in the login form, this probably becomes a modal that expands from the navigation/header

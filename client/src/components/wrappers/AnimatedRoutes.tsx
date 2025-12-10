@@ -1,9 +1,47 @@
 import { ErrorBoundary } from "@sentry/react";
-import { getRouterContext, Outlet, useLocation } from "@tanstack/react-router";
-import { AnimatePresence, motion, useIsPresent } from "motion/react";
-import { Fragment, forwardRef, useContext, useRef } from "react";
+import {
+	getRouterContext,
+	Outlet,
+	useMatch,
+	useMatches,
+} from "@tanstack/react-router";
+import { cloneDeep } from "lodash";
+import {
+	AnimatePresence,
+	motion,
+	useIsPresent,
+	type Variants,
+} from "motion/react";
+import { forwardRef, useContext, useRef } from "react";
 import DetailModals from "@/components/utility/Modal/DetailModals";
 import PageWrapper from "@/lib/theme/snippets/page";
+
+const pageMotionVariants: Variants = {
+	initial: {
+		clipPath: "circle(0% at 0% 0%)",
+		filter: "blur(2px)",
+		transition: {
+			duration: 0.25,
+			ease: "easeOut",
+		},
+	},
+	animate: {
+		clipPath: `circle(150% at 50% 0%)`,
+		filter: "blur(0)",
+		transition: {
+			duration: 0.25,
+			ease: "easeIn",
+		},
+	},
+	exit: {
+		clipPath: "circle(0% at 100% 100%)",
+		filter: "blur(2px)",
+		transition: {
+			duration: 0.25,
+			ease: "easeIn",
+		},
+	},
+};
 
 /**
  * @see https://stackoverflow.com/questions/74190609/exit-animations-with-animatepresence-framer-motion-and-createbrowserrouter-r
@@ -16,11 +54,23 @@ const AnimatedOutlet = forwardRef<HTMLDivElement>((_, ref) => {
 	const isPresent = useIsPresent();
 
 	if (isPresent) {
-		renderedContext.current = routerContext;
+		renderedContext.current = cloneDeep(routerContext);
 	}
 
 	return (
-		<motion.div ref={ref}>
+		<motion.div
+			className="AnimatedRoutes"
+			ref={ref}
+			variants={pageMotionVariants}
+			initial="initial"
+			animate="animate"
+			exit="exit"
+			transition={{
+				duration: 0.15,
+				type: "tween",
+				ease: "easeInOut",
+			}}
+		>
 			<ErrorBoundary fallback={<p>An error occurred</p>}>
 				<RouterContext.Provider value={renderedContext.current}>
 					<Outlet />
@@ -31,16 +81,18 @@ const AnimatedOutlet = forwardRef<HTMLDivElement>((_, ref) => {
 	);
 });
 
+/** @see https://github.com/TanStack/router/discussions/823 */
 export default function AnimatedRoutes() {
-	const location = useLocation();
+	const matches = useMatches();
+	const match = useMatch({ strict: false });
+	const nextMatchIndex = matches.findIndex((d) => d.id === match.id) + 1;
+	const nextMatch = matches[nextMatchIndex];
 
 	return (
 		<>
 			<PageWrapper>
 				<AnimatePresence mode="wait">
-					<Fragment key={location.pathname}>
-						<AnimatedOutlet />
-					</Fragment>
+					<AnimatedOutlet key={nextMatch.id} />
 				</AnimatePresence>
 			</PageWrapper>
 		</>

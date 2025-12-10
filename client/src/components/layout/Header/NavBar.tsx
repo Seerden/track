@@ -9,6 +9,7 @@ import {
 	LucideSun,
 	LucideUserCircle,
 } from "lucide-react";
+import { motion } from "motion/react";
 import ActivityMenu from "@/components/layout/Header/ActivityMenu/ActivityMenu";
 import Menu from "@/components/layout/Header/Menu";
 import TagFilter from "@/components/tags/TagFilter/TagFilter";
@@ -49,9 +50,9 @@ export default function NavBar() {
 						</Tooltip>
 					}
 				>
-					<div style={{ padding: "1rem" }}>
+					<motion.div style={{ padding: "1rem" }}>
 						<TagFilter />
-					</div>
+					</motion.div>
 				</Menu>
 
 				{/* TODO (TRK-257): finish this implementation */}
