@@ -51,8 +51,8 @@ export function useRegister() {
 	}, [newUser]);
 
 	const parsedUser = registerInputSchema.safeParse(newUser);
-	// TODO: email needs to be validated server-side if provided
-	const isValidNewUser = parsedUser.success;
+	const isValidNewUser =
+		parsedUser.success && parsedUser.data.password === passwordConfirm;
 
 	function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
 		if (e.target.name === "passwordConfirm") {
@@ -74,7 +74,6 @@ export function useRegister() {
 		e.preventDefault();
 
 		if (isValidNewUser) {
-			// mutate, login and redirect
 			register(parsedUser.data, {
 				onError: (error) => {
 					if (error instanceof BetterAuthError) {
@@ -110,8 +109,6 @@ export function useRegister() {
 				},
 			});
 		}
-
-		// otherwise show error state depending on what's wrong
 	}
 
 	return {
