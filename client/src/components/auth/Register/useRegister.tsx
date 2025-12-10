@@ -1,7 +1,10 @@
+import { notifications } from "@mantine/notifications";
 import { z } from "@shared/lib/zod";
 import { useMutation } from "@tanstack/react-query";
+import { BetterAuthError } from "better-auth";
 import { produce } from "immer";
-import { useState } from "react";
+import { LucideAlertCircle, LucideAtSign } from "lucide-react";
+import { useEffect, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 
 const registerInputSchema = z.object({
@@ -17,23 +20,20 @@ type RegisterInput = Pick<
 >;
 
 function useRegisterMutation() {
-	return useMutation<
-		ReturnType<typeof authClient.signUp.email>,
-		unknown,
-		RegisterInput
-	>({
-		mutationFn: (input) =>
-			authClient.signUp.email({
+	return useMutation({
+		mutationFn: async (input: RegisterInput) => {
+			return await authClient.signUp.email({
 				email: input.email,
 				password: input.password,
 				username: input.username,
 				name: input.name,
-			}),
+			});
+		},
 	});
 }
 
 export function useRegister() {
-	const { mutate: register } = useRegisterMutation();
+	const { mutate: register, isError, isSuccess, reset } = useRegisterMutation();
 
 	const [newUser, setNewUser] = useState<Partial<RegisterInput>>({});
 
@@ -43,6 +43,12 @@ export function useRegister() {
 	function togglePasswordVisible() {
 		setPasswordVisible((current) => !current);
 	}
+
+	// When the input changes, we reset the success/error state of the mutation,
+	// so the user can try again on error or success.
+	useEffect(() => {
+		reset();
+	}, [newUser]);
 
 	const parsedUser = registerInputSchema.safeParse(newUser);
 	// TODO: email needs to be validated server-side if provided
@@ -66,14 +72,41 @@ export function useRegister() {
 
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-		console.log({ isValidNewUser, parsedUser });
+
 		if (isValidNewUser) {
 			// mutate, login and redirect
 			register(parsedUser.data, {
-				// TODO: of course eventually we want a user to verify their
-				// account, but for dev purposes this approach is good enough
-				onSuccess: () => {
-					// TODO: login and redirect
+				onError: (error) => {
+					if (error instanceof BetterAuthError) {
+						notifications.show({
+							position: "top-center",
+							color: "orangered",
+							icon: <LucideAlertCircle />,
+							message: error.message,
+						});
+					}
+				},
+				onSuccess: (data) => {
+					if (data.error) {
+						notifications.show({
+							position: "top-center",
+							icon: <LucideAlertCircle size={23} />,
+							color: "red",
+							autoClose: false,
+							withCloseButton: true,
+							title: "Registration failed",
+							message: data.error.message ?? data.error.code,
+						});
+					} else {
+						notifications.show({
+							position: "top-center",
+							icon: <LucideAtSign size={23} />,
+							color: "royalblue",
+							message: `If the username and email you've provided have not yet been
+									taken, you will receive an email containing a verification
+									link. Once your email is verified, you'll be able to log in.`,
+						});
+					}
 				},
 			});
 		}
@@ -86,5 +119,7 @@ export function useRegister() {
 		handleSubmit,
 		passwordVisible,
 		togglePasswordVisible,
+		isError,
+		isSuccess,
 	};
 }

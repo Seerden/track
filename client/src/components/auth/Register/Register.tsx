@@ -1,6 +1,6 @@
 import { TextInput } from "@mantine/core";
 import { LucideArrowRight, LucideEye, LucideEyeClosed } from "lucide-react";
-import { useRegister } from "@/components/auth/Register/useRegisterBetterAuth";
+import { useRegister } from "@/components/auth/Register/useRegister";
 import { AnimatedIcon } from "@/lib/animate/AnimatedIcon";
 import F from "@/lib/theme/components/form/form.alternate.style";
 import S from "../style/auth.style";
@@ -13,6 +13,8 @@ export default function RegisterBetterAuth() {
 		handleSubmit,
 		passwordVisible,
 		togglePasswordVisible,
+		isSuccess,
+		isError,
 	} = useRegister();
 
 	const showPasswordIcon = (
@@ -89,7 +91,12 @@ export default function RegisterBetterAuth() {
 						</div>
 					</S.Column>
 				</S.Fields>
-				<F.Submit $minimal type="submit" style={{ marginTop: "1rem" }}>
+				<F.Submit
+					$minimal
+					type="submit"
+					style={{ marginTop: "1rem" }}
+					disabled={isError || isSuccess}
+				>
 					register <LucideArrowRight size={15} />
 				</F.Submit>
 			</F.Form>
