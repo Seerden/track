@@ -17,6 +17,7 @@ export function createDefaultActivity({
 	const start = defaultTimeWindowAwareStart(timeWindow);
 
 	return {
+		parent_id: null,
 		name: "",
 		description: null,
 		is_task,

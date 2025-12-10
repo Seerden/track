@@ -1,11 +1,10 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type { PropsWithChildren } from "react";
-import type { MainTheme } from "@/lib/style/theme";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 
-export const pageStyle = ({ theme }: { theme: MainTheme }) => css`
+export const pageStyle = css`
 	background-color: var(--bg-3-1);
 	display: flex;
 

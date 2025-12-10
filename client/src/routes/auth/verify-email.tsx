@@ -10,7 +10,7 @@ export const Route = createFileRoute("/auth/verify-email")({
 				token: z.string(),
 			})
 			.parse(search),
-	beforeLoad: async ({ context, search }) => {
+	beforeLoad: async ({ search }) => {
 		const { token } = search;
 
 		const emailVerifyResponse = await authClient.verifyEmail({

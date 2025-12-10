@@ -31,7 +31,7 @@ export default function useMonthPicker({
 	function handleMonthChange(value: DateValue) {
 		if (!value) return;
 
-		setMonthValue(value);
+		setMonthValue(new Date(value));
 		setShowMonthPicker(false);
 	}
 
