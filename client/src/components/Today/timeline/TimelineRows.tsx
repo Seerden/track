@@ -26,10 +26,6 @@ export default function TimelineRows({ activities, currentDate }: RowsProps) {
 		<Containers.Column
 			/** @ts-ignore  */
 			as="ul"
-			layout="size"
-			transition={{
-				type: "tween",
-			}}
 			style={{ gridArea: "timeline" }}
 		>
 			<AnimatePresence mode="popLayout">

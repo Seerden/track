@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import type { Variants } from "motion";
 import { roundedSectionStyle } from "@/components/Today/style/Today.style";
 import SettingsStyle from "@/components/user/profile/settings/style/Settings.style";
 import Containers from "@/lib/theme/components/container.style";
@@ -6,6 +7,16 @@ import { Title } from "@/lib/theme/components/text/title.style";
 import { font } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
+
+export const moveArrowMotionVariants: Variants = {
+	moveArrow: {
+		x: 2,
+		transition: {
+			type: "tween",
+			duration: 0.015,
+		},
+	},
+};
 
 const Wrapper = styled(Containers.Column)`
    ${roundedSectionStyle};

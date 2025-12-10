@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { motion } from "motion/react";
+import { motion, type Variants } from "motion/react";
 import Buttons from "@/lib/theme/components/buttons";
 import { font } from "@/lib/theme/font";
 import Input from "@/lib/theme/input";
@@ -8,6 +8,12 @@ import { lightDark } from "@/lib/theme/light-dark";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
+
+export const tagSelectorMotionVariants: Variants = {
+	initial: { clipPath: "circle(0% at 90% 0%)" },
+	animate: { clipPath: "circle(150% at 50% 0%)" },
+	exit: { clipPath: "circle(0% at 92.5% 12%)" },
+};
 
 const Wrapper = styled.div<{ $fullSize?: boolean }>`
 	position: relative;

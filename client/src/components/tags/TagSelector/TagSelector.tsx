@@ -14,7 +14,7 @@ import TagTree from "@/components/tags/TagTree/TagTree";
 import type { ModalId } from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import NewTagButton from "./NewTagButton";
-import S from "./style/TagSelector.style";
+import S, { tagSelectorMotionVariants } from "./style/TagSelector.style";
 import useTagSelector from "./useTagSelector";
 
 const Button = Buttons.Action.Alternative;
@@ -120,9 +120,10 @@ export default function TagSelector({
 						{expanded && (
 							<S.DropdownContent
 								ref={dropdownRef}
-								initial={{ clipPath: "circle(0% at 90% 0%)" }}
-								animate={{ clipPath: "circle(150% at 50% 0%)" }}
-								exit={{ clipPath: "circle(0% at 92.5% 12%)" }}
+								variants={tagSelectorMotionVariants}
+								initial="initial"
+								animate="animate"
+								exit="exit"
 								transition={{
 									duration: 0.25,
 									ease: "easeOut",

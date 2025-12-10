@@ -12,16 +12,13 @@ import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import { Title } from "@/lib/theme/components/text/title.style";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import S from "./style/Account.style";
+import S, { moveArrowMotionVariants } from "./style/Account.style";
 
 export default function Account() {
 	const { currentUser } = useAuthentication();
-
-	if (!currentUser) {
-		return null;
-	}
-
+	if (!currentUser) return null;
 	const { username, email, emailVerified, name } = currentUser;
+
 	return (
 		<S.Wrapper>
 			<S.Header>
@@ -64,6 +61,8 @@ export default function Account() {
 							<Link to="/auth/request-password-reset">
 								<Buttons.Action.MinimalPlus
 									style={{ width: "100%", position: "relative" }}
+									// Make sure this always matches the name of the
+									// variant in moveArrowMotionVariants
 									whileHover="moveArrow"
 								>
 									<span>forgot password</span>
@@ -72,15 +71,7 @@ export default function Account() {
 											position: "absolute",
 											right: spacingValue.smallest,
 										}}
-										variants={{
-											moveArrow: {
-												x: 2,
-												transition: {
-													type: "tween",
-													duration: 0.015,
-												},
-											},
-										}}
+										variants={moveArrowMotionVariants}
 									>
 										<LucideChevronRight size={15} />
 									</motion.i>
