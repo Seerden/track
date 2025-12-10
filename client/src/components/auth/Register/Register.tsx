@@ -1,10 +1,12 @@
 import { TextInput } from "@mantine/core";
-import { LucideArrowRight, LucideEye, LucideEyeOff } from "lucide-react";
+import { LucideArrowRight, LucideEye, LucideEyeClosed } from "lucide-react";
 import { useRegister } from "@/components/auth/Register/useRegisterBetterAuth";
 import { AnimatedIcon } from "@/lib/animate/AnimatedIcon";
 import F from "@/lib/theme/components/form/form.alternate.style";
 import S from "../style/auth.style";
 
+/** @todo (TRK-317) like Login.tsx, I want the input fields to _be_ mantine
+ * inputs, but _use_ F.Input styling. */
 export default function RegisterBetterAuth() {
 	const {
 		handleInputChange,
@@ -12,6 +14,23 @@ export default function RegisterBetterAuth() {
 		passwordVisible,
 		togglePasswordVisible,
 	} = useRegister();
+
+	const showPasswordIcon = (
+		<S.ShowPassword
+			tabIndex={0}
+			type="button"
+			onClick={togglePasswordVisible}
+			value={`${passwordVisible ? "Hide" : "Show"} password`}
+		>
+			<AnimatedIcon
+				intermediate={null}
+				on={<LucideEye />}
+				off={<LucideEyeClosed />}
+				state={passwordVisible}
+				size={18}
+			/>
+		</S.ShowPassword>
+	);
 
 	return (
 		// TODO: like in the login form, this probably becomes a modal that expands from the navigation/header
@@ -51,22 +70,7 @@ export default function RegisterBetterAuth() {
 										type={passwordVisible ? "text" : "password"}
 										required
 										name="password"
-										rightSection={
-											<S.ShowPassword
-												tabIndex={-1}
-												type="button"
-												onClick={togglePasswordVisible}
-												value={`${passwordVisible ? "Hide" : "Show"} password`}
-											>
-												<AnimatedIcon
-													intermediate={null}
-													on={<LucideEye />}
-													off={<LucideEyeOff />}
-													state={passwordVisible}
-													size={24}
-												/>
-											</S.ShowPassword>
-										}
+										rightSection={showPasswordIcon}
 									/>
 								</div>
 							</F.Label>
@@ -78,20 +82,7 @@ export default function RegisterBetterAuth() {
 										type={passwordVisible ? "text" : "password"}
 										required
 										name="passwordConfirm"
-										rightSection={
-											<S.ShowPassword
-												tabIndex={-1}
-												type="button"
-												onClick={togglePasswordVisible}
-												value={`${passwordVisible ? "Hide" : "Show"} password`}
-											>
-												{passwordVisible ? (
-													<LucideEyeOff size={24} />
-												) : (
-													<LucideEye size={24} />
-												)}
-											</S.ShowPassword>
-										}
+										rightSection={showPasswordIcon}
 									/>
 								</div>
 							</F.Label>
