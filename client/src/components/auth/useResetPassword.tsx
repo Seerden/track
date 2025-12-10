@@ -23,6 +23,7 @@ export function useResetPassword() {
 		newPassword: "",
 		repeatPassword: "",
 	});
+	const navigate = api.useNavigate();
 
 	function handleSubmit(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
@@ -42,6 +43,8 @@ export function useResetPassword() {
 							message: "You can now log in with your new password",
 							position: "top-center",
 						});
+
+						navigate({ to: "/login" });
 					},
 				}
 			);
