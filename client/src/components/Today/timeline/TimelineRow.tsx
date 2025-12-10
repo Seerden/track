@@ -32,14 +32,9 @@ export default function TimelineRow({
 
 	return (
 		<S.Row
-			initial={{ opacity: 0 }}
-			animate={{ opacity: 1 }}
-			exit={{ opacity: 0 }}
-			transition={{
-				type: "tween",
-				duration: 0.15,
-			}}
-			$collapsed={activities.length === 0} // this shouldn't check if activities.length is 0, but if there are no activities that occur at this hour
+			// this shouldn't check if activities.length is 0, but if there are no
+			// activities that occur at this hour
+			$collapsed={activities.length === 0}
 		>
 			<HourMark
 				key={index % 24}

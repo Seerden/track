@@ -1,12 +1,14 @@
 import { Tooltip } from "@mantine/core";
 import { useAtomValue } from "jotai";
 import { LucideCircleDot, LucideTag } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import { Suspense } from "react";
 import { tagFilterAtom } from "@/components/activities/ActivityFilter/tag-filter.atom";
 import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
 import NewHabit from "@/components/habits/NewHabit/NewHabit";
 import NewNote from "@/components/notes/NewNote/NewNote";
 import AllDayActivities from "@/components/Today/activities/AllDayActivities";
+import { activityMotionVariants } from "@/components/Today/activities/style/Activity.style";
 import Create from "@/components/Today/Create";
 import Habits from "@/components/Today/habits/Habits";
 import TimelineRows from "@/components/Today/timeline/TimelineRows";
@@ -90,19 +92,29 @@ export default function Today() {
 
 				<S.TimelineWrapper style={{ gridArea: "timeline" }}>
 					<S.Header style={{ gridArea: "header" }}>
-						<h1>
-							<Containers.Row gap="small">
-								<Buttons.Action.Direction
-									direction="previous"
-									onClick={() => changeDay("previous")}
-								/>
-								<Buttons.Action.Direction
-									direction="next"
-									onClick={() => changeDay("next")}
-								/>
-							</Containers.Row>
-							{title}
-						</h1>
+						<AnimatePresence key={title}>
+							<h1>
+								<Containers.Row gap="small">
+									<Buttons.Action.Direction
+										direction="previous"
+										onClick={() => changeDay("previous")}
+									/>
+									<Buttons.Action.Direction
+										direction="next"
+										onClick={() => changeDay("next")}
+									/>
+								</Containers.Row>
+								<motion.span
+									variants={activityMotionVariants}
+									initial="initial"
+									animate="animate"
+									exit="exit"
+									transition={{ ease: "easeOut", duration: 0.075 }}
+								>
+									{title}
+								</motion.span>
+							</h1>
+						</AnimatePresence>
 						<OverdueTasksIndicator taskCount={overdueTasks?.length ?? 0} />
 					</S.Header>
 

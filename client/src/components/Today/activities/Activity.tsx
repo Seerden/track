@@ -36,7 +36,6 @@ export default function Activity({
 				e.stopPropagation();
 				openDetailedItemModal(activity.activity_id ?? activity.synthetic_id);
 			}}
-			transition={{ duration: 0.075, delay: 0, ease: "easeOut" }}
 		>
 			{/* TODO: on mouseover, display a short humanized time string */}
 			<S.Activity

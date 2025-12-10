@@ -13,21 +13,20 @@ export const activityMotionVariants: Variants = {
 	initial: {
 		opacity: 0,
 		transition: {
-			// delay: 0.35,
-			duration: 0.35,
+			duration: 0.15,
 		},
 	},
 	animate: {
 		opacity: 1,
 		transition: {
-			delay: 0.35,
-			duration: 0.35,
+			delay: 0.15,
+			duration: 0.15,
 		},
 	},
 	exit: {
 		opacity: 0,
 		transition: {
-			duration: 0.35,
+			duration: 0.15,
 		},
 	},
 };
