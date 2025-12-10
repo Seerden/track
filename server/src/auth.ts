@@ -6,7 +6,7 @@ import { emailFrom, sendEmail } from "@/lib/email/send-email";
 
 const baseUrl =
 	process.env.NODE_ENV === "production"
-		? "https://track.seerden.dev"
+		? `https://${process.env.DOMAIN}`
 		: "http://localhost:5175";
 
 export const auth = betterAuth({

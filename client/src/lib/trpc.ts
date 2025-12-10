@@ -7,20 +7,6 @@ import {
 import SuperJSON from "superjson";
 import { queryClient } from "@/lib/query-client";
 
-const DOMAIN =
-	import.meta.env.MODE === "production" ? "track.seerden.dev" : "localhost";
-const PROTOCOL = import.meta.env.MODE === "production" ? "https" : "http";
-const HOST = import.meta.env.MODE === "production" ? DOMAIN : "localhost";
-
-const url =
-	import.meta.env.MODE === "production"
-		? // In production, we can't use the port; the express server on the backend
-			// should handle deciding between the trpc router and serving the client bundle.
-			`${PROTOCOL}://${HOST}/api/trpc`
-		: `/api/trpc`;
-
-console.log({ url, clientEnv: import.meta.env });
-
 export const trpcReactQuery: ReturnType<typeof createTRPCContext<AppRouter>> =
 	createTRPCContext<AppRouter>();
 
@@ -29,7 +15,9 @@ export const trpcClient: ReturnType<typeof createTRPCClient<AppRouter>> =
 		links: [
 			httpBatchLink({
 				transformer: SuperJSON,
-				url,
+				// NOTE: don't forget that for this to work, we need a proxy in
+				// vite.config.ts.
+				url: "/api/trpc",
 				fetch(url, options) {
 					return fetch(url, {
 						...options,
