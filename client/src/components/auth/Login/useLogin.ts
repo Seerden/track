@@ -43,7 +43,7 @@ export default function useLogin() {
 		}
 
 		login(userLogin, {
-			onSuccess: (user) => {
+			onSuccess: () => {
 				// redirect if we're on a login page, otherwise just close the
 				// modal. probably we redirect to the user's home page, because I
 				// expect almost everyting will be behind a login wall.

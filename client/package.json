@@ -10,6 +10,7 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "build-types": "tsc --build --verbose",
+    "types:check": "tsc -p tsconfig.app.json --noEmit",
     "sentry-source": "npx @sentry/wizard@latest -i sourcemaps --saas"
   },
   "dependencies": {
