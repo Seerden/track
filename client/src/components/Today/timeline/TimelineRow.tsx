@@ -31,8 +31,19 @@ const featherIconMotionVariants: Variants = {
 		opacity: 1,
 		visibility: "visible",
 		x: 0,
+		transition: {
+			delay: 0.2,
+		},
 	},
-	exit: { opacity: 0, visibility: "hidden", x: 10 },
+	exit: {
+		opacity: 0,
+		visibility: "hidden",
+		// x: 10,
+		transition: {
+			duration: 0.035,
+			ease: "easeOut",
+		},
+	},
 };
 
 const timelineRowMotionVariants = (theme: MainTheme): Variants => ({
@@ -43,6 +54,7 @@ const timelineRowMotionVariants = (theme: MainTheme): Variants => ({
 		// TODO: have to fall back to the actual original color, otherwise get a
 		// warning (value-not-animatable)
 		"--hour-mark-background-color": "unset",
+		width: "100%",
 	},
 	active: {
 		"--hour-mark-color": theme.colors.light[2],
@@ -58,9 +70,11 @@ const timelineRowMotionVariants = (theme: MainTheme): Variants => ({
 			duration: 0.05,
 			ease: "easeOut",
 		},
+		width: "80%",
 	},
 	hover: {
 		backgroundColor: "var(--bg-3-2)",
+		width: "80%",
 	},
 });
 
@@ -73,7 +87,7 @@ const timelinePopoverMotionVariants = (theme: MainTheme) => ({
 
 const Pop = styled(motion.div)`
    position: absolute;
-   width: 300px;
+   width: max-content;
    height: max-content;
    top: 0;
    bottom: 0;
@@ -124,7 +138,7 @@ export default function TimelineRow({
 					alignItems: "center",
 					paddingRight: spacingValue.small,
 					position: "absolute",
-					width: "100%",
+					justifySelf: "flex-end",
 					height: "100%",
 					left: 0,
 					right: 0,
@@ -172,6 +186,8 @@ export default function TimelineRow({
 						backgroundColor: theme.colors.background.main[0],
 						fontSize: font.size["0.85"],
 						borderRadius: 3,
+						display: "flex",
+						flexDirection: "row",
 					}}
 					variants={timelinePopoverMotionVariants(theme)}
 					// this thing is only visible when active === index, so we can
@@ -184,8 +200,9 @@ export default function TimelineRow({
 						ease: "easeInOut",
 					}}
 				>
-					<TextInput />
-					<TimeInput />
+					<TextInput w="150" />
+					<TimeInput w="80" ml="sm" />
+					<TimeInput w="80" />
 				</Pop>
 			)}
 
