@@ -63,113 +63,111 @@ export default function CreateInlineActivity({
 		);
 	}
 
-	if (!(active === timelineRowIndex)) {
-		return null;
-	}
-
-	if (!activity.started_at || !activity.ended_at) {
-		return null;
-	}
-
 	return (
-		<S.Pop
-			ref={ref}
-			style={
-				{
-					willChange: "auto",
-					outline: `2px solid ${theme.colors.background.main[3]}`,
-					zIndex: 300,
-					backgroundColor: theme.colors.background.main[0],
-					fontSize: font.size["0.85"],
-					borderRadius: 3,
-					display: "flex",
-					flexDirection: "row",
-				} as CSSProperties
-			}
-			variants={timelinePopoverMotionVariants(theme)}
-			// this thing is only visible when active === index, so we can
-			// always assume we're "animating" the "active" variant.
-			animate={"active"}
-			layout
-			layoutId="timeline-new-activity"
-			transition={{
-				duration: 0.035,
-				ease: "easeInOut",
-			}}
-		>
-			<Containers.Row style={{ alignItems: "stretch" }} gap="smaller">
-				<motion.div
-					layout
-					style={{
+		active === timelineRowIndex &&
+		!!activity.started_at &&
+		!!activity.ended_at && (
+			<S.Pop
+				ref={ref}
+				layout
+				layoutId="timeline-new-activity"
+				key={`timeline-popover-${timelineRowIndex}`}
+				style={
+					{
+						willChange: "auto",
+						outline: `2px solid ${theme.colors.background.main[3]}`,
+						zIndex: 300,
+						backgroundColor: theme.colors.background.main[0],
+						fontSize: font.size["0.85"],
+						borderRadius: 3,
 						display: "flex",
-						flexDirection: isMobileWidth ? "column" : "row",
-						alignItems: "center",
-						gap: spacingValue.smaller,
-					}}
-				>
-					<TextInput
-						w={isMobileWidth ? "100%" : "150px"}
-						name="name"
-						onChange={handleInputChange}
-					/>
-					<Containers.Row
-						gap="smaller"
+						flexDirection: "row",
+					} as CSSProperties
+				}
+				variants={timelinePopoverMotionVariants(theme)}
+				initial="initial"
+				// this thing is only visible when active === index, so we can
+				// always assume we're "animating" the "active" variant.
+				animate="active"
+				transition={{
+					duration: 0.035,
+					ease: "easeInOut",
+				}}
+			>
+				<Containers.Row style={{ alignItems: "stretch" }} gap="smaller">
+					<motion.div
+						layout
 						style={{
+							display: "flex",
+							flexDirection: isMobileWidth ? "column" : "row",
 							alignItems: "center",
-							width: isMobileWidth ? "100%" : "max-content",
+							gap: spacingValue.smaller,
 						}}
-						layout="position"
 					>
-						<TimeInput
-							w="9ch"
-							flex={isMobileWidth ? 1 : 0}
-							onChange={handleTimeChange}
-							name="start"
-							value={createDate(activity.started_at).format("HH:mm")}
-						/>
-						<LucideMoveRight
-							size={18}
-							color={theme.colors.background.main[4]}
-						/>
-						<TimeInput
-							flex={isMobileWidth ? 1 : 0}
-							w="9ch"
-							onChange={handleTimeChange}
-							name="end"
-							value={createDate(activity.ended_at).format("HH:mm")}
-						/>
-					</Containers.Row>
-				</motion.div>
-				<Containers.Row
-					gap="small"
-					style={{
-						alignItems: "flex-start",
-						marginLeft: spacingValue.small,
-						alignSelf: isMobileWidth ? "flex-start" : "center",
-					}}
-				>
-					<label>
-						<Checkbox
-							size={18}
-							name={"is_task" satisfies keyof NewActivityInput}
-							checked={activity.is_task}
+						<TextInput
+							w={isMobileWidth ? "100%" : "150px"}
+							name="name"
 							onChange={handleInputChange}
 						/>
-					</label>
-
-					<Buttons.Action.Minimal
-						onClick={handleSubmit}
-						type="button"
-						disabled={!isValidActivity}
+						<Containers.Row
+							gap="smaller"
+							style={{
+								alignItems: "center",
+								width: isMobileWidth ? "100%" : "max-content",
+							}}
+							layout="position"
+						>
+							<TimeInput
+								w="9ch"
+								flex={isMobileWidth ? 1 : 0}
+								onChange={handleTimeChange}
+								name="start"
+								value={createDate(activity.started_at).format("HH:mm")}
+							/>
+							<LucideMoveRight
+								size={18}
+								color={theme.colors.background.main[4]}
+							/>
+							<TimeInput
+								flex={isMobileWidth ? 1 : 0}
+								w="9ch"
+								onChange={handleTimeChange}
+								name="end"
+								value={createDate(activity.ended_at).format("HH:mm")}
+							/>
+						</Containers.Row>
+					</motion.div>
+					<Containers.Row
+						gap="small"
 						style={{
-							padding: 0,
-							marginLeft: spacingValue.smaller,
+							alignItems: "flex-start",
+							marginLeft: spacingValue.small,
+							alignSelf: isMobileWidth ? "flex-start" : "center",
 						}}
 					>
-						<Icon iconNode={featherPlus} size={18} />
-					</Buttons.Action.Minimal>
+						<label>
+							<Checkbox
+								size={18}
+								name={"is_task" satisfies keyof NewActivityInput}
+								checked={activity.is_task}
+								onChange={handleInputChange}
+							/>
+						</label>
+
+						<Buttons.Action.Minimal
+							onClick={handleSubmit}
+							type="button"
+							disabled={!isValidActivity}
+							style={{
+								padding: 0,
+								marginLeft: spacingValue.smaller,
+							}}
+						>
+							<Icon iconNode={featherPlus} size={18} />
+						</Buttons.Action.Minimal>
+					</Containers.Row>
 				</Containers.Row>
-			</Containers.Row>
-		</S.Pop>
+			</S.Pop>
+		)
 	);
 }

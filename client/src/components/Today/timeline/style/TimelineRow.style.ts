@@ -6,6 +6,9 @@ import { font } from "@/lib/theme/font";
 import { lightDark } from "@/lib/theme/light-dark";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 
+// TODO: take the stuff that belongs in CreateInlineActivity out of here and put
+// it in a separate style file.
+
 export const MotionIcon = motion.create(Icon);
 
 export const featherIconMotionVariants: Variants = {
@@ -63,11 +66,16 @@ export const timelineRowMotionVariants = (theme: MainTheme): Variants => ({
 
 export const timelinePopoverMotionVariants = (theme: MainTheme): Variants => ({
 	initial: {
+		opacity: 1,
 		boxShadow: "none",
 	},
 	active: {
 		boxShadow: `0 0.3rem 0 -0.1rem ${theme.colors.blue.main}`,
 		backgroundColor: theme.colors.background.main[2],
+	},
+	exit: {
+		x: 20,
+		opacity: 0,
 	},
 });
 

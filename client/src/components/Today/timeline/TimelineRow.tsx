@@ -81,7 +81,7 @@ export default function TimelineRow({
 			<CreateInlineActivity
 				active={active}
 				ref={createInlineActivityRef}
-				key={`timeline-popover-${index}`}
+				key={`CreateInlineActivity-${index}`}
 				timelineRowIndex={index}
 				date={date}
 			/>
