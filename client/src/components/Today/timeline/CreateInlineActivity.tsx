@@ -1,13 +1,13 @@
 import { useTheme } from "@emotion/react";
 import { featherPlus } from "@lucide/lab";
 import { TextInput } from "@mantine/core";
-import { TimeInput } from "@mantine/dates";
+import { TimePicker, type TimePickerProps } from "@mantine/dates";
 import type { Activity, NewActivityInput } from "@shared/lib/schemas/activity";
 import type { Datelike } from "@shared/lib/schemas/timestamp";
 import { produce } from "immer";
 import { Icon, LucideMoveRight } from "lucide-react";
 import { motion } from "motion/react";
-import type { ChangeEvent, CSSProperties, RefObject } from "react";
+import type { CSSProperties, RefObject } from "react";
 import useActivityForm from "@/components/activities/ActivityForm/useActivityForm";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import { createDate } from "@/lib/datetime/make-date";
@@ -18,6 +18,18 @@ import Containers from "@/lib/theme/components/container.style";
 import { font } from "@/lib/theme/font";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 import S, { timelinePopoverMotionVariants } from "./style/TimelineRow.style";
+
+// TODO: min, max, presets (also for the other time picker)
+const timePickerProps = (isMobileWidth: boolean): TimePickerProps => ({
+	withDropdown: true,
+	minutesStep: 5,
+	popoverProps: {
+		withinPortal: false,
+		position: "bottom",
+	},
+	w: "9ch",
+	flex: isMobileWidth ? 1 : 0,
+});
 
 // TODO: go over styling. What goes in styled components, and what needs to
 // remain inline?
@@ -48,13 +60,14 @@ export default function CreateInlineActivity({
 
 	/** the regular ActivityForm uses datetime pickers, hence we need a new
 	 * handler for the time-only inputs in this component. */
-	function handleTimeChange(e: ChangeEvent<HTMLInputElement>) {
+	function handleTimeChange(value: string, type: "start" | "end") {
 		const field =
-			e.target.name === "start"
+			type === "start"
 				? "started_at"
 				: ("ended_at" as const satisfies keyof Activity);
 
-		const [hour, minute] = e.target.value.split(":");
+		console.log({ value });
+		const [hour, minute] = value.split(":");
 
 		setActivity(
 			produce((draft) => {
@@ -107,6 +120,7 @@ export default function CreateInlineActivity({
 						<TextInput
 							w={isMobileWidth ? "100%" : "150px"}
 							name="name"
+							placeholder="Activity name"
 							onChange={handleInputChange}
 						/>
 						<Containers.Row
@@ -117,10 +131,11 @@ export default function CreateInlineActivity({
 							}}
 							layout="position"
 						>
-							<TimeInput
+							<TimePicker
+								{...timePickerProps(isMobileWidth)}
 								w="9ch"
 								flex={isMobileWidth ? 1 : 0}
-								onChange={handleTimeChange}
+								onChange={(value) => handleTimeChange(value, "start")}
 								name="start"
 								value={createDate(activity.started_at).format("HH:mm")}
 							/>
@@ -128,10 +143,9 @@ export default function CreateInlineActivity({
 								size={18}
 								color={theme.colors.background.main[4]}
 							/>
-							<TimeInput
-								flex={isMobileWidth ? 1 : 0}
-								w="9ch"
-								onChange={handleTimeChange}
+							<TimePicker
+								{...timePickerProps(isMobileWidth)}
+								onChange={(value) => handleTimeChange(value, "end")}
 								name="end"
 								value={createDate(activity.ended_at).format("HH:mm")}
 							/>

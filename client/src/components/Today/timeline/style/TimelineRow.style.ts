@@ -117,9 +117,9 @@ const Pop = styled(motion.div)`
    display: flex;
    align-items: center;
 
-   input { 
-      font-size: ${font.size["0.9"]};
-      --input-size: ${font.size["1.2"]};
+   input, .mantine-Input-input { 
+      font-size: ${font.size["0.82"]};
+      --input-size: ${font.size["1.5"]};
       --input-height: ${font.size["1.5"]};
    }
 `;
