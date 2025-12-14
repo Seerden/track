@@ -3,7 +3,6 @@ import { featherPlus } from "@lucide/lab";
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { ID } from "@shared/types/data/utility.types";
 import type { Dayjs } from "dayjs";
-import { atom } from "jotai";
 import { AnimatePresence } from "motion/react";
 import { getActivityKey } from "@/components/Today/tasks/get-activity-key";
 import CreateInlineActivity from "@/components/Today/timeline/CreateInlineActivity";
@@ -20,11 +19,6 @@ import S, {
 	MotionIcon,
 	timelineRowMotionVariants,
 } from "./style/TimelineRow.style";
-
-/**
- * @note this is an atom so that it's easier to reset from e.g.
- * useSubmitNewActivity. */
-export const activeTimelineRowAtom = atom<number | null>(null);
 
 export default function TimelineRow({
 	date,

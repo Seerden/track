@@ -11,7 +11,7 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useAtom } from "jotai";
-import { activeTimelineRowAtom } from "@/components/Today/timeline/TimelineRow";
+import { activeTimelineRowAtom } from "@/components/Today/timeline/active-timeline-row.state";
 import { TAG_SELECTOR_IDS } from "@/components/tags/TagSelector/constants";
 import {
 	useMutateNewActivity,

@@ -28,7 +28,7 @@ const FieldWrapper = styled.div<{ $small?: boolean }>`
 `;
 
 // TODO TRK-231: this concept of a generic flex row is work in progress.
-const Row = styled.div<{
+const Row = styled(motion.div)<{
 	gap?: keyof typeof spacingValue;
 	padding?: keyof typeof spacingValue;
 }>`

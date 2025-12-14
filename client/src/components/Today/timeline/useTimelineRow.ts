@@ -2,7 +2,7 @@ import { useClickOutside } from "@mantine/hooks";
 import type { Dayjs } from "dayjs";
 import { useAtom } from "jotai";
 import { type CSSProperties, useRef, useState } from "react";
-import { activeTimelineRowAtom } from "@/components/Today/timeline/TimelineRow";
+import { activeTimelineRowAtom } from "@/components/Today/timeline/active-timeline-row.state";
 import { isToday } from "@/lib/datetime/compare";
 import useCurrentTime from "@/lib/hooks/useCurrentTime";
 
@@ -40,7 +40,7 @@ export function useTimelineRow({
 	const variants = {
 		animate: active === index ? "active" : "initial",
 		tap: index === 24 ? "initial" : "active",
-		hover: active === index ? "active" : "hover",
+		hover: index === 24 ? "initial" : active === index ? "active" : "hover",
 	};
 
 	return {

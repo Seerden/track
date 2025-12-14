@@ -4,14 +4,14 @@ import { TextInput } from "@mantine/core";
 import { TimeInput } from "@mantine/dates";
 import type { Activity, NewActivityInput } from "@shared/lib/schemas/activity";
 import type { Datelike } from "@shared/lib/schemas/timestamp";
-import { extend } from "colord";
-import namesPlugin from "colord/plugins/names";
 import { produce } from "immer";
 import { Icon, LucideMoveRight } from "lucide-react";
+import { motion } from "motion/react";
 import type { ChangeEvent, CSSProperties, RefObject } from "react";
 import useActivityForm from "@/components/activities/ActivityForm/useActivityForm";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import { createDate } from "@/lib/datetime/make-date";
+import { useBreakpoints } from "@/lib/hooks/breakpoints";
 import type { MainTheme } from "@/lib/style/theme";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
@@ -19,8 +19,8 @@ import { font } from "@/lib/theme/font";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 import S, { timelinePopoverMotionVariants } from "./style/TimelineRow.style";
 
-extend([namesPlugin]);
-
+// TODO: go over styling. What goes in styled components, and what needs to
+// remain inline?
 export default function CreateInlineActivity({
 	date,
 	timelineRowIndex,
@@ -44,7 +44,10 @@ export default function CreateInlineActivity({
 		date,
 		timelineRowIndex,
 	});
+	const { isMobileWidth } = useBreakpoints();
 
+	/** the regular ActivityForm uses datetime pickers, hence we need a new
+	 * handler for the time-only inputs in this component. */
 	function handleTimeChange(e: ChangeEvent<HTMLInputElement>) {
 		const field =
 			e.target.name === "start"
@@ -94,41 +97,78 @@ export default function CreateInlineActivity({
 				ease: "easeInOut",
 			}}
 		>
-			<Containers.Row style={{ alignItems: "center" }} gap="smaller">
-				<TextInput w="150" name="name" onChange={handleInputChange} />
-				<TimeInput
-					w="80"
-					onChange={handleTimeChange}
-					name="start"
-					value={createDate(activity.started_at).format("HH:mm")}
-				/>
-				<LucideMoveRight size={18} color={theme.colors.background.main[4]} />
-				<TimeInput
-					w="80"
-					onChange={handleTimeChange}
-					name="end"
-					value={createDate(activity.ended_at).format("HH:mm")}
-				/>
-				<label>
-					<Checkbox
-						size={18}
-						name={"is_task" satisfies keyof NewActivityInput}
-						checked={activity.is_task}
-						onChange={handleInputChange}
-					/>
-				</label>
-
-				<Buttons.Action.Minimal
-					onClick={handleSubmit}
-					type="button"
-					disabled={!isValidActivity}
+			<Containers.Row style={{ alignItems: "stretch" }} gap="smaller">
+				<motion.div
+					layout
 					style={{
-						padding: 0,
-						marginLeft: spacingValue.smaller,
+						display: "flex",
+						flexDirection: isMobileWidth ? "column" : "row",
+						alignItems: "center",
+						gap: spacingValue.smaller,
 					}}
 				>
-					<Icon iconNode={featherPlus} size={18} />
-				</Buttons.Action.Minimal>
+					<TextInput
+						w={isMobileWidth ? "100%" : "150px"}
+						name="name"
+						onChange={handleInputChange}
+					/>
+					<Containers.Row
+						gap="smaller"
+						style={{
+							alignItems: "center",
+							width: isMobileWidth ? "100%" : "max-content",
+						}}
+						layout="position"
+					>
+						<TimeInput
+							w="9ch"
+							flex={isMobileWidth ? 1 : 0}
+							onChange={handleTimeChange}
+							name="start"
+							value={createDate(activity.started_at).format("HH:mm")}
+						/>
+						<LucideMoveRight
+							size={18}
+							color={theme.colors.background.main[4]}
+						/>
+						<TimeInput
+							flex={isMobileWidth ? 1 : 0}
+							w="9ch"
+							onChange={handleTimeChange}
+							name="end"
+							value={createDate(activity.ended_at).format("HH:mm")}
+						/>
+					</Containers.Row>
+				</motion.div>
+				<Containers.Row
+					gap="small"
+					style={{
+						alignItems: "flex-start",
+						marginLeft: spacingValue.small,
+						alignSelf: isMobileWidth ? "flex-start" : "center",
+					}}
+				>
+					<label>
+						<Checkbox
+							size={18}
+							name={"is_task" satisfies keyof NewActivityInput}
+							checked={activity.is_task}
+							onChange={handleInputChange}
+						/>
+					</label>
+
+					<Buttons.Action.Minimal
+						onClick={handleSubmit}
+						type="button"
+						disabled={!isValidActivity}
+						style={{
+							padding: 0,
+							marginLeft: spacingValue.smaller,
+						}}
+					>
+						<Icon iconNode={featherPlus} size={18} />
+					</Buttons.Action.Minimal>
+				</Containers.Row>
 			</Containers.Row>
 		</S.Pop>
 	);

@@ -48,7 +48,7 @@ export const timelineRowMotionVariants = (theme: MainTheme): Variants => ({
 		borderRadius: 5,
 		height: "110%",
 		borderBottom: `2px solid ${theme.colors.blue.main}`,
-		boxShadow: `0 1rem 0 -0.8rem ${theme.colors.blue.secondary}`,
+		// boxShadow: `0 1rem 0 -0.8rem ${theme.colors.blue.secondary}`,
 		transition: {
 			duration: 0.05,
 			ease: "easeOut",
