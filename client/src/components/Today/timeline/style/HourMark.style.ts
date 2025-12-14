@@ -13,12 +13,15 @@ const HourMark = styled(motion.span)<{ $highlighted?: boolean }>`
 	align-self: center;
 	position: absolute;
 
+   /* 1 more than the active timeline row, so they're always visible */
+   z-index: 301;
+
 	--size: ${spacingValue.medium};
 	line-height: var(--size);
 	height: var(--size);
 	top: calc(-1 * var(--size) / 2);
-
 	left: -1rem;
+
 	width: max-content;
 	user-select: none;
 

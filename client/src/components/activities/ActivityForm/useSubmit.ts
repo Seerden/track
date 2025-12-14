@@ -1,3 +1,4 @@
+import { isNullish } from "@shared/lib/is-nullish";
 import {
 	type ActivityWithIds,
 	activitySchema,
@@ -9,6 +10,8 @@ import {
 } from "@shared/lib/schemas/activity";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
+import { useAtom } from "jotai";
+import { activeTimelineRowAtom } from "@/components/Today/timeline/TimelineRow";
 import { TAG_SELECTOR_IDS } from "@/components/tags/TagSelector/constants";
 import {
 	useMutateNewActivity,
@@ -92,6 +95,9 @@ export function useSubmitNewActivity({
 	const navigate = useNavigate();
 	const { selectedTagIds } = useTagSelection(TAG_SELECTOR_IDS.DEFAULT);
 	const { closeModal } = useModalState();
+	const [activeTimelineRow, setActiveTimelineRow] = useAtom(
+		activeTimelineRowAtom
+	);
 
 	function handleSuccess() {
 		invalidateActivities();
@@ -99,7 +105,15 @@ export function useSubmitNewActivity({
 		if (modalId) {
 			closeModal(modalId);
 		} else {
-			navigate({ to: "/today" });
+			// in this case, we're either on a CreateActivity page (which is not a
+			// thing as of writing this), or we're in CreateInlineActivity, in
+			// which case we shouldn't navigate)
+
+			if (!isNullish(activeTimelineRow)) {
+				setActiveTimelineRow(null);
+			} else {
+				navigate({ to: "/" });
+			}
 		}
 	}
 

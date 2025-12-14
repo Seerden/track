@@ -1,4 +1,6 @@
 import type { NewActivityInput } from "@shared/lib/schemas/activity";
+import type { Datelike } from "@shared/lib/schemas/timestamp";
+import { createDate } from "@/lib/datetime/make-date";
 import { defaultTimeWindowAwareStart } from "@/lib/datetime/time-window-aware-start";
 import type { TimeWindow } from "@/types/time-window.types";
 
@@ -31,4 +33,18 @@ export function createDefaultActivity({
 		started_at: start,
 		ended_at: start.add(1, "hour"),
 	} satisfies NewActivityInput;
+}
+
+export function createDefaultInlineActivity({
+	activity,
+	timelineRowIndex,
+	date,
+}: {
+	activity: ReturnType<typeof createDefaultActivity>;
+	timelineRowIndex: number;
+	date: Datelike;
+}) {
+	const start = createDate(date).hour(timelineRowIndex).startOf("hour");
+
+	return { ...activity, started_at: start, ended_at: start.add(1, "hour") };
 }
