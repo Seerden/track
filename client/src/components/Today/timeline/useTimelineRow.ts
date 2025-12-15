@@ -2,7 +2,7 @@ import { useClickOutside } from "@mantine/hooks";
 import { isNullish } from "@shared/lib/is-nullish";
 import type { Dayjs } from "dayjs";
 import { useAtom } from "jotai";
-import { type CSSProperties, useRef, useState } from "react";
+import { type CSSProperties, useRef } from "react";
 import { activeTimelineRowAtom } from "@/components/Today/timeline/active-timeline-row.state";
 import { isToday } from "@/lib/datetime/compare";
 import useCurrentTime from "@/lib/hooks/useCurrentTime";
@@ -24,7 +24,6 @@ export function useTimelineRow({
 	const isCurrentHour = isToday(date) && currentTime.hour() === index;
 	const offset = currentTime.minute() / 60;
 	const [active, setActive] = useAtom(activeTimelineRowAtom);
-	const [variant, setVariant] = useState("initial");
 
 	const createInlineActivityRef = useRef<HTMLDivElement>(null);
 	const clickOutsideRef = useClickOutside((e) => {
@@ -34,7 +33,6 @@ export function useTimelineRow({
 			!e.composedPath().includes(createInlineActivityRef.current as Node)
 		) {
 			setActive(null);
-			setVariant("initial");
 		}
 	});
 
@@ -48,7 +46,6 @@ export function useTimelineRow({
 		clickOutsideRef,
 		active,
 		setActive,
-		setVariant,
 		isCurrentHour,
 		createInlineActivityRef,
 		offset,
