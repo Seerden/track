@@ -29,6 +29,10 @@ const timePickerProps = (isMobileWidth: boolean): TimePickerProps => ({
 	},
 	w: "9ch",
 	flex: isMobileWidth ? 1 : 0,
+	style: {
+		touchAction: "none",
+		userSelect: "none",
+	},
 });
 
 // TODO: go over styling. What goes in styled components, and what needs to

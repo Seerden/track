@@ -105,6 +105,9 @@ const InnerRow = styled(motion.div)`
 `;
 
 const Pop = styled(motion.div)`
+   /* TODO: this was intended to try to prevent the mobile context menu from
+   opening on TimeInput tap, but it doesn't work. */
+   user-select: none;
    position: absolute;
    width: max-content;
    height: max-content;
@@ -119,8 +122,8 @@ const Pop = styled(motion.div)`
 
    input, .mantine-Input-input { 
       font-size: ${font.size["0.82"]};
-      --input-size: ${font.size["1.5"]};
-      --input-height: ${font.size["1.5"]};
+      --input-size: 1.5rem;
+      --input-height: 1.7rem;
    }
 `;
 
