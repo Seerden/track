@@ -1,10 +1,14 @@
 import styled from "@emotion/styled";
+import { colord, extend } from "colord";
+import namesPlugin from "colord/plugins/names";
 import { Icon } from "lucide-react";
 import { motion, type Variants } from "motion/react";
 import type { MainTheme } from "@/lib/style/theme";
 import { font } from "@/lib/theme/font";
 import { lightDark } from "@/lib/theme/light-dark";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
+
+extend([namesPlugin]);
 
 // TODO: take the stuff that belongs in CreateInlineActivity out of here and put
 // it in a separate style file.
@@ -46,14 +50,11 @@ export const timelineRowMotionVariants = (theme: MainTheme): Variants => ({
 		backgroundColor: theme.colors.background.main[1],
 	},
 	active: {
-		"--hour-mark-color": theme.colors.text.main[2],
-		"--hour-mark-background-color": theme.colors.background.main[2],
+		"--hour-mark-color": theme.colors.light[2],
+		"--hour-mark-background-color": colord(theme.colors.blue.main).toHex(),
 		cursor: "pointer",
-		zIndex: 300,
 		backgroundColor: theme.colors.background.main[2],
-		borderRadius: 5,
-		height: "110%",
-		borderBottom: `2px solid ${theme.colors.blue.main}`,
+		boxShadow: `0 -0.5rem 0 -0.4rem ${theme.colors.blue.main}`,
 		// boxShadow: `0 1rem 0 -0.8rem ${theme.colors.blue.secondary}`,
 		transition: {
 			duration: 0.05,
@@ -67,21 +68,6 @@ export const timelineRowMotionVariants = (theme: MainTheme): Variants => ({
 			type: "tween",
 		},
 		// width: "80%",
-	},
-});
-
-export const timelinePopoverMotionVariants = (theme: MainTheme): Variants => ({
-	initial: {
-		opacity: 1,
-		boxShadow: "none",
-	},
-	active: {
-		boxShadow: `0 0.3rem 0 -0.1rem ${theme.colors.blue.main}`,
-		backgroundColor: theme.colors.background.main[2],
-	},
-	exit: {
-		x: 20,
-		opacity: 0,
 	},
 });
 

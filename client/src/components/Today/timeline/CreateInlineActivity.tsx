@@ -9,6 +9,7 @@ import { Icon, LucideMoveRight } from "lucide-react";
 import { motion } from "motion/react";
 import type { CSSProperties, RefObject } from "react";
 import useActivityForm from "@/components/activities/ActivityForm/useActivityForm";
+import { timelinePopoverMotionVariants } from "@/components/Today/timeline/style/CreateInlineActivity.style";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import { createDate } from "@/lib/datetime/make-date";
 import { useBreakpoints } from "@/lib/hooks/breakpoints";
@@ -17,7 +18,7 @@ import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import { font } from "@/lib/theme/font";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import S, { timelinePopoverMotionVariants } from "./style/TimelineRow.style";
+import S from "./style/TimelineRow.style";
 
 // TODO: min, max, presets (also for the other time picker)
 const timePickerProps = (isMobileWidth: boolean): TimePickerProps => ({
@@ -70,7 +71,6 @@ export default function CreateInlineActivity({
 				? "started_at"
 				: ("ended_at" as const satisfies keyof Activity);
 
-		console.log({ value });
 		const [hour, minute] = value.split(":");
 
 		setActivity(
