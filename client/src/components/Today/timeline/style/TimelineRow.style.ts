@@ -4,14 +4,10 @@ import namesPlugin from "colord/plugins/names";
 import { Icon } from "lucide-react";
 import { motion, type Variants } from "motion/react";
 import type { MainTheme } from "@/lib/style/theme";
-import { font } from "@/lib/theme/font";
 import { lightDark } from "@/lib/theme/light-dark";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 
 extend([namesPlugin]);
-
-// TODO: take the stuff that belongs in CreateInlineActivity out of here and put
-// it in a separate style file.
 
 export const MotionIcon = motion.create(Icon);
 
@@ -96,29 +92,6 @@ const InnerRow = styled(motion.div)`
    padding-right: ${spacingValue.small};
 `;
 
-const Pop = styled(motion.div)`
-   /* TODO: this was intended to try to prevent the mobile context menu from
-   opening on TimeInput tap, but it doesn't work. */
-   user-select: none;
-   position: absolute;
-   width: max-content;
-   height: max-content;
-   top: 0;
-   bottom: 0;
-   right: 0;
-   margin: auto;
-   padding: ${spacingValue.small};
-
-   display: flex;
-   align-items: center;
-
-   input, .mantine-Input-input { 
-      font-size: ${font.size["0.82"]};
-      --input-size: 1.5rem;
-      --input-height: 1.7rem;
-   }
-`;
-
 const FeatherIconWrapper = styled(motion.i)`
    display: flex;
    width: max-content;
@@ -128,6 +101,5 @@ const FeatherIconWrapper = styled(motion.i)`
 export default {
 	Row,
 	InnerRow,
-	Pop,
 	FeatherIconWrapper,
 };

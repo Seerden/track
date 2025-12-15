@@ -18,7 +18,7 @@ import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
 import { font } from "@/lib/theme/font";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
-import S from "./style/TimelineRow.style";
+import S from "./style/CreateInlineActivity.style";
 
 // TODO: min, max, presets (also for the other time picker)
 const timePickerProps = (isMobileWidth: boolean): TimePickerProps => ({

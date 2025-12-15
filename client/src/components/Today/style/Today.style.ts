@@ -43,7 +43,9 @@ const TimelineWrapper = styled.section`
    ${roundedSectionStyle};
 
 	height: max-content;
-	max-height: 80vh;
+   /* TODO (TRK-326) for now I've disabled this, might want to revisit intended
+   syling later. */
+	/* max-height: 80vh; */
 	overflow: hidden;
 	overflow-y: auto;
 
