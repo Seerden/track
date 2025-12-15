@@ -1,4 +1,5 @@
 import { useClickOutside } from "@mantine/hooks";
+import { isNullish } from "@shared/lib/is-nullish";
 import type { Dayjs } from "dayjs";
 import { useAtom } from "jotai";
 import { type CSSProperties, useRef, useState } from "react";
@@ -28,7 +29,7 @@ export function useTimelineRow({
 	const createInlineActivityRef = useRef<HTMLDivElement>(null);
 	const clickOutsideRef = useClickOutside((e) => {
 		if (
-			active &&
+			!isNullish(active) &&
 			createInlineActivityRef.current &&
 			!e.composedPath().includes(createInlineActivityRef.current as Node)
 		) {
