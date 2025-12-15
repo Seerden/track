@@ -41,6 +41,9 @@ export const timelineRowMotionVariants = (theme: MainTheme): Variants => ({
 			theme.colors.dark[2]
 		),
 		width: "100%",
+		// NOTE: this is the same as the background color would be if we left this
+		// out, but we need to specify it for the animation to work correctly.
+		backgroundColor: theme.colors.background.main[1],
 	},
 	active: {
 		"--hour-mark-color": theme.colors.text.main[2],
@@ -60,6 +63,9 @@ export const timelineRowMotionVariants = (theme: MainTheme): Variants => ({
 	},
 	hover: {
 		backgroundColor: "var(--bg-3-2)",
+		transition: {
+			type: "tween",
+		},
 		// width: "80%",
 	},
 });
