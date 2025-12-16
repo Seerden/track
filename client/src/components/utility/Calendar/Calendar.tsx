@@ -1,16 +1,14 @@
 import { MonthPicker } from "@mantine/dates";
+import day from "@shared/lib/day";
 import type { Maybe } from "@shared/types/data/utility.types";
 import type { Dayjs } from "dayjs";
 import type { ReactNode } from "react";
-import type {
-	CalendarProps,
-	Row,
-} from "@/components/utility/Calendar/calendar.types";
-import { useCalendar } from "@/components/utility/Calendar/hooks/useCalendar";
-import useMonthPicker from "@/components/utility/Calendar/hooks/useMonthPicker";
 import { today } from "@/lib/datetime/make-date";
 import { daysOfWeekShort } from "@/lib/datetime/weekdays";
 import Buttons from "@/lib/theme/components/buttons";
+import type { CalendarProps, Row } from "./calendar.types";
+import { useCalendar } from "./hooks/useCalendar";
+import useMonthPicker from "./hooks/useMonthPicker";
 import S from "./style/Calendar.style";
 
 type CalendarRowProps = {
@@ -89,6 +87,10 @@ export default function Calendar({
 				<S.MonthPickerWrapper ref={monthPickerRef}>
 					<MonthPicker
 						flex="1"
+						defaultDate={day()
+							.year(monthAndYear.year)
+							.month(monthAndYear.month)
+							.toDate()}
 						value={monthValue}
 						onChange={handleMonthChange}
 						size={"xs"}
