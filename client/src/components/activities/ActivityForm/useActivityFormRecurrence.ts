@@ -1,4 +1,4 @@
-import { type NewRecurrenceInput } from "@shared/lib/schemas/activity";
+import type { NewRecurrenceInput } from "@shared/lib/schemas/activity";
 import type { DayOfWeek, IntervalUnit } from "@shared/types/data/utility.types";
 import { produce } from "immer";
 import { useState } from "react";
