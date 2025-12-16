@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { motion } from "motion/react";
+import { m, motion } from "motion/react";
 import type { MainTheme } from "@/lib/style/theme";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
@@ -27,42 +27,44 @@ const FieldWrapper = styled.div<{ $small?: boolean }>`
 	margin: ${spacingValue.smaller};
 `;
 
-// TODO TRK-231: this concept of a generic flex row is work in progress.
-const Row = styled.div<{
+type FlexProps = {
 	gap?: keyof typeof spacingValue;
 	padding?: keyof typeof spacingValue;
-}>`
-	${flex.row};
-	${(p) =>
-		p.gap &&
-		css`
-			gap: ${spacingValue[p.gap]};
-		`}
+};
 
-	${(p) =>
-		p.padding &&
-		css`
-			padding: ${spacingValue[p.padding]};
-		`}
+const flexCss = ({
+	theme,
+	gap,
+	padding,
+}: {
+	theme?: MainTheme;
+	gap?: keyof typeof spacingValue;
+	padding?: keyof typeof spacingValue;
+}) => css`
+   ${
+			gap &&
+			css`
+            gap: ${spacingValue[gap]};
+         `
+		}
+
+   ${
+			padding &&
+			css`
+            padding: ${spacingValue[padding]};
+         `
+		}
 `;
 
-const Column = styled(motion.div)<{
-	gap?: keyof typeof spacingValue;
-	padding?: keyof typeof spacingValue;
-}>`
+// TODO TRK-231: this concept of a generic flex row is work in progress.
+const Row = styled(motion.div)<FlexProps>`
+	${flex.row};
+   ${({ gap, padding }) => flexCss({ gap, padding })}
+`;
+
+const Column = styled(motion.div)<FlexProps>`
 	${flex.column};
-
-	${(p) =>
-		p.gap &&
-		css`
-			gap: ${spacingValue[p.gap]};
-		`}
-
-	${(p) =>
-		p.padding &&
-		css`
-			padding: ${spacingValue[p.padding]};
-		`}
+	${({ gap, padding }) => flexCss({ gap, padding })}
 `;
 
 const ActionBar = styled.div`
@@ -83,11 +85,17 @@ const ActionBar = styled.div`
 	top: 1.5rem;
 `;
 
+const Flex = styled(m.div)<FlexProps>`
+   display: flex;
+	${({ gap, padding }) => flexCss({ gap, padding })}
+`;
+
 const Containers = {
 	Field: FieldWrapper,
 	Row,
 	Column,
 	ActionBar,
+	Flex,
 };
 
 export default Containers;

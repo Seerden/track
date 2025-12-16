@@ -34,10 +34,10 @@ FROM node:22-alpine AS runner
 
 WORKDIR /track
 
+COPY --from=deps /track/node_modules/ /track/node_modules/
 COPY --from=deps /track/server/dist /track/server/dist
 COPY --from=deps /track/client/dist/ /track/server/dist/
 
-COPY --from=deps /track/node_modules/ /track/node_modules/
 
 # Set environment variables for production
 ENV NODE_ENV=production

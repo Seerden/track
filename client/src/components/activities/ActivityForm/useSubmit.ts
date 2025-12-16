@@ -1,3 +1,4 @@
+import { isNullish } from "@shared/lib/is-nullish";
 import {
 	type ActivityWithIds,
 	activitySchema,
@@ -9,6 +10,8 @@ import {
 } from "@shared/lib/schemas/activity";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
+import { useAtom } from "jotai";
+import { activeTimelineRowAtom } from "@/components/Today/timeline/active-timeline-row.state";
 import { TAG_SELECTOR_IDS } from "@/components/tags/TagSelector/constants";
 import {
 	useMutateNewActivity,
@@ -92,6 +95,9 @@ export function useSubmitNewActivity({
 	const navigate = useNavigate();
 	const { selectedTagIds } = useTagSelection(TAG_SELECTOR_IDS.DEFAULT);
 	const { closeModal } = useModalState();
+	const [activeTimelineRow, setActiveTimelineRow] = useAtom(
+		activeTimelineRowAtom
+	);
 
 	function handleSuccess() {
 		invalidateActivities();
@@ -99,7 +105,13 @@ export function useSubmitNewActivity({
 		if (modalId) {
 			closeModal(modalId);
 		} else {
-			navigate({ to: "/today" });
+			if (!isNullish(activeTimelineRow)) {
+				// we're in an inline form (`CreateInlineActivity`)
+				setActiveTimelineRow(null);
+			} else {
+				// we're not in an inline form, e.g. `/activities/new`
+				navigate({ to: "/" });
+			}
 		}
 	}
 

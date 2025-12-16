@@ -80,7 +80,7 @@ export default function ActivityForm({
 		updateRecurrence,
 		setSelection,
 		resetSelection,
-		validActivity,
+		isValidActivity,
 		validRecurrence,
 	} = useActivityForm({
 		initialIsTask,
@@ -356,7 +356,7 @@ export default function ActivityForm({
                recurrence fields, etc.) */}
 					<Buttons.Submit.Default
 						type="submit"
-						disabled={!(validActivity && (validRecurrence || !isRecurring))}
+						disabled={!(isValidActivity && (validRecurrence || !isRecurring))}
 					>
 						{buttonTitle}
 					</Buttons.Submit.Default>
