@@ -1,6 +1,9 @@
 import type { PossiblySyntheticActivity } from "@shared/lib/schemas/activity";
 import type { Dayjs } from "dayjs";
+import { useSetAtom } from "jotai";
 import { AnimatePresence } from "motion/react";
+import { useEffect } from "react";
+import { activeTimelineRowAtom } from "@/components/Today/timeline/active-timeline-row.state";
 import TimelineRow from "@/components/Today/timeline/TimelineRow";
 import { activityStartHourOnDate } from "@/lib/activity";
 import Containers from "@/lib/theme/components/container.style";
@@ -21,6 +24,13 @@ function useRows({ activities, currentDate }: RowsProps) {
 
 export default function TimelineRows({ activities, currentDate }: RowsProps) {
 	const { indentation } = useRows({ activities, currentDate });
+	const setActiveTimelineRow = useSetAtom(activeTimelineRowAtom);
+
+	useEffect(() => {
+		return () => {
+			setActiveTimelineRow(null);
+		};
+	}, []);
 
 	return (
 		<Containers.Column

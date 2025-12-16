@@ -23,6 +23,8 @@ import {
 } from "./create-default-activity";
 import { useSubmitNewActivity, useSubmitUpdatedActivity } from "./useSubmit";
 
+/** `useActivityForm` will be called for a regular activity (through
+ * `ActivityForm`) or an inline activity (`CreateInlineActivity`). */
 type UseActivityFormArgs =
 	| {
 			initialIsTask?: boolean;
@@ -37,7 +39,11 @@ type UseActivityFormArgs =
 			inline: true;
 			modalId?: never;
 			activity?: never;
+			/** `date` matches the date of the timeline on which the inline
+			 * activity is being created. */
 			date: Datelike;
+			/** the hour index of the timeline row the activity is being created
+			 * on. */
 			timelineRowIndex: number;
 	  };
 
@@ -59,21 +65,18 @@ export default function useActivityForm({
 	);
 
 	const [activity, setActivity] = useState<ActivityState>(() => {
-		if (existingActivity) {
-			return existingActivity;
-		}
-		const defaultActivity = createDefaultActivity({
-			is_task: initialIsTask,
-			timeWindow,
-		});
+		if (existingActivity) return existingActivity;
 
 		return inline
 			? createDefaultInlineActivity({
-					activity: defaultActivity,
+					is_task: initialIsTask,
 					timelineRowIndex,
 					date,
 				})
-			: defaultActivity;
+			: createDefaultActivity({
+					is_task: initialIsTask,
+					timeWindow,
+				});
 	});
 	const isValidActivity = newActivityInputSchema.safeParse(activity).success;
 

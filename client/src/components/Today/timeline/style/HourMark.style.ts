@@ -6,6 +6,7 @@ import { radius } from "@/lib/theme/snippets/radius";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 
 const HourMark = styled(motion.span)<{ $highlighted?: boolean }>`
+   /* --hour-mark(-background)-color are only set in the timeline motion variants. */
    --color: var(--hour-mark-color, ${(p) => (p.$highlighted ? p.theme.colors.light[0] : p.theme.colors.text.main[2])});
    --background-color: var(--hour-mark-background-color, ${(p) => (p.$highlighted ? "red" : lightDark(p, p.theme.colors.light[3], p.theme.colors.dark[2]))});
 

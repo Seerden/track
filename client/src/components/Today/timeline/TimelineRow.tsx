@@ -37,7 +37,7 @@ export default function TimelineRow({
 	const {
 		clickOutsideRef,
 		active,
-		setActive,
+		setActiveTimelineRow,
 		isCurrentHour,
 		createInlineActivityRef,
 		offset,
@@ -61,7 +61,7 @@ export default function TimelineRow({
 				whileHover={variants.hover}
 				onMouseDown={() => {
 					if (index !== 24) {
-						setActive(index);
+						setActiveTimelineRow(index);
 					}
 				}}
 				style={innerTimelineRowStyle}

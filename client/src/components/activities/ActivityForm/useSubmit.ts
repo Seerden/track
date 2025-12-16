@@ -105,13 +105,11 @@ export function useSubmitNewActivity({
 		if (modalId) {
 			closeModal(modalId);
 		} else {
-			// in this case, we're either on a CreateActivity page (which is not a
-			// thing as of writing this), or we're in CreateInlineActivity, in
-			// which case we shouldn't navigate)
-
 			if (!isNullish(activeTimelineRow)) {
+				// we're in an inline form (`CreateInlineActivity`)
 				setActiveTimelineRow(null);
 			} else {
+				// we're not in an inline form, e.g. `/activities/new`
 				navigate({ to: "/" });
 			}
 		}

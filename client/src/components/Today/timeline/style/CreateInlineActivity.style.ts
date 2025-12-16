@@ -8,6 +8,7 @@ export const timelinePopoverMotionVariants = (theme: MainTheme): Variants => ({
 	initial: {
 		opacity: 1,
 		boxShadow: "none",
+		backgroundColor: theme.colors.background.main[0],
 	},
 	active: {
 		boxShadow: `-0.2rem 0.2rem 0 0 ${theme.colors.blue.main}`,
@@ -33,7 +34,12 @@ const Pop = styled(motion.div)`
    padding: ${spacingValue.small};
 
    display: flex;
+   flex-direction: row;
    align-items: center;
+   z-index: 300;
+   border-radius: 3px;
+   font-size: ${font.size["0.85"]};
+   outline: 2px solid ${(p) => p.theme.colors.background.main[3]};
 
    input, .mantine-Input-input { 
       font-size: ${font.size["0.82"]};

@@ -23,29 +23,37 @@ export function useTimelineRow({
 	const currentTime = useCurrentTime();
 	const isCurrentHour = isToday(date) && currentTime.hour() === index;
 	const offset = currentTime.minute() / 60;
-	const [active, setActive] = useAtom(activeTimelineRowAtom);
+	const [activeTimelineRow, setActiveTimelineRow] = useAtom(
+		activeTimelineRowAtom
+	);
 
 	const createInlineActivityRef = useRef<HTMLDivElement>(null);
 	const clickOutsideRef = useClickOutside((e) => {
 		if (
-			!isNullish(active) &&
+			!isNullish(activeTimelineRow) &&
 			createInlineActivityRef.current &&
 			!e.composedPath().includes(createInlineActivityRef.current as Node)
 		) {
-			setActive(null);
+			setActiveTimelineRow(null);
 		}
 	});
 
+	/** the values have to match the keys of `timelineRowMotionVariants` */
 	const variants = {
-		animate: active === index ? "active" : "initial",
+		animate: activeTimelineRow === index ? "active" : "initial",
 		tap: index === 24 ? "initial" : "active",
-		hover: index === 24 ? "initial" : active === index ? "active" : "hover",
-	};
+		hover:
+			index === 24
+				? "initial"
+				: activeTimelineRow === index
+					? "active"
+					: "hover",
+	} as const;
 
 	return {
 		clickOutsideRef,
-		active,
-		setActive,
+		active: activeTimelineRow,
+		setActiveTimelineRow,
 		isCurrentHour,
 		createInlineActivityRef,
 		offset,

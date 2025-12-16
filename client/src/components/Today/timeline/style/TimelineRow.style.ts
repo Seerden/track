@@ -24,7 +24,7 @@ export const featherIconMotionVariants: Variants = {
 	exit: {
 		opacity: 0,
 		visibility: "visible",
-		// x: 10,
+		x: 0,
 		transition: {
 			duration: 0.035,
 			ease: "easeOut",
@@ -51,25 +51,20 @@ export const timelineRowMotionVariants = (theme: MainTheme): Variants => ({
 		cursor: "pointer",
 		backgroundColor: theme.colors.background.main[2],
 		boxShadow: `0 -0.5rem 0 -0.4rem ${theme.colors.blue.main}`,
-		// boxShadow: `0 1rem 0 -0.8rem ${theme.colors.blue.secondary}`,
-		transition: {
-			duration: 0.05,
-			ease: "easeOut",
-		},
-		// width: "80%",
+		transition: { duration: 0.05, ease: "easeOut" },
 	},
 	hover: {
 		backgroundColor: "var(--bg-3-2)",
-		transition: {
-			type: "tween",
-		},
-		// width: "80%",
+		transition: { type: "tween" },
 	},
 });
 
 export const rowHeight = 25;
 
-const Row = styled(motion.li)<{ $collapsed?: boolean }>`
+const Row = styled(motion.li)<{
+	/** @deprecated */
+	$collapsed?: boolean;
+}>`
 	position: relative;
 	display: flex;
 	border-top: 2px solid ${(p) => lightDark(p, p.theme.colors.light[3], p.theme.colors.dark[2])};

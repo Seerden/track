@@ -35,16 +35,35 @@ export function createDefaultActivity({
 	} satisfies NewActivityInput;
 }
 
+/** Create the default activity for use with `CreateInlineActivity`.. */
 export function createDefaultInlineActivity({
-	activity,
+	is_task = false,
 	timelineRowIndex,
 	date,
 }: {
-	activity: ReturnType<typeof createDefaultActivity>;
+	is_task?: boolean;
+	/** as of right now, we render a `TimelineRow` for every hour of the day. The
+	 * index corresponds to the hour. */
 	timelineRowIndex: number;
+	/** as of right now, we render a timeline for one day at a time. This `date`
+	 * matches the date of the timeline.  */
 	date: Datelike;
 }) {
 	const start = createDate(date).hour(timelineRowIndex).startOf("hour");
 
-	return { ...activity, started_at: start, ended_at: start.add(1, "hour") };
+	return {
+		parent_id: null,
+		name: "",
+		description: null,
+		is_task,
+		occurrence: null,
+		recurrence_id: null,
+		duration_milliseconds: null,
+		will_recur: false,
+		completed: null,
+		start_date: null,
+		end_date: null,
+		started_at: start,
+		ended_at: start.add(1, "hour"),
+	} satisfies NewActivityInput;
 }
