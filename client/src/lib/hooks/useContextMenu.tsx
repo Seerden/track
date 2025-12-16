@@ -197,7 +197,8 @@ export function ContextMenu({
 				onDismiss={() => setShowMenu(false)}
 				withinPortal={false}
 				withArrow
-				closeOnClickOutside>
+				closeOnClickOutside
+			>
 				<Popover.Target>{first}</Popover.Target>
 				<Popover.Dropdown>{rest}</Popover.Dropdown>
 			</Popover>

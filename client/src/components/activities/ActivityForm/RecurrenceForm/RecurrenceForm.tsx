@@ -44,18 +44,21 @@ export default function RecurrenceForm({
 						position: "absolute",
 						top: spacingValue.smaller,
 						right: spacingValue.smaller,
-					}}>
+					}}
+				>
 					<Tooltip
 						label={
 							<div
-								style={{ display: "flex", width: "250px", textWrap: "wrap" }}>
+								style={{ display: "flex", width: "250px", textWrap: "wrap" }}
+							>
 								A fixed date recurrence needs at least 1 weekday or monthday,
 								and a numeric recurrence needs a valid interval.
 							</div>
 						}
 						position="top"
 						color="orangered"
-						withArrow>
+						withArrow
+					>
 						<LucideAlertCircle color="orangered" />
 					</Tooltip>
 				</span>
@@ -66,7 +69,8 @@ export default function RecurrenceForm({
 					{frequencyOptions.map((frequency) => (
 						<S.Label
 							key={frequency}
-							$active={recurrence.frequency === frequency}>
+							$active={recurrence.frequency === frequency}
+						>
 							{/* TODO: Input.Hidden */}
 							<input
 								style={{ width: 0 }}
@@ -108,7 +112,8 @@ export default function RecurrenceForm({
 										type: "intervalUnit",
 										value: e.target.value as IntervalUnit,
 									})
-								}>
+								}
+							>
 								<option value="week">week{intervalUnitSuffix}</option>
 								<option value="month">month{intervalUnitSuffix}</option>
 							</S.DaySelector.Select>

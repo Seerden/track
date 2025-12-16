@@ -77,7 +77,8 @@ function Tag({ tag, level }: TagProps) {
 					<Badge
 						height={"20px"}
 						color={"indigo"}
-						title={`${children.length} tags hidden`}>
+						title={`${children.length} tags hidden`}
+					>
 						{/* TODO: instead of children.length, we want to get the number of descendants */}
 						{children.length}
 					</Badge>
@@ -110,7 +111,8 @@ function Tag({ tag, level }: TagProps) {
 					transition={{
 						duration: 0.05,
 						ease: "easeIn",
-					}}>
+					}}
+				>
 					{children.map((child) => (
 						<Tag key={child.tag_id} tag={child} level={(level ?? 0) + 1} />
 					))}
