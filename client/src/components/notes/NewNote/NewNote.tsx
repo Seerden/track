@@ -13,7 +13,8 @@ function NewNote() {
 		<F.Wrapper
 			style={{
 				minWidth: 500,
-			}}>
+			}}
+		>
 			<F.FormTitle> Take a note</F.FormTitle>
 			<F.Form onSubmit={onSubmit}>
 				<F.Row>

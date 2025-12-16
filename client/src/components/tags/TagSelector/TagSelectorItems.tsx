@@ -27,7 +27,8 @@ function TagSelectorItem({
 			$hasParent={hasParent}
 			$isSelected={isSelected}
 			key={tag.tag_id}
-			onClick={() => updateTagSelection(tag.tag_id)}>
+			onClick={() => updateTagSelection(tag.tag_id)}
+		>
 			{tag.name}
 		</S.ListItem>
 	);
@@ -76,7 +77,8 @@ export function TagSelectorItems({
 			onClick={(e) => {
 				openModal(modalId);
 				e.stopPropagation();
-			}}>
+			}}
+		>
 			You do not have any tags yet. Click to add one.
 		</S.CreateTagButton>
 	);

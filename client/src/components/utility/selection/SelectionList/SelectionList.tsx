@@ -60,9 +60,11 @@ export default function SelectionList({
 					}}
 					style={{
 						cursor: "pointer",
-					}}>
+					}}
+				>
 					<Badge
-						color={selection.includes(item.value) ? highlightColor : "#ccc"}>
+						color={selection.includes(item.value) ? highlightColor : "#ccc"}
+					>
 						{item.label}
 					</Badge>
 				</div>

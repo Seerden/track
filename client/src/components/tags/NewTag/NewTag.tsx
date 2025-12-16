@@ -22,7 +22,8 @@ function NewTag({ modalId }: { modalId: ModalId }) {
 					style={{
 						alignItems: "center",
 						gap: spacingValue.small,
-					}}>
+					}}
+				>
 					New
 					<LucideTags />
 				</F.FormTitle>
@@ -64,7 +65,8 @@ function NewTag({ modalId }: { modalId: ModalId }) {
 				<Buttons.Submit.Default
 					type="submit"
 					title="Save"
-					onClick={handleSubmit}>
+					onClick={handleSubmit}
+				>
 					💾
 				</Buttons.Submit.Default>
 			</F.Form>
