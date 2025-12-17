@@ -1,0 +1,1 @@
+alter table if exists activities_tags add constraint fk_activities_tags_users foreign key (user_id) references auth.user (id) on delete cascade;
