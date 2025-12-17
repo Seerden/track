@@ -6,8 +6,9 @@ import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
 import S from "@/components/Today/activities/style/DetailedActivity.style";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import Modal from "@/components/utility/Modal/Modal";
-import { activityEnd, activityStart } from "@/lib/activity";
+import { activityEnd, activityStart, getActivityId } from "@/lib/activity";
 import { createDate } from "@/lib/datetime/make-date";
+import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import modalIds from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import Card from "@/lib/theme/components/Card.style";
@@ -39,6 +40,8 @@ export default function DetailedActivity({
 		tags,
 		handleDeleteActivity,
 	} = useDetailedActivity({ activity });
+	const { closeDetailedItemModal: closeDetailedActivity } =
+		useDetailedItemModal("activity", modalIds.detailedActivity);
 
 	return (
 		<S.Wrapper>
@@ -47,7 +50,10 @@ export default function DetailedActivity({
 					<S.CheckboxWrapper>
 						<Checkbox
 							checked={activity.completed ?? false}
-							onChange={putCompletion}
+							onChange={(e) => {
+								putCompletion();
+								closeDetailedActivity(getActivityId(activity));
+							}}
 						/>
 					</S.CheckboxWrapper>
 				)}

@@ -1,10 +1,11 @@
 import styled from "@emotion/styled";
+import { m } from "motion/react";
 import { font } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing } from "@/lib/theme/snippets/spacing";
 
-const Wrapper = styled.section`
+const Wrapper = styled(m.section)`
 	padding-top: 1rem;
 	min-width: 400px;
 `;
