@@ -16,7 +16,7 @@ export default function useDetailedItemModal(
 	modalId: ModalId
 ) {
 	const [activeItem, setActiveItem] = useAtom(activeItemAtom);
-	const { openModal } = useModalState();
+	const { openModal, closeModal } = useModalState();
 
 	function openDetailedItemModal(id: ID) {
 		setActiveItem(
@@ -28,9 +28,20 @@ export default function useDetailedItemModal(
 		openModal(modalId);
 	}
 
+	function closeDetailedItemModal(id: ID) {
+		setActiveItem(
+			produce((draft) => {
+				if (draft[type].activeId !== id) return;
+				draft[type].activeId = null;
+			})
+		);
+		closeModal(modalId);
+	}
+
 	return {
 		modalId,
 		activeItem,
 		openDetailedItemModal,
+		closeDetailedItemModal,
 	} as const;
 }
