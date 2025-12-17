@@ -32,17 +32,17 @@ export default function NewTagButton({
 				<LucideTags size={size} />
 			</S.Button>
 
-			{modalIds.includes(modalId) && (
-				// NOTE: passing the same modalId here twice may seem weird, but
-				// it's technically possible for this thing to get nested modals
-				// (e.g. when a modal contains a TagSelector, which contains a
-				// NewTagButton, which on click opens another modal, etc.) It's
-				// unlikely though, because we usually don't put `showNewTagButton` on
-				// the TagSelector inside the NewTagButton (because that makes no sense).
-				<Modal modalId={modalId}>
+			{/* NOTE: passing the same modalId here twice may seem weird, but
+				   it's technically possible for this thing to get nested modals
+				   (e.g. when a modal contains a TagSelector, which contains a
+				   NewTagButton, which on click opens another modal, etc.) It's
+				   unlikely though, because we usually don't put `showNewTagButton` on
+				   the TagSelector inside the NewTagButton (because that makes no sense). */}
+			<Modal modalId={modalId}>
+				{modalIds.includes(modalId) && (
 					<NewTag modalId={`${modalId}-nested` as ModalId} />
-				</Modal>
-			)}
+				)}
+			</Modal>
 		</>
 	);
 }

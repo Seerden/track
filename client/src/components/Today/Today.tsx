@@ -165,22 +165,25 @@ export default function Today() {
 				initialOpen={false}
 				scrollbarVisible
 			>
-				<h1
-					style={{
-						padding: 0,
-						paddingBottom: spacingValue.small,
-						margin: 0,
-						marginTop: spacingValue.medium,
-					}}
-				>
-					Overdue tasks
-				</h1>
-				<S.OverdueTasksColumn gap="small" padding="medium">
-					{!!overdueTasks?.length &&
-						overdueTasks.map((t) => (
-							<Task activity={t} key={t.activity_id} secondary />
-						))}
-				</S.OverdueTasksColumn>
+				{!!overdueTasks?.length && (
+					<>
+						<h1
+							style={{
+								padding: 0,
+								paddingBottom: spacingValue.small,
+								margin: 0,
+								marginTop: spacingValue.medium,
+							}}
+						>
+							Overdue tasks
+						</h1>
+						<S.OverdueTasksColumn gap="small" padding="medium">
+							{overdueTasks.map((t) => (
+								<Task activity={t} key={t.activity_id} secondary />
+							))}
+						</S.OverdueTasksColumn>
+					</>
+				)}
 			</Modal>
 
 			{/* TODO: see modal rework issue (TRK-211) */}

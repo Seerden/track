@@ -1,7 +1,8 @@
 import { byIdAsList } from "@shared/lib/map";
 import type { TagWithIds } from "@shared/lib/schemas/tag";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { LucideChevronDown, LucideChevronUp } from "lucide-react";
+import { motion } from "motion/react";
 import { useState } from "react";
 import Modal from "@/components/utility/Modal/Modal";
 import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
@@ -20,10 +21,8 @@ export default function TagTree({
 	modalId?: ModalId;
 	initialOpen?: boolean;
 }) {
-	const { data: tagsTree } = useQuery(trpc.tags.tree.queryOptions());
-	const { data: tags } = useQueryTags();
-
-	if (!tagsTree || !tags) return null;
+	const { data: tagsTree } = useSuspenseQuery(trpc.tags.tree.queryOptions());
+	const { data: tags } = useSuspenseQuery(trpc.tags.all.queryOptions());
 
 	const rootTagIds = [...tagsTree.keys()];
 	const rootTags = rootTagIds.map((id) => tags.get(id)).filter((tag) => !!tag);
@@ -32,22 +31,24 @@ export default function TagTree({
 
 	return (
 		<Modal modalId={modalId} initialOpen={initialOpen}>
-			<div>
-				<S.Container>
-					<h1>Tag tree</h1>
-					{/* TODO: style and finish this */}
-					<p>
-						This is an overview of all your tags and how they relate to each
-						other. Soon, you will be able to edit the hierarchy of your tags
-						from here.
-					</p>
-					<S.Tree $orientation={orientation} $columnCount={rootTags.length}>
-						{rootTags.map((tag) => (
-							<Tag key={tag.tag_id} tag={tag} level={0} />
-						))}
-					</S.Tree>
-				</S.Container>
-			</div>
+			{byIdAsList(tags).length > 0 && (
+				<motion.div key="motion-tag-tree">
+					<S.Container>
+						<h1>Tag tree</h1>
+						{/* TODO: style and finish this */}
+						<p>
+							This is an overview of all your tags and how they relate to each
+							other. Soon, you will be able to edit the hierarchy of your tags
+							from here.
+						</p>
+						<S.Tree $orientation={orientation} $columnCount={rootTags.length}>
+							{rootTags.map((tag) => (
+								<Tag key={tag.tag_id} tag={tag} level={0} />
+							))}
+						</S.Tree>
+					</S.Container>
+				</motion.div>
+			)}
 		</Modal>
 	);
 }
