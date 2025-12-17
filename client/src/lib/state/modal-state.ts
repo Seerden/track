@@ -43,10 +43,10 @@ export function useModalState() {
 		modalId: ModalId;
 		value: boolean;
 	}) {
-		if (!value) {
-			closeModal(modalId);
+		if (value) {
+			openModal(modalId);
 		} else {
-			setModalIds((current) => [...current, modalId]);
+			closeModal(modalId);
 		}
 	}
 
