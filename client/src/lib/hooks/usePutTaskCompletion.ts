@@ -3,12 +3,13 @@ import {
 	type SyntheticActivity,
 	syntheticActivitySchema,
 } from "@shared/lib/schemas/activity";
+import { produce } from "immer";
 import { useAtom } from "jotai";
 import { useCallback } from "react";
 import useMutateTaskCompletion from "@/lib/hooks/query/activities/useMutateTask";
+import { activeItemAtom } from "@/lib/state/active-item-state";
 import { queryClient } from "../query-client";
 import { isSyntheticActivity } from "../recurrence";
-import { activeItemAtom } from "../state/active-item-state";
 import { trpc } from "../trpc";
 import { useMutateNewSyntheticActivity } from "./query/activities/useMutateNewActivity";
 
@@ -44,16 +45,13 @@ export default function usePutTaskCompletion(task: PossiblySyntheticActivity) {
 						// shift in the inbetween state.
 						// if the synthetic activity was opened as a modal, we need to
 						// now open the modal for the real activity
-						// TODO (TRK-338) acutally, do not open the modal (framer
-						// motion does not like have two different things with the
-						// same id)
-						// if (activeItem.activity.activeId === task.synthetic_id) {
-						// 	setActiveItem(
-						// 		produce((draft) => {
-						// 			draft.activity.activeId = updatedTask.activity_id;
-						// 		})
-						// 	);
-						// }
+						if (activeItem.activity.activeId === task.synthetic_id) {
+							setActiveItem(
+								produce((draft) => {
+									draft.activity.activeId = updatedTask.activity_id;
+								})
+							);
+						}
 					},
 				}
 			);

@@ -15,6 +15,8 @@ type ModalProps = {
 	initialOpen?: boolean;
 	/** whether the modal children have a visible scrollbar when overflowing */
 	scrollbarVisible?: boolean;
+	/** @todo TRK-338 trying this to see if we can force state */
+	$key?: string | null;
 };
 
 export default function Modal({
@@ -22,6 +24,7 @@ export default function Modal({
 	modalId,
 	initialOpen,
 	scrollbarVisible = false,
+	$key,
 }: PropsWithChildren<ModalProps>) {
 	const modalRef = useRef(null);
 	const { closeModal, isOpen } = useModal(modalRef, {
@@ -39,15 +42,16 @@ export default function Modal({
 	return createPortal(
 		<FocusTrap>
 			<AnimatePresence>
-				{isOpen && (
+				{isOpen && $key !== null && (
 					<S.ModalWrapper
+						key={$key ?? modalId}
 						layout
 						variants={modalWrapperMotionVariants}
 						initial="closed"
 						animate="opened"
 						exit="closed"
 						transition={{
-							duration: 0.075,
+							duration: $key === null ? 0 : 0.075,
 							type: "tween",
 							ease: "easeOut",
 						}}
