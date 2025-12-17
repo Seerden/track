@@ -52,19 +52,12 @@ export function useModalState() {
 
 	const toggleModal = useCallback(
 		(modalId: ModalId) => {
-			// maybe clear active item state.
 			const isOpen = modalIds.includes(modalId);
-			const newValue = !isOpen;
-			if (!newValue) {
-				maybeClearActiveItemState(modalId);
+			if (isOpen) {
+				closeModal(modalId);
+			} else {
+				openModal(modalId);
 			}
-
-			// actually toggle the modal.
-			setModalIds((current) =>
-				current.includes(modalId)
-					? current.filter((id) => id !== modalId)
-					: [...current, modalId]
-			);
 		},
 		[modalIds]
 	);
