@@ -15,7 +15,14 @@ type ModalProps = {
 	initialOpen?: boolean;
 	/** whether the modal children have a visible scrollbar when overflowing */
 	scrollbarVisible?: boolean;
-	/** @todo TRK-338 trying this to see if we can force state */
+	/** In certain cases, we may want the modal to close-then-open in a single
+	 * action. Setting $key to null acts as intermediate state that makes
+	 * AnimatePresence play the exit, then the new enter animation with the new
+	 * content.
+	 * @note The use case for this is making a synthetic task real by interacting
+	 * with its completion state. With current behavior, it sets the content to
+	 * null briefly before loading the new (real) task, which messes with
+	 * styling. */
 	$key?: string | null;
 };
 
@@ -51,7 +58,7 @@ export default function Modal({
 						animate="opened"
 						exit="closed"
 						transition={{
-							duration: $key === null ? 0 : 0.075,
+							duration: 0.075,
 							type: "tween",
 							ease: "easeOut",
 						}}
