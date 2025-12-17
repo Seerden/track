@@ -34,22 +34,16 @@ export default function DetailModals() {
 
 	return (
 		<>
-			{!!activeActivity && (
-				<Modal modalId={modalIds.detailedActivity}>
-					<DetailedActivity activity={activeActivity} />
-				</Modal>
-			)}
+			<Modal modalId={modalIds.detailedActivity}>
+				{!!activeActivity && <DetailedActivity activity={activeActivity} />}
+			</Modal>
 
-			{!!activeHabit && (
-				<Modal modalId={modalIds.habits.detailed}>
-					<DetailedHabit habit={activeHabit} />
-				</Modal>
-			)}
-			{!!activeTag && (
-				<Modal modalId={modalIds.tags.detailed}>
-					<DetailedTag tag={activeTag} />
-				</Modal>
-			)}
+			<Modal modalId={modalIds.habits.detailed}>
+				{!!activeHabit && <DetailedHabit habit={activeHabit} />}
+			</Modal>
+			<Modal modalId={modalIds.tags.detailed}>
+				{!!activeTag && <DetailedTag tag={activeTag} />}
+			</Modal>
 		</>
 	);
 }
