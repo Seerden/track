@@ -7,9 +7,9 @@ import { produce } from "immer";
 import { useAtom } from "jotai";
 import { useCallback } from "react";
 import useMutateTaskCompletion from "@/lib/hooks/query/activities/useMutateTask";
+import { activeItemAtom } from "@/lib/state/active-item-state";
 import { queryClient } from "../query-client";
 import { isSyntheticActivity } from "../recurrence";
-import { activeItemAtom } from "../state/active-item-state";
 import { trpc } from "../trpc";
 import { useMutateNewSyntheticActivity } from "./query/activities/useMutateNewActivity";
 
@@ -43,7 +43,6 @@ export default function usePutTaskCompletion(task: PossiblySyntheticActivity) {
 						// based on that query, so removing the synthetic activity in
 						// this onSuccess handler only created a temporary layout
 						// shift in the inbetween state.
-
 						// if the synthetic activity was opened as a modal, we need to
 						// now open the modal for the real activity
 						if (activeItem.activity.activeId === task.synthetic_id) {

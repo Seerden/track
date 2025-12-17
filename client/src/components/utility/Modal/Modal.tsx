@@ -15,6 +15,15 @@ type ModalProps = {
 	initialOpen?: boolean;
 	/** whether the modal children have a visible scrollbar when overflowing */
 	scrollbarVisible?: boolean;
+	/** In certain cases, we may want the modal to close-then-open in a single
+	 * action. Setting $key to null acts as intermediate state that makes
+	 * AnimatePresence play the exit, then the new enter animation with the new
+	 * content.
+	 * @note The use case for this is making a synthetic task real by interacting
+	 * with its completion state. With current behavior, it sets the content to
+	 * null briefly before loading the new (real) task, which messes with
+	 * styling. */
+	$key?: string | null;
 };
 
 export default function Modal({
@@ -22,6 +31,7 @@ export default function Modal({
 	modalId,
 	initialOpen,
 	scrollbarVisible = false,
+	$key,
 }: PropsWithChildren<ModalProps>) {
 	const modalRef = useRef(null);
 	const { closeModal, isOpen } = useModal(modalRef, {
@@ -39,8 +49,9 @@ export default function Modal({
 	return createPortal(
 		<FocusTrap>
 			<AnimatePresence>
-				{isOpen && (
+				{isOpen && $key !== null && (
 					<S.ModalWrapper
+						key={$key ?? modalId}
 						layout
 						variants={modalWrapperMotionVariants}
 						initial="closed"

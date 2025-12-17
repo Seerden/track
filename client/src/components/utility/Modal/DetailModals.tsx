@@ -4,6 +4,7 @@ import DetailedHabit from "@/components/habits/DetailedHabit/DetailedHabit";
 import DetailedActivity from "@/components/Today/activities/DetailedActivity";
 import DetailedTag from "@/components/tags/DetailedTag/DetailedTag";
 import Modal from "@/components/utility/Modal/Modal";
+import { getActivityId } from "@/lib/activity";
 import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import modalIds from "@/lib/modal-ids";
 import { activeItemAtom } from "@/lib/state/active-item-state";
@@ -34,7 +35,10 @@ export default function DetailModals() {
 
 	return (
 		<>
-			<Modal modalId={modalIds.detailedActivity}>
+			<Modal
+				modalId={modalIds.detailedActivity}
+				$key={activeActivity ? getActivityId(activeActivity) : null}
+			>
 				{!!activeActivity && <DetailedActivity activity={activeActivity} />}
 			</Modal>
 
