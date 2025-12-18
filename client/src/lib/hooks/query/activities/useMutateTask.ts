@@ -4,10 +4,10 @@ import { trpc } from "@/lib/trpc";
 
 export default function useMutateTaskCompletion() {
 	return useMutation(
-		trpc.activities.updateCompletion.mutationOptions({
+		trpc.activities.m.updateCompletion.mutationOptions({
 			onSuccess: () => {
 				queryClient.invalidateQueries({
-					queryKey: trpc.activities.all.queryKey(),
+					queryKey: trpc.activities.q.all.queryKey(),
 				});
 			},
 		})

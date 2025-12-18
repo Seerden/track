@@ -15,7 +15,7 @@ import { trpc } from "@/lib/trpc";
 
 export function useTagFilter() {
 	const { data: tags } = useQueryTags();
-	const { data: tagsTree } = useQuery(trpc.tags.tree.queryOptions());
+	const { data: tagsTree } = useQuery(trpc.tags.q.tree.queryOptions());
 	const [tagFilter, setTagFilter] = useAtom(tagFilterAtom);
 	const [activeTagIds, setActiveTagIds] = useState<ID[]>([]);
 	const [[wholeTree], toggleWholeTree] = useToggle(false);

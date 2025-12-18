@@ -21,7 +21,7 @@ export default function useActivityFilter({ onChange }: ActivityFilterProps) {
 	// be a thing anymore if we ever switch to Start.
 	const { isPending: tagsQueryPending } = useQueryTags();
 	const { isPending: tagsTreeQueryPending } = useQuery(
-		trpc.tags.tree.queryOptions()
+		trpc.tags.q.tree.queryOptions()
 	);
 	const isProbablySuspended = tagsQueryPending || tagsTreeQueryPending;
 

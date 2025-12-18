@@ -4,6 +4,10 @@ import { TABLES } from "types/tables";
 import { query } from "@/lib/query-function";
 import { queryActivityById } from "./query-activities";
 
+/**
+ * @todo for all other `query()` function input types, we define them outside of
+ * the query file. Should probably do the same for this, or refactor everything
+ * else to do what we do here (schema definition in same file as query). */
 export const deleteActivityByIdInputSchema = z.object({
 	activity_id: z.string(),
 	/** used to verify ownership of the activity */

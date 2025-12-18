@@ -52,7 +52,9 @@ export default function useNewTag({
 			{ newTag, parent_id },
 			{
 				onSuccess: () => {
-					queryClient.invalidateQueries({ queryKey: trpc.tags.all.queryKey() });
+					queryClient.invalidateQueries({
+						queryKey: trpc.tags.q.all.queryKey(),
+					});
 					closeModal(modalIds.tagSelector.activityForm);
 				},
 			}

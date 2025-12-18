@@ -1,9 +1,13 @@
-import { createTag } from "@/lib/trpc/resolvers/tag/insert-tags";
-import { queryTags, queryTagTree } from "@/lib/trpc/resolvers/tag/query-tags";
+import { createTagMutation } from "@/lib/trpc/resolvers/tags/insert-tags";
+import { tagsQuery, tagTreeQuery } from "@/lib/trpc/resolvers/tags/query-tags";
 import { t } from "@/lib/trpc/trpc-context";
 
-export const tagRouter = t.router({
-	all: queryTags,
-	tree: queryTagTree,
-	create: createTag,
+export const tagsRouter = t.router({
+	q: {
+		all: tagsQuery,
+		tree: tagTreeQuery,
+	},
+	m: {
+		create: createTagMutation,
+	},
 });

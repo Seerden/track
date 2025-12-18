@@ -1,0 +1,18 @@
+import { meQuery } from "@/lib/trpc/resolvers/users/me";
+import { userSettingsQuery } from "@/lib/trpc/resolvers/users/settings/query-settings";
+import { updateUserSettingsMutation } from "@/lib/trpc/resolvers/users/settings/update-settings";
+import { t } from "@/lib/trpc/trpc-context";
+
+export const usersRouter = t.router({
+	q: {
+		me: meQuery,
+		settings: {
+			query: userSettingsQuery,
+		},
+	},
+	m: {
+		settings: {
+			update: updateUserSettingsMutation,
+		},
+	},
+});

@@ -9,10 +9,10 @@ import { invalidateActivities } from "../invalidate";
 
 export const useMutateNewRecurrence = () =>
 	useMutation(
-		trpc.activities.recurrences.create.mutationOptions({
+		trpc.activities.m.recurrences.create.mutationOptions({
 			onSuccess: () => {
 				queryClient.invalidateQueries({
-					queryKey: trpc.activities.recurrences.all.queryKey(),
+					queryKey: trpc.activities.q.recurrences.all.queryKey(),
 				});
 			},
 		})
@@ -20,10 +20,10 @@ export const useMutateNewRecurrence = () =>
 
 export const useMutateNewOccurrence = () =>
 	useMutation(
-		trpc.activities.occurrences.create.mutationOptions({
+		trpc.activities.m.occurrences.create.mutationOptions({
 			onSuccess: () => {
 				queryClient.invalidateQueries({
-					queryKey: trpc.activities.occurrences.queryByUser.queryKey(),
+					queryKey: trpc.activities.q.occurrences.all.queryKey(),
 				});
 			},
 		})
@@ -31,7 +31,7 @@ export const useMutateNewOccurrence = () =>
 
 export const useMutateUpdateRecurrence = () => {
 	return useMutation(
-		trpc.activities.recurrences.update.mutationOptions({
+		trpc.activities.m.recurrences.update.mutationOptions({
 			onSuccess: () => {
 				invalidateActivities();
 			},
@@ -41,13 +41,13 @@ export const useMutateUpdateRecurrence = () => {
 
 export const useMutateUpdateOccurrence = () => {
 	return useMutation(
-		trpc.activities.recurrences.update.mutationOptions({
+		trpc.activities.m.recurrences.update.mutationOptions({
 			onSuccess: () => {
 				queryClient.invalidateQueries({
-					queryKey: trpc.activities.all.queryKey(),
+					queryKey: trpc.activities.q.all.queryKey(),
 				});
 				queryClient.invalidateQueries({
-					queryKey: trpc.activities.occurrences.queryByUser.queryKey(),
+					queryKey: trpc.activities.q.occurrences.all.queryKey(),
 				});
 			},
 		})
@@ -56,7 +56,7 @@ export const useMutateUpdateOccurrence = () => {
 
 export const useMutateDeleteRecurrence = () => {
 	return useMutation(
-		trpc.activities.recurrences.delete.mutationOptions({
+		trpc.activities.m.recurrences.delete.mutationOptions({
 			onSuccess: () => {
 				invalidateActivities();
 			},
@@ -66,13 +66,13 @@ export const useMutateDeleteRecurrence = () => {
 
 export const useMutateDeleteOccurrence = () => {
 	return useMutation(
-		trpc.activities.occurrences.delete.mutationOptions({
+		trpc.activities.m.occurrences.delete.mutationOptions({
 			onSuccess: () => {
 				queryClient.invalidateQueries({
-					queryKey: trpc.activities.occurrences.queryByUser.queryKey(),
+					queryKey: trpc.activities.q.occurrences.all.queryKey(),
 				});
 				queryClient.invalidateQueries({
-					queryKey: trpc.activities.all.queryKey(),
+					queryKey: trpc.activities.q.all.queryKey(),
 				});
 			},
 		})

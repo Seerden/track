@@ -4,7 +4,7 @@ import { trpc } from "@/lib/trpc";
 
 export function useQueryRecurrenceById(recurrence_id: Nullable<string>) {
 	return useQuery(
-		trpc.activities.recurrences.queryById.queryOptions(
+		trpc.activities.q.recurrences.queryById.queryOptions(
 			{
 				recurrence_ids: recurrence_id ? [recurrence_id] : [],
 			},

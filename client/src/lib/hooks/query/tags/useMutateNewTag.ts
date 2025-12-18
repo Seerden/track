@@ -4,10 +4,10 @@ import { trpc } from "@/lib/trpc";
 
 export function useMutateNewTag() {
 	return useMutation(
-		trpc.tags.create.mutationOptions({
+		trpc.tags.m.create.mutationOptions({
 			onSuccess: () => {
 				queryClient.invalidateQueries({
-					queryKey: trpc.tags.all.queryKey(),
+					queryKey: trpc.tags.q.all.queryKey(),
 				});
 			},
 		})

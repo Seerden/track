@@ -52,7 +52,7 @@ export default function useNewNote() {
 						// TODO: redirect, or close the modal.
 
 						queryClient.invalidateQueries({
-							queryKey: trpc.notes.all.queryKey(),
+							queryKey: trpc.notes.q.all.queryKey(),
 						});
 						// TODO: this would navigate to /notes, but we're reworking
 						// that, so doesn't matter what this is for now.

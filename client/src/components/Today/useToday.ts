@@ -24,11 +24,11 @@ export default function useToday() {
 	const { data: activitiesData, isFetching: isFetchingActivities } =
 		useQueryActivities();
 	const { data: recurrences, isFetching: isFetchingRecurrences } = useQuery(
-		trpc.activities.recurrences.all.queryOptions()
+		trpc.activities.q.recurrences.all.queryOptions()
 	);
 	const { habits } = useHabitsData();
 	const { data: overdueTasksData, isFetching: isFetchingOverdueTasks } =
-		useQuery(trpc.activities.tasks.overdue.queryOptions());
+		useQuery(trpc.activities.q.tasks.overdue.queryOptions());
 
 	const syntheticActivities = useAtomValue(syntheticActivitiesAtom);
 	const tagFilter = useAtomValue(tagFilterAtom);

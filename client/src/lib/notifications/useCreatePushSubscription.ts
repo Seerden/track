@@ -19,7 +19,7 @@ import { maybeCreatePushSubscription } from "./create-push-subscription";
 export function useCreatePushSubscription() {
 	const { isLoggedIn } = useAuthentication();
 	const queryClient = useQueryClient();
-	const { mutate } = useMutation(trpc.push.subscribe.mutationOptions());
+	const { mutate } = useMutation(trpc.push.m.subscribe.mutationOptions());
 	const [handled, setHandled] = useState(false);
 
 	async function handleCreatePushSubscription() {
@@ -32,7 +32,7 @@ export function useCreatePushSubscription() {
 		mutate(pushSubscriptionInputSchema.parse(subscription.toJSON()), {
 			onSuccess: (data) => {
 				queryClient.invalidateQueries({
-					queryKey: trpc.push.subscription.queryKey(),
+					queryKey: trpc.push.q.subscription.queryKey(),
 				});
 				// TODO (TRK-139): show a notification like "You will now receive
 				// push notifications. We will only send these to remind you of

@@ -1,66 +1,74 @@
 import {
-	deleteOccurrenceById,
-	deleteRecurrenceById,
-} from "@/lib/trpc/resolvers/activity/delete-recurrences";
+	deleteOccurrenceByIdMutation,
+	deleteRecurrenceByIdMutation,
+} from "@/lib/trpc/resolvers/activities/delete-recurrences";
 import {
-	createActivity,
-	createRealSyntheticActivity,
-	createRecurringActivity,
-} from "@/lib/trpc/resolvers/activity/insert-activities";
+	createActivityMutation,
+	createRealSyntheticActivityMutation,
+	createRecurringActivityMutation,
+} from "@/lib/trpc/resolvers/activities/insert-activities";
 import {
-	_createRecurrence,
-	createOccurrence,
-} from "@/lib/trpc/resolvers/activity/insert-recurrences";
+	createOccurrenceMutation,
+	createRecurrenceMutation,
+} from "@/lib/trpc/resolvers/activities/insert-recurrences";
 import {
-	queryActivities,
-	queryRecurringActivities,
-} from "@/lib/trpc/resolvers/activity/query-activities";
+	activitiesQuery,
+	recurringActivitiesQuery,
+} from "@/lib/trpc/resolvers/activities/query-activities";
 import {
-	_getRecurrenceByActivity,
-	_getRecurrencesByUser,
-	_queryOccurrencesByRecurrence,
-	_queryOccurrencesByUser,
-	getRecurrencesById,
-} from "@/lib/trpc/resolvers/activity/query-recurrences";
+	occurrencesByRecurrenceQuery,
+	occurrencesByUserQuery,
+	recurrenceByActivityQuery,
+	recurrencesByIdQuery,
+	recurrencesByUserQuery,
+} from "@/lib/trpc/resolvers/activities/query-recurrences";
 import {
-	updateActivity,
-	updateTaskCompletion,
-} from "@/lib/trpc/resolvers/activity/update-activities";
+	updateActivityMutation,
+	updateTaskCompletionMutation,
+} from "@/lib/trpc/resolvers/activities/update-activities";
 import {
-	_updateOccurrence,
-	_updateRecurrence,
-} from "@/lib/trpc/resolvers/activity/update-recurrences";
+	updateOccurrenceMutation,
+	updateRecurrenceMutation,
+} from "@/lib/trpc/resolvers/activities/update-recurrences";
 import { t } from "@/lib/trpc/trpc-context";
-import { resolveDeleteActivityById } from "../resolvers/activity/delete-activity";
-import { queryOverdueTasks } from "../resolvers/activity/query-tasks";
+import { deleteActivityByIdMutation } from "../resolvers/activities/delete-activity";
+import { overdueTasksQuery } from "../resolvers/activities/query-tasks";
 
-export const activityRouter = t.router({
-	all: queryActivities,
-	delete: {
-		byId: resolveDeleteActivityById,
+export const activitiesRouter = t.router({
+	q: {
+		all: activitiesQuery,
+		recurring: recurringActivitiesQuery,
+		recurrences: {
+			all: recurrencesByUserQuery,
+			queryByActivity: recurrenceByActivityQuery,
+			queryById: recurrencesByIdQuery,
+		},
+		occurrences: {
+			queryByRecurrence: occurrencesByRecurrenceQuery,
+			all: occurrencesByUserQuery,
+		},
+		tasks: {
+			overdue: overdueTasksQuery,
+		},
 	},
-	recurring: queryRecurringActivities,
-	create: createActivity,
-	createRecurring: createRecurringActivity,
-	createFromSynthetic: createRealSyntheticActivity,
-	update: updateActivity,
-	updateCompletion: updateTaskCompletion,
-	recurrences: {
-		all: _getRecurrencesByUser,
-		queryByActivity: _getRecurrenceByActivity,
-		queryById: getRecurrencesById,
-		create: _createRecurrence,
-		delete: deleteRecurrenceById,
-		update: _updateRecurrence,
-	},
-	occurrences: {
-		queryByRecurrence: _queryOccurrencesByRecurrence,
-		queryByUser: _queryOccurrencesByUser,
-		create: createOccurrence,
-		delete: deleteOccurrenceById,
-		update: _updateOccurrence,
-	},
-	tasks: {
-		overdue: queryOverdueTasks,
+	m: {
+		delete: {
+			byId: deleteActivityByIdMutation,
+		},
+		create: createActivityMutation,
+		createRecurring: createRecurringActivityMutation,
+		createFromSynthetic: createRealSyntheticActivityMutation,
+		update: updateActivityMutation,
+		updateCompletion: updateTaskCompletionMutation,
+		recurrences: {
+			create: createRecurrenceMutation,
+			delete: deleteRecurrenceByIdMutation,
+			update: updateRecurrenceMutation,
+		},
+		occurrences: {
+			create: createOccurrenceMutation,
+			delete: deleteOccurrenceByIdMutation,
+			update: updateOccurrenceMutation,
+		},
 	},
 });

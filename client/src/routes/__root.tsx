@@ -14,7 +14,9 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 	component: App,
 	/** @see https://tanstack.com/router/v1/docs/eslint/create-route-property-order */
 	beforeLoad: async ({ context: { queryClient, trpc }, location }) => {
-		const me = await queryClient.ensureQueryData(trpc.auth.me.queryOptions());
+		const me = await queryClient.ensureQueryData(
+			trpc.users.q.me.queryOptions()
+		);
 
 		// TODO: this is WIP still.
 		if (
@@ -35,7 +37,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 			// ensure settings query was fetched, so that we can reconcile the
 			// atoms derived from settings on mount without rerendering etc.
 			await queryClient.ensureQueryData(
-				trpc.user.settings.query.queryOptions()
+				trpc.users.q.settings.query.queryOptions()
 			);
 		}
 	},

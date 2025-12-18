@@ -4,10 +4,10 @@ import { trpc } from "@/lib/trpc";
 
 export function useMutateNewNote() {
 	return useMutation(
-		trpc.notes.create.mutationOptions({
+		trpc.notes.m.create.mutationOptions({
 			onSuccess: () => {
 				queryClient.invalidateQueries({
-					queryKey: trpc.notes.all.queryKey(),
+					queryKey: trpc.notes.q.all.queryKey(),
 				});
 			},
 		})

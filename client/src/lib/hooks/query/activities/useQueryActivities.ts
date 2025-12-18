@@ -17,13 +17,13 @@ export function useQueryActivities() {
 	const timeWindow = useAtomValue(timeWindowAtom);
 	const setSyntheticActivities = useSetAtom(syntheticActivitiesAtom);
 	const { data: recurrences } = useQuery(
-		trpc.activities.recurrences.all.queryOptions()
+		trpc.activities.q.recurrences.all.queryOptions()
 	);
 	const { data: recurringActivitiesData } = useQuery(
-		trpc.activities.recurring.queryOptions()
+		trpc.activities.q.recurring.queryOptions()
 	);
 	const query = useQuery(
-		trpc.activities.all.queryOptions({
+		trpc.activities.q.all.queryOptions({
 			from: timeWindow.startDate,
 			to: timeWindow.endDate,
 		})

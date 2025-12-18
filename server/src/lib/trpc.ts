@@ -6,24 +6,22 @@ import {
 	splitLink,
 } from "@trpc/client";
 import superjson from "superjson";
-import { activityRouter } from "@/lib/trpc/routers/activities.router";
-import { authRouter } from "@/lib/trpc/routers/auth.router";
-import { habitRouter } from "@/lib/trpc/routers/habits.router";
-import { noteRouter } from "@/lib/trpc/routers/notes.router";
-import { tagRouter } from "@/lib/trpc/routers/tags.router";
+import { activitiesRouter } from "@/lib/trpc/routers/activities.router";
+import { habitsRouter } from "@/lib/trpc/routers/habits.router";
+import { notesRouter } from "@/lib/trpc/routers/notes.router";
+import { tagsRouter } from "@/lib/trpc/routers/tags.router";
 import { t } from "./trpc/trpc-context";
 import "dotenv/config";
 import { pushRouter } from "./trpc/routers/push.router";
-import { userRouter } from "./trpc/routers/user.router";
+import { usersRouter } from "./trpc/routers/users.router";
 
 export const appRouter = t.router({
-	auth: authRouter,
-	habits: habitRouter,
-	notes: noteRouter,
-	activities: activityRouter,
-	tags: tagRouter,
+	habits: habitsRouter,
+	notes: notesRouter,
+	activities: activitiesRouter,
+	tags: tagsRouter,
 	push: pushRouter,
-	user: userRouter,
+	users: usersRouter,
 });
 
 export type AppRouter = typeof appRouter;

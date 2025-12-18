@@ -4,7 +4,7 @@ import { invalidateActivities } from "../invalidate";
 
 export function useMutateNewActivity() {
 	return useMutation(
-		trpc.activities.create.mutationOptions({
+		trpc.activities.m.create.mutationOptions({
 			// TODO: the onSuccess handlers in this file are the same right now,
 			// but I can see a situation where they diverge in the future, so I'm
 			// not gonna abstract them into a single onSuccess function.
@@ -17,7 +17,7 @@ export function useMutateNewActivity() {
 
 export function useMutateNewRecurringActivity() {
 	return useMutation(
-		trpc.activities.createRecurring.mutationOptions({
+		trpc.activities.m.createRecurring.mutationOptions({
 			onSuccess: () => {
 				invalidateActivities();
 			},
@@ -28,7 +28,7 @@ export function useMutateNewRecurringActivity() {
 /** Mutation hook that turns a synthetic activity into a real one. */
 export function useMutateNewSyntheticActivity() {
 	return useMutation(
-		trpc.activities.createFromSynthetic.mutationOptions({
+		trpc.activities.m.createFromSynthetic.mutationOptions({
 			onSuccess: () => {
 				invalidateActivities();
 			},

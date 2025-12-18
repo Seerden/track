@@ -8,12 +8,14 @@ import { trpc } from "@/lib/trpc";
 
 export function useSettings() {
 	const { currentUser, logout } = useAuthentication();
-	const { data: settings } = useQuery(trpc.user.settings.query.queryOptions());
+	const { data: settings } = useQuery(
+		trpc.users.q.settings.query.queryOptions()
+	);
 	const { mutate: mutateUpdateSettings } = useMutation(
-		trpc.user.settings.update.mutationOptions({
+		trpc.users.m.settings.update.mutationOptions({
 			onSuccess: (_data) => {
 				queryClient.invalidateQueries({
-					queryKey: trpc.user.settings.query.queryKey(),
+					queryKey: trpc.users.q.settings.query.queryKey(),
 				});
 			},
 		})

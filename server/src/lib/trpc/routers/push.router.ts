@@ -1,10 +1,14 @@
-import { queryPushSubscriptionResolver } from "@/lib/trpc/resolvers/push/query-push-subscription.resolver";
-import { subscribeResolver } from "../resolvers/push/subscribe.resolver";
-import { testNotification } from "../resolvers/push/test-notification.resolver";
+import { pushSubscriptionQuery } from "@/lib/trpc/resolvers/push/query-push-subscription";
+import { subscribeMutation } from "../resolvers/push/subscribe";
+import { testNotificationQuery } from "../resolvers/push/test-notification";
 import { t } from "../trpc-context";
 
 export const pushRouter = t.router({
-	subscribe: subscribeResolver,
-	testNotification,
-	subscription: queryPushSubscriptionResolver,
+	q: {
+		testNotification: testNotificationQuery,
+		subscription: pushSubscriptionQuery,
+	},
+	m: {
+		subscribe: subscribeMutation,
+	},
 });

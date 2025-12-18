@@ -5,8 +5,8 @@ import type { ActivityTagRelation } from "@shared/types/data/relational.types";
 import type { ID } from "@shared/types/data/utility.types";
 import { TABLES } from "types/tables";
 import { query } from "@/lib/query-function";
-import { mergeActivitiesAndRelations } from "./merge-activities-and-relations";
-import { timeWindowFilter } from "./time-window-filter";
+import { mergeActivitiesAndRelations } from "./utility/merge-activities-and-relations";
+import { timeWindowFilter } from "./utility/time-window-filter";
 
 type QueryActivitiesInput = {
 	user_id: ID;

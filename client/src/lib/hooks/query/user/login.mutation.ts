@@ -25,7 +25,7 @@ export function useLoginMutation() {
 					enabled: true,
 				},
 			});
-			queryClient.invalidateQueries({ queryKey: trpc.auth.me.queryKey() });
+			queryClient.invalidateQueries({ queryKey: trpc.users.q.me.queryKey() });
 
 			captureMessage(`User "${user?.email}" logged in`, "log");
 		},

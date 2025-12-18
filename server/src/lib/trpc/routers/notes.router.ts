@@ -1,8 +1,12 @@
-import { createNote } from "@/lib/trpc/resolvers/note/insert-notes";
-import { queryNotes } from "@/lib/trpc/resolvers/note/query-notes";
+import { createNoteMutation } from "@/lib/trpc/resolvers/notes/insert-notes";
+import { notesQuery } from "@/lib/trpc/resolvers/notes/query-notes";
 import { t } from "@/lib/trpc/trpc-context";
 
-export const noteRouter = t.router({
-	all: queryNotes,
-	create: createNote,
+export const notesRouter = t.router({
+	q: {
+		all: notesQuery,
+	},
+	m: {
+		create: createNoteMutation,
+	},
 });

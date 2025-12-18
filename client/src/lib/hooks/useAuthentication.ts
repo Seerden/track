@@ -7,7 +7,7 @@ export default function useAuthentication() {
 	const { mutate: login, isError: isLoginError } = useLoginMutation();
 	const { mutate: logout, isError: isLogoutError } = useLogoutMutation();
 
-	const { data } = useQuery(trpc.auth.me.queryOptions());
+	const { data } = useQuery(trpc.users.q.me.queryOptions());
 
 	const currentUser = data?.user;
 	const isLoggedIn = !!currentUser;
