@@ -3,7 +3,7 @@ import { z } from "@shared/lib/zod";
 import { queryActivitiesAndRelations } from "@/lib/data/models/activities/query-activities";
 import { betterAuthProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 
-export const queryActivities = betterAuthProcedure
+export const activitiesQuery = betterAuthProcedure
 	.input(
 		z
 			.object({
@@ -20,7 +20,7 @@ export const queryActivities = betterAuthProcedure
 		return activities;
 	});
 
-export const queryRecurringActivities = betterAuthProcedure.query(
+export const recurringActivitiesQuery = betterAuthProcedure.query(
 	async ({ ctx }) => {
 		return await queryActivitiesAndRelations({
 			user_id: ctx.user.id,

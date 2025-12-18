@@ -4,7 +4,7 @@ import {
 } from "@/lib/data/models/activities/delete-activity";
 import { betterAuthProcedure } from "../../procedures/authenticated.procedure";
 
-export const resolveDeleteActivityById = betterAuthProcedure
+export const deleteActivityByIdMutation = betterAuthProcedure
 	.input(deleteActivityByIdInputSchema.omit({ user_id: true }))
 	.mutation(async ({ input, ctx }) => {
 		return await deleteActivityById({

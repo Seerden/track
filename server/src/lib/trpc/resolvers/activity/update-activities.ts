@@ -9,7 +9,7 @@ import {
 } from "@/lib/data/models/activities/update-activity";
 import { betterAuthProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 
-export const updateActivity = betterAuthProcedure
+export const updateActivityMutation = betterAuthProcedure
 	.input(activityUpdateInputSchema)
 	.mutation(async ({ input: { activity, tag_ids }, ctx }) => {
 		const updatedActivity = await _updateActivity({
@@ -23,7 +23,7 @@ export const updateActivity = betterAuthProcedure
 		});
 	});
 
-export const updateTaskCompletion = betterAuthProcedure
+export const updateTaskCompletionMutation = betterAuthProcedure
 	.input(taskUpdateInputSchema)
 	.mutation(async ({ input, ctx }) => {
 		const [activity] = await updateActivityCompletion({ input });

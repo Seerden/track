@@ -3,7 +3,7 @@ import { removeOccurrenceById } from "@/lib/data/models/activities/remove-occurr
 import { removeRecurrenceById } from "@/lib/data/models/activities/remove-recurrence";
 import { betterAuthProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 
-export const deleteRecurrenceById = betterAuthProcedure
+export const deleteRecurrenceByIdMutation = betterAuthProcedure
 	.input(z.string())
 	.mutation(async ({ input, ctx }) => {
 		return await removeRecurrenceById({
@@ -12,7 +12,7 @@ export const deleteRecurrenceById = betterAuthProcedure
 		});
 	});
 
-export const deleteOccurrenceById = betterAuthProcedure
+export const deleteOccurrenceByIdMutation = betterAuthProcedure
 	.input(z.string())
 	.mutation(async ({ input, ctx }) => {
 		return await removeOccurrenceById({

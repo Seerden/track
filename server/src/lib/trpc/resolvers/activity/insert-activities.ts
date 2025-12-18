@@ -16,7 +16,7 @@ import { betterAuthProcedure } from "@/lib/trpc/procedures/authenticated.procedu
  * relation that has been interacted with somehow. It does not have tags linked
  * to it, because we'll reuse the tags of the activity that the synthetic one stems
  * from. */
-export const createRealSyntheticActivity = betterAuthProcedure
+export const createRealSyntheticActivityMutation = betterAuthProcedure
 	.input(syntheticActivitySchema)
 	.mutation(async ({ input }) => {
 		try {
@@ -37,7 +37,7 @@ export const createRealSyntheticActivity = betterAuthProcedure
 		}
 	});
 
-export const createActivity = betterAuthProcedure
+export const createActivityMutation = betterAuthProcedure
 	.input(activityInputSchema)
 	.mutation(async ({ input: { activity, tagIds }, ctx }) => {
 		const activityWithUserId: NewActivity = {
@@ -51,7 +51,7 @@ export const createActivity = betterAuthProcedure
 		});
 	});
 
-export const createRecurringActivity = betterAuthProcedure
+export const createRecurringActivityMutation = betterAuthProcedure
 	.input(recurringActivityInputSchema)
 	.mutation(async ({ input: { activity, tagIds, recurrence }, ctx }) => {
 		const activityWithUserId: NewActivity = {

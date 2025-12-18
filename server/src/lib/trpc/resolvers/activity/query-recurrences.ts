@@ -11,7 +11,7 @@ import {
 } from "@/lib/data/models/activities/query-recurrences";
 import { betterAuthProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 
-export const _queryOccurrencesByUser = betterAuthProcedure.query(
+export const occurrencesByUserQuery = betterAuthProcedure.query(
 	async ({ ctx }) => {
 		return await queryOccurrencesByUser({
 			user_id: ctx.user.id,
@@ -19,7 +19,7 @@ export const _queryOccurrencesByUser = betterAuthProcedure.query(
 	}
 );
 
-export const _queryOccurrencesByRecurrence = betterAuthProcedure
+export const occurrencesByRecurrenceQuery = betterAuthProcedure
 	.input(z.string())
 	.query(async ({ input, ctx }) => {
 		return await queryOccurrencesByRecurrence({
@@ -28,7 +28,7 @@ export const _queryOccurrencesByRecurrence = betterAuthProcedure
 		});
 	});
 
-export const _getRecurrencesByUser = betterAuthProcedure.query(
+export const recurrencesByUserQuery = betterAuthProcedure.query(
 	async ({ ctx }) => {
 		return groupById(
 			await queryRecurrencesByUser({ user_id: ctx.user.id }),
@@ -37,7 +37,7 @@ export const _getRecurrencesByUser = betterAuthProcedure.query(
 	}
 );
 
-export const _getRecurrenceByActivity = betterAuthProcedure
+export const recurrenceByActivityQuery = betterAuthProcedure
 	.input(
 		z.union([
 			z.object({
@@ -57,7 +57,7 @@ export const _getRecurrenceByActivity = betterAuthProcedure
 		});
 	});
 
-export const getRecurrencesById = betterAuthProcedure
+export const recurrencesByIdQuery = betterAuthProcedure
 	.input(z.object({ recurrence_ids: z.array(z.string()) }))
 	.query(async ({ input, ctx }) => {
 		return queryRecurrencesById({

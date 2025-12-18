@@ -6,7 +6,7 @@ import { updateOccurrence } from "@/lib/data/models/activities/update-occurrence
 import { updateRecurrence } from "@/lib/data/models/activities/update-recurrence";
 import { betterAuthProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 
-export const _updateOccurrence = betterAuthProcedure
+export const updateOccurrenceMutation = betterAuthProcedure
 	.input(occurrenceSchema)
 	.mutation(async ({ input, ctx }) => {
 		return await updateOccurrence({
@@ -15,7 +15,7 @@ export const _updateOccurrence = betterAuthProcedure
 		});
 	});
 
-export const _updateRecurrence = betterAuthProcedure
+export const updateRecurrenceMutation = betterAuthProcedure
 	.input(recurrenceWithIdsSchema)
 	.mutation(async ({ input, ctx }) => {
 		return await updateRecurrence({
