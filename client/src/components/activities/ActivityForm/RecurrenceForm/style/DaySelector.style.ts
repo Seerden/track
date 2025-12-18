@@ -3,7 +3,6 @@ import Buttons from "@/lib/theme/components/buttons";
 import formStyle from "@/lib/theme/components/form.style";
 import Input from "@/lib/theme/input";
 import Active from "@/lib/theme/snippets/active";
-import { noBorders } from "@/lib/theme/snippets/border";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 
@@ -56,20 +55,6 @@ const NumberInput = styled(Input.Unstyled)`
 	}
 `;
 
-const Select = styled.select`
-	${noBorders};
-	${radius.medium};
-	background-color: ${(p) => p.theme.colors.background.main[3]};
-
-	option {
-		background-color: ${(p) => p.theme.colors.background.main[3]};
-		border: none;
-		outline: none;
-	}
-
-	${Active.default};
-`;
-
 // TODO: put all action bars in containers.style
 const ActionBar = styled.div`
 	width: max-content;
@@ -91,7 +76,6 @@ export default {
 	Trigger,
 	FloatingWrapper,
 	NumberInput,
-	Select,
 	ActionBar,
 	Label,
 };
