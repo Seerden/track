@@ -3,7 +3,7 @@ import { userSettingsQuery } from "@/lib/trpc/resolvers/user/settings/query-sett
 import { updateUserSettingsMutation } from "@/lib/trpc/resolvers/user/settings/update-settings.resolver";
 import { t } from "@/lib/trpc/trpc-context";
 
-export const userRouter = t.router({
+export const usersRouter = t.router({
 	me: meQuery,
 	settings: {
 		query: userSettingsQuery,

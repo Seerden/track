@@ -34,7 +34,7 @@ import { t } from "@/lib/trpc/trpc-context";
 import { deleteActivityByIdMutation } from "../resolvers/activity/delete-activity";
 import { overdueTasksQuery } from "../resolvers/activity/query-tasks";
 
-export const activityRouter = t.router({
+export const activitiesRouter = t.router({
 	all: activitiesQuery,
 	delete: {
 		byId: deleteActivityByIdMutation,

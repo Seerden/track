@@ -13,7 +13,7 @@ import {
 } from "@/lib/trpc/resolvers/habit/update-habits";
 import { t } from "@/lib/trpc/trpc-context";
 
-export const habitRouter = t.router({
+export const habitsRouter = t.router({
 	all: habitsAndRelationsQuery,
 	entries: habitEntriesQuery,
 	delete: deleteHabitByIdMutation,
