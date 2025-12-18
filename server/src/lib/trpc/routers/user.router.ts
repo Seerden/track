@@ -4,7 +4,7 @@ import { updateUserSettingsResolver } from "@/lib/trpc/resolvers/user/settings/u
 import { t } from "@/lib/trpc/trpc-context";
 
 export const userRouter = t.router({
-	me: me,
+	me,
 	settings: {
 		query: queryUserSettingsResolver,
 		update: updateUserSettingsResolver,

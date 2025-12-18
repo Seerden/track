@@ -55,7 +55,7 @@ export const activityRouter = t.router({
 	},
 	occurrences: {
 		queryByRecurrence: _queryOccurrencesByRecurrence,
-		queryByUser: _queryOccurrencesByUser,
+		all: _queryOccurrencesByUser,
 		create: createOccurrence,
 		delete: deleteOccurrenceById,
 		update: _updateOccurrence,

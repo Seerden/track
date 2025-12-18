@@ -23,7 +23,7 @@ export const useMutateNewOccurrence = () =>
 		trpc.activities.occurrences.create.mutationOptions({
 			onSuccess: () => {
 				queryClient.invalidateQueries({
-					queryKey: trpc.activities.occurrences.queryByUser.queryKey(),
+					queryKey: trpc.activities.occurrences.all.queryKey(),
 				});
 			},
 		})
@@ -47,7 +47,7 @@ export const useMutateUpdateOccurrence = () => {
 					queryKey: trpc.activities.all.queryKey(),
 				});
 				queryClient.invalidateQueries({
-					queryKey: trpc.activities.occurrences.queryByUser.queryKey(),
+					queryKey: trpc.activities.occurrences.all.queryKey(),
 				});
 			},
 		})
@@ -69,7 +69,7 @@ export const useMutateDeleteOccurrence = () => {
 		trpc.activities.occurrences.delete.mutationOptions({
 			onSuccess: () => {
 				queryClient.invalidateQueries({
-					queryKey: trpc.activities.occurrences.queryByUser.queryKey(),
+					queryKey: trpc.activities.occurrences.all.queryKey(),
 				});
 				queryClient.invalidateQueries({
 					queryKey: trpc.activities.all.queryKey(),
