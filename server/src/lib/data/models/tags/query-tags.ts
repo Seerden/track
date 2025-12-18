@@ -7,6 +7,7 @@ import type {
 } from "@shared/types/data/relational.types";
 import type { ID } from "@shared/types/data/utility.types";
 import { TABLES } from "types/tables";
+import { mergeTagsAndRelations } from "@/lib/data/models/tags/utility/merge-tags-and-relations";
 import { query } from "@/lib/query-function";
 
 /** Get all of a user's tags. */
@@ -109,3 +110,10 @@ export const queryTagsAndRelations = query(
 		return { tags, relations };
 	}
 );
+
+/** Gets all of a user's tags and tag relations and puts them into a map (by id). */
+export async function queryTagsWithRelations({ user_id }: { user_id: ID }) {
+	const { tags, relations } = await queryTagsAndRelations({ user_id });
+
+	return mergeTagsAndRelations({ tags, relations });
+}

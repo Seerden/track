@@ -1,11 +1,11 @@
 import type { TagInTree } from "@shared/lib/schemas/tag";
 import type { MapById } from "@shared/types/data/utility.types";
+import { queryTagsWithRelations } from "@/lib/data/models/tags/query-tags";
 import {
 	createTagTreeMap,
 	findRootTag,
-	queryTagsWithRelations,
-} from "@/lib/data/models/tags/merge-tags-and-relations";
-import { buildTagDepthTree } from "@/lib/data/models/tags/tree-depth";
+} from "@/lib/data/models/tags/utility/merge-tags-and-relations";
+import { buildTagDepthTree } from "@/lib/data/models/tags/utility/tree-depth";
 import { betterAuthProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 
 export const tagsQuery = betterAuthProcedure.query(async ({ ctx }) => {

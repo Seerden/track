@@ -3,7 +3,7 @@ import { mapById } from "@shared/lib/map";
 import type { Activity, ActivityWithIds } from "@shared/lib/schemas/activity";
 import type { ActivityTagRelation } from "@shared/types/data/relational.types";
 import type { ID, MapById } from "@shared/types/data/utility.types";
-import { queryTagsForRecurringActivities } from "../tags/query-tags";
+import { queryTagsForRecurringActivities } from "../../tags/query-tags";
 
 export async function mergeActivitiesAndRelations(
 	activities: Activity[],

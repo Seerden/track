@@ -3,6 +3,7 @@ import type {
 	Occurrence,
 } from "@shared/lib/schemas/activity";
 import type { ID } from "@shared/types/data/utility.types";
+import { TABLES } from "types/tables";
 import { query } from "@/lib/query-function";
 
 export const createOccurrence = query(
@@ -13,8 +14,8 @@ export const createOccurrence = query(
 		const withUserId = { ...newOccurrence, user_id };
 
 		const [occurence] = await sql<[Occurrence]>`
-      INSERT INTO occurrences ${sql(withUserId)}
-      RETURNING *
+      insert into ${TABLES.OCCURRENCES} ${sql(withUserId)}
+      returning *
    `;
 
 		// TODO: for all non-synthetic activities that this occurence applies to, we

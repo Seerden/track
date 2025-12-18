@@ -2,7 +2,7 @@ import type { Note } from "@shared/lib/schemas/note";
 import type { NoteTagRelation } from "@shared/types/data/relational.types";
 import type { ID } from "@shared/types/data/utility.types";
 import { query } from "@/lib/query-function";
-import { mergeNotesAndRelations } from "./merge-notes-and-relations";
+import { mergeNotesAndRelations } from "./utility/merge-notes-and-relations";
 
 /** Get all of a user's notes. */
 export const queryNotesByUser = query(

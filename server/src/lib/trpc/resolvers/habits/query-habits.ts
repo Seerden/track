@@ -1,10 +1,10 @@
 import { mapById } from "@shared/lib/map";
-import { mergeHabitsAndRelations } from "@/lib/data/models/habits/merge-habits-and-relations";
 import { queryHabitEntriesByUser } from "@/lib/data/models/habits/query-habit-entries";
 import {
 	queryHabitsByUser,
 	queryHabitTagsByUser,
 } from "@/lib/data/models/habits/query-habits";
+import { mergeHabitsAndRelations } from "@/lib/data/models/habits/utility/merge-habits-and-relations";
 import { betterAuthProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 
 // NOTE (TRK-265) there is functionality (usage of `habitSuccessful<...>`) that

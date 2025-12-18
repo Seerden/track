@@ -1,7 +1,6 @@
 import type { TagsTree, TagWithId, TagWithIds } from "@shared/lib/schemas/tag";
 import type { TagTagRelation } from "@shared/types/data/relational.types";
 import type { ByIdMap, ID } from "@shared/types/data/utility.types";
-import { queryTagsAndRelations } from "./query-tags";
 
 /**
  * function that merges { tags, relations } into a single hash map of tags with
@@ -32,13 +31,6 @@ export function mergeTagsAndRelations({
 	}
 
 	return tagMap;
-}
-
-/** Gets all of a user's tags and tag relations and puts them into a map (by id). */
-export async function queryTagsWithRelations({ user_id }: { user_id: ID }) {
-	const { tags, relations } = await queryTagsAndRelations({ user_id });
-
-	return mergeTagsAndRelations({ tags, relations });
 }
 
 /** Given a tagsById object, create a map that groups the tags by the id of
