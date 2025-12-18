@@ -7,7 +7,6 @@ import {
 } from "@trpc/client";
 import superjson from "superjson";
 import { activityRouter } from "@/lib/trpc/routers/activities.router";
-import { authRouter } from "@/lib/trpc/routers/auth.router";
 import { habitRouter } from "@/lib/trpc/routers/habits.router";
 import { noteRouter } from "@/lib/trpc/routers/notes.router";
 import { tagRouter } from "@/lib/trpc/routers/tags.router";
@@ -17,7 +16,6 @@ import { pushRouter } from "./trpc/routers/push.router";
 import { userRouter } from "./trpc/routers/user.router";
 
 export const appRouter = t.router({
-	auth: authRouter,
 	habits: habitRouter,
 	notes: noteRouter,
 	activities: activityRouter,

@@ -14,7 +14,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 	component: App,
 	/** @see https://tanstack.com/router/v1/docs/eslint/create-route-property-order */
 	beforeLoad: async ({ context: { queryClient, trpc }, location }) => {
-		const me = await queryClient.ensureQueryData(trpc.auth.me.queryOptions());
+		const me = await queryClient.ensureQueryData(trpc.user.me.queryOptions());
 
 		// TODO: this is WIP still.
 		if (
