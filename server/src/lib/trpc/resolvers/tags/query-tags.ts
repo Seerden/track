@@ -3,13 +3,13 @@ import type { MapById } from "@shared/types/data/utility.types";
 import {
 	createTagTreeMap,
 	findRootTag,
-	getTagsWithRelations,
+	queryTagsWithRelations,
 } from "@/lib/data/models/tags/merge-tags-and-relations";
 import { buildTagDepthTree } from "@/lib/data/models/tags/tree-depth";
 import { betterAuthProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 
 export const tagsQuery = betterAuthProcedure.query(async ({ ctx }) => {
-	const tags = await getTagsWithRelations({
+	const tags = await queryTagsWithRelations({
 		user_id: ctx.user.id,
 	});
 	const treeDepth = buildTagDepthTree(tags);
@@ -32,7 +32,7 @@ export const tagsQuery = betterAuthProcedure.query(async ({ ctx }) => {
 });
 
 export const tagTreeQuery = betterAuthProcedure.query(async ({ ctx }) => {
-	const tags = await getTagsWithRelations({
+	const tags = await queryTagsWithRelations({
 		user_id: ctx.user.id,
 	});
 	return createTagTreeMap(tags);

@@ -5,7 +5,7 @@ import type {
 import type { ID } from "@shared/types/data/utility.types";
 import { query } from "@/lib/query-function";
 
-export const insertOccurrence = query(
+export const createOccurrence = query(
 	async (
 		sql,
 		{ user_id, ...newOccurrence }: NewOccurrenceInput & { user_id: ID }

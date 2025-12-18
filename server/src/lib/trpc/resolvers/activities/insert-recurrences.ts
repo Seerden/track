@@ -2,14 +2,14 @@ import {
 	createRecurrenceInputSchema,
 	newOccurrenceInputSchema,
 } from "@shared/lib/schemas/activity";
-import { insertOccurrence } from "@/lib/data/models/activities/insert-occurrence";
+import { createOccurrence } from "@/lib/data/models/activities/insert-occurrence";
 import { createRecurrence } from "@/lib/data/models/activities/insert-recurrence";
 import { betterAuthProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 
 export const createOccurrenceMutation = betterAuthProcedure
 	.input(newOccurrenceInputSchema)
 	.mutation(async ({ input, ctx: { user } }) => {
-		insertOccurrence({ ...input, user_id: user.id });
+		createOccurrence({ ...input, user_id: user.id });
 	});
 
 export const createRecurrenceMutation = betterAuthProcedure

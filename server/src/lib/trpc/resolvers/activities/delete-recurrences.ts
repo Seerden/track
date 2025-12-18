@@ -1,12 +1,12 @@
 import { z } from "@shared/lib/zod";
-import { removeOccurrenceById } from "@/lib/data/models/activities/remove-occurrence";
-import { removeRecurrenceById } from "@/lib/data/models/activities/remove-recurrence";
+import { deleteOccurrenceById } from "@/lib/data/models/activities/delete-occurrence";
+import { deleteRecurrenceById } from "@/lib/data/models/activities/delete-recurrence";
 import { betterAuthProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 
 export const deleteRecurrenceByIdMutation = betterAuthProcedure
 	.input(z.string())
 	.mutation(async ({ input, ctx }) => {
-		return await removeRecurrenceById({
+		return await deleteRecurrenceById({
 			recurrence_id: input,
 			user_id: ctx.user.id,
 		});
@@ -15,7 +15,7 @@ export const deleteRecurrenceByIdMutation = betterAuthProcedure
 export const deleteOccurrenceByIdMutation = betterAuthProcedure
 	.input(z.string())
 	.mutation(async ({ input, ctx }) => {
-		return await removeOccurrenceById({
+		return await deleteOccurrenceById({
 			occurrence_id: input,
 			user_id: ctx.user.id,
 		});

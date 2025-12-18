@@ -3,7 +3,7 @@ import type { ID } from "@shared/types/data/utility.types";
 import { query } from "@/lib/query-function";
 
 // TODO: business logic -- haven't designed the logic for this yet.
-export const removeOccurrenceById = query(
+export const deleteOccurrenceById = query(
 	async (
 		sql,
 		{ occurrence_id, user_id }: { occurrence_id: ID; user_id: ID }

@@ -6,7 +6,7 @@ import {
 	syntheticActivitySchema,
 } from "@shared/lib/schemas/activity";
 import {
-	createRecurringActivity as _createRecurringActivity,
+	createRecurringActivity,
 	insertActivity,
 	insertActivityWithTags,
 } from "@/lib/data/models/activities/insert-activity";
@@ -59,7 +59,7 @@ export const createRecurringActivityMutation = betterAuthProcedure
 			user_id: ctx.user.id,
 		};
 
-		return await _createRecurringActivity({
+		return await createRecurringActivity({
 			newActivity: activityWithUserId,
 			tag_ids: tagIds,
 			...recurrence,

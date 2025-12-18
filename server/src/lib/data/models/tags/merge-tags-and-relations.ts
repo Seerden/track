@@ -35,7 +35,7 @@ export function mergeTagsAndRelations({
 }
 
 /** Gets all of a user's tags and tag relations and puts them into a map (by id). */
-export async function getTagsWithRelations({ user_id }: { user_id: ID }) {
+export async function queryTagsWithRelations({ user_id }: { user_id: ID }) {
 	const { tags, relations } = await queryTagsAndRelations({ user_id });
 
 	return mergeTagsAndRelations({ tags, relations });

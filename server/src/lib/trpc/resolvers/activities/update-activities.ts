@@ -4,7 +4,7 @@ import {
 } from "@shared/lib/schemas/activity";
 import { queryActivityByIdWithRelations } from "@/lib/data/models/activities/query-activities";
 import {
-	updateActivity as _updateActivity,
+	updateActivity,
 	updateActivityCompletion,
 } from "@/lib/data/models/activities/update-activity";
 import { betterAuthProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
@@ -12,7 +12,7 @@ import { betterAuthProcedure } from "@/lib/trpc/procedures/authenticated.procedu
 export const updateActivityMutation = betterAuthProcedure
 	.input(activityUpdateInputSchema)
 	.mutation(async ({ input: { activity, tag_ids }, ctx }) => {
-		const updatedActivity = await _updateActivity({
+		const updatedActivity = await updateActivity({
 			input: { activity, tag_ids },
 		});
 		return await queryActivityByIdWithRelations({

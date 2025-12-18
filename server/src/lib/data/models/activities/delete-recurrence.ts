@@ -4,7 +4,7 @@ import { TABLES } from "types/tables";
 import { query } from "@/lib/query-function";
 
 // TODO: business logic
-export const removeRecurrenceById = query(
+export const deleteRecurrenceById = query(
 	async (
 		sql,
 		{ recurrence_id, user_id }: { recurrence_id: ID; user_id: ID }
