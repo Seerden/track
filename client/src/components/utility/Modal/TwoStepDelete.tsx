@@ -52,7 +52,7 @@ export default function TwoStepDelete({
 					>
 						{confirmLabel}
 					</Buttons.Action.DefaultText>
-					<Buttons.Action.DefaultText $minimal type="button" onClick={close}>
+					<Buttons.Action.DefaultText type="button" onClick={close}>
 						{rejectLabel}
 					</Buttons.Action.DefaultText>
 				</Containers.Row>

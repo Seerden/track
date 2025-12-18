@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { motion, type Variants } from "motion/react";
 import Buttons from "@/lib/theme/components/buttons";
 import { lightDark } from "@/lib/theme/light-dark";
-import { thinBorder } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
 import scrollbar from "@/lib/theme/snippets/scroll";
 import { spacing } from "@/lib/theme/snippets/spacing";
@@ -87,7 +86,7 @@ const Modal = styled(motion.div)`
 	${spacing.padding.wide({ size: 1.2, ratio: 1.25 })}
 	background-color: ${(p) => lightDark(p, p.theme.colors.background.main[3], p.theme.colors.dark[2])}; 
 	height: max-content;
-	${thinBorder.darkish};
+	border: 1px solid ${(p) => p.theme.colors.dark[3]};
 	${radius.medium};
 	margin-top: var(--modal-offset);
 `;

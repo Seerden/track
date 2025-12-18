@@ -123,5 +123,12 @@ export const globalShadows = ({ theme }: { theme: MainTheme }) => css`
       --bg-5-2: ${theme.colors.background.main[theme.mode === "light" ? 5 : 2]};
       --bg-5-3: ${theme.colors.background.main[theme.mode === "light" ? 5 : 3]};
       --bg-5-4: ${theme.colors.background.main[theme.mode === "light" ? 5 : 4]};
+
+      --text-main-0: ${theme.colors.text.main[0]};
+      --text-main-1: ${theme.colors.text.main[1]};
+      --text-main-2: ${theme.colors.text.main[2]};
+      --text-contrast-0: ${theme.colors.text.contrast[0]};
+      --text-contrast-1: ${theme.colors.text.contrast[1]};
+      --text-contrast-2: ${theme.colors.text.contrast[2]};
    }
 `;

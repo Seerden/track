@@ -1,6 +1,9 @@
-import { isLightColor, luminance } from "@mantine/core";
-import convert from "color-convert";
+import { luminance } from "@mantine/core";
+import { colord, extend } from "colord";
+import namesPlugin from "colord/plugins/names";
 import { type ColorKey, colors } from "@/lib/theme/colors";
+
+extend([namesPlugin]);
 
 export function contrastColor(color: string) {
 	let converted: string;
@@ -8,13 +11,13 @@ export function contrastColor(color: string) {
 		converted = color;
 	} else {
 		try {
-			converted = convert.keyword.hex(color);
+			converted = colord(color).toHex();
 		} catch (_) {
 			converted = color;
 		}
 	}
 
-	return isLightColor(converted) ? colors.dark[0] : colors.light[0];
+	return colord(converted).isLight() ? colors.dark[0] : colors.light[0];
 }
 
 export function determineContrast(one: ColorKey, two: ColorKey) {

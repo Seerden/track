@@ -16,7 +16,7 @@ const Checked = styled.div`
 const Unchecked = styled.div`
 	${defaultCheckboxStyle};
 
-	color: #ccc;
+	color: ${(p) => p.theme.colors.light[5]};
 `;
 
 const Wrapper = styled.span`

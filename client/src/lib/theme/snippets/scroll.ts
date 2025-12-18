@@ -1,5 +1,4 @@
 import { css } from "@emotion/react";
-import { outline } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
 
 /** Visually hides scrollbar, but keeps the scrollability of the element the way
@@ -26,7 +25,7 @@ const customScrollbar = css`
 
 	&::-webkit-scrollbar-thumb {
 		background-color: dodgerblue;
-		${outline.primary};
+		outline: 2px solid var(--bg-0-2);
 		outline-offset: -2px;
 
 		&:hover {

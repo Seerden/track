@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { outline } from "./edge";
+import { colors } from "@/lib/theme/colors";
 
 /**
  * @deprecated unused for now. Work out something that looks better.
@@ -8,7 +8,7 @@ const defaultActiveStyles = css`
 	&:active,
    &:hover,
 	&:focus {
-		${outline.blue}
+		outline: 2px solid ${colors.blue.main};
 	}
 `;
 

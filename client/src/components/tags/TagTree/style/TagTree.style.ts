@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import { motion } from "motion/react";
 import BadgeStyles from "@/lib/theme/components/Badge.style";
 import { font } from "@/lib/theme/font";
-import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
@@ -40,9 +39,10 @@ const TagName = styled.label<{ $level: number }>`
 	gap: ${spacingValue.small};
 	${spacing.margin.wide({ size: 0.3, ratio: 2 })};
 	${spacing.padding.wide({ size: 0.3, ratio: 1.5 })};
-	${outline.secondary};
 	${radius.small};
-	box-shadow: 0.6rem 0.6rem 0 -0.3rem #ddd;
+
+	outline: 2px solid var(--bg-3-2);
+	box-shadow: 0.6rem 0.6rem 0 -0.3rem var(--bg-4-2);
 
 	background-color: ${(p) =>
 		p.$level === 0 ? "dodgerblue" : colors[p.$level % colors.length]};
@@ -61,22 +61,15 @@ export const Tag = styled(motion.li)<{ $level: number }>`
 	${flex.column};
 	justify-content: center;
 	list-style: none;
-	/* margin-left: ${(p) => p.$level * 1}rem; */
 	font-weight: ${(p) => (p.$level === 0 ? "bold" : "normal")};
 	border-left: ${(p) => (p.$level === 0 ? 0 : 3)}px solid
 		${(p) => (p.$level === 0 ? "transparent " : colors[(p.$level - 1) % colors.length])};
-
-	/* :not(:nth-of-type(1)) {
-		margin-top: 0.5rem; // might look better without this
-	} */
-
 	margin-bottom: ${(p) => (p.$level == 0 ? "1.5rem" : "0")};
 `;
 
 export const Children = styled(motion.ul)<{ $collapsed?: boolean }>`
 	transform-origin: center bottom;
 	margin-left: 1.5rem;
-	/* margin-right: 1.5rem; // might look better with this. */
 
 	${(p) =>
 		p.$collapsed &&
@@ -112,8 +105,8 @@ const Tree = styled.ul<{
 		justify-content: flex-start;
 		width: max-content;
 		${radius.small};
-		box-shadow: 0 0 1rem 0rem #ccc;
-		${outline.primary};
+		box-shadow: 0 0 1rem 0rem var(--bg-5-1);
+		outline: 2px solid var(--bg-3-2);
 		background-color: ${(p) => p.theme.colors.background.main[3]};
 
 		> ${TagName} {
@@ -150,7 +143,7 @@ const Container = styled.div`
 	${flex.column};
 	box-shadow:
 		0.5rem 0.5rem 0 -0.3rem ${(p) => p.theme.colors.blue.main},
-		0 0 0.8rem 0 #ccc;
+		0 0 0.8rem 0 var(--bg-5-1);
 	${spacing.padding.wide({ size: 1, ratio: 2 })}
 	${radius.small};
 	margin: 3rem auto;

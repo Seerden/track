@@ -5,7 +5,6 @@ import { motion, type Variants } from "motion/react";
 import type { PropsWithChildren } from "react";
 import { font } from "@/lib/theme/font";
 import Input from "@/lib/theme/input";
-import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
@@ -139,13 +138,13 @@ const Label = styled.label<{ $showWarning?: boolean }>`
 		outline: 2px solid ${(p) => p.theme.colors.blue.main};
 
 		span {
-			${outline.primary};
+			outline: 2px solid var(--bg-0-1);
 		}
 	}
 
 	span {
-		background-color: ${(p) => p.theme.colors.light[0]};
-      color: ${(p) => p.theme.colors.dark[0]};
+		background-color: var(--bg-0-1);
+      color: ${(p) => p.theme.colors.text.main[0]};
 ;
 		${spacing.padding.wide({ size: 0.2, ratio: 3 })};
 		border-radius: 0 15px 0 0;

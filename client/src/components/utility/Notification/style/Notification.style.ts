@@ -30,10 +30,10 @@ const Container = styled.div<{
 	left: 1rem;
 	${spacing.padding.wide({ size: 1, ratio: 2 })}
 	${radius.largish};
-	border: 2px solid #fff;
+	border: 2px solid var(--bg-0-2);
 
 	--main: ${(p) => getNotificationColor(p.theme, p.$type)};
-	--contrast: #fff;
+	--contrast: var(--bg-0-2);
 
 	${(p) =>
 		p.$invert

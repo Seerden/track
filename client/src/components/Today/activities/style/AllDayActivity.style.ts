@@ -2,7 +2,6 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { font } from "@/lib/theme/font";
 import { lightDark } from "@/lib/theme/light-dark";
-import { outline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
@@ -14,9 +13,9 @@ const AllDayActivity = styled.li<{ $completed?: boolean }>`
 	position: relative;
 	list-style: none;
 
-	color: white;
+	color: ${(p) => p.theme.colors.light[0]};
 	background-color: ${(p) => p.theme.colors.blue.main};
-	${outline.blue};
+	outline: 2px solid ${(p) => p.theme.colors.blue.main};
 	box-shadow: 0 0.2rem 0.3rem 0 ${(p) => lightDark(p, p.theme.colors.light[6], p.theme.colors.dark[1])};
 
 	${flex.row};
@@ -40,7 +39,7 @@ const AllDayActivity = styled.li<{ $completed?: boolean }>`
 	/* TODO: really should extract all of these checkbox styles */
 	${Today.CheckboxWrapper} {
 		margin-left: auto;
-		background-color: white;
+		background-color: ${(p) => p.theme.colors.light[0]};
 		${radius.round};
 	}
 `;

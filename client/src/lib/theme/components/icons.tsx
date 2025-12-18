@@ -42,17 +42,21 @@ const InBadge = styled.span<{
 		!p.invert
 			? css`
 					.lucide {
-						color: var(--badge-icon-color);
+                  /* TODO: check whether the background color is light, and make
+                 this dark if it is. */
+						color: ${p.theme.colors.light[0]};
 					}
 
 					outline: 1px solid var(--badge-icon-color);
 
-					background-color: ${p.theme.colors.light[3]};
-					box-shadow: 0 0 0.2rem 0 #333;
+					background-color: var(--badge-icon-color);
+					box-shadow: 0 0 0.2rem 0 ${p.theme.colors.dark[3]};
 				`
 			: css`
 					.lucide {
-						color: white;
+                  /* TODO: check whether the background color is light, and make
+                 this dark if it is. */
+						color: ${p.theme.colors.light[0]};
 					}
 
 					outline: 2px solid ${p.theme.colors.background.main[0]};

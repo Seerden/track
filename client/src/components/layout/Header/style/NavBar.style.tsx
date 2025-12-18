@@ -86,7 +86,7 @@ const HomeLink = styled.span`
 
 	&:focus,
 	&:active {
-		outline-color: #ccc;
+		outline-color: var(--bg-4-2);
 	}
 `;
 

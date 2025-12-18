@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { thickOutline } from "@/lib/theme/snippets/edge";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
@@ -14,14 +13,14 @@ const Wrapper = styled.div`
 	z-index: 10;
 
 	padding: ${spacingValue.medium};
-	${thickOutline.grey};
+	outline: 3px solid var(--bg-5-2);
 	${radius.largish};
 	gap: ${spacingValue.small};
 
 	background-color: ${(p) => p.theme.colors.background.main[3]};
 	box-shadow:
-		0 0 0.3rem 0 #777,
-		0 0.4rem 0 0 #ccc;
+		0 0 0.3rem 0 var(--bg-5-3),
+		0 0.4rem 0 0 var(--bg-3-1);
 `;
 
 const Floating = {

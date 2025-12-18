@@ -3,8 +3,6 @@ import Buttons from "@/lib/theme/components/buttons";
 import formStyle from "@/lib/theme/components/form.style";
 import Input from "@/lib/theme/input";
 import Active from "@/lib/theme/snippets/active";
-import { noBorders } from "@/lib/theme/snippets/border";
-import { outline } from "@/lib/theme/snippets/edge";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 
@@ -30,14 +28,13 @@ const Trigger = styled(Buttons.Unstyled)`
 
 // TODO: put this in floating.style.ts!
 const FloatingWrapper = styled.div`
-	${spacing.padding.small};
-	${outline.grey};
-	${radius.medium};
-
-	background-color: ${(p) => p.theme.colors.background.main[3]};
-	box-shadow: 0 0.2rem 0.5rem -0.1rem #aaa;
-
 	z-index: 10;
+	${spacing.padding.small};
+	${radius.medium};
+	outline: 2px solid var(--bg-5-2);
+	background-color: ${(p) => p.theme.colors.background.main[3]};
+	box-shadow: 0 0.2rem 0.5rem -0.1rem var(--bg-5-1);
+
 `;
 
 // TODO: put this in input.style
@@ -56,20 +53,6 @@ const NumberInput = styled(Input.Unstyled)`
 		-webkit-appearance: none;
 		margin: 0;
 	}
-`;
-
-const Select = styled.select`
-	${noBorders};
-	${radius.medium};
-	background-color: ${(p) => p.theme.colors.background.main[3]};
-
-	option {
-		background-color: ${(p) => p.theme.colors.background.main[3]};
-		border: none;
-		outline: none;
-	}
-
-	${Active.default};
 `;
 
 // TODO: put all action bars in containers.style
@@ -93,7 +76,6 @@ export default {
 	Trigger,
 	FloatingWrapper,
 	NumberInput,
-	Select,
 	ActionBar,
 	Label,
 };

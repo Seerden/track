@@ -1,4 +1,5 @@
-import { Tooltip } from "@mantine/core";
+import { useTheme } from "@emotion/react";
+import { Select, Tooltip } from "@mantine/core";
 import type { IntervalUnit } from "@shared/types/data/utility.types";
 import { LucideAlertCircle } from "lucide-react";
 import {
@@ -9,7 +10,9 @@ import {
 	INTERVAL_UNIT,
 } from "@/components/activities/ActivityForm/RecurrenceForm/constants";
 import DaySelector from "@/components/activities/ActivityForm/RecurrenceForm/DaySelector";
+import type { MainTheme } from "@/lib/style/theme";
 import Containers from "@/lib/theme/components/container.style";
+import { font } from "@/lib/theme/font";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 import type useActivityForm from "../useActivityForm";
 import S from "./style/RecurrenceForm.style";
@@ -32,6 +35,8 @@ export default function RecurrenceForm({
 	| "resetSelection"
 	| "validRecurrence"
 >) {
+	const theme = useTheme() as MainTheme;
+
 	if (!isRecurring) {
 		return null;
 	}
@@ -91,7 +96,13 @@ export default function RecurrenceForm({
 				{/* fixed date (= "calendar" frequency) */}
 				{recurrence.frequency === FREQUENCY.CALENDAR ? (
 					<S.Column>
-						<Containers.Row gap="small">
+						<Containers.Row
+							gap="small"
+							style={{
+								alignItems: "center",
+								height: "1.5rem",
+							}}
+						>
 							<span>every</span>
 							<S.DaySelector.NumberInput
 								type="number"
@@ -105,18 +116,38 @@ export default function RecurrenceForm({
 									})
 								}
 							/>
-							<S.DaySelector.Select
+							<Select
+								checkIconPosition="right"
+								withAlignedLabels
+								styles={{
+									root: { height: "max-content" },
+									wrapper: { height: "max-content" },
+									input: {
+										width: "12ch",
+										height: "max-content",
+										minHeight: "max-content",
+										fontSize: font.size["1"],
+										lineHeight: 1.5,
+									},
+									option: {
+										width: "12ch",
+									},
+								}}
+								data={[
+									{
+										label: `week${intervalUnitSuffix}`,
+										value: "week",
+									},
+									{ label: `month${intervalUnitSuffix}`, value: "month" },
+								]}
 								value={recurrence.interval_unit}
-								onChange={(e) =>
+								onChange={(value) => {
 									updateRecurrence({
 										type: "intervalUnit",
-										value: e.target.value as IntervalUnit,
-									})
-								}
-							>
-								<option value="week">week{intervalUnitSuffix}</option>
-								<option value="month">month{intervalUnitSuffix}</option>
-							</S.DaySelector.Select>
+										value: value as IntervalUnit,
+									});
+								}}
+							/>
 						</Containers.Row>
 						<div>
 							{recurrence.interval_unit === INTERVAL_UNIT.WEEK ? (
@@ -146,7 +177,14 @@ export default function RecurrenceForm({
 				) : (
 					/* interval (= "numeric" frequency) */
 					<S.Column>
-						<Containers.Row gap="small">
+						{/* same style as previous case, need a shared component. */}
+						<Containers.Row
+							gap="small"
+							style={{
+								alignItems: "center",
+								height: "1.5rem",
+							}}
+						>
 							<span>every</span>
 							<S.DaySelector.NumberInput
 								type="number"

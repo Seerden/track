@@ -48,8 +48,9 @@ const RadioOption = styled.label`
 	${RadioLabelText} {
 		font-size: ${font.size["0.85"]};
 		font-weight: 500;
+      padding-bottom: ${spacingValue.smaller};
 
-		box-shadow: 0 0.5rem 0 -0.3rem #fff;
+		box-shadow: 0 0.6rem 0 -0.4rem var(--bg-0-2);
 		display: flex;
 		margin-bottom: 0.3rem;
 	}
@@ -82,8 +83,8 @@ const Label = styled.label`
 	justify-content: space-between;
 
 	span {
-		background-color: #fff;
-		color: #777;
+		background-color: var(--bg-0-2);
+		color: ${(p) => p.theme.colors.text.main[4]};
 		display: flex;
 		margin-bottom: 0;
 		padding-bottom: 0;
@@ -101,7 +102,7 @@ const Label = styled.label`
 		opacity: 0.5;
 
 		input {
-			background-color: #fff;
+			background-color: var(--bg-0-2);
 		}
 	}
 `;

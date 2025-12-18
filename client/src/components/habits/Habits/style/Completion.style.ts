@@ -20,20 +20,19 @@ export default { List, FloatingWrapper };
 
 export const completionTooltipStyles = {
 	regular: {
-		borderRadius: 0,
+		borderRadius: 2,
 		// TODO: make this theme aware:
 		// 1. make this a function that takes the theme from the atom
 		// 2. turn tooltip elements into styled components so we can use the theme
 		//    color
-		backgroundColor: "#f7f7f7",
-		color: "#000",
-		borderEndEndRadius: "3px",
+		backgroundColor: "var(--bg-1-2)",
+		color: "var(--text-main-0)",
 		fontSize: font.size["0.9"],
 		padding: "0.3rem 0.6rem",
-		outline: "1px solid #aaa",
+		outline: "1px solid var(--bg-4-3)",
 		boxShadow: `
-         0 0.4rem 0 -0.2rem #ddd,
-         0 0.2rem 0.3rem 0 #aaa`,
+         0 0.4rem 0 -0.2rem var(--bg-4-3),
+         0 0.2rem 0.3rem 0 var(--bg-5-2)`,
 	},
 	alternate: {
 		position: "absolute",

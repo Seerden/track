@@ -7,8 +7,8 @@ import { radius } from "@/lib/theme/snippets/radius";
 // TODO: this is used in HabitCalendar too, so probably rename it to
 // actionDropdownStyle or something.
 export const actionDropdownStyle = {
-	boxShadow: "0 0.2rem 0.3rem -0.1rem #888",
-	backgroundColor: "#ddd",
+	boxShadow: "0 0.2rem 0.3rem -0.1rem var(--bg-3-1)",
+	backgroundColor: "var(--bg-4-2)",
 } as CSSProperties;
 
 export const menuDropdownStyle = ({ theme }: { theme: MainTheme }) => css`
