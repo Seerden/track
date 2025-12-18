@@ -4,11 +4,13 @@ import { trpc } from "@/lib/trpc";
 
 export default function useMutateDeleteHabit() {
 	return useMutation(
-		trpc.habits.delete.mutationOptions({
+		trpc.habits.m.delete.mutationOptions({
 			onSuccess: () => {
-				queryClient.invalidateQueries({ queryKey: trpc.habits.all.queryKey() });
 				queryClient.invalidateQueries({
-					queryKey: trpc.habits.entries.queryKey(),
+					queryKey: trpc.habits.q.all.queryKey(),
+				});
+				queryClient.invalidateQueries({
+					queryKey: trpc.habits.q.entries.queryKey(),
 				});
 			},
 		})

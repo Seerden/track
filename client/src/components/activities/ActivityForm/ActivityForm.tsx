@@ -89,7 +89,7 @@ export default function ActivityForm({
 	});
 
 	// TODO (TRK-320) put this in the component hook
-	const { data: activities } = useQuery(trpc.activities.all.queryOptions());
+	const { data: activities } = useQuery(trpc.activities.q.all.queryOptions());
 	const activityParentSelectionComboboxData = sortActivitiesByTime(
 		byIdAsList(activities).filter(
 			(activity) => !activity.will_recur && !activity.recurrence_id

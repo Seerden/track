@@ -35,32 +35,40 @@ import { deleteActivityByIdMutation } from "../resolvers/activities/delete-activ
 import { overdueTasksQuery } from "../resolvers/activities/query-tasks";
 
 export const activitiesRouter = t.router({
-	all: activitiesQuery,
-	delete: {
-		byId: deleteActivityByIdMutation,
+	q: {
+		all: activitiesQuery,
+		recurring: recurringActivitiesQuery,
+		recurrences: {
+			all: recurrencesByUserQuery,
+			queryByActivity: recurrenceByActivityQuery,
+			queryById: recurrencesByIdQuery,
+		},
+		occurrences: {
+			queryByRecurrence: occurrencesByRecurrenceQuery,
+			all: occurrencesByUserQuery,
+		},
+		tasks: {
+			overdue: overdueTasksQuery,
+		},
 	},
-	recurring: recurringActivitiesQuery,
-	create: createActivityMutation,
-	createRecurring: createRecurringActivityMutation,
-	createFromSynthetic: createRealSyntheticActivityMutation,
-	update: updateActivityMutation,
-	updateCompletion: updateTaskCompletionMutation,
-	recurrences: {
-		all: recurrencesByUserQuery,
-		queryByActivity: recurrenceByActivityQuery,
-		queryById: recurrencesByIdQuery,
-		create: createRecurrenceMutation,
-		delete: deleteRecurrenceByIdMutation,
-		update: updateRecurrenceMutation,
-	},
-	occurrences: {
-		queryByRecurrence: occurrencesByRecurrenceQuery,
-		all: occurrencesByUserQuery,
-		create: createOccurrenceMutation,
-		delete: deleteOccurrenceByIdMutation,
-		update: updateOccurrenceMutation,
-	},
-	tasks: {
-		overdue: overdueTasksQuery,
+	m: {
+		delete: {
+			byId: deleteActivityByIdMutation,
+		},
+		create: createActivityMutation,
+		createRecurring: createRecurringActivityMutation,
+		createFromSynthetic: createRealSyntheticActivityMutation,
+		update: updateActivityMutation,
+		updateCompletion: updateTaskCompletionMutation,
+		recurrences: {
+			create: createRecurrenceMutation,
+			delete: deleteRecurrenceByIdMutation,
+			update: updateRecurrenceMutation,
+		},
+		occurrences: {
+			create: createOccurrenceMutation,
+			delete: deleteOccurrenceByIdMutation,
+			update: updateOccurrenceMutation,
+		},
 	},
 });

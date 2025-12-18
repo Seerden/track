@@ -8,10 +8,10 @@ import { trpc } from "@/lib/trpc";
 
 export function useMutateNewHabit() {
 	return useMutation(
-		trpc.habits.create.mutationOptions({
+		trpc.habits.m.create.mutationOptions({
 			onSuccess: () => {
 				queryClient.invalidateQueries({
-					queryKey: trpc.habits.all.queryKey(),
+					queryKey: trpc.habits.q.all.queryKey(),
 				});
 			},
 		})

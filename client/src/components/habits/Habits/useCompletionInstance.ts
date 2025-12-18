@@ -11,10 +11,10 @@ import { trpc } from "@/lib/trpc";
 
 export default function useCompletionInstance() {
 	const { mutate: submitNewEntry } = useMutation(
-		trpc.habits.createEntry.mutationOptions()
+		trpc.habits.m.createEntry.mutationOptions()
 	);
 	const { mutate: putEntry } = useMutation(
-		trpc.habits.updateEntry.mutationOptions()
+		trpc.habits.m.updateEntry.mutationOptions()
 	);
 	const { currentUser } = useAuthentication();
 
@@ -29,10 +29,10 @@ export default function useCompletionInstance() {
 	}) {
 		function onSuccess() {
 			queryClient.invalidateQueries({
-				queryKey: trpc.habits.entries.queryKey(),
+				queryKey: trpc.habits.q.entries.queryKey(),
 			});
 			queryClient.invalidateQueries({
-				queryKey: trpc.habits.all.queryKey(),
+				queryKey: trpc.habits.q.all.queryKey(),
 			});
 		}
 

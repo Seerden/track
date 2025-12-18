@@ -4,7 +4,9 @@ import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import { trpc } from "@/lib/trpc";
 
 export default function useActivityOverview() {
-	const { data: activitiesData } = useQuery(trpc.activities.all.queryOptions());
+	const { data: activitiesData } = useQuery(
+		trpc.activities.q.all.queryOptions()
+	);
 	const { data: tags } = useQueryTags();
 
 	const isProbablySuspended = !activitiesData || !tags;

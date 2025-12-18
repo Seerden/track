@@ -61,7 +61,7 @@ export default function usePutTaskCompletion(task: PossiblySyntheticActivity) {
 				{
 					onSuccess: () => {
 						queryClient.invalidateQueries({
-							queryKey: trpc.activities.tasks.overdue.queryKey(),
+							queryKey: trpc.activities.q.tasks.overdue.queryKey(),
 						});
 					},
 				}

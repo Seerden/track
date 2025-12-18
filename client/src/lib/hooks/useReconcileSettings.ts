@@ -20,7 +20,7 @@ export function useReconcileSettings() {
 	const setTaskFilter = useSetAtom(tasksFilterAtom);
 	const setHabitFilter = useSetAtom(habitFilterAtom);
 	const { data: settings } = useQuery({
-		...trpc.user.settings.query.queryOptions(),
+		...trpc.users.q.settings.query.queryOptions(),
 		enabled: isLoggedIn,
 	});
 

@@ -33,7 +33,7 @@ export function useSubmitUpdatedActivity({
 	modalId?: ModalId;
 }) {
 	const { mutate: submit } = useMutation(
-		trpc.activities.update.mutationOptions()
+		trpc.activities.m.update.mutationOptions()
 	);
 	const navigate = useNavigate();
 	const { selectedTagIds } = useTagSelection(TAG_SELECTOR_IDS.DEFAULT);

@@ -3,7 +3,11 @@ import { tagsQuery, tagTreeQuery } from "@/lib/trpc/resolvers/tags/query-tags";
 import { t } from "@/lib/trpc/trpc-context";
 
 export const tagsRouter = t.router({
-	all: tagsQuery,
-	tree: tagTreeQuery,
-	create: createTagMutation,
+	q: {
+		all: tagsQuery,
+		tree: tagTreeQuery,
+	},
+	m: {
+		create: createTagMutation,
+	},
 });

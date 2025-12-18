@@ -13,7 +13,7 @@ import { Note } from "./Note";
 import S from "./style/Notes.style";
 
 export default function Notes() {
-	const { data: notes } = useQuery(trpc.notes.all.queryOptions());
+	const { data: notes } = useQuery(trpc.notes.q.all.queryOptions());
 	const { data: tags } = useQueryTags();
 	const { openModal } = useModalState();
 

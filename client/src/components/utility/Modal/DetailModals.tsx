@@ -14,7 +14,7 @@ import { trpc } from "@/lib/trpc";
 export default function DetailModals() {
 	const { data: tags } = useQueryTags();
 	const { data: activities } = useQuery(trpc.activities.all.queryOptions());
-	const { data: habits } = useQuery(trpc.habits.all.queryOptions());
+	const { data: habits } = useQuery(trpc.habits.q.all.queryOptions());
 
 	// NOTE: we do not use getHabitsForTimeWindow, because for the habit
 	// calendar, we want to create synthetic habits for potentially any date.

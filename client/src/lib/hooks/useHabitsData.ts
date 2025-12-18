@@ -13,7 +13,7 @@ import { timeWindowAtom } from "../state/time-window.state";
 export default function useHabitsData() {
 	const tagFilter = useAtomValue(tagFilterAtom);
 	const timeWindow = useAtomValue(timeWindowAtom);
-	const { data: habitsData } = useQuery(trpc.habits.all.queryOptions());
+	const { data: habitsData } = useQuery(trpc.habits.q.all.queryOptions());
 
 	const getHabitsForTimeWindow = useCallback(
 		(timeWindow: TimeWindow): ReturnType<typeof withSyntheticHabitEntries> => {

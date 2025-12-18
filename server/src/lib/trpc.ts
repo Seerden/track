@@ -21,7 +21,7 @@ export const appRouter = t.router({
 	activities: activitiesRouter,
 	tags: tagsRouter,
 	push: pushRouter,
-	user: usersRouter,
+	users: usersRouter,
 });
 
 export type AppRouter = typeof appRouter;

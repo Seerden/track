@@ -21,8 +21,8 @@ export default function TagTree({
 	modalId?: ModalId;
 	initialOpen?: boolean;
 }) {
-	const { data: tagsTree } = useSuspenseQuery(trpc.tags.tree.queryOptions());
-	const { data: tags } = useSuspenseQuery(trpc.tags.all.queryOptions());
+	const { data: tagsTree } = useSuspenseQuery(trpc.tags.q.tree.queryOptions());
+	const { data: tags } = useSuspenseQuery(trpc.tags.q.all.queryOptions());
 
 	const rootTagIds = [...tagsTree.keys()];
 	const rootTags = rootTagIds.map((id) => tags.get(id)).filter((tag) => !!tag);

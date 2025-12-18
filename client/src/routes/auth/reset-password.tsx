@@ -9,7 +9,7 @@ export const Route = createFileRoute("/auth/reset-password")({
 	loader: async ({ context }) => {
 		await authClient.signOut();
 		await context.queryClient.invalidateQueries({
-			queryKey: context.trpc.user.pathKey(),
+			queryKey: context.trpc.users.pathKey(),
 		});
 	},
 });

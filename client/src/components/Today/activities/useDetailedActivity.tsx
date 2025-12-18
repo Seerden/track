@@ -27,7 +27,9 @@ export function useDetailedActivity({
 	const { openModal } = useModalState();
 	const { data: recurrence } = useQueryRecurrenceById(activity.recurrence_id);
 
-	const { mutate } = useMutation(trpc.activities.delete.byId.mutationOptions());
+	const { mutate } = useMutation(
+		trpc.activities.m.delete.byId.mutationOptions()
+	);
 
 	function handleDeleteActivity(e: MouseEvent<HTMLButtonElement>) {
 		e.stopPropagation();

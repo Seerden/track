@@ -14,11 +14,15 @@ import {
 import { t } from "@/lib/trpc/trpc-context";
 
 export const habitsRouter = t.router({
-	all: habitsAndRelationsQuery,
-	entries: habitEntriesQuery,
-	delete: deleteHabitByIdMutation,
-	update: updateHabitMutation,
-	updateEntry: updateEntryMutation,
-	create: createHabitMutation,
-	createEntry: createHabitEntryMutation,
+	q: {
+		all: habitsAndRelationsQuery,
+		entries: habitEntriesQuery,
+	},
+	m: {
+		delete: deleteHabitByIdMutation,
+		update: updateHabitMutation,
+		updateEntry: updateEntryMutation,
+		create: createHabitMutation,
+		createEntry: createHabitEntryMutation,
+	},
 });

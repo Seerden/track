@@ -4,7 +4,11 @@ import { testNotificationQuery } from "../resolvers/push/test-notification";
 import { t } from "../trpc-context";
 
 export const pushRouter = t.router({
-	subscribe: subscribeMutation,
-	testNotification: testNotificationQuery,
-	subscription: pushSubscriptionQuery,
+	q: {
+		testNotification: testNotificationQuery,
+		subscription: pushSubscriptionQuery,
+	},
+	m: {
+		subscribe: subscribeMutation,
+	},
 });
