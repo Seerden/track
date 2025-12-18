@@ -8,7 +8,7 @@ import {
 import { buildTagDepthTree } from "@/lib/data/models/tags/tree-depth";
 import { betterAuthProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 
-export const queryTags = betterAuthProcedure.query(async ({ ctx }) => {
+export const tagsQuery = betterAuthProcedure.query(async ({ ctx }) => {
 	const tags = await getTagsWithRelations({
 		user_id: ctx.user.id,
 	});
@@ -31,7 +31,7 @@ export const queryTags = betterAuthProcedure.query(async ({ ctx }) => {
 	return tagsInTree;
 });
 
-export const queryTagTree = betterAuthProcedure.query(async ({ ctx }) => {
+export const tagTreeQuery = betterAuthProcedure.query(async ({ ctx }) => {
 	const tags = await getTagsWithRelations({
 		user_id: ctx.user.id,
 	});

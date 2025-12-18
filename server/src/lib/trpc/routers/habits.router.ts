@@ -1,24 +1,24 @@
-import { deleteHabitByIdResolver } from "@/lib/trpc/resolvers/habit/delete-habits";
+import { deleteHabitByIdMutation } from "@/lib/trpc/resolvers/habit/delete-habits";
 import {
-	createHabit,
-	createHabitEntry,
+	createHabitEntryMutation,
+	createHabitMutation,
 } from "@/lib/trpc/resolvers/habit/insert-habits";
 import {
-	queryHabitEntries,
-	queryHabitsAndRelations,
+	habitEntriesQuery,
+	habitsAndRelationsQuery,
 } from "@/lib/trpc/resolvers/habit/query-habits";
 import {
-	updateEntry,
-	updateHabit,
+	updateEntryMutation,
+	updateHabitMutation,
 } from "@/lib/trpc/resolvers/habit/update-habits";
 import { t } from "@/lib/trpc/trpc-context";
 
 export const habitRouter = t.router({
-	all: queryHabitsAndRelations,
-	entries: queryHabitEntries,
-	delete: deleteHabitByIdResolver,
-	update: updateHabit,
-	updateEntry,
-	create: createHabit,
-	createEntry: createHabitEntry,
+	all: habitsAndRelationsQuery,
+	entries: habitEntriesQuery,
+	delete: deleteHabitByIdMutation,
+	update: updateHabitMutation,
+	updateEntry: updateEntryMutation,
+	create: createHabitMutation,
+	createEntry: createHabitEntryMutation,
 });

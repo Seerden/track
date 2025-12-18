@@ -4,7 +4,7 @@ import { betterAuthProcedure } from "../../procedures/authenticated.procedure";
 
 // This is an auth procedure, because we only provide push notifications for
 // authenticated users.
-export const queryPushSubscriptionResolver = betterAuthProcedure.query(
+export const pushSubscriptionQuery = betterAuthProcedure.query(
 	async ({ ctx }) => {
 		try {
 			return await queryPushSubscriptionsByUser({

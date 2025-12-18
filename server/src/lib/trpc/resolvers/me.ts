@@ -1,6 +1,6 @@
 import { publicProcedure } from "@/lib/trpc/procedures/public.procedure";
 
-export const me = publicProcedure.query(async ({ ctx }) => {
+export const meQuery = publicProcedure.query(async ({ ctx }) => {
 	// TODO: auth context (get from `dash`)
 	const user = ctx.user;
 	if (!user) {

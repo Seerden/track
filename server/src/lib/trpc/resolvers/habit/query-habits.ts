@@ -10,7 +10,7 @@ import { betterAuthProcedure } from "@/lib/trpc/procedures/authenticated.procedu
 // NOTE (TRK-265) there is functionality (usage of `habitSuccessful<...>`) that
 // requires this function to return _all_ entries, so keep that in mind if we
 // ever change this function to return only a subset of entries.
-export const queryHabitsAndRelations = betterAuthProcedure.query(
+export const habitsAndRelationsQuery = betterAuthProcedure.query(
 	async ({ ctx: { user } }) => {
 		const user_id = user.id;
 
@@ -22,7 +22,7 @@ export const queryHabitsAndRelations = betterAuthProcedure.query(
 	}
 );
 
-export const queryHabitEntries = betterAuthProcedure.query(
+export const habitEntriesQuery = betterAuthProcedure.query(
 	async ({ ctx: { user } }) => {
 		const user_id = user.id;
 		const entries = await queryHabitEntriesByUser({ user_id });

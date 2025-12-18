@@ -6,14 +6,14 @@ import { insertHabitWithTags } from "@/lib/data/models/habits/insert-habit";
 import { insertHabitEntry } from "@/lib/data/models/habits/insert-habit-entry";
 import { betterAuthProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 
-export const createHabitEntry = betterAuthProcedure
+export const createHabitEntryMutation = betterAuthProcedure
 	.input(habitEntryInputSchema)
 	.mutation(async ({ input }) => {
 		// TODO: call the input "input"
 		return await insertHabitEntry({ habitEntry: input });
 	});
 
-export const createHabit = betterAuthProcedure
+export const createHabitMutation = betterAuthProcedure
 	.input(habitInputSchema)
 	.mutation(async ({ input: { habit, tagIds } }) => {
 		return await insertHabitWithTags({ habit, tagIds });

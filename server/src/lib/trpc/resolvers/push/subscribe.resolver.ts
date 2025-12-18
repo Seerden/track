@@ -9,7 +9,7 @@ import { betterAuthProcedure } from "../../procedures/authenticated.procedure";
 
 // This is an auth procedure, because we only provide push notifications for
 // authenticated users.
-export const subscribeResolver = betterAuthProcedure
+export const subscribeMutation = betterAuthProcedure
 	.input(pushSubscriptionInputSchema)
 	.mutation(async ({ input, ctx }) => {
 		try {
