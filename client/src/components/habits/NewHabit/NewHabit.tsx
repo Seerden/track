@@ -1,4 +1,5 @@
 import Form from "@lib/theme/components/form.style";
+import { TextInput } from "@mantine/core";
 import { DatePickerInput, type DateValue } from "@mantine/dates";
 import type { Timestamp } from "@shared/lib/schemas/timestamp";
 import type { Nullable } from "@shared/types/data/utility.types";
@@ -100,15 +101,13 @@ function SimpleField({
 	label: string;
 }) {
 	return (
-		<Form.Label>
-			<span>{label}</span>
-			<Input.Default
-				type="text"
-				onChange={onChange}
-				name={name}
-				required={required}
-			/>
-		</Form.Label>
+		<TextInput
+			label={label}
+			type="text"
+			onChange={onChange}
+			name={name}
+			required={required}
+		/>
 	);
 }
 
