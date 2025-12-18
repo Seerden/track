@@ -55,7 +55,7 @@ const ListItem = styled.li<{ $hasParent?: boolean; $isSelected?: boolean }>`
 	flex: 1;
 	min-width: max-content;
 	justify-content: center;
-	border: 2px solid #ccc;
+	border: 2px solid ${(p) => p.theme.colors.light[5]};
 	${radius.small};
 	box-shadow: 0.2rem 0.1rem 0 0 var(--bg-5-4);
 	${spacing.padding.wide({ size: 0.2, ratio: 2.5 })};

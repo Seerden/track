@@ -15,9 +15,9 @@ const CalendarTitle = styled.h2`
    user-select: none;
    background-color: ${(p) => p.theme.colors.background.main[1]};
    ${spacing.padding.wide({ size: 0.2, ratio: 2 })};
-   box-shadow: 0 0.3rem 0.2rem -0.2rem #ccc;
+   box-shadow: 0 0.3rem 0.2rem -0.2rem var(--bg-5-2);
    ${radius.small};
-   border-bottom: 2px solid #aaa;
+   border-bottom: 2px solid var(--bg-4-3);
    color: ${(p) => p.theme.colors.text.main[3]};
    font-size: ${(p) => p.theme.font.size["0.85"]};
 `;
