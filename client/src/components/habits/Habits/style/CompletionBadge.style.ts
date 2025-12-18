@@ -14,8 +14,7 @@ const Badge = styled(Buttons.Unstyled)<{ $size: number; $done?: boolean }>`
 	width: var(--size);
 	height: var(--size);
 
-	background-color: ${(p) => p.theme.colors.background.main[0]};
-;
+	background-color: var(--bg-0-3);
 
 	font-size: ${(p) => p.theme.font.size["0.9"]};
 	font-weight: 700;

@@ -124,10 +124,10 @@ export default function RecurrenceForm({
 									wrapper: { height: "max-content" },
 									input: {
 										width: "12ch",
-										fontSize: font.size["0.9"],
 										height: "max-content",
 										minHeight: "max-content",
-										lineHeight: 1.6,
+										fontSize: font.size["1"],
+										lineHeight: 1.5,
 									},
 									option: {
 										width: "12ch",
