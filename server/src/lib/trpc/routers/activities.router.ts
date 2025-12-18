@@ -1,38 +1,38 @@
 import {
 	deleteOccurrenceByIdMutation,
 	deleteRecurrenceByIdMutation,
-} from "@/lib/trpc/resolvers/activity/delete-recurrences";
+} from "@/lib/trpc/resolvers/activities/delete-recurrences";
 import {
 	createActivityMutation,
 	createRealSyntheticActivityMutation,
 	createRecurringActivityMutation,
-} from "@/lib/trpc/resolvers/activity/insert-activities";
+} from "@/lib/trpc/resolvers/activities/insert-activities";
 import {
 	createOccurrenceMutation,
 	createRecurrenceMutation,
-} from "@/lib/trpc/resolvers/activity/insert-recurrences";
+} from "@/lib/trpc/resolvers/activities/insert-recurrences";
 import {
 	activitiesQuery,
 	recurringActivitiesQuery,
-} from "@/lib/trpc/resolvers/activity/query-activities";
+} from "@/lib/trpc/resolvers/activities/query-activities";
 import {
 	occurrencesByRecurrenceQuery,
 	occurrencesByUserQuery,
 	recurrenceByActivityQuery,
 	recurrencesByIdQuery,
 	recurrencesByUserQuery,
-} from "@/lib/trpc/resolvers/activity/query-recurrences";
+} from "@/lib/trpc/resolvers/activities/query-recurrences";
 import {
 	updateActivityMutation,
 	updateTaskCompletionMutation,
-} from "@/lib/trpc/resolvers/activity/update-activities";
+} from "@/lib/trpc/resolvers/activities/update-activities";
 import {
 	updateOccurrenceMutation,
 	updateRecurrenceMutation,
-} from "@/lib/trpc/resolvers/activity/update-recurrences";
+} from "@/lib/trpc/resolvers/activities/update-recurrences";
 import { t } from "@/lib/trpc/trpc-context";
-import { deleteActivityByIdMutation } from "../resolvers/activity/delete-activity";
-import { overdueTasksQuery } from "../resolvers/activity/query-tasks";
+import { deleteActivityByIdMutation } from "../resolvers/activities/delete-activity";
+import { overdueTasksQuery } from "../resolvers/activities/query-tasks";
 
 export const activitiesRouter = t.router({
 	all: activitiesQuery,

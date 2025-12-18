@@ -1,16 +1,16 @@
-import { deleteHabitByIdMutation } from "@/lib/trpc/resolvers/habit/delete-habits";
+import { deleteHabitByIdMutation } from "@/lib/trpc/resolvers/habits/delete-habits";
 import {
 	createHabitEntryMutation,
 	createHabitMutation,
-} from "@/lib/trpc/resolvers/habit/insert-habits";
+} from "@/lib/trpc/resolvers/habits/insert-habits";
 import {
 	habitEntriesQuery,
 	habitsAndRelationsQuery,
-} from "@/lib/trpc/resolvers/habit/query-habits";
+} from "@/lib/trpc/resolvers/habits/query-habits";
 import {
 	updateEntryMutation,
 	updateHabitMutation,
-} from "@/lib/trpc/resolvers/habit/update-habits";
+} from "@/lib/trpc/resolvers/habits/update-habits";
 import { t } from "@/lib/trpc/trpc-context";
 
 export const habitsRouter = t.router({

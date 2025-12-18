@@ -13,7 +13,7 @@ import { tagsRouter } from "@/lib/trpc/routers/tags.router";
 import { t } from "./trpc/trpc-context";
 import "dotenv/config";
 import { pushRouter } from "./trpc/routers/push.router";
-import { usersRouter } from "./trpc/routers/user.router";
+import { usersRouter } from "./trpc/routers/users.router";
 
 export const appRouter = t.router({
 	habits: habitsRouter,
