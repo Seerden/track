@@ -6,13 +6,13 @@ import { betterAuthProcedure } from "@/lib/trpc/procedures/authenticated.procedu
 
 export const createHabitEntryMutation = betterAuthProcedure
 	.input(habitEntryInputSchema)
-	.mutation(async ({ input }) => {
+	.mutation(async ({ input, ctx: { user } }) => {
 		// TODO: call the input "input"
-		return await insertHabitEntry({ habitEntry: input });
+		return await insertHabitEntry({ habitEntry: input, user_id: user.id });
 	});
 
 export const createHabitMutation = betterAuthProcedure
 	.input(habitInputSchema)
-	.mutation(async ({ input: { habit, tagIds } }) => {
-		return await insertHabitWithTags({ habit, tagIds });
+	.mutation(async ({ input: { habit, tagIds }, ctx: { user } }) => {
+		return await insertHabitWithTags({ habit, tagIds, user_id: user.id });
 	});

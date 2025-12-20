@@ -1,10 +1,10 @@
 import type {
-	HabitEntry,
+	PossiblySyntheticHabitEntry,
 	SyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
 
 export function isSynthetic(
-	entry: HabitEntry | SyntheticHabitEntry
+	entry: PossiblySyntheticHabitEntry
 ): entry is SyntheticHabitEntry {
 	return (entry as SyntheticHabitEntry).synthetic === true;
 }

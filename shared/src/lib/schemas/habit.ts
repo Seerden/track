@@ -3,58 +3,56 @@ import { z } from "@shared/lib/zod";
 
 export const intervalUnitSchema = z.enum(["day", "week", "month", "year"]);
 
-const goalSchema = z.discriminatedUnion("goal_type", [
-	z.object({
-		goal_type: z.literal("checkbox"),
-		goal_unit: z.null(),
-		goal: z.null(),
-	}),
-	z.object({
-		goal_type: z.literal("goal"),
-		goal_unit: z.string().nullable(),
-		goal: z.number(),
-	}),
-]);
+const habitBase = z.object({
+	name: z.string(),
+	description: z.string().nullable(),
+	start_timestamp: timestampSchema,
+	end_timestamp: timestampSchema.nullable(),
+	interval: z.number(),
+	frequency: z.number(),
+	interval_unit: intervalUnitSchema,
+});
 
-export const newHabitSchema = z
-	.object({
-		user_id: z.string(),
-		name: z.string(),
-		description: z.string().nullable(),
-		start_timestamp: timestampSchema,
-		end_timestamp: timestampSchema.nullable(),
-		interval: z.number(),
-		frequency: z.number(),
-		interval_unit: intervalUnitSchema,
-	})
-	.and(goalSchema);
-export type NewHabit = z.infer<typeof newHabitSchema>;
+/** A habit is either a checkbox habit, or a goal habit. This is indicated by
+ * `goal_type`. */
+const checkboxHabitBase = habitBase.extend({
+	goal_type: z.literal("checkbox"),
+	goal_unit: z.null(),
+	goal: z.null(),
+});
+const goalHabitBase = habitBase.extend({
+	goal_type: z.literal("goal"),
+	goal_unit: z.string().nullable(),
+	goal: z.number(),
+});
+
+export const newHabitSchema = z.discriminatedUnion("goal_type", [
+	checkboxHabitBase,
+	goalHabitBase,
+]);
 
 export const habitSchema = newHabitSchema.and(
 	z.object({
+		user_id: z.string(),
 		habit_id: z.string(),
 		created_at: timestampSchema,
 	})
 );
-export type Habit = z.infer<typeof habitSchema>;
 
 export const habitEntryInputSchema = z.object({
 	habit_id: z.string(),
-	// TODO: take this out, get it from context
-	user_id: z.string(),
 	date: timestampSchema,
 	index: z.number(),
 	value: z.string(), // Varchar -- TODO: why not implement it as a number, and use values 0 and 1 for boolean habits?
 });
-export type HabitEntryInput = z.infer<typeof habitEntryInputSchema>;
 
 export const habitEntrySchema = habitEntryInputSchema.and(
 	z.object({
+		user_id: z.string(),
 		habit_entry_id: z.string(),
 		created_at: timestampSchema,
 	})
 );
-export type HabitEntry = z.infer<typeof habitEntrySchema>;
 
 export const habitWithIdsSchema = habitSchema.and(
 	z.object({
@@ -69,13 +67,11 @@ export const habitWithEntriesSchema = habitWithIdsSchema.and(
 		entries: z.array(habitEntrySchema),
 	})
 );
-export type HabitWithEntries = z.infer<typeof habitWithEntriesSchema>;
 
 /** This is a synthetic habit entry, which is not stored in the database, but is
  * an intermediate value used in the UI. */
-export const syntheticHabitEntrySchema = habitEntryInputSchema
+const syntheticHabitEntrySchema = habitEntryInputSchema
 	.omit({
-		user_id: true,
 		value: true,
 	})
 	.and(
@@ -87,24 +83,25 @@ export const syntheticHabitEntrySchema = habitEntryInputSchema
 			created_at: timestampSchema,
 		})
 	);
-export type SyntheticHabitEntry = z.infer<typeof syntheticHabitEntrySchema>;
 
-export const possiblySyntheticHabitEntrySchema = z.union([
+const possiblySyntheticHabitEntrySchema = z.union([
 	habitEntrySchema,
 	syntheticHabitEntrySchema,
 ]);
+
+const habitWithPossiblySyntheticEntriesSchema = habitWithIdsSchema.and(
+	z.object({ entries: z.array(possiblySyntheticHabitEntrySchema) })
+);
+
+export type NewHabit = z.infer<typeof newHabitSchema>;
+export type Habit = z.infer<typeof habitSchema>;
+export type HabitEntryInput = z.infer<typeof habitEntryInputSchema>;
+export type HabitEntry = z.infer<typeof habitEntrySchema>;
+export type HabitWithEntries = z.infer<typeof habitWithEntriesSchema>;
+export type SyntheticHabitEntry = z.infer<typeof syntheticHabitEntrySchema>;
 export type PossiblySyntheticHabitEntry = z.infer<
 	typeof possiblySyntheticHabitEntrySchema
 >;
-
-export const habitWithPossiblySyntheticEntriesSchema = habitWithIdsSchema.and(
-	z.object({
-		entries: z.union([
-			habitEntrySchema.array(),
-			possiblySyntheticHabitEntrySchema.array(),
-		]),
-	})
-);
 export type HabitWithPossiblySyntheticEntries = z.infer<
 	typeof habitWithPossiblySyntheticEntriesSchema
 >;

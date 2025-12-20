@@ -1,8 +1,7 @@
 import {
-	type HabitEntry,
 	type HabitWithPossiblySyntheticEntries,
 	habitEntrySchema,
-	type SyntheticHabitEntry,
+	type PossiblySyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
 import type { Datelike } from "@shared/lib/schemas/timestamp";
 import { isSynthetic } from "@shared/types/data/habit-entry.guards";
@@ -20,7 +19,7 @@ export function singleHabitEntryIsDone({
 	entry,
 }: {
 	habit: Partial<HabitWithPossiblySyntheticEntries>;
-	entry: HabitEntry | SyntheticHabitEntry;
+	entry: PossiblySyntheticHabitEntry;
 }) {
 	if (isSynthetic(entry)) return false;
 

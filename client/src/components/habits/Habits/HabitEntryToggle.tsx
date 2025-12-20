@@ -1,16 +1,19 @@
 import { Tooltip } from "@mantine/core";
 import type {
-	HabitEntry,
 	HabitWithPossiblySyntheticEntries,
-	SyntheticHabitEntry,
+	PossiblySyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
 import { isSynthetic } from "@shared/types/data/habit-entry.guards";
 import { useState } from "react";
 import { Checkbox } from "@/components/utility/Checkbox/Checkbox";
 import { formatToYearMonthDay } from "@/lib/datetime/format-date";
 import { createDate } from "@/lib/datetime/make-date";
-import type { HabitEntryUpdateMutationFunction } from "@/types/data.types";
 import { completionTooltipStyles } from "./style/Completion.style";
+
+export type HabitEntryChangeHandler = (input: {
+	input: PossiblySyntheticHabitEntry;
+	value?: string;
+}) => void;
 
 export default function HabitEntryToggle({
 	habit,
@@ -18,11 +21,11 @@ export default function HabitEntryToggle({
 	onChange,
 }: {
 	habit: HabitWithPossiblySyntheticEntries;
-	entry: HabitEntry | SyntheticHabitEntry;
-	onChange: HabitEntryUpdateMutationFunction;
+	entry: PossiblySyntheticHabitEntry;
+	onChange: HabitEntryChangeHandler;
 }) {
 	const defaultValue = Boolean(
-		isSynthetic(entry) ? false : (entry as HabitEntry).value === "true"
+		isSynthetic(entry) ? false : entry.value === "true"
 	);
 	const [value, setValue] = useState(defaultValue);
 

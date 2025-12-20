@@ -1,32 +1,26 @@
 import { type NewHabit, newHabitSchema } from "@shared/lib/schemas/habit";
 import type { Timestamp } from "@shared/lib/schemas/timestamp";
-import { hasValidUserId } from "@shared/types/data/user-id.guards";
 import type { Nullable } from "@shared/types/data/utility.types";
 import { useNavigate } from "@tanstack/react-router";
 import type { Dayjs } from "dayjs";
 import { produce } from "immer";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { TAG_SELECTOR_IDS } from "@/components/tags/TagSelector/constants";
 import { createDate } from "@/lib/datetime/make-date";
 import { useMutateNewHabit } from "@/lib/hooks/query/habits/useMutateNewHabit";
-import useAuthentication from "@/lib/hooks/useAuthentication";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import { useTagSelection } from "@/lib/state/selected-tags-state";
-
-// TODO: refactor client and server to make this implicit. The user id will
-// always be added server-side for any type of data creation.
-export type NewHabitWithoutUserId = Omit<NewHabit, "user_id">;
 
 export type DateChangeHandler = ({
 	value,
 	field,
 }: {
 	value: Nullable<Timestamp>;
-	field: keyof NewHabitWithoutUserId;
+	field: keyof NewHabit;
 }) => void;
 
-const defaultNewHabit: NewHabitWithoutUserId = {
+const defaultNewHabit: NewHabit = {
 	name: "",
 	description: "",
 	start_timestamp: createDate(new Date()),
@@ -40,7 +34,6 @@ const defaultNewHabit: NewHabitWithoutUserId = {
 };
 
 export default function useNewHabit() {
-	const { currentUser } = useAuthentication();
 	const { mutate: submit } = useMutateNewHabit();
 	const { selectedTagIds, resetTagSelection } = useTagSelection(
 		TAG_SELECTOR_IDS.DEFAULT
@@ -52,19 +45,14 @@ export default function useNewHabit() {
 		resetTagSelection();
 	}, []);
 
-	const [habit, setHabit] = useState<NewHabitWithoutUserId>(defaultNewHabit);
-
-	const habitWithUserIdField = useMemo(() => {
-		return Object.assign({}, habit, { user_id: currentUser?.id ?? null });
-	}, [habit, currentUser]);
+	const [habit, setHabit] = useState<NewHabit>(defaultNewHabit);
 
 	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 
-		const parsed = newHabitSchema.safeParse(habitWithUserIdField);
+		const parsed = newHabitSchema.safeParse(habit);
 		// TODO: notify
-		// TODO: remove hasValidUserId from here, append it on the server
-		if (!parsed.success || !hasValidUserId(habitWithUserIdField)) return;
+		if (!parsed.success) return;
 
 		submit(
 			{

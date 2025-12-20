@@ -1,6 +1,7 @@
 import Form from "@lib/theme/components/form.style";
 import { TextInput } from "@mantine/core";
 import { DatePickerInput, type DateValue } from "@mantine/dates";
+import type { NewHabit } from "@shared/lib/schemas/habit";
 import type { Timestamp } from "@shared/lib/schemas/timestamp";
 import type { Nullable } from "@shared/types/data/utility.types";
 import { TAG_SELECTOR_IDS } from "@/components/tags/TagSelector/constants";
@@ -13,12 +14,9 @@ import Containers from "@/lib/theme/components/container.style";
 import { font } from "@/lib/theme/font";
 import Input from "@/lib/theme/input";
 import S from "./style/NewHabit.style";
-import useNewHabit, {
-	type DateChangeHandler,
-	type NewHabitWithoutUserId,
-} from "./useNewHabit";
+import useNewHabit, { type DateChangeHandler } from "./useNewHabit";
 
-export default function NewHabit() {
+export default function HabitForm() {
 	const {
 		habit,
 		onInputChange,
@@ -97,7 +95,7 @@ function SimpleField({
 }: {
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	required?: boolean;
-	name: keyof NewHabitWithoutUserId;
+	name: keyof NewHabit;
 	label: string;
 }) {
 	return (
@@ -115,7 +113,7 @@ type FieldProps = {
 	onChange: (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
 	) => void;
-	habit: NewHabitWithoutUserId;
+	habit: NewHabit;
 };
 
 function TargetField({ onChange, habit }: FieldProps) {
@@ -255,7 +253,7 @@ function ProgressionFields({
 	handleGoalTypeChange,
 	handleInputChange,
 }: {
-	habit: NewHabitWithoutUserId;
+	habit: NewHabit;
 	handleGoalTypeChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	handleInputChange: FieldProps["onChange"];
 }) {
