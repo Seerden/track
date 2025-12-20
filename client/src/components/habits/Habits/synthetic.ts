@@ -127,10 +127,10 @@ export function withSyntheticHabitEntries(
 }
 
 /** This function turns a SyntheticHabitEntry into a HabitEntryInput to allow
- * us to insert it as a real entry into the database. Note that it doesn't
- * become a HabitEntry into it's been inserted into the database, so we cannot
- * use the result of this function in the UI anywhere (because it's missing
- * fields that a real habit entry has, like `user_id`). */
+ * us to insert it as a real entry into the database. Note that it only becomes
+ * a HabitEntry after it's been inserted into the database, so we cannot use the
+ * result of this function in the UI anywhere (because it's missing fields that
+ * a real habit entry has, like `user_id`). */
 export function syntheticToReal({
 	entry,
 	value,
