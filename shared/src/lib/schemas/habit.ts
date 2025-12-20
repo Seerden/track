@@ -56,12 +56,6 @@ export const habitEntrySchema = habitEntryInputSchema.and(
 );
 export type HabitEntry = z.infer<typeof habitEntrySchema>;
 
-export const habitEntryUpdateInputSchema = z.object({
-	habit_entry_id: z.string(),
-	value: z.string(), // TODO: type for Varchar
-});
-export type HabitEntryUpdateInput = z.infer<typeof habitEntryUpdateInputSchema>;
-
 export const habitWithIdsSchema = habitSchema.and(
 	z.object({
 		tag_ids: z.array(z.string()),

@@ -1,4 +1,4 @@
-import { habitEntryUpdateInputSchema } from "@shared/lib/schemas/habit";
+import { habitEntryUpdateInputSchema } from "@shared/lib/schemas/habit.input";
 import { updateHabitEntry } from "@/lib/data/models/habits/update-habit-entry";
 import { betterAuthProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 
