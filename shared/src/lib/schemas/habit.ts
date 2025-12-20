@@ -77,12 +77,6 @@ export const habitWithEntriesSchema = habitWithIdsSchema.and(
 );
 export type HabitWithEntries = z.infer<typeof habitWithEntriesSchema>;
 
-export const habitInputSchema = z.object({
-	habit: newHabitSchema,
-	tagIds: z.array(z.string()).optional(),
-});
-export type HabitInput = z.infer<typeof habitInputSchema>;
-
 /** This is a synthetic habit entry, which is not stored in the database, but is
  * an intermediate value used in the UI. */
 export const syntheticHabitEntrySchema = habitEntryInputSchema

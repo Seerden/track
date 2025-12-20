@@ -1,7 +1,5 @@
-import {
-	habitEntryInputSchema,
-	habitInputSchema,
-} from "@shared/lib/schemas/habit";
+import { habitEntryInputSchema } from "@shared/lib/schemas/habit";
+import { habitInputSchema } from "@shared/lib/schemas/habit.input";
 import { insertHabitWithTags } from "@/lib/data/models/habits/insert-habit";
 import { insertHabitEntry } from "@/lib/data/models/habits/insert-habit-entry";
 import { betterAuthProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
