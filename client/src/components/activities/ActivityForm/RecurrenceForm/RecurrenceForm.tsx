@@ -1,4 +1,3 @@
-import { useTheme } from "@emotion/react";
 import { Select, Tooltip } from "@mantine/core";
 import type { IntervalUnit } from "@shared/types/data/utility.types";
 import { LucideAlertCircle } from "lucide-react";
@@ -10,7 +9,6 @@ import {
 	INTERVAL_UNIT,
 } from "@/components/activities/ActivityForm/RecurrenceForm/constants";
 import DaySelector from "@/components/activities/ActivityForm/RecurrenceForm/DaySelector";
-import type { MainTheme } from "@/lib/style/theme";
 import Containers from "@/lib/theme/components/container.style";
 import { font } from "@/lib/theme/font";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
@@ -35,8 +33,6 @@ export default function RecurrenceForm({
 	| "resetSelection"
 	| "validRecurrence"
 >) {
-	const theme = useTheme() as MainTheme;
-
 	if (!isRecurring) {
 		return null;
 	}

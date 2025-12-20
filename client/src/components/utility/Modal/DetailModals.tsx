@@ -13,7 +13,7 @@ import { trpc } from "@/lib/trpc";
 
 export default function DetailModals() {
 	const { data: tags } = useQueryTags();
-	const { data: activities } = useQuery(trpc.activities.all.queryOptions());
+	const { data: activities } = useQuery(trpc.activities.q.all.queryOptions());
 	const { data: habits } = useQuery(trpc.habits.q.all.queryOptions());
 
 	// NOTE: we do not use getHabitsForTimeWindow, because for the habit

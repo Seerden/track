@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Suspense } from "react";
 import { tagFilterAtom } from "@/components/activities/ActivityFilter/tag-filter.atom";
 import ActivityForm from "@/components/activities/ActivityForm/ActivityForm";
-import NewHabit from "@/components/habits/NewHabit/NewHabit";
+import HabitForm from "@/components/habits/HabitForm/HabitForm";
 import NewNote from "@/components/notes/NewNote/NewNote";
 import AllDayActivities from "@/components/Today/activities/AllDayActivities";
 import { activityMotionVariants } from "@/components/Today/activities/style/Activity.style";
@@ -196,7 +196,7 @@ export default function Today() {
 			</Modal>
 
 			<Modal initialOpen={false} modalId={modalIds.habits.new}>
-				<NewHabit />
+				<HabitForm />
 			</Modal>
 
 			<Modal initialOpen={false} modalId={modalIds.notes.new}>

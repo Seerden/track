@@ -33,7 +33,6 @@ type FlexProps = {
 };
 
 const flexCss = ({
-	theme,
 	gap,
 	padding,
 }: {
