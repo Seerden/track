@@ -1,8 +1,10 @@
 import { timestampSchema } from "@shared/lib/schemas/timestamp";
 import { z } from "@shared/lib/zod";
 
-export const intervalUnitSchema = z.enum(["day", "week", "month", "year"]);
+const intervalUnit = z.enum(["day", "week", "month", "year"]);
 
+/** partial schema for `newHabit`. Both types of habits (checkbox, goal) extend
+ * this, then they are extended to become `newHabit`. */
 const habitBase = z.object({
 	name: z.string(),
 	description: z.string().nullable(),
@@ -10,7 +12,7 @@ const habitBase = z.object({
 	end_timestamp: timestampSchema.nullable(),
 	interval: z.number(),
 	frequency: z.number(),
-	interval_unit: intervalUnitSchema,
+	interval_unit: intervalUnit,
 });
 
 /** A habit is either a checkbox habit, or a goal habit. This is indicated by
@@ -26,12 +28,12 @@ const goalHabitBase = habitBase.extend({
 	goal: z.number(),
 });
 
-export const newHabitSchema = z.discriminatedUnion("goal_type", [
+const newHabit = z.discriminatedUnion("goal_type", [
 	checkboxHabitBase,
 	goalHabitBase,
 ]);
 
-export const habitSchema = newHabitSchema.and(
+const habit = newHabit.and(
 	z.object({
 		user_id: z.string(),
 		habit_id: z.string(),
@@ -39,14 +41,17 @@ export const habitSchema = newHabitSchema.and(
 	})
 );
 
-export const habitEntryInputSchema = z.object({
+const habitEntryInput = z.object({
 	habit_id: z.string(),
 	date: timestampSchema,
 	index: z.number(),
-	value: z.string(), // Varchar -- TODO: why not implement it as a number, and use values 0 and 1 for boolean habits?
+	/** This is a varchar in the database.
+	 * @todo: why not implement it as a number, and use values 0 and 1 for
+	 * boolean habits? */
+	value: z.string(),
 });
 
-export const habitEntrySchema = habitEntryInputSchema.and(
+const habitEntry = habitEntryInput.and(
 	z.object({
 		user_id: z.string(),
 		habit_entry_id: z.string(),
@@ -54,23 +59,24 @@ export const habitEntrySchema = habitEntryInputSchema.and(
 	})
 );
 
-export const habitWithIdsSchema = habitSchema.and(
+const habitWithIds = habit.and(
 	z.object({
 		tag_ids: z.array(z.string()),
 	})
 );
+
 /** Like other data types, a habit can also be linked to any number of tags.
  * For this one, the server just gets the entire entries, instead of only the
  * ids (hence it's called habitWithEntries vs. habitWithIds). */
-export const habitWithEntriesSchema = habitWithIdsSchema.and(
+const habitWithEntries = habitWithIds.and(
 	z.object({
-		entries: z.array(habitEntrySchema),
+		entries: z.array(habitEntry),
 	})
 );
 
 /** This is a synthetic habit entry, which is not stored in the database, but is
  * an intermediate value used in the UI. */
-const syntheticHabitEntrySchema = habitEntryInputSchema
+const syntheticHabitEntry = habitEntryInput
 	.omit({
 		value: true,
 	})
@@ -84,24 +90,34 @@ const syntheticHabitEntrySchema = habitEntryInputSchema
 		})
 	);
 
-const possiblySyntheticHabitEntrySchema = z.union([
-	habitEntrySchema,
-	syntheticHabitEntrySchema,
-]);
+const possiblySyntheticHabitEntry = z.union([habitEntry, syntheticHabitEntry]);
 
-const habitWithPossiblySyntheticEntriesSchema = habitWithIdsSchema.and(
-	z.object({ entries: z.array(possiblySyntheticHabitEntrySchema) })
+const habitWithPossiblySyntheticEntries = habitWithIds.and(
+	z.object({ entries: z.array(possiblySyntheticHabitEntry) })
 );
 
-export type NewHabit = z.infer<typeof newHabitSchema>;
-export type Habit = z.infer<typeof habitSchema>;
-export type HabitEntryInput = z.infer<typeof habitEntryInputSchema>;
-export type HabitEntry = z.infer<typeof habitEntrySchema>;
-export type HabitWithEntries = z.infer<typeof habitWithEntriesSchema>;
-export type SyntheticHabitEntry = z.infer<typeof syntheticHabitEntrySchema>;
+/** For readability, in this file these are defined without the `Schema` suffix,
+ * but I prefer the suffix where they're actually used, so I know that they're
+ * `zod` schemas. */
+export {
+	intervalUnit as intervalUnitSchema,
+	newHabit as newHabitSchema,
+	habit as habitSchema,
+	habitEntryInput as habitEntryInputSchema,
+	habitEntry as habitEntrySchema,
+	habitWithIds as habitWithIdsSchema,
+	habitWithEntries as habitWithEntriesSchema,
+};
+
+export type NewHabit = z.infer<typeof newHabit>;
+export type Habit = z.infer<typeof habit>;
+export type HabitEntryInput = z.infer<typeof habitEntryInput>;
+export type HabitEntry = z.infer<typeof habitEntry>;
+export type HabitWithEntries = z.infer<typeof habitWithEntries>;
+export type SyntheticHabitEntry = z.infer<typeof syntheticHabitEntry>;
 export type PossiblySyntheticHabitEntry = z.infer<
-	typeof possiblySyntheticHabitEntrySchema
+	typeof possiblySyntheticHabitEntry
 >;
 export type HabitWithPossiblySyntheticEntries = z.infer<
-	typeof habitWithPossiblySyntheticEntriesSchema
+	typeof habitWithPossiblySyntheticEntries
 >;
