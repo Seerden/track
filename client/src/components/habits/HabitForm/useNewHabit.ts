@@ -12,14 +12,6 @@ import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import { useTagSelection } from "@/lib/state/selected-tags-state";
 
-export type DateChangeHandler = ({
-	value,
-	field,
-}: {
-	value: Nullable<Timestamp>;
-	field: keyof NewHabit;
-}) => void;
-
 const defaultNewHabit: NewHabit = {
 	name: "",
 	description: "",
@@ -115,7 +107,13 @@ export default function useNewHabit() {
 		}));
 	}
 
-	const handleDateChange: DateChangeHandler = ({ value, field }) => {
+	const handleDateChange = ({
+		value,
+		field,
+	}: {
+		value: Nullable<Timestamp>;
+		field: keyof NewHabit;
+	}) => {
 		if (field !== "end_timestamp" && field !== "start_timestamp") {
 			throw new Error(
 				"Field must be either 'start_timestamp' or 'end_timestamp'"
