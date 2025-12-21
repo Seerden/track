@@ -17,6 +17,7 @@ export default function useMutateDeleteHabit() {
 					queryKey: trpc.habits.q.entries.queryKey(),
 				});
 				closeModal(modalIds.habits.detailed);
+				closeModal(modalIds.habits.update);
 			},
 		})
 	);
