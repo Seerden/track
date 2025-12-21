@@ -1,10 +1,18 @@
 import Form from "@lib/theme/components/form.style";
+import { useCallback } from "react";
 import { useHabitFormContext } from "@/components/habits/HabitForm/useHabitFormContext";
 import Input from "@/lib/theme/input";
 import S from "./style/NewHabit.style";
 
 export default function OccurrenceFields() {
-	const { onInputChange, maybePlural, habit } = useHabitFormContext();
+	const { onInputChange, habit } = useHabitFormContext();
+	// TODO use a generic pluralize function for this
+	const maybePlural = useCallback(
+		(s: string) => {
+			return habit.interval === 1 ? s : s + "s";
+		},
+		[habit.interval]
+	);
 
 	return (
 		<Form.CompactRow>
