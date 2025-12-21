@@ -2,8 +2,10 @@ import Form from "@lib/theme/components/form.style";
 import { TextInput } from "@mantine/core";
 import { DatePickerInput, type DateValue } from "@mantine/dates";
 import type { NewHabit } from "@shared/lib/schemas/habit";
-import type { Timestamp } from "@shared/lib/schemas/timestamp";
-import type { Nullable } from "@shared/types/data/utility.types";
+import {
+	HabitFormProvider,
+	useHabitFormContext,
+} from "@/components/habits/HabitForm/useHabitFormContext";
 import { TAG_SELECTOR_IDS } from "@/components/tags/TagSelector/constants";
 import TagSelector from "@/components/tags/TagSelector/TagSelector";
 import { CheckboxIcon } from "@/components/utility/Checkbox/Checkbox";
@@ -14,109 +16,74 @@ import Containers from "@/lib/theme/components/container.style";
 import { font } from "@/lib/theme/font";
 import Input from "@/lib/theme/input";
 import S from "./style/NewHabit.style";
-import useNewHabit, { type DateChangeHandler } from "./useNewHabit";
+import useNewHabit from "./useNewHabit";
 
 export default function HabitForm() {
-	const {
-		habit,
-		onInputChange,
-		maybePlural,
-		onSubmit,
-		handleGoalTypeChange,
-		handleDateChange,
-	} = useNewHabit();
+	const { onSubmit } = useNewHabit();
 
 	return (
-		<Form.Wrapper>
-			<Form.FormTitle>Start a new habit</Form.FormTitle>
-			<Form.Form onSubmit={onSubmit}>
-				<Form.Row>
-					<SimpleField
-						onChange={onInputChange}
-						required
-						name="name"
-						label="Habit name"
+		<HabitFormProvider>
+			<Form.Wrapper>
+				<Form.FormTitle>Start a new habit</Form.FormTitle>
+				<Form.Form onSubmit={onSubmit}>
+					<Form.Row>
+						<SimpleField required name="name" label="Habit name" />
+						<SimpleField name="description" label="Description" />
+					</Form.Row>
+					<OccurrenceFields />
+					<ProgressionFields />
+					<Form.Row
+						style={{
+							position: "relative",
+							flexDirection: "column",
+						}}
+					>
+						<S.DateFields>
+							<StartDateField />
+							<EndDateField />
+						</S.DateFields>
+					</Form.Row>
+					<TagSelector
+						tagSelectorId={TAG_SELECTOR_IDS.DEFAULT}
+						modalId={modalIds.tagSelector.newHabit}
+						showNewTagButton
+						title="Add tags"
 					/>
-					<SimpleField
-						onChange={onInputChange}
-						name="description"
-						label="Description"
-					/>
-				</Form.Row>
-				<OccurrenceFields
-					maybePlural={maybePlural}
-					onChange={onInputChange}
-					habit={habit}
-				/>
-				<ProgressionFields
-					habit={habit}
-					handleGoalTypeChange={handleGoalTypeChange}
-					handleInputChange={onInputChange}
-				/>
-				<Form.Row
-					style={{
-						position: "relative",
-						flexDirection: "column",
-					}}
-				>
-					<S.DateFields>
-						<StartDateField
-							timestamp={habit.start_timestamp}
-							onChange={handleDateChange}
-						/>
-
-						<EndDateField
-							min={habit.start_timestamp ?? undefined}
-							timestamp={habit.end_timestamp}
-							onChange={handleDateChange}
-						/>
-					</S.DateFields>
-				</Form.Row>
-				<TagSelector
-					tagSelectorId={TAG_SELECTOR_IDS.DEFAULT}
-					modalId={modalIds.tagSelector.newHabit}
-					showNewTagButton
-					title="Add tags"
-				/>
-				{/* TODO: disable when invalid */}
-				<Buttons.Submit.Default type="submit" disabled={false}>
-					Create habit
-				</Buttons.Submit.Default>
-			</Form.Form>
-		</Form.Wrapper>
+					{/* TODO: disable when invalid */}
+					<Buttons.Submit.Default type="submit" disabled={false}>
+						Create habit
+					</Buttons.Submit.Default>
+				</Form.Form>
+			</Form.Wrapper>
+		</HabitFormProvider>
 	);
 }
 
 function SimpleField({
-	onChange,
 	required,
 	name,
 	label,
 }: {
-	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	required?: boolean;
 	name: keyof NewHabit;
 	label: string;
 }) {
+	const { onInputChange } = useHabitFormContext();
+
 	return (
 		<TextInput
 			label={label}
 			type="text"
-			onChange={onChange}
+			onChange={onInputChange}
 			name={name}
 			required={required}
 		/>
 	);
 }
 
-type FieldProps = {
-	onChange: (
-		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-	) => void;
-	habit: NewHabit;
-};
+function TargetField() {
+	const { onInputChange, habit } = useHabitFormContext();
 
-function TargetField({ onChange, habit }: FieldProps) {
 	return (
 		<S.Label>
 			<span>target</span>
@@ -128,7 +95,7 @@ function TargetField({ onChange, habit }: FieldProps) {
 				type="number"
 				name="goal"
 				value={habit.goal ?? ""}
-				onChange={onChange}
+				onChange={onInputChange}
 				placeholder="e.g. 10.000"
 				disabled={habit.goal_type !== "goal"}
 				required={habit.goal_type === "goal"}
@@ -137,7 +104,9 @@ function TargetField({ onChange, habit }: FieldProps) {
 	);
 }
 
-function UnitField({ onChange, habit }: FieldProps) {
+function UnitField() {
+	const { onInputChange, habit } = useHabitFormContext();
+
 	return (
 		<S.Label>
 			<span>unit</span>
@@ -152,7 +121,7 @@ function UnitField({ onChange, habit }: FieldProps) {
 				type="text"
 				name="goal_unit"
 				value={habit.goal_unit ?? ""}
-				onChange={onChange}
+				onChange={onInputChange}
 				placeholder="e.g. steps"
 				disabled={habit.goal_type !== "goal"}
 				required={habit.goal_type === "goal"}
@@ -161,15 +130,13 @@ function UnitField({ onChange, habit }: FieldProps) {
 	);
 }
 
-type DateFieldProps = {
-	onChange: DateChangeHandler;
-	timestamp: Nullable<Timestamp>;
-	min?: Timestamp;
-};
+// TODO (TRK-112) combine StartDateField and EndDateField
+function StartDateField() {
+	const { habit, handleDateChange } = useHabitFormContext();
+	const timestamp = habit.start_timestamp;
 
-function StartDateField({ onChange, timestamp }: DateFieldProps) {
 	function handleChange(value: DateValue) {
-		onChange({
+		handleDateChange({
 			value: value ? createDate(value) : null,
 			field: "start_timestamp",
 		});
@@ -186,9 +153,13 @@ function StartDateField({ onChange, timestamp }: DateFieldProps) {
 	);
 }
 
-function EndDateField({ onChange, timestamp, min }: DateFieldProps) {
+function EndDateField() {
+	const { habit, handleDateChange } = useHabitFormContext();
+	const timestamp = habit.end_timestamp;
+	const min = habit.start_timestamp;
+
 	function handleChange(value: DateValue) {
-		onChange({
+		handleDateChange({
 			value: value ? createDate(value) : null,
 			field: "end_timestamp",
 		});
@@ -207,13 +178,9 @@ function EndDateField({ onChange, timestamp, min }: DateFieldProps) {
 	);
 }
 
-function OccurrenceFields({
-	onChange,
-	habit,
-	maybePlural,
-}: FieldProps & {
-	maybePlural: (unit: string) => string;
-}) {
+function OccurrenceFields() {
+	const { onInputChange, maybePlural, habit } = useHabitFormContext();
+
 	return (
 		<Form.CompactRow>
 			I want to do this
@@ -223,7 +190,7 @@ function OccurrenceFields({
 				step={1}
 				defaultValue={1}
 				name="frequency"
-				onChange={onChange}
+				onChange={onInputChange}
 			/>{" "}
 			<S.FixedLengthString>
 				time{habit.frequency > 1 && "s"}
@@ -231,13 +198,13 @@ function OccurrenceFields({
 			every
 			<Input.Default
 				name="interval"
-				onChange={onChange}
+				onChange={onInputChange}
 				min={1}
 				step={1}
 				defaultValue={1}
 				type="number"
 			/>{" "}
-			<S.Select name="interval_unit" onChange={onChange}>
+			<S.Select name="interval_unit" onChange={onInputChange}>
 				{["day", "week", "month", "year"].map((unit) => (
 					<option key={unit} value={unit}>
 						{maybePlural(unit)}
@@ -248,15 +215,9 @@ function OccurrenceFields({
 	);
 }
 
-function ProgressionFields({
-	habit,
-	handleGoalTypeChange,
-	handleInputChange,
-}: {
-	habit: NewHabit;
-	handleGoalTypeChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-	handleInputChange: FieldProps["onChange"];
-}) {
+function ProgressionFields() {
+	const { handleGoalTypeChange, habit, onInputChange } = useHabitFormContext();
+
 	return (
 		<S.ProgressionFieldset>
 			<S.ProgressionTitle>
@@ -282,15 +243,15 @@ function ProgressionFields({
 						name="goal_type"
 						checked={habit.goal_type === "goal"}
 						value="goal"
-						onChange={handleInputChange}
+						onChange={onInputChange}
 					/>
 					<S.RadioLabelText>
 						<CheckboxIcon checked={habit.goal_type === "goal"} />
 						with a detailed goal
 					</S.RadioLabelText>
 					<Containers.Row gap="small">
-						<TargetField habit={habit} onChange={handleInputChange} />
-						<UnitField habit={habit} onChange={handleInputChange} />
+						<TargetField />
+						<UnitField />
 					</Containers.Row>
 				</S.RadioOption>
 			</S.RadioField>
