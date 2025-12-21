@@ -1,4 +1,8 @@
-import { habitEntryUpdateInputSchema } from "@shared/lib/schemas/habit.input";
+import {
+	habitEntryUpdateInputSchema,
+	habitUpdateInputSchema,
+} from "@shared/lib/schemas/habit.input";
+import { updateHabit } from "@/lib/data/models/habits/update-habit";
 import { updateHabitEntry } from "@/lib/data/models/habits/update-habit-entry";
 import { betterAuthProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 
@@ -9,6 +13,9 @@ export const updateEntryMutation = betterAuthProcedure
 		return habitEntry;
 	});
 
-export const updateHabitMutation = betterAuthProcedure.mutation(async () => {
-	// TODO: implement this functionality
-});
+export const updateHabitMutation = betterAuthProcedure
+	.input(habitUpdateInputSchema)
+	.mutation(async ({ input }) => {
+		// TODO: implement this functionality and return the result
+		await updateHabit({ input });
+	});
