@@ -14,6 +14,7 @@ const modalIds = {
 	},
 	habits: {
 		new: "new-habit",
+		update: "update-habit",
 		detailed: "detailed-habit",
 	},
 	notes: {
