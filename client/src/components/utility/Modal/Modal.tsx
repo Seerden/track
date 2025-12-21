@@ -65,6 +65,16 @@ export default function Modal({
 						onClick={(e) => {
 							if (e.target === e.currentTarget) {
 								handleModalClose(e);
+								// TODO: should we introduce a mechanism to close
+								// dependent modals? Example: in the case where a
+								// DetailedHabit modal closes, we will presumaly also
+								// want to close the dependent <HabitForm editing />
+								// modal, if that is somehow still open. Maybe this
+								// happens automatically due to how we close the
+								// DetailedHabit modal, for example, but maybe there is
+								// a case to be made for introducing a hierarchy. Could
+								// be a simple object that we traverse recursively
+								// to close dependent/child modals.
 							}
 						}}
 						data-modal-id={modalId}
