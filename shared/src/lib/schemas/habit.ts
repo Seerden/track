@@ -111,6 +111,7 @@ export {
 
 export type NewHabit = z.infer<typeof newHabit>;
 export type Habit = z.infer<typeof habit>;
+export type HabitWithIds = z.infer<typeof habitWithIds>;
 export type HabitEntryInput = z.infer<typeof habitEntryInput>;
 export type HabitEntry = z.infer<typeof habitEntry>;
 export type HabitWithEntries = z.infer<typeof habitWithEntries>;
