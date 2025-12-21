@@ -1,7 +1,10 @@
 import { isNullish } from "@shared/lib/is-nullish";
 import type { HabitWithEntries } from "@shared/lib/schemas/habit";
 import { useAtomValue } from "jotai";
+import { LucidePenLine } from "lucide-react";
 import type { MouseEvent, PropsWithChildren } from "react";
+import HabitForm from "@/components/habits/HabitForm/HabitForm";
+import Modal from "@/components/utility/Modal/Modal";
 import TwoStepDelete from "@/components/utility/Modal/TwoStepDelete";
 import { createDate } from "@/lib/datetime/make-date";
 import useMutateDeleteHabit from "@/lib/hooks/query/habits/useMutateDeleteHabit";
@@ -9,7 +12,9 @@ import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import useDetailedItemModal from "@/lib/hooks/useDetailedItemModal";
 import useHabitsData from "@/lib/hooks/useHabitsData";
 import modalIds from "@/lib/modal-ids";
+import { useModalState } from "@/lib/state/modal-state";
 import { timeWindowAtom } from "@/lib/state/time-window.state";
+import Buttons from "@/lib/theme/components/buttons";
 import Card from "@/lib/theme/components/Card.style";
 import { ActionBar } from "@/lib/theme/components/containers/action-bar.style";
 import HabitCalendar from "../calendar/HabitCalendar";
@@ -19,6 +24,7 @@ type DetailedHabitProps = {
 	habit: HabitWithEntries;
 };
 
+// TODO: extract functionality to a hook
 export default function DetailedHabit({
 	habit: _habit,
 }: PropsWithChildren<DetailedHabitProps>) {
@@ -27,6 +33,7 @@ export default function DetailedHabit({
 	// calendar, we want to create synthetic habits for potentially any date.
 	const { getHabitById } = useHabitsData();
 	const habit = getHabitById(_habit.habit_id);
+	const { openModal } = useModalState();
 
 	const { openDetailedItemModal } = useDetailedItemModal(
 		"tag",
@@ -66,6 +73,17 @@ export default function DetailedHabit({
 						confirmLabel="Delete"
 						rejectLabel="Keep"
 					/>
+					<Buttons.Action.Stylized
+						type="button"
+						title="Edit this habit"
+						$color="royalblue"
+						onClick={(e) => {
+							e.stopPropagation();
+							openModal(modalIds.habits.update);
+						}}
+					>
+						<LucidePenLine size={20} />
+					</Buttons.Action.Stylized>
 				</ActionBar.DetailModal>
 				<p>{habit.description}</p>
 				<S.InfoFields>
@@ -111,6 +129,15 @@ export default function DetailedHabit({
 				)}
 			</S.DetailedHabitCard>
 			<HabitCalendar habit={habit} date={timeWindow.startDate} />
+
+			{/* TODO (TRK-112) I don't have a mechanism to call openModal() and pass 
+            props to the thing the modal is rendering. It would be tricky to make 
+            that typesafe anyway. So, while we render DetailModals at a higher 
+            level, we'll render this thing in here, because here we have access to 
+            the habit that we want to pass to HabitForm. */}
+			<Modal modalId={modalIds.habits.update}>
+				<HabitForm editing habit={habit} />
+			</Modal>
 		</>
 	);
 }
