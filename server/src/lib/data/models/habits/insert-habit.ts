@@ -18,7 +18,7 @@ const insertHabit = query(
 	}
 );
 
-const linkTagsToHabit = query(
+export const linkTagsToHabit = query(
 	async (
 		sql,
 		{ user_id, habit_id, tagIds }: { user_id: ID; habit_id: ID; tagIds: ID[] }
@@ -31,6 +31,7 @@ const linkTagsToHabit = query(
 
 		return sql<HabitTagRelation[]>`
          insert into habits_tags ${sql(tagRelations)}
+            on conflict do nothing
          returning *
       `;
 	}
