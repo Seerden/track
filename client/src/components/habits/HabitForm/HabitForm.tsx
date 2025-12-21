@@ -7,41 +7,55 @@ import {
 	HabitFormProvider,
 	useHabitFormContext,
 } from "@/components/habits/HabitForm/useHabitFormContext";
+import type { UseNewHabitArgs } from "@/components/habits/HabitForm/useNewHabit";
 import { TAG_SELECTOR_IDS } from "@/components/tags/TagSelector/constants";
 import TagSelector from "@/components/tags/TagSelector/TagSelector";
 import modalIds from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 
-export default function HabitForm() {
-	const { onSubmit } = useHabitFormContext();
+function _HabitForm({ editing = false }: UseNewHabitArgs) {
+	const { handleSubmit } = useHabitFormContext();
+	const title = editing ? `Edit habit` : `Start a new habit`;
+	const submitText = editing ? `Save habit` : `Create habit`;
 
 	return (
-		<HabitFormProvider>
-			<Form.Wrapper>
-				<Form.FormTitle>Start a new habit</Form.FormTitle>
-				<Form.Form onSubmit={onSubmit}>
-					<Form.Row>
-						<SimpleField name="name" label="Habit name" required />
-						<SimpleField name="description" label="Description" />
-					</Form.Row>
+		<Form.Wrapper>
+			<Form.FormTitle>{title}</Form.FormTitle>
+			<Form.Form onSubmit={handleSubmit}>
+				<Form.Row>
+					<SimpleField name="name" label="Habit name" required />
+					<SimpleField name="description" label="Description" />
+				</Form.Row>
 
-					<OccurrenceFields />
-					<ProgressionFields />
-					<DateFields />
+				<OccurrenceFields />
+				<ProgressionFields />
+				<DateFields />
 
-					<TagSelector
-						tagSelectorId={TAG_SELECTOR_IDS.DEFAULT}
-						modalId={modalIds.tagSelector.newHabit}
-						showNewTagButton
-						title="Add tags"
-					/>
+				<TagSelector
+					tagSelectorId={TAG_SELECTOR_IDS.DEFAULT}
+					modalId={modalIds.tagSelector.newHabit}
+					showNewTagButton
+					title="Add tags"
+				/>
 
-					{/* TODO: disable when invalid */}
-					<Buttons.Submit.Default type="submit" disabled={false}>
-						Create habit
-					</Buttons.Submit.Default>
-				</Form.Form>
-			</Form.Wrapper>
+				{/* TODO: disable when invalid */}
+				<Buttons.Submit.Default type="submit" disabled={false}>
+					{submitText}
+				</Buttons.Submit.Default>
+			</Form.Form>
+		</Form.Wrapper>
+	);
+}
+
+export default function HabitForm(props: UseNewHabitArgs) {
+	return (
+		// NOTE: we destructure like this to keep the union type intact, otherwise
+		// typescript tries to infer the props separately, which causes a type
+		// error that isn't applicable.
+		<HabitFormProvider {...props}>
+			{/* NOTE: _HabitForm doesn't use all the props, but we can just pass 
+            them like this anyway */}
+			<_HabitForm {...props} />
 		</HabitFormProvider>
 	);
 }

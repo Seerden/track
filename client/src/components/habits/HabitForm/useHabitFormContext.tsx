@@ -1,13 +1,18 @@
-import { isNullish } from "@shared/lib/is-nullish";
 import { createContext, type PropsWithChildren, use } from "react";
-import useNewHabit from "@/components/habits/HabitForm/useNewHabit";
+import useNewHabit, {
+	type UseNewHabitArgs,
+} from "@/components/habits/HabitForm/useNewHabit";
 
-const HabitFormContext = createContext<ReturnType<typeof useNewHabit> | null>(
-	null
-);
+export const HabitFormContext = createContext<ReturnType<
+	typeof useNewHabit
+> | null>(null);
 
-export function HabitFormProvider({ children }: PropsWithChildren) {
-	const context = useNewHabit();
+export function HabitFormProvider({
+	children,
+	editing,
+	habit,
+}: PropsWithChildren<UseNewHabitArgs>) {
+	const context = useNewHabit({ editing, habit } as UseNewHabitArgs);
 
 	return <HabitFormContext value={context}>{children}</HabitFormContext>;
 }
@@ -15,8 +20,8 @@ export function HabitFormProvider({ children }: PropsWithChildren) {
 export function useHabitFormContext() {
 	const context = use(HabitFormContext);
 
-	if (isNullish(context)) {
-		throw new Error("ProductFormContext is null");
+	if (context === null) {
+		throw new Error("HabitFormContext is null");
 	}
 
 	return context;

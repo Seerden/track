@@ -1,5 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
-import { queryClient } from "@/lib/query-client";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { trpc } from "@/lib/trpc";
 
 // TODO TRK-228: I used e.g. type HabitInput here. Since the types now come from
@@ -7,6 +6,7 @@ import { trpc } from "@/lib/trpc";
 // defined there. We just won't need to import them in the mutation hooks anymore.
 
 export function useMutateNewHabit() {
+	const queryClient = useQueryClient();
 	return useMutation(
 		trpc.habits.m.create.mutationOptions({
 			onSuccess: () => {
