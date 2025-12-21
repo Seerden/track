@@ -1,5 +1,4 @@
 import { TextInput } from "@mantine/core";
-import type { NewHabit } from "@shared/lib/schemas/habit";
 import { useHabitFormContext } from "@/components/habits/HabitForm/useHabitFormContext";
 
 export default function SimpleField({
@@ -8,10 +7,10 @@ export default function SimpleField({
 	label,
 }: {
 	required?: boolean;
-	name: keyof NewHabit;
+	name: "name" | "description";
 	label: string;
 }) {
-	const { onInputChange } = useHabitFormContext();
+	const { onInputChange, habit } = useHabitFormContext();
 
 	return (
 		<TextInput
@@ -19,6 +18,7 @@ export default function SimpleField({
 			type="text"
 			onChange={onInputChange}
 			name={name}
+			value={habit[name] ?? ""}
 			required={required}
 		/>
 	);
