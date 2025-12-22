@@ -1,72 +1,78 @@
-import { type NewHabit, newHabitSchema } from "@shared/lib/schemas/habit";
+import {
+	type HabitWithIds,
+	habitSchema,
+	habitWithIdsSchema,
+	newHabitSchema,
+} from "@shared/lib/schemas/habit";
 import type { Timestamp } from "@shared/lib/schemas/timestamp";
-import { hasValidUserId } from "@shared/types/data/user-id.guards";
+import { z } from "@shared/lib/zod";
 import type { Nullable } from "@shared/types/data/utility.types";
 import { useNavigate } from "@tanstack/react-router";
 import type { Dayjs } from "dayjs";
 import { produce } from "immer";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { type FormEvent, useEffect, useState } from "react";
+import { getInitialHabit } from "@/components/habits/HabitForm/get-initial-habit";
 import { TAG_SELECTOR_IDS } from "@/components/tags/TagSelector/constants";
 import { createDate } from "@/lib/datetime/make-date";
 import { useMutateNewHabit } from "@/lib/hooks/query/habits/useMutateNewHabit";
-import useAuthentication from "@/lib/hooks/useAuthentication";
+import { useMutateUpdateHabit } from "@/lib/hooks/query/habits/useMutateUpdateHabit";
 import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import { useTagSelection } from "@/lib/state/selected-tags-state";
 
-// TODO: refactor client and server to make this implicit. The user id will
-// always be added server-side for any type of data creation.
-export type NewHabitWithoutUserId = Omit<NewHabit, "user_id">;
+const useHabitFormArgsSchema = z.union([
+	z.object({
+		editing: z.literal(true),
+		habit: habitWithIdsSchema,
+	}),
+	z.object({
+		editing: z.literal(false).optional(),
+		habit: z.undefined().optional(),
+	}),
+]);
+export type UseHabitFormArgs = z.infer<typeof useHabitFormArgsSchema>;
 
-export type DateChangeHandler = ({
-	value,
-	field,
-}: {
-	value: Nullable<Timestamp>;
-	field: keyof NewHabitWithoutUserId;
-}) => void;
-
-const defaultNewHabit: NewHabitWithoutUserId = {
-	name: "",
-	description: "",
-	start_timestamp: createDate(new Date()),
-	end_timestamp: null,
-	frequency: 1,
-	interval: 1,
-	interval_unit: "day",
-	goal_type: "checkbox",
-	goal_unit: null,
-	goal: null,
-};
-
-export default function useNewHabit() {
-	const { currentUser } = useAuthentication();
-	const { mutate: submit } = useMutateNewHabit();
-	const { selectedTagIds, resetTagSelection } = useTagSelection(
-		TAG_SELECTOR_IDS.DEFAULT
-	);
+export default function useHabitForm({
+	editing,
+	habit: existingHabit,
+}: UseHabitFormArgs) {
+	const { mutate: mutateNewHabit } = useMutateNewHabit();
+	const { mutate: mutateExistingHabit } = useMutateUpdateHabit();
+	const { selectedTagIds, resetTagSelection, setTagSelectionFromList } =
+		useTagSelection(TAG_SELECTOR_IDS.DEFAULT);
 	const navigate = useNavigate();
 	const { closeModal } = useModalState();
 
 	useEffect(() => {
-		resetTagSelection();
+		if (editing) {
+			setTagSelectionFromList(existingHabit.tag_ids);
+		} else {
+			resetTagSelection();
+		}
+
+		return () => {
+			resetTagSelection();
+		};
 	}, []);
 
-	const [habit, setHabit] = useState<NewHabitWithoutUserId>(defaultNewHabit);
+	const [habit, setHabit] = useState(getInitialHabit(existingHabit));
 
-	const habitWithUserIdField = useMemo(() => {
-		return Object.assign({}, habit, { user_id: currentUser?.id ?? null });
-	}, [habit, currentUser]);
-
-	function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+	function handleSubmit(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 
-		const parsed = newHabitSchema.safeParse(habitWithUserIdField);
-		// TODO: notify
-		// TODO: remove hasValidUserId from here, append it on the server
-		if (!parsed.success || !hasValidUserId(habitWithUserIdField)) return;
+		if (editing) {
+			handleSubmitExistingHabit();
+		} else {
+			handleSubmitNewHabit();
+		}
+	}
 
-		submit(
+	function handleSubmitNewHabit() {
+		const parsed = newHabitSchema.safeParse(habit);
+		// TODO: notify
+		if (!parsed.success) return;
+
+		mutateNewHabit(
 			{
 				habit: parsed.data,
 				tagIds: selectedTagIds,
@@ -80,15 +86,27 @@ export default function useNewHabit() {
 		);
 	}
 
-	// TODO TRK-231: move this into the only field subcomponent that needs it
-	const maybePlural = useCallback(
-		(s: string) => {
-			return habit.interval === 1 ? s : s + "s";
-		},
-		[habit.interval]
-	);
+	function handleSubmitExistingHabit() {
+		if (!editing || !habitWithIdsSchema.safeParse(habit).success) return;
+		// (1) we destructure the original tag_ids out of the object, because we'll be
+		// passing selectedTagIds to the update mutation. This is also why we
+		// parse using habitSchema, not habitWithIdsSchema.
+		// (2) the union type for `editing` and `habit` is lost here for some
+		// reason, but because we check for !editing, we know for a fact that
+		// habit is now HabitWithIds. Typescript just doesn't know it yet.
+		const { tag_ids, ...habitFields } = habit as HabitWithIds;
+		const parsed = habitSchema.safeParse(habitFields);
 
-	/** Input change handler that can handle all fields in NewHabit.
+		// TODO: notify
+		if (!parsed.success) return;
+
+		mutateExistingHabit({
+			habit: parsed.data,
+			tagIds: selectedTagIds,
+		});
+	}
+
+	/** Input change handler that can handle all fields in HabitForm.
 	 * @todo is it time to generalize this so we can reuse it in other forms?
 	 * @todo (TRK-144) consider splitting this up into multiple handlers for
 	 * better type safety and readability. ignore the todo above, I don't want to
@@ -127,28 +145,23 @@ export default function useNewHabit() {
 		}));
 	}
 
-	const handleDateChange: DateChangeHandler = ({ value, field }) => {
-		if (field !== "end_timestamp" && field !== "start_timestamp") {
-			throw new Error(
-				"Field must be either 'start_timestamp' or 'end_timestamp'"
-			);
-		}
-
-		if (value === null) {
-			switch (field) {
-				case "end_timestamp":
-					return handleClearEndDate();
-				case "start_timestamp":
-					setHabit(
-						produce((draft) => {
-							// TODO: is this always the behavior we want?
-							draft.start_timestamp = createDate(new Date());
-						})
-					);
-			}
-		} else {
-			setHabit(
-				produce((draft) => {
+	const handleDateChange = ({
+		value,
+		field,
+	}: {
+		value: Nullable<Timestamp>;
+		field: "end_timestamp" | "start_timestamp";
+	}) => {
+		setHabit(
+			produce((draft) => {
+				if (value === null) {
+					if (field === "end_timestamp") {
+						draft.end_timestamp = null;
+					} else {
+						// TODO: is this always the behavior we want?
+						draft.start_timestamp = createDate(new Date());
+					}
+				} else {
 					draft[field] = createDate(value);
 
 					// if the start date is after the end date, clear the end date
@@ -164,9 +177,9 @@ export default function useNewHabit() {
 							draft.end_timestamp = null;
 						}
 					}
-				})
-			);
-		}
+				}
+			})
+		);
 	};
 
 	function handleGoalTypeChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -179,21 +192,11 @@ export default function useNewHabit() {
 		);
 	}
 
-	function handleClearEndDate(e?: React.MouseEvent<HTMLButtonElement>) {
-		e?.stopPropagation();
-		setHabit(
-			produce((draft) => {
-				draft.end_timestamp = null;
-			})
-		);
-	}
-
 	return {
 		habit,
-		maybePlural,
 		onInputChange,
 		handleGoalTypeChange,
-		onSubmit,
+		handleSubmit,
 		handleDateChange,
 	};
 }

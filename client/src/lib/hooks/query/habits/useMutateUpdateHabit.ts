@@ -3,20 +3,16 @@ import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import { trpc } from "@/lib/trpc";
 
-export default function useMutateDeleteHabit() {
+export function useMutateUpdateHabit() {
 	const queryClient = useQueryClient();
 	const { closeModal } = useModalState();
 
 	return useMutation(
-		trpc.habits.m.delete.mutationOptions({
+		trpc.habits.m.update.mutationOptions({
 			onSuccess: () => {
 				queryClient.invalidateQueries({
-					queryKey: trpc.habits.q.all.queryKey(),
+					queryKey: trpc.habits.q.pathKey(),
 				});
-				queryClient.invalidateQueries({
-					queryKey: trpc.habits.q.entries.queryKey(),
-				});
-				closeModal(modalIds.habits.detailed);
 				closeModal(modalIds.habits.update);
 			},
 		})

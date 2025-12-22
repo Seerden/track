@@ -1,14 +1,14 @@
 import { mapById } from "@shared/lib/map";
 import type {
 	Habit,
-	HabitEntry,
 	HabitEntryInput,
 	HabitWithEntries,
 	HabitWithPossiblySyntheticEntries,
+	PossiblySyntheticHabitEntry,
 	SyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
 import type { Datelike } from "@shared/lib/schemas/timestamp";
-import type { ID, MapById } from "@shared/types/data/utility.types";
+import type { MapById } from "@shared/types/data/utility.types";
 import { createDate } from "@/lib/datetime/make-date";
 import type { TimeWindow } from "@/types/time-window.types";
 
@@ -76,7 +76,7 @@ export function withSyntheticHabitEntries(
 	const habitsWithSyntheticEntries = [...habits.values()].map((habit) => {
 		const expectedCount = expectedEntryCount(timeWindow, habit);
 
-		const entries: Array<HabitEntry | SyntheticHabitEntry> = structuredClone(
+		const entries: Array<PossiblySyntheticHabitEntry> = structuredClone(
 			habit.entries
 		).filter((entry) => {
 			const entryDate = createDate(entry.date);
@@ -126,20 +126,22 @@ export function withSyntheticHabitEntries(
 	return mapById(filteredHabits, "habit_id");
 }
 
+/** This function turns a SyntheticHabitEntry into a HabitEntryInput to allow
+ * us to insert it as a real entry into the database. Note that it only becomes
+ * a HabitEntry after it's been inserted into the database, so we cannot use the
+ * result of this function in the UI anywhere (because it's missing fields that
+ * a real habit entry has, like `user_id`). */
 export function syntheticToReal({
 	entry,
 	value,
-	user_id,
 }: {
 	entry: SyntheticHabitEntry;
 	value: HabitEntryInput["value"];
-	user_id: ID;
 }): HabitEntryInput {
 	return {
 		date: entry.date,
 		habit_id: entry.habit_id,
 		index: entry.index,
 		value,
-		user_id,
 	};
 }

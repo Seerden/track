@@ -1,9 +1,7 @@
 import { offset } from "@floating-ui/react";
 import type {
-	HabitEntry,
 	HabitWithPossiblySyntheticEntries,
 	PossiblySyntheticHabitEntry,
-	SyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
 import { useState } from "react";
 import CompletionBadge from "@/components/habits/Habits/CompletionBadge";
@@ -40,7 +38,7 @@ function CompletionInstances({
 
 type CompletionProps = {
 	habit: HabitWithPossiblySyntheticEntries;
-	entries: Array<HabitEntry | SyntheticHabitEntry>;
+	entries: Array<PossiblySyntheticHabitEntry>;
 	/** Expected real entry count (e.g. if 3x/day, this would be 3. We use this
 	 * prop to determine the percentage for e.g. circular progression, because we
 	 * can keep adding entries indefinitely, but beyond this `count`, the new

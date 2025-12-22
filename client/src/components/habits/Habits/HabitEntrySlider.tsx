@@ -3,10 +3,10 @@ import type {
 	HabitWithPossiblySyntheticEntries,
 	PossiblySyntheticHabitEntry,
 } from "@shared/lib/schemas/habit";
+import type { HabitEntryChangeHandler } from "@/components/habits/Habits/HabitEntryToggle";
 import { ContextMenu } from "@/lib/hooks/useContextMenu";
 import { colors } from "@/lib/theme/colors";
 import Icons from "@/lib/theme/components/icons";
-import type { HabitEntryUpdateMutationFunction } from "@/types/data.types";
 import { completionTooltipStyles } from "./style/Completion.style";
 import S from "./style/HabitEntrySlider.style";
 import { useHabitEntrySlider } from "./useHabitEntrySlider";
@@ -14,7 +14,7 @@ import { useHabitEntrySlider } from "./useHabitEntrySlider";
 export type HabitEntrySliderProps = {
 	habit: HabitWithPossiblySyntheticEntries;
 	entry: PossiblySyntheticHabitEntry;
-	onChangeEnd: HabitEntryUpdateMutationFunction;
+	onChangeEnd: HabitEntryChangeHandler;
 	width?: string;
 };
 

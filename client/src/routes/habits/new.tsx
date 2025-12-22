@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import NewHabit from "@/components/habits/NewHabit/NewHabit";
+import HabitForm from "@/components/habits/HabitForm/HabitForm";
 import { Protected } from "@/components/wrappers";
 import Page from "@/lib/theme/snippets/page";
 
@@ -11,7 +11,7 @@ function RouteComponent() {
 	return (
 		<Protected>
 			<Page>
-				<NewHabit />
+				<HabitForm />
 			</Page>
 		</Protected>
 	);

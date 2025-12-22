@@ -1,7 +1,5 @@
-import type {
-	HabitEntry,
-	HabitEntryUpdateInput,
-} from "@shared/lib/schemas/habit";
+import type { HabitEntry } from "@shared/lib/schemas/habit";
+import type { HabitEntryUpdateInput } from "@shared/lib/schemas/habit.input";
 import { query } from "@/lib/query-function";
 
 export const updateHabitEntry = query(

@@ -1,11 +1,7 @@
-import type {
-	HabitEntry,
-	SyntheticHabitEntry,
-} from "@shared/lib/schemas/habit";
+import type { PossiblySyntheticHabitEntry } from "@shared/lib/schemas/habit";
 import { isSynthetic } from "@shared/types/data/habit-entry.guards";
 import { useMutation } from "@tanstack/react-query";
 import { syntheticToReal } from "@/components/habits/Habits/synthetic";
-import useAuthentication from "@/lib/hooks/useAuthentication";
 import { queryClient } from "@/lib/query-client";
 import { trpc } from "@/lib/trpc";
 
@@ -16,15 +12,12 @@ export default function useCompletionInstance() {
 	const { mutate: putEntry } = useMutation(
 		trpc.habits.m.updateEntry.mutationOptions()
 	);
-	const { currentUser } = useAuthentication();
-
-	const user_id = currentUser?.id;
 
 	function doMutation({
 		input,
 		value,
 	}: {
-		input: HabitEntry | SyntheticHabitEntry;
+		input: PossiblySyntheticHabitEntry;
 		value?: string;
 	}) {
 		function onSuccess() {
@@ -36,14 +29,11 @@ export default function useCompletionInstance() {
 			});
 		}
 
-		if (!user_id) return;
-
 		if (value === undefined || value === "") return;
 
 		if (isSynthetic(input)) {
 			const realEntry = syntheticToReal({
 				entry: input,
-				user_id,
 				value,
 			});
 			submitNewEntry(realEntry, { onSuccess });
