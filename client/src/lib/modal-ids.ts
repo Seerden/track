@@ -10,7 +10,7 @@ const modalIds = {
 		activityForm: "activity-form-tag-selector",
 		newNote: "new-note-tag-selector",
 		newTag: "new-tag-tag-selector",
-		newHabit: "new-habit-tag-selector",
+		habitForm: "new-habit-tag-selector",
 	},
 	habits: {
 		new: "new-habit",

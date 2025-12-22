@@ -1,18 +1,18 @@
 import { createContext, type PropsWithChildren, use } from "react";
-import useNewHabit, {
-	type UseNewHabitArgs,
-} from "@/components/habits/HabitForm/useNewHabit";
+import useHabitForm, {
+	type UseHabitFormArgs,
+} from "@/components/habits/HabitForm/useHabitForm";
 
 export const HabitFormContext = createContext<ReturnType<
-	typeof useNewHabit
+	typeof useHabitForm
 > | null>(null);
 
 export function HabitFormProvider({
 	children,
 	editing,
 	habit,
-}: PropsWithChildren<UseNewHabitArgs>) {
-	const context = useNewHabit({ editing, habit } as UseNewHabitArgs);
+}: PropsWithChildren<UseHabitFormArgs>) {
+	const context = useHabitForm({ editing, habit } as UseHabitFormArgs);
 
 	return <HabitFormContext value={context}>{children}</HabitFormContext>;
 }

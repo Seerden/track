@@ -3,17 +3,17 @@ import DateFields from "@/components/habits/HabitForm/DateField";
 import OccurrenceFields from "@/components/habits/HabitForm/OccurrenceFields";
 import ProgressionFields from "@/components/habits/HabitForm/ProgressionFields";
 import SimpleField from "@/components/habits/HabitForm/SimpleField";
+import type { UseHabitFormArgs } from "@/components/habits/HabitForm/useHabitForm";
 import {
 	HabitFormProvider,
 	useHabitFormContext,
 } from "@/components/habits/HabitForm/useHabitFormContext";
-import type { UseNewHabitArgs } from "@/components/habits/HabitForm/useNewHabit";
 import { TAG_SELECTOR_IDS } from "@/components/tags/TagSelector/constants";
 import TagSelector from "@/components/tags/TagSelector/TagSelector";
 import modalIds from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 
-function InnerHabitForm({ editing = false }: UseNewHabitArgs) {
+function InnerHabitForm({ editing = false }: UseHabitFormArgs) {
 	const { handleSubmit } = useHabitFormContext();
 	const title = editing ? `Edit habit` : `Start a new habit`;
 	const submitText = editing ? `Save habit` : `Create habit`;
@@ -33,7 +33,7 @@ function InnerHabitForm({ editing = false }: UseNewHabitArgs) {
 
 				<TagSelector
 					tagSelectorId={TAG_SELECTOR_IDS.DEFAULT}
-					modalId={modalIds.tagSelector.newHabit}
+					modalId={modalIds.tagSelector.habitForm}
 					showNewTagButton
 					title="Add tags"
 				/>
@@ -47,7 +47,7 @@ function InnerHabitForm({ editing = false }: UseNewHabitArgs) {
 	);
 }
 
-export default function HabitForm(props: UseNewHabitArgs) {
+export default function HabitForm(props: UseHabitFormArgs) {
 	return (
 		// NOTE: we destructure like this to keep the union type intact, otherwise
 		// typescript tries to infer the props separately, which causes a type

@@ -2,7 +2,7 @@ import Form from "@lib/theme/components/form.style";
 import { useCallback } from "react";
 import { useHabitFormContext } from "@/components/habits/HabitForm/useHabitFormContext";
 import Input from "@/lib/theme/input";
-import S from "./style/NewHabit.style";
+import S from "./style/HabitForm.style";
 
 export default function OccurrenceFields() {
 	const { onInputChange, habit } = useHabitFormContext();

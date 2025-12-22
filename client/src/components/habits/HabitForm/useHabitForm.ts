@@ -20,7 +20,7 @@ import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import { useTagSelection } from "@/lib/state/selected-tags-state";
 
-const useNewHabitArgsSchema = z.union([
+const useHabitFormArgsSchema = z.union([
 	z.object({
 		editing: z.literal(true),
 		habit: habitWithIdsSchema,
@@ -30,12 +30,12 @@ const useNewHabitArgsSchema = z.union([
 		habit: z.undefined().optional(),
 	}),
 ]);
-export type UseNewHabitArgs = z.infer<typeof useNewHabitArgsSchema>;
+export type UseHabitFormArgs = z.infer<typeof useHabitFormArgsSchema>;
 
-export default function useNewHabit({
+export default function useHabitForm({
 	editing,
 	habit: existingHabit,
-}: UseNewHabitArgs) {
+}: UseHabitFormArgs) {
 	const { mutate: mutateNewHabit } = useMutateNewHabit();
 	const { mutate: mutateExistingHabit } = useMutateUpdateHabit();
 	const { selectedTagIds, resetTagSelection, setTagSelectionFromList } =
@@ -99,7 +99,7 @@ export default function useNewHabit({
 		});
 	}
 
-	/** Input change handler that can handle all fields in NewHabit.
+	/** Input change handler that can handle all fields in HabitForm.
 	 * @todo is it time to generalize this so we can reuse it in other forms?
 	 * @todo (TRK-144) consider splitting this up into multiple handlers for
 	 * better type safety and readability. ignore the todo above, I don't want to

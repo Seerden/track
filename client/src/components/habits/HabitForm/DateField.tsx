@@ -6,7 +6,7 @@ import {
 } from "@mantine/dates";
 import { useHabitFormContext } from "@/components/habits/HabitForm/useHabitFormContext";
 import { createDate } from "@/lib/datetime/make-date";
-import S from "./style/NewHabit.style";
+import S from "./style/HabitForm.style";
 
 export default function DateFields() {
 	const { habit, handleDateChange } = useHabitFormContext();

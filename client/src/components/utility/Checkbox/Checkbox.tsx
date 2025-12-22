@@ -54,6 +54,7 @@ export function Checkbox({
 }
 
 // TODO: get rid of this? This is actually used in NewHabit, for example.
+// ^ TODO TRK-349
 export function CheckboxIcon({
 	checked,
 	size = 20,

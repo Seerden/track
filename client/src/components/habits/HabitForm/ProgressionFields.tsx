@@ -3,7 +3,7 @@ import { CheckboxIcon } from "@/components/utility/Checkbox/Checkbox";
 import Containers from "@/lib/theme/components/container.style";
 import { font } from "@/lib/theme/font";
 import Input from "@/lib/theme/input";
-import S from "./style/NewHabit.style";
+import S from "./style/HabitForm.style";
 
 function TargetField() {
 	const { onInputChange, habit } = useHabitFormContext();
@@ -35,7 +35,7 @@ function UnitField() {
 		<S.Label>
 			<span>unit</span>
 			{/* TODO TRK-231: rename this Inputs.Default, 
-            then extend this in NewHabit.style with 
+            then extend this in HabitForm.style with 
             the width and font size */}
 			<Input.Default
 				style={{
