@@ -13,7 +13,7 @@ import TagSelector from "@/components/tags/TagSelector/TagSelector";
 import modalIds from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 
-function _HabitForm({ editing = false }: UseNewHabitArgs) {
+function InnerHabitForm({ editing = false }: UseNewHabitArgs) {
 	const { handleSubmit } = useHabitFormContext();
 	const title = editing ? `Edit habit` : `Start a new habit`;
 	const submitText = editing ? `Save habit` : `Create habit`;
@@ -55,7 +55,7 @@ export default function HabitForm(props: UseNewHabitArgs) {
 		<HabitFormProvider {...props}>
 			{/* NOTE: _HabitForm doesn't use all the props, but we can just pass 
             them like this anyway */}
-			<_HabitForm {...props} />
+			<InnerHabitForm {...props} />
 		</HabitFormProvider>
 	);
 }
