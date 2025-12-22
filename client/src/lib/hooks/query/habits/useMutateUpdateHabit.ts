@@ -13,8 +13,6 @@ export function useMutateUpdateHabit() {
 				queryClient.invalidateQueries({
 					queryKey: trpc.habits.q.pathKey(),
 				});
-
-				// if the edit modal was opened, close it
 				closeModal(modalIds.habits.update);
 			},
 		})
