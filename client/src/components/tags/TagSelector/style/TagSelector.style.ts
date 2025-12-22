@@ -26,7 +26,7 @@ const Wrapper = styled.div<{ $fullSize?: boolean }>`
 
 	max-width: ${(p) => (p.$fullSize ? "100%" : "400px")};
 
-	min-height: 130px; // TODO: this is hardcoded for the current size to prevent layout shift -- should be dynamic
+	min-height: 128px; // TODO: this is hardcoded for the current size to prevent layout shift -- should be dynamic
    
    border: 1px solid var(--bg-5-3);
 	box-shadow: 0.6rem 0.6rem 0 -0.5rem ${(p) => p.theme.colors.dark[4]};
@@ -220,14 +220,6 @@ const PathPart = styled.span<{ $isLeaf: boolean }>`
 		`}
 `;
 
-const EmptySelection = styled.div`
-	${spacing.padding.wide({ size: 0.4, ratio: 2.5 })};
-	color: azure;
-	background-color: ${(p) => p.theme.colors.blue.main};
-	max-width: max-content;
-	margin-top: ${spacingValue.small};
-`;
-
 const CreateTagButton = styled(Buttons.Unstyled)`
 	${flex.column};
 	justify-content: center;
@@ -259,6 +251,5 @@ export default {
 	SelectionList,
 	SelectionItem,
 	PathPart,
-	EmptySelection,
 	CreateTagButton,
 };

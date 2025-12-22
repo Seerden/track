@@ -81,6 +81,10 @@ export default function TagSelector({
 					style={{
 						position: "relative",
 						marginTop: "0.3rem",
+						display: "flex",
+						flexDirection: "column",
+						flex: 1,
+						justifyContent: "space-between",
 					}}
 				>
 					<S.Actions>
@@ -108,13 +112,7 @@ export default function TagSelector({
 						)}
 					</S.Actions>
 
-					{!selectedTags.length ? (
-						<S.EmptySelection>
-							You haven't selected any tags yet.
-						</S.EmptySelection>
-					) : (
-						<Selection tags={selectorTags} selectedTags={selectedTags} />
-					)}
+					<Selection tags={selectorTags} selectedTags={selectedTags} />
 
 					<AnimatePresence>
 						{expanded && (
