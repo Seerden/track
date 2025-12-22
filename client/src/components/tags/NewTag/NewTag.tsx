@@ -1,8 +1,8 @@
+import { TextInput } from "@mantine/core";
 import { LucideTags } from "lucide-react";
 import type { ModalId } from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
-import F from "@/lib/theme/components/form.style";
-import Input from "@/lib/theme/input";
+import Form from "@/lib/theme/components/form.style";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 import { TAG_SELECTOR_IDS } from "../TagSelector/constants";
 import TagSelector from "../TagSelector/TagSelector";
@@ -10,15 +10,14 @@ import S from "./style/NewTag.style";
 import useNewTag from "./useNewTag";
 
 function NewTag({ modalId }: { modalId: ModalId }) {
-	const { handleInputChange, handleSubmit, tags } = useNewTag({
+	const { handleInputChange, handleSubmit, tags, isValidNewTag } = useNewTag({
 		tagSelectorId: TAG_SELECTOR_IDS.NEW_TAG,
 	});
-	const tagIds = tags ? [...tags.keys()] : [];
 
 	return (
-		<F.Wrapper role="form">
-			<F.Form>
-				<F.FormTitle
+		<Form.Wrapper role="form">
+			<Form.Form>
+				<Form.FormTitle
 					style={{
 						alignItems: "center",
 						gap: spacingValue.small,
@@ -26,51 +25,48 @@ function NewTag({ modalId }: { modalId: ModalId }) {
 				>
 					New
 					<LucideTags />
-				</F.FormTitle>
+				</Form.FormTitle>
 
-				<F.Row>
-					<F.Label>
-						<span>Name</span>
-						<Input.Default
-							type="text"
-							placeholder="Tag name"
-							name="name"
-							onChange={handleInputChange}
+				<Form.Row>
+					<TextInput
+						label="Name"
+						type="text"
+						placeholder="Tag name"
+						name="name"
+						onChange={handleInputChange}
+					/>
+					<TextInput
+						label="Description"
+						placeholder="Tag description"
+						type="text"
+						name="description"
+						onChange={handleInputChange}
+					/>
+				</Form.Row>
+				{!!tags?.size && (
+					<S.Tags>
+						{/* TODO: remove the min-height of this thing, at least for this 
+                     use-case. Maybe we want it to remain for ActivityForm, but in 
+                     here, it looks bad. */}
+						<TagSelector
+							tagSelectorId={TAG_SELECTOR_IDS.NEW_TAG}
+							title="Categorize"
+							maximum={1}
+							tags={tags}
+							modalId={modalId}
 						/>
-					</F.Label>
-
-					<F.Label>
-						<span>Description</span>
-						<Input.Default
-							placeholder="Tag description"
-							type="text"
-							name="description"
-							onChange={handleInputChange}
-						/>
-					</F.Label>
-				</F.Row>
-				<F.Row>
-					{tagIds.length > 0 && (
-						<S.Tags>
-							<TagSelector
-								tagSelectorId={TAG_SELECTOR_IDS.NEW_TAG}
-								title="Categorize"
-								maximum={1}
-								tags={tags}
-								modalId={modalId}
-							/>
-						</S.Tags>
-					)}
-				</F.Row>
+					</S.Tags>
+				)}
 				<Buttons.Submit.Default
 					type="submit"
 					title="Save"
 					onClick={handleSubmit}
+					disabled={!isValidNewTag}
 				>
-					💾
+					Create tag
 				</Buttons.Submit.Default>
-			</F.Form>
-		</F.Wrapper>
+			</Form.Form>
+		</Form.Wrapper>
 	);
 }
 
