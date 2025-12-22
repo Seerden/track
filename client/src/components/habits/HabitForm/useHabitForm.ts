@@ -49,6 +49,10 @@ export default function useHabitForm({
 		} else {
 			resetTagSelection();
 		}
+
+		return () => {
+			resetTagSelection();
+		};
 	}, []);
 
 	const [habit, setHabit] = useState(getInitialHabit(existingHabit));
