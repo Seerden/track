@@ -1,4 +1,5 @@
 import {
+	type HabitWithIds,
 	habitSchema,
 	habitWithIdsSchema,
 	newHabitSchema,
@@ -86,14 +87,14 @@ export default function useHabitForm({
 	}
 
 	function handleSubmitExistingHabit() {
-		if (!editing) return;
+		if (!editing || !habitWithIdsSchema.safeParse(habit).success) return;
 		// (1) we destructure the original tag_ids out of the object, because we'll be
 		// passing selectedTagIds to the update mutation. This is also why we
 		// parse using habitSchema, not habitWithIdsSchema.
 		// (2) the union type for `editing` and `habit` is lost here for some
 		// reason, but because we check for !editing, we know for a fact that
 		// habit is now HabitWithIds. Typescript just doesn't know it yet.
-		const { tag_ids, ...habitFields } = habitWithIdsSchema.parse(habit);
+		const { tag_ids, ...habitFields } = habit as HabitWithIds;
 		const parsed = habitSchema.safeParse(habitFields);
 
 		// TODO: notify
