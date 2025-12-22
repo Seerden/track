@@ -11,7 +11,7 @@ import {
 } from "@/lib/data/models/habits/query-habits";
 import { createTransaction, query } from "@/lib/query-function";
 
-/** Remove the given habits_tags rows.. */
+/** Remove the given habits_tags rows. */
 const unlinkTagsFromHabit = query(
 	async (
 		sql,
@@ -24,6 +24,39 @@ const unlinkTagsFromHabit = query(
       and user_id = ${user_id}
       returning *
    `;
+	}
+);
+
+/** Helper for updateHabit that sets the habit's tags to the updated state. */
+const updateHabitTags = query(
+	async ({
+		habit_id,
+		user_id,
+		tagIds,
+	}: {
+		habit_id: ID;
+		user_id: ID;
+		tagIds: ID[];
+	}) => {
+		const existingTags = await queryHabitTags({ habit_id, user_id });
+		const existingTagIdsSet = new Set(existingTags.map((t) => t.tag_id));
+		const newTagIdsSet = new Set(tagIds);
+
+		// first, unlink the tags that the user doesn't want to be part of the
+		// habit anymore.
+		const tagsToUnlink = [...existingTagIdsSet].filter(
+			(tag_id) => !newTagIdsSet.has(tag_id)
+		);
+		if (tagsToUnlink.length) {
+			await unlinkTagsFromHabit({ habit_id, user_id, tagIds: tagsToUnlink });
+		}
+
+		// then, link all the tags that the user wants to be part of the habit.
+		// We don't have to filter any already-linked tags, because
+		// `linkTagsToHabit` ignores conflicts.
+		const tags = await linkTagsToHabit({ habit_id, user_id, tagIds });
+
+		return tags;
 	}
 );
 
@@ -58,23 +91,11 @@ export const updateHabit = query(
 			// the client should, in its current state at least, always return an
 			// empty list, and not a nullish value, when there are no tags linked to a
 			// habit (i.e. when `TagSelector` is empty).
-			const existingTags = await queryHabitTags({ habit_id, user_id });
-			const existingTagIdsSet = new Set(existingTags.map((t) => t.tag_id));
-			const newTagIdsSet = new Set(tagIds);
-
-			// first, unlink the tags that the user doesn't want to be part of the
-			// habit anymore.
-			const tagsToUnlink = [...existingTagIdsSet].filter(
-				(tag_id) => !newTagIdsSet.has(tag_id)
-			);
-			if (tagsToUnlink.length) {
-				await unlinkTagsFromHabit({ habit_id, user_id, tagIds: tagsToUnlink });
-			}
-
-			// then, link all the tags that the user wants to be part of the habit.
-			// We don't have to filter any already-linked tags, because
-			// `linkTagsToHabit` ignores conflicts.
-			const tags = await linkTagsToHabit({ habit_id, user_id, tagIds });
+			const tags = await updateHabitTags({
+				habit_id: updatedHabit.habit_id,
+				user_id,
+				tagIds,
+			});
 
 			return {
 				...updatedHabit,
