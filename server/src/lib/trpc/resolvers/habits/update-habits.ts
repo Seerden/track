@@ -1,3 +1,4 @@
+import { habitWithIdsSchema } from "@shared/lib/schemas/habit";
 import {
 	habitEntryUpdateInputSchema,
 	habitUpdateInputSchema,
@@ -15,7 +16,7 @@ export const updateEntryMutation = betterAuthProcedure
 
 export const updateHabitMutation = betterAuthProcedure
 	.input(habitUpdateInputSchema)
-	.mutation(async ({ input }) => {
-		// TODO: implement this functionality and return the result
-		await updateHabit({ input });
+	.output(habitWithIdsSchema.optional())
+	.mutation(async ({ input, ctx: { user } }) => {
+		return await updateHabit({ input, user_id: user.id });
 	});
