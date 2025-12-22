@@ -35,8 +35,8 @@ function UnitField() {
 		<S.Label>
 			<span>unit</span>
 			{/* TODO TRK-231: rename this Inputs.Default, 
-                              then extend this in NewHabit.style with 
-                              the with and font size */}
+            then extend this in NewHabit.style with 
+            the width and font size */}
 			<Input.Default
 				style={{
 					width: "75px",
