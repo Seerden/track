@@ -15,7 +15,6 @@ export default function SimpleField({
 	return (
 		<TextInput
 			label={label}
-			type="text"
 			onChange={onInputChange}
 			name={name}
 			value={habit[name] ?? ""}
