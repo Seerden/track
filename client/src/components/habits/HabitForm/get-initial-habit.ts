@@ -15,9 +15,5 @@ const defaultNewHabit: NewHabit = {
 };
 
 export function getInitialHabit(existingHabit?: HabitWithIds) {
-	if (existingHabit) {
-		return existingHabit;
-	}
-
-	return defaultNewHabit;
+	return existingHabit ?? defaultNewHabit;
 }
