@@ -1,4 +1,5 @@
 import { TextInput } from "@mantine/core";
+import type { NewTag } from "@shared/lib/schemas/tag";
 import TagBranch from "@/components/tags/DetailedTag/TagBranch";
 import type { ModalId } from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
@@ -9,7 +10,7 @@ import TagSelector from "../TagSelector/TagSelector";
 import S from "./style/NewTag.style";
 import useNewTag from "./useNewTag";
 
-function NewTag({ modalId }: { modalId: ModalId }) {
+export default function TagForm({ modalId }: { modalId: ModalId }) {
 	const { handleInputChange, handleSubmit, tags, isValidNewTag, previewTags } =
 		useNewTag({
 			tagSelectorId: TAG_SELECTOR_IDS.NEW_TAG,
@@ -32,14 +33,14 @@ function NewTag({ modalId }: { modalId: ModalId }) {
 						label="Name"
 						type="text"
 						placeholder="Tag name"
-						name="name"
+						name={"name" satisfies keyof NewTag}
 						onChange={handleInputChange}
 					/>
 					<TextInput
 						label="Description"
 						placeholder="Tag description"
 						type="text"
-						name="description"
+						name={"description" satisfies keyof NewTag}
 						onChange={handleInputChange}
 					/>
 				</Form.Row>
@@ -80,5 +81,3 @@ function NewTag({ modalId }: { modalId: ModalId }) {
 		</Form.Wrapper>
 	);
 }
-
-export default NewTag;

@@ -2,7 +2,7 @@ import { queryClient } from "@lib/query-client";
 import { useTagSelection } from "@lib/state/selected-tags-state";
 import { type NewTag, newTagSchema } from "@shared/lib/schemas/tag";
 import { useEffect, useState } from "react";
-import { buildPreviewTags } from "@/components/tags/NewTag/build-preview";
+import { buildPreviewTags } from "@/components/tags/TagForm/build-preview";
 import { useMutateNewTag } from "@/lib/hooks/query/tags/useMutateNewTag";
 import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import modalIds from "@/lib/modal-ids";
