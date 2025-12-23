@@ -48,3 +48,25 @@ export function findChildren({
 		?.map((id) => getTag({ id, tags }))
 		.filter((maybeTag) => maybeTag !== null);
 }
+
+export function findSiblings({
+	tag,
+	tags,
+}: {
+	tag: TagWithIds;
+	tags: TagsInTree;
+}) {
+	const tagInTree = getTag({ id: tag.tag_id, tags });
+
+	if (!tagInTree) {
+		throw new Error(
+			"findSiblings: could not find provided tag in provided tags."
+		);
+	}
+
+	const treeId = tagInTree.tree_root_id;
+	const tagDepth = tagInTree.tree_depth;
+	return [...tags.values()].filter((t) => {
+		return t.tree_depth === tagDepth && t.tree_root_id === treeId;
+	});
+}
