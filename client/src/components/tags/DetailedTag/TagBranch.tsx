@@ -1,4 +1,4 @@
-import type { TagWithIds } from "@shared/lib/schemas/tag";
+import type { TagsInTree, TagWithIds } from "@shared/lib/schemas/tag";
 import {
 	findAncestors,
 	findChildren,
@@ -20,6 +20,7 @@ function TagRow({ tags }: { tags: TagWithIds[] }) {
 
 type TagBranchProps = {
 	tag: TagWithIds;
+	tags?: TagsInTree;
 };
 
 /** A small visual display of a `tag`'s family tree.
@@ -27,13 +28,17 @@ type TagBranchProps = {
  * parent, its parent, and so on), the tag itself, and direct children. We could
  * expand it to show all descendants, siblings, and siblings of ancestors (i.e.
  * the whole family tree for this parent's branch traced back to the root). */
-export default function TagBranch({ tag }: TagBranchProps) {
-	const { data: tags } = useQueryTags();
+export default function TagBranch({ tag, tags }: TagBranchProps) {
+	const { data: existingTags } = useQueryTags();
 
-	if (!tags) return null;
+	if (!existingTags) return null;
 
-	const children = findChildren({ tag, tags });
-	const ancestors = findAncestors({ tag, tags });
+	// if tags were passed from outside (e.g. mock tags for a branch preview),
+	// use those instead of the existing tags from the query.
+	const tagsForBranch = tags ?? existingTags;
+
+	const children = findChildren({ tag, tags: tagsForBranch });
+	const ancestors = findAncestors({ tag, tags: tagsForBranch });
 
 	const branch = [
 		...ancestors.sort(
