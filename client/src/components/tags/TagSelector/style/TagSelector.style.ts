@@ -26,7 +26,10 @@ const Wrapper = styled.div<{ $fullSize?: boolean }>`
 
 	max-width: ${(p) => (p.$fullSize ? "100%" : "400px")};
 
-	min-height: 128px; // TODO: this is hardcoded for the current size to prevent layout shift -- should be dynamic
+   // TODO: this is hardcoded for the current size to prevent layout shift --
+   // should be dynamic, or at least based off the height of the elements it
+   // contains. 
+	min-height: 128px; 
    
    border: 1px solid var(--bg-5-3);
 	box-shadow: 0.6rem 0.6rem 0 -0.5rem ${(p) => p.theme.colors.dark[4]};
@@ -40,8 +43,7 @@ const List = styled(motion.ul)`
 ;
 	flex-wrap: wrap;
 
-	gap: 0.5rem;
-
+	gap: ${spacingValue.small};
 	${spacing.padding.wide({ size: 0.8, ratio: 1.5 })};
 	min-height: 3.6rem; // this currently is the exact size of a single item; prevents layout shift when going from items -> no items
 	max-height: 250px;
@@ -174,9 +176,10 @@ const DropdownContent = styled(motion.div)`
 		0.2rem 0.2rem 0 0 ${(p) => lightDark(p, p.theme.colors.background.contrast[2], p.theme.colors.background.main[1])},
 		0 0 0.6rem 0 ${(p) => lightDark(p, p.theme.colors.background.contrast[5], p.theme.colors.background.main[1])};
 
+   // 100% plus twice the left offset to center it w.r.t. its parent
 	width: calc(
 		100% + calc(2 * var(--inline-offset))
-	); // 100% plus twice the left offset to center it against its parent
+	); 
 `;
 
 const SelectionList = styled.ul`
@@ -185,9 +188,9 @@ const SelectionList = styled.ul`
 	align-items: center;
 
 	padding: 0.2rem 0;
-	padding-right: 0.4rem; // this is to prevent make scrollbar look better
+	padding-right: 0.4rem; // small padding between this and the scrollbar
 	${spacing.margin.tall({ size: 0.4, ratio: 2 })}
-	gap: 0.5rem;
+	gap: ${spacingValue.small};
 	font-size: ${font.size["0.85"]};
 
 	user-select: none;
