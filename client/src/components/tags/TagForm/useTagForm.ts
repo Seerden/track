@@ -9,7 +9,7 @@ import modalIds from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 import { trpc } from "@/lib/trpc";
 
-export default function useNewTag({
+export default function useTagForm({
 	tagSelectorId,
 }: {
 	tagSelectorId: string;

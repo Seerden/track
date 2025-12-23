@@ -8,11 +8,11 @@ import { spacingValue } from "@/lib/theme/snippets/spacing";
 import { TAG_SELECTOR_IDS } from "../TagSelector/constants";
 import TagSelector from "../TagSelector/TagSelector";
 import S from "./style/NewTag.style";
-import useNewTag from "./useNewTag";
+import useTagForm from "./useTagForm";
 
 export default function TagForm({ modalId }: { modalId: ModalId }) {
 	const { handleInputChange, handleSubmit, tags, isValidNewTag, previewTags } =
-		useNewTag({
+		useTagForm({
 			tagSelectorId: TAG_SELECTOR_IDS.NEW_TAG,
 		});
 
