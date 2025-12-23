@@ -49,6 +49,7 @@ export function findChildren({
 		.filter((maybeTag) => maybeTag !== null);
 }
 
+/** Find the siblings of `tag`. `tag` itself is also considered a sibling. */
 export function findSiblings({
 	tag,
 	tags,
