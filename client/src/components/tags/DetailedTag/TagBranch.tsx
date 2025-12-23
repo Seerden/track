@@ -1,18 +1,22 @@
 import type { TagsInTree, TagWithIds } from "@shared/lib/schemas/tag";
+import type { ID } from "@shared/types/data/utility.types";
 import {
 	findAncestors,
 	findChildren,
+	findSiblings,
 } from "@/components/tags/DetailedTag/build-branch";
 import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import S from "./style/TagBranch.style";
 
 /** A single row to-be-displayed inside TagTreeBranch. The branch consists of
  * any number of rows, where a row represents one level of the tree/branch. */
-function TagRow({ tags }: { tags: TagWithIds[] }) {
+function TagRow({ tags, highlight }: { tags: TagWithIds[]; highlight?: ID }) {
 	return (
 		<S.Row>
 			{tags.map((tag) => (
-				<S.Node key={tag.tag_id}>{tag.name}</S.Node>
+				<S.Node $active={tag.tag_id === highlight} key={tag.tag_id}>
+					{tag.name}
+				</S.Node>
 			))}
 		</S.Row>
 	);
@@ -39,6 +43,7 @@ export default function TagBranch({ tag, tags }: TagBranchProps) {
 
 	const children = findChildren({ tag, tags: tagsForBranch });
 	const ancestors = findAncestors({ tag, tags: tagsForBranch });
+	const siblings = findSiblings({ tag, tags: tagsForBranch });
 
 	const branch = [
 		...ancestors.sort(
@@ -46,7 +51,7 @@ export default function TagBranch({ tag, tags }: TagBranchProps) {
 				// TODO: notify when a or b does not exist in depth map
 				a.tree_depth - b.tree_depth
 		),
-		tag,
+		siblings,
 		children,
 	] as Array<TagWithIds | TagWithIds[]>;
 
@@ -60,7 +65,7 @@ export default function TagBranch({ tag, tags }: TagBranchProps) {
 
 				if (Array.isArray(item)) {
 					if (!item.length) return null;
-					return <TagRow key={index} tags={item} />;
+					return <TagRow key={index} tags={item} highlight={tag.tag_id} />;
 				}
 				return (
 					<S.Row key={item.tag_id}>
