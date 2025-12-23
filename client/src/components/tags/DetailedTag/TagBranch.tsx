@@ -19,7 +19,7 @@ function TagRow({ tags }: { tags: TagWithIds[] }) {
 }
 
 type TagBranchProps = {
-	tag: TagWithIds;
+	tag: TagWithIds | undefined;
 	tags?: TagsInTree;
 };
 
@@ -31,7 +31,7 @@ type TagBranchProps = {
 export default function TagBranch({ tag, tags }: TagBranchProps) {
 	const { data: existingTags } = useQueryTags();
 
-	if (!existingTags) return null;
+	if (!existingTags || tags?.size === 0 || !tag) return null;
 
 	// if tags were passed from outside (e.g. mock tags for a branch preview),
 	// use those instead of the existing tags from the query.

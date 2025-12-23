@@ -1,4 +1,5 @@
 import { TextInput } from "@mantine/core";
+import TagBranch from "@/components/tags/DetailedTag/TagBranch";
 import type { ModalId } from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import Form from "@/lib/theme/components/form.style";
@@ -9,9 +10,10 @@ import S from "./style/NewTag.style";
 import useNewTag from "./useNewTag";
 
 function NewTag({ modalId }: { modalId: ModalId }) {
-	const { handleInputChange, handleSubmit, tags, isValidNewTag } = useNewTag({
-		tagSelectorId: TAG_SELECTOR_IDS.NEW_TAG,
-	});
+	const { handleInputChange, handleSubmit, tags, isValidNewTag, previewTags } =
+		useNewTag({
+			tagSelectorId: TAG_SELECTOR_IDS.NEW_TAG,
+		});
 
 	return (
 		<Form.Wrapper role="form">
@@ -41,6 +43,7 @@ function NewTag({ modalId }: { modalId: ModalId }) {
 						onChange={handleInputChange}
 					/>
 				</Form.Row>
+
 				{!!tags?.size && (
 					<S.Tags>
 						{/* TODO: remove the min-height of this thing, at least for this 
@@ -64,6 +67,10 @@ function NewTag({ modalId }: { modalId: ModalId }) {
 					Create tag
 				</Buttons.Submit.Default>
 			</Form.Form>
+
+			{!!previewTags?.size && (
+				<TagBranch tags={previewTags} tag={previewTags.get("preview")} />
+			)}
 		</Form.Wrapper>
 	);
 }
