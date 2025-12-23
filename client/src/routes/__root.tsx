@@ -55,17 +55,17 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 				// { rel: "manifest", href: "/site.webmanifest", color: "#171717" },
 				{
 					rel: "icon",
-					href: "/public/favicon.ico",
+					href: "/public/favicon.ico?=TRK-351",
 					sizes: "48x48",
 				},
 				{
 					rel: "icon",
-					href: "/public/favicon.svg",
+					href: "/public/favicon.svg?=TRK-351",
 					type: "image/svg+xml",
 				},
 				{
 					rel: "apple-touch-icon",
-					href: "/public/apple-touch-icon-180x180.png",
+					href: "/public/apple-touch-icon-180x180.png?=TRK-351",
 					sizes: "180x180",
 				},
 			],
