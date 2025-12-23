@@ -1,5 +1,4 @@
 import { TextInput } from "@mantine/core";
-import { LucideTags } from "lucide-react";
 import type { ModalId } from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import Form from "@/lib/theme/components/form.style";
@@ -23,8 +22,7 @@ function NewTag({ modalId }: { modalId: ModalId }) {
 						gap: spacingValue.small,
 					}}
 				>
-					New
-					<LucideTags />
+					Create tag
 				</Form.FormTitle>
 
 				<Form.Row>
