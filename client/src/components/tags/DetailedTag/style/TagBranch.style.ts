@@ -1,12 +1,13 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { motion } from "motion/react";
 import { contrastColor } from "@/lib/theme/contrast";
 import { font } from "@/lib/theme/font";
 import { flex } from "@/lib/theme/snippets/flex";
 import { radius } from "@/lib/theme/snippets/radius";
 import { spacing, spacingValue } from "@/lib/theme/snippets/spacing";
 
-const Branch = styled.ol`
+const Branch = styled(motion.ol)<{ $preview?: boolean }>`
 	${flex.column};
 	position: relative;
 
@@ -21,6 +22,21 @@ const Branch = styled.ol`
 	${radius.medium};
 	box-shadow: 0 0.2rem 0.3rem 0 var(--bg-5-1);
 	outline: 1px solid var(--bg-1-2);
+
+   --tag-highlight-color: ${(p) => (p.$preview ? p.theme.colors.orange.main : p.theme.colors.purple.main)};
+   --tag-text-color: ${(p) => (p.$preview ? contrastColor(p.theme.colors.orange.main) : contrastColor(p.theme.colors.purple.main))};
+
+   ${(p) =>
+			p.$preview &&
+			css`
+            width: 100%;
+
+            ${Title} {
+               top: ${spacingValue.small};
+               left: ${spacingValue.small};
+            }
+         `}
+
 `;
 
 const Node = styled.li<{ $active?: boolean }>`
@@ -28,6 +44,13 @@ const Node = styled.li<{ $active?: boolean }>`
 	user-select: none;
 
 	width: max-content;
+   /* TOOD: should use a more responsive way to limit width. Maybe if there are
+      more than 3 tags on a level, collapse them (like how linear does tags for
+      issues) */ 
+   max-width: 100px;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
 
 	font-size: ${font.size["0.9"]};
 	${spacing.padding.wide({ size: 0.2, ratio: 2.5 })}
@@ -41,9 +64,9 @@ const Node = styled.li<{ $active?: boolean }>`
 	${(p) =>
 		p.$active &&
 		css`
-         --bg: ${p.theme.colors.purple.main};
-			background-color: var(--bg);
-			color: ${contrastColor(p.theme.colors.purple.main)};
+         /* these variables are set in Branch */
+			background-color: var(--tag-highlight-color);
+			color: var(--tag-text-color);
 		`}
 `;
 
@@ -75,6 +98,7 @@ const Row = styled.menu`
 `;
 
 const Title = styled.h2`
+   user-select: none;
 	position: absolute;
 	top: -0.7rem;
 	left: -1rem;

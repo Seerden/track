@@ -58,7 +58,20 @@ function NewTag({ modalId }: { modalId: ModalId }) {
 						/>
 					</S.Tags>
 				)}
+
+				{!!previewTags?.size && (
+					<Form.Row style={{ justifyContent: "center" }}>
+						<TagBranch
+							title="Preview"
+							tags={previewTags}
+							tag={previewTags.get("preview")}
+							preview
+						/>
+					</Form.Row>
+				)}
+
 				<Buttons.Submit.Default
+					style={{ marginBlock: spacingValue.medium }}
 					type="submit"
 					title="Save"
 					onClick={handleSubmit}
@@ -67,10 +80,6 @@ function NewTag({ modalId }: { modalId: ModalId }) {
 					Create tag
 				</Buttons.Submit.Default>
 			</Form.Form>
-
-			{!!previewTags?.size && (
-				<TagBranch tags={previewTags} tag={previewTags.get("preview")} />
-			)}
 		</Form.Wrapper>
 	);
 }

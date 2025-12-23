@@ -3,7 +3,7 @@ import { z } from "@shared/lib/zod";
 import type { ByIdMap } from "@shared/types/data/utility.types";
 
 export const newTagSchema = z.object({
-	name: z.string(),
+	name: z.string().min(1),
 	description: z.string().optional(),
 });
 export type NewTag = z.infer<typeof newTagSchema>;
