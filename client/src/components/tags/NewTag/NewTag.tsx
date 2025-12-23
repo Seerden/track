@@ -46,9 +46,6 @@ function NewTag({ modalId }: { modalId: ModalId }) {
 
 				{!!tags?.size && (
 					<S.Tags>
-						{/* TODO: remove the min-height of this thing, at least for this 
-                     use-case. Maybe we want it to remain for ActivityForm, but in 
-                     here, it looks bad. */}
 						<TagSelector
 							tagSelectorId={TAG_SELECTOR_IDS.NEW_TAG}
 							title="Categorize"
