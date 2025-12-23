@@ -3,8 +3,7 @@ import { z } from "@shared/lib/zod";
 import type { ByIdMap } from "@shared/types/data/utility.types";
 
 export const newTagSchema = z.object({
-	user_id: z.string(),
-	name: z.string(),
+	name: z.string().min(1),
 	description: z.string().optional(),
 });
 export type NewTag = z.infer<typeof newTagSchema>;
@@ -17,6 +16,7 @@ export type TagInput = z.infer<typeof tagInputSchema>;
 
 export const tagSchema = newTagSchema.and(
 	z.object({
+		user_id: z.string(),
 		created_at: timestampSchema,
 	})
 );

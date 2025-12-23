@@ -1,8 +1,8 @@
-import useAuthentication from "@lib/hooks/useAuthentication";
 import { queryClient } from "@lib/query-client";
 import { useTagSelection } from "@lib/state/selected-tags-state";
-import type { NewTag } from "@shared/lib/schemas/tag";
+import { type NewTag, newTagSchema } from "@shared/lib/schemas/tag";
 import { useEffect, useState } from "react";
+import { buildPreviewTags } from "@/components/tags/TagForm/build-preview";
 import { useMutateNewTag } from "@/lib/hooks/query/tags/useMutateNewTag";
 import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import modalIds from "@/lib/modal-ids";
@@ -14,21 +14,20 @@ export default function useNewTag({
 }: {
 	tagSelectorId: string;
 }) {
-	const { currentUser } = useAuthentication();
+	const { closeModal } = useModalState();
 	const { data: tags } = useQueryTags();
 	const { mutate: submit } = useMutateNewTag();
-
-	const [newTag, setNewTag] = useState<NewTag>({
-		name: "",
-		// TODO: remove userId here nad handle it server-side
-		// biome-ignore lint/style/noNonNullAssertion: ^
-		user_id: currentUser!.id,
-	});
-
+	const [newTag, setNewTag] = useState<Partial<NewTag>>({});
+	const parsedNewTag = newTagSchema.safeParse(newTag);
+	const isValidNewTag = parsedNewTag.success;
 	const { selectedTagIds, resetTagSelection } = useTagSelection(tagSelectorId);
-
 	const parent_id = selectedTagIds.length === 1 ? selectedTagIds[0] : undefined;
-	const { closeModal } = useModalState();
+	const previewTags = buildPreviewTags({
+		tag: newTag,
+		isValidNewTag,
+		tags,
+		parent_id,
+	});
 
 	useEffect(() => {
 		// make sure we reset tag selection on mount so that we don't accidentally
@@ -48,8 +47,13 @@ export default function useNewTag({
 		e.preventDefault();
 		e.stopPropagation();
 
+		const parsedTag = newTagSchema.safeParse(newTag);
+		if (!parsedTag.success) {
+			return;
+		}
+
 		submit(
-			{ newTag, parent_id },
+			{ newTag: parsedTag.data, parent_id },
 			{
 				onSuccess: () => {
 					queryClient.invalidateQueries({
@@ -62,8 +66,11 @@ export default function useNewTag({
 	}
 
 	return {
+		newTag,
+		isValidNewTag,
 		handleInputChange,
 		handleSubmit,
 		tags,
+		previewTags,
 	};
 }
