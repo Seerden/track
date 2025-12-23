@@ -44,9 +44,9 @@ const Node = styled.li<{ $active?: boolean }>`
 	user-select: none;
 
 	width: max-content;
-   /* TOOD: should use a more responsive way to limit width. Maybe if there are
-      more than 3 tags on a level, collapse them (like how linear does tags for
-      issues) */ 
+   /* TODO (TRK-357): should use a more responsive way to limit width. Maybe if
+      there are more than 3 tags on a level, collapse them (like how linear does
+      tags for issues) */ 
    max-width: 100px;
    overflow: hidden;
    text-overflow: ellipsis;
