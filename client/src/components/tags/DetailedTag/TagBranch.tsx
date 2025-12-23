@@ -23,13 +23,6 @@ function TagRow({ tags, highlight }: { tags: TagWithIds[]; highlight?: ID }) {
 	);
 }
 
-type TagBranchProps = {
-	tag: TagWithIds | undefined;
-	tags?: TagsInTree;
-	preview?: boolean;
-	title?: ReactNode;
-};
-
 /** A small visual display of a `tag`'s family tree.
  * @todo currently this component shows direct ancestors (i.e. this tag's
  * parent, its parent, and so on), the tag itself, and direct children. We could
@@ -40,7 +33,16 @@ export default function TagBranch({
 	tags,
 	preview,
 	title = "tag tree",
-}: TagBranchProps) {
+}: {
+	/** The tag whose (partial) branch is being shown. */
+	tag: TagWithIds | undefined;
+	/** The full tags object from which to create the branch. */
+	tags?: TagsInTree;
+	/** Are we in preview mode (e.g. in `TagForm`)? */
+	preview?: boolean;
+	/** Title content. */
+	title?: ReactNode;
+}) {
 	const { data: existingTags } = useQueryTags();
 
 	if (!existingTags || tags?.size === 0 || !tag) return null;
@@ -48,7 +50,6 @@ export default function TagBranch({
 	// if tags were passed from outside (e.g. mock tags for a branch preview),
 	// use those instead of the existing tags from the query.
 	const tagsForBranch = tags ?? existingTags;
-
 	const children = findChildren({ tag, tags: tagsForBranch });
 	const ancestors = findAncestors({ tag, tags: tagsForBranch });
 	const siblings = findSiblings({ tag, tags: tagsForBranch });
