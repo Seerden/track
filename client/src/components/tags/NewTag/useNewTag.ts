@@ -1,5 +1,6 @@
 import { queryClient } from "@lib/query-client";
 import { useTagSelection } from "@lib/state/selected-tags-state";
+import { isNullish } from "@shared/lib/is-nullish";
 import { type NewTag, newTagSchema } from "@shared/lib/schemas/tag";
 import { useEffect, useState } from "react";
 import { useMutateNewTag } from "@/lib/hooks/query/tags/useMutateNewTag";
@@ -40,7 +41,7 @@ export default function useNewTag({
 			created_at: new Date(),
 			parent_id,
 			// TODO: get tree depth of parent_id, then add 1
-			tree_depth: parentDepth ? parentDepth + 1 : 0,
+			tree_depth: !isNullish(parentDepth) ? parentDepth + 1 : 0,
 			// TODO: use the root id of parent_id
 			tree_root_id: rootId ?? "preview",
 			child_ids: [],
