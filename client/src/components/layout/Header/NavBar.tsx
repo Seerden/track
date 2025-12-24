@@ -2,7 +2,6 @@ import { Popover, Switch, Tooltip } from "@mantine/core";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useAtomValue } from "jotai";
 import {
-	LucideCalendar,
 	LucideFilter,
 	LucideKeyboard,
 	LucideMoon,
@@ -12,6 +11,7 @@ import {
 import { motion } from "motion/react";
 import ActivityMenu from "@/components/layout/Header/ActivityMenu/ActivityMenu";
 import Menu from "@/components/layout/Header/Menu";
+import { LogoSvg } from "@/components/layout/Logo";
 import TagFilter from "@/components/tags/TagFilter/TagFilter";
 import { ProfileMenu } from "@/components/user/profile/Profile";
 import { Protected } from "@/components/wrappers";
@@ -28,10 +28,15 @@ export default function NavBar() {
 
 	return (
 		<S.NavBar>
-			<Link to="/">
-				<S.HomeLink>
-					<LucideCalendar strokeWidth={2} size={20} />
-				</S.HomeLink>
+			<Link
+				to="/"
+				style={{
+					display: "flex",
+					height: "max-content",
+					alignItems: "center",
+				}}
+			>
+				<LogoSvg />
 			</Link>
 			<S.Actions>
 				<Switch
