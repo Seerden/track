@@ -31,6 +31,7 @@ const modalIds = {
 	detailedActivity: "detailed-activity", // TODO: should be under activities.detailed like with habits and others
 	tagTree: { tree: "tag-tree", tagSelector: "tag-tree-tag-selector" },
 	tags: {
+		form: "tag-form",
 		detailed: "detailed-tag",
 	},
 } as const;

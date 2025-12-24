@@ -1,5 +1,5 @@
 import { TextInput } from "@mantine/core";
-import type { NewTag } from "@shared/lib/schemas/tag";
+import type { NewTag, TagInTree } from "@shared/lib/schemas/tag";
 import TagBranch from "@/components/tags/DetailedTag/TagBranch";
 import type { ModalId } from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
@@ -7,17 +7,31 @@ import Form from "@/lib/theme/components/form.style";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 import { TAG_SELECTOR_IDS } from "../TagSelector/constants";
 import TagSelector from "../TagSelector/TagSelector";
-import S from "./style/NewTag.style";
 import useTagForm from "./useTagForm";
 
-export default function TagForm({ modalId }: { modalId: ModalId }) {
-	const { handleInputChange, handleSubmit, tags, isValidNewTag, previewTags } =
-		useTagForm({
-			tagSelectorId: TAG_SELECTOR_IDS.NEW_TAG,
-		});
+export default function TagForm({
+	modalId,
+	tag: existingTag,
+}: {
+	modalId: ModalId;
+	tag?: TagInTree;
+}) {
+	const {
+		handleInputChange,
+		handleSubmit,
+		tags,
+		tag,
+		isValidNewTag,
+		isValidTag,
+		previewTags,
+	} = useTagForm({
+		modalId,
+		tagSelectorId: TAG_SELECTOR_IDS.NEW_TAG,
+		tag: existingTag,
+	});
 
 	return (
-		<Form.Wrapper role="form">
+		<Form.Wrapper>
 			<Form.Form>
 				<Form.FormTitle
 					style={{
@@ -33,6 +47,7 @@ export default function TagForm({ modalId }: { modalId: ModalId }) {
 						label="Name"
 						type="text"
 						placeholder="Tag name"
+						value={tag.name}
 						name={"name" satisfies keyof NewTag}
 						onChange={handleInputChange}
 					/>
@@ -40,13 +55,17 @@ export default function TagForm({ modalId }: { modalId: ModalId }) {
 						label="Description"
 						placeholder="Tag description"
 						type="text"
+						value={tag.description ?? undefined}
 						name={"description" satisfies keyof NewTag}
 						onChange={handleInputChange}
 					/>
 				</Form.Row>
 
 				{!!tags?.size && (
-					<S.Tags>
+					<div style={{ width: "100%" }}>
+						{/* TODO: implemented `disabled` functionality for tags 
+                  in the selector; when editing a tag, we shouldn't be able 
+                  to select it as its own parent */}
 						<TagSelector
 							tagSelectorId={TAG_SELECTOR_IDS.NEW_TAG}
 							title="Categorize"
@@ -54,11 +73,15 @@ export default function TagForm({ modalId }: { modalId: ModalId }) {
 							tags={tags}
 							modalId={modalId}
 						/>
-					</S.Tags>
+					</div>
 				)}
 
 				{!!previewTags?.size && (
 					<Form.Row style={{ justifyContent: "center" }}>
+						{/* TODO: currently, when editing a tag, this 
+                     will show the edited tag _and_ the existing 
+                     one. Replace the existing one with the editing 
+                     one in all cases. */}
 						<TagBranch
 							title="Preview"
 							tags={previewTags}
@@ -73,7 +96,7 @@ export default function TagForm({ modalId }: { modalId: ModalId }) {
 					type="submit"
 					title="Save"
 					onClick={handleSubmit}
-					disabled={!isValidNewTag}
+					disabled={!isValidNewTag && !isValidTag}
 				>
 					Create tag
 				</Buttons.Submit.Default>

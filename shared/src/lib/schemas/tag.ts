@@ -4,7 +4,7 @@ import type { ByIdMap } from "@shared/types/data/utility.types";
 
 export const newTagSchema = z.object({
 	name: z.string().min(1),
-	description: z.string().optional(),
+	description: z.string().optional().nullable(),
 });
 export type NewTag = z.infer<typeof newTagSchema>;
 
@@ -18,18 +18,12 @@ export const tagSchema = newTagSchema.and(
 	z.object({
 		user_id: z.string(),
 		created_at: timestampSchema,
+		tag_id: z.string(),
 	})
 );
 export type Tag = z.infer<typeof tagSchema>;
 
-export const tagWithIdSchema = tagSchema.and(
-	z.object({
-		tag_id: z.string(),
-	})
-);
-export type TagWithId = z.infer<typeof tagWithIdSchema>;
-
-export const tagWithIdsSchema = tagWithIdSchema.and(
+export const tagWithIdsSchema = tagSchema.and(
 	z.object({
 		parent_id: z.string().nullable().or(z.undefined()),
 		child_ids: z.array(z.string()).or(z.undefined()),

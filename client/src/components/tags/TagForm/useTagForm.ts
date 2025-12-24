@@ -1,38 +1,72 @@
-import { queryClient } from "@lib/query-client";
 import { useTagSelection } from "@lib/state/selected-tags-state";
-import { type NewTag, newTagSchema } from "@shared/lib/schemas/tag";
+import { isNullish } from "@shared/lib/is-nullish";
+import {
+	type NewTag,
+	newTagSchema,
+	type TagInTree,
+	tagInTreeSchema,
+} from "@shared/lib/schemas/tag";
+import { produce } from "immer";
 import { useEffect, useState } from "react";
 import { buildPreviewTags } from "@/components/tags/TagForm/build-preview";
-import { useMutateNewTag } from "@/lib/hooks/query/tags/useMutateNewTag";
+import {
+	useMutateNewTag,
+	useMutateTag,
+} from "@/lib/hooks/query/tags/useMutateNewTag";
 import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
-import modalIds from "@/lib/modal-ids";
+import modalIds, { type ModalId } from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
-import { trpc } from "@/lib/trpc";
+
+type TagState = Partial<NewTag> | TagInTree;
 
 export default function useTagForm({
 	tagSelectorId,
+	modalId,
+	tag: existingTag,
 }: {
 	tagSelectorId: string;
+	modalId: ModalId;
+	tag?: TagInTree;
 }) {
+	const isEditing = !isNullish(existingTag);
 	const { closeModal } = useModalState();
 	const { data: tags } = useQueryTags();
 	const { mutate: submit } = useMutateNewTag();
-	const [newTag, setNewTag] = useState<Partial<NewTag>>({});
-	const parsedNewTag = newTagSchema.safeParse(newTag);
+	const { mutate: submitTagUpdate } = useMutateTag();
+
+	const [tag, setTag] = useState<TagState>(existingTag ?? {});
+
+	const parsedNewTag = newTagSchema.safeParse(tag);
 	const isValidNewTag = parsedNewTag.success;
-	const { selectedTagIds, resetTagSelection } = useTagSelection(tagSelectorId);
+
+	const parsedExistingTag = tagInTreeSchema.safeParse(tag);
+	const isValidTag = parsedExistingTag.success;
+
+	console.log({ parsedNewTag, parsedExistingTag });
+
+	const { selectedTagIds, resetTagSelection, setTagSelectionFromList } =
+		useTagSelection(tagSelectorId);
 	const parent_id = selectedTagIds.length === 1 ? selectedTagIds[0] : undefined;
+
+	// TODO: when passing an existing tag (not a new one), make sure we force the
+	// id to "preview" for UI purposes in this component.
 	const previewTags = buildPreviewTags({
-		tag: newTag,
+		tag: tag,
 		isValidNewTag,
 		tags,
 		parent_id,
 	});
 
 	useEffect(() => {
-		// make sure we reset tag selection on mount so that we don't accidentally
-		// get an already-active selection into this new tag's state.
-		resetTagSelection();
+		// make sure we set or reset tag selection on mount so that we don't
+		// accidentally get an already-active selection into tag's state.
+		if (!isNullish(existingTag)) {
+			setTagSelectionFromList(
+				existingTag.parent_id ? [existingTag.parent_id] : []
+			);
+		} else {
+			resetTagSelection();
+		}
 
 		return () => {
 			resetTagSelection();
@@ -40,25 +74,50 @@ export default function useTagForm({
 	}, []);
 
 	function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-		setNewTag((current) => ({ ...current, [e.target.name]: e.target.value }));
+		setTag(
+			produce((draft) => {
+				draft[e.target.name as keyof typeof draft] = e.target.value;
+			})
+		);
 	}
 
-	function handleSubmit(e: React.FormEvent<HTMLButtonElement>) {
+	function _handleSubmit(e: React.FormEvent<HTMLButtonElement>) {
 		e.preventDefault();
 		e.stopPropagation();
 
-		const parsedTag = newTagSchema.safeParse(newTag);
-		if (!parsedTag.success) {
+		if (isEditing) {
+			handleSubmitTag();
+		} else {
+			handleSubmitNewTag();
+		}
+	}
+
+	function handleSubmitTag() {
+		if (!isValidTag) {
+			return;
+		}
+
+		submitTagUpdate(
+			{ tag: parsedExistingTag.data, parent_id },
+			{
+				onSuccess: () => {
+					closeModal(modalId);
+				},
+			}
+		);
+	}
+
+	function handleSubmitNewTag() {
+		if (!parsedNewTag.success) {
 			return;
 		}
 
 		submit(
-			{ newTag: parsedTag.data, parent_id },
+			{ newTag: parsedNewTag.data, parent_id },
 			{
+				// invalidation happens in the mutate hook onSuccess
 				onSuccess: () => {
-					queryClient.invalidateQueries({
-						queryKey: trpc.tags.q.all.queryKey(),
-					});
+					closeModal(modalId);
 					closeModal(modalIds.tagSelector.activityForm);
 				},
 			}
@@ -66,10 +125,11 @@ export default function useTagForm({
 	}
 
 	return {
-		newTag,
+		tag,
 		isValidNewTag,
+		isValidTag,
 		handleInputChange,
-		handleSubmit,
+		handleSubmit: _handleSubmit,
 		tags,
 		previewTags,
 	};

@@ -1,11 +1,11 @@
-import type { NewTag, TagInput, TagWithId } from "@shared/lib/schemas/tag";
+import type { NewTag, Tag, TagInput } from "@shared/lib/schemas/tag";
 import type { TagTagRelation } from "@shared/types/data/relational.types";
 import type { ID } from "@shared/types/data/utility.types";
 import { createTransaction, query } from "@/lib/query-function";
 
 /** Inserts one or multiple tags into the database. Does not handle tag-tag relationships. */
 const insertTags = query(async (sql, { newTags }: { newTags: NewTag[] }) => {
-	const insertedTags = await sql<[TagWithId]>`
+	const insertedTags = await sql<[Tag]>`
         insert into tags 
         ${sql(newTags)}
         returning *
