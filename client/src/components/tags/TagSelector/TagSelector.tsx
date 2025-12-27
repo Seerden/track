@@ -13,6 +13,7 @@ import { TagSelectorItems } from "@/components/tags/TagSelector/TagSelectorItems
 import TagTree from "@/components/tags/TagTree/TagTree";
 import type { ModalId } from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
+import Containers from "@/lib/theme/components/container.style";
 import NewTagButton from "./NewTagButton";
 import S, { tagSelectorMotionVariants } from "./style/TagSelector.style";
 import useTagSelector from "./useTagSelector";
@@ -77,10 +78,12 @@ export default function TagSelector({
 					</Form.RowTitle>
 				)}
 
-				<div
+				<Containers.Column
 					style={{
 						position: "relative",
 						marginTop: "0.3rem",
+						flex: 1,
+						justifyContent: "space-between",
 					}}
 				>
 					<S.Actions>
@@ -108,13 +111,7 @@ export default function TagSelector({
 						)}
 					</S.Actions>
 
-					{!selectedTags.length ? (
-						<S.EmptySelection>
-							You haven't selected any tags yet.
-						</S.EmptySelection>
-					) : (
-						<Selection tags={selectorTags} selectedTags={selectedTags} />
-					)}
+					<Selection tags={selectorTags} selectedTags={selectedTags} />
 
 					<AnimatePresence>
 						{expanded && (
@@ -180,7 +177,7 @@ export default function TagSelector({
 							</S.DropdownContent>
 						)}
 					</AnimatePresence>
-				</div>
+				</Containers.Column>
 			</S.Wrapper>
 			{/* NOTE I don't think we need to conditionally render TagTree based on !!state.isOpen, 
             but if the modal ever acts weird, that's the first thing to try for a fix. */}

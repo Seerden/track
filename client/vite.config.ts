@@ -71,7 +71,7 @@ export default defineConfig({
 				// defining cached files formats
 				globPatterns: ["**/*.{js,css,html,ico,png,svg,webmanifest}"],
 				globIgnores: ["**/api/trpc/**", "**/node_modules/**"],
-				cacheId: "seerden/track/288",
+				cacheId: "seerden/track/351",
 			},
 		}),
 		tsconfigPaths({

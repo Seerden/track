@@ -11,7 +11,8 @@
     "test:ui": "vitest --ui",
     "build-types": "tsc --build --verbose",
     "types:check": "tsc -p tsconfig.app.json --noEmit --watch",
-    "sentry-source": "npx @sentry/wizard@latest -i sourcemaps --saas"
+    "sentry-source": "npx @sentry/wizard@latest -i sourcemaps --saas",
+    "generate-logo": "pwa-assets-generator --preset minimal-2023 public/logo.png"
   },
   "dependencies": {
     "@emotion/cache": "11.14.0",
@@ -30,6 +31,7 @@
     "@trpc/server": "11.7.1",
     "@trpc/tanstack-react-query": "11.7.1",
     "@types/lodash": "4.17.21",
+    "@vite-pwa/assets-generator": "1.0.2",
     "better-auth": "1.4.3",
     "colord": "2.9.3",
     "dayjs": "1.11.18",

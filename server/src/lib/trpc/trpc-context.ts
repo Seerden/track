@@ -8,15 +8,18 @@ export const createContext = async ({
 	req,
 	res,
 }: trpcExpress.CreateExpressContextOptions) => {
-	const session = await auth.api.getSession({
+	const { headers, response } = await auth.api.getSession({
 		headers: fromNodeHeaders(req.headers),
+		returnHeaders: true,
 	});
+
+	res.setHeaders(headers);
 
 	return {
 		req,
 		res,
-		user: session?.user ?? null,
-		session: session?.session ?? null,
+		user: response?.user ?? null,
+		session: response?.session ?? null,
 	};
 };
 

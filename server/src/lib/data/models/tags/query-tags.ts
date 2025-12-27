@@ -1,6 +1,6 @@
 import { arrayMapById } from "@shared/lib/map";
 import type { Activity } from "@shared/lib/schemas/activity";
-import type { TagWithId } from "@shared/lib/schemas/tag";
+import type { Tag } from "@shared/lib/schemas/tag";
 import type {
 	ActivityTagRelation,
 	TagTagRelation,
@@ -13,7 +13,7 @@ import { query } from "@/lib/query-function";
 /** Get all of a user's tags. */
 export const queryTagsByUser = query(
 	async (sql, { user_id }: { user_id: ID }) => {
-		return sql<TagWithId[]>`
+		return sql<Tag[]>`
          select * from tags where user_id = ${user_id}
       `;
 	}
@@ -29,7 +29,7 @@ export const queryTagsByParent = query(
 		if (!relations?.length) return [];
 
 		const childIds = relations.map((r) => r.child_id);
-		return sql<TagWithId[]>`
+		return sql<Tag[]>`
          select * from tags where tag_id = any(${childIds})
       `;
 	}
@@ -46,7 +46,7 @@ export const queryTagsByActivity = query(
 
 		const tagIds = activityTags.map((at) => at.tag_id);
 
-		return sql<TagWithId[]>`
+		return sql<Tag[]>`
          select * from tags where tag_id = any(${tagIds})
       `;
 	}

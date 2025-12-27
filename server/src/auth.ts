@@ -82,6 +82,11 @@ export const auth = betterAuth({
 	},
 	plugins: [admin(), username()],
 	trustedOrigins: [baseUrl],
+	session: {
+		expiresIn: 60 * 60 * 24 * 7, // sessions last 1 week by default
+		updateAge: 5 * 60, // refresh every 5 minutes
+		cookieCache: { enabled: false }, // I don't care about saving a database round-trip for this.
+	},
 	advanced: {
 		database: {
 			// @see https://github.com/better-auth/better-auth/pull/5809
