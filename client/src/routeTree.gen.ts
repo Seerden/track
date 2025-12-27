@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from "./routes/__root"
 import { Route as TodayRouteImport } from "./routes/today"
 import { Route as RegisterRouteImport } from "./routes/register"
 import { Route as LoginRouteImport } from "./routes/login"
-import { Route as AuthenticatedRouteRouteImport } from "./routes/_authenticated/route"
 import { Route as IndexRouteImport } from "./routes/index"
 import { Route as ActivitiesIndexRouteImport } from "./routes/activities/index"
 import { Route as NotesNewRouteImport } from "./routes/notes/new"
@@ -36,10 +35,6 @@ const RegisterRoute = RegisterRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: "/login",
   path: "/login",
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: "/_authenticated",
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -120,7 +115,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   "/": typeof IndexRoute
-  "/_authenticated": typeof AuthenticatedRouteRoute
   "/login": typeof LoginRoute
   "/register": typeof RegisterRoute
   "/today": typeof TodayRoute
@@ -165,7 +159,6 @@ export interface FileRouteTypes {
   id:
     | "__root__"
     | "/"
-    | "/_authenticated"
     | "/login"
     | "/register"
     | "/today"
@@ -181,7 +174,6 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AuthenticatedRouteRoute: typeof AuthenticatedRouteRoute
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
   TodayRoute: typeof TodayRoute
@@ -216,13 +208,6 @@ declare module "@tanstack/react-router" {
       path: "/login"
       fullPath: "/login"
       preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    "/_authenticated": {
-      id: "/_authenticated"
-      path: ""
-      fullPath: ""
-      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     "/": {
@@ -293,7 +278,6 @@ declare module "@tanstack/react-router" {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AuthenticatedRouteRoute: AuthenticatedRouteRoute,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
   TodayRoute: TodayRoute,
