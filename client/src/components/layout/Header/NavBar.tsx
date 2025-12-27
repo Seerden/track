@@ -104,7 +104,7 @@ function ProfileAction({ isLoggedIn }: { isLoggedIn: boolean }) {
 		<S.Action
 			type="button"
 			onClick={() => {
-				navigate({ to: "/login" });
+				navigate({ to: "/auth/login" });
 			}}
 		>
 			log in

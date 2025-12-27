@@ -1,4 +1,4 @@
-import { createRootRouteWithContext, redirect } from "@tanstack/react-router";
+import { createRootRouteWithContext } from "@tanstack/react-router";
 import App from "@/App";
 import indexCss from "@/index.scss?url";
 import { queryClient } from "@/lib/query-client";
@@ -12,35 +12,6 @@ type RouterContext = {
 
 export const Route = createRootRouteWithContext<RouterContext>()({
 	component: App,
-	/** @see https://tanstack.com/router/v1/docs/eslint/create-route-property-order */
-	beforeLoad: async ({ context: { queryClient, trpc }, location }) => {
-		const me = await queryClient.ensureQueryData(
-			trpc.users.q.me.queryOptions()
-		);
-
-		// TODO: this is WIP still.
-		if (
-			["/login", "/register"].includes(location.pathname) ||
-			location.pathname.startsWith("/auth/")
-		) {
-			// don't have to do anything, we're on an unauthenticated route.
-		} else {
-			if (!me.user) {
-				throw redirect({ to: "/login" });
-			}
-		}
-
-		return { user: me.user };
-	},
-	loader: async ({ context: { queryClient, trpc, user } }) => {
-		if (user) {
-			// ensure settings query was fetched, so that we can reconcile the
-			// atoms derived from settings on mount without rerendering etc.
-			await queryClient.ensureQueryData(
-				trpc.users.q.settings.query.queryOptions()
-			);
-		}
-	},
 	head: (_ctx) => {
 		return {
 			meta: [{ title: "Home" }],

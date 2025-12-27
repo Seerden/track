@@ -10,15 +10,16 @@
 
 import { Route as rootRouteImport } from "./routes/__root"
 import { Route as TodayRouteImport } from "./routes/today"
-import { Route as RegisterRouteImport } from "./routes/register"
-import { Route as LoginRouteImport } from "./routes/login"
-import { Route as IndexRouteImport } from "./routes/index"
+import { Route as AuthenticatedRouteRouteImport } from "./routes/_authenticated/route"
 import { Route as ActivitiesIndexRouteImport } from "./routes/activities/index"
+import { Route as AuthenticatedIndexRouteImport } from "./routes/_authenticated/index"
 import { Route as NotesNewRouteImport } from "./routes/notes/new"
 import { Route as HabitsNewRouteImport } from "./routes/habits/new"
 import { Route as AuthVerifyEmailRouteImport } from "./routes/auth/verify-email"
 import { Route as AuthResetPasswordRouteImport } from "./routes/auth/reset-password"
 import { Route as AuthRequestPasswordResetRouteImport } from "./routes/auth/request-password-reset"
+import { Route as AuthRegisterRouteImport } from "./routes/auth/register"
+import { Route as AuthLoginRouteImport } from "./routes/auth/login"
 import { Route as AuthAccountRouteImport } from "./routes/auth/account"
 import { Route as ActivitiesNewRouteImport } from "./routes/activities/new"
 
@@ -27,25 +28,19 @@ const TodayRoute = TodayRouteImport.update({
   path: "/today",
   getParentRoute: () => rootRouteImport,
 } as any)
-const RegisterRoute = RegisterRouteImport.update({
-  id: "/register",
-  path: "/register",
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
-  id: "/login",
-  path: "/login",
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndexRoute = IndexRouteImport.update({
-  id: "/",
-  path: "/",
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: "/_authenticated",
   getParentRoute: () => rootRouteImport,
 } as any)
 const ActivitiesIndexRoute = ActivitiesIndexRouteImport.update({
   id: "/activities/",
   path: "/activities/",
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
+  id: "/",
+  path: "/",
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const NotesNewRoute = NotesNewRouteImport.update({
   id: "/notes/new",
@@ -73,6 +68,16 @@ const AuthRequestPasswordResetRoute =
     path: "/auth/request-password-reset",
     getParentRoute: () => rootRouteImport,
   } as any)
+const AuthRegisterRoute = AuthRegisterRouteImport.update({
+  id: "/auth/register",
+  path: "/auth/register",
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: "/auth/login",
+  path: "/auth/login",
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthAccountRoute = AuthAccountRouteImport.update({
   id: "/auth/account",
   path: "/auth/account",
@@ -85,100 +90,102 @@ const ActivitiesNewRoute = ActivitiesNewRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute
-  "/login": typeof LoginRoute
-  "/register": typeof RegisterRoute
   "/today": typeof TodayRoute
   "/activities/new": typeof ActivitiesNewRoute
   "/auth/account": typeof AuthAccountRoute
+  "/auth/login": typeof AuthLoginRoute
+  "/auth/register": typeof AuthRegisterRoute
   "/auth/request-password-reset": typeof AuthRequestPasswordResetRoute
   "/auth/reset-password": typeof AuthResetPasswordRoute
   "/auth/verify-email": typeof AuthVerifyEmailRoute
   "/habits/new": typeof HabitsNewRoute
   "/notes/new": typeof NotesNewRoute
+  "/": typeof AuthenticatedIndexRoute
   "/activities": typeof ActivitiesIndexRoute
 }
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute
-  "/login": typeof LoginRoute
-  "/register": typeof RegisterRoute
   "/today": typeof TodayRoute
   "/activities/new": typeof ActivitiesNewRoute
   "/auth/account": typeof AuthAccountRoute
+  "/auth/login": typeof AuthLoginRoute
+  "/auth/register": typeof AuthRegisterRoute
   "/auth/request-password-reset": typeof AuthRequestPasswordResetRoute
   "/auth/reset-password": typeof AuthResetPasswordRoute
   "/auth/verify-email": typeof AuthVerifyEmailRoute
   "/habits/new": typeof HabitsNewRoute
   "/notes/new": typeof NotesNewRoute
+  "/": typeof AuthenticatedIndexRoute
   "/activities": typeof ActivitiesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  "/": typeof IndexRoute
-  "/login": typeof LoginRoute
-  "/register": typeof RegisterRoute
+  "/_authenticated": typeof AuthenticatedRouteRouteWithChildren
   "/today": typeof TodayRoute
   "/activities/new": typeof ActivitiesNewRoute
   "/auth/account": typeof AuthAccountRoute
+  "/auth/login": typeof AuthLoginRoute
+  "/auth/register": typeof AuthRegisterRoute
   "/auth/request-password-reset": typeof AuthRequestPasswordResetRoute
   "/auth/reset-password": typeof AuthResetPasswordRoute
   "/auth/verify-email": typeof AuthVerifyEmailRoute
   "/habits/new": typeof HabitsNewRoute
   "/notes/new": typeof NotesNewRoute
+  "/_authenticated/": typeof AuthenticatedIndexRoute
   "/activities/": typeof ActivitiesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | "/"
-    | "/login"
-    | "/register"
     | "/today"
     | "/activities/new"
     | "/auth/account"
+    | "/auth/login"
+    | "/auth/register"
     | "/auth/request-password-reset"
     | "/auth/reset-password"
     | "/auth/verify-email"
     | "/habits/new"
     | "/notes/new"
+    | "/"
     | "/activities"
   fileRoutesByTo: FileRoutesByTo
   to:
-    | "/"
-    | "/login"
-    | "/register"
     | "/today"
     | "/activities/new"
     | "/auth/account"
+    | "/auth/login"
+    | "/auth/register"
     | "/auth/request-password-reset"
     | "/auth/reset-password"
     | "/auth/verify-email"
     | "/habits/new"
     | "/notes/new"
+    | "/"
     | "/activities"
   id:
     | "__root__"
-    | "/"
-    | "/login"
-    | "/register"
+    | "/_authenticated"
     | "/today"
     | "/activities/new"
     | "/auth/account"
+    | "/auth/login"
+    | "/auth/register"
     | "/auth/request-password-reset"
     | "/auth/reset-password"
     | "/auth/verify-email"
     | "/habits/new"
     | "/notes/new"
+    | "/_authenticated/"
     | "/activities/"
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  LoginRoute: typeof LoginRoute
-  RegisterRoute: typeof RegisterRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   TodayRoute: typeof TodayRoute
   ActivitiesNewRoute: typeof ActivitiesNewRoute
   AuthAccountRoute: typeof AuthAccountRoute
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthRegisterRoute: typeof AuthRegisterRoute
   AuthRequestPasswordResetRoute: typeof AuthRequestPasswordResetRoute
   AuthResetPasswordRoute: typeof AuthResetPasswordRoute
   AuthVerifyEmailRoute: typeof AuthVerifyEmailRoute
@@ -196,25 +203,11 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof TodayRouteImport
       parentRoute: typeof rootRouteImport
     }
-    "/register": {
-      id: "/register"
-      path: "/register"
-      fullPath: "/register"
-      preLoaderRoute: typeof RegisterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    "/login": {
-      id: "/login"
-      path: "/login"
-      fullPath: "/login"
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    "/": {
-      id: "/"
-      path: "/"
-      fullPath: "/"
-      preLoaderRoute: typeof IndexRouteImport
+    "/_authenticated": {
+      id: "/_authenticated"
+      path: ""
+      fullPath: ""
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     "/activities/": {
@@ -223,6 +216,13 @@ declare module "@tanstack/react-router" {
       fullPath: "/activities"
       preLoaderRoute: typeof ActivitiesIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    "/_authenticated/": {
+      id: "/_authenticated/"
+      path: "/"
+      fullPath: "/"
+      preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     "/notes/new": {
       id: "/notes/new"
@@ -259,6 +259,20 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AuthRequestPasswordResetRouteImport
       parentRoute: typeof rootRouteImport
     }
+    "/auth/register": {
+      id: "/auth/register"
+      path: "/auth/register"
+      fullPath: "/auth/register"
+      preLoaderRoute: typeof AuthRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    "/auth/login": {
+      id: "/auth/login"
+      path: "/auth/login"
+      fullPath: "/auth/login"
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     "/auth/account": {
       id: "/auth/account"
       path: "/auth/account"
@@ -276,13 +290,24 @@ declare module "@tanstack/react-router" {
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  LoginRoute: LoginRoute,
-  RegisterRoute: RegisterRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   TodayRoute: TodayRoute,
   ActivitiesNewRoute: ActivitiesNewRoute,
   AuthAccountRoute: AuthAccountRoute,
+  AuthLoginRoute: AuthLoginRoute,
+  AuthRegisterRoute: AuthRegisterRoute,
   AuthRequestPasswordResetRoute: AuthRequestPasswordResetRoute,
   AuthResetPasswordRoute: AuthResetPasswordRoute,
   AuthVerifyEmailRoute: AuthVerifyEmailRoute,

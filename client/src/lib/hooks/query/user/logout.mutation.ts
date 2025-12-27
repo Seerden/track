@@ -31,7 +31,7 @@ export function useLogoutMutation() {
 			// destroy popover state
 			setPopoverState(new Map());
 
-			navigate({ to: "/login" });
+			navigate({ to: "/auth/login" });
 		},
 	});
 }

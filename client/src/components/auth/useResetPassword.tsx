@@ -44,7 +44,7 @@ export function useResetPassword() {
 							position: "top-center",
 						});
 
-						navigate({ to: "/login" });
+						navigate({ to: "/auth/login" });
 					},
 				}
 			);
