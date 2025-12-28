@@ -78,10 +78,6 @@ export default function TagForm({
 
 				{!!previewTags?.size && (
 					<Form.Row style={{ justifyContent: "center" }}>
-						{/* TODO: currently, when editing a tag, this 
-                     will show the edited tag _and_ the existing 
-                     one. Replace the existing one with the editing 
-                     one in all cases. */}
 						<TagBranch
 							title="Preview"
 							tags={previewTags}
