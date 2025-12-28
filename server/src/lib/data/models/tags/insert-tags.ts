@@ -16,6 +16,10 @@ const insertTags = query(async (sql, { newTags }: { newTags: NewTag[] }) => {
 /** Creates a single parent-child relationship between two tags. */
 export const linkTagToParent = query(
 	async (sql, input: { user_id: ID; parent_id: ID; child_id: ID }) => {
+		if (input.parent_id === input.child_id) {
+			throw new Error("linkTagToParent: attempted circular link");
+		}
+
 		const [relation] = await sql<[TagTagRelation]>`
         insert into tags_tags
         ${sql(input)}
