@@ -9,5 +9,6 @@ export default function HourMark({
 	highlighted?: boolean;
 }) {
 	const label = formatHour(index);
+
 	return <S.HourMark $highlighted={highlighted}>{label}</S.HourMark>;
 }
