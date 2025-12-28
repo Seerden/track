@@ -17,7 +17,7 @@ import { useQueryTags } from "@/lib/hooks/query/tags/useQueryTags";
 import modalIds, { type ModalId } from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
 
-type TagState = Partial<NewTag> | TagInTree;
+export type TagState = Partial<NewTag> | TagInTree;
 
 export default function useTagForm({
 	tagSelectorId,
@@ -42,16 +42,12 @@ export default function useTagForm({
 	const parsedExistingTag = tagInTreeSchema.safeParse(tag);
 	const isValidTag = parsedExistingTag.success;
 
-	console.log({ parsedNewTag, parsedExistingTag });
-
 	const { selectedTagIds, resetTagSelection, setTagSelectionFromList } =
 		useTagSelection(tagSelectorId);
 	const parent_id = selectedTagIds.length === 1 ? selectedTagIds[0] : undefined;
 
-	// TODO: when passing an existing tag (not a new one), make sure we force the
-	// id to "preview" for UI purposes in this component.
 	const previewTags = buildPreviewTags({
-		tag: tag,
+		tag,
 		isValidNewTag,
 		tags,
 		parent_id,

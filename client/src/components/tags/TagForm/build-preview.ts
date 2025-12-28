@@ -1,17 +1,14 @@
 import { isNullish } from "@shared/lib/is-nullish";
-import {
-	type NewTag,
-	newTagSchema,
-	type TagsInTree,
-} from "@shared/lib/schemas/tag";
+import { newTagSchema, type TagsInTree } from "@shared/lib/schemas/tag";
 import type { ID } from "@shared/types/data/utility.types";
+import type { TagState } from "@/components/tags/TagForm/useTagForm";
 
 export function buildPreviewTags({
 	tag,
 	tags,
 	parent_id,
 }: {
-	tag: Partial<NewTag>;
+	tag: TagState;
 	isValidNewTag?: boolean;
 	tags?: TagsInTree;
 	parent_id?: ID;
@@ -28,13 +25,15 @@ export function buildPreviewTags({
 
 		previewTags.set("preview", {
 			...parsedNewTag.data,
-			user_id: "",
-			tag_id: "preview",
-			created_at: new Date(),
 			parent_id,
 			tree_depth: !isNullish(parentDepth) ? parentDepth + 1 : 0,
 			tree_root_id: rootId ?? "preview",
 			child_ids: [],
+			// we do this for both existing and new tags, because there is styling
+			// that depends on this
+			tag_id: "preview",
+			user_id: "",
+			created_at: new Date(),
 		});
 	}
 
