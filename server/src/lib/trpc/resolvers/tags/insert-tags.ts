@@ -1,4 +1,4 @@
-import { tagInputSchema } from "@shared/lib/schemas/tag";
+import { tagInputSchema } from "@shared/lib/schemas/tag.input";
 import { insertTagWithRelations } from "@/lib/data/models/tags/insert-tags";
 import { betterAuthProcedure } from "@/lib/trpc/procedures/authenticated.procedure";
 

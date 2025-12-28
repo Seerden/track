@@ -1,4 +1,5 @@
-import type { NewTag, Tag, TagInput } from "@shared/lib/schemas/tag";
+import type { NewTag, Tag } from "@shared/lib/schemas/tag";
+import type { TagInput } from "@shared/lib/schemas/tag.input";
 import type { TagTagRelation } from "@shared/types/data/relational.types";
 import type { ID } from "@shared/types/data/utility.types";
 import { createTransaction, query } from "@/lib/query-function";

@@ -8,12 +8,6 @@ export const newTagSchema = z.object({
 });
 export type NewTag = z.infer<typeof newTagSchema>;
 
-export const tagInputSchema = z.object({
-	newTag: newTagSchema,
-	parent_id: z.string().optional(),
-});
-export type TagInput = z.infer<typeof tagInputSchema>;
-
 export const tagSchema = newTagSchema.and(
 	z.object({
 		user_id: z.string(),
