@@ -15,6 +15,7 @@ export const timelinePopoverMotionVariants = (theme: MainTheme): Variants => ({
 		backgroundColor: theme.colors.background.main[2],
 	},
 	exit: {
+		x: 20,
 		opacity: 0,
 	},
 });
