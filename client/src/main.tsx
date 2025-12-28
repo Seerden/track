@@ -4,6 +4,7 @@ import "@mantine/notifications/styles.css";
 import { registerSW } from "virtual:pwa-register";
 import * as Sentry from "@sentry/react";
 import { RouterProvider } from "@tanstack/react-router";
+import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { enableMapSet } from "immer";
 import React from "react";
 import ReactDOM from "react-dom/client";
@@ -54,5 +55,6 @@ enableMapSet();
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
 		<RouterProvider router={router} />
+		<TanStackRouterDevtools router={router} />
 	</React.StrictMode>
 );

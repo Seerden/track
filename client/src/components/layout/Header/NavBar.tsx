@@ -98,11 +98,13 @@ function ProfileAction({ isLoggedIn }: { isLoggedIn: boolean }) {
 		);
 	}
 
+	// TODO: render another version of Menu/ProfileMenu, not just a log in button
+	// (there's an open issue for this already)
 	return (
 		<S.Action
 			type="button"
 			onClick={() => {
-				navigate({ to: "/login" });
+				navigate({ to: "/auth/login" });
 			}}
 		>
 			log in

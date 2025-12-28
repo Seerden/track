@@ -14,8 +14,8 @@ export function LogoSvg() {
 		>
 			<defs>
 				<linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-					<stop offset="0%" stop-color="darkviolet" />
-					<stop offset="100%" stop-color="royalblue" />
+					<stop offset="0%" stopColor="darkviolet" />
+					<stop offset="100%" stopColor="royalblue" />
 				</linearGradient>
 
 				<mask id="cut-hole">
@@ -38,7 +38,7 @@ export function LogoSvg() {
 				r="196"
 				fill="none"
 				stroke={theme.colors.background.main[3]}
-				stroke-width="8"
+				strokeWidth="8"
 			/>
 
 			<circle
@@ -47,7 +47,7 @@ export function LogoSvg() {
 				r="48"
 				fill="none"
 				stroke={theme.colors.background.main[3]}
-				stroke-width="8"
+				strokeWidth="8"
 			/>
 		</S.Svg>
 	);

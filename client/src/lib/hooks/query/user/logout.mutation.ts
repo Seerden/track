@@ -26,12 +26,12 @@ export function useLogoutMutation() {
 			// TODO: should we clear _everything_? Or should it be enough to clear
 			// `me`? Need to make it so useAuthentication redirects on
 			// logout, too, instead of doing it here, I think.
-			queryClient.removeQueries();
+			queryClient.clear();
 
 			// destroy popover state
 			setPopoverState(new Map());
 
-			navigate({ to: "/login" });
+			navigate({ to: "/auth/login" });
 		},
 	});
 }

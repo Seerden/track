@@ -21,7 +21,7 @@ export function useLoginMutation() {
 			queryClient.setDefaultOptions({
 				...defaultQueryConfig,
 				queries: {
-					...defaultQueryConfig,
+					...defaultQueryConfig.queries,
 					enabled: true,
 				},
 			});

@@ -3,7 +3,7 @@ import HabitForm from "@/components/habits/HabitForm/HabitForm";
 import { Protected } from "@/components/wrappers";
 import Page from "@/lib/theme/snippets/page";
 
-export const Route = createFileRoute("/habits/new")({
+export const Route = createFileRoute("/_authenticated/habits/new")({
 	component: RouteComponent,
 });
 
@@ -14,5 +14,5 @@ function RouteComponent() {
 				<HabitForm />
 			</Page>
 		</Protected>
-	);
+	)
 }

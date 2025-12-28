@@ -10,9 +10,9 @@ function ActivityOverviewPage() {
 				<ActivityOverview />
 			</Page>
 		</Protected>
-	);
+	)
 }
 
-export const Route = createFileRoute("/activities/")({
+export const Route = createFileRoute("/_authenticated/activities/")({
 	component: ActivityOverviewPage,
 });
