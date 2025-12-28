@@ -9,7 +9,7 @@ const Circle = styled.div`
 	${radius.round};
 	position: absolute;
 	right: 0;
-	--size: 15px;
+   /* --size comes from CurrentTimeMark */
 	top: calc(50% - var(--size) / 2);
 	min-height: var(--size);
 	min-width: var(--size);
@@ -17,11 +17,12 @@ const Circle = styled.div`
 `;
 
 const CurrentTimeMark = styled.div<{ $offset: number }>`
+   --size: 15px;
 	--left-offset: 1.5rem;
-	margin-left: var(--left-offset);
+   z-index: 201;
 	position: absolute;
 	top: calc(${(p) => p.$offset} * 100%);
-	width: calc(100% - var(--left-offset));
+	width: calc(100% + var(--size) / 2);
 	height: 2px;
 	display: flex;
 	background-color: ${markColor};

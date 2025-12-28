@@ -22,10 +22,6 @@ export default function Activity({
 	return (
 		<S.ActivityCard
 			layout
-			style={{
-				zIndex: 100,
-				transformOrigin: "left center",
-			}}
 			variants={activityMotionVariants}
 			initial="initial"
 			animate="animate"

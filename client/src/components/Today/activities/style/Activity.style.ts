@@ -49,7 +49,7 @@ const ActivityCard = styled(motion.div)<{ $level: number; $offset: number }>`
 	}
    
    max-width: var(--card-width);
-	left: calc(3rem + ${(p) => p.$level} * (var(--card-gap) + var(--card-width)));
+	left: calc(3.5rem + ${(p) => p.$level} * (var(--card-gap) + var(--card-width)));
 	font-size: ${font.size["0.85"]};
 	display: flex;
 	width: 100%;
@@ -62,8 +62,6 @@ const ActivityCard = styled(motion.div)<{ $level: number; $offset: number }>`
 		${radius.round};
 		background-color: ${(p) => p.theme.colors.background.main[3]};
 	}
-
-   
 `;
 
 const Activity = styled(motion.div)<{
@@ -73,8 +71,6 @@ const Activity = styled(motion.div)<{
 	$isRecurring?: boolean;
 }>`
 	display: flex;
-
-	z-index: 2;
 
 	--row-height: ${rowHeight}px;
 

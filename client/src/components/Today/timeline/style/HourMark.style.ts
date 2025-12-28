@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { motion } from "motion/react";
 import { font } from "@/lib/theme/font";
 import { lightDark } from "@/lib/theme/light-dark";
-import { radius } from "@/lib/theme/snippets/radius";
 import { spacingValue } from "@/lib/theme/snippets/spacing";
 
 const HourMark = styled(motion.span)<{ $highlighted?: boolean }>`
@@ -15,19 +14,19 @@ const HourMark = styled(motion.span)<{ $highlighted?: boolean }>`
 	position: absolute;
 
    /* 1 more than the active timeline row, so they're always visible */
-   z-index: 301;
+   z-index: 202;
 
 	--size: ${spacingValue.medium};
 	line-height: var(--size);
 	height: var(--size);
-	top: calc(-1 * var(--size) / 2);
-	left: -1rem;
+	top: 2px;
+   left: 2px;
 
 	width: max-content;
 	user-select: none;
 
-	font-size: ${font.size["0.82"]};;
-	${radius.small};
+	font-size: ${font.size["0.82"]};
+	border-radius: 0 0 2px 2px;
 	padding: 0 ${spacingValue.small};
 
    background-color: var(--background-color);

@@ -17,6 +17,7 @@ import Calendar from "@/components/utility/Calendar/Calendar";
 import Modal from "@/components/utility/Modal/Modal";
 import { AnimatedIcon } from "@/lib/animate/AnimatedIcon";
 import { useBreakpoints } from "@/lib/hooks/breakpoints";
+import useCurrentTime from "@/lib/hooks/useCurrentTime";
 import modalIds from "@/lib/modal-ids";
 import Buttons from "@/lib/theme/components/buttons";
 import Containers from "@/lib/theme/components/container.style";
@@ -42,6 +43,8 @@ export default function Today() {
 		setCurrentDate,
 		isFetching,
 	} = useToday();
+	// this sets up the polling interval that updates the current time. To use the value, consume the atom.
+	useCurrentTime();
 	const tagFilter = useAtomValue(tagFilterAtom);
 	const state = !!tagFilter.value?.length;
 

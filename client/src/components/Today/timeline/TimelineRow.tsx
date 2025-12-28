@@ -7,13 +7,10 @@ import { AnimatePresence } from "motion/react";
 import { getActivityKey } from "@/components/Today/tasks/get-activity-key";
 import CreateInlineActivity from "@/components/Today/timeline/CreateInlineActivity";
 import CurrentTimeMark from "@/components/Today/timeline/CurrentTimeMark";
-import {
-	innerTimelineRowStyle,
-	useTimelineRow,
-} from "@/components/Today/timeline/useTimelineRow";
+import HourMark from "@/components/Today/timeline/HourMark";
+import { useTimelineRow } from "@/components/Today/timeline/useTimelineRow";
 import type { MainTheme } from "@/lib/style/theme";
 import Activity from "../activities/Activity";
-import HourMark from "./HourMark";
 import S, {
 	featherIconMotionVariants,
 	MotionIcon,
@@ -38,11 +35,11 @@ export default function TimelineRow({
 		clickOutsideRef,
 		active,
 		setActiveTimelineRow,
-		isCurrentHour,
 		createInlineActivityRef,
-		offset,
 		variants,
-	} = useTimelineRow({ date, index });
+		isCurrentHour,
+		offset,
+	} = useTimelineRow({ index, date });
 	const theme = useTheme() as MainTheme;
 
 	return (
@@ -52,6 +49,9 @@ export default function TimelineRow({
 			// this shouldn't check if activities.length is 0, but if there are no
 			// activities that occur at this hour
 			$collapsed={activities.length === 0}
+			style={{
+				zIndex: active === index ? 201 : 200 - index,
+			}}
 		>
 			<S.InnerRow
 				variants={timelineRowMotionVariants(theme)}
@@ -64,7 +64,6 @@ export default function TimelineRow({
 						setActiveTimelineRow(index);
 					}
 				}}
-				style={innerTimelineRowStyle}
 			>
 				<S.FeatherIconWrapper
 					key={`feather-${index}`}
@@ -72,9 +71,10 @@ export default function TimelineRow({
 				>
 					<MotionIcon iconNode={featherPlus} size={22} />
 				</S.FeatherIconWrapper>
-
-				<HourMark index={index % 24} highlighted={isCurrentHour} />
 			</S.InnerRow>
+
+			<HourMark index={index % 24} highlighted={isCurrentHour} />
+			{isCurrentHour && <CurrentTimeMark offset={offset} />}
 
 			<CreateInlineActivity
 				active={active}
@@ -83,8 +83,6 @@ export default function TimelineRow({
 				timelineRowIndex={index}
 				date={date}
 			/>
-
-			{isCurrentHour && <CurrentTimeMark offset={offset} />}
 
 			<AnimatePresence mode="popLayout">
 				{activities.map((a) => (
