@@ -12,7 +12,7 @@ import {
 	useIsPresent,
 	type Variants,
 } from "motion/react";
-import { forwardRef, useContext, useRef } from "react";
+import { forwardRef, useContext, useEffect, useRef } from "react";
 import DetailModals from "@/components/utility/Modal/DetailModals";
 import PageWrapper from "@/lib/theme/snippets/page";
 
@@ -53,9 +53,11 @@ const AnimatedOutlet = forwardRef<HTMLDivElement>((_, ref) => {
 	const renderedContext = useRef(routerContext);
 	const isPresent = useIsPresent();
 
-	if (isPresent) {
-		renderedContext.current = cloneDeep(routerContext);
-	}
+	useEffect(() => {
+		if (isPresent) {
+			renderedContext.current = cloneDeep(routerContext);
+		}
+	}, [isPresent]);
 
 	return (
 		<motion.div

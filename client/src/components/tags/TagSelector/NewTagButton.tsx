@@ -1,5 +1,5 @@
-import NewTag from "@components/tags/NewTag/NewTag";
 import { Tags as LucideTags } from "lucide-react";
+import TagForm from "@/components/tags/TagForm/TagForm";
 import Modal from "@/components/utility/Modal/Modal";
 import type { ModalId } from "@/lib/modal-ids";
 import { useModalState } from "@/lib/state/modal-state";
@@ -40,7 +40,7 @@ export default function NewTagButton({
 				   the TagSelector inside the NewTagButton (because that makes no sense). */}
 			<Modal modalId={modalId}>
 				{modalIds.includes(modalId) && (
-					<NewTag modalId={`${modalId}-nested` as ModalId} />
+					<TagForm modalId={`${modalId}-nested` as ModalId} />
 				)}
 			</Modal>
 		</>

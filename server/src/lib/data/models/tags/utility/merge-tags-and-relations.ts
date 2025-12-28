@@ -1,4 +1,4 @@
-import type { TagsTree, TagWithId, TagWithIds } from "@shared/lib/schemas/tag";
+import type { Tag, TagsTree, TagWithIds } from "@shared/lib/schemas/tag";
 import type { TagTagRelation } from "@shared/types/data/relational.types";
 import type { ByIdMap, ID } from "@shared/types/data/utility.types";
 
@@ -13,7 +13,7 @@ export function mergeTagsAndRelations({
 	tags,
 	relations,
 }: {
-	tags: TagWithId[];
+	tags: Tag[];
 	relations: TagTagRelation[];
 }): ByIdMap<TagWithIds> {
 	const tagMap: Map<TagWithIds["tag_id"], TagWithIds> = new Map();

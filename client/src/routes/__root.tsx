@@ -1,4 +1,4 @@
-import { createRootRouteWithContext, redirect } from "@tanstack/react-router";
+import { createRootRouteWithContext } from "@tanstack/react-router";
 import App from "@/App";
 import indexCss from "@/index.scss?url";
 import { queryClient } from "@/lib/query-client";
@@ -12,35 +12,6 @@ type RouterContext = {
 
 export const Route = createRootRouteWithContext<RouterContext>()({
 	component: App,
-	/** @see https://tanstack.com/router/v1/docs/eslint/create-route-property-order */
-	beforeLoad: async ({ context: { queryClient, trpc }, location }) => {
-		const me = await queryClient.ensureQueryData(
-			trpc.users.q.me.queryOptions()
-		);
-
-		// TODO: this is WIP still.
-		if (
-			["/login", "/register"].includes(location.pathname) ||
-			location.pathname.startsWith("/auth/")
-		) {
-			// don't have to do anything, we're on an unauthenticated route.
-		} else {
-			if (!me.user) {
-				throw redirect({ to: "/login" });
-			}
-		}
-
-		return { user: me.user };
-	},
-	loader: async ({ context: { queryClient, trpc, user } }) => {
-		if (user) {
-			// ensure settings query was fetched, so that we can reconcile the
-			// atoms derived from settings on mount without rerendering etc.
-			await queryClient.ensureQueryData(
-				trpc.users.q.settings.query.queryOptions()
-			);
-		}
-	},
 	head: (_ctx) => {
 		return {
 			meta: [{ title: "Home" }],
@@ -55,17 +26,17 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 				// { rel: "manifest", href: "/site.webmanifest", color: "#171717" },
 				{
 					rel: "icon",
-					href: "/public/favicon.ico",
+					href: "/public/favicon.ico?=TRK-351",
 					sizes: "48x48",
 				},
 				{
 					rel: "icon",
-					href: "/public/favicon.svg",
+					href: "/public/favicon.svg?=TRK-351",
 					type: "image/svg+xml",
 				},
 				{
 					rel: "apple-touch-icon",
-					href: "/public/apple-touch-icon-180x180.png",
+					href: "/public/apple-touch-icon-180x180.png?=TRK-351",
 					sizes: "180x180",
 				},
 			],

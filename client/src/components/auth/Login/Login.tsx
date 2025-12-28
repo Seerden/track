@@ -75,7 +75,7 @@ function Login() {
 						log in <LucideArrowRight size={15} strokeWidth={2} />
 					</F.Submit>
 					<Link
-						to="/register"
+						to="/auth/register"
 						style={{
 							marginTop: "1rem",
 						}}

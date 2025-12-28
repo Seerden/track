@@ -44,15 +44,17 @@ export function Selection({
 
 	return (
 		<>
-			{selectedTags.length > 0 && (
-				<S.SelectionList style={{ overflowX: "hidden" }}>
-					<LayoutGroup id="tag-selector-selection">
-						<AnimatePresence mode="popLayout">
-							{selectedTags.map((tag) => renderPath(tag, tags))}
-						</AnimatePresence>
-					</LayoutGroup>
-				</S.SelectionList>
-			)}
+			<S.SelectionList style={{ overflowX: "hidden" }}>
+				<LayoutGroup id="tag-selector-selection">
+					<AnimatePresence mode="popLayout">
+						{selectedTags.length ? (
+							selectedTags.map((tag) => renderPath(tag, tags))
+						) : (
+							<S.SelectionItem>No tags selected</S.SelectionItem>
+						)}
+					</AnimatePresence>
+				</LayoutGroup>
+			</S.SelectionList>
 		</>
 	);
 }
