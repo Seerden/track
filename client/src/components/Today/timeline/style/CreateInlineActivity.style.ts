@@ -36,7 +36,7 @@ const Pop = styled(motion.div)`
    display: flex;
    flex-direction: row;
    align-items: center;
-   z-index: 300;
+   z-index: 203;
    border-radius: 3px;
    font-size: ${font.size["0.85"]};
    outline: 2px solid ${(p) => p.theme.colors.background.main[3]};
