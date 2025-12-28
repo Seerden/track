@@ -64,7 +64,6 @@ export const updateTag = query(
 					);
 				}
 
-				// TODO: only link if not circular! a tag cannot be its own parent.
 				await linkTagToParent({
 					parent_id,
 					child_id: updatedTag.tag_id,
