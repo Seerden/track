@@ -1,3 +1,4 @@
+import { deleteTagMutation } from "@/lib/trpc/resolvers/tags/delete-tag";
 import { createTagMutation } from "@/lib/trpc/resolvers/tags/insert-tags";
 import { tagsQuery, tagTreeQuery } from "@/lib/trpc/resolvers/tags/query-tags";
 import { updateTagMutation } from "@/lib/trpc/resolvers/tags/update-tags";
@@ -11,5 +12,6 @@ export const tagsRouter = t.router({
 	m: {
 		create: createTagMutation,
 		update: updateTagMutation,
+		delete: deleteTagMutation,
 	},
 });
