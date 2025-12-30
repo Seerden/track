@@ -81,6 +81,7 @@ export default function ActivityForm({
 		setSelection,
 		resetSelection,
 		isValidActivity,
+		isEditing,
 		validRecurrence,
 	} = useActivityForm({
 		initialIsTask,
@@ -223,23 +224,30 @@ export default function ActivityForm({
 							</label>
 						</Tooltip>
 
-						<Tooltip
-							id="is-recurring-label"
-							aria-label="Is this a recurring activity?"
-							label="Is this a recurring activity?"
-							withArrow
-						>
-							<label>
-								<Checkbox
-									aria-labelledby="is-recurring-label"
-									IconOn={LucideRepeat}
-									IconOff={LucideDotSquare}
-									size={23}
-									checked={isRecurring}
-									onChange={toggleRecurring}
-								/>
-							</label>
-						</Tooltip>
+						{!isEditing && (
+							// we don't allow changing an existing activity from
+							// recurring to non-recurring, because that would
+							// complicate the codebase significantly, and users could
+							// just create a new activity as a one-off (if recurring)
+							// or as a recurrence (if one-off) instead.
+							<Tooltip
+								id="is-recurring-label"
+								aria-label="Is this a recurring activity?"
+								label="Is this a recurring activity?"
+								withArrow
+							>
+								<label>
+									<Checkbox
+										aria-labelledby="is-recurring-label"
+										IconOn={LucideRepeat}
+										IconOff={LucideDotSquare}
+										size={23}
+										checked={isRecurring}
+										onChange={toggleRecurring}
+									/>
+								</label>
+							</Tooltip>
+						)}
 					</div>
 					<Form.Row
 						style={{ position: "relative", padding: spacingValue.small }}

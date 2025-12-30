@@ -154,6 +154,7 @@ export default function useActivityForm({
 		isValidActivity,
 		validRecurrence,
 		isSequence,
+		isEditing,
 		handleIsSequenceChange,
 	};
 }
